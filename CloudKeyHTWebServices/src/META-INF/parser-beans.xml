@@ -5,13 +5,10 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <bean id="adapter" class="com.cloudkey.test.parser.TestPMSMessageParser">
-    
   </bean>
  
-  <!-- <bean id="micros" class="com.cloudkey.micros.parser.MicrosPMSMessageParser">
-    collaborators and configuration for this bean go here
+  <!--  <bean id="micros" class="com.cloudkey.micros.impl.MicrosPMSMessageAdapter">
+   
   </bean> -->
-
-  <!-- more bean definitions go here -->
 
 </beans>

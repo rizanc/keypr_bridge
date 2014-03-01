@@ -1,5 +1,10 @@
 package com.cloudkey.commons;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Class stores details of reservation.It has information of check in date,
  * check out date, room type and all guest and room information related with
@@ -11,13 +16,13 @@ package com.cloudkey.commons;
 public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
-	private String id ;
-	/* variable to store type of the room. */
-	private String roomType ;
+	private String id ;//pms_id
+	
 	/* variable to store the number of days to be stayed at hotel. */
-	private String stayLength ;
+	/*	private String stayLength ;*/
+	private int stayLength ;
 	/* variable to store full name of the guest. */
-	private String fullName ;
+	private String fullName ;// first+last
 	/* variable to store the company name of the guest. */
 	private String company ;
 	/* variable to store the address information of the guest. */
@@ -29,21 +34,29 @@ public class Reservation {
 	/* variable to store loyalty number of the guest. */
 	private String loyaltyNumber ;
 	/* variable to store the number of guests. */
-	private String numberOfGuests ;
+	private int numberOfGuests ;
 	/* variable to store the details of the room. */
-	private String roomDetail ;
+	private List<RoomDetails> roomDetailList ;
 	/* variable to store the confirmation number of the reservation. */
 	private String confirmationNumber ;
 	/* variable to store the check in date of the guest. */
 	private String checkinDate ;
 	/* variable to store check out data of the guest. */
 	private String checkoutDate ;
-	/* variable to store the StayRate instance. */
-	private StayRate rate ;
+
 	/* variable to store the guest special notes for the reservation. */
 	private String notes ;
-	/* variable to store room number. */
-	private String roomNumber ;
+
+	private String loyaltyProgram;
+	private String propertyId;
+	private String creditCardNumber;
+	private String reservationSource;
+	private byte [] propertyImage;
+	private String affilateId;
+	private String message;
+	private Date dateModified;
+	private Date dateCreated;
+
 
 	/*
 	 * Getter and Setter for each data member.
@@ -57,26 +70,6 @@ public class Reservation {
 	public void setId(String id) {
 
 		this.id = id;
-	}
-
-	public String getRoomType() {
-
-		return roomType;
-	}
-
-	public void setRoomType( String roomType ) {
-
-		this.roomType = roomType;
-	}
-
-	public String getStayLength() {
-
-		return stayLength;
-	}
-
-	public void setStayLength( String stayLength ) {
-
-		this.stayLength = stayLength;
 	}
 
 	public String getFullName() {
@@ -139,29 +132,99 @@ public class Reservation {
 		this.loyaltyNumber = loyaltyNumber;
 	}
 
-	public String getNumberOfGuests() {
 
-		return numberOfGuests;
-	}
-
-	public void setNumberOfGuests( String numberOfGuests ) {
-
-		this.numberOfGuests = numberOfGuests;
-	}
-
-	public String getRoomDetail() {
-
-		return roomDetail;
-	}
-
-	public void setRoomDetail( String roomDetail ) {
-
-		this.roomDetail = roomDetail;
-	}
 
 	public String getConfirmationNumber() {
 
 		return confirmationNumber;
+	}
+
+	public int getStayLength() {
+		return stayLength;
+	}
+
+	public void setStayLength(int stayLength) {
+		this.stayLength = stayLength;
+	}
+
+	public int getNumberOfGuests() {
+		return numberOfGuests;
+	}
+
+	public void setNumberOfGuests(int numberOfGuests) {
+		this.numberOfGuests = numberOfGuests;
+	}
+
+	public String getLoyaltyProgram() {
+		return loyaltyProgram;
+	}
+
+	public void setLoyaltyProgram(String loyaltyProgram) {
+		this.loyaltyProgram = loyaltyProgram;
+	}
+
+	public String getPropertyId() {
+		return propertyId;
+	}
+
+	public void setPropertyId(String propertyId) {
+		this.propertyId = propertyId;
+	}
+
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+
+	public void setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
+	}
+
+	public String getReservationSource() {
+		return reservationSource;
+	}
+
+	public void setReservationSource(String reservationSource) {
+		this.reservationSource = reservationSource;
+	}
+
+	public byte[] getPropertyImage() {
+		return propertyImage;
+	}
+
+	public void setPropertyImage(byte[] propertyImage) {
+		this.propertyImage = propertyImage;
+	}
+
+	public String getAffilateId() {
+		return affilateId;
+	}
+
+	public void setAffilateId(String affilateId) {
+		this.affilateId = affilateId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Date getDateModified() {
+		return dateModified;
+	}
+
+	public void setDateModified(Date dateModified) {
+		this.dateModified = dateModified;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public void setConfirmationNumber( String confirmationNumber ) {
@@ -189,15 +252,6 @@ public class Reservation {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public StayRate getRate() {
-
-		return rate;
-	}
-
-	public void setRate( StayRate rate ) {
-
-		this.rate = rate;
-	}
 
 	public String getNotes() {
 
@@ -209,28 +263,19 @@ public class Reservation {
 		this.notes = notes;
 	}
 
-	public String getRoomNumber() {
 
-		return roomNumber;
-	}
-
-	public void setRoomNumber( String roomNumber ) {
-
-		this.roomNumber = roomNumber;
-	}
-
-	public String toString()  {
+	public List<RoomDetails> getRoomDetailList() {
 		
-		return "Reservation [id=" + id + ", roomType=" + roomType
-				+ ", stayLength=" + stayLength + ", fullName=" + fullName
-				+ ", company=" + company + ", address=" + address
-				+ ", phoneNumber=" + phoneNumber + ", email=" + email
-				+ ", loyaltyNumber=" + loyaltyNumber + ", numberOfGuests="
-				+ numberOfGuests + ", roomDetail=" + roomDetail
-				+ ", confirmationNumber=" + confirmationNumber
-				+ ", checkinDate=" + checkinDate + ", checkoutDate="
-				+ checkoutDate + ", rate=" + rate + ", notes=" + notes
-				+ ", roomNumber=" + roomNumber + "]";
+		if(roomDetailList == null){
+			 
+			roomDetailList = new ArrayList<RoomDetails>();
+		}
+		return roomDetailList;
+	}
+
+	
+	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
+		this.roomDetailList = roomDetailList;
 	}
 
 }

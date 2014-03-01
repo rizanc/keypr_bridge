@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cloudkey.commons.Charges;
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.ReservationOrders;
 
 /**
  * This Class has information of bill requested by the guest. It has details of reservations 
@@ -18,7 +19,7 @@ public class GetFolioResponse {
 	/* Reference variable to store the reservation data */
 	private Reservation reservation ;
 	/* Reference variable to store the bill information */
-	private List<Charges> chargesList ;
+	private List<ReservationOrders> reservationOrderList;
 
 	/* Getter and Setter for each Data Member. */
 
@@ -32,25 +33,24 @@ public class GetFolioResponse {
 		this.reservation = reservation;
 	}
 
-	public List<Charges> getChargesList() {
-
-		if(chargesList == null){
-			
-			chargesList = new ArrayList<Charges>();
-		}
+	public List<ReservationOrders> getReservationOrderList() {
 		
-		return chargesList;
+		if(reservationOrderList == null){
+			
+			reservationOrderList = new  ArrayList<ReservationOrders>();
+		}
+		return reservationOrderList;
 	}
 
-	public void setChargesList(List<Charges> chargesList) {
-
-		this.chargesList = chargesList;
+	public void setReservationOrderList(List<ReservationOrders> reservationOrderList) {
+		this.reservationOrderList = reservationOrderList;
 	}
 
 	@Override
 	public String toString() {
-		
-		return "GetFolioResponse [reservation=" + reservation + ", chargesList=" + chargesList + "]";
+		return "GetFolioResponse [reservation=" + reservation
+				+ ", reservationOrderList=" + reservationOrderList + "]";
 	}
+
 	
 }

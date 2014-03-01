@@ -11,21 +11,13 @@ import java.util.Date;
 public class RoomType {
 
 	//Reference Variables.
-	private int id ;
+	
 	private String code;
 	private String description;
 	private String features;
-	private Date dateModified;
-	private Date dateCreated;
-	
+
 	// Getter and Setter.
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getCode() {
 		return code;
 	}
@@ -44,24 +36,10 @@ public class RoomType {
 	public void setFeatures(String features) {
 		this.features = features;
 	}
-	public Date getDateModified() {
-		return dateModified;
-	}
-	public void setDateModified(Date dateModified) {
-		this.dateModified = dateModified;
-	}
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
 	
 	@Override
 	public String toString() {
 		return "RoomType [code=" + code + ", description=" + description
-				+ ", features=" + features + ", dateModified=" + dateModified
-				+ ", dateCreated=" + dateCreated + "]";
+				+ ", features=" + features + "]";
 	}
-	
 }
