@@ -1,7 +1,6 @@
 package com.cloudkey.webclient;
 
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.cloudkey.commons.Payments;
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
@@ -78,6 +78,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				objSearchReservationRequest.setFirstName( firstName );
 				objSearchReservationRequest.setLastName( lastName );
 				objSearchReservationRequest.setConfirmationNumber( confirmationNumber );
+				objSearchReservationRequest.setCreditCard(request.getParameter("credit_card"));
 
 				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/searchReservation" );
 
@@ -100,10 +101,43 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo(MakeWebServiceCall.class, " doPost ", " Enter CheckIn Block ");
 
 				Reservation objReservation = new Reservation(); 
+                
+				confirmationNumber = request.getParameter( "confirmation_number" );
+				
+				if(confirmationNumber.equals(""))
+				{
+					confirmationNumber="0";
+				}
+				//objReservation.setConfirmationNumber( confirmationNumber );
+				
+				String credit = request.getParameter("credit_card");
+				if(credit.equalsIgnoreCase("")){
+					credit="0";
+				}
+				objReservation.setCreditCardNumber((credit));
+				
+				String roomNum = request.getParameter("room_number");
+				
+				if(roomNum.equalsIgnoreCase("")){
+					roomNum = "0";	
+				}
+				
+				RoomDetails objRoomDetails = new RoomDetails();
+				int roomNumber = Integer.parseInt(roomNum);
+				objRoomDetails.setRoomNumber(roomNumber);
+				
+				objReservation.setCreditCardNumber(credit);
+				objReservation.setConfirmationNumber(confirmationNumber);
+				objReservation.getRoomDetailList().add(objRoomDetails);
+				
+				System.out.println("Room Number is " +objReservation.getRoomDetailList().get(0).getRoomNumber());
+				
+			//	objReservation.setRoomDetail(objRoomDetails);
+				
+				//objReservation.setRoomDetail(new RoomDetails().setRoomNumber(Integer.parseInt(request.getParameter(" room_number "))));
+			//	objReservation.setRoomNumber( Integer.parseInt(request.getParameter(" room_number ")) );
 
-				objReservation.setConfirmationNumber( confirmationNumber );
-				objReservation.setRoomNumber( request.getParameter(" room_number ") );
-
+				
 				CheckInRequest objCheckInReq = new CheckInRequest();
 				objCheckInReq.setReservation( objReservation );
 
@@ -201,7 +235,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( "Response Of MakePayment: " + postResponse) ;
+				out.println( "Response Of UpdatePayments: " + postResponse) ;
 
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
@@ -212,16 +246,15 @@ public class MakeWebServiceCall extends HttpServlet {
 			else if (command.equalsIgnoreCase( "6" ) ) {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter getAvailability Block " );
+				
+				String startDate = request.getParameter("start_date");
+				String endDate = request.getParameter("end_date");
 
 				GetAvailabilityRequest objAvailabilityRequest = new GetAvailabilityRequest();
-
-				SimpleDateFormat formatter  = new SimpleDateFormat("dd-MMM-yyyy");
-				Date startDate = request.getParameter("start_date").equals("")?null:formatter.parse(request.getParameter("start_date"));
-				Date endDate =  request.getParameter("end_date").equals("")?null:formatter.parse(request.getParameter("end_date"));;
-
-				objAvailabilityRequest.setStartDate(startDate);
-				objAvailabilityRequest.setEndDate(endDate);
-
+				objAvailabilityRequest.setStartDate(new Date(startDate));
+				objAvailabilityRequest.setEndDate(new Date(endDate));
+				
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " getAvailability Availability Object Added " );
 
 				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getAvailability" );
 
@@ -229,6 +262,7 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+
 
 				out.println( " Response Of GetAvailability: " + postResponse );
 

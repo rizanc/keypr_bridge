@@ -41,5 +41,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/genson-0.98.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/base.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CloudKeyHTBase"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
