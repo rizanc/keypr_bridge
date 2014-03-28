@@ -951,12 +951,7 @@ public class TestDAOImpl implements ITestDAO {
 
 					MessageLogger.logInfo( TestDAOImpl.class, " retrieveFolioInfo ", " Iterating While Loop " );
 
-					Reservation objReservation = null;
-					RoomDetails roomDetailList = null;
-
-
-
-
+					Reservation objReservation = null;		
 
 					if(isFirst){
 

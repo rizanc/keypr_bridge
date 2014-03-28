@@ -17,7 +17,6 @@
    <a href = "JSP-PAGES/getFolio.jsp"> RetrieveFolio </a><br>
    
    <a href = "JSP-PAGES/updateBooking.jsp"> Update Booking</a><br>
-   <a href = "JSP-PAGES/updatePayment.jsp"> Make Payment</a><br>
     <a href = "JSP-PAGES/getAvailability.jsp"> Get Availability</a><br>
    
 

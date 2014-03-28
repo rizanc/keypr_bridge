@@ -16,8 +16,6 @@
 <tr><td>Email:</td><td><input type="text" name="email"/></td></tr> -->
 <tr><td>ConfirmationNumber</td><td><input type="text" name="confirmation_number"/></td></tr>
 <tr><td>CreditCard:</td><td><input type="text" name="credit_card"/></td></tr></br>
-
-<tr><td>RoomNumber:</td><td><input type="text" name="room_number"/></td></tr></br>
 <!-- <tr><td>RoomDetail:</td><td><input type="text" name="room_detail"/></td></tr></br>
 <tr><td>CheckIn Date:</td><td><input type="text" name="checkin_date"/></td></tr></br>
 <tr><td>CheckOut Date:</td><td><input type="text" name="checkout_date"/></td></tr></br> -->
