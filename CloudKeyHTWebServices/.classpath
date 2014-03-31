@@ -20,6 +20,8 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-2.2.3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/genson-0.98.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/base.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/adapter.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/http-core-4.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/apache-httpcomponents-httpclient.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/asm-all-repackaged-2.2.0-b21.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

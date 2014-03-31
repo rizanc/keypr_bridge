@@ -216,36 +216,15 @@ public class KeyprWebServices {
 				objReservation.setNotes( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			/*if( objReservation.getNumberOfGuests() == null ) {
-
-				objReservation.setNumberOfGuests( ICloudKeyConstants.EMPTY_STRING );
-			}*/
-
 			if(objReservation.getPhoneNumber() == null){
 
 				objReservation.setPhoneNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-		/*	if( objReservation.getRoomDetail() == null ) {
-
-				objReservation.setRoomDetail( ICloudKeyConstants.EMPTY_STRING );
-			}
-
-			if( objReservation.getRoomNumber() == null ) {
-
-				objReservation.setRoomNumber( ICloudKeyConstants.EMPTY_STRING );
-			}
-
-			if( objReservation.getRoomType() == null ) {
-
-				objReservation.setRoomType(ICloudKeyConstants.EMPTY_STRING);
-			}*/
-
-			objCheckInResponse = new CheckInResponse();
-
 			objCheckInResponse = messageParser.guestCheckIn( objCheckInRequest );
-
+			
 			res = Response.status(200).entity(objCheckInResponse).build();
+			
 		}
 
 		catch( Exception exc ) {
@@ -288,7 +267,7 @@ public class KeyprWebServices {
 		IParserInterface messageParser = null;
 
 		try {
-
+			
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
 			

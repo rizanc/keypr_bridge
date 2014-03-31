@@ -2,8 +2,6 @@ package com.cloudkey.pms.response;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.cloudkey.commons.Charges;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 
@@ -21,7 +19,20 @@ public class GetFolioResponse {
 	/* Reference variable to store the bill information */
 	private List<ReservationOrders> reservationOrderList;
 
+	/* Reference variable to store the transaction id. */
+	private int transactionId ; 
+
+
 	/* Getter and Setter for each Data Member. */
+
+	public int getTransactionId() {
+		return transactionId;
+	}
+
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
+	}
+
 
 	public Reservation getReservation() {
 
