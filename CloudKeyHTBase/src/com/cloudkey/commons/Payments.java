@@ -42,7 +42,5 @@ public class Payments {
 		
 		return "Payments [creditCard=" + creditCard + ", amount=" + amount + "]";
 	}
-	
-	
 
 }

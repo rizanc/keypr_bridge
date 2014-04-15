@@ -17,9 +17,6 @@ public class BaseConfigurationReader {
 	/* Reference variable to store properties. */
 	private static Properties prop =  null;
 
-	@SuppressWarnings("rawtypes")
-	private static Class tag = "BaseConfigurationReader".getClass();
-
 	static {
 
 		try {
@@ -42,20 +39,19 @@ public class BaseConfigurationReader {
 			}
 			catch( IOException exc ){
 
-				MessageLogger.logError(tag, "static block", exc);
+				MessageLogger.logError( BaseConfigurationReader.class, "static block", exc);
 			}
 			catch( Exception exc ){
 
-				MessageLogger.logError(tag, "static block", exc);
+				MessageLogger.logError( BaseConfigurationReader.class, "static block", exc);
 			}
 
 		}
 		catch( Exception exc ){
 
-			MessageLogger.logError(tag, "static block", exc);
+			MessageLogger.logError( BaseConfigurationReader.class, "static block", exc);
 		}
 	}// end static block
-
 
 	/**
 	 * This method will return the value of key from properties file. 
@@ -64,8 +60,6 @@ public class BaseConfigurationReader {
 	 * @return String
 	 */
 	public static String getProperty( String propertyKey) {
-
-		MessageLogger.logInfo(tag, "getProperty"," key is " + propertyKey + "returning property " + prop.getProperty(propertyKey));
 
 		return prop.getProperty(propertyKey);
 

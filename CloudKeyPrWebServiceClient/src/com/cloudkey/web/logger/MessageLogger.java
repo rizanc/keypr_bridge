@@ -2,6 +2,7 @@ package com.cloudkey.web.logger;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 /**
  * This class acts as an application logger. It contains methods for logging information and
  * exception messages on the console.
@@ -12,10 +13,11 @@ import org.apache.log4j.Logger;
 public class MessageLogger extends Logger {
 
 	protected MessageLogger( String name ) {
-		
-		super(name);
+		 super(name);
+	//	 DOMConfigurator.configure("log4j.xml");
 	}
 	
+		
 	/**
 	 * This method log error message of the application.
 	 * 

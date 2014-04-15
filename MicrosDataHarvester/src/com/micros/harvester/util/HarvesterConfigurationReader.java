@@ -59,10 +59,7 @@ public class HarvesterConfigurationReader {
 	 */
 	public static String getProperty( String propertyKey) {
 
-		DataHarvesterLogger.logInfo( HarvesterConfigurationReader.class, " getProperty ", " key is " + propertyKey + " returning property " + prop.getProperty( propertyKey) );
-
 		return prop.getProperty( propertyKey );
-
 	}
 
 }

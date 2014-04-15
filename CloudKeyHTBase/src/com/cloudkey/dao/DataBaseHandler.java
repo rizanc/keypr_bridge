@@ -26,7 +26,7 @@ public class DataBaseHandler {
 	 */
 	public static Connection getConnection() {
 		
-		MessageLogger.logInfo( tag, "getConnection", "Enter getConnection method" );
+		MessageLogger.logInfo( DataBaseHandler.class, "getConnection", "Enter getConnection method" );
 		
 		/* Reference variables to store connection related operation data. */
 		Connection conn = null;
@@ -48,15 +48,15 @@ public class DataBaseHandler {
 			
 			conn = DriverManager.getConnection( dbUrl + dbName, userName, passWord );
 			
-			MessageLogger.logInfo( tag, "getConnection", "DataBase connection created" );
+			MessageLogger.logInfo( DataBaseHandler.class, "getConnection", "DataBase connection created" );
 			
 		}
 		catch( Exception exc ) {
 			
-			MessageLogger.logError(tag, "getConnection", exc);
+			MessageLogger.logError(DataBaseHandler.class, "getConnection", exc);
 		}
 		
-		MessageLogger.logInfo( tag, "getConnection", "Exit  getConnection method" );
+		MessageLogger.logInfo( DataBaseHandler.class, "getConnection", "Exit  getConnection method" );
 		
 		return  conn;
 		

@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBContext;
@@ -17,6 +21,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.micros.pms.logger.MicrosPMSLogger;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 /**
@@ -189,5 +195,78 @@ public class AdapterUtility {
         
 		return now.normalize();
 	}
+	
+	/**
+	 * This method return the date as Calendar.
+	 * 
+	 * @return Calendar
+	 */
+	public static Calendar getCalender(){
+		
+	/*	Calendar objCalendar = Calendar.getInstance();
+		objCalendar.setFirstDayOfWeek(5);
+		return objCalendar;*/
+		
+		Calendar objCalendar = Calendar.getInstance();
+		objCalendar.setTime(new Date());
+		
+		return objCalendar;
+	}
 
+
+	/**
+	 * This method is used to convert the object into xml using xstram . 
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public static String convertToStreamXML(Object object){
+
+		MicrosPMSLogger.logInfo(AdapterUtility.class, " convertToStreamXML ", " Enter convertToStreamXML method " );
+		
+		String xmlString = null;
+		XStream objStream = new XStream( new DomDriver());
+		xmlString = objStream.toXML(object);
+
+		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " xml format of object. " + xmlString );
+		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " Exit convertToStreamXML method " );
+
+		return xmlString;
+
+	}
+	
+	
+	/**
+	 * This method is used to convert the string xml to object using xstream .
+	 * 
+	 * @param xmlRequestValue
+	 * 
+	 * @return Object
+	 */
+	public static Object covertToStramObject( String xmlRequestValue ){
+	
+		MicrosPMSLogger.logInfo(AdapterUtility.class, " covertToStramObject ", " Enter covertToStramObject method " );
+		
+		XStream objStream = new XStream(new DomDriver());	
+		
+		
+		MicrosPMSLogger.logInfo( AdapterUtility.class, " covertToStramObject ", " Exit covertToStramObject method " );
+		return objStream.fromXML( xmlRequestValue );
+	}
+	
+	
+	/**
+	 * 
+	 * @param objCalendar
+	 * @return String
+	 */
+
+	public static String getDate( Calendar objCalendar) {
+		
+		DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+	
+		 return  df.format(objCalendar.getTime());
+	}
+
+	
 }

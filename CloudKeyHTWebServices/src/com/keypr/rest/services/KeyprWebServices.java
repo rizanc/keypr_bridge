@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.message.parser.IParserInterface;
+import com.cloudkey.pms.request.AssignRoomRequest;
 import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
@@ -20,6 +21,7 @@ import com.cloudkey.pms.request.GetFolioRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
+import com.cloudkey.pms.response.AssignRoomResponse;
 import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
@@ -80,11 +82,6 @@ public class KeyprWebServices {
 			
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
-
-			if( objSearchReservationRequest.getEmailId() == null ) {
-
-				objSearchReservationRequest.setEmailId( ICloudKeyConstants.EMPTY_STRING );
-			}
 
 			if( objSearchReservationRequest.getCreditCard() == null ) {
 
@@ -237,6 +234,128 @@ public class KeyprWebServices {
 		return res;
 	}
 
+	
+	/**
+	 * This method makes assign Room request on the basis of provided input.
+	 * It returns the status and reservation details to its caller.
+	 * 
+	 * @param objAssignRoomRequest
+	 * @return Response
+	 */
+	@SuppressWarnings( "resource" )
+	@Path( "/assignRoom" )
+	@POST
+	@Produces( MediaType.APPLICATION_JSON )
+	@Consumes( MediaType.APPLICATION_JSON )
+	public Response assignRoom( AssignRoomRequest objAssignRoomRequest ) {
+
+		WebAppLogger.logInfo( KeyprWebServices.class, " assignRoom ", " Enter method assignRoom " );
+
+		/* variable to store AssignRoomResponse instance.*/
+		AssignRoomResponse objAssignRoomResponse = null;
+		/* variable to store application context. */
+		ApplicationContext appContext = null;   
+		/* variable to store response. */
+		Response res = null;
+		/* variable to store message parser name. */
+		String parserName = null;
+		/* variable to store message parser. */
+		IParserInterface messageParser = null;
+		
+		try {
+
+			// reads the name of message parser bean from configuration file.
+			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
+			
+			// creates an instance of application context using  information from beans configuration file.
+			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" ); 
+			
+			// retrieve the current bean and store its reference.
+			messageParser = (IParserInterface) appContext.getBean( parserName );
+
+			Reservation objReservation = objAssignRoomRequest.getReservation();
+
+			if( objReservation.getAddress() == null ) {
+
+				objReservation.setAddress( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getCheckinDate() == null ) {
+
+				objReservation.setCheckinDate( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getCheckoutDate() == null ) {
+
+				objReservation.setCheckoutDate( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if(objReservation.getCompany() == null ){
+
+				objReservation.setCompany( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getEmail() == null ) {
+
+				objReservation.setEmail( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getConfirmationNumber() == null ) {
+
+				objReservation.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getFullName() == null ) {
+
+				objReservation.setFullName( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getId() == null ) {
+
+				objReservation.setId( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getLoyaltyNumber() == null ) {
+
+				objReservation.setLoyaltyNumber( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if( objReservation.getNotes() == null ) {
+
+				objReservation.setNotes( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			if(objReservation.getPhoneNumber() == null){
+
+				objReservation.setPhoneNumber( ICloudKeyConstants.EMPTY_STRING );
+			}
+			
+			if( objAssignRoomRequest.getRoomTypeCode() == null){
+				
+				objAssignRoomRequest.setRoomTypeCode( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+			objAssignRoomResponse = messageParser.assignRoom( objAssignRoomRequest );
+			
+			res = Response.status(200).entity(objAssignRoomResponse).build();
+			
+		}
+
+		catch( Exception exc ) {
+
+			WebAppLogger.logError( KeyprWebServices.class, " assignRoom ", exc );
+		}
+
+		WebAppLogger.logInfo( KeyprWebServices.class, " assignRoom ", " Exit method assignRoom " );
+
+		return res;
+	}
+
+	
+	
+	
+	
+	
 
 	/**
 	 * This method makes check out request on the basis of confirmation number.
@@ -529,7 +648,7 @@ public class KeyprWebServices {
 			objUpBookingResponse = new UpdateBookingResponse();
 
 			objUpBookingResponse = messageParser.updateBooking( objUpBookingRequest );
-
+			
 			res = Response.status(200).entity(objUpBookingResponse).build();
 
 		}

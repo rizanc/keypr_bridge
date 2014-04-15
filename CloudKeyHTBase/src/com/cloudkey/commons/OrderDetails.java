@@ -8,42 +8,72 @@ public class OrderDetails {
 	private double unitPrice;
 	private int quantity;
 	private double chargeAmount;
+	private int request_id;
 	
 	//setter and getters.
 	
+	public int getRequest_id() {
+		
+		return request_id;
+	}
+	
+	public void setRequest_id(int request_id) {
+		
+		this.request_id = request_id;
+	}
+	
 	public String getItemCode() {
+		
 		return itemCode;
 	}
+	
 	public void setItemCode(String itemCode) {
+		
 		this.itemCode = itemCode;
 	}
+	
 	public String getItemDescription() {
+		
 		return itemDescription;
 	}
+	
 	public void setItemDescription(String itemDescription) {
+		
 		this.itemDescription = itemDescription;
 	}
+	
 	public double getUnitPrice() {
+		
 		return unitPrice;
 	}
+	
 	public void setUnitPrice(double unitPrice) {
+		
 		this.unitPrice = unitPrice;
 	}
+	
 	public int getQuantity() {
+		
 		return quantity;
 	}
+	
 	public void setQuantity(int quantity) {
+		
 		this.quantity = quantity;
 	}
+	
 	public double getChargeAmount() {
+		
 		return chargeAmount;
 	}
+	
 	public void setChargeAmount(double chargeAmount) {
 		this.chargeAmount = chargeAmount;
 	}
 	
 	@Override
 	public String toString() {
+		
 		return "OrderDetails [itemCode=" + itemCode + ", itemDescription="
 				+ itemDescription + ", unitPrice=" + unitPrice + ", quantity="
 				+ quantity + ", chargeAmount=" + chargeAmount + "]";

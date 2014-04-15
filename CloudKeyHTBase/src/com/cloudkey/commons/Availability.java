@@ -1,5 +1,9 @@
 package com.cloudkey.commons;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 /**
  * Class stores the information about the room availability. It stores the room
@@ -9,58 +13,43 @@ package com.cloudkey.commons;
  * 
  */
 public class Availability {
-
-	/* Variable to store the type of the room. */
-	private String roomType ;
-	/* Variable to store the status of room availability. */
-	private String availablity ;
-	/* Variable to store the roomNumber. */
-	private int roomNumber;
-	/* Variable to store the roomAmount. */
-	private double roomAmount;
 	
-	/*
-	 * Getter and Setter methods for each data member.
-	 */
-
-	public int getRoomNumber() {
-		return roomNumber;
+	//Date for which availability is checked
+	private Date date;
+	//list of Room Types that are available
+	private List<RoomTypeInventory> roomTypeInventoryList; 
+	
+	
+	//Getter Setters of member variables
+	public Date getDate() {
+		
+		return date;
 	}
-
-	public double getRoomAmount() {
-		return roomAmount;
+	
+	public void setDate(Date date) {
+		
+		this.date = date;
 	}
-
-	public void setRoomAmount(double roomAmount) {
-		this.roomAmount = roomAmount;
+	
+	public List<RoomTypeInventory> getRoomTypeInventoryList() {
+		
+		if(roomTypeInventoryList == null) {
+			
+			roomTypeInventoryList = new ArrayList<RoomTypeInventory>();
+		}
+		return roomTypeInventoryList;
 	}
-
-	public void setRoomNumber(int roomNumber) {
-		this.roomNumber = roomNumber;
+	
+	public void setRoomTypeInventoryList( List<RoomTypeInventory> roomTypeInventoryList) {
+		
+		this.roomTypeInventoryList = roomTypeInventoryList;
 	}
-	public String getRoomType() {
-
-		return roomType;
-	}
-
-	public void setRoomType( String roomType ) {
-
-		this.roomType = roomType;
-	}
-
-	public String getAvailablity() {
-		return availablity;
-	}
-
-	public void setAvailablity(String availablity) {
-		this.availablity = availablity;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Availability [roomType=" + roomType + ", availablity="
-				+ availablity + ", roomNumber=" + roomNumber + ", roomAmount="
-				+ roomAmount + "]";
+		
+		return "Availability [date=" + date + ", roomTypeInventoryList="
+				+ roomTypeInventoryList + "]";
 	}
 
 }

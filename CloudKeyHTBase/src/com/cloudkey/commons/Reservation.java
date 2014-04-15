@@ -17,7 +17,10 @@ public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
 	private String id ;//pms_id
-	
+
+	/*** variable to store the unique identifier for every request***/
+	private int request_id;
+
 	/* variable to store the number of days to be stayed at hotel. */
 	/*	private String stayLength ;*/
 	private int stayLength ;
@@ -37,6 +40,10 @@ public class Reservation {
 	private int numberOfGuests ;
 	/* variable to store the details of the room. */
 	private List<RoomDetails> roomDetailList ;
+
+	/* variable to store the details of the reservation. */
+	private List<ReservationRoomAllocation> reservationRoomAllocationList;
+
 	/* variable to store the confirmation number of the reservation. */
 	private String confirmationNumber ;
 	/* variable to store the check in date of the guest. */
@@ -46,7 +53,6 @@ public class Reservation {
 
 	/* variable to store the guest special notes for the reservation. */
 	private String notes ;
-
 	private String loyaltyProgram;
 	private String propertyId;
 	private String creditCardNumber;
@@ -56,11 +62,20 @@ public class Reservation {
 	private String message;
 	private Date dateModified;
 	private Date dateCreated;
+	private List<ReservationOrders> reservationOrderList;
 
 
 	/*
 	 * Getter and Setter for each data member.
 	 */
+
+	public List<ReservationOrders> getReservationOrderList() {
+		return reservationOrderList;
+	}
+
+	public void setReservationOrderList(List<ReservationOrders> reservationOrderList) {
+		this.reservationOrderList = reservationOrderList;
+	}
 
 	public String getId() {
 
@@ -131,8 +146,6 @@ public class Reservation {
 
 		this.loyaltyNumber = loyaltyNumber;
 	}
-
-
 
 	public String getConfirmationNumber() {
 
@@ -252,7 +265,6 @@ public class Reservation {
 		this.checkoutDate = checkoutDate;
 	}
 
-
 	public String getNotes() {
 
 		return notes;
@@ -263,19 +275,36 @@ public class Reservation {
 		this.notes = notes;
 	}
 
-
 	public List<RoomDetails> getRoomDetailList() {
-		
+
 		if(roomDetailList == null){
-			 
+
 			roomDetailList = new ArrayList<RoomDetails>();
 		}
 		return roomDetailList;
 	}
 
-	
 	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
 		this.roomDetailList = roomDetailList;
 	}
+
+	public int getRequest_id() {
+		return request_id;
+	}
+
+	public void setRequest_id(int request_id) {
+		this.request_id = request_id;
+	}
+
+	public List<ReservationRoomAllocation> getReservationRoomAllocationList() {
+		return reservationRoomAllocationList;
+	}
+
+	public void setReservationRoomAllocationList(
+			List<ReservationRoomAllocation> reservationRoomAllocationList) {
+		this.reservationRoomAllocationList = reservationRoomAllocationList;
+	}
+
+
 
 }

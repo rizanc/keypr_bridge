@@ -1,9 +1,12 @@
 package com.cloudkey.webclient;
 
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import com.cloudkey.commons.Payments;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.pms.request.AssignRoomRequest;
 import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
@@ -57,7 +61,6 @@ public class MakeWebServiceCall extends HttpServlet {
 
 		String firstName = request.getParameter( "first_name" );
 		String lastName =  request.getParameter( "last_name" );
-		String 	email = request.getParameter( "email" );
 		String 	confirmationNumber = request.getParameter( "confirmation_number" );
 		String command = request.getParameter( "command" );
 
@@ -74,7 +77,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo(MakeWebServiceCall.class, " doPost ", " Enter SearchReservation Block ");
 
 				SearchReservationRequest objSearchReservationRequest = new  SearchReservationRequest();
-				objSearchReservationRequest.setEmailId( email );
+				
 				objSearchReservationRequest.setFirstName( firstName );
 				objSearchReservationRequest.setLastName( lastName );
 				objSearchReservationRequest.setConfirmationNumber( confirmationNumber );
@@ -84,7 +87,6 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objSearchReservationRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 				out.println(" Response Of Search Reservation: " + postResponse);
@@ -101,52 +103,27 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo(MakeWebServiceCall.class, " doPost ", " Enter CheckIn Block ");
 
 				Reservation objReservation = new Reservation(); 
-                
+
 				confirmationNumber = request.getParameter( "confirmation_number" );
-				
-				if(confirmationNumber.equals(""))
-				{
-					confirmationNumber="0";
-				}
-				//objReservation.setConfirmationNumber( confirmationNumber );
-				
+			
 				String credit = request.getParameter("credit_card");
-				if(credit.equalsIgnoreCase("")){
-					credit="0";
-				}
+				
 				objReservation.setCreditCardNumber((credit));
-				
-				String roomNum = request.getParameter("room_number");
-				
-				if(roomNum.equalsIgnoreCase("")){
-					roomNum = "0";	
-				}
-				
+
 				RoomDetails objRoomDetails = new RoomDetails();
-				int roomNumber = Integer.parseInt(roomNum);
-				objRoomDetails.setRoomNumber(roomNumber);
-				
+
 				objReservation.setCreditCardNumber(credit);
 				objReservation.setConfirmationNumber(confirmationNumber);
 				objReservation.getRoomDetailList().add(objRoomDetails);
-				
-				System.out.println("Room Number is " +objReservation.getRoomDetailList().get(0).getRoomNumber());
-				
-			//	objReservation.setRoomDetail(objRoomDetails);
-				
-				//objReservation.setRoomDetail(new RoomDetails().setRoomNumber(Integer.parseInt(request.getParameter(" room_number "))));
-			//	objReservation.setRoomNumber( Integer.parseInt(request.getParameter(" room_number ")) );
 
-				
 				CheckInRequest objCheckInReq = new CheckInRequest();
 				objCheckInReq.setReservation( objReservation );
 
 				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/checkIn" ); 
-
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
+
 
 				out.println( " Response of CheckIn : " + postResponse );
 
@@ -168,7 +145,6 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objGetFolioRequest, MediaType.APPLICATION_JSON_TYPE ), String.class);
 
 				out.println( "Response Of RetrieveFolio: " + postResponse );
@@ -192,7 +168,6 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objBookingRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 				out.println( " Response Of UpdateBooking: " + postResponse);
@@ -232,7 +207,6 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 				out.println( "Response Of UpdatePayments: " + postResponse) ;
@@ -246,30 +220,83 @@ public class MakeWebServiceCall extends HttpServlet {
 			else if (command.equalsIgnoreCase( "6" ) ) {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter getAvailability Block " );
-				
+
 				String startDate = request.getParameter("start_date");
 				String endDate = request.getParameter("end_date");
 
-				GetAvailabilityRequest objAvailabilityRequest = new GetAvailabilityRequest();
-				objAvailabilityRequest.setStartDate(new Date(startDate));
-				objAvailabilityRequest.setEndDate(new Date(endDate));
-				
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " getAvailability Availability Object Added " );
+				DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getAvailability" );
+				GetAvailabilityRequest objAvailabilityRequest = new GetAvailabilityRequest();
+
+				try{
+					
+					objAvailabilityRequest.setStartDate(df.parse(startDate));
+					objAvailabilityRequest.setEndDate(df.parse(endDate));
+
+
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " getAvailability Availability Object Added " );
+
+					target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getAvailability" );
+
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+
+					String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+
+
+					out.println( " Response Of GetAvailability: " + postResponse );
+
+					
+				}
+				catch(Exception exc){
+
+					out.print("Input in dd-MMM-yyy (2-jan-2014) format.");
+				}
+				
+				out.println( " <br><br><br >" );
+				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit getAvailability Block ");
+
+			}
+
+			else if (command.equalsIgnoreCase( "7" ) ) {
+
+				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter Assign Room Block " );
+
+				/*To set the confirmation number.*/
+				confirmationNumber = request.getParameter("confirmation_number");
+				/*if(confirmationNumber.equals("")){
+
+					confirmationNumber = "0";
+				}*/
+
+				/*To set the roomTypeCode.*/
+				String roomTypeCode = request.getParameter("room_code");
+				/*if(roomTypeCode.equals("")){
+					roomTypeCode = "0";
+				}*/
+
+				AssignRoomRequest objAssignRoomRequest = new AssignRoomRequest();
+
+				/*To set the request parameters.*/
+				objAssignRoomRequest.setRoomTypeCode( roomTypeCode );
+				Reservation objReservation = new Reservation();
+				objReservation.setConfirmationNumber( confirmationNumber );
+				objAssignRoomRequest.setReservation( objReservation );
+
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Assign Room Object Added " );
+
+				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/assignRoom" );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
-				String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+				String postResponse = invocationBuilder.post( Entity.entity( objAssignRoomRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-
-				out.println( " Response Of GetAvailability: " + postResponse );
+				out.println( " Response Of  Assign Room: " + postResponse );
 
 				out.println( " <br><br><br >" );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit getAvailability Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit  Assign Room Block ");
 
 			}
 			else {
@@ -283,7 +310,6 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				//SearchReservationResponse postResponse = invocationBuilder.post(Entity.entity(objSearchReservationRequest,MediaType.APPLICATION_JSON_TYPE),SearchReservationResponse.class);
 				String postResponse = invocationBuilder.post( Entity.entity( objCheckOutRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 				out.println( " Response Of Check Out: " + postResponse );
