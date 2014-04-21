@@ -18,6 +18,9 @@ public interface IMicrosHarvester {
 	
 	String RESERVATION_THREAD_DELAY	 = "reservation.harvester.timer.delay";
 	String RESERVATION_THREAD_INTERVAL = "reservation.harvester.timer.interval";
+	
+	String OXI_LISTENING_URL = "micros.pms.oxi.listener.url";
+	String OXI_LISTENING_PORT = "micros.pms.oxi.listener.port";
 
 
 }

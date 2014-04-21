@@ -272,7 +272,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String sqlQuery = null;
 
 		sqlQuery = " insert into keypr_bridge_db.room_details ( room_number, room_type, front_office_status, "
-				+ " house_keeping_status ) values ( ?,?,?,? )";
+				+ " house_keeping_status, date_created ) values ( ?, ?, ?, ?, now() )";
 
 		try {
 
@@ -283,7 +283,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			pStatement.setString( 2, objRoomDetails.getRoomType().getCode() );
 			pStatement.setString ( 3, objRoomDetails.getFrontOfficeStatus() );
 			pStatement.setString( 4,  objRoomDetails.getHouseKeeepingStatus() );
-			//pStatement.setString( 5, objRoomDetails.getRoomStatus());
 
 			int rowInserted = pStatement.executeUpdate();
 
@@ -325,7 +324,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String sqlQuery = null;
 
 		sqlQuery = " insert into keypr_bridge_db.room_details_upload ( room_number, room_type, front_office_status, "
-				+ " house_keeping_status ) values ( ?,?,?,? )";
+				+ " house_keeping_status, date_created ) values ( ?, ?, ?, ?, now() )";
 
 		try {
 
@@ -336,7 +335,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			pStatement.setString( 2, objRoomDetails.getRoomType().getCode() );
 			pStatement.setString ( 3, objRoomDetails.getFrontOfficeStatus() );
 			pStatement.setString( 4,  objRoomDetails.getHouseKeeepingStatus() );
-			//pStatement.setString( 5, objRoomDetails.getRoomStatus());
 
 			int rowInserted = pStatement.executeUpdate();
 
@@ -500,6 +498,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 								else {
 
 									DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record Cannot be updated in room_inventory " );
+
 								}
 							}
 							catch ( Exception exc ) {
@@ -519,7 +518,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 						objConnection = MicrosDAOImpl.getConnection();
 
-						sqlQuery = " insert into keypr_bridge_db.room_inventory ( type_code, total_rooms, total_rooms_available ) values ( ?,?,? )";
+						sqlQuery = " insert into keypr_bridge_db.room_inventory ( type_code, total_rooms, total_rooms_available, date_created ) values ( ?, ?, ?, now() )";
 
 						pStatement = objConnection.prepareStatement(sqlQuery);
 
@@ -662,7 +661,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			objConnection = MicrosDAOImpl.getConnection();
 
-			sqlQuery = " insert into keypr_bridge_db.room_inventory_upload ( type_code, total_rooms, total_rooms_available ) values ( ?,?,? )";
+			sqlQuery = " insert into keypr_bridge_db.room_inventory_upload ( type_code, total_rooms, total_rooms_available, date_created ) values ( ?, ?, ?, now() )";
 			pStatement = objConnection.prepareStatement(sqlQuery);
 
 			pStatement.setString(1, objRoomInventory.getRoomType().getCode());

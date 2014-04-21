@@ -2,6 +2,7 @@ package com.micros.harvester.service;
 
 import com.micros.harvester.communicator.OWSDataCollector;
 import com.micros.harvester.logger.DataHarvesterLogger;
+import com.micros.harvester.oxi.OXIListener;
 
 /**
  * This class acts as a service to collect data from the micros property management system.
@@ -15,16 +16,21 @@ import com.micros.harvester.logger.DataHarvesterLogger;
 public class DataHarvesterService {
 
 	public static void main( String[] args ) {
-	
+
 		DataHarvesterLogger.logInfo( DataHarvesterService.class, " main ", " Enter main method " );
-		
+
 		OWSDataCollector objOwsDataCollector = null;
-		objOwsDataCollector = new OWSDataCollector();
+		OXIListener objOxiListener = null;
 		
+		/*objOwsDataCollector = new OWSDataCollector();
+
 		objOwsDataCollector.harvestRoomStatusData();
 		objOwsDataCollector.harvestRoomInventoryData();
-		//objOwsDataCollector.harvestReservationData();
+		objOwsDataCollector.harvestReservationData();*/
 		
+		objOxiListener = new OXIListener();
+		objOxiListener.connectWithOXI();
+
 		DataHarvesterLogger.logInfo( DataHarvesterService.class, " main ", " Exit main method " );
 	}
 

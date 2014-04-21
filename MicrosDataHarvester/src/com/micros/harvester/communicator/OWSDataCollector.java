@@ -243,8 +243,8 @@ public class OWSDataCollector {
 			}
 		};
 
-		delayTime = Integer.parseInt( HarvesterConfigurationReader.getProperty( IMicrosHarvester.ROOM_STATUS_THREAD_DELAY) );
-		intervalPeriod  = Integer.parseInt( HarvesterConfigurationReader.getProperty(IMicrosHarvester.ROOM_STATUS_THREAD_INTERVAL) );
+		delayTime = Integer.parseInt( HarvesterConfigurationReader.getProperty( IMicrosHarvester.ROOM_INVENTORY_THREAD_DELAY) );
+		intervalPeriod  = Integer.parseInt( HarvesterConfigurationReader.getProperty(IMicrosHarvester.ROOM_INVENTORY_THREAD_INTERVAL) );
 
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> beeperHandle = schedulerInventory.scheduleAtFixedRate( dataCollerctor, delayTime, intervalPeriod , TimeUnit.SECONDS );
@@ -262,7 +262,7 @@ public class OWSDataCollector {
 	 * @return
 	 */
 	private static boolean makeFetcCalendarRequest() {
-
+		
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Enter makeFetcCalendarRequest method " );
 
 		boolean isProcced = false;
