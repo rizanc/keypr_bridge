@@ -7,9 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
+import com.cloudkey.commons.Reservation;
 import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.HarvesterConfigurationReader;
+import com.micros.harvester.util.OXIParserUtility;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -95,6 +97,10 @@ public class OXIListener implements HttpHandler {
 			
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " File Created " + xmlFile.getName() );
 
+			OXIParserUtility objDataUtility = new OXIParserUtility();
+			
+			Reservation  objReservation = objDataUtility.populateReservation( xmlFile );
+			
 			String response = "This is the response value from micros data harvesting service  " + oxiRequest;
 
 			exchange.sendResponseHeaders(200, response.length());

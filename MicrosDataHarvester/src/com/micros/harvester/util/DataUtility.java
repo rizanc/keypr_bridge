@@ -2,6 +2,7 @@ package com.micros.harvester.util;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.StringReader;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -13,7 +14,18 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.cloudkey.commons.Reservation;
 import com.micros.harvester.logger.DataHarvesterLogger;
 
 
@@ -112,6 +124,7 @@ public class DataUtility {
 		GregorianCalendar gregorianCalendar = null ;
 		DatatypeFactory datatypeFactory = null;
 		XMLGregorianCalendar now = null;
+
 		try {
 
 			gregorianCalendar= new GregorianCalendar();
@@ -129,14 +142,12 @@ public class DataUtility {
 
 		return now;
 	}
-	
-    public static Calendar getCalender(){
-        
-        Calendar objCalendar = Calendar.getInstance();
-        objCalendar.setFirstDayOfWeek(5);
-        return objCalendar;
- }
 
+	public static Calendar getCalender(){
 
+		Calendar objCalendar = Calendar.getInstance();
+		objCalendar.setFirstDayOfWeek(5);
+		return objCalendar;
+	}
 
 }
