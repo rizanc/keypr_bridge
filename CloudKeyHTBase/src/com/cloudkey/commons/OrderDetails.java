@@ -8,20 +8,9 @@ public class OrderDetails {
 	private double unitPrice;
 	private int quantity;
 	private double chargeAmount;
-	private int request_id;
 	
 	//setter and getters.
-	
-	public int getRequest_id() {
-		
-		return request_id;
-	}
-	
-	public void setRequest_id(int request_id) {
-		
-		this.request_id = request_id;
-	}
-	
+
 	public String getItemCode() {
 		
 		return itemCode;

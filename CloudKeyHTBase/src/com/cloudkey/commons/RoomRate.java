@@ -10,70 +10,54 @@ package com.cloudkey.commons;
 public class RoomRate {
 
 	// Reference Variables.
+	private String ratePlanCode;
 	private double baseAmount;
 	private String effectiveDate;
-    private String expirationDate;
-	private String occurrenceType;
-	private int roomTypeId;
+	private String expirationDate;
 
-	
-	// Getter and Setter.
+	// Getter and Setter
+	public String getPlanCode() {
+		return ratePlanCode;
+	}
+
+	public void setPlanCode(String planCode) {
+		this.ratePlanCode = planCode;
+	}
+
 	public double getBaseAmount() {
-		
+
 		return baseAmount;
 	}
-	
+
 	public void setBaseAmount(double baseAmount) {
-		
+
 		this.baseAmount = baseAmount;
 	}
-	
+
 	public String getEffectiveDate() {
-		
+
 		return effectiveDate;
 	}
-	
+
 	public void setEffectiveDate(String effectiveDate) {
-		
+
 		this.effectiveDate = effectiveDate;
 	}
-	
+
 	public String getExpirationDate() {
-		
+
 		return expirationDate;
 	}
-	
+
 	public void setExpirationDate(String expirationDate) {
-		
+
 		this.expirationDate = expirationDate;
 	}
-	
-	public String getOccurrenceType() {
-		
-		return occurrenceType;
-	}
-	
-	public void setOccurrenceType(String occurrenceType) {
-		
-		this.occurrenceType = occurrenceType;
-	}
-	
-	public int getRoomTypeId() {
-		
-		return roomTypeId;
-	}
-	
-	public void setRoomTypeId(int roomTypeId) {
-		
-		this.roomTypeId = roomTypeId;
-	}
-	
 	@Override
 	public String toString() {
-		return "RoomRate [baseAmount=" + baseAmount + ", effectiveDate="
-				+ effectiveDate + ", expirationDate=" + expirationDate
-				+ ", occurrenceType=" + occurrenceType + ", roomTypeId="
-				+ roomTypeId + "]";
+		return "RoomRate [planCode=" + ratePlanCode + ", baseAmount=" + baseAmount
+				+ ", effectiveDate=" + effectiveDate + ", expirationDate="
+				+ expirationDate + "]";
 	}
-	
+
 }	

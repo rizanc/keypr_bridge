@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/reservation.jar"/>
 	<classpathentry kind="lib" path="lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.7.jar"/>
+	<classpathentry kind="lib" path="lib/http-20070405.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,7 +1,6 @@
 package com.cloudkey.commons;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +15,9 @@ import java.util.List;
 public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
-	private String id ;//pms_id
-
-	/*** variable to store the unique identifier for every request***/
-	private int request_id;
-
+	private String id ;// PK of database.
+	/* variable to store pms id. */
+	private String pmsId; // pms_id
 	/* variable to store the number of days to be stayed at hotel. */
 	/*	private String stayLength ;*/
 	private int stayLength ;
@@ -288,12 +285,12 @@ public class Reservation {
 		this.roomDetailList = roomDetailList;
 	}
 
-	public int getRequest_id() {
-		return request_id;
+	public String getPmsId() {
+		return pmsId;
 	}
 
-	public void setRequest_id(int request_id) {
-		this.request_id = request_id;
+	public void setPmsId(String pmsId) {
+		this.pmsId = pmsId;
 	}
 
 	public List<ReservationRoomAllocation> getReservationRoomAllocationList() {

@@ -1,44 +1,39 @@
 package com.cloudkey.commons;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /* @author ektas */
 
 public class ReservationRoomAllocation {
 
-
-	private int id;
-	private int reservationId;
-	private int requestId;
+	// Reference variable to store the room details with rate. 
 	private int roomNo;
-	private Boolean isDeleted;
+	private List<RoomRate> roomRateList;
+	private RoomType roomType;
 
-	public int getId() {
+	//setter and getters.
 
-		return id;
+	public RoomType getRoomType() {
+		return roomType;
 	}
 
-	public void setId(int id) {
-
-		this.id = id;
+	public void setRoomType(RoomType roomType) {
+		this.roomType = roomType;
 	}
 
-	public int getReservationId() {
+	public List<RoomRate> getRoomRateList() {
 
-		return reservationId;
+		if(roomRateList == null){
+
+			roomRateList = new ArrayList<RoomRate>();	
+		}
+		return roomRateList;
 	}
 
-	public void setReservationId(int reservationId) {
+	public void setRoomRateList(List<RoomRate> roomRateList) {
 
-		this.reservationId = reservationId;
-	}
-
-	public int getRequestId() {
-
-		return requestId;
-	}
-
-	public void setRequestId(int requestId) {
-
-		this.requestId = requestId;
+		this.roomRateList = roomRateList;
 	}
 
 	public int getRoomNo() {
@@ -51,23 +46,11 @@ public class ReservationRoomAllocation {
 		this.roomNo = roomNo;
 	}
 
-	public Boolean getIsDeleted() {
-
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Boolean isDeleted) {
-
-		this.isDeleted = isDeleted;
-	}
-
 	@Override
-
-	public String toString()
-	{
-		return "ReservationRoomAllocation[id=" +id+ " , requestId=" +requestId+ " , reservationId=" +reservationId+ " , roomNo=" +roomNo+ ", isDeleted=" +isDeleted+ "]";
+	public String toString() {
+		return "ReservationRoomAllocation [roomNo=" + roomNo
+				+ ", roomRateList=" + roomRateList + ", roomType=" + roomType
+				+ "]";
 	}
-
-
 
 }
