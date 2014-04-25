@@ -3,11 +3,15 @@ package com.micros.harvester.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.dao.DataBaseHandler;
 import com.micros.availability.AvailabilityServiceStub.Calendar;
@@ -780,4 +784,126 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		return objRInventory;
 	}
+
+	@Override
+	public boolean persistReservationData( Reservation objReservation) {
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Enter persistReservationData method " );
+
+		boolean isStored = false;
+		
+		Connection conn = null;
+		String sqlQuery = null;
+		
+		int rowUpdated = 0;
+		int lastInsetedId = 0;
+		int roomAllocationListSize = 0;
+
+		PreparedStatement objPreparedStatement = null;
+
+		String pmsId = objReservation.getPmsId();
+		int stayLength = objReservation.getStayLength();
+		String fullName = objReservation.getFullName();
+		String firstName = objReservation.getFirstName();
+		String lastName = objReservation.getLastName();
+		
+		String companyName = objReservation.getCompany();
+		String address = objReservation.getAddress();
+		String phoneNumber = objReservation.getPhoneNumber();
+		String emailAddr = objReservation.getEmail();
+		String loyaltyNumber = objReservation.getLoyaltyNumber();
+		
+		int numberOfGuest = objReservation.getNumberOfGuests();
+        //List<RoomDetails> listRoomDetails = objReservation.getRoomDetailList();
+		List<ReservationRoomAllocation> roomAllocList = objReservation.getReservationRoomAllocationList();
+		String confirmationNumber = objReservation.getConfirmationNumber();
+		String checkInDate = objReservation.getCheckinDate();
+		
+		String checkOutDate = objReservation.getCheckoutDate();
+		String notes = objReservation.getNotes();
+		String loyaltyProgram = objReservation.getLoyaltyProgram();
+		String propertyId = objReservation.getPropertyId();
+		String creditCardNumber = objReservation.getCreditCardNumber();
+		
+		String reservationSource = objReservation.getReservationSource();
+		byte[] propertyImage = objReservation.getPropertyImage();
+		String affiliateId = objReservation.getAffilateId();
+		String message = objReservation.getMessage();
+
+		try {
+			conn = MicrosDAOImpl.getConnection();
+			sqlQuery = "insert into keypr_bridge_db.reservation_upload ( pms_id, stay_length, first_name, last_name, company_name, address, loyalty_number, "
+					+ "phone, number_of_guest, confirmation_number, check_in_date, check_out_date, notes, loyalty_program, property_id, credit_card_no, "
+					+ "reservation_source, affiliate_id, date_created, messages, email_id, status ) values "
+					+ "( ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,now(),?, ?,? ) ";
+
+			objPreparedStatement = conn.prepareStatement(sqlQuery , Statement.RETURN_GENERATED_KEYS);
+
+			objPreparedStatement.setString(1, pmsId);
+			objPreparedStatement.setInt(2, stayLength);
+			objPreparedStatement.setString(3, firstName);
+			objPreparedStatement.setString(4, lastName);
+			objPreparedStatement.setString(5, companyName);
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " five field populated " );
+
+			objPreparedStatement.setString(6, address);
+			objPreparedStatement.setString(7, loyaltyNumber);
+			objPreparedStatement.setString(8,phoneNumber);
+			objPreparedStatement.setInt( 9,numberOfGuest );
+			objPreparedStatement.setString( 10, confirmationNumber);
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " ten field populated " );
+
+			objPreparedStatement.setString(11, checkInDate);
+			objPreparedStatement.setString(12, checkOutDate);
+			objPreparedStatement.setString(13,notes);
+			objPreparedStatement.setString( 14,loyaltyProgram );
+			objPreparedStatement.setString( 15, propertyId );
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " fifteen field populated " );
+
+			objPreparedStatement.setString( 16, creditCardNumber);
+			objPreparedStatement.setString( 17, reservationSource);
+			// objPreparedStatement.setBlob(18, propertyImage);
+			objPreparedStatement.setString( 18, affiliateId);
+			//date_created is added by function now()
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " twenty field populated " );
+
+			//date_modified columns has to be alter , now uses now()
+			objPreparedStatement.setString(19, message);
+			objPreparedStatement.setString(20, "email");
+			objPreparedStatement.setString(21, "In_Process");
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " last block field populated " );
+
+			rowUpdated = objPreparedStatement.executeUpdate();
+
+			if( rowUpdated !=0 ) {
+				
+				ResultSet keys = objPreparedStatement.getGeneratedKeys(); 
+
+				keys.next();  
+				lastInsetedId = keys.getInt(1);
+
+				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Reservation record saved in database " );
+				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Record Id is " + lastInsetedId );
+
+				roomAllocationListSize = roomAllocList.size();
+				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " RoomAllocationSize list size " + roomAllocationListSize );
+////////
+				
+////
+			}
+			else {
+				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Sorry, Reservation record cannot be inserted " );
+			}
+
+		}
+		catch( Exception exc ){
+
+			DataHarvesterLogger.logError(MicrosDAOImpl.class, " persistReservationData ", exc );
+		}
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Exit persistReservationData method " );
+
+		return isStored;
+	}
+	
 }

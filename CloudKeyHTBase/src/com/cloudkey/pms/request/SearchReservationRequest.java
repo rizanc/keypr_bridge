@@ -19,21 +19,21 @@ public class SearchReservationRequest {
 	/* variable to store last name of the guest. */
 	private String lastName ;
 	/* variable to store credit card number of the guest. */
-	private String creditCard ;
+	private String creditCardNumber ;
 
 
 	/*
 	 * Getter and Setter for each data member.
 	 */
 	
-	public String getCreditCard() {
+	public String getCreditCardNumber() {
 		
-		return creditCard;
+		return creditCardNumber;
 	}
 
-	public void setCreditCard(String creditCard) {
+	public void setCreditCardNumber(String creditCardNumber) {
 		
-		this.creditCard = creditCard;
+		this.creditCardNumber = creditCardNumber;
 	}
 
 	public String getConfirmationNumber() {
@@ -79,8 +79,8 @@ public class SearchReservationRequest {
 	public String toString() {
 		return "SearchReservationRequest [confirmationNumber="
 				+ confirmationNumber + ", emailId=" + emailId + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", creditCard="
-				+ creditCard + "]";
+				+ firstName + ", lastName=" + lastName + ", creditCardNumber="
+				+ creditCardNumber + "]";
 	}
 
 }

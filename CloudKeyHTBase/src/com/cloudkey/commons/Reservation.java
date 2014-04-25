@@ -1,6 +1,7 @@
 package com.cloudkey.commons;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -301,6 +302,28 @@ public class Reservation {
 			List<ReservationRoomAllocation> reservationRoomAllocationList) {
 		this.reservationRoomAllocationList = reservationRoomAllocationList;
 	}
+
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", pmsId=" + pmsId + ", stayLength="
+				+ stayLength + ", fullName=" + fullName + ", company="
+				+ company + ", address=" + address + ", phoneNumber="
+				+ phoneNumber + ", email=" + email + ", loyaltyNumber="
+				+ loyaltyNumber + ", numberOfGuests=" + numberOfGuests
+				+ ", roomDetailList=" + roomDetailList
+				+ ", reservationRoomAllocationList="
+				+ reservationRoomAllocationList + ", confirmationNumber="
+				+ confirmationNumber + ", checkinDate=" + checkinDate
+				+ ", checkoutDate=" + checkoutDate + ", notes=" + notes
+				+ ", loyaltyProgram=" + loyaltyProgram + ", propertyId="
+				+ propertyId + ", creditCardNumber=" + creditCardNumber
+				+ ", reservationSource=" + reservationSource
+				+ ", propertyImage=" + Arrays.toString(propertyImage)
+				+ ", affilateId=" + affilateId + ", message=" + message
+				+ ", reservationOrderList=" + reservationOrderList + "]";
+	}
+	
+	
 
 
 

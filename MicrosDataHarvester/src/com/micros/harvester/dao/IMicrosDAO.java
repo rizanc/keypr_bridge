@@ -1,5 +1,6 @@
 package com.micros.harvester.dao;
 
+import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.pms.bean.FetchRoomStatusResponse;
@@ -38,6 +39,15 @@ public interface IMicrosDAO {
 	 * @param objFetchCalendarResponse
 	 */
 	void persistRoomInventoryData( FetchCalendarResponse objFetchCalendarResponse);
+	
+	/**
+	 * This method will store the data of reservation received from oxi in the database.
+	 * It response contains details about the status of database operation.
+	 * 
+	 * @param objReservation
+	 * @return
+	 */
+	boolean persistReservationData( Reservation objReservation );
 
 
 

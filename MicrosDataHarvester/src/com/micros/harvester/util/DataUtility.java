@@ -2,9 +2,12 @@ package com.micros.harvester.util;
 
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.bind.JAXBContext;
@@ -14,21 +17,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import com.cloudkey.commons.Reservation;
 import com.micros.harvester.logger.DataHarvesterLogger;
-
-
 
 
 /**
@@ -149,5 +139,61 @@ public class DataUtility {
 		objCalendar.setFirstDayOfWeek(5);
 		return objCalendar;
 	}
+
+
+	/**
+	 * This method is used to generate the date by adding  the year,
+	 * week , month , day , hour , minute and seconds.
+	 * 
+	 * @return
+	 * @throws ParseException 
+	 */
+	public static String getEndDate(String startDate , int noOfUnits , String type) throws ParseException{
+		
+		DataHarvesterLogger.logInfo( DataUtility.class," getEndDate ", " Enter in getEndDate method ");
+		String endDate = "";
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+		    Date d= dateFormat.parse(startDate);
+		    System.out.println(dateFormat.format(d));
+		    Calendar objCalendar =  dateFormat.getCalendar();
+		    
+		switch(type)
+		{
+		    
+		case "MONTH":
+		    objCalendar.add(Calendar.MONTH, 3); // 0-23
+		    break;
+		case "DAY":
+		    objCalendar.add(Calendar.DAY_OF_MONTH, 2); // For Date
+		    break;
+		case "YEAR" :
+		    objCalendar.add(Calendar.YEAR, 1);
+		    break;
+		case "HOUR":
+		    objCalendar.add(Calendar.HOUR, 2);
+		    break;
+		case "MINUTE":
+		    objCalendar.add(Calendar.MINUTE, 3);
+		    break;
+		case "SECOND":
+		    objCalendar.add(Calendar.SECOND, 3);
+		    break;
+		case "WEEK":
+		    objCalendar.add(Calendar.WEEK_OF_MONTH, 1);
+		    break;
+		default:
+			DataHarvesterLogger.logInfo( DataUtility.class," getEndDate ", " In Default.");	
+		    
+		}
+
+		endDate = dateFormat.format(objCalendar.getTime());
+	
+		DataHarvesterLogger.logInfo( DataUtility.class," getEndDate ", " Exit getEndDate method "+ endDate);	
+		
+		return endDate;		
+		
+	}
+
 
 }
