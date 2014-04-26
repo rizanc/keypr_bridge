@@ -7,6 +7,7 @@ package com.cloudkey.upload.service;
 import com.cloudkey.logger.MessageLogger;
 import com.cloudkey.upload.collector.UploadQueueDataRetriever;
 import com.cloudkey.upload.collector.UploadInventoryDataRetriver;
+import com.cloudkey.upload.collector.UploadReservationDataRetriever;
 
 public class UploadServiceInitiater  {
 
@@ -46,11 +47,30 @@ public class UploadServiceInitiater  {
 					roominventoryUpload.fetchRoomInventoryDetailsOnStartup();
 					onstartup++;
 				}
-				roominventoryUpload.fetchRoomInventoryDetailsOnStartup();
+				roominventoryUpload.fetchRoomInventoryDetails();
 			}
 		});roominventory.start();
 
 		MessageLogger.logInfo( UploadInventoryDataRetriver.class, " main ", " exit main method " );
-	}
+	
+	
+	/*This thread collects data from reservation_upload ,reservation_room_rates_upload and 
+	     reservation_room_allocation_upload table of keypr_bridge_db . */
+	
+			// It pass the collected rows to the keypr by calling web service.	
+			Thread reservatioThread = 	new Thread( new Runnable() {
+				public void run(){
+				
+					UploadReservationDataRetriever reservationDataUpload = new UploadReservationDataRetriever(); 
 
+						reservationDataUpload.fetchReservationDetails();
+					
+				}
+			});reservatioThread.start();
+
+			MessageLogger.logInfo( UploadInventoryDataRetriver.class, " main ", " exit main method " );
+		}
+	
+	
 }
+

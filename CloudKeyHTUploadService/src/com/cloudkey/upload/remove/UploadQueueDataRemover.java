@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 
+import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 import com.cloudkey.dao.DataBaseHandler;
@@ -41,7 +42,7 @@ public class UploadQueueDataRemover {
 
 				roomDetails = roomdetailsItr.next();
 				int rowsDeleted = removeStmt.executeUpdate( "DELETE FROM keypr_bridge_db.room_details_upload where id= " + roomDetails.getId() );
-             
+
 				if( rowsDeleted !=0 ) {
 
 					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail record deleted with id  " + roomDetails.getId() );
@@ -80,7 +81,7 @@ public class UploadQueueDataRemover {
 				roominventoryDetails = roominventorydetailsItr.next();
 
 				rowsDeleted = removeStmt.executeUpdate("DELETE FROM keypr_bridge_db.room_inventory_upload where id= "+roominventoryDetails.getId()+"");
-			
+
 				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " number of rows deleted " + rowsDeleted );	
 			}
 		} catch( Exception exc ) {
@@ -91,4 +92,37 @@ public class UploadQueueDataRemover {
 		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " exit removeUploadedRoomInventoryDetailsData method " );
 	}
 
+
+	/**
+	 * method to delete the data from upload table after getting success 
+	 * response from the client service
+	 * 
+	 * @param reservationList
+	 */
+
+	public static void removeReservationData( List <Reservation> reservationList ) {
+
+		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " enter removeReservationData method " );
+		Reservation reservation = null;
+
+		try {
+
+			connection = DataBaseHandler.getConnection();
+			Statement removeStmt = connection.createStatement();
+
+			Iterator<Reservation> reservationItr = reservationList.iterator();
+
+			while(reservationItr.hasNext()){
+
+				reservation = reservationItr.next();
+				removeStmt.executeUpdate("DELETE FROM keypr_bridge_db.reservation_upload WHERE id = "+reservation.getId()+"");
+			}
+
+		}catch(Exception exc){
+			
+			MessageLogger.logError(UploadQueueDataRemover.class, " removeReservationData ", exc);
+		}
+
+		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " exit removeReservationData method " );
+	}
 }

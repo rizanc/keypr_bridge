@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 
@@ -43,4 +44,15 @@ public class UploadService {
 	
 }
 
+	@Path( "/uploadReservationyList/{size}" )
+	@POST
+	@Produces( MediaType.APPLICATION_JSON )
+	@Consumes( MediaType.APPLICATION_JSON )
+	public Response uploadReservationy(List <Reservation> reservationList, @PathParam("size") int size){
+	
+		Response res = Response.status(200).entity("success").build();
+	    return res;
+	
+}
+	
 }
