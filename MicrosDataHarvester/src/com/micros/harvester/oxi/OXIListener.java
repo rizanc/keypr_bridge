@@ -9,6 +9,8 @@ import java.net.InetSocketAddress;
 
 import com.cloudkey.commons.Reservation;
 import com.micros.harvester.constant.IMicrosHarvester;
+import com.micros.harvester.dao.IMicrosDAO;
+import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.HarvesterConfigurationReader;
 import com.micros.harvester.util.OXIParserUtility;
@@ -71,6 +73,7 @@ public class OXIListener implements HttpHandler {
 		try {
 
 			String oxiRequest = null;
+			IMicrosDAO objMicrosDAO = null;
 
 			Headers reqHeaders = exchange.getRequestHeaders();
 			String contentType = reqHeaders.getFirst("Content-Type");
@@ -90,18 +93,23 @@ public class OXIListener implements HttpHandler {
 
 			//oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
 			oxiRequest = new String(objByteArray.toByteArray());
-			
+
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Reservation Received " + oxiRequest );
-			
+
 			File xmlFile = persistToFile(oxiRequest);
-			
+
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " File Created " + xmlFile.getName() );
 
 			OXIParserUtility objDataUtility = new OXIParserUtility();
-			
+
 			Reservation  objReservation = objDataUtility.populateReservation( xmlFile );
-			
-			String response = "This is the response value from micros data harvesting service  " + oxiRequest;
+
+			objMicrosDAO = new MicrosDAOImpl();
+			boolean isPersisted = objMicrosDAO.persistReservationData(objReservation);
+
+			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Reservation Stored in DataBase  " + isPersisted );
+
+			String response = " Status: SUCCESS code= 200 ok ";
 
 			exchange.sendResponseHeaders(200, response.length());
 
@@ -127,30 +135,30 @@ public class OXIListener implements HttpHandler {
 	 * @return
 	 */
 	private File persistToFile( String oxiRequest){
-		
+
 		DataHarvesterLogger.logInfo( OXIListener.class, " persistToFile ", " enter persistToFile method " );
-		
+
 		File oxiRev = null;
 		FileOutputStream fout = null;
-		
+
 		try {
-			
+
 			oxiRev = new File( "OxiReservation.xml" );
 			fout = new FileOutputStream(oxiRev);
-			
+
 			fout.write(oxiRequest.getBytes());
 			DataHarvesterLogger.logInfo( OXIListener.class, " persistToFile ", " content written to the file " );
 			fout.close();
-			
+
 		}
 		catch ( Exception exc ) {
-			
+
 			DataHarvesterLogger.logError( OXIListener.class, " persistToFile ", exc );
 		}
-		
+
 		DataHarvesterLogger.logInfo( OXIListener.class, " persistToFile ", " exit persistToFile method " );
-		
+
 		return oxiRev;
 	}
-	
+
 }

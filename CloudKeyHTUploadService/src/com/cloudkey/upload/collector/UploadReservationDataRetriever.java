@@ -1,13 +1,26 @@
 package com.cloudkey.upload.collector;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.ReservationRoomAllocation;
+import com.cloudkey.commons.RoomRate;
+import com.cloudkey.commons.RoomType;
+import com.cloudkey.dao.DataBaseHandler;
 import com.cloudkey.logger.MessageLogger;
+import com.cloudkey.upload.client.UploadServiceClient;
 import com.cloudkey.upload.constant.IUploadConstants;
+import com.cloudkey.upload.remove.UploadQueueDataRemover;
 import com.cloudkey.upload.utility.UploadConfigurationReader;
 
 
@@ -21,22 +34,192 @@ import com.cloudkey.upload.utility.UploadConfigurationReader;
 public class UploadReservationDataRetriever {
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	int period = Integer.parseInt(UploadConfigurationReader.getProperty(IUploadConstants. RESERVATION_THREAD_INTERVAL)) ;
+	int period = Integer.parseInt( UploadConfigurationReader.getProperty(IUploadConstants. RESERVATION_THREAD_INTERVAL)) ;
 
 	String webResult = null;
 	// create reference variable to store the database connection object. 
 	private static Connection connection = null;
 
-	//method to listen the upload queue as scheduler after every fixed time period and fetch the updated RoomInventory data from upload queue.
+	
+	/**
+	 * This method is used to listen the upload queue as scheduler after every fixed time period and fetch the reservation data from upload queue.
+	 */
 	public void fetchReservationDetails() {
 
 		MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " enter method fetchReservationDetails " );
 
 		final Runnable schedulerTask = new Runnable() {
 
-			public void run() {
-				
-				// Implementation to fetch data.
+			List<RoomRate> roomRateList = null;
+			List<ReservationRoomAllocation> roomAllocationList = null;
+
+			Reservation reservation = null;
+			ReservationRoomAllocation reservationRoomAllocation = null;
+			RoomRate roomRate = null;
+			RoomType roomType = null;
+			
+            String status ="Completed";
+            boolean isRecordFound = false;
+			PreparedStatement stmtOnStartUp = null;
+			String webResult= null;
+			String sqlQuery = null;
+
+			public void run() { 
+
+				try {
+
+					sqlQuery = "SELECT reservation.* FROM keypr_bridge_db.reservation_upload  AS reservation WHERE reservation.status = '"+status+"' ";
+					
+					if ( connection == null ) {
+
+						connection = DataBaseHandler.getConnection();
+						stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS);
+					}
+					else {
+						stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS);
+					}
+
+					List<Reservation> reservationList = new ArrayList<Reservation>();
+					roomAllocationList = new ArrayList<ReservationRoomAllocation>();
+					roomRateList = new ArrayList<RoomRate>();
+
+					ResultSet reservationSet = stmtOnStartUp.executeQuery();
+					if( reservationSet!=null ) { 
+
+						while( reservationSet.next() ) {
+
+							isRecordFound = true;
+							reservation = new Reservation();
+							//To add id .
+							int id = reservationSet.getInt( "id" ) ;	
+
+							// To set the reservation data.
+							reservation.setId( id ) ;
+							reservation.setPmsId( String.valueOf(reservationSet.getInt( "pms_id" ))) ;
+							reservation.setStayLength(reservationSet.getInt( "stay_length" )) ;
+							reservation.setNumberOfGuests(reservationSet.getInt( "number_of_guest" ));
+							reservation.setFirstName(reservationSet.getString( "first_name" ));
+							reservation.setLastName(reservationSet.getString( "last_name" ));
+							reservation.setCompany(reservationSet.getString( "company_name" ));
+							reservation.setAddress(reservationSet.getString( "address" ));
+							reservation.setLoyaltyNumber(reservationSet.getString( "loyalty_number" ));
+							reservation.setPhoneNumber(reservationSet.getString( "phone" ));
+							reservation.setConfirmationNumber(reservationSet.getString( "confirmation_number" ));
+							reservation.setCheckinDate(reservationSet.getString( "check_in_date" ));
+							reservation.setCheckoutDate(reservationSet.getString( "check_out_date" ));
+							reservation.setNotes(reservationSet.getString( "notes" ));
+							reservation.setLoyaltyNumber(reservationSet.getString( "loyalty_program" ));
+							reservation.setPropertyId(reservationSet.getString( "property_id" ));
+							reservation.setCreditCardNumber(reservationSet.getString( "credit_card_no" ));
+							reservation.setReservationSource(reservationSet.getString( "reservation_source" ));
+							reservation.setAffilateId(reservationSet.getString( "affiliate_id" ));
+							reservation.setMessage(reservationSet.getString( "messages" ));
+							reservation.setEmail(reservationSet.getString( "email_id" ));
+							//reservationSet.getString( "status" );
+							//			    reservation.setPropertyImage(reservationSet.getBlob( "property_image" ));
+
+							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " Data fetched from reservation_upload table");
+							// To select data from reservation room allocation table.
+							
+							sqlQuery = " SELECT resvalloc.* FROM keypr_bridge_db.reservation_room_allocation_upload AS resvalloc WHERE resvalloc.reservation_upload_id = ? ";
+							stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS);
+							stmtOnStartUp.setInt(1, id);
+
+							ResultSet resvRoomAllocationSet = stmtOnStartUp.executeQuery();
+
+							if(resvRoomAllocationSet != null){
+
+								while( resvRoomAllocationSet.next() ) {
+
+									reservationRoomAllocation = new ReservationRoomAllocation();
+									roomType = new RoomType();
+
+									int resvUploadId = resvRoomAllocationSet.getInt("reservation_upload_id");
+									reservationRoomAllocation.setRoomNo(Integer.parseInt(resvRoomAllocationSet.getString("room_number")));
+									roomType.setCode(resvRoomAllocationSet.getString("room_type_code"));
+									reservationRoomAllocation.setRoomType(roomType);
+									
+									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " Data fetched from reservation_room_allocation_upload table");
+									
+									sqlQuery = " SELECT resvrate.* FROM keypr_bridge_db.reservation_room_rates_upload AS resvrate WHERE resvrate.room_allocation_id = ? ";
+									stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS);
+									stmtOnStartUp.setInt(1, resvUploadId);
+
+									ResultSet resvRoomRateSet = stmtOnStartUp.executeQuery();
+
+									if(resvRoomRateSet != null){
+
+										while(resvRoomRateSet.next()){
+
+											roomRate = new RoomRate();
+											roomRate.setBaseAmount(resvRoomRateSet.getDouble("base_rate"));
+											roomRate.setEffectiveDate(resvRoomRateSet.getString("effective_date"));
+											roomRate.setExpirationDate(resvRoomRateSet.getString("expiration_date"));
+											roomRate.setPlanCode(resvRoomRateSet.getString("rate_plan_code"));
+
+											// To add room rate into list.
+											roomRateList.add(roomRate);
+										}
+									}
+									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " Data fetched from reservation_room_rates_upload table");
+									
+									reservationRoomAllocation.setRoomRateList( roomRateList );
+									roomAllocationList.add(reservationRoomAllocation);
+									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " Room List ");	
+
+								}
+							}
+
+							reservation.setReservationRoomAllocationList(roomAllocationList);
+							reservationList.add(reservation);
+						}
+
+						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " size of reservation list " + reservationList.size() );
+
+						if( isRecordFound ) {
+
+							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " ResultSet Contain Data " );
+						}
+						else {
+
+							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " ResultSet is empty " );
+						}
+
+						//invoke the web service client for call the web service 
+						webResult = UploadServiceClient.invokeReservation( reservationList, reservationList.size());
+						//on the basis of getting the response from the client web service call the method to delete the data from upload queue
+						if( webResult.equalsIgnoreCase("success") ) {
+
+							UploadQueueDataRemover.removeReservationData( reservationList );
+						}
+						else {
+
+							int recall = 0;
+
+							for( int attempt = 0 ; attempt < 3 ; attempt++ )
+							{
+								webResult=UploadServiceClient.invokeReservation(reservationList, reservationList.size());
+
+								if( webResult.equalsIgnoreCase("success") ) {
+
+									UploadQueueDataRemover.removeReservationData( reservationList );
+									recall++;
+									break;
+								}
+							}
+							if( recall == 0 ) {
+
+								// to fetch the reservation details , and process again .
+								fetchReservationDetails();
+							}
+						}
+					}
+				} catch (SQLException exc ) {
+
+					MessageLogger.logError( UploadInventoryDataRetriver.class, "fetchReservationDetailsOnStartup", exc );
+				}
+
+				MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetailsOnStartup ", " exit fetchReservationDetailsOnStartup method " );
 			}
 
 		};	

@@ -154,64 +154,6 @@ public class OWSDataCollector {
 
 	}
 
-
-	/**
-	 * This method will runs at fixed interval to collect room reservation data 
-	 * from the property management system.
-	 */
-	public void harvestReservationData() {
-
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestReservationData ", " Enter harvestReservationData method " );
-
-		int delayTime ;
-		int intervalPeriod ;
-
-		final Runnable dataCollerctor = new Runnable() {
-
-			public void run() { 
-
-				boolean success = makeReservationRequest();
-
-				if(success) {
-
-					DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestReservationData ", " Request Processed Successfully " );
-				}
-				else {
-
-					DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestReservationData ", " Sorry Request cannot be processed " );
-				}
-			}
-		};
-
-		delayTime = Integer.parseInt( HarvesterConfigurationReader.getProperty( IMicrosHarvester.ROOM_INVENTORY_THREAD_DELAY) );
-		intervalPeriod  = Integer.parseInt( HarvesterConfigurationReader.getProperty(IMicrosHarvester.ROOM_INVENTORY_THREAD_INTERVAL) );
-
-		@SuppressWarnings("unused")
-		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate( dataCollerctor, delayTime, intervalPeriod , TimeUnit.MINUTES );
-
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestReservationData ", " Exit harvestReservationData method " );
-
-	} // ends collectReservationData
-
-	/**
-	 * This method creates instance of FutureBooking Summary  request and make call to the
-	 * property management service for details. It collect the response , populate
-	 * an instance of Future Booking Summary response and pass it to database handler class
-	 * to persist the information in room status upload database. 
-	 * 
-	 * @return
-	 */
-	private static boolean makeReservationRequest() {
-
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeReservationRequest ", " Enter makeReservationRequest method " );
-		boolean isSuccess = false;
-
-
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeReservationRequest ", " Exit makeReservationRequest method " );
-		return isSuccess;
-
-	}
-
 	private final ScheduledExecutorService schedulerInventory = Executors.newScheduledThreadPool(1);
 
 	/**

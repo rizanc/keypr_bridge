@@ -1,6 +1,7 @@
 package com.cloudkey.upload.client;
 
 import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -9,6 +10,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.xml.DOMConfigurator;
+
+import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 import com.cloudkey.logger.MessageLogger;
@@ -82,4 +85,32 @@ public class UploadServiceClient {
 		return result;
 	}
 
+	// UploadServiceClient method to invoke the keypr webservices for reservation .
+		public static String invokeReservation( List<Reservation> reservationList, int size ) {
+
+			MessageLogger.logInfo( UploadServiceClient.class, "invokeReservation", " enter method invokeReservation " );
+
+			// create an instance of Web Service Client.
+			Client	webClient = ClientBuilder.newClient();
+
+			try {
+
+				WebTarget target = webClient.target( "http://localhost:8080/UploadServiceRest/keyservice/Service/uploadReservationyList/" + size);
+
+				Builder	invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+				result = invocationBuilder.post( Entity.entity( reservationList, MediaType.APPLICATION_JSON_TYPE ), String.class );
+			}
+			catch( Exception ex ) {
+
+				MessageLogger.logError( UploadServiceClient.class, " invokeReservation ", ex );
+			}
+
+			MessageLogger.logInfo( UploadServiceClient.class, "invokeReservation", " keypr web service returns " + result );
+			MessageLogger.logInfo( UploadServiceClient.class, "invokeReservation", " exit method invokeReservation " );
+
+			return result;
+		}
+	
+	
+	
 }

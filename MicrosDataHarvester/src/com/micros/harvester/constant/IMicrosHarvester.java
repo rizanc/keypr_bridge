@@ -21,6 +21,6 @@ public interface IMicrosHarvester {
 	
 	String OXI_LISTENING_URL = "micros.pms.oxi.listener.url";
 	String OXI_LISTENING_PORT = "micros.pms.oxi.listener.port";
-
+    String OXI_AFFILATE_ID  = "9175e540-b992-447a-846b-e9e5dea82a80";
 
 }

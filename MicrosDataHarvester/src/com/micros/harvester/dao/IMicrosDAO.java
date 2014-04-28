@@ -1,5 +1,7 @@
 package com.micros.harvester.dao;
 
+import java.sql.SQLException;
+
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
@@ -46,8 +48,9 @@ public interface IMicrosDAO {
 	 * 
 	 * @param objReservation
 	 * @return
+	 * @throws SQLException 
 	 */
-	boolean persistReservationData( Reservation objReservation );
+	boolean persistReservationData( Reservation objReservation ) throws SQLException;
 
 
 
