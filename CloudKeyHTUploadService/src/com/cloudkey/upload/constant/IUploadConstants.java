@@ -10,5 +10,14 @@ public interface IUploadConstants {
 
 	String RESERVATION_THREAD_DELAY	 = "reservation.upload.timer.delay";
 	String RESERVATION_THREAD_INTERVAL = "reservation.upload.timer.interval";
-
+	
+	String KEYPR_RESERVATION_URL = "keypr.reservation.service.url";
+	String KEYPR_ROOM_INVENTORY_URL = "keypr.room.inventory.service.url";
+	String KEYPR_ROOM_STATUS_URL = "keypr.room.status.service.url";
+	
+	String KEYPR_LIST_KEY = "keypr.list.key";
+	String KEYPR_SIZE_KEY = "keyypr.size.key";
+	
+	String RESERVATON_STATUS_COMPL = "COMPLETED";
+	String RESERVATION_STATUS = "IN-PROCESS";
 }

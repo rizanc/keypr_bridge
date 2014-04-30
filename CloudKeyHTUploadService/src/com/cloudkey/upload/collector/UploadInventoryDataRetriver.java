@@ -22,13 +22,11 @@ import com.cloudkey.upload.constant.IUploadConstants;
 import com.cloudkey.upload.remove.UploadQueueDataRemover;
 import com.cloudkey.upload.utility.UploadConfigurationReader;
 
-/**This class acts as a listener  to fetch the updated data of RoomInventory from upload queue .
- * On startup of the service , fetch all the RoomInventory updated data from upload queue and post to keypr web service,
- * and expecting the response from keypr web service,if get the success as response, delete all the data from upload queue considering id as unique identifier,
- * if gets failure,then,send the request to post the updated data of room inventory to keypr service once again,means controllers loops untill it does not get 
- * the success from the Keypr service,after getting response as success from the service ,delete all the data from the upload queue for the first time after that controller moves to scheduler which listen the upload queue at every fixed period 
- *  to fetch the updated data,send to keypr service,if gets success from keypr service,delete the data within that fixed period of time from upload queue,
- *  if gets failure,then three more times scheduler invoke,even then if we get failure,startup method invoke to fetch all the old updated data of upload queue.
+/** This class acts as a listener  to fetch the updated data of RoomInventory from upload queue .
+ *  On startup of the service , fetch all the RoomInventory updated data from upload queue and pos
+ *  to keypr  web service,if gets success from keypr service,delete the data within that fixed period
+ *  of time from upload queue,if gets failure,then three more times scheduler invoke,even then if we get
+ *  failure,startup method invoke to fetch all the old updated data of upload queue.
  *
  * @author ektas
  */
@@ -74,6 +72,8 @@ public class UploadInventoryDataRetriver {
 							" DATE_FORMAT('" + endTime + "','%Y-%m-%d %H:%i:%s')) OR  (DATE_FORMAT(rinventory.date_created,'%Y-%m-%d %H:%i:%s') " +
 							"BETWEEN DATE_FORMAT('"+startTime+"','%Y-%m-%d %H:%i:%s') AND DATE_FORMAT('" + endTime + "','%Y-%m-%d %H:%i:%s'))"; 
 
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Query to fetch room_inventory_upload data " + inventoryQuery );
+					
 					roominventorySet = inventoryStmt.executeQuery( inventoryQuery );
 
 					//set the data in to RoomInventory object from result set 
@@ -152,13 +152,15 @@ public class UploadInventoryDataRetriver {
  considering Id as unique identifier
 	 *
 	 */
-	public void fetchRoomInventoryDetailsOnStartup() {
+	public boolean  fetchRoomInventoryDetailsOnStartup() {
 
 		MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " enter fetchRoomInventoryDetailsOnStartup method " );
 
 		boolean isRecordFound = false;
+		boolean isCallFetchRoomInventory = false ;
+		
 		RoomTypeInventory roominventoryDetails= null;
-	
+		String sqlQuery = null;
 		Statement stmtOnStartUp = null;
 		String webResult= null;
 
@@ -175,15 +177,18 @@ public class UploadInventoryDataRetriver {
 
 			List<RoomTypeInventory> roominventorydetailsList = new ArrayList<RoomTypeInventory>();
 
-			ResultSet roominventorySet = stmtOnStartUp.executeQuery( "select * from keypr_bridge_db.room_inventory_upload " );
+			sqlQuery = "select * from keypr_bridge_db.room_inventory_upload ";
+			ResultSet roominventorySet = stmtOnStartUp.executeQuery( sqlQuery );
 
+			MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Query to fetch room_inventory_upload data " + sqlQuery);
+						
 			if( roominventorySet!=null ) { 
 
 				while( roominventorySet.next() ) {
 
 					isRecordFound = true;
 					roominventoryDetails= new RoomTypeInventory();
-                      //To add id .
+					//To add id .
 					roominventoryDetails.setId(Integer.parseInt(roominventorySet.getString("id")));
 					RoomType objRoomType = new RoomType();
 					objRoomType.setCode(roominventorySet.getString("type_code"));
@@ -207,16 +212,18 @@ public class UploadInventoryDataRetriver {
 
 					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " ResultSet is empty " );
 				}
-				
+
 				//invoke the webservice client for call the webservice 
 				webResult = UploadServiceClient.invokeRoomInventory(roominventorydetailsList, roominventorydetailsList.size());
 				//on the basis of getting the response from the client webservice call the method to deltsetlete the data from upload queue
 				if( webResult.equalsIgnoreCase("success") ) {
 
-					UploadQueueDataRemover .removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
+					UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
+					isCallFetchRoomInventory = true;
 				}
 				else {
-					int counter = 0;
+					
+					boolean isSuccess = false;
 
 					for( int attempt = 0 ; attempt < 3 ; attempt++ )
 					{
@@ -225,12 +232,14 @@ public class UploadInventoryDataRetriver {
 						if( webResult.equalsIgnoreCase("success") ) {
 
 							UploadQueueDataRemover .removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
-							counter++;
+							isCallFetchRoomInventory = true;
+							isSuccess = true;
 							break;
 						}
 					}
-					if( counter==0 ) {
-
+					if( !isSuccess ) {
+						
+						MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomInventoryDetailsOnStartup ", " Call fetchRoomInventoryDetailsOnStartup Again" );
 						fetchRoomInventoryDetailsOnStartup();
 					}
 				}
@@ -241,5 +250,10 @@ public class UploadInventoryDataRetriver {
 		}
 
 		MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " exit fetchRoomInventoryDetailsOnStartup method " );
+		return isCallFetchRoomInventory;
 	}
-}
+
+
+
+
+		}
