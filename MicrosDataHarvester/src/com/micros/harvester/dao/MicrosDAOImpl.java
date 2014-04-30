@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import com.cloudkey.commons.Reservation;
@@ -15,14 +14,14 @@ import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.dao.DataBaseHandler;
+import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub.Calendar;
 import com.micros.availability.AvailabilityServiceStub.CalendarDailyDetail;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
+import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.logger.DataHarvesterLogger;
-import com.micros.pms.bean.FetchRoomStatusResponse;
-import com.micros.pms.bean.RoomStatus;
 
 /**
  * This class handles the database related operations for the data harvester service.
@@ -71,18 +70,23 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		Connection objConnection = null;
 		PreparedStatement pStatement = null;
-		String sqlQuery = null;
+		String sqlQuery = "";
+		
+		String houseKeepingStatus = "";
+		String frontOfficeStatus = "";
+		String roomType = "";
+		int roomNumber;
 
 		boolean isInserted = false;
+		
+		/*ResultStatus objRStatus = objFetchRoomStatusResponse.getResult();
+		ResultStatusFlag objReFlag  = objRStatus.getResultStatusFlag();
+		String status = objReFlag.getValue();
+		*/
+		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[] objRoomStatusArray = objFetchRoomStatusResponse.getRoomStatus();
+		
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Number of RoomStatus is " + objRoomStatusArray.length);
 
-		List<RoomStatus> objRoomStatus = objFetchRoomStatusResponse.getRoomStatus();
-
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Number of Rows is " + objRoomStatus.size() );
-
-		Iterator<RoomStatus> iterateElements = objRoomStatus.iterator();
-		com.micros.harvester.communicator.ObjectFactory objFactory = new com.micros.harvester.communicator.ObjectFactory();
-
-		RoomStatus objRoomSatus = objFactory.createRoomStatus();
 
 		try {
 
@@ -91,17 +95,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			boolean isFound = false;
 			boolean isUploaded = false;
 
-			while( iterateElements.hasNext()) {
+		       for(int len = 0 ; len< objRoomStatusArray.length; len++ ) {
 
-				objRoomSatus = iterateElements.next();
-
+				frontOfficeStatus = objRoomStatusArray[len].getFrontOfficeStatus();
+				houseKeepingStatus = objRoomStatusArray[len].getHouseKeepingStatus();
+				roomType = objRoomStatusArray[len].getRoomType();
+				roomNumber = Integer.parseInt( objRoomStatusArray[len].getRoomNumber());
+                
 				RoomDetails objRoomDetails = new RoomDetails();
-				objRoomDetails.setFrontOfficeStatus(objRoomSatus.getFrontOfficeStatus());
-				objRoomDetails.setHouseKeeepingStatus(objRoomSatus.getHouseKeepingStatus());
-				objRoomDetails.setRoomNumber(Integer.parseInt(objRoomSatus.getRoomNumber()));
+				objRoomDetails.setFrontOfficeStatus( frontOfficeStatus );
+				objRoomDetails.setHouseKeeepingStatus( houseKeepingStatus );
+				objRoomDetails.setRoomNumber(roomNumber);
 
 				RoomType objRoomType = new RoomType();
-				objRoomType.setCode(objRoomSatus.getRoomType());
+				objRoomType.setCode( roomType );
 
 				objRoomDetails.setRoomType(objRoomType);
 
@@ -123,7 +130,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							sqlQuery = "update keypr_bridge_db.room_details set room_type = ? , front_office_status = ? , house_keeping_status = ?"
 									+ " where room_number = ? ";
-
+							
+							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Update Query " + sqlQuery );
+							
 							pStatement = objConnection.prepareStatement( sqlQuery );
 
 							pStatement.setString( 1, objRoomDetails.getRoomType().getCode());
@@ -157,7 +166,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				else { // fetched record is new
 
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record does not exist in room_details room number " + objRoomSatus.getRoomNumber() );
+					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record does not exist in room_details room number " + roomNumber );
 
 					isUploaded = pushDataToUpload( objRoomDetails );
 
@@ -218,7 +227,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = "select room_type, front_office_status ,house_keeping_status "
 					+ " from keypr_bridge_db.room_details where room_number = ? ";
-
+			
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Select Query " + sqlQuery );
+			
 			pStatement = objConnection.prepareStatement(sqlQuery);
 			pStatement.setInt(1, objRoomDetails.getRoomNumber());
 			rSet = pStatement.executeQuery();
@@ -282,6 +293,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		try {
 
 			objConnection = MicrosDAOImpl.getConnection();
+			
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Insert Query " + sqlQuery );
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
 			pStatement.setInt( 1, (objRoomDetails.getRoomNumber()));
@@ -334,6 +347,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		try {
 
 			objConnection = MicrosDAOImpl.getConnection();
+			
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Insert Query " + sqlQuery );
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
 			pStatement.setInt( 1, (objRoomDetails.getRoomNumber()));
@@ -387,7 +402,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objConnection = MicrosDAOImpl.getConnection();
 
 			sqlQuery = " select count(*) as cont from keypr_bridge_db.room_details where room_number = ? ";
-
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Select Query " + sqlQuery );
+			
 			pStatement = objConnection.prepareStatement(sqlQuery);
 			pStatement.setInt( 1, objRoomDetail.getRoomNumber() );
 
@@ -488,6 +504,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 								objConnection = MicrosDAOImpl.getConnection();
 								sqlQuery = " update keypr_bridge_db.room_inventory set total_rooms = ? , total_rooms_available = ? where type_code = ?";
+								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Update Query " + sqlQuery );
+								
 								pStatement = objConnection.prepareStatement(sqlQuery);
 
 								pStatement.setInt(1, objRInventory.getTotalRooms());
@@ -524,9 +542,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 						objConnection = MicrosDAOImpl.getConnection();
 
 						sqlQuery = " insert into keypr_bridge_db.room_inventory ( type_code, total_rooms, total_rooms_available, date_created ) values ( ?, ?, ?, now() )";
-
+						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Insert Query " + sqlQuery );
+						
 						pStatement = objConnection.prepareStatement(sqlQuery);
-
 						pStatement.setString(1, objRInventory.getRoomType().getCode());
 						pStatement.setInt(2, objRInventory.getTotalRooms() );
 						pStatement.setInt(3, objRInventory.getRoomsAvailable());
@@ -593,6 +611,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			roomTypeCode = objRInventory.getRoomType().getCode();
 
 			sqlQuery = " select total_rooms, total_rooms_available from keypr_bridge_db.room_inventory where type_code = ? ";
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Select Query " + sqlQuery);
+			
 			pStatement = objConnection.prepareStatement(sqlQuery);
 
 			pStatement.setString(1, roomTypeCode);
@@ -667,6 +687,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objConnection = MicrosDAOImpl.getConnection();
 
 			sqlQuery = " insert into keypr_bridge_db.room_inventory_upload ( type_code, total_rooms, total_rooms_available, date_created ) values ( ?, ?, ?, now() )";
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Insert Query " + sqlQuery);
+			
 			pStatement = objConnection.prepareStatement(sqlQuery);
 
 			pStatement.setString(1, objRoomInventory.getRoomType().getCode());
@@ -720,7 +742,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objConnection = MicrosDAOImpl.getConnection();
 
 			sqlQuery = " select count(*) as cont from keypr_bridge_db.room_inventory where type_code = ? ";
-
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Select Query " + sqlQuery );
+			
 			pStatement = objConnection.prepareStatement(sqlQuery);
 			pStatement.setString( 1, objRoomInventory.getRoomType().getCode() );
 
@@ -839,42 +862,39 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					+ "phone, number_of_guest, confirmation_number, check_in_date, check_out_date, notes, loyalty_program, property_id, credit_card_no, "
 					+ "reservation_source, affiliate_id, date_created, messages, email_id, status ) values "
 					+ "( ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,now(),?, ?,? ) ";
-
+			
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Insert Query " + sqlQuery );
+			
 			objPreparedStatement = objConn.prepareStatement(sqlQuery , Statement.RETURN_GENERATED_KEYS);
 
-			objPreparedStatement.setString(1, pmsId);
-			objPreparedStatement.setInt(2, stayLength);
-			objPreparedStatement.setString(3, firstName);
-			objPreparedStatement.setString(4, lastName);
-			objPreparedStatement.setString(5, companyName);
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " five field populated " );
+			objPreparedStatement.setString( 1, pmsId );
+			objPreparedStatement.setInt( 2, stayLength );
+			objPreparedStatement.setString( 3, firstName );
+			objPreparedStatement.setString( 4, lastName );
+			objPreparedStatement.setString( 5, companyName );
 
-			objPreparedStatement.setString(6, address);
-			objPreparedStatement.setString(7, loyaltyNumber);
-			objPreparedStatement.setString(8,phoneNumber);
+			objPreparedStatement.setString( 6, address );
+			objPreparedStatement.setString( 7, loyaltyNumber );
+			objPreparedStatement.setString( 8,phoneNumber );
 			objPreparedStatement.setInt( 9,numberOfGuest );
-			objPreparedStatement.setString( 10, confirmationNumber);
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " ten field populated " );
+			objPreparedStatement.setString( 10, confirmationNumber );
 
-			objPreparedStatement.setString(11, checkInDate);
-			objPreparedStatement.setString(12, checkOutDate);
-			objPreparedStatement.setString(13,notes);
+			objPreparedStatement.setString( 11, checkInDate );
+			objPreparedStatement.setString( 12, checkOutDate );
+			objPreparedStatement.setString( 13,notes );
 			objPreparedStatement.setString( 14,loyaltyProgram );
 			objPreparedStatement.setString( 15, propertyId );
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " fifteen field populated " );
 
-			objPreparedStatement.setString( 16, creditCardNumber);
-			objPreparedStatement.setString( 17, reservationSource);
-			// objPreparedStatement.setBlob(18, propertyImage);
-			objPreparedStatement.setString( 18, affiliateId);
+			objPreparedStatement.setString( 16, creditCardNumber );
+			objPreparedStatement.setString( 17, reservationSource );
+			// objPreparedStatement.setBlob(18, propertyImage );
+			objPreparedStatement.setString( 18, affiliateId );
 			//date_created is added by function now()
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " twenty field populated " );
 
 			//date_modified columns has to be alter , now uses now()
-			objPreparedStatement.setString(19, message);
-			objPreparedStatement.setString(20, "email");
-			objPreparedStatement.setString(21, "In_Process");
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " last block field populated " );
+			objPreparedStatement.setString( 19, message);
+			objPreparedStatement.setString( 20, "email" );
+			objPreparedStatement.setString( 21, IMicrosHarvester.RESERVATION_STATUS );
 
 			rowUpdated = objPreparedStatement.executeUpdate();
 
@@ -906,6 +926,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 						isStored = true;
 					}
 					else {
+						
                         objConn.rollback();
 						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Sorry Roomrate records not saved " );
 					}
@@ -954,11 +975,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			//conn = MicrosDAOImpl.getConnection();
 			conn = objConn;
 			sqlQuery = " insert into keypr_bridge_db.reservation_room_allocation_upload ( reservation_upload_id, room_number, room_type_code, date_created ) values"
 					+ "( ?, ?, ?, now())";
 
+			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Insert Query " + sqlQuery );
+			
 			objPreparedStatement = conn.prepareStatement( sqlQuery, Statement.RETURN_GENERATED_KEYS );
 
 			String roomNum = String.valueOf(objRoomAllocation.getRoomNo());
@@ -1011,7 +1033,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Enter persistRecordInReservationRoomRates method " );
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " RoomAllocation Record Id " + roomAllocationId );
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " RoomRate List Size " + roomRateList.size() );
 
 		boolean isPersisted = false;
 		int roomRateListSize = 0;
@@ -1022,7 +1043,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		roomRateListSize = roomRateList.size();
 		if(roomRateListSize !=0 ) {
 
-			//conn = MicrosDAOImpl.getConnection();
 			conn= objConn;
 
 			try {
@@ -1031,6 +1051,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					
 					sqlQuery = "insert into keypr_bridge_db.reservation_room_rates_upload (room_allocation_id, base_rate, rate_plan_code,"
 							+ "effective_date, expiration_date,date_created ) values ( ?,?,?,?,?,now())";
+					
+					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Insert Query " + sqlQuery );
 					
 					objPreparedStatement = conn.prepareStatement(sqlQuery);
 					RoomRate objRoomRate = roomRateList.get(len);
@@ -1063,8 +1085,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 							
 							sqlQuery = "update keypr_bridge_db.reservation_upload set status = ? where id = ?";
 							
+							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Update Query " + sqlQuery );
+							
 							objPreparedStatement = conn.prepareStatement(sqlQuery);
-							objPreparedStatement.setString(1, "Completed");
+							objPreparedStatement.setString(1, IMicrosHarvester.RESERVATON_STATUS_COMPL );
 							objPreparedStatement.setInt(2, id);
 							
 							int numRows = objPreparedStatement.executeUpdate();
@@ -1101,7 +1125,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			catch( Exception exc ) {
 
 				conn.rollback();
-				DataHarvesterLogger.logError(MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", exc);
+				DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", exc );
 			}
 
 		}
