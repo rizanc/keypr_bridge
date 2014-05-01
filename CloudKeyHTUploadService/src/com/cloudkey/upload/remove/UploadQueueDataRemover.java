@@ -36,17 +36,23 @@ public class UploadQueueDataRemover {
 
 			connection = DataBaseHandler.getConnection();
 			Statement removeStmt = connection.createStatement();
+			String sqlQuery = null;
 			Iterator<RoomDetails> roomdetailsItr = roomdetailsList.iterator();
 
 			while(roomdetailsItr.hasNext()){
 
 				roomDetails = roomdetailsItr.next();
-				int rowsDeleted = removeStmt.executeUpdate( "DELETE FROM keypr_bridge_db.room_details_upload where id= " + roomDetails.getId() );
+				sqlQuery = "DELETE FROM keypr_bridge_db.room_details_upload where id= " + roomDetails.getId();
+				
+				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " Query to delete room_details_upload data " + sqlQuery );
+				int rowsDeleted = removeStmt.executeUpdate( sqlQuery );
 
 				if( rowsDeleted !=0 ) {
 
 					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail record deleted with id  " + roomDetails.getId() );
 				}
+				
+				
 			}
 
 		} catch( Exception exc ) {
@@ -67,7 +73,8 @@ public class UploadQueueDataRemover {
 
 		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " enter removeUploadedRoomInventoryDetailsData method " );
 
-		int rowsDeleted = 0;
+		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room roominventorydetails list passed  " + roominventorydetailsList.size() );
+		String sqlQuery = null;
 
 		try {
 
@@ -79,10 +86,16 @@ public class UploadQueueDataRemover {
 			while( roominventorydetailsItr.hasNext() ) {
 
 				roominventoryDetails = roominventorydetailsItr.next();
+				sqlQuery = "DELETE FROM keypr_bridge_db.room_inventory_upload where id= "+ roominventoryDetails.getId()+"";
+				int rowsDeleted = removeStmt.executeUpdate( sqlQuery );
 
-				rowsDeleted = removeStmt.executeUpdate("DELETE FROM keypr_bridge_db.room_inventory_upload where id= "+roominventoryDetails.getId()+"");
+				if( rowsDeleted !=0 ) {
 
-				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " number of rows deleted " + rowsDeleted );	
+					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room inventory record deleted with id  " + roominventoryDetails.getId() );
+				}
+				
+				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " Query to delete room_inventory_upload data " + sqlQuery );
+				
 			}
 		} catch( Exception exc ) {
 
@@ -103,8 +116,10 @@ public class UploadQueueDataRemover {
 	public static void removeReservationData( List <Reservation> reservationList ) {
 
 		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " enter removeReservationData method " );
-		Reservation reservation = null;
+		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation list passed  " + reservationList.size() );
 
+		Reservation reservation = null;
+		String sqlQuery = null;
 		try {
 
 			connection = DataBaseHandler.getConnection();
@@ -115,11 +130,21 @@ public class UploadQueueDataRemover {
 			while(reservationItr.hasNext()){
 
 				reservation = reservationItr.next();
-				removeStmt.executeUpdate("DELETE FROM keypr_bridge_db.reservation_upload WHERE id = "+reservation.getId()+"");
+				
+				sqlQuery = "DELETE  FROM keypr_bridge_db.reservation_upload  WHERE id = "+ reservation.getId() +"";
+				int rowsDeleted = removeStmt.executeUpdate( sqlQuery);
+
+				if( rowsDeleted !=0 ) {
+
+					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation data deleted with id  " + reservation.getId() );
+				}
+				
+				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " Query to delete reservation_upload data " + sqlQuery );
+			
 			}
 
 		}catch(Exception exc){
-			
+
 			MessageLogger.logError(UploadQueueDataRemover.class, " removeReservationData ", exc);
 		}
 
