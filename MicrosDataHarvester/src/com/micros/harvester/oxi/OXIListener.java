@@ -143,7 +143,7 @@ public class OXIListener implements HttpHandler {
 
 		try {
 
-			oxiRev = new File( "OxiReservation.xml" );
+			oxiRev = new File( "res/OxiReservation.xml" );
 			fout = new FileOutputStream(oxiRev);
 
 			fout.write(oxiRequest.getBytes());
