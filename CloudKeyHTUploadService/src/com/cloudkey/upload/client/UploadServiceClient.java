@@ -10,7 +10,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.xml.DOMConfigurator;
 import org.json.simple.JSONObject;
 
 import com.cloudkey.commons.Reservation;
@@ -41,6 +40,23 @@ public class UploadServiceClient {
 		try{
 			
 			int statusCode = makeJSONRequest(UploadConfigurationReader.getProperty(IUploadConstants.KEYPR_ROOM_STATUS_URL), roomdetailsList, size);
+			
+			Client	webClient = ClientBuilder.newClient();
+			WebTarget target = webClient.target( UploadConfigurationReader.getProperty(IUploadConstants.KEYPR_ROOM_STATUS_URL) );
+			
+			Builder	invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+
+			JSONObject jsonObject = new JSONObject();
+			
+			jsonObject.put("rooms" , roomdetailsList );
+			jsonObject.put("size"  , size );
+			
+			MessageLogger.logInfo( UploadServiceClient.class,  "makeJSONRequest" , " json object created " );
+			
+			Response response = invocationBuilder.post( Entity.entity( jsonObject , MediaType.APPLICATION_JSON_TYPE ), Response.class );
+			statusCode = response.getStatus();
+			      
+			
 			MessageLogger.logInfo( UploadServiceClient.class, "invokeRoomdetails", " Status Code " + statusCode );
 			
 			 result  = getStatus( statusCode );
@@ -65,6 +81,23 @@ public class UploadServiceClient {
 		try{
 			
 			int statusCode = makeJSONRequest(UploadConfigurationReader.getProperty(IUploadConstants.KEYPR_ROOM_INVENTORY_URL), roominventorydetailsList , size);
+			/*=====================================================================================================*/
+			Client	webClient = ClientBuilder.newClient();
+			WebTarget target = webClient.target( UploadConfigurationReader.getProperty(IUploadConstants.KEYPR_ROOM_INVENTORY_URL) );
+			
+			Builder	invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+
+			JSONObject jsonObject = new JSONObject();
+			
+			jsonObject.put("rooms" , roominventorydetailsList );
+			jsonObject.put("size"  , size );
+			
+			MessageLogger.logInfo( UploadServiceClient.class,  "makeJSONRequest" , " json object created " );
+			
+			Response response = invocationBuilder.post( Entity.entity( jsonObject , MediaType.APPLICATION_JSON_TYPE ), Response.class );
+			statusCode = response.getStatus();
+			      
+			/*=====================================================================================================*/
 			MessageLogger.logInfo( UploadServiceClient.class, "invokeRoomInventory", " Status Code " + statusCode );
 			
 			 result  = getStatus( statusCode );
@@ -118,7 +151,7 @@ public class UploadServiceClient {
 		MessageLogger.logInfo( UploadServiceClient.class, "getStatus", " enter method getStatus " );
 		String status = null ;
 	
-		if(statusCode == 500){ // It will be 204.
+		if(statusCode == 204){ // It will be 204.
 			
 			status = "success";
 		}
@@ -164,13 +197,17 @@ public class UploadServiceClient {
 		Builder	invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 		JSONObject jsonObject = new JSONObject();
+		
 		jsonObject.put(UploadConfigurationReader.getProperty(IUploadConstants.KEYPR_LIST_KEY) , list );
 		jsonObject.put(UploadConfigurationReader.getProperty(IUploadConstants.KEYPR_SIZE_KEY)  , size );
+		
 		MessageLogger.logInfo( UploadServiceClient.class,  "makeJSONRequest" , " json object created " );
 		
 		response = invocationBuilder.post( Entity.entity( jsonObject , MediaType.APPLICATION_JSON_TYPE ), Response.class );
-		statusCode = response.getStatus();;
+		statusCode = response.getStatus();
+		
 		MessageLogger.logInfo( UploadServiceClient.class, "makeJSONRequest" , " Status Code for reservation data " + statusCode );
+		
 		return statusCode;
 
 	}
