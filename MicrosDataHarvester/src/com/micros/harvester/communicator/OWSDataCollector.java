@@ -1,7 +1,8 @@
 package com.micros.harvester.communicator;
 
 
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -25,10 +26,6 @@ import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.DataUtility;
 import com.micros.harvester.util.HarvesterConfigurationReader;
 import com.micros.harvester.util.TransIdGenerator;
-import com.micros.pms.bean.HotelReference;
-import com.micros.pms.bean.RoomFeature;
-import com.micros.pms.bean.RoomFeatureList;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.transport.MicrosMessageTransport;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -103,62 +100,67 @@ public class OWSDataCollector {
 		FetchRoomStatusRequest  objFetchRoomStatusRequest = null;
 		ResvAdvancedServiceStub objResvAdvancedServiceStub = null;
 		MicrosDAOImpl objMicrosDAOImpl = null;
-		
-		
+		final long hoursInMillis = 60L * 60L * 1000L;
+
+
 		try {
 
 			objResvAdvancedServiceStub = new ResvAdvancedServiceStub();
 			objMicrosMessageTransport = new MicrosMessageTransport();
 			objMicrosDAOImpl = new MicrosDAOImpl();
-			
+
 			objFetchRoomStatusRequest = new FetchRoomStatusRequest();
-			
+
 			// Create a OGHeader 
 			OGHeader objOGHeader = new OGHeader();
 			int currentTransactionId  = TransIdGenerator.getTransactionId();
 			objOGHeader.setTransactionID( String.valueOf(currentTransactionId) );
 			objOGHeader.setTimeStamp( DataUtility.getCalender() );
-			
-			 // Add origin and destination to the OGHeader
+
+			// Add origin and destination to the OGHeader
 			EndPoint origin = new EndPoint();
 			origin.setEntityID( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORIGIN_ID) );
 			origin.setSystemType( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
 			objOGHeader.setOrigin( origin);
-			
+
 			EndPoint destination = new EndPoint();
 			destination.setEntityID( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_DESTINATION_ID));
 			destination.setSystemType( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORI_SYSTEM_TYPE));
 			objOGHeader.setDestination(destination);
-			 
+
 			// Authentication Information
 			Authentication_type0 objAType0 = new Authentication_type0();
 			UserCredentials_type0 objUCredentials_type0 = new UserCredentials_type0();
 			objUCredentials_type0.setUserName( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_USER_NAME));
 			objUCredentials_type0.setUserPassword( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_USER_PASS));
 			objAType0.setUserCredentials(objUCredentials_type0);
-			
+
 			// Add Authentication to header
 			objOGHeader.setAuthentication(objAType0);
-			
+
 			// Set the date range 
-			objFetchRoomStatusRequest.setStartDate(null);
-			objFetchRoomStatusRequest.setEndDate(null);
+			Date currentDate = new Date(); 
+			Date updateDate = new Date(currentDate.getTime() +  (24L * hoursInMillis)); 
+
+			objFetchRoomStatusRequest.setStartDate(currentDate);
+			objFetchRoomStatusRequest.setEndDate(updateDate);
+
 			objFetchRoomStatusRequest.setRoomType("KING");
-			
+
 			OGHeaderE objHeaderE = new OGHeaderE();
 			objHeaderE.setOGHeader( objOGHeader );
-			
+
 			//FetchRoomStatusResponse objFStatusResponse = objResvAdvancedServiceStub.fetchRoomStatus(objFetchRoomStatusRequest, objHeaderE);
-		
+
 			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " FetchRoomStatusRequest Instace created " );
-			
+
 			XStream objStream = new XStream();
 
 			String xmlRequest = objStream.toXML( objFetchRoomStatusRequest); 
-			
+
 			objMicrosMessageTransport = new MicrosMessageTransport();
 			String pmsResponse = objMicrosMessageTransport.handlePMSRequest(xmlRequest);
-			
+
 			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " Xml Request Created " + xmlRequest );
 
 			XStream xstream = null;
@@ -240,7 +242,7 @@ public class OWSDataCollector {
 	 * @return
 	 */
 	private static boolean makeFetcCalendarRequest() {
-		
+
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Enter makeFetcCalendarRequest method " );
 
 		boolean isProcced = false;
@@ -259,9 +261,9 @@ public class OWSDataCollector {
 			objFetchCalendarRequest = new FetchCalendarRequest();
 
 			// sets the required attribute values to be true 
-			objFetchCalendarRequest.setInventoryMode(true);
-			objFetchCalendarRequest.setRoomTypeCode("ALL");
-			objFetchCalendarRequest.setRestrictedMode(false);
+			objFetchCalendarRequest.setInventoryMode( true );
+			objFetchCalendarRequest.setRoomTypeCode( HarvesterConfigurationReader.getProperty(IMicrosHarvester.ROOM_TYPE_CODE ));
+			objFetchCalendarRequest.setRestrictedMode( false );
 
 			// prepares the header of soap message.
 			objOGHeader = new com.micros.availability.AvailabilityServiceStub.OGHeader();
@@ -273,7 +275,7 @@ public class OWSDataCollector {
 			com.micros.availability.AvailabilityServiceStub.EndPoint originEndPoint = new com.micros.availability.AvailabilityServiceStub.EndPoint();
 			originEndPoint.setEntityID( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORIGIN_ID) );
 			originEndPoint.setSystemType( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
-			
+
 			com.micros.availability.AvailabilityServiceStub.EndPoint destEndPoint = new com.micros.availability.AvailabilityServiceStub.EndPoint();
 			destEndPoint.setEntityID( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_DESTINATION_ID) );
 			destEndPoint.setSystemType( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
@@ -284,15 +286,24 @@ public class OWSDataCollector {
 
 			// prepares FetchCalendar request
 			com.micros.availability.AvailabilityServiceStub.HotelReference objHotelReference = null;
+
 			objHotelReference = new com.micros.availability.AvailabilityServiceStub.HotelReference();
-			objHotelReference.setHotelCode( "WC" );
-			objHotelReference.setChainCode( "SEFIVE" );
+			objHotelReference.setHotelCode( HarvesterConfigurationReader.getProperty(IMicrosHarvester.HOTEL_CODE));
+			objHotelReference.setChainCode( HarvesterConfigurationReader.getProperty( IMicrosHarvester.CHAIN_CODE) );
 
 			//Creates date range.
 			TimeSpan objTimeSpan = new TimeSpan();
-			objTimeSpan.setStartDate( DataUtility.getCalender() );
+
+			Calendar currentCalendar = Calendar.getInstance();
+			currentCalendar.setTime(new Date()); 
+			currentCalendar.add(Calendar.HOUR_OF_DAY, 24); 
+			Date updatedDate = currentCalendar.getTime();
+			Calendar updatedCal = Calendar.getInstance();
+			updatedCal.setTime(updatedDate);
+
+			objTimeSpan.setStartDate( currentCalendar );
 			com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0  objTimeSpanAvail = new com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0();
-			objTimeSpanAvail.setEndDate( DataUtility.getCalender() );
+			objTimeSpanAvail.setEndDate( updatedCal );
 			objTimeSpan.setTimeSpanChoice_type0(objTimeSpanAvail);
 			objFetchCalendarRequest.setStayDateRange(objTimeSpan);
 			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " makeFetcCalendarRequest Instace created " );

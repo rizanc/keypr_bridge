@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 
 import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
-/*
+/**
  * This class will generate unique transaction identifier to be for tracking the keypr request.
+ * 
+ * @author vinayk2
+ *
  */
 public class TransIdGenerator {
 
@@ -30,6 +33,9 @@ public class TransIdGenerator {
 
 			Connection conn = MicrosDAOImpl.getConnection();
 			String query = " Select transId from IdGenerator ";
+			
+			DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," Select Query is " + query );
+			
 			PreparedStatement pStmt = conn.prepareStatement(query);
 
 			ResultSet rowsSet = pStmt.executeQuery();
@@ -54,7 +60,9 @@ public class TransIdGenerator {
 
 				int transId = transactionId + 1; 
 				query = " update IdGenerator set transId = ? ";
-
+				
+				DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," Update Query " + query );
+				
 				pStmt = conn.prepareStatement( query );
 				pStmt.setInt(1, transId);
 
