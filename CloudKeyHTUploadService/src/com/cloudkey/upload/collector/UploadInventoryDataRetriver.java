@@ -73,7 +73,7 @@ public class UploadInventoryDataRetriver {
 							"BETWEEN DATE_FORMAT('"+startTime+"','%Y-%m-%d %H:%i:%s') AND DATE_FORMAT('" + endTime + "','%Y-%m-%d %H:%i:%s'))"; 
 
 					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Query to fetch room_inventory_upload data " + inventoryQuery );
-					
+
 					roominventorySet = inventoryStmt.executeQuery( inventoryQuery );
 
 					//set the data in to RoomInventory object from result set 
@@ -94,18 +94,22 @@ public class UploadInventoryDataRetriver {
 
 							roominventorydetailsList.add(roominventoryDetails);
 						}
-					}
 
-					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Size of RoomInventory List " + roominventorydetailsList.size() );
+					int roomInventorySize = roominventorydetailsList.size();
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Size of RoomInventory List " + roomInventorySize );
 
+					if(roomInventorySize > 0){
+			
+				    MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Make call to invoke keypr web service " );
 					//invoke the web service client for call the webservice 
-					webResult = UploadServiceClient.invokeRoomInventory(roominventorydetailsList, roominventorydetailsList.size());
+					webResult = UploadServiceClient.invokeRoomInventory(roominventorydetailsList, roomInventorySize);
 					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Response of keypr web service " + webResult );
 
 					//on the basis of getting the response from the client webservice call the method to delete the data from upload queue
 					if (webResult.equalsIgnoreCase("success") ) {
-
-						UploadQueueDataRemover .removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
+						
+						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Web service result is success " );
+						UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 					}
 
 					//on failure  response from the web service to delete the data,resends request three times to client web service
@@ -113,24 +117,40 @@ public class UploadInventoryDataRetriver {
 					else {
 
 						int recall = 0;
-
+						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Web service result is failure " );
+						
 						for( int chance = 0; chance < 3; chance++ ) {
-
-							webResult = UploadServiceClient.invokeRoomInventory( roominventorydetailsList, roominventorydetailsList.size() );
+							
+							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Attemp for web service request " + chance );
+							
+							webResult = UploadServiceClient.invokeRoomInventory( roominventorydetailsList, roomInventorySize );
 
 							if( webResult.equalsIgnoreCase("success") ) {
-
-								UploadQueueDataRemover .removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
+								
+								MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Web service result is suceess on  " + chance + " attempt" );
+								UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 								recall++;
 								break;
 							}
 						}
 						if( recall == 0) {
-
+							
+							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Recall for fetchRoomInventoryDetailsOnStartup , fetchRoomInventoryDetails ");
 							fetchRoomInventoryDetailsOnStartup();
 							fetchRoomInventoryDetails();
 						}
 					}
+				}				
+				else{
+					
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Nothing to push since Room Detail List is Empty " );
+					
+				}
+					}
+				else{
+				
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " roominventorySet is null " );
+				}
 				}
 				catch ( Exception exc ) {
 
@@ -158,7 +178,7 @@ public class UploadInventoryDataRetriver {
 
 		boolean isRecordFound = false;
 		boolean isCallFetchRoomInventory = false ;
-		
+
 		RoomTypeInventory roominventoryDetails= null;
 		String sqlQuery = null;
 		Statement stmtOnStartUp = null;
@@ -181,7 +201,7 @@ public class UploadInventoryDataRetriver {
 			ResultSet roominventorySet = stmtOnStartUp.executeQuery( sqlQuery );
 
 			MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Query to fetch room_inventory_upload data " + sqlQuery);
-						
+
 			if( roominventorySet!=null ) { 
 
 				while( roominventorySet.next() ) {
@@ -189,7 +209,8 @@ public class UploadInventoryDataRetriver {
 					isRecordFound = true;
 					roominventoryDetails= new RoomTypeInventory();
 					//To add id .
-					roominventoryDetails.setId(Integer.parseInt(roominventorySet.getString("id")));
+					String id = roominventorySet.getString("id");
+					roominventoryDetails.setId(Integer.parseInt( id ));
 					RoomType objRoomType = new RoomType();
 					objRoomType.setCode(roominventorySet.getString("type_code"));
 					roominventoryDetails.setRoomType(objRoomType);
@@ -198,7 +219,7 @@ public class UploadInventoryDataRetriver {
 					roominventoryDetails.setRoomsAvailable(roominventorySet.getInt("total_rooms_available"));
 					/*roominventoryDetails.setDateCreated(roominventorySet.getTimestamp("rinventory.date_created"));
 					roominventoryDetails.setDateModified(roominventorySet.getTimestamp("rinventory.date_modified"));*/
-
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Data fetched from  table room_inventory_upload with id " + id);
 					roominventorydetailsList.add(roominventoryDetails);
 				}
 
@@ -213,36 +234,56 @@ public class UploadInventoryDataRetriver {
 					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " ResultSet is empty " );
 				}
 
+				int roomInventorySize = roominventorydetailsList.size();
+				
+				if(roomInventorySize > 0){
+					
+				MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Make call to invoke keypr web service " );	
+					
 				//invoke the webservice client for call the webservice 
 				webResult = UploadServiceClient.invokeRoomInventory(roominventorydetailsList, roominventorydetailsList.size());
 				//on the basis of getting the response from the client webservice call the method to deltsetlete the data from upload queue
 				if( webResult.equalsIgnoreCase("success") ) {
 
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Web service result is success " );
 					UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
 					isCallFetchRoomInventory = true;
 				}
 				else {
-					
+					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Web service result is failure " );	
 					boolean isSuccess = false;
 
 					for( int attempt = 0 ; attempt < 3 ; attempt++ )
 					{
+						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Attemp for web service request " + attempt );
+
 						webResult=UploadServiceClient.invokeRoomInventory(roominventorydetailsList, roominventorydetailsList.size());
 
 						if( webResult.equalsIgnoreCase("success") ) {
 
-							UploadQueueDataRemover .removeUploadedRoomInventoryDetailsData(roominventorydetailsList);
+							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Web service result is suceess on  " + attempt + " attempt" );
+							UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 							isCallFetchRoomInventory = true;
 							isSuccess = true;
 							break;
 						}
 					}
 					if( !isSuccess ) {
-						
-						MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomInventoryDetailsOnStartup ", " Call fetchRoomInventoryDetailsOnStartup Again" );
+
+						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Recall for fetchRoomInventoryDetailsOnStartup Details ");
 						fetchRoomInventoryDetailsOnStartup();
 					}
 				}
+			}		
+			else{
+				
+				MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Nothing to push since Room Detail List is Empty on Start Up " );
+				fetchRoomInventoryDetailsOnStartup();
+			} // End check for list size.
+			}
+			else{
+				
+				MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " roominventorySet is null " );
 			}
 		} catch (SQLException exc ) {
 
@@ -256,4 +297,4 @@ public class UploadInventoryDataRetriver {
 
 
 
-		}
+}
