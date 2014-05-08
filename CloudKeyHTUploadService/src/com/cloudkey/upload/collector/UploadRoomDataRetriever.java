@@ -14,9 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.dao.DataBaseHandler;
-import com.cloudkey.logger.MessageLogger;
 import com.cloudkey.upload.client.UploadServiceClient;
 import com.cloudkey.upload.constant.IUploadConstants;
+import com.cloudkey.upload.logger.UploadServiceLogger;
 import com.cloudkey.upload.remove.UploadQueueDataRemover;
 import com.cloudkey.upload.utility.UploadConfigurationReader;
 
@@ -47,7 +47,9 @@ public class UploadRoomDataRetriever {
 	 */
 	public void fetchRoomDetails() {
 
-		MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " enter method fetchRoomDetails " );
+		UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " enter method fetchRoomDetails " );
+
+		period = Integer.parseInt(UploadConfigurationReader.getProperty(IUploadConstants.ROOM_STATUS_THREAD_INTERVAL)) ;
 
 		final Runnable schedulerTask = new Runnable() {
 
@@ -71,70 +73,98 @@ public class UploadRoomDataRetriever {
 
 					//reference variable to store the object of ResultSet.
 					ResultSet roomdetailsSet = null;
+					boolean isResultSetEmpty = true;
 
-					String roomDetailQuery =  "SELECT rdetails.* FROM keypr_bridge_db.room_details as  rdetails"+ 
+					String roomDetailQuery =  "SELECT rdetails.* FROM keypr_bridge_db.room_details_upload as  rdetails"+ 
 							" WHERE (DATE_FORMAT(rdetails.date_modified,'%Y-%m-%d %H:%i:%s') BETWEEN DATE_FORMAT('"+startTime+"','%Y-%m-%d %H:%i:%s') AND" +
 							" DATE_FORMAT('" + endTime + "','%Y-%m-%d %H:%i:%s')) OR  (DATE_FORMAT(rdetails.date_created,'%Y-%m-%d %H:%i:%s') " +
 							"BETWEEN DATE_FORMAT('"+startTime+"','%Y-%m-%d %H:%i:%s') AND DATE_FORMAT('" + endTime + "','%Y-%m-%d %H:%i:%s'))"; 
-					
-					MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Query to fetch room_details data " + roomDetailQuery );
-					
+
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Query to fetch room_details data " + roomDetailQuery );
+
 					roomdetailsSet = roomDetailStmt.executeQuery( roomDetailQuery );
 
 					if( roomdetailsSet != null ) {
 
 						while( roomdetailsSet.next() ) {
 
+							isResultSetEmpty = false;
+
 							roomDetails = new RoomDetails();
-							roomDetails.setId( roomdetailsSet.getInt("rdetails.id") );
+
+							int id = roomdetailsSet.getInt("rdetails.id");
+							roomDetails.setId( id );
 							roomDetails.setRoomNumber( roomdetailsSet.getInt("rdetails.room_number") );
 							roomDetails.setFrontOfficeStatus( roomdetailsSet.getString("rdetails.front_office_status") );
 
 							roomDetails.setRoomStatus( roomdetailsSet.getString("rdetails.room_status") );
 							roomDetails.setHouseKeeepingStatus( roomdetailsSet.getString("rdetails.house_keeping_status") );
 
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Data fetched from  table room Details with id " + id);
 							roomdetailsList.add(roomDetails);
 						}
 
-						MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Size of room detail list is " + roomdetailsList.size()  );
+						if(isResultSetEmpty) {
 
-						// invoke the client of Keypr Web service to post the updated data of RoomDetails as a batch including its size , after being fetched from UploadQueue database 
-						webResponse = UploadServiceClient.invokeRoomdetails(roomdetailsList , roomdetailsList.size());
-						MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Response from keypr web service  " + webResponse );
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " No room details record exist in database.");
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Nothing to push since Room Detail List is Empty " );
 
-						/*check the response from Keypr Web service, if success,invoke the method to delete the data of RoomDetails id as unique identifier*/
-						if( webResponse.equalsIgnoreCase("success") ) {
-
-							UploadQueueDataRemover.removeUploadedRoomDetailsData( roomdetailsList );
 						}
+						else{
 
-						// on getting failure response from Keypr web service, send the request at most three times to invoke the keypr web service for posting the data of RoomDetails
-						else {
 
-							//variable to check the response from the KeyprWebservice
-							int recall = 0;
+							int roomListSize = roomdetailsList.size();
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Size of room detail list is " + roomListSize  );
 
-							for( int chance = 0; chance < 3; chance++ ) {
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Make call to invoke keypr web service " );
+							// invoke the client of Keypr Web service to post the updated data of RoomDetails as a batch including its size , after being fetched from UploadQueue database 
+							webResponse = UploadServiceClient.invokeRoomdetails(roomdetailsList , roomListSize);
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Response from keypr web service  " + webResponse );
 
-								webResponse = UploadServiceClient.invokeRoomdetails( roomdetailsList , roomdetailsList.size() );
+							/*check the response from Keypr Web service, if success,invoke the method to delete the data of RoomDetails id as unique identifier*/
+							if( webResponse.equalsIgnoreCase("success") ) {
 
-								if( webResponse.equalsIgnoreCase("success") ) {
+								UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Web service result is success " );
+								UploadQueueDataRemover.removeUploadedRoomDetailsData( roomdetailsList );
+							}
 
-									UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
-									recall++;
-									break;
+							// on getting failure response from Keypr web service, send the request at most three times to invoke the keypr web service for posting the data of RoomDetails
+							else {
+
+								//variable to check the response from the KeyprWebservice
+								int recall = 0;
+								UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Web service result is failure " );		
+								for( int chance = 0; chance < 3; chance++ ) {
+
+									UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Attemp for web service request " + chance );
+									webResponse = UploadServiceClient.invokeRoomdetails( roomdetailsList , roomListSize );
+
+									if( webResponse.equalsIgnoreCase("success") ) {
+
+										UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Web service result is suceess on  " + chance +" attempt" );
+										UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
+										recall++;
+										break;
+									}
+								}
+								if( recall == 0 ) {
+
+									UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " ReCall fetchRoomDetailsOnStartup , fetchRoomDetails " );			
+									fetchRoomDetailsOnStartup();
+									fetchRoomDetails();
 								}
 							}
-							if( recall == 0 ) {
-								fetchRoomDetailsOnStartup();
-								fetchRoomDetails();
-							}
+
 						}
+					}
+					else{
+
+						UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " roomdetailsSet is null " );
 					}
 				}
 				catch (Exception exc ) {
 
-					MessageLogger.logError( UploadRoomDataRetriever.class, " fetchRoomDetails ", exc );
+					UploadServiceLogger.logError( UploadRoomDataRetriever.class, " fetchRoomDetails ", exc );
 				}
 			}
 
@@ -144,7 +174,7 @@ public class UploadRoomDataRetriever {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> schedulerHandle = scheduler.scheduleAtFixedRate( schedulerTask, 10, period, TimeUnit.SECONDS );
 
-		MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " exit  method fetchRoomDetails " );
+		UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " exit  method fetchRoomDetails " );
 	}
 
 
@@ -153,106 +183,136 @@ public class UploadRoomDataRetriever {
 
 	public boolean fetchRoomDetailsOnStartup() {
 
-		MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " enter method fetchRoomDetailsOnStartup " );
+		UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " enter method fetchRoomDetailsOnStartup " );
 
 		boolean isCallFetchRoomStatus = false;
-		
+
 		ResultSet roomDetailSet = null; 
 		String sqlQuery = null;
 		Statement stmtOnStartUp = null;	
 		try {
 
 			if(connection == null) {
-	
+				
 				connection = DataBaseHandler.getConnection();
-				stmtOnStartUp = connection.createStatement();	
+				stmtOnStartUp = connection.createStatement();
+				UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " First time connection created " );
+				System.out.println("First tome connection created");
 			} 
 			else{
-				
+
+				UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Second time connection created " );
 				stmtOnStartUp = connection.createStatement();
 			}
 
 			sqlQuery = "select rdetails.* from  keypr_bridge_db.room_details_upload rdetails";
-			
-			MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Quert to fetch room_details_upload data " + sqlQuery );	
+
+			UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Query to fetch room_details_upload data " + sqlQuery );	
 			roomDetailSet= stmtOnStartUp.executeQuery( sqlQuery );
-			
+
 			List<RoomDetails> roomdetailsList = new ArrayList<RoomDetails>();
 			RoomDetails roomDetails= null;
+			boolean isResultSetEmpty = true;
 
 			// check the null value of ResultSet Object
 			if( roomDetailSet != null ) {
 
 				while( roomDetailSet.next()) {
 
+					isResultSetEmpty = false;
+
 					roomDetails= new RoomDetails();
-					roomDetails.setId( roomDetailSet.getInt("rdetails.id") );
+
+					int id = roomDetailSet.getInt("rdetails.id") ;
+					roomDetails.setId( id );
 					roomDetails.setRoomNumber( roomDetailSet.getInt("rdetails.room_number") );
 
 					roomDetails.setFrontOfficeStatus( roomDetailSet.getString("rdetails.front_office_status") );
 					roomDetails.setRoomStatus( roomDetailSet.getString("rdetails.room_status") );
 					roomDetails.setHouseKeeepingStatus( roomDetailSet.getString("rdetails.house_keeping_status") );
+
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Data fetched from  table room_details_upload with id " + id);
 					roomdetailsList.add(roomDetails);
 
 				}
 
-				MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Size of RoomDetail List  " + roomdetailsList.size() );
 
-				//invoke the client of Keypr Web Service to post the updated data of RoomDetails as a batch including its size after being fetched from UploadQueue database .
-				webResponse = UploadServiceClient.invokeRoomdetails(roomdetailsList, roomdetailsList.size());
-				MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Response from keypr web service " + webResponse );
+				if(isResultSetEmpty) {
 
-				try {
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " No room details record exist in database.");
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Nothing to push since Room Detail List is Empty on Start Up " );
+		
+					fetchRoomDetails();
+				}
+				else{
 
-					//check the response from Keypr Web Service, if success, invoke the method to delete the data of RoomDetails id as unique identifier
-					if( webResponse.equalsIgnoreCase( "success" ) ) {
+					int roomListSize = roomdetailsList.size();
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Size of RoomDetail List  " + roomListSize );
+		
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Make call to invoke keypr web service " );			
+					//invoke the client of Keypr Web Service to post the updated data of RoomDetails as a batch including its size after being fetched from UploadQueue database .
+					webResponse = UploadServiceClient.invokeRoomdetails( roomdetailsList, roomListSize );
+					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Response from keypr web service " + webResponse );
 
-						UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
-						isCallFetchRoomStatus = true;
-					}
+					try {
 
-					else {
-						MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Response from keypr web service failure " );
+						//check the response from Keypr Web Service, if success, invoke the method to delete the data of RoomDetails id as unique identifier
+						if( webResponse.equalsIgnoreCase( "success" ) ) {
 
-						boolean isSuccess = false;
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Web service result is success " );
+							UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
+							isCallFetchRoomStatus = true;
+						}
 
-						for( int attempt = 0 ; attempt < 3 ; attempt++ ) {
+						else {
 
-							webResponse = UploadServiceClient.invokeRoomdetails( roomdetailsList , roomdetailsList.size() );
+							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Response from keypr web service failure " );
+							boolean isSuccess = false;
 
-							if( webResponse.equalsIgnoreCase( "success" ) ) {
+							for( int attempt = 0 ; attempt < 3 ; attempt++ ) {
 
-								UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
-								isSuccess = true;
-								isCallFetchRoomStatus = true;
-								break;
+								UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Attemp for web service request " + attempt );
+								webResponse = UploadServiceClient.invokeRoomdetails( roomdetailsList , roomListSize );
+
+								if( webResponse.equalsIgnoreCase( "success" ) ) {
+
+									UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Web service result is suceess on  " + attempt +" attempt" );
+									UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
+									isSuccess = true;
+									isCallFetchRoomStatus = true;
+									break;
+								}
+							}
+							if( !isSuccess) {
+
+								UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " ReCall fetchRoomDetailsOnStartup " );
+								fetchRoomDetailsOnStartup();
+
 							}
 						}
-						if( !isSuccess) {
-							
-							MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " Call fetchRoomDetailsOnStartup Again" );
-							fetchRoomDetailsOnStartup();
-							
-						}
+
+
+					}
+					catch( Exception exc ) {
+
+						UploadServiceLogger.logError(UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup" , exc);
 					}
 
-
 				}
-				catch( Exception exc ) {
 
-					MessageLogger.logError(UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup" , exc);
-				}
+			}
+			else{
+
+				UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " roomDetailSet is null " );
 			}
 		} catch ( Exception exc ) {
 
-			MessageLogger.logError(UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup" , exc);
+			UploadServiceLogger.logError(UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup" , exc);
 		}
+		
+		UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " exit method fetchRoomDetailsOnStartup " );
 
-		MessageLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " exit method fetchRoomDetailsOnStartup " );
-		
 		return isCallFetchRoomStatus;
-		
-	
 
 	}
 

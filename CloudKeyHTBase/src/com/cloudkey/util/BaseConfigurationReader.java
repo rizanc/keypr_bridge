@@ -3,7 +3,7 @@ package com.cloudkey.util;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.cloudkey.logger.MessageLogger;
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to read the value of key from the properties file.
@@ -16,7 +16,7 @@ public class BaseConfigurationReader {
 
 	/* Reference variable to store properties. */
 	private static Properties prop =  null;
-
+	private final static Logger LOGGER = Logger.getLogger(BaseConfigurationReader.class); 
 	static {
 
 		try {
@@ -39,17 +39,21 @@ public class BaseConfigurationReader {
 			}
 			catch( IOException exc ){
 
-				MessageLogger.logError( BaseConfigurationReader.class, "static block", exc);
+				LOGGER.error(BaseConfigurationReader.class + " :: " +"static block" + " :: " +
+						exc);
+
 			}
 			catch( Exception exc ){
 
-				MessageLogger.logError( BaseConfigurationReader.class, "static block", exc);
+				LOGGER.error(BaseConfigurationReader.class + " :: " +"static block" + " :: " +
+						exc);
 			}
 
 		}
 		catch( Exception exc ){
 
-			MessageLogger.logError( BaseConfigurationReader.class, "static block", exc);
+			LOGGER.error(BaseConfigurationReader.class + " :: " +"static block" + " :: " +
+					exc);
 		}
 	}// end static block
 

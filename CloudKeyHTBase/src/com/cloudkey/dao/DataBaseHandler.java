@@ -3,8 +3,10 @@ package com.cloudkey.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+
 import com.cloudkey.constant.ICloudKeyConstants;
-import com.cloudkey.logger.MessageLogger;
 import com.cloudkey.util.BaseConfigurationReader;
 
 /**
@@ -15,8 +17,14 @@ import com.cloudkey.util.BaseConfigurationReader;
  */
 public class DataBaseHandler {
 	
-	@SuppressWarnings("rawtypes")
-	private static Class tag = "DataBaseHandler".getClass();
+	private final static Logger LOGGER = Logger.getLogger(DataBaseHandler.class); 
+		
+	static{
+		
+		DOMConfigurator.configure("res/log4j.xml");
+		
+	}
+	
 	
 	/**
 	 * This method reads the database configurations from properties file.
@@ -26,7 +34,12 @@ public class DataBaseHandler {
 	 */
 	public static Connection getConnection() {
 		
-		MessageLogger.logInfo( DataBaseHandler.class, "getConnection", "Enter getConnection method" );
+		System.out.println("In get Connection method...");
+		
+		LOGGER.info(DataBaseHandler.class + " :: " +"getConnection" + " :: " +
+				"Enter getConnection method");
+		
+
 		
 		/* Reference variables to store connection related operation data. */
 		Connection conn = null;
@@ -37,7 +50,7 @@ public class DataBaseHandler {
 		String dbDriverName = null;
 		
 		try {
-			
+		
 			userName = BaseConfigurationReader.getProperty( ICloudKeyConstants.DATABASE_USERNAME );
 			passWord = BaseConfigurationReader.getProperty( ICloudKeyConstants.DATABASE_PASSWORD );
 			dbUrl = BaseConfigurationReader.getProperty( ICloudKeyConstants.DATABASE_URL  );		
@@ -48,17 +61,25 @@ public class DataBaseHandler {
 			
 			conn = DriverManager.getConnection( dbUrl + dbName, userName, passWord );
 			
-			MessageLogger.logInfo( DataBaseHandler.class, "getConnection", "DataBase connection created" );
+	
+			LOGGER.info(DataBaseHandler.class + " :: " +"getConnection" + " :: " +
+					"DataBase connection created");
+
 			
 		}
 		catch( Exception exc ) {
-			
-			MessageLogger.logError(DataBaseHandler.class, "getConnection", exc);
+	
+			LOGGER.error(DataBaseHandler.class + " :: " +"getConnection" + " :: " +
+					exc);	
+
 		}
 		
-		MessageLogger.logInfo( DataBaseHandler.class, "getConnection", "Exit  getConnection method" );
+		LOGGER.info(DataBaseHandler.class + " :: " +"getConnection" + " :: " +
+				"Exit  getConnection method");
+
 		
 		return  conn;
 		
 	}
+		
 }
