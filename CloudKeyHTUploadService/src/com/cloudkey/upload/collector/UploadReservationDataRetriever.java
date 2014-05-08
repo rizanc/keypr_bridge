@@ -48,7 +48,7 @@ public class UploadReservationDataRetriever {
 	 */
 	public void fetchReservationDetails() {
 
-		MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " enter method fetchReservationDetails " );
+		MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " enter method fetchReservationDetails " );
 
 		final Runnable schedulerTask = new Runnable() {
 
@@ -71,7 +71,7 @@ public class UploadReservationDataRetriever {
 				try {
 
 					sqlQuery = "SELECT reservation.* FROM keypr_bridge_db.reservation_upload  AS reservation WHERE reservation.status = '"+status+"' ";
-					MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Query to fetch reservation_upload table data " + sqlQuery );
+					MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Query to fetch reservation_upload table data " + sqlQuery );
 					
 					if ( connection == null ) {
 
@@ -79,6 +79,7 @@ public class UploadReservationDataRetriever {
 						stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS);
 					}
 					else {
+						
 						stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS);
 					}
 
@@ -95,10 +96,10 @@ public class UploadReservationDataRetriever {
 							reservation = new Reservation();
 							//To add id .
 							int id = reservationSet.getInt( "id" ) ;	
-
+                            int pmsId = reservationSet.getInt( "pms_id" ); 
 							// To set the reservation data.
 							reservation.setId( id ) ;
-							reservation.setPmsId( String.valueOf(reservationSet.getInt( "pms_id" ))) ;
+							reservation.setPmsId( String.valueOf(pmsId)) ;
 							reservation.setStayLength(reservationSet.getInt( "stay_length" )) ;
 							reservation.setNumberOfGuests(reservationSet.getInt( "number_of_guest" ));
 							reservation.setFirstName(reservationSet.getString( "first_name" ));
@@ -121,11 +122,11 @@ public class UploadReservationDataRetriever {
 							//reservationSet.getString( "status" );
 							//			    reservation.setPropertyImage(reservationSet.getBlob( "property_image" ));
 
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Data fetched from reservation_upload table");
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Data fetched from reservation_upload table with id " + id +" , PMS ID " + pmsId);
 							// To select data from reservation room allocation table.
 							
 							sqlQuery = " SELECT resvalloc.* FROM keypr_bridge_db.reservation_room_allocation_upload AS resvalloc WHERE resvalloc.reservation_upload_id = ? ";
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Query to fetch reservation_room_allocation_upload data " + sqlQuery );
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Query to fetch reservation_room_allocation_upload data " + sqlQuery );
 							
 							stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS);
 							stmtOnStartUp.setInt(1, id);
@@ -144,10 +145,10 @@ public class UploadReservationDataRetriever {
 									roomType.setCode(resvRoomAllocationSet.getString("room_type_code"));
 									reservationRoomAllocation.setRoomType(roomType);
 									
-									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Data fetched from reservation_room_allocation_upload table");
+									MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Data fetched from reservation_room_allocation_upload table with upload id " + resvUploadId );
 									
 									sqlQuery = " SELECT resvrate.* FROM keypr_bridge_db.reservation_room_rates_upload AS resvrate WHERE resvrate.room_allocation_id = ? ";
-									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Query to fetch reservation_room_rates_upload data " + sqlQuery );
+									MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Query to fetch reservation_room_rates_upload data " + sqlQuery );
 									
 									stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS);
 									stmtOnStartUp.setInt(1, resvUploadId);
@@ -170,68 +171,70 @@ public class UploadReservationDataRetriever {
 									}
 									else{
 		
-										MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " ResultSet for Room Rate is null");
+										MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " ResultSet for Room Rate is null ");
 									}
 									
-									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Data fetched from reservation_room_rates_upload table");
+									MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Data fetched from reservation_room_rates_upload table ");
 									
 									reservationRoomAllocation.setRoomRateList( roomRateList );
-									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Room Rate List is added on resv room allocation ");	
+									MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Room Rate List is added on resv room allocation ");	
 									
 									roomAllocationList.add( reservationRoomAllocation );
-									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Resv Room Alloocation is added on room allocation list ");	
+									MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Resv Room Alloocation is added on room allocation list ");	
 
 								}
 							}
 							else{
 							
-								MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " ResultSet for Room Alloocation is null");
+								MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " ResultSet for Room Alloocation is null");
 							}
 							reservation.setReservationRoomAllocationList( roomAllocationList );
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Room Allocation List is added in to  reservation ");
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Room Allocation List is added in to  reservation ");
 							
 							reservationList.add( reservation );
 							
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Reservation is added in to  reservation list ");	
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Reservation is added in to  reservation list ");	
 
 						}
 
-						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " size of reservation list " + reservationList.size() );
+						int reservationListSize = reservationList.size();
+						
+						MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " size of reservation list " + reservationListSize );
 
 						if( isRecordFound ) {
 
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " ResultSet Contain Data " );
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " ResultSet Contain Data " );
 						}
 						else {
 
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " ResultSet is empty " );
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " ResultSet is empty " );
 						}
-
-						
-						
-						MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Make call to invoke keypr web service " );
-						
+							
+						if(reservationListSize > 0){
+							
+						MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Make call to invoke keypr web service " );	
+							
 						//invoke the web service client for call the web service 
-						webResult = UploadServiceClient.invokeReservation( reservationList, reservationList.size());
+						webResult = UploadServiceClient.invokeReservation( reservationList, reservationListSize);
 						//on the basis of getting the response from the client web service call the method to delete the data from upload queue
 						if( webResult.equalsIgnoreCase("success") ) {
 
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Web service result is success " );
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Web service result is success " );
 							UploadQueueDataRemover.removeReservationData( reservationList );
 						}
 						else {
 							
-							MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Web service result is failure " );
+							MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Web service result is failure " );
 							boolean isSuccess = false;
 
 							for( int attempt = 0 ; attempt < 3 ; attempt++ )
 							{
-								MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Attemp for web service request " + attempt );
-								webResult=UploadServiceClient.invokeReservation(reservationList, reservationList.size());
+								MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Attemp for web service request " + attempt );
+								webResult = UploadServiceClient.invokeReservation(reservationList, reservationListSize);
 
 								if( webResult.equalsIgnoreCase("success") ) {
 									
-									MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Web service result is suceess on  " + attempt +" attempt" );
+									MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Web service result is suceess on  " + attempt +" attempt" );
 									UploadQueueDataRemover.removeReservationData( reservationList );
 									isSuccess = true;
 									break;
@@ -239,18 +242,29 @@ public class UploadReservationDataRetriever {
 							}
 							if(!isSuccess) {
 								
-								MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " Recall for fetchRservation Details ");
+								MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Recall for fetchRservation Details ");
 								// to fetch the reservation details , and process again .
 								fetchReservationDetails();
 							}
 						}
 					}
+					else{
+						
+						MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Nothing to push since Room Detail List is Empty" );
+						
+					}
+					}
+					else{
+						
+						MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " reservationSet is null" );	
+					}
+					
 				} catch (SQLException exc ) {
 
-					MessageLogger.logError( UploadInventoryDataRetriver.class, "fetchReservationDetails", exc );
+					MessageLogger.logError( UploadReservationDataRetriever.class, "fetchReservationDetails", exc );
 				}
 
-				MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " exit fetchReservationDetails method " );
+				MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " exit fetchReservationDetails method " );
 			}
 
 		};	
@@ -260,7 +274,7 @@ public class UploadReservationDataRetriever {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> schedulerHandle = scheduler.scheduleAtFixedRate(schedulerTask, 10, period, TimeUnit.SECONDS);
 
-		MessageLogger.logInfo( UploadInventoryDataRetriver.class, " fetchReservationDetails ", " exit method fetchReservationDetails " );
+		MessageLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " exit method fetchReservationDetails " );
 	}
 
 }

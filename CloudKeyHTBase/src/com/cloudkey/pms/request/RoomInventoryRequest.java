@@ -1,11 +1,17 @@
 package com.cloudkey.pms.request;
 
+/**
+ * This class hold the information of room inventory request made by the guest.
+ * 
+ * @author vinayk2
+ *
+ */
 public class RoomInventoryRequest {
 	
 	//member variable
 	private String roomType;
 	
-	//getter setter methods
+	// Getter and Setter for each data member.
 	public String getRoomType() {
 		return roomType;
 	}

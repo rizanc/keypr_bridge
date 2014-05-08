@@ -16,7 +16,8 @@ import java.util.List;
 public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
-	private String id ;// PK of database.
+	private int id ;// PK of database.
+	
 	/* variable to store pms id. */
 	private String pmsId; // pms_id
 	/* variable to store the number of days to be stayed at hotel. */
@@ -48,7 +49,10 @@ public class Reservation {
 	private String checkinDate ;
 	/* variable to store check out data of the guest. */
 	private String checkoutDate ;
-
+	/* variable to store first name*/
+	private String firstName ;
+	/*Variable to store last name.*/
+	private String lastName ;
 	/* variable to store the guest special notes for the reservation. */
 	private String notes ;
 	private String loyaltyProgram;
@@ -66,7 +70,21 @@ public class Reservation {
 	/*
 	 * Getter and Setter for each data member.
 	 */
+	public String getFirstName() {
+		return firstName;
+	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	public List<ReservationOrders> getReservationOrderList() {
 		return reservationOrderList;
 	}
@@ -75,12 +93,12 @@ public class Reservation {
 		this.reservationOrderList = reservationOrderList;
 	}
 
-	public String getId() {
+	public int getId() {
 
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 
 		this.id = id;
 	}
@@ -314,15 +332,18 @@ public class Reservation {
 				+ ", reservationRoomAllocationList="
 				+ reservationRoomAllocationList + ", confirmationNumber="
 				+ confirmationNumber + ", checkinDate=" + checkinDate
-				+ ", checkoutDate=" + checkoutDate + ", notes=" + notes
+				+ ", checkoutDate=" + checkoutDate + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", notes=" + notes
 				+ ", loyaltyProgram=" + loyaltyProgram + ", propertyId="
 				+ propertyId + ", creditCardNumber=" + creditCardNumber
 				+ ", reservationSource=" + reservationSource
 				+ ", propertyImage=" + Arrays.toString(propertyImage)
 				+ ", affilateId=" + affilateId + ", message=" + message
-				+ ", reservationOrderList=" + reservationOrderList + "]";
+				+ ", dateModified=" + dateModified + ", dateCreated="
+				+ dateCreated + ", reservationOrderList="
+				+ reservationOrderList + "]";
 	}
-	
+
 	
 
 

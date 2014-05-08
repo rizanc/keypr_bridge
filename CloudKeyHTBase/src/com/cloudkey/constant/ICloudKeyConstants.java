@@ -15,6 +15,6 @@ public interface ICloudKeyConstants {
 	String PARSER_BEAN = "cloud.parser.bean";	
 	String EMPTY_STRING = "";
 	String DUMMY_NAME = "Jane Doe";
-
+     String HOTEL_CODE = "";
 
 }

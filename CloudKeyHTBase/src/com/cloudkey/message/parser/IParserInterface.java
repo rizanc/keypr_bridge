@@ -43,7 +43,7 @@ public interface IParserInterface {
 	 * @return CheckInResponse
 	 */
 	public CheckInResponse guestCheckIn(CheckInRequest checkInRequest);
-	
+
 	/**
 	 * This method makes assign Room request for the guest to the property management system.
 	 * It uses guest reservation data and roomtype for assign Room. It returns the reservation data with the status of room assignment.
@@ -84,6 +84,7 @@ public interface IParserInterface {
 	public UpdatePaymentResponse updatePayment(UpdatePaymentRequest upPaymentRequest);
 
 	/**
+	 * This method check the availability  of the room for a given interval of time.
 	 * 
 	 * @param availReq
 	 * @return GetAvailabilityResponse
