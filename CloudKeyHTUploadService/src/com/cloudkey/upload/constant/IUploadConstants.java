@@ -15,7 +15,10 @@ public interface IUploadConstants {
 	String KEYPR_ROOM_INVENTORY_URL = "keypr.room.inventory.service.url";
 	String KEYPR_ROOM_STATUS_URL = "keypr.room.status.service.url";
 	
-	String KEYPR_LIST_KEY = "keypr.list.key";
+	String KEYPR_ROOM_LIST_KEY = "keypr.room.list.key";
+	String KEYPR_ROOMIN_LIST_KEY = "keypr.roomin.list.key";
+	String KEYPR_RESV_LIST_KEY = "keypr.resv.list.key";
+	
 	String KEYPR_SIZE_KEY = "keyypr.size.key";
 	
 	String RESERVATON_STATUS_COMPL = "COMPLETED";

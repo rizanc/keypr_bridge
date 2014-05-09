@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.axis2.databinding.types.Language;
 
+import com.cloudkey.dao.DataBaseHandler;
+import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest;
+import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusRequest;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub;
@@ -46,7 +49,6 @@ import com.micros.ows.bean.ReservationRequestBase;
 import com.micros.ows.bean.ResultStatus;
 import com.micros.ows.bean.ResultStatusFlag;
 import com.micros.ows.bean.Room;
-import com.micros.ows.bean.RoomStatus;
 import com.micros.ows.bean.RoomType;
 import com.micros.ows.bean.UniqueID;
 import com.micros.ows.bean.UniqueIDList;
@@ -137,7 +139,6 @@ public class RequestProcessor extends HttpServlet {
 		PrintWriter out = null;
 
 		try {
-
 			out = response.getWriter();
 
 		} catch (IOException exc) {
@@ -196,25 +197,15 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " exit CheckOutRequest block " );
 		}
-
-		else if  (xmlRequestValue.contains( IMicrosOWSConstants.SEARCH_RESERVATION_REQUEST ) ) {
-
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost SearchReservationRequest block ", " enter SearchReservationRequest block " );
-
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost SearchReservationRequest block ", " exit SearchReservationRequest block " );
-
-		}
 		else if(xmlRequestValue.contains("com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest")){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ModifyBookingRequest block ", " enter ModifyBookingRequest block " );
 
 			xmlOWSResponse = getXMLModifyBookingResponse();
 
-
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ModifyBookingRequest block ", " exit ModifyBookingRequest block " );	
 
 		}
-
 		else if(xmlRequestValue.contains( IMicrosOWSConstants.GETFOLIO_REQUEST )){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost getFolio block.. ", " enter getFolio block " );
@@ -231,17 +222,17 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost assign Room  block ", " exit assign Room  block " );
 		}
-		 
+
 		else if (xmlRequestValue.contains("com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryRequest")){
 
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " enter FetchRoomStatusRequest block " );
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " enter FutureBookingSummaryRequest block " );
 
 			xmlOWSResponse = getXMLFutureBookingSummaryResponse();
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " FutureBookingSummaryRequest Xml Response "  );
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " exit FutureBookingSummaryRequest block " );
-			
+
 		}
 		else if (xmlRequestValue.contains("com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusRequest")){
 
@@ -252,9 +243,9 @@ public class RequestProcessor extends HttpServlet {
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " FetchRoomStatusRequest Xml Response "  );
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " exit FetchRoomStatusRequest block " );
-				
+
 		}
-		
+
 		else if (xmlRequestValue.contains("com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest")){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " enter FetchCalendarRequest block " );
@@ -264,57 +255,8 @@ public class RequestProcessor extends HttpServlet {
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " FetchCalendarRequest Xml Response "  );
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " exit FetchCalendarRequest block " );
-				
-		}
-		else if (xmlRequestValue.contains( "FetchRoomStatusRequest" ) ){ // For Harvester Service.
-			
-
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " enter FetchRoomStatusRequest block " );
-
-			com.micros.ows.bean.FetchRoomStatusRequest objFetchRoomStatusRequest = null;
-
-			objFetchRoomStatusRequest = new com.micros.ows.bean.FetchRoomStatusRequest();
-
-			objFetchRoomStatusRequest = (com.micros.ows.bean.FetchRoomStatusRequest)OWSUtility.covertToObject(objFetchRoomStatusRequest, xmlRequestValue);
-
-			objFactory = new ObjectFactory();
-
-			com.micros.ows.bean.FetchRoomStatusResponse objFetchRoomStatusResponse = objFactory.createFetchRoomStatusResponse();
-
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " FetchRoomStatusResponse Object created " );
-
-			RoomStatus objRoomStatus = objFactory.createRoomStatus();
-			objRoomStatus.setRoomStatus( "IP" );
-			objRoomStatus.setFrontOfficeStatus( "VAC" );
-			objRoomStatus.setOccupancyCondition( "2");
-			objRoomStatus.setHouseKeepingStatus( "Inspected");
-			objRoomStatus.setRoomNumber( "0508" );
-			objRoomStatus.setRoomType( "SUK" );
-
-			List<RoomStatus> objRoomStatu = objFetchRoomStatusResponse.getRoomStatus();
-			objRoomStatu.add(objRoomStatus);
-
-			// adding second room status details
-			objRoomStatus = objFactory.createRoomStatus();
-			objRoomStatus.setRoomStatus( "IP" );
-			objRoomStatus.setFrontOfficeStatus( "VAC" );
-			objRoomStatus.setOccupancyCondition( "3");
-			objRoomStatus.setHouseKeepingStatus( "Inspected");
-			objRoomStatus.setRoomNumber( "0509" );
-			objRoomStatus.setRoomType( "SUK" );
-
-			objRoomStatu.add(objRoomStatus);
-		
-			String fetchRoomStatusResponse = OWSUtility.convertToXML( objFetchRoomStatusResponse );
-
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " FetchRoomStatusResponse Xml Response " + fetchRoomStatusResponse );
-		
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " exit FetchRoomStatusRequest block " );
-			
-			return fetchRoomStatusResponse;
 
 		}
-	   		
 		else {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost invalid block ", " enter invalid request block " );
@@ -329,121 +271,121 @@ public class RequestProcessor extends HttpServlet {
 
 
 
-/**
- * This method returns the response having room inventory and Fetch calendar response status .
- * 
- * @return String
- */
+	/**
+	 * This method returns the response having room inventory and Fetch calendar response status .
+	 * 
+	 * @return String
+	 */
 	private String getXMLFetchCalendarResponse() {
-	
-        
-        OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendar Request block ", " enter FetchCalendar request block " );
-        String fetchCalendarResponse = null;
-        FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
-        
-        /*To convert the request xml into request object .*/
-        objFetchCalendarRequest = ( FetchCalendarRequest )OWSUtility.covertToStramObject( xmlRequestValue );
-     
-        FetchCalendarResponse objFetchCalendarResponse = new FetchCalendarResponse();
-        
-        /*To set the status on the fetch calendar response.*/
-        com.micros.availability.AvailabilityServiceStub.GDSResultStatus  objGResultStatus = new  com.micros.availability.AvailabilityServiceStub.GDSResultStatus();
-        objGResultStatus.setResultStatusFlag(AvailabilityServiceStub.ResultStatusFlag.SUCCESS);
-        objFetchCalendarResponse.setResult(objGResultStatus);
-        
-        Calendar objCalendar = new Calendar();
-        CalendarDailyDetail objCalendarDailyDetailArray[] = new CalendarDailyDetail[2];
-        
-        //Detail of first calendar day.
-        CalendarDailyDetail objCalendarDailyDetail = new CalendarDailyDetail();
-        RoomTypeInventoryList objRoomTypeInventoryList = new RoomTypeInventoryList();
-        RoomTypeInventory[] objRoomTypeInventoryArray = new com.micros.availability.AvailabilityServiceStub.RoomTypeInventory[2];
-      
-        //first details of first calendar day
-        RoomTypeInventory objRoomTypeInventory = new RoomTypeInventory();
-        objRoomTypeInventory.setRoomTypeCode( "KNG");
-        BigInteger objBigInteger = new BigInteger("25");
-        objRoomTypeInventory.setTotalRooms(objBigInteger);
-        objBigInteger = new BigInteger("20");
-        objRoomTypeInventory.setTotalAvailableRooms(objBigInteger);
-        objBigInteger = new BigInteger("0");
-        objRoomTypeInventory.setOverBookingLimit(objBigInteger);
-        objRoomTypeInventoryArray[0] = objRoomTypeInventory;
-        
-        //second details of first calendar day.
-        objRoomTypeInventory = new RoomTypeInventory();
-        objRoomTypeInventory.setRoomTypeCode("DELUXE");
-        objBigInteger = new BigInteger("5");
-        objRoomTypeInventory.setTotalRooms(objBigInteger);
-        objBigInteger = new BigInteger("0");
-        objRoomTypeInventory.setTotalAvailableRooms(objBigInteger);
-        objBigInteger = new BigInteger("0");
-        objRoomTypeInventory.setOverBookingLimit(objBigInteger);
-        objRoomTypeInventoryArray[1] = objRoomTypeInventory;
-              
-        objRoomTypeInventoryList.setRoomTypeInventory(objRoomTypeInventoryArray);
-        objCalendarDailyDetail.setOccupancy(objRoomTypeInventoryList);
-       
-        /*To get the start and end date from request parameters.*/
-        
-       com.micros.availability.AvailabilityServiceStub.TimeSpan objTimeSpan =  objFetchCalendarRequest.getStayDateRange();
-       java.util.Calendar objCalendar2 = objTimeSpan.getStartDate();
-       java.util.Calendar objCalendar3 = objTimeSpan.getTimeSpanChoice_type0().getEndDate();
-       
-        String strDate = OWSUtility.getDate(objCalendar2);
-        String endDate = OWSUtility.getDate(objCalendar3);
-        SimpleDateFormat objDateFormat = new SimpleDateFormat("MM-dd-yyyy");             
-       
-        Date objDate;
-        
+
+
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendar Request block ", " enter FetchCalendar request block " );
+		String fetchCalendarResponse = null;
+		FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
+
+		/*To convert the request xml into request object .*/
+		objFetchCalendarRequest = ( FetchCalendarRequest )OWSUtility.covertToStramObject( xmlRequestValue );
+
+		FetchCalendarResponse objFetchCalendarResponse = new FetchCalendarResponse();
+
+		/*To set the status on the fetch calendar response.*/
+		com.micros.availability.AvailabilityServiceStub.GDSResultStatus  objGResultStatus = new  com.micros.availability.AvailabilityServiceStub.GDSResultStatus();
+		objGResultStatus.setResultStatusFlag(AvailabilityServiceStub.ResultStatusFlag.SUCCESS);
+		objFetchCalendarResponse.setResult(objGResultStatus);
+
+		Calendar objCalendar = new Calendar();
+		CalendarDailyDetail objCalendarDailyDetailArray[] = new CalendarDailyDetail[2];
+
+		//Detail of first calendar day.
+		CalendarDailyDetail objCalendarDailyDetail = new CalendarDailyDetail();
+		RoomTypeInventoryList objRoomTypeInventoryList = new RoomTypeInventoryList();
+		RoomTypeInventory[] objRoomTypeInventoryArray = new com.micros.availability.AvailabilityServiceStub.RoomTypeInventory[2];
+
+		//first details of first calendar day
+		RoomTypeInventory objRoomTypeInventory = new RoomTypeInventory();
+		objRoomTypeInventory.setRoomTypeCode( "KNG");
+		BigInteger objBigInteger = new BigInteger("25");
+		objRoomTypeInventory.setTotalRooms(objBigInteger);
+		objBigInteger = new BigInteger("20");
+		objRoomTypeInventory.setTotalAvailableRooms(objBigInteger);
+		objBigInteger = new BigInteger("0");
+		objRoomTypeInventory.setOverBookingLimit(objBigInteger);
+		objRoomTypeInventoryArray[0] = objRoomTypeInventory;
+
+		//second details of first calendar day.
+		objRoomTypeInventory = new RoomTypeInventory();
+		objRoomTypeInventory.setRoomTypeCode("DELUXE");
+		objBigInteger = new BigInteger("5");
+		objRoomTypeInventory.setTotalRooms(objBigInteger);
+		objBigInteger = new BigInteger("0");
+		objRoomTypeInventory.setTotalAvailableRooms(objBigInteger);
+		objBigInteger = new BigInteger("0");
+		objRoomTypeInventory.setOverBookingLimit(objBigInteger);
+		objRoomTypeInventoryArray[1] = objRoomTypeInventory;
+
+		objRoomTypeInventoryList.setRoomTypeInventory(objRoomTypeInventoryArray);
+		objCalendarDailyDetail.setOccupancy(objRoomTypeInventoryList);
+
+		/*To get the start and end date from request parameters.*/
+
+		com.micros.availability.AvailabilityServiceStub.TimeSpan objTimeSpan =  objFetchCalendarRequest.getStayDateRange();
+		java.util.Calendar objCalendar2 = objTimeSpan.getStartDate();
+		java.util.Calendar objCalendar3 = objTimeSpan.getTimeSpanChoice_type0().getEndDate();
+
+		String strDate = OWSUtility.getDate(objCalendar2);
+		String endDate = OWSUtility.getDate(objCalendar3);
+		SimpleDateFormat objDateFormat = new SimpleDateFormat("MM-dd-yyyy");             
+
+		Date objDate;
+
 		try {
 			objDate = (Date)objDateFormat.parse(strDate);
 			objCalendarDailyDetail.setDate( objDate );
 		} catch (ParseException exc) {
-			
-			  OWSMessageLogger.logError( RequestProcessor.class, " doPost FetchCalendar Request block ", exc);
+
+			OWSMessageLogger.logError( RequestProcessor.class, " doPost FetchCalendar Request block ", exc);
 		}
-               
-        objCalendarDailyDetailArray[0] = objCalendarDailyDetail;
-        
-        // Detail of second Calendar Day.
-        objCalendarDailyDetail = new CalendarDailyDetail();
-        objRoomTypeInventoryList = new RoomTypeInventoryList();
-        objRoomTypeInventoryArray = new com.micros.availability.AvailabilityServiceStub.RoomTypeInventory[1];
-        
-        objRoomTypeInventory = new RoomTypeInventory();
-        objRoomTypeInventory.setRoomTypeCode("LUX");
-        objBigInteger = new BigInteger("40");
-        objRoomTypeInventory.setTotalRooms(objBigInteger);
-        objBigInteger = new BigInteger("22");
-        objRoomTypeInventory.setTotalAvailableRooms(objBigInteger);
-        objBigInteger = new BigInteger("20");
-        objRoomTypeInventory.setOverBookingLimit(objBigInteger);
-        objRoomTypeInventoryArray[0] = objRoomTypeInventory;
-        
-        objRoomTypeInventoryList.setRoomTypeInventory( objRoomTypeInventoryArray );
-        objCalendarDailyDetail.setOccupancy( objRoomTypeInventoryList );
-        
-        try {
+
+		objCalendarDailyDetailArray[0] = objCalendarDailyDetail;
+
+		// Detail of second Calendar Day.
+		objCalendarDailyDetail = new CalendarDailyDetail();
+		objRoomTypeInventoryList = new RoomTypeInventoryList();
+		objRoomTypeInventoryArray = new com.micros.availability.AvailabilityServiceStub.RoomTypeInventory[1];
+
+		objRoomTypeInventory = new RoomTypeInventory();
+		objRoomTypeInventory.setRoomTypeCode("LUX");
+		objBigInteger = new BigInteger("40");
+		objRoomTypeInventory.setTotalRooms(objBigInteger);
+		objBigInteger = new BigInteger("22");
+		objRoomTypeInventory.setTotalAvailableRooms(objBigInteger);
+		objBigInteger = new BigInteger("20");
+		objRoomTypeInventory.setOverBookingLimit(objBigInteger);
+		objRoomTypeInventoryArray[0] = objRoomTypeInventory;
+
+		objRoomTypeInventoryList.setRoomTypeInventory( objRoomTypeInventoryArray );
+		objCalendarDailyDetail.setOccupancy( objRoomTypeInventoryList );
+
+		try {
 			objDate = (Date)objDateFormat.parse(endDate);
 			objCalendarDailyDetail.setDate( objDate );
 		} catch (ParseException exc) {
-		    OWSMessageLogger.logError( RequestProcessor.class, " doPost FetchCalendar Request block ", exc);		
+			OWSMessageLogger.logError( RequestProcessor.class, " doPost FetchCalendar Request block ", exc);		
 		}
-             
-        objCalendarDailyDetailArray[1] = objCalendarDailyDetail;
-        
-        //added calendar day with the calendar
-        objCalendar.setCalendarDay(objCalendarDailyDetailArray);
-            
-        //added calendar with the response.
-        objFetchCalendarResponse.setCalendar(objCalendar);
-     
-        fetchCalendarResponse = OWSUtility.convertToStreamXML( objFetchCalendarResponse ); 
-        
-        OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendar Request block ", " exit FetchCalendar request block " +  fetchCalendarResponse);
 
-        return fetchCalendarResponse;
+		objCalendarDailyDetailArray[1] = objCalendarDailyDetail;
+
+		//added calendar day with the calendar
+		objCalendar.setCalendarDay(objCalendarDailyDetailArray);
+
+		//added calendar with the response.
+		objFetchCalendarResponse.setCalendar(objCalendar);
+
+		fetchCalendarResponse = OWSUtility.convertToStreamXML( objFetchCalendarResponse ); 
+
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendar Request block ", " exit FetchCalendar request block " +  fetchCalendarResponse);
+
+		return fetchCalendarResponse;
 	}
 
 
@@ -483,11 +425,13 @@ public class RequestProcessor extends HttpServlet {
 
 		com.micros.reservation.ReservationServiceStub.UniqueIDList objUniqueIDList = new com.micros.reservation.ReservationServiceStub.UniqueIDList();
 		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-		confirmationNumber = objFutureBookingSummaryRequest.getAdditionalFilters().getConfirmationNumber().getSource();
+
+		confirmationNumber = objFutureBookingSummaryRequest.getAdditionalFilters().getConfirmationNumber().getString();
 
 		/*To set the confirmation number.*/
 		if(confirmationNumber.length() >= 1){
-			objUniqueID.setString( objFutureBookingSummaryRequest.getAdditionalFilters().getConfirmationNumber().getSource() );
+
+			objUniqueID.setString( objFutureBookingSummaryRequest.getAdditionalFilters().getConfirmationNumber().getString());
 		}
 		else{
 			objUniqueID.setString( "400");
@@ -544,7 +488,7 @@ public class RequestProcessor extends HttpServlet {
 		if(confirmationNumber.length() == 0){
 
 			objHotelReservation_type0 = new HotelReservation_type0();
-		    objUniqueIDList = new com.micros.reservation.ReservationServiceStub.UniqueIDList();
+			objUniqueIDList = new com.micros.reservation.ReservationServiceStub.UniqueIDList();
 			objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
 
 			/*To set confirmation number.*/
@@ -644,7 +588,8 @@ public class RequestProcessor extends HttpServlet {
 		/*To set the confirmation number from the request.*/
 		com.micros.reservation.ReservationServiceStub.UniqueIDList objUniqueIDList = new com.micros.reservation.ReservationServiceStub.UniqueIDList();
 		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-		objUniqueID.setSource( objBookingRequest.getHotelReservation().getUniqueIDList().getUniqueID()[0].getSource() );
+
+		objUniqueID.setString( objBookingRequest.getHotelReservation().getUniqueIDList().getUniqueID()[0].getString() );
 		objUniqueID.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
 		objUniqueIDList.addUniqueID( objUniqueID );
 
@@ -887,13 +832,11 @@ public class RequestProcessor extends HttpServlet {
 		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID1 = new com.micros.reservation.ReservationServiceStub.UniqueID();
 		objUniqueID1.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL  );
 
-		objUniqueID1.setSource( "1234" );
+		objUniqueID1.setString("1234");
 
 		objIdList.addUniqueID( objUniqueID1 );
 		objProfile.setProfileIDs( objIdList );
-		/*	
-		 objMembership = new NameMembership();
-		objMembership.set*/
+
 		ProfileChoice_type0 objChoice_type02 = new ProfileChoice_type0();
 
 		/*To add the full name.*/
@@ -944,18 +887,7 @@ public class RequestProcessor extends HttpServlet {
 		objComment.setGuestViewable( true );
 		objComment.setCommentType( objBookingRequest.getHotelReservation().getRoomStays().getRoomStay()[0].getComments().getComment()[1].getCommentType() );
 
-
 		objCommentList.addComment( objComment);
-		//ParagraphChoice objParagraphChoice = new ParagraphChoice();
-
-		/*	Text objText2 = new Text();
-		Language objLanguage2 = new Language();
-		objLanguage2.setValue( objBookingRequest.getHotelReservation().getRoomStays().getRoomStay()[0].getComments().getComment()[0].getParagraphChoice()[0].getText().getLanguage());
-		objText2.setLanguage( objLanguage2 );
-		objParagraphChoice.setText( objText2 );
-		objComment.addParagraphChoice( objParagraphChoice );
-		objCommentList.addComment(objComment);
-		 */
 
 		/*To set the hotel reservation and dependent object into response.*/
 		objRoomStay.setComments( objCommentList );
@@ -999,17 +931,17 @@ public class RequestProcessor extends HttpServlet {
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLFetchRoomResponse  ", " Enter getXMLFetchRoomResponse method" );		
 		String fetchRoomStatusResponse = null;
 
-	
-    FetchRoomStatusRequest	objFetchRoomStatusRequest = new FetchRoomStatusRequest();
+
+		FetchRoomStatusRequest	objFetchRoomStatusRequest = new FetchRoomStatusRequest();
 
 		objFetchRoomStatusRequest = (FetchRoomStatusRequest)OWSUtility.covertToStramObject( xmlRequestValue );
 
 		FetchRoomStatusResponse objFetchRoomStatusResponse = new FetchRoomStatusResponse();
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " FetchRoomStatusResponse Object created " );
-		
+
 		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[] objRoomStatu =new com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[2] ;
-		
+
 		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus objRoomStatus = new 	com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus();
 		objRoomStatus.setRoomStatus( "IP" );
 		objRoomStatus.setFrontOfficeStatus( "VAC" );
@@ -1017,11 +949,11 @@ public class RequestProcessor extends HttpServlet {
 		objRoomStatus.setHouseKeepingStatus( "Inspected");
 		objRoomStatus.setRoomNumber( "1000" );
 		objRoomStatus.setRoomType( objFetchRoomStatusRequest.getRoomType() );
-		
+
 		objRoomStatu[0]= objRoomStatus;
 
 		// adding second room status details
-		 objRoomStatus = new 	com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus();
+		objRoomStatus = new 	com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus();
 		objRoomStatus.setRoomStatus( "IP" );
 		objRoomStatus.setFrontOfficeStatus( "VAC" );
 		objRoomStatus.setOccupancyCondition( "3");
@@ -1029,12 +961,12 @@ public class RequestProcessor extends HttpServlet {
 		objRoomStatus.setRoomNumber( "1001" );
 		objRoomStatus.setRoomType( objFetchRoomStatusRequest.getRoomType() );
 		objRoomStatu[1]= objRoomStatus;
-		
+
 		/*To add the room status arry on the response.*/
 		objFetchRoomStatusResponse.setRoomStatus( objRoomStatu );
 		/*To convert the response into xml.*/
 		fetchRoomStatusResponse = OWSUtility.convertToStreamXML( objFetchRoomStatusResponse );
-		
+
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLFetchRoomResponse  ", " Exit getXMLFetchRoomResponse method" );
 		return fetchRoomStatusResponse;
 	}
@@ -1056,17 +988,17 @@ public class RequestProcessor extends HttpServlet {
 		/* Covert xml into object.*/
 		objReuest = new AssignRoomRequest() ;	
 		objReuest = (AssignRoomRequest)OWSUtility.covertToStramObject( xmlRequestValue );
-		
+
 		/*To create the assign room response object.*/
-		 objAssignRoomResponse = new AssignRoomResponse();
-	
-		 /*To set the result status*/
-		 GDSResultStatus objResultStatus = new GDSResultStatus();
-		 objResultStatus.setResultStatusFlag(com.micros.reservation.ReservationServiceStub.ResultStatusFlag.SUCCESS);
-		 objAssignRoomResponse.setResult( objResultStatus );
-	
-		 /*To set the assigned  room number in to response.*/
-		 objAssignRoomResponse.setRoomNoAssigned( objReuest.getRoomNoRequested() );
+		objAssignRoomResponse = new AssignRoomResponse();
+
+		/*To set the result status*/
+		GDSResultStatus objResultStatus = new GDSResultStatus();
+		objResultStatus.setResultStatusFlag(com.micros.reservation.ReservationServiceStub.ResultStatusFlag.SUCCESS);
+		objAssignRoomResponse.setResult( objResultStatus );
+
+		/*To set the assigned  room number in to response.*/
+		objAssignRoomResponse.setRoomNoAssigned( objReuest.getRoomNoRequested() );
 
 		/* Covert response into xml format. */
 		xmlOWSResponse = OWSUtility.convertToStreamXML( objAssignRoomResponse );
@@ -1184,8 +1116,6 @@ public class RequestProcessor extends HttpServlet {
 		List< CreditCardSurcharge > objCardSurcharges = objBillHeader.getCreditCardSurcharges();
 		CreditCardSurcharge objCardSurcharge = objFactory.createCreditCardSurcharge();
 
-
-
 		objAmount = objFactory.createAmount();
 		objAmount.setValue( 10 );		
 		objCardSurcharge.setSurchargeAmount( objAmount  );
@@ -1276,64 +1206,72 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckInResponse ", " Enter getXMLCheckInResponse method " );
 
-		com.micros.ows.bean.CheckInResponse objCheckInResponse = null;
+		CheckInResponse objCheckInResponse = null;
+		CheckInRequest objCheckInRequest = null;
+		String creditCardNumber = null;
+		
+		/*Covert xml into object.*/		
+		objCheckInRequest = new CheckInRequest() ;	
+		objCheckInRequest = (CheckInRequest)OWSUtility.covertToStramObject( xmlRequestValue );
 
-		/*Covert xml into object.*/
-		com.micros.ows.bean.CheckInRequest	objCheckInRequest = new com.micros.ows.bean.CheckInRequest() ;	
-		objCheckInRequest = (com.micros.ows.bean.CheckInRequest)OWSUtility.covertToObject( objCheckInRequest , xmlRequestValue );
-
-		objFactory = new ObjectFactory();
-		objCheckInResponse = objFactory.createCheckInResponse();
+		objCheckInResponse = new CheckInResponse();
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckInResponse ", " check in response object created " );
 
-		CheckInComplete objCheckInComplete = objFactory.createCheckInComplete();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInComplete objCheckInComplete = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInComplete();
 
 		/* Retrieve confirmation number from check in request instance. */
-		ReservationRequestBase objBase = objCheckInRequest.getReservationRequest();
-		List<UniqueID> objIds = objBase.getReservationID().getUniqueID();
-		confirmationNumber =  objIds.get(0).getValue();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = objCheckInRequest.getReservationRequest();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] objIds = objRequestBase.getReservationID().getUniqueID();
+		confirmationNumber =  objIds[0].getString();
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckInResponse ", " confirmation number is " + confirmationNumber );
 
 		/* Sets confirmation number and its type. */
-		UniqueIDList objUniqueIDList = objFactory.createUniqueIDList();
-		List<UniqueID> objUniqueIDs = objUniqueIDList.getUniqueID();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		objUId.setString(confirmationNumber);
+		objUId.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 
-		UniqueID uID = objFactory.createUniqueID();
-		uID.setValue( confirmationNumber );
-		uID.setType( UniqueIDType.EXTERNAL );
-		objUniqueIDs.add( uID );
+		objUniqueIDList.addUniqueID(objUId);
 
 		/* Sets the unique identifier list with the reservation identifier. */
-		objCheckInComplete.setReservationID( objUniqueIDList );
+		objCheckInComplete.setReservationID(objUniqueIDList);
 
 		/* set credit card number. */
-		Profile objProfile =objFactory.createProfile();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.Profile objProfile = new com.micros.adv.reservation.ResvAdvancedServiceStub.Profile();
 
-		NameCreditCardList objCardList =  objFactory.createNameCreditCardList();
-		NameCreditCard objCard =  objFactory.createNameCreditCard();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCardList objCardList = new com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCardList();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard objCard = new  com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
 
-		if( objCheckInRequest.getCreditCardInfo().getCreditCard().getCardNumber() != null){
-		objCard.setCardNumber( OWSUtility.getCreditCardNumber( objCheckInRequest.getCreditCardInfo().getCreditCard().getCardNumber()) );
-		 }
+		/* Retrieve credit card number from check in request instance. */
+		 creditCardNumber = objCheckInRequest.getCreditCardInfo().getCreditCard().getCreditCardChoice_type0().getCardNumber();
+
+		if( creditCardNumber != null){
+
+			objCardChoice_type0.setCardNumber(creditCardNumber);
+		}
+		
+		objCard.setCreditCardChoice_type0(objCardChoice_type0);
+		
 		objCard.setSeriesCode( "SSDDD5555DF" );
-		objCard.setExpirationDate( OWSUtility.getGregorianDate() );
-
-		objCardList.getNameCreditCard().add( objCard );
+		objCardList.addNameCreditCard(objCard);
 		objProfile.setCreditCards( objCardList );
 
-		Customer objCustomer = objFactory.createCustomer();
-		PersonName objPersonName = objFactory.createPersonName();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0 objChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.Customer objCustomer = new com.micros.adv.reservation.ResvAdvancedServiceStub.Customer();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = new com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName();
 		objPersonName.setFirstName( "John" );
 		objPersonName.setLastName( "Peter" );
 		objCustomer.setPersonName(objPersonName);	
-
-		objProfile.setCustomer( objCustomer );
+		objChoice_type0.setCustomer(objCustomer);
+		
+		objProfile.setProfileChoice_type0( objChoice_type0 );
 		objCheckInResponse.setProfile( objProfile );
 
-		Room objRoom = objFactory.createRoom();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.Room objRoom = new com.micros.adv.reservation.ResvAdvancedServiceStub.Room();
 		objRoom.setRoomNumber( "783" );
-		RoomType objRoomType = objFactory.createRoomType();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomType objRoomType = new com.micros.adv.reservation.ResvAdvancedServiceStub.RoomType();
 		objRoomType.setRoomTypeCode( "POQB" );
 		objRoom.setRoomType( objRoomType );
 		objCheckInComplete.setRoom( objRoom );
@@ -1341,14 +1279,14 @@ public class RequestProcessor extends HttpServlet {
 		/* Sets the check in response with the instance of check in complete. */
 		objCheckInResponse.setCheckInComplete( objCheckInComplete );
 
-		ResultStatus objRStatus = objFactory.createResultStatus();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus objRStatus =new com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus();
 
 		/* Set the status to the check in response. */
-		objRStatus.setResultStatusFlag( ResultStatusFlag.SUCCESS );
+		objRStatus.setResultStatusFlag( com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
 		objCheckInResponse.setResult( objRStatus );
 
 		/* Covert response into xml format. */
-		xmlOWSResponse = OWSUtility.convertToXML( objCheckInResponse );
+		xmlOWSResponse = OWSUtility.convertToStreamXML( objCheckInResponse );
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckInResponse ", " Exit getXMLCheckInResponse method " );	
 

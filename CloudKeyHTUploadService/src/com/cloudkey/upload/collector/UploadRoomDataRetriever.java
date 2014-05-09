@@ -103,7 +103,7 @@ public class UploadRoomDataRetriever {
 							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Data fetched from  table room Details with id " + id);
 							roomdetailsList.add(roomDetails);
 						}
-
+						// If result set is empty.
 						if(isResultSetEmpty) {
 
 							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " No room details record exist in database.");
@@ -111,7 +111,6 @@ public class UploadRoomDataRetriever {
 
 						}
 						else{
-
 
 							int roomListSize = roomdetailsList.size();
 							UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Size of room detail list is " + roomListSize  );
@@ -132,22 +131,24 @@ public class UploadRoomDataRetriever {
 							else {
 
 								//variable to check the response from the KeyprWebservice
-								int recall = 0;
+								boolean isSuccess = false;
 								UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Web service result is failure " );		
-								for( int chance = 0; chance < 3; chance++ ) {
+								for( int attempt = 0; attempt < 3; attempt++ ) {
 
-									UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Attemp for web service request " + chance );
+									UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Attemp for web service request " + attempt );
 									webResponse = UploadServiceClient.invokeRoomdetails( roomdetailsList , roomListSize );
 
 									if( webResponse.equalsIgnoreCase("success") ) {
 
-										UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Web service result is suceess on  " + chance +" attempt" );
+										UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " Web service result is suceess on  " + attempt +" attempt" );
 										UploadQueueDataRemover.removeUploadedRoomDetailsData(roomdetailsList);
-										recall++;
+										isSuccess = true;
 										break;
 									}
 								}
-								if( recall == 0 ) {
+								
+								// if web service response is failure after 3 web service request attempts.
+								if( !isSuccess ) {
 
 									UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetails ", " ReCall fetchRoomDetailsOnStartup , fetchRoomDetails " );			
 									fetchRoomDetailsOnStartup();
@@ -236,7 +237,7 @@ public class UploadRoomDataRetriever {
 
 				}
 
-
+             // If result set is empty.
 				if(isResultSetEmpty) {
 
 					UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " No room details record exist in database.");
@@ -283,6 +284,8 @@ public class UploadRoomDataRetriever {
 									break;
 								}
 							}
+							
+							// if web service response is failure after 3 web service request attempts.
 							if( !isSuccess) {
 
 								UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " ReCall fetchRoomDetailsOnStartup " );

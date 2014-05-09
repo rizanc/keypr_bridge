@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.cloudkey.logger.MessageLogger;
+import com.cloudkey.upload.logger.UploadServiceLogger;
+
 
 /**
  * This class is used to read the value of key from the properties file.
@@ -36,17 +37,17 @@ public class UploadConfigurationReader {
 			}
 			catch( IOException exc ){
 
-				MessageLogger.logError( UploadConfigurationReader.class, "static block", exc );
+				UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc );
 			}
 			catch( Exception exc ){
 
-				MessageLogger.logError( UploadConfigurationReader.class, "static block", exc);
+				UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc);
 			}
 
 		}
 		catch( Exception exc ){
 
-			MessageLogger.logError( UploadConfigurationReader.class, "static block", exc);
+			UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc);
 		}
 	}// end static block
 

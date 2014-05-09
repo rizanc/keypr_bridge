@@ -9,7 +9,8 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 import com.cloudkey.dao.DataBaseHandler;
-import com.cloudkey.logger.MessageLogger;
+import com.cloudkey.upload.logger.UploadServiceLogger;
+
 
 /**
  * this class acts as a DataRemover from UploadQueue database on the basis of Id as unique identifier for RoomDetails and RoomInventory
@@ -28,9 +29,9 @@ public class UploadQueueDataRemover {
 	 */
 	public static void removeUploadedRoomDetailsData( List <RoomDetails> roomdetailsList ) {
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " enter removeUploadedRoomDetailsData method " );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " enter removeUploadedRoomDetailsData method " );
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail list passed  " + roomdetailsList.size() );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail list passed  " + roomdetailsList.size() );
 
 		try {
 
@@ -44,12 +45,12 @@ public class UploadQueueDataRemover {
 				roomDetails = roomdetailsItr.next();
 				sqlQuery = "DELETE FROM keypr_bridge_db.room_details_upload where id= " + roomDetails.getId();
 				
-				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " Query to delete room_details_upload data " + sqlQuery );
+				UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " Query to delete room_details_upload data " + sqlQuery );
 				int rowsDeleted = removeStmt.executeUpdate( sqlQuery );
 
 				if( rowsDeleted !=0 ) {
 
-					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail record deleted with id  " + roomDetails.getId() );
+					UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail record deleted with id  " + roomDetails.getId() );
 				}
 				
 				
@@ -57,10 +58,10 @@ public class UploadQueueDataRemover {
 
 		} catch( Exception exc ) {
 
-			MessageLogger.logError(UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", exc );	 
+			UploadServiceLogger.logError(UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", exc );	 
 		}
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " exit removeUploadedRoomDetailsData method " );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " exit removeUploadedRoomDetailsData method " );
 	}
 
 	/**
@@ -71,9 +72,9 @@ public class UploadQueueDataRemover {
 
 	public static void removeUploadedRoomInventoryDetailsData( List <RoomTypeInventory> roominventorydetailsList ) {
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " enter removeUploadedRoomInventoryDetailsData method " );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " enter removeUploadedRoomInventoryDetailsData method " );
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room roominventorydetails list passed  " + roominventorydetailsList.size() );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room roominventorydetails list passed  " + roominventorydetailsList.size() );
 		String sqlQuery = null;
 
 		try {
@@ -91,18 +92,18 @@ public class UploadQueueDataRemover {
 
 				if( rowsDeleted !=0 ) {
 
-					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room inventory record deleted with id  " + roominventoryDetails.getId() );
+					UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room inventory record deleted with id  " + roominventoryDetails.getId() );
 				}
 				
-				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " Query to delete room_inventory_upload data " + sqlQuery );
+				UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " Query to delete room_inventory_upload data " + sqlQuery );
 				
 			}
 		} catch( Exception exc ) {
 
-			MessageLogger.logError(UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", exc);
+			UploadServiceLogger.logError(UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", exc);
 		}
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " exit removeUploadedRoomInventoryDetailsData method " );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " exit removeUploadedRoomInventoryDetailsData method " );
 	}
 
 
@@ -115,8 +116,8 @@ public class UploadQueueDataRemover {
 
 	public static void removeReservationData( List <Reservation> reservationList ) {
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " enter removeReservationData method " );
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation list passed  " + reservationList.size() );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " enter removeReservationData method " );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation list passed  " + reservationList.size() );
 
 		Reservation reservation = null;
 		String sqlQuery = null;
@@ -136,18 +137,18 @@ public class UploadQueueDataRemover {
 
 				if( rowsDeleted !=0 ) {
 
-					MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation data deleted with id  " + reservation.getId() );
+					UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation data deleted with id  " + reservation.getId() );
 				}
 				
-				MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " Query to delete reservation_upload data " + sqlQuery );
+				UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " Query to delete reservation_upload data " + sqlQuery );
 			
 			}
 
 		}catch(Exception exc){
 
-			MessageLogger.logError(UploadQueueDataRemover.class, " removeReservationData ", exc);
+			UploadServiceLogger.logError(UploadQueueDataRemover.class, " removeReservationData ", exc);
 		}
 
-		MessageLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " exit removeReservationData method " );
+		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " exit removeReservationData method " );
 	}
 }
