@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="keyprClient" default="keyprClientDist" basedir=".">
+	 <description>
+		This Ant build file creates a war file of kepypr restful web service client.
+		It keep the generated war file in the webapps folder of tomcat , whose path is
+		read from tomcat_home environment variable.
+		</description>
+	
+	<!-- set global properties for this build -->
+	<property environment="env"/>
+	
+	<property name="keypr.client.src" location="./src" />
+	<property name="keypr.client.res" location="./res" />
+	<property name="keypr.client.web" location="./WebContent" />
+	<property name="keypr.client.web.webinf" location="${keypr.client.web}/WEB-INF" />
+	<property name="keypr.client.lib" location="${keypr.client.web.webinf}/lib" />
+	
+	<property name="keypr.client.web.classes" location="${keypr.client.web.webinf}/classes" />
+	<property name="tomcat.dir" location="${env.TOMCAT_HOME}"/>
+	<property name="tomcat.dir.webapps" location="${tomcat.dir}/webapps"/>
+	<property name="keypr.client.dist" location="./dist" />
+	
+	<target name="checkTomcatHome" unless="env.TOMCAT_HOME">
+		    <fail message="TOMCAT_HOME must be set!"/>
+	</target>
+	
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${keypr.client.dist}" />
+		<mkdir dir="${keypr.client.web.classes}" />
+
+	</target>
+	<!-- set the class path to compile -->
+	<path id='compile.classpath'>
+		<fileset dir='${keypr.client.lib}'>
+			<include name='*.jar' />
+		</fileset>
+		<fileset dir="${tomcat.dir}/bin">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${tomcat.dir}/lib" />
+		<fileset dir="${tomcat.dir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- To delete the folders created on initialization -->
+	<target name="clean" description="clean up">
+		<!-- Delete the ${keypr.client.build} and ${keypr.client.dist} directory 
+			trees -->
+		<delete dir="${keypr.client.web.classes}" />
+		<delete dir="${keypr.client.dist}" />
+	</target>
+
+	<!-- To compile source -->
+	<target name="compile" depends="init" description="compile the source ">
+		<!-- Compile the java code from ${keypr.client.src} into ${keypr.client.web.classes} -->
+		<javac includeantruntime="false" srcdir="${keypr.client.src}"
+			destdir="${keypr.client.web.classes}">
+			<classpath refid="compile.classpath" />
+		</javac>
+	</target>
+
+	<target name="keyprClientDist" depends="clean,init,compile"
+		description="generate the distribution">
+		<!-- Put everything in ${keypr.client.build} into the MicrosSimulator_OXI.jar 
+			file -->
+		<war destfile="${keypr.client.dist}/CloudKeyPrWebServiceClient.war" webxml="${keypr.client.web.webinf}/web.xml">
+			<fileset dir="${keypr.client.web}">
+				<include name="**/*.*" />
+			</fileset>
+			<lib dir="${keypr.client.lib}" />
+			<classes dir="${keypr.client.web.classes}" />
+		</war>
+		<!-- copy the MicrosSimulator_OXI.war to ${tomcat.dir.webapps} folder -->
+				<copy todir="${tomcat.dir.webapps}">
+					<fileset dir="${keypr.client.dist}">
+						<include name="*.war" />
+					</fileset>
+				</copy>
+		
+	</target>
+
+</project>
