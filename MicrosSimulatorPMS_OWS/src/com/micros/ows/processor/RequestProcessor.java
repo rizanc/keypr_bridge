@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.List;
+
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.axis2.databinding.types.Language;
 
-import com.cloudkey.dao.DataBaseHandler;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse;
+import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutRequest;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusRequest;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub;
@@ -27,32 +27,6 @@ import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
-import com.micros.ows.bean.Amount;
-import com.micros.ows.bean.BillHeader;
-import com.micros.ows.bean.BillItem;
-import com.micros.ows.bean.CheckInComplete;
-import com.micros.ows.bean.CheckOutComplete;
-import com.micros.ows.bean.CheckOutComplete.InvoiceNumber;
-import com.micros.ows.bean.CheckOutResponse;
-import com.micros.ows.bean.CreditCardSurcharge;
-import com.micros.ows.bean.Customer;
-import com.micros.ows.bean.InvoiceRequest;
-import com.micros.ows.bean.InvoiceResponse;
-import com.micros.ows.bean.NameAddress;
-import com.micros.ows.bean.NameCreditCard;
-import com.micros.ows.bean.NameCreditCardList;
-import com.micros.ows.bean.NativeName;
-import com.micros.ows.bean.ObjectFactory;
-import com.micros.ows.bean.PersonName;
-import com.micros.ows.bean.Profile;
-import com.micros.ows.bean.ReservationRequestBase;
-import com.micros.ows.bean.ResultStatus;
-import com.micros.ows.bean.ResultStatusFlag;
-import com.micros.ows.bean.Room;
-import com.micros.ows.bean.RoomType;
-import com.micros.ows.bean.UniqueID;
-import com.micros.ows.bean.UniqueIDList;
-import com.micros.ows.bean.UniqueIDType;
 import com.micros.ows.constants.IMicrosOWSConstants;
 import com.micros.ows.logger.OWSMessageLogger;
 import com.micros.ows.utility.OWSUtility;
@@ -128,8 +102,6 @@ public class RequestProcessor extends HttpServlet {
 	private String confirmationNumber = null;
 	private String xmlRequestValue = null;
 	private String xmlOWSResponse = null;
-
-	private ObjectFactory objFactory = null;
 	private Enumeration<String> parameterNames = null;
 
 	@Override
@@ -188,7 +160,6 @@ public class RequestProcessor extends HttpServlet {
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ", " exit check in block " );
 
 		}
-
 		else if ( xmlRequestValue.contains( IMicrosOWSConstants.CHECKOUT_REQUEST )) {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " enter CheckOutRequest block " );
@@ -223,7 +194,7 @@ public class RequestProcessor extends HttpServlet {
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost assign Room  block ", " exit assign Room  block " );
 		}
 
-		else if (xmlRequestValue.contains("com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryRequest")){
+		else if (xmlRequestValue.contains( IMicrosOWSConstants.FUTURE_BOOKING_SUMMARY_REQUEST )){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " enter FutureBookingSummaryRequest block " );
 
@@ -234,7 +205,7 @@ public class RequestProcessor extends HttpServlet {
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " exit FutureBookingSummaryRequest block " );
 
 		}
-		else if (xmlRequestValue.contains("com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusRequest")){
+		else if (xmlRequestValue.contains( IMicrosOWSConstants.FETCH_ROOM_STATUS_REQUEST )){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " enter FetchRoomStatusRequest block " );
 
@@ -246,7 +217,7 @@ public class RequestProcessor extends HttpServlet {
 
 		}
 
-		else if (xmlRequestValue.contains("com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest")){
+		else if (xmlRequestValue.contains( IMicrosOWSConstants.FETCH_CALENDAR_REQUEST )){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " enter FetchCalendarRequest block " );
 
@@ -1020,117 +991,109 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLFolioResponse ", " Enter getXMLFolioResponse method " );
 
-		InvoiceResponse objInvoiceResponse  = null;
-		InvoiceRequest	objReuest = null;
+		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objInvoiceResponse  = null;
+		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest	objReuest = null;
 		double subTotal = 0;
 
 		/* Covert xml into object. */
-		objReuest = new InvoiceRequest() ;	
-		objReuest = (InvoiceRequest)OWSUtility.covertToObject( objReuest , xmlRequestValue );
+		objReuest = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest() ;	
+		objReuest = (com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest)OWSUtility.covertToStramObject( xmlRequestValue );
 
-		objFactory = new ObjectFactory();
-		objInvoiceResponse = objFactory.createInvoiceResponse();
+		objInvoiceResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse();
 
 		/*To set the result status.*/
-		ResultStatus objResultStatus = objFactory.createResultStatus();
-		objResultStatus.setResultStatusFlag( ResultStatusFlag.SUCCESS );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus objResultStatus = new com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus();
+		objResultStatus.setResultStatusFlag( com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
 
 		/*To set the bill header with all values in bill header list.*/
-		List<BillHeader> objBillHeaders = objInvoiceResponse.getInvoice();
-		BillHeader objBillHeader = objFactory.createBillHeader();
-
-		NameAddress objNameAddress = objFactory.createNameAddress();
-		objNameAddress.setAddressType( "address change" );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.BillHeader objBillHeader = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillHeader();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.NameAddress objNameAddress = new  com.micros.adv.reservation.ResvAdvancedServiceStub.NameAddress();
+		objNameAddress.setAddressType( "2640 Golden Gate Parkway" );
 		objNameAddress.setCountryCode( "IN" );
 		objBillHeader.setAddress( objNameAddress );
 
-		NativeName objNativeName = objFactory.createNativeName();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.NativeName objNativeName = new com.micros.adv.reservation.ResvAdvancedServiceStub.NativeName();
 		objNativeName.setFirstName( "tammy" );
 		objNativeName.setLastName( "konopik" );;
 		objBillHeader.setName(objNativeName);
 
 		/* Sets confirmation number and its type.*/
-		UniqueIDList objUniqueIDList = objFactory.createUniqueIDList();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
 
-		ReservationRequestBase objBase = objReuest.getReservationRequest();
-		List<UniqueID> objIds = objBase.getReservationID().getUniqueID();
-		confirmationNumber =  objIds.get(0).getValue();			
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objBase =objReuest.getReservationRequest();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] objIds = objBase.getReservationID().getUniqueID();
+		confirmationNumber =  objIds[0].getString();			
 
 		objIds = objUniqueIDList.getUniqueID();
 
-		UniqueID uID = objFactory.createUniqueID();
-		uID.setValue( confirmationNumber );
-		uID.setType( UniqueIDType.EXTERNAL );
-		uID.setSource( "PMS_ID" );
-		objIds.add( uID );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		objUniqueID.setString( confirmationNumber );
+		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
+		objUniqueID.setSource( "PMS_ID" );
+
+		objUniqueIDList.addUniqueID(objUniqueID);
 
 		objBillHeader.setProfileIDs( objUniqueIDList );
 
-		uID = objFactory.createUniqueID();
-		uID.setValue( "2323" );
-		uID.setSource( "OPERA" );
-		uID.setType( UniqueIDType.INTERNAL );
+		objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		objUniqueID.setString( "2323" );
+		objUniqueID.setSource( "OPERA" );
+		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.INTERNAL );
 
-		objBillHeader.setBillNumber( uID );
+		objBillHeader.setBillNumber( objUniqueID );
 
 		/*set bill items into bill header.*/
-		List<BillItem> objBillItems = objBillHeader.getBillItems();
-
-		BillItem objBillItem = objFactory.createBillItem();
-		Amount objAmount = objFactory.createAmount();
-		objAmount.setValue( 110 );
-		objBillItem.setAmount( objAmount );
-		objBillItem.setVatCode( uID );
-		objBillItem.setDate( OWSUtility.getGregorianDate() );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem objBillItem = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem ();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.Amount objAmount = new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount.set_double(40);
+		objBillItem.setAmount(objAmount);
+		objBillItem.setVatCode( objUniqueID );
+		objBillItem.setDate(new Date());
 		objBillItem.setDescription( "Transient Room Revenue" );
-		objBillItems.add( objBillItem );
-		subTotal = objAmount.getValue() + subTotal;
 
-		objBillItems = objBillHeader.getBillItems();
+		subTotal = objAmount.get_double() + subTotal;
 
-		objBillItem = objFactory.createBillItem();
-		objAmount = objFactory.createAmount();
-		objAmount.setValue( 120 );
+		objBillHeader.addBillItems( objBillItem );
+		objBillItem = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem ();
+		objAmount =  new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount.set_double(100);
 		objBillItem.setAmount( objAmount );
-		objBillItem.setVatCode(uID );
-		objBillItem.setDate( OWSUtility.getGregorianDate() );
+		objBillItem.setVatCode(objUniqueID );
+		objBillItem.setDate( new Date() );
 		objBillItem.setDescription( "Lobby Bar Beverage" );
-		objBillItems.add( objBillItem );
-		subTotal = objAmount.getValue() + subTotal;
 
-		objBillItems = objBillHeader.getBillItems();
+		objBillHeader.addBillItems( objBillItem );
+		subTotal = objAmount.get_double() + subTotal;
 
-		objBillItem = objFactory.createBillItem();
-		objAmount = objFactory.createAmount();
-		objAmount.setValue( 130 );
+		objBillItem = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem ();
+		objAmount =  new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount.set_double(130);
 		objBillItem.setAmount( objAmount );
-		objBillItem.setVatCode( uID );
-		objBillItem.setDate( OWSUtility.getGregorianDate() );
+		objBillItem.setVatCode( objUniqueID );
+		objBillItem.setDate( new Date());
 		objBillItem.setDescription( "Lobby Bar Food" );
-		objBillItems.add( objBillItem );
-		subTotal = objAmount.getValue() + subTotal;
-
-		objBillHeaders.add( objBillHeader );
+		
+		objBillHeader.addBillItems( objBillItem );
+		subTotal = objAmount.get_double() + subTotal;
 
 		/*set the surcharge and total amount in credit card surcharge list.*/
-		List< CreditCardSurcharge > objCardSurcharges = objBillHeader.getCreditCardSurcharges();
-		CreditCardSurcharge objCardSurcharge = objFactory.createCreditCardSurcharge();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardSurcharge objCardSurcharge = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardSurcharge();
 
-		objAmount = objFactory.createAmount();
-		objAmount.setValue( 10 );		
+		objAmount = new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount.set_double( 10 );		
 		objCardSurcharge.setSurchargeAmount( objAmount  );
-		subTotal = objAmount.getValue() + subTotal;
+		subTotal = objAmount.get_double() + subTotal;
 
-		objAmount = objFactory.createAmount();
-		objAmount.setValue( subTotal );
+		objAmount = new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount.set_double( subTotal );		
 		objCardSurcharge.setTotalBillAmount( objAmount );
+		objBillHeader.addCreditCardSurcharges( objCardSurcharge );
 
-		objCardSurcharges.add( objCardSurcharge );
-
+		objInvoiceResponse.addInvoice(objBillHeader);	
 		objInvoiceResponse.setResult(objResultStatus);
 
 		/* Covert response into xml format. */
-		xmlOWSResponse = OWSUtility.convertToXML( objInvoiceResponse );
+		xmlOWSResponse = OWSUtility.convertToStreamXML( objInvoiceResponse );
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLFolioResponse ", " Exit getXMLFolioResponse method " );
 
 		return xmlOWSResponse;
@@ -1148,47 +1111,61 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckOutResponse ", " Enter getXMLCheckOutResponse method" );
 
-		CheckOutResponse objCheckOutResponse  = null;
-		com.micros.ows.bean.CheckOutRequest	objReuest = null;
+		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse objCheckOutResponse  = null;
+		CheckOutRequest	objCheckOutRequest = null;
 
 		/* Covert xml into object. */
-		objReuest = new com.micros.ows.bean.CheckOutRequest() ;	
-		objReuest = (com.micros.ows.bean.CheckOutRequest)OWSUtility.covertToObject( objReuest , xmlRequestValue );
+		objCheckOutRequest = new CheckOutRequest() ;	
+		objCheckOutRequest =(CheckOutRequest) OWSUtility.covertToStramObject(xmlRequestValue);
 
-		objFactory = new ObjectFactory();
-		objCheckOutResponse = objFactory.createCheckOutResponse();
+		objCheckOutResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse();
 
-		ResultStatus objResultStatus = objFactory.createResultStatus();
-		objResultStatus.setResultStatusFlag( ResultStatusFlag.SUCCESS );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus objResultStatus = new com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus();
+		objResultStatus.setResultStatusFlag( com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
 
-		/* Retrieve confirmation number from check in request instance. */
-		ReservationRequestBase objBase = objReuest.getReservationRequest();
-		List<UniqueID> objIds = objBase.getReservationID().getUniqueID();
-		confirmationNumber =  objIds.get(0).getValue();
+		/* Retrieve confirmation number from check out request instance. */
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = objCheckOutRequest.getReservationRequest();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] objIds = objRequestBase.getReservationID().getUniqueID();
+		confirmationNumber =  objIds[0].getString();
 
-		/* Sets confirmation number and its type.*/
-		UniqueIDList objUniqueIDList = objFactory.createUniqueIDList();
-		List<UniqueID> objUniqueIDs = objUniqueIDList.getUniqueID();
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckOutResponse ", " confirmation number is " + confirmationNumber );
 
-		UniqueID uID = objFactory.createUniqueID();
-		uID.setValue( confirmationNumber );
-		uID.setType( UniqueIDType.INTERNAL );
-		objUniqueIDs.add( uID );
+		/* Sets confirmation number and its type. */
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		objUId.setString(confirmationNumber);
+		objUId.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
+
+		objUniqueIDList.addUniqueID(objUId);
 
 		/* Sets the unique identifier list with the reservation identifier. */
-		CheckOutComplete objCheckOutComplete = objFactory.createCheckOutComplete();
-		objCheckOutComplete.setReservationID( objUniqueIDList );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutComplete objCheckOutComplete = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutComplete();	
+		objCheckOutComplete.setReservationID(objUniqueIDList);
 
-		List<InvoiceNumber> objInvoiceNumbers = objCheckOutComplete.getInvoiceNumber();
+		/*	List<InvoiceNumber> objInvoiceNumbers = objCheckOutComplete.getInvoiceNumber();
 		InvoiceNumber objInvoiceNumber = new InvoiceNumber();
 		objInvoiceNumber.setValue( "647" );
-		objInvoiceNumbers.add( objInvoiceNumber );
+		objInvoiceNumbers.add( objInvoiceNumber );*/
+
+		/*To set the full name.*/
+		com.micros.adv.reservation.ResvAdvancedServiceStub.Profile objProfile = new com.micros.adv.reservation.ResvAdvancedServiceStub.Profile();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0 objChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.Customer objCustomer = new com.micros.adv.reservation.ResvAdvancedServiceStub.Customer();
+		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = new com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName();
+		objPersonName.setFirstName( "Frank" );
+		objPersonName.setLastName( "Peter" );
+		objCustomer.setPersonName(objPersonName);	
+		objChoice_type0.setCustomer(objCustomer);
+
+		objProfile.setProfileChoice_type0( objChoice_type0 );
+		objCheckOutResponse.setProfile( objProfile );
+
 
 		objCheckOutResponse.setResult(objResultStatus);
 		objCheckOutResponse.setCheckOutComplete(objCheckOutComplete);	
 
 		/* Covert response into xml format. */
-		xmlOWSResponse = OWSUtility.convertToXML( objCheckOutResponse );
+		xmlOWSResponse = OWSUtility.convertToStreamXML( objCheckOutResponse );
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckOutResponse ", " Exit getXMLCheckOutResponse method " );
 
 		return xmlOWSResponse;
@@ -1209,7 +1186,7 @@ public class RequestProcessor extends HttpServlet {
 		CheckInResponse objCheckInResponse = null;
 		CheckInRequest objCheckInRequest = null;
 		String creditCardNumber = null;
-		
+
 		/*Covert xml into object.*/		
 		objCheckInRequest = new CheckInRequest() ;	
 		objCheckInRequest = (CheckInRequest)OWSUtility.covertToStramObject( xmlRequestValue );
@@ -1245,15 +1222,15 @@ public class RequestProcessor extends HttpServlet {
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
 
 		/* Retrieve credit card number from check in request instance. */
-		 creditCardNumber = objCheckInRequest.getCreditCardInfo().getCreditCard().getCreditCardChoice_type0().getCardNumber();
+		creditCardNumber = objCheckInRequest.getCreditCardInfo().getCreditCard().getCreditCardChoice_type0().getCardNumber();
 
 		if( creditCardNumber != null){
 
 			objCardChoice_type0.setCardNumber(creditCardNumber);
 		}
-		
+
 		objCard.setCreditCardChoice_type0(objCardChoice_type0);
-		
+
 		objCard.setSeriesCode( "SSDDD5555DF" );
 		objCardList.addNameCreditCard(objCard);
 		objProfile.setCreditCards( objCardList );
@@ -1265,14 +1242,16 @@ public class RequestProcessor extends HttpServlet {
 		objPersonName.setLastName( "Peter" );
 		objCustomer.setPersonName(objPersonName);	
 		objChoice_type0.setCustomer(objCustomer);
-		
+
 		objProfile.setProfileChoice_type0( objChoice_type0 );
 		objCheckInResponse.setProfile( objProfile );
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.Room objRoom = new com.micros.adv.reservation.ResvAdvancedServiceStub.Room();
 		objRoom.setRoomNumber( "783" );
+
 		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomType objRoomType = new com.micros.adv.reservation.ResvAdvancedServiceStub.RoomType();
 		objRoomType.setRoomTypeCode( "POQB" );
+		objRoomType.setFeature("KING - SIZE");
 		objRoom.setRoomType( objRoomType );
 		objCheckInComplete.setRoom( objRoom );
 
