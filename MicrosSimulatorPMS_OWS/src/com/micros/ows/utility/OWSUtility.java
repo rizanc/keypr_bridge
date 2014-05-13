@@ -1,18 +1,12 @@
 package com.micros.ows.utility;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -70,80 +64,6 @@ public class OWSUtility {
 		  return sb.toString();
 	  }
 	
-	
-	
-	
-	/**
-	 * This method returns xml representation of request object.
-	 * 
-	 * @param object
-	 * @return 
-	 */
-
-	public static String convertToXML(Object object){
-
-		OWSMessageLogger.logInfo(tag," convertToXML ", " Enter in convertToXML method. ");
-
-		byte requestArray[] = null;
-		String xmlStr = null;
-		try {
-
-			ByteArrayOutputStream bOutput = new ByteArrayOutputStream();	  
-
-			JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			jaxbMarshaller.marshal(object, bOutput);
-			requestArray = bOutput.toByteArray();
-
-		} catch ( JAXBException exc ) {
-
-			OWSMessageLogger.logError(tag , "convertToXML", exc);
-		}
-
-		xmlStr = new String(requestArray);
-
-		OWSMessageLogger.logInfo(tag," convertToXML ", " xml format of object. " + xmlStr );
-		OWSMessageLogger.logInfo(tag," convertToXML ", " Exit convertToXML method. ");
-
-		return xmlStr;
-
-	}
-
-
-	/**
-	 * This method returns object representation of request object.
-	 *  
-	 * @param object
-	 * @param xml
-	 * @return Object
-	 */
-	public static Object covertToObject(Object object , String xml){
-
-		OWSMessageLogger.logInfo(tag," covertToObject ", " Enter in covertToObject method. ");
-		Object	objResponse = null ;
-
-		try {
-
-			JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-			StringReader reader = new StringReader(xml);
-
-			objResponse = jaxbUnmarshaller.unmarshal(reader);
-
-		} catch (JAXBException exc) {
-
-			OWSMessageLogger.logError(tag , " covertToObject ", exc);
-		}
-
-		OWSMessageLogger.logInfo(tag , " covertToObject ", " Xml Coverted object. " + objResponse );
-		OWSMessageLogger.logInfo(tag , " covertToObject ", " Exit covertToObject method. ");
-
-		return objResponse;
-	}
 
 
 	/**

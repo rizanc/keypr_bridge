@@ -8,12 +8,12 @@ package com.micros.ows.constants;
 public interface IMicrosOWSConstants {
 
 	String CHECKIN_REQUEST = "com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckInRequest";
-	String CHECKOUT_REQUEST = "CheckOutRequest";
-	String SEARCH_RESERVATION_REQUEST = "SearchReservationRequest";
-	String GETFOLIO_REQUEST = "Invoice";
-	String ASSIGN_ROOM_REQUEST = "AssignRoomRequest";
-	String FETCH_ROOM_STATUS_REQUEST ="FetchRoomStatusRequest";
+	String CHECKOUT_REQUEST = "com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckOutRequest";
+	String GETFOLIO_REQUEST = "com.micros.adv.reservation.ResvAdvancedServiceStub_-Invoice";
+	String ASSIGN_ROOM_REQUEST = "com.micros.reservation.ReservationServiceStub_-AssignRoomRequest";
+	String FETCH_ROOM_STATUS_REQUEST ="com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusRequest";
 	String FUTURE_BOOKING_SUMMARY_REQUEST = "com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryRequest";
 	String MODIFY_BOOKING_REQUEST = "com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest";
+	String FETCH_CALENDAR_REQUEST = "com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest";
 	
 }

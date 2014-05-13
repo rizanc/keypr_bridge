@@ -854,14 +854,16 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String affiliateId = objReservation.getAffilateId();
 		String message = objReservation.getMessage();
 
+		String reservationAction = objReservation.getReservationAction(); 
+		
 		try {
 			objConn = MicrosDAOImpl.getConnection();
 			objConn.setAutoCommit(false);//////////
 			
 			sqlQuery = "insert into keypr_bridge_db.reservation_upload ( pms_id, stay_length, first_name, last_name, company_name, address, loyalty_number, "
 					+ "phone, number_of_guest, confirmation_number, check_in_date, check_out_date, notes, loyalty_program, property_id, credit_card_no, "
-					+ "reservation_source, affiliate_id, date_created, messages, email_id, status ) values "
-					+ "( ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,now(),?, ?,? ) ";
+					+ "reservation_source, affiliate_id, date_created, messages, email_id, status , reservation_action ) values "
+					+ "( ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,now(),?, ?,?,?) ";
 			
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Insert Query " + sqlQuery );
 			
@@ -895,7 +897,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objPreparedStatement.setString( 19, message);
 			objPreparedStatement.setString( 20, "email" );
 			objPreparedStatement.setString( 21, IMicrosHarvester.RESERVATION_STATUS );
-
+			objPreparedStatement.setString( 22, reservationAction );
+			
 			rowUpdated = objPreparedStatement.executeUpdate();
 
 			if( rowUpdated !=0 ) {
@@ -976,8 +979,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		try {
 
 			conn = objConn;
-			sqlQuery = " insert into keypr_bridge_db.reservation_room_allocation_upload ( reservation_upload_id, room_number, room_type_code, date_created ) values"
-					+ "( ?, ?, ?, now())";
+			sqlQuery = " insert into keypr_bridge_db.reservation_room_allocation_upload ( reservation_upload_id, room_number, room_type_code,  reservation_status_type ,date_created) values"
+					+ "( ?, ?, ?, ? ,now())";
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Insert Query " + sqlQuery );
 			
@@ -985,10 +988,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			String roomNum = String.valueOf(objRoomAllocation.getRoomNo());
 			String roomCode = objRoomAllocation.getRoomType().getCode();
-
+            String reservationStatusType  = objRoomAllocation.getReservationStatusType();
+			
 			objPreparedStatement.setInt( 1, reservationId );
 			objPreparedStatement.setString( 2, roomNum);
 			objPreparedStatement.setString( 3, roomCode);
+			objPreparedStatement.setString( 4, reservationStatusType);
 
 			rowUpdated = objPreparedStatement.executeUpdate();
 

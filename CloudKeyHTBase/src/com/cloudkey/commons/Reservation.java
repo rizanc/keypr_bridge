@@ -37,11 +37,21 @@ public class Reservation {
 	private String loyaltyNumber ;
 	/* variable to store the number of guests. */
 	private int numberOfGuests ;
-	/* variable to store the details of the room. */
-	private List<RoomDetails> roomDetailList ;
-
 	/* variable to store the details of the reservation. */
 	private List<ReservationRoomAllocation> reservationRoomAllocationList;
+	private List<RoomDetails> roomDetailList ;
+
+	public List<RoomDetails> getRoomDetailList() {
+		if(roomDetailList == null){
+
+			roomDetailList = new ArrayList<RoomDetails>();
+		}
+		return roomDetailList;
+	}
+
+	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
+		this.roomDetailList = roomDetailList;
+	}
 
 	/* variable to store the confirmation number of the reservation. */
 	private String confirmationNumber ;
@@ -62,6 +72,7 @@ public class Reservation {
 	private byte [] propertyImage;
 	private String affilateId;
 	private String message;
+	private String reservationAction ; // to store reservation action as checkin , add , share
 	private Date dateModified;
 	private Date dateCreated;
 	private List<ReservationOrders> reservationOrderList;
@@ -70,6 +81,15 @@ public class Reservation {
 	/*
 	 * Getter and Setter for each data member.
 	 */
+	
+	public String getReservationAction() {
+		return reservationAction;
+	}
+
+	public void setReservationAction(String reservationAction) {
+		this.reservationAction = reservationAction;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -291,19 +311,6 @@ public class Reservation {
 		this.notes = notes;
 	}
 
-	public List<RoomDetails> getRoomDetailList() {
-
-		if(roomDetailList == null){
-
-			roomDetailList = new ArrayList<RoomDetails>();
-		}
-		return roomDetailList;
-	}
-
-	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
-		this.roomDetailList = roomDetailList;
-	}
-
 	public String getPmsId() {
 		return pmsId;
 	}
@@ -328,7 +335,6 @@ public class Reservation {
 				+ company + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + ", email=" + email + ", loyaltyNumber="
 				+ loyaltyNumber + ", numberOfGuests=" + numberOfGuests
-				+ ", roomDetailList=" + roomDetailList
 				+ ", reservationRoomAllocationList="
 				+ reservationRoomAllocationList + ", confirmationNumber="
 				+ confirmationNumber + ", checkinDate=" + checkinDate
@@ -343,9 +349,5 @@ public class Reservation {
 				+ dateCreated + ", reservationOrderList="
 				+ reservationOrderList + "]";
 	}
-
-	
-
-
 
 }

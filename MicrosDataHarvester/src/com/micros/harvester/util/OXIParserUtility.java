@@ -32,6 +32,9 @@ import com.micros.pms.constant.IMicrosConstants;
 public class OXIParserUtility {
 
 	/**
+	 * * This method accept xpath expression and reference of xml document. It returns the list 
+	 * of nodes satisfying the criteria of xpath expression.
+	 * 
 	 * @param expression
 	 * @param document
 	 * @return
@@ -69,7 +72,7 @@ public class OXIParserUtility {
 
 		StringBuffer objStringBuffer = null;
 
-		String reservationType = "";
+		String reservationAction = "";
 		String confirmationNumber = "";
 		String roomNumber = "";
 		String creditCardNumber = "";
@@ -93,6 +96,7 @@ public class OXIParserUtility {
 		int totalGuest = 0;
 
 		String planCode = "";
+		String reservationStatusType = "";
 //		String amount = "";
 //		String timeUnitType = "";
 		boolean isFirst= true;
@@ -119,17 +123,19 @@ public class OXIParserUtility {
 				for (int i = 0; i < nodeList.getLength(); i++) {
 
 					Node currentItem = nodeList.item(i);
-					reservationType = currentItem.getAttributes().getNamedItem("mfReservationAction").getNodeValue();
+					reservationAction = currentItem.getAttributes().getNamedItem("mfReservationAction").getNodeValue();
 
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " ReservationType :: " + reservationType);
+				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " ReservationType :: " + reservationAction);
 
-				if( reservationType.equalsIgnoreCase( "ADD" )) {
+				/*if( reservationAction.equalsIgnoreCase( "ADD" )) {*/
+				if( reservationAction.equalsIgnoreCase( IMicrosHarvester.RESERVATION_TYPE_NEW )) {
 
 					//generate confirmation number
 				}
-				else if( reservationType.equalsIgnoreCase( "CHECKOUT") || reservationType.equalsIgnoreCase( "CHECKIN" )) {
+			/*	else if( reservationAction.equalsIgnoreCase( "CHECKOUT") || reservationAction.equalsIgnoreCase( "CHECKIN" )) {*/
+				else if( reservationAction.equalsIgnoreCase( IMicrosHarvester.RESERVATION_TYPE_CHECK_IN) || reservationAction.equalsIgnoreCase( IMicrosHarvester.RESERVATION_TYPE_CHECK_OUT )) {
 
 					expression = "/Reservation/confirmationID";
 					nodeList = retrieveNodeList( expression,document);
@@ -184,20 +190,20 @@ public class OXIParserUtility {
 
 							if(isFirst){
 
-								for(int t=0;t<rateNode.getLength();t++)
+								for(int arrayIndex=0;arrayIndex<rateNode.getLength();arrayIndex++)
 								{
 									 objRoomRate = new RoomRate();
 									 objRoomRate.setPlanCode( planCode );
 									 
-									String value = rateNode.item(t).getFirstChild().getNodeValue();
+									String value = rateNode.item(arrayIndex).getFirstChild().getNodeValue();
 									objRoomRate.setBaseAmount(Double.parseDouble(value));
 									System.out.println("Amount is " + value);
 
-									String start =startTime.item(t).getFirstChild().getNodeValue();
+									String start =startTime.item(arrayIndex).getFirstChild().getNodeValue();
 									objRoomRate.setEffectiveDate(start);
 									System.out.println("StartTime " + start);
 
-									int time =Integer.parseInt(timeUnits.item(t).getFirstChild().getNodeValue());
+									int time =Integer.parseInt(timeUnits.item(arrayIndex).getFirstChild().getNodeValue());
                                      System.out.println("TimeUnits " + time);
                                      
                                      objRoomRate.setExpirationDate(DataUtility.getEndDate(start, time ,"DAY"));
@@ -227,6 +233,19 @@ public class OXIParserUtility {
 
 				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Credit card number :: " + creditCardNumber );
 
+				// Retrieving reservationStatusType whether it is reserved, check in or canceled...
+				expression = "Reservation/RoomStays/RoomStay[@reservationStatusType]";
+
+				 nodeList = retrieveNodeList(expression, document );
+				for (int i = 0; i < nodeList.getLength(); i++) {
+
+					Node currentItem = nodeList.item(i);
+					reservationStatusType = currentItem.getAttributes().getNamedItem("reservationStatusType").getNodeValue();
+                     objRoomAllocation.setReservationStatusType(reservationStatusType);
+				}
+				
+				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Room Stay Status Type " + reservationStatusType);
+				
 				// Retrieving room number
 				expression = "Reservation/RoomStays/RoomStay/roomID";
 
@@ -258,9 +277,9 @@ public class OXIParserUtility {
 
 				nodeList = retrieveNodeList( expression,document);
 
-				for (int i = 0; i < nodeList.getLength(); i++) {
+				for (int index = 0; index < nodeList.getLength(); index++) {
 
-					loyaltyNumber = nodeList.item(i).getFirstChild().getNodeValue();
+					loyaltyNumber = nodeList.item(index).getFirstChild().getNodeValue();
 				}
 				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Loyalty Number " + loyaltyNumber);
 
@@ -270,9 +289,9 @@ public class OXIParserUtility {
 
 				nodeList = retrieveNodeList( expression,document);
 
-				for (int i = 0; i < nodeList.getLength(); i++) {
+				for (int index = 0;index < nodeList.getLength();index++) {
 
-					objStringBuffer.append(nodeList.item(i).getFirstChild().getNodeValue()).append(" ; ");
+					objStringBuffer.append(nodeList.item(index).getFirstChild().getNodeValue()).append(" ; ");
 				}
 
 				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Message Retrieved is " + objStringBuffer);
@@ -283,18 +302,18 @@ public class OXIParserUtility {
 				expression = "/Reservation/StayDateRange/startTime";
 				nodeList = retrieveNodeList( expression,document);
 
-				for (int i = 0; i < nodeList.getLength(); i++) {
+				for (int index = 0; index < nodeList.getLength(); index++) {
 
-					checkInDate = (nodeList.item(i).getFirstChild().getNodeValue());
+					checkInDate = (nodeList.item(index).getFirstChild().getNodeValue());
 				}
 
 				expression = "/Reservation/StayDateRange/numberOfTimeUnits";
 
 				nodeList = retrieveNodeList( expression,document);
 
-				for (int i = 0; i < nodeList.getLength(); i++) {
+				for (int index = 0; index < nodeList.getLength(); index++) {
 
-					stayLength = (nodeList.item(i).getFirstChild().getNodeValue());
+					stayLength = (nodeList.item(index).getFirstChild().getNodeValue());
 				}
 
 				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Check In Date  " + checkInDate);
@@ -307,18 +326,18 @@ public class OXIParserUtility {
 
 				nodeList = retrieveNodeList( expression,document);
 
-				for (int i = 0; i < nodeList.getLength(); i++) {
+				for (int index = 0;index < nodeList.getLength(); index++) {
 
-					reqCode = (nodeList.item(i).getFirstChild().getNodeValue());
+					reqCode = (nodeList.item(index).getFirstChild().getNodeValue());
 
 					expression = "/Reservation/SpecialRequests/SpecialRequest[requestCode='"+reqCode+"']/requestComments";
 
 					NodeList nodeList1 = retrieveNodeList( expression,document);
-					for ( int j = 0; j < nodeList1.getLength(); j++) {
+					for ( int len = 0; len < nodeList1.getLength(); len++) {
 
 						String requestComment = "";
 						String note = "";
-						requestComment = (nodeList1.item(j).getFirstChild().getNodeValue());
+						requestComment = (nodeList1.item(len).getFirstChild().getNodeValue());
 						note = reqCode + "-" + requestComment;
 						objStringBuffer.append(note).append(" ; ");
 					}
@@ -334,9 +353,9 @@ public class OXIParserUtility {
 				String roomCode = "";
 
 				NodeList nodeList1 = retrieveNodeList( expression,document);
-				for ( int j = 0; j < nodeList1.getLength(); j++) {
+				for ( int index = 0; index < nodeList1.getLength(); index++) {
 
-					roomCode = (nodeList1.item(j).getFirstChild().getNodeValue());
+					roomCode = (nodeList1.item(index).getFirstChild().getNodeValue());
 					objRoomType.setCode( roomCode );
 					objRoomAllocation.setRoomType( objRoomType );
 				}
@@ -595,6 +614,7 @@ public class OXIParserUtility {
 
 				// Populate reservation instance with oxi reservation data.
 				  objReservation.setAffilateId(IMicrosHarvester.OXI_AFFILATE_ID);
+				  objReservation.setReservationAction(reservationAction);
 				objReservation.setConfirmationNumber( confirmationNumber );                                             
 				objReservation.setCreditCardNumber( creditCardNumber );
 				objReservation.setReservationSource( reservationSource );

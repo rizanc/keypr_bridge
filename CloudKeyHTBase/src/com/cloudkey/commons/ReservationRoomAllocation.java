@@ -11,8 +11,17 @@ public class ReservationRoomAllocation {
 	private int roomNo;
 	private List<RoomRate> roomRateList;
 	private RoomType roomType;
-
+	private String reservationStatusType; // For status as chcekin , reservaed , canceled.
+	
 	//setter and getters.
+
+	public String getReservationStatusType() {
+		return reservationStatusType;
+	}
+
+	public void setReservationStatusType(String reservationStatusType) {
+		this.reservationStatusType = reservationStatusType;
+	}
 
 	public RoomType getRoomType() {
 		return roomType;
