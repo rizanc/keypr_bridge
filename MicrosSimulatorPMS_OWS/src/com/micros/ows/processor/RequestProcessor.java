@@ -9,6 +9,11 @@ import java.util.Date;
 import java.util.Enumeration;
 
 
+
+
+
+
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +32,7 @@ import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
+import com.micros.ows.bean.ResultStatus;
 import com.micros.ows.constants.IMicrosOWSConstants;
 import com.micros.ows.logger.OWSMessageLogger;
 import com.micros.ows.utility.OWSUtility;
@@ -70,10 +76,13 @@ import com.micros.reservation.ReservationServiceStub.Rate;
 import com.micros.reservation.ReservationServiceStub.RateList;
 import com.micros.reservation.ReservationServiceStub.RatePlan;
 import com.micros.reservation.ReservationServiceStub.RatePlanList;
+import com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest;
+import com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse;
 import com.micros.reservation.ReservationServiceStub.ResGuest;
 import com.micros.reservation.ReservationServiceStub.ResGuestList;
 import com.micros.reservation.ReservationServiceStub.ReservationComment;
 import com.micros.reservation.ReservationServiceStub.ReservationCommentList;
+import com.micros.reservation.ReservationServiceStub.ResultStatusFlag;
 import com.micros.reservation.ReservationServiceStub.RoomFeature;
 import com.micros.reservation.ReservationServiceStub.RoomFeatureList;
 import com.micros.reservation.ReservationServiceStub.RoomRate;
@@ -168,6 +177,14 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " exit CheckOutRequest block " );
 		}
+		else if ( xmlRequestValue.contains( IMicrosOWSConstants.RELEASE_ROOM_REQUEST )) {
+
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room block ", " enter Release Room block " );
+
+			xmlOWSResponse = getXMLReleaseRoomResponse();
+
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room block ", " exit Release Room block " );
+		}
 		else if(xmlRequestValue.contains("com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest")){
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ModifyBookingRequest block ", " enter ModifyBookingRequest block " );
@@ -240,6 +257,29 @@ public class RequestProcessor extends HttpServlet {
 		return xmlOWSResponse;
 	}
 
+
+	/**
+	 * This method returns the response having relesed room status.
+	 * 
+	 * @return String
+	 */
+	private String getXMLReleaseRoomResponse() {
+		
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room Request block ", " enter Release Room request block " );
+		
+		String releaseRoomResponse = null;	
+		ReleaseRoomResponse objReleaseRoomResponse = new ReleaseRoomResponse();
+		
+		/* To set the status on the release room response. */
+		GDSResultStatus objResultStatus = new GDSResultStatus();
+		objResultStatus.setResultStatusFlag(ResultStatusFlag.SUCCESS);
+		objReleaseRoomResponse.setResult(objResultStatus);
+	
+		releaseRoomResponse = OWSUtility.convertToStreamXML( objReleaseRoomResponse ); 
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room Request block ", " exit Release Room Request block " );
+		
+		return releaseRoomResponse;
+	}
 
 
 	/**
@@ -1072,7 +1112,7 @@ public class RequestProcessor extends HttpServlet {
 		objBillItem.setVatCode( objUniqueID );
 		objBillItem.setDate( new Date());
 		objBillItem.setDescription( "Lobby Bar Food" );
-		
+
 		objBillHeader.addBillItems( objBillItem );
 		subTotal = objAmount.get_double() + subTotal;
 
