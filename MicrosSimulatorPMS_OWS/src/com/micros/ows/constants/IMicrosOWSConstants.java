@@ -15,5 +15,5 @@ public interface IMicrosOWSConstants {
 	String FUTURE_BOOKING_SUMMARY_REQUEST = "com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryRequest";
 	String MODIFY_BOOKING_REQUEST = "com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest";
 	String FETCH_CALENDAR_REQUEST = "com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest";
-	
+	String RELEASE_ROOM_REQUEST = "com.micros.reservation.ReservationServiceStub_-ReleaseRoomRequest";
 }

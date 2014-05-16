@@ -4,8 +4,9 @@ import java.sql.SQLException;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
+import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
-import com.micros.pms.bean.FetchRoomStatusResponse;
+
 
 /**
  * This interface declares method to be implemented for performing data base
@@ -51,7 +52,5 @@ public interface IMicrosDAO {
 	 * @throws SQLException 
 	 */
 	boolean persistReservationData( Reservation objReservation ) throws SQLException;
-
-
 
 }

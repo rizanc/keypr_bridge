@@ -17,6 +17,7 @@ import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
+import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
@@ -24,6 +25,7 @@ import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
+import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
 import com.cloudkey.pms.response.UpdatePaymentResponse;
@@ -39,13 +41,6 @@ import com.micros.availability.AvailabilityServiceStub.CalendarDailyDetail;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
-import com.micros.pms.bean.HotelReference;
-import com.micros.pms.bean.InvoiceRequest;
-import com.micros.pms.bean.InvoiceResponse;
-import com.micros.pms.bean.ReservationRequestBase;
-import com.micros.pms.bean.UniqueID;
-import com.micros.pms.bean.UniqueIDList;
-import com.micros.pms.bean.UniqueIDType;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.transport.MicrosMessageTransport;
@@ -65,6 +60,7 @@ import com.micros.reservation.ReservationServiceStub.GuaranteeAccepted;
 import com.micros.reservation.ReservationServiceStub.GuaranteesAccepted;
 import com.micros.reservation.ReservationServiceStub.GuestCount;
 import com.micros.reservation.ReservationServiceStub.GuestCountList;
+import com.micros.reservation.ReservationServiceStub.HotelReference;
 import com.micros.reservation.ReservationServiceStub.HotelReservation;
 import com.micros.reservation.ReservationServiceStub.ModifyBookingRequest;
 import com.micros.reservation.ReservationServiceStub.ModifyBookingResponse;
@@ -305,7 +301,7 @@ public class MicrosPMSMessageParser implements IParserInterface {
 					/* To set the first name and last name . */
 					firstName = objPersonName.getFirstName();
 					lastName = objPersonName.getLastName();
-					
+
 					if(firstName != null || lastName != null){
 						if (firstName != null) {
 							objBuilder.append(firstName);
@@ -710,8 +706,8 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 		/* To set the first name and last name . */
 		firstName = objPersonName.getFirstName();
 		lastName = objPersonName.getLastName();
-		
-		
+
+
 		if(firstName != null || lastName != null){
 			if (firstName != null) {
 				objStringBuffer.append(firstName);
@@ -907,7 +903,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objCheckOutResponse.setStatus( status );
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject ","  Status Set ");
-		
+
 		CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = objCheckOutComplete.getReservationID();
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] arrUniqueIDs = objUniqueIDList.getUniqueID();
@@ -937,13 +933,13 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject  "," Credit Card Number is set.");
 		} // End loop for name credit card.
 
-*/
+		 */
 		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
 		objStringBuffer = new StringBuffer();
 		/* To set the first name and last name . */
 		firstName = objPersonName.getFirstName();
 		lastName = objPersonName.getLastName();
-		
+
 		if(firstName != null || lastName != null){
 			if (firstName != null) {
 				objStringBuffer.append(firstName);
@@ -1142,7 +1138,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		String countryCode = null;
 		String firstName = null;
 		String lastName = null;
-
+		String confirmationNumber = null;
 		String description = null;
 		double unitPrice ;
 		double totalBillAmount ;
@@ -1150,6 +1146,12 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		/* Populate response into Reservation instance */
 		GetFolioResponse objFolioResponse = new GetFolioResponse();
 		Reservation objReservation = new Reservation();
+
+		// set confirmation number.
+
+
+
+
 
 		BillHeader[] arrBillHeader = objResponse.getInvoice();
 
@@ -1198,6 +1200,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			objOrders.setTotalAmount( totalBillAmount );
 			objReservationOrders.add( objOrders );
 			objFolioResponse.setReservationOrderList( objReservationOrders );
+
+
+			/*// set confirmation number.
+			UniqueIDList objUniqueIDList = objBillHeader.getProfileIDs();
+			UniqueID arrUniqueID[] = objUniqueIDList.getUniqueID();
+			for(UniqueID uniqueID : arrUniqueID){
+
+				confirmationNumber = uniqueID.getString();
+				objReservation.setConfirmationNumber(confirmationNumber);
+			}*/
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Exit to traverse Bill Header ");
 
@@ -1324,7 +1336,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		String firstName = null;
 		String lastName = null;
 		int guestCount = 0;
-		
+
 		StringBuilder objBuilder = null;
 		RoomDetails obRoomDetails = null;
 
@@ -1334,22 +1346,22 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		Reservation objReservation =null;
 		UpdateBookingResponse objUpdateBookingResponse = null;
 		HotelReservation objHotelReservation = null;
-		
+
 		com.micros.reservation.ReservationServiceStub.UniqueID[] arrUniIds = null;
 		ResGuest[] objGuests = null;
 		NameAddress[] arrNameAddresses = null;
 		GuestCount[] arrGuestCount = null;
-		
+
 		/* Populate response into Reservation instance */
-		 objUpdateBookingResponse = new UpdateBookingResponse();
+		objUpdateBookingResponse = new UpdateBookingResponse();
 		/* Reference to set the values for reservation. */
-		 objReservation = new Reservation();
-		 
+		objReservation = new Reservation();
+
 		/* To set the confirmation number . */
-		 objHotelReservation = objResponse.getHotelReservation();
-		 arrUniIds = objHotelReservation.getUniqueIDList().getUniqueID();
-        
-		 
+		objHotelReservation = objResponse.getHotelReservation();
+		arrUniIds = objHotelReservation.getUniqueIDList().getUniqueID();
+
+
 		/*
 		 * Traverse unique id list and set the confirmation number id the unique
 		 * id type is internal.
@@ -1403,7 +1415,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				}
 
 				/* To set the address on the reservation object . */
-				 arrNameAddresses = objProfile.getAddresses().getNameAddress();
+				arrNameAddresses = objProfile.getAddresses().getNameAddress();
 
 				for (NameAddress objAddress : arrNameAddresses) {// To traverse Name Address.
 
@@ -1498,7 +1510,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			} // End loop for room Type.
 
 			/* For guest count. */
-			 arrGuestCount = objRoomStay.getGuestCounts().getGuestCount();
+			arrGuestCount = objRoomStay.getGuestCounts().getGuestCount();
 			for (GuestCount objGuestCount : arrGuestCount) { // To traverse Guest Count.
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating Guest Count Array.");
 				guestCount = guestCount + objGuestCount.getCount();
@@ -2147,6 +2159,112 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAssignRoomResponseObject "," Exit getAssignRoomResponseObject method ");	
 		return objAssignRoomResponse;
+	}
+
+	@Override
+	public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) {
+
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, "releaseRoom "," Enter in releaseRoom method. ");
+
+		com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest objReleaseRoomRequest = null;
+		com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse = null;
+		ReleaseRoomResponse objResponse = null;
+		String xmlRequest = null;
+		String xmlResponse = null;
+
+		if(releaseRoomRequest != null && releaseRoomRequest.getReservationId() != null) {
+
+			objReleaseRoomRequest = getReleaseRoomRequestObject( releaseRoomRequest );
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Convert request into xml form ");
+
+			xmlRequest = AdapterUtility.convertToStreamXML( objReleaseRoomRequest );
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Get Request in xml format :: " + xmlRequest);
+
+			/* To send the xml request to the OXI Simulator via Message Transport */
+			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
+			xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+
+			objReleaseRoomResponse = new com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse();
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ",	" Convert xml response into object ");
+
+			objReleaseRoomResponse = (com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse) AdapterUtility.covertToStramObject(xmlResponse);
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response object from response xml ::: " + objReleaseRoomResponse);
+
+			objResponse = getReleaseRoomResponseObject( objReleaseRoomResponse );
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Response received in message Parser : " + objResponse);
+		}
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Exit releaseRoom method. ");
+
+		return objResponse;
+	}
+
+/**
+ * 
+ * This method is used to generate the response for release room 
+ * by populating the release room response into base release room class. 
+ * 
+ * @param objReleaseRoomResponse
+ * @return
+ */
+	private ReleaseRoomResponse getReleaseRoomResponseObject(
+			com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse) {
+		
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomResponseObject "," Enter getReleaseRoomResponseObject method ");	
+		
+		ReleaseRoomResponse objReleaseRoomRespons = null;
+		String status = null;
+		
+		objReleaseRoomRespons = new ReleaseRoomResponse();
+		
+		// get the status from release room response.
+		status = objReleaseRoomResponse.getResult().getResultStatusFlag().toString();
+		// set the released room status.
+		objReleaseRoomRespons.setStatus(status);
+		
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomResponseObject "," Exit getReleaseRoomResponseObject method ");
+		
+		return objReleaseRoomRespons;
+	}
+
+	/**
+	 * This method is used to create the release room request .
+	 * it uses reservation id and hotel code to release the rooms.
+	 * 
+	 * @param releaseRoomRequest
+	 * @return
+	 */
+	private com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest getReleaseRoomRequestObject(
+			ReleaseRoomRequest releaseRoomRequest) {
+		
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Enter getReleaseRoomRequestObject method ");
+
+		String reservationId = releaseRoomRequest.getReservationId();
+		
+		com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest objReleaseRoomRequest = new com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest();
+
+		/*To set the reservation name  number.*/
+		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
+		objUniqueID.setSource("OPERA");
+		objUniqueID.setString( reservationId );
+		objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
+		objReleaseRoomRequest.setResvNameId( objUniqueID );
+		
+		/*To set the hotel reference having chain and hotel code.*/
+		HotelReference objHotelReference = new HotelReference();
+		objHotelReference.setHotelCode(IMicrosConstants.HOTEL_CODE);
+		objHotelReference.setHotelCode(IMicrosConstants.CHAIN_CODE);
+		objReleaseRoomRequest.setHotelReference(objHotelReference);
+
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Exit getReleaseRoomRequestObject method ");
+		return objReleaseRoomRequest;
+		
 	}
 
 }
