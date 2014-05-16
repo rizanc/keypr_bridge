@@ -1,5 +1,7 @@
 package com.keypr.rest.services;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,6 +28,7 @@ import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
+import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
 import com.cloudkey.pms.response.UpdatePaymentResponse;
@@ -52,7 +55,7 @@ public class KeyprWebServices {
 	 * @param objSearchReservationRequest
 	 * @return Response
 	 */
-	@SuppressWarnings( "resource" )
+	@SuppressWarnings( { "resource", "unchecked" } )
 	@Path( "/searchReservation" )
 	@POST
 	@Produces( MediaType.APPLICATION_JSON )
@@ -76,40 +79,53 @@ public class KeyprWebServices {
 
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
-			if( objSearchReservationRequest.getCreditCard() == null ) {
+			if( objSearchReservationRequest.getCreditCardNumber() == null ) {
 
-				objSearchReservationRequest.setCreditCard( ICloudKeyConstants.EMPTY_STRING );
+				objSearchReservationRequest.setCreditCardNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
 			if( objSearchReservationRequest.getConfirmationNumber() == null ) {
 
 				objSearchReservationRequest.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
-	
 			}
 
 			if( objSearchReservationRequest.getFirstName() == null ) {
 
 				objSearchReservationRequest.setFirstName( ICloudKeyConstants.EMPTY_STRING );
-
 			}
 
 			if( objSearchReservationRequest.getLastName() == null ) {
 
 				objSearchReservationRequest.setLastName( ICloudKeyConstants.EMPTY_STRING );
-
 			}
 
 			objFindCustomerResponse = new SearchReservationResponse();
-			objFindCustomerResponse = messageParser.searchReservationData( objSearchReservationRequest );
 
-			res = Response.status(200).entity(objFindCustomerResponse).build();
+			if( (objSearchReservationRequest.getFirstName().equals(ICloudKeyConstants.EMPTY_STRING)) 
+					&& (objSearchReservationRequest.getLastName().equals(ICloudKeyConstants.EMPTY_STRING) )
+					&& ( objSearchReservationRequest.getConfirmationNumber().equals(ICloudKeyConstants.EMPTY_STRING)) 
+					&& (objSearchReservationRequest.getCreditCardNumber().equals(ICloudKeyConstants.EMPTY_STRING)) ) {
+
+				objFindCustomerResponse = new SearchReservationResponse();
+
+				objFindCustomerResponse.setStatus("FAILURE");
+
+				objFindCustomerResponse.setReservationList( new ArrayList());
+				res = Response.status(200).entity(objFindCustomerResponse).build();
+
+			}
+			else {
+
+				objFindCustomerResponse = messageParser.searchReservationData( objSearchReservationRequest );
+				res = Response.status(200).entity(objFindCustomerResponse).build();
+			}
 
 		}
 		catch( Exception exc ) {
@@ -117,7 +133,7 @@ public class KeyprWebServices {
 			WebAppLogger.logError( KeyprWebServices.class, " searchReservation ", exc );
 		}
 
-		    WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " Exit  method searchReservation " );
+		WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " Exit  method searchReservation " );
 
 		return res;
 	}
@@ -154,10 +170,10 @@ public class KeyprWebServices {
 
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" ); 
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
@@ -198,11 +214,6 @@ public class KeyprWebServices {
 				objReservation.setFullName( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			if( objReservation.getId() == null ) {
-
-				objReservation.setId( ICloudKeyConstants.EMPTY_STRING );
-			}
-
 			if( objReservation.getLoyaltyNumber() == null ) {
 
 				objReservation.setLoyaltyNumber( ICloudKeyConstants.EMPTY_STRING );
@@ -218,10 +229,21 @@ public class KeyprWebServices {
 				objReservation.setPhoneNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			objCheckInResponse = messageParser.guestCheckIn( objCheckInRequest );
-			
-			res = Response.status(200).entity(objCheckInResponse).build();
-			
+			if( (objReservation.getConfirmationNumber().equalsIgnoreCase(ICloudKeyConstants.EMPTY_STRING))
+					|| (objReservation.getCreditCardNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING))) {
+
+				objCheckInResponse = new CheckInResponse();
+				objCheckInResponse.setStatus( "FAILURE" );
+				objCheckInResponse.setReservation( null );
+
+				res = Response.status(200).entity(objCheckInResponse).build();
+
+			} else {
+
+				objCheckInResponse = messageParser.guestCheckIn( objCheckInRequest );
+
+				res = Response.status(200).entity(objCheckInResponse).build();
+			}
 		}
 
 		catch( Exception exc ) {
@@ -234,7 +256,7 @@ public class KeyprWebServices {
 		return res;
 	}
 
-	
+
 	/**
 	 * This method makes assign Room request on the basis of provided input.
 	 * It returns the status and reservation details to its caller.
@@ -261,15 +283,15 @@ public class KeyprWebServices {
 		String parserName = null;
 		/* variable to store message parser. */
 		IParserInterface messageParser = null;
-		
+
 		try {
 
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" ); 
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
@@ -310,11 +332,6 @@ public class KeyprWebServices {
 				objReservation.setFullName( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			if( objReservation.getId() == null ) {
-
-				objReservation.setId( ICloudKeyConstants.EMPTY_STRING );
-			}
-
 			if( objReservation.getLoyaltyNumber() == null ) {
 
 				objReservation.setLoyaltyNumber( ICloudKeyConstants.EMPTY_STRING );
@@ -329,16 +346,30 @@ public class KeyprWebServices {
 
 				objReservation.setPhoneNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
-			
+
 			if( objAssignRoomRequest.getRoomTypeCode() == null){
-				
+
 				objAssignRoomRequest.setRoomTypeCode( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			objAssignRoomResponse = messageParser.assignRoom( objAssignRoomRequest );
-			
-			res = Response.status(200).entity(objAssignRoomResponse).build();
-			
+
+			/**
+			 * To check room type code and confirmation number is not blank.
+			 */
+			if( (objAssignRoomRequest.getRoomTypeCode().equals(ICloudKeyConstants.EMPTY_STRING)) 
+					|| objAssignRoomRequest.getReservation().getConfirmationNumber().equals(ICloudKeyConstants.EMPTY_STRING) ) {
+
+				objAssignRoomResponse = new AssignRoomResponse();
+				objAssignRoomResponse.setStatus("FAILURE");
+				res = Response.status(200).entity(objAssignRoomResponse).build();
+
+			}
+			else {
+
+				objAssignRoomResponse = messageParser.assignRoom( objAssignRoomRequest );
+				res = Response.status(200).entity(objAssignRoomResponse).build();
+			}
+
 		}
 
 		catch( Exception exc ) {
@@ -351,11 +382,6 @@ public class KeyprWebServices {
 		return res;
 	}
 
-	
-	
-	
-	
-	
 
 	/**
 	 * This method makes check out request on the basis of confirmation number.
@@ -369,7 +395,7 @@ public class KeyprWebServices {
 	@POST
 	@Produces( MediaType.APPLICATION_JSON )
 	@Consumes( MediaType.APPLICATION_JSON )
-	
+
 	public Response checkOut( CheckOutRequest objCheckOutRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " Enter method checkOut " );
@@ -386,13 +412,13 @@ public class KeyprWebServices {
 		IParserInterface messageParser = null;
 
 		try {
-			
+
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext("META-INF/parser-beans.xml");
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean(parserName);
 
@@ -403,9 +429,21 @@ public class KeyprWebServices {
 
 			objCheckOutResponse = new CheckOutResponse();
 
-			objCheckOutResponse = messageParser.guestCheckOut(objCheckOutRequest);
+			/**
+			 * To check the request contains the confirmation number.
+			 * 
+			 */		
 
-			res = Response.status(200).entity(objCheckOutResponse).build();
+			if( objCheckOutRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING) ) {
+
+				objCheckOutResponse.setStatus("FAILURE");
+				res = Response.status(200).entity(objCheckOutResponse).build();
+			} 
+			else {
+
+				objCheckOutResponse = messageParser.guestCheckOut(objCheckOutRequest);
+				res = Response.status(200).entity(objCheckOutResponse).build();
+			}
 
 		}
 
@@ -425,7 +463,7 @@ public class KeyprWebServices {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	
+
 	public Response getAvailability(GetAvailabilityRequest objAvailabilityRequest){
 
 		WebAppLogger.logInfo(KeyprWebServices.class, "getAvailability", "Enter method getAvailability");
@@ -445,10 +483,10 @@ public class KeyprWebServices {
 
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
@@ -485,7 +523,7 @@ public class KeyprWebServices {
 	@POST
 	@Produces( MediaType.APPLICATION_JSON )
 	@Consumes( MediaType.APPLICATION_JSON )
-	
+
 	public Response getFolio( GetFolioRequest objFolioRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " getFolio ", " Enter method getFolio " );
@@ -505,10 +543,10 @@ public class KeyprWebServices {
 
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext("META-INF/parser-beans.xml");
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
@@ -517,12 +555,27 @@ public class KeyprWebServices {
 				objFolioRequest.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
+
 			objGetFolioResponse = new GetFolioResponse();
 
-			objGetFolioResponse = messageParser.retrieveFolioInfo( objFolioRequest );
+			/**
+			 *  To check the confirmation number is not blank.
+			 */
+			if( objFolioRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING) ) {
 
-			res = Response.status(200).entity(objGetFolioResponse).build();
 
+				objGetFolioResponse.setReservation(null);
+				objGetFolioResponse.setReservationOrderList( new ArrayList());
+
+				res = Response.status(200).entity(objGetFolioResponse).build();
+			} 
+			else {
+
+				objGetFolioResponse = messageParser.retrieveFolioInfo( objFolioRequest );
+
+				res = Response.status(200).entity(objGetFolioResponse).build();
+
+			}
 		}
 
 		catch(Exception exc) {
@@ -550,7 +603,7 @@ public class KeyprWebServices {
 	@POST
 	@Produces( MediaType.APPLICATION_JSON )
 	@Consumes( MediaType.APPLICATION_JSON )
-	
+
 	public Response updatePayment( UpdatePaymentRequest objUpPaymentRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " updatePayment ", " Enter method updatePayment " );
@@ -570,10 +623,10 @@ public class KeyprWebServices {
 
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-			
+
 			// creates an instance of application context using  information from beans configuration file.
 			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-			
+
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
@@ -614,7 +667,7 @@ public class KeyprWebServices {
 	@POST
 	@Produces( MediaType.APPLICATION_JSON )
 	@Consumes( MediaType.APPLICATION_JSON )
-	
+
 	public Response updateBooking( UpdateBookingRequest objUpBookingRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " updateBooking ", " Enter method updateBooking " );
@@ -647,9 +700,26 @@ public class KeyprWebServices {
 
 			objUpBookingResponse = new UpdateBookingResponse();
 
-			objUpBookingResponse = messageParser.updateBooking( objUpBookingRequest );
-			
-			res = Response.status(200).entity(objUpBookingResponse).build();
+			/**
+			 * To check the request at least contains confirmation number with notes.
+			 */
+			String[] notes = objUpBookingRequest.getNotes();
+
+			if( (notes[0].length() < 2) && (notes[1].length() <2 ) ) {
+
+				objUpBookingResponse.setReservation(null);
+				res = Response.status(200).entity(objUpBookingResponse).build();
+
+			}
+			else if( (objUpBookingRequest.getConfirmationNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING)))  {
+
+				objUpBookingResponse.setReservation(null);
+				res = Response.status(200).entity(objUpBookingResponse).build();
+			}
+			else {
+
+				objUpBookingResponse = messageParser.updateBooking( objUpBookingRequest );
+				res = Response.status(200).entity(objUpBookingResponse).build();}
 
 		}
 
@@ -661,7 +731,82 @@ public class KeyprWebServices {
 		WebAppLogger.logInfo( KeyprWebServices.class, " updateBooking ", " Exit method updateBooking " );
 
 		return res;
-
 	}
-	
+
+
+
+	/**
+	 * This method make release room request on the basis of reservation Id.
+	 * It returns the status of released rooms.
+	 * 
+	 * @param objReleaseRoomRequest
+	 * @return
+	 */
+	@SuppressWarnings("resource")
+	@Path( "/releaseRoom" )
+	@POST
+	@Produces( MediaType.APPLICATION_JSON )
+	@Consumes( MediaType.APPLICATION_JSON )
+	public Response releaseRoom( com.cloudkey.pms.request.ReleaseRoomRequest objReleaseRoomRequest ){
+
+		WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " Enter method releaseRoom " );
+
+		/* Variable to store release Room Response instance. */
+		com.cloudkey.pms.response.ReleaseRoomResponse objReleaseRoomResponse = null;		
+		/* Variable to store application context. */
+		ApplicationContext appContext = null;	
+		/* Variable to store response. */
+		Response response = null;		
+		/* variable to store message parser name. */
+		String parserName = null;
+		/* Variable to store message parser. */
+		IParserInterface messageParser = null;
+
+		try{
+
+			// read the name of message parser bean from the bean configuration file.
+			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
+
+			// create an instance of application context using information from bean configuration file.		
+			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
+
+			messageParser = (IParserInterface)appContext.getBean( parserName );
+
+			if(objReleaseRoomRequest.getReservationId() == null){
+
+				objReleaseRoomRequest.setReservationId( ICloudKeyConstants.EMPTY_STRING );
+			}
+
+
+			objReleaseRoomResponse = new ReleaseRoomResponse();
+
+			/**
+			 * To check the request at least contains confirmation number with notes.
+			 */
+
+			if( objReleaseRoomRequest.getReservationId().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING) ) {
+
+
+				objReleaseRoomResponse.setStatus("FAILURE");
+				response = Response.status(200).entity(objReleaseRoomResponse).build();
+			}
+			else {
+
+				objReleaseRoomResponse = messageParser.releaseRoom( objReleaseRoomRequest );
+
+				response = Response.status(200).entity(objReleaseRoomResponse).build();
+
+			}
+
+
+		}
+		catch( Exception exc ) {
+
+			WebAppLogger.logError( KeyprWebServices.class, " releaseRoom ", exc );
+		}
+		WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " Exit method releaseRoom " );
+
+		return response;
+	}
+
 }
