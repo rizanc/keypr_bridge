@@ -1,5 +1,13 @@
 package com.cloudkey.commons;
 
+/**
+ * This class encapsulates the information of the order placed by the guest.
+ * the detail include item code, item description, unit price, quantity and total
+ * charge amount.
+ * 
+ * @author vinayk2
+ *
+ */
 public class OrderDetails {
 	
 	//reference variables.

@@ -1,7 +1,9 @@
 package com.cloudkey.pms.request;
 
 /**
- * Class stores the bill information of the guest. 
+ * This class represents the get bill request of the guest. The request 
+ * include confirmation number of the guest.
+ *  
  * @author vinayk2
  *
  */
@@ -22,8 +24,8 @@ public class GetFolioRequest {
 	}
 
 	public String toString() {
-		
+
 		return "GetFolioRequest [confirmationNumber=" + confirmationNumber + "]";
 	}
-	
+
 }

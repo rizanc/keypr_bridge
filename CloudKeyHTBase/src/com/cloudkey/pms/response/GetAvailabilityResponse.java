@@ -1,7 +1,5 @@
 package com.cloudkey.pms.response;
 
-import java.util.ArrayList;
-
 import java.util.List;
 
 import com.cloudkey.commons.Availability;
@@ -25,11 +23,6 @@ public class GetAvailabilityResponse {
 
 	public List<Availability> getAvailList() {
 
-		if( availabiltyList == null){
-			
-			availabiltyList = new ArrayList<Availability>();
-		}
-		
 		return availabiltyList;
 	}
 
@@ -50,7 +43,7 @@ public class GetAvailabilityResponse {
 
 	@Override
 	public String toString() {
-		
+
 		return "GetAvailabilityResponse [status=" + status + ", availabiltyList=" + availabiltyList + "]";
 	}
 

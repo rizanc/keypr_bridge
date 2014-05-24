@@ -1,8 +1,5 @@
 package com.cloudkey.commons;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class stores details of room.It has information of room number, roomTypeID,

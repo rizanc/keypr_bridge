@@ -336,15 +336,16 @@ public class Reservation {
 				+ phoneNumber + ", email=" + email + ", loyaltyNumber="
 				+ loyaltyNumber + ", numberOfGuests=" + numberOfGuests
 				+ ", reservationRoomAllocationList="
-				+ reservationRoomAllocationList + ", confirmationNumber="
-				+ confirmationNumber + ", checkinDate=" + checkinDate
-				+ ", checkoutDate=" + checkoutDate + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", notes=" + notes
-				+ ", loyaltyProgram=" + loyaltyProgram + ", propertyId="
-				+ propertyId + ", creditCardNumber=" + creditCardNumber
+				+ reservationRoomAllocationList + ", roomDetailList="
+				+ roomDetailList + ", confirmationNumber=" + confirmationNumber
+				+ ", checkinDate=" + checkinDate + ", checkoutDate="
+				+ checkoutDate + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", notes=" + notes + ", loyaltyProgram="
+				+ loyaltyProgram + ", propertyId=" + propertyId
 				+ ", reservationSource=" + reservationSource
 				+ ", propertyImage=" + Arrays.toString(propertyImage)
 				+ ", affilateId=" + affilateId + ", message=" + message
+				+ ", reservationAction=" + reservationAction
 				+ ", dateModified=" + dateModified + ", dateCreated="
 				+ dateCreated + ", reservationOrderList="
 				+ reservationOrderList + "]";

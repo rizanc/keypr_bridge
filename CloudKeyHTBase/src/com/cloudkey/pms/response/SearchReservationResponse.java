@@ -1,9 +1,6 @@
 package com.cloudkey.pms.response;
 
-import java.util.ArrayList;
-
 import java.util.List;
-
 import com.cloudkey.commons.Reservation;
 
 /**
@@ -35,11 +32,6 @@ public class SearchReservationResponse {
 
 	public List<Reservation> getReservationList() {
 
-		if(reservationList == null){
-			
-			reservationList = new ArrayList<Reservation>();
-		}
-		
 		return reservationList;
 	}
 

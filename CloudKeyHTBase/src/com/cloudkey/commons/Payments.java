@@ -38,9 +38,8 @@ public class Payments {
 		this.amount = amount;
 	}
 
+	@Override
 	public String toString() {
-		
-		return "Payments [creditCard=" + creditCard + ", amount=" + amount + "]";
+		return "Payments [amount=" + amount + "]";
 	}
-
 }

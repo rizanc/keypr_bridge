@@ -1,6 +1,5 @@
 package com.cloudkey.commons;
 
-import java.util.Date;
 /**
  * Class stores room type information.It has information of room code,
  * with all the features and descriptions.

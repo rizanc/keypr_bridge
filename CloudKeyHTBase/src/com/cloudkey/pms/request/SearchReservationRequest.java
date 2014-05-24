@@ -76,11 +76,13 @@ public class SearchReservationRequest {
 		this.lastName = lastName;
 	}
 
+	@Override
 	public String toString() {
+		
 		return "SearchReservationRequest [confirmationNumber="
 				+ confirmationNumber + ", emailId=" + emailId + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", creditCardNumber="
-				+ creditCardNumber + "]";
+				+ firstName + ", lastName=" + lastName + "]";
 	}
+	
 
 }

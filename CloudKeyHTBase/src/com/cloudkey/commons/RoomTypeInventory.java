@@ -6,7 +6,6 @@ package com.cloudkey.commons;
  * 
  * */
 
-
 public class RoomTypeInventory {
 
 	//member variables of class

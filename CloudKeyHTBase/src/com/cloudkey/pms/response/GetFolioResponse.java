@@ -1,6 +1,5 @@
 package com.cloudkey.pms.response;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
@@ -35,10 +34,6 @@ public class GetFolioResponse {
 
 	public List<ReservationOrders> getReservationOrderList() {
 		
-		if(reservationOrderList == null){
-			
-			reservationOrderList = new  ArrayList<ReservationOrders>();
-		}
 		return reservationOrderList;
 	}
 
