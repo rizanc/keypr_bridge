@@ -1,5 +1,6 @@
 package com.micros.pms.parser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
@@ -29,6 +31,7 @@ import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
 import com.cloudkey.pms.response.UpdatePaymentResponse;
+import com.cloudkey.util.BaseConfigurationReader;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.BillHeader;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInComplete;
@@ -94,9 +97,13 @@ import com.micros.reservation.ReservationServiceStub.WrittenConfInst;
  * This class is used to process the web service request and return the responseO
  * to the calling application. This class is used to receive the request and
  * convert request into micros specific format. It will receive the response
- * from the MICROS and will convert the response into keypr specific format .
+ * from the MICROS and will convert the response into keypr specific format.
+ * 
+ * This file was modified to give server time out error to the keypr when the
+ * property management system does not give any response within specified time interval.
  * 
  * @author niveditat
+ * @modified vinayk2
  * 
  */
 public class MicrosPMSMessageParser implements IParserInterface {
@@ -109,12 +116,21 @@ public class MicrosPMSMessageParser implements IParserInterface {
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest objCheckInRequest = null;
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse objCheckInResponse = null;
 		CheckInResponse objResponse = null;
-		String xmlRequest = null;
-		String xmlResponse = null;
 
-		if(checkInRequest != null && checkInRequest.getReservation() != null && checkInRequest.getReservation().getConfirmationNumber().length() > 0) {
+		String xmlRequest = "" ;
+		String xmlResponse = "" ;
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
+
+		if( checkInRequest.getReservation().getConfirmationNumber().length() > 0) {
 
 			objCheckInRequest = getCheckInRequestObject( checkInRequest );
+			
+            timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Convert request into xml form ");
 
@@ -124,19 +140,48 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 			/* To send the xml request to the OXI Simulator via Message Transport */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+		
+			while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckInResponse> ")) && ( counter < timeUnitCounter )) {
+
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+				try {
+
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
+
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckIn ", " Thread Sleeping Counter " + counter);
+
+				}
+				catch ( Exception exc) {
+
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " guestCheckIn ", exc);
+				}
+
+			}
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
 
-			objCheckInResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse();
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA )) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ",	" Convert xml response into object ");
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ", " No Response from MicrosPMS_OWS ");
 
-			objCheckInResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse) AdapterUtility.covertToStramObject(xmlResponse);
+				objResponse = null;
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Get Response object from response xml ::: " + objCheckInResponse);
+			}
+			else {
 
-			objResponse = getCheckInResponseObject( objCheckInResponse );
+				objCheckInResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse();
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ",	" Convert xml response into object ");
+
+				objCheckInResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse) AdapterUtility.covertToStramObject(xmlResponse);
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Get Response object from response xml ::: " + objCheckInResponse);
+
+				objResponse = getCheckInResponseObject( objCheckInResponse );
+
+			}
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Response received in message Parser : " + objResponse);
 		}
@@ -154,9 +199,19 @@ public class MicrosPMSMessageParser implements IParserInterface {
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse objCheckOutResponse = null;
 		CheckOutResponse objResponse = null;
 
+		String xmlResponse = "";
+		
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
+
+
 		if( checkOutRequest != null && checkOutRequest.getConfirmationNumber().length() > 0){
 
 			objCheckOutRequest = getCheckOutRequestObject( checkOutRequest );
+			
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Convert request into xml form ");
 
@@ -167,23 +222,50 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			String xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut "," Get Response from OXI Simulator in xml format :: "
-					+ xmlResponse);
+			while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckOutResponse>")) && ( counter < timeUnitCounter )) {
+
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+				try {
+
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
+
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Thread Sleeping Counter " + counter);
+
+				}
+				catch ( Exception exc) {
+
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " guestCheckOut ", exc);
+				}
+
+			}
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
 
 			objCheckOutResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse();
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Convert xml response into object ");
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-			objCheckOutResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse) AdapterUtility.covertToStramObject( xmlResponse );
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS ");
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut "," Get Response object from response xml ::: " + objCheckOutResponse);
+				objCheckOutResponse = null;
 
-			objResponse = getCheckOutResponseObject( objCheckOutResponse );
+			}
+			else {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Response received in message Parser : "
-					+ objCheckOutResponse);
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Convert xml response into object ");
+
+				objCheckOutResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse) AdapterUtility.covertToStramObject( xmlResponse );
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut "," Get Response object from response xml ::: " + objCheckOutResponse);
+
+				objResponse = getCheckOutResponseObject( objCheckOutResponse );
+			}
+
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Response received in message Parser : "+ objCheckOutResponse);
 		}
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Exit guestCheckIn method. ");
 
@@ -199,6 +281,11 @@ public class MicrosPMSMessageParser implements IParserInterface {
 		FutureBookingSummaryRequest objFutureBookingSummaryRequest = null;
 		FutureBookingSummaryResponse objResponse = null;
 		SearchReservationResponse objSearchReservationResponse = null;
+		String xmlResponse = "";
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
 
 
 		if(futureBookingSummaryRequest != null && (futureBookingSummaryRequest.getFirstName().length() > 0 
@@ -207,30 +294,60 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 			objFutureBookingSummaryRequest = getFutureBookingRequestObject(futureBookingSummaryRequest);
 
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Convert request into xml form ");
 
 			String xmlRequest = AdapterUtility.convertToStreamXML(objFutureBookingSummaryRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Get Request in xml format :: "
-					+ xmlRequest);
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Get Request in xml format :: " + xmlRequest);
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			String xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: "
-					+ xmlResponse);
+			while( !(xmlResponse.contains("<com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryResponse> ")) && ( counter < timeUnitCounter )) {
 
-			objResponse = new FutureBookingSummaryResponse();
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			MicrosPMSLogger
-			.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Convert xml response into object ");
+				try {
 
-			objResponse = (FutureBookingSummaryResponse) AdapterUtility.covertToStramObject(xmlResponse);
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response object from response xml ::: " + objResponse);
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Thread Sleeping Counter " + counter);
 
-			objSearchReservationResponse = getFutureBookingResponseObject(objResponse);
+				}
+				catch ( Exception exc) {
+
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " searchReservationData ", exc);
+				}
+
+			}
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Convert xml response into object ");
+
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA) ) {
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS ");
+
+				objSearchReservationResponse = null;
+
+
+			}
+			else {
+
+
+				objResponse = (FutureBookingSummaryResponse) AdapterUtility.covertToStramObject(xmlResponse);
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response object from response xml ::: " + objResponse);
+
+				objSearchReservationResponse = getFutureBookingResponseObject(objResponse);
+
+			}
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Response received in message Parser : "+ objSearchReservationResponse);
 
@@ -257,6 +374,11 @@ public class MicrosPMSMessageParser implements IParserInterface {
 		/* Populate response into Reservation instance */
 		SearchReservationResponse objSearchReservationResponse = new SearchReservationResponse();
 		List<Reservation> objLReservations = objSearchReservationResponse.getReservationList();
+		
+		if( objLReservations == null ) {
+			
+			objLReservations = new ArrayList<Reservation>();
+		}
 
 		HotelReservation[] arrHotelReservation = objResponse.getHotelReservations().getHotelReservation();
 
@@ -789,6 +911,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			CheckInRequest checkInRequest) {
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInRequestObject "," Enter in getCheckInRequestObject method. ");
+		
 		String confirmationNumber = null;
 		String creditCardNumber = null;
 
@@ -1088,6 +1211,12 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest objfolioRequest = null;
 		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objResponse = null;
 		GetFolioResponse objGetFolioResponse = null;
+		String xmlResponse = "";
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
+
 
 		if(folioRequest != null && folioRequest.getConfirmationNumber().length() > 0){
 
@@ -1095,31 +1224,64 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Convert request into xml form ");
 
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+
+
 			String xmlRequest = AdapterUtility.convertToStreamXML(objfolioRequest);
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Get Request in xml format :: "+ xmlRequest);
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			String xmlResponse = objMessageTransport.handlePMSRequest( xmlRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response from OXI Simulator in xml format :: "
-					+ xmlResponse);
+			while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-InvoiceResponse>")) && ( counter < timeUnitCounter )) {
 
-			objResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse();
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Convert xml response into object ");
+				try {
 
-			objResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse) AdapterUtility.covertToStramObject(xmlResponse);
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response object from response xml ::: " + objResponse);
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Thread Sleeping Counter " + counter);
 
-			objGetFolioResponse = getFolioResponseObject(objResponse);
+				}
+				catch ( Exception exc) {
 
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " retrieveFolioInfo ", exc);
+				}
+
+			}
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA) )  {
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo ", " No Response from MicrosPMS_OWS ");
+
+				objGetFolioResponse = null;
+
+			}
+			else {
+
+				objResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse();
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Convert xml response into object ");
+
+				objResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse) AdapterUtility.covertToStramObject(xmlResponse);
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response object from response xml ::: " + objResponse);
+
+				objGetFolioResponse = getFolioResponseObject(objResponse);
+
+			}
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo "," Response received in message Parser : "+ objGetFolioResponse);
 
 		}
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Exit retrieveFolioInfo method ");
+
 		return objGetFolioResponse;
 	}
 
@@ -1133,6 +1295,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	private GetFolioResponse getFolioResponseObject(com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objResponse) {
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Enter in getFolioResponseObject method ");
+
 		/* Populate response into Reservation instance */
 		String addressType = null;
 		String countryCode = null;
@@ -1140,6 +1303,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		String lastName = null;
 		String confirmationNumber = null;
 		String description = null;
+
 		double unitPrice ;
 		double totalBillAmount ;
 
@@ -1148,10 +1312,6 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		Reservation objReservation = new Reservation();
 
 		// set confirmation number.
-
-
-
-
 
 		BillHeader[] arrBillHeader = objResponse.getInvoice();
 
@@ -1173,9 +1333,20 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			objReservation.setFullName( firstName.concat(" "+ lastName));
 
 			List<ReservationOrders> objReservationOrders = objFolioResponse.getReservationOrderList();
+			
+			if( objReservationOrders == null) {
+				
+				objReservationOrders = new ArrayList<ReservationOrders>();
+			}
+			
 			ReservationOrders objOrders = new ReservationOrders();
 
 			List<OrderDetails> objDetails = objOrders.getOrderDetailList();
+			
+			if( objDetails == null ) {
+				
+				objDetails = new ArrayList<OrderDetails>();
+			}
 
 			BillItem[] arrBillItem = objBillHeader.getBillItems();
 
@@ -1276,6 +1447,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		ModifyBookingRequest objModifyBookingRequest = null;
 		ModifyBookingResponse objResponse = null;
 		UpdateBookingResponse objUpdateBookingResponse = null;
+		String xmlResponse = "";
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
 
 		if(updateBookingRequest != null && updateBookingRequest.getConfirmationNumber().length() > 0){
 
@@ -1289,6 +1465,10 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			}
 
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Convert request into xml form ");
 
 			String xmlRequest = AdapterUtility.convertToStreamXML(objModifyBookingRequest);
@@ -1298,22 +1478,48 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			String xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking "," Get Response from OXI Simulator in xml format :: "
-					+ xmlResponse);
+			while( !(xmlResponse.contains("</com.micros.reservation.ReservationServiceStub_-ModifyBookingResponse>")) && ( counter < timeUnitCounter )) {
 
-			objResponse = new ModifyBookingResponse();
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Convert xml response into object ");
+				try {
 
-			objResponse = (ModifyBookingResponse) AdapterUtility.covertToStramObject(xmlResponse);
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking "," Get Response object from response xml ::: " + objResponse);
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Thread Sleeping Counter " + counter);
 
-			objUpdateBookingResponse = getModifyBookingResponseObject( objResponse );
+				}
+				catch ( Exception exc) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Response received in message Parser : "+ objUpdateBookingResponse);
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " updateBooking ", exc);
+				}
+
+			}
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " updateBooking ", " No Response from MicrosPMS_OWS ");
+
+				objUpdateBookingResponse = null;
+
+			}
+			else {
+
+				objResponse = new ModifyBookingResponse();
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Convert xml response into object ");
+
+				objResponse = (ModifyBookingResponse) AdapterUtility.covertToStramObject(xmlResponse);
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking "," Get Response object from response xml ::: " + objResponse);
+
+				objUpdateBookingResponse = getModifyBookingResponseObject( objResponse );
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Response received in message Parser : "+ objUpdateBookingResponse);
+			}
 		}
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Exit updateBooking method ");
@@ -1335,6 +1541,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		String firstName = null;
 		String lastName = null;
+
 		int guestCount = 0;
 
 		StringBuilder objBuilder = null;
@@ -1837,17 +2044,33 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		Date objSDate = availabilityRequest.getStartDate();
 		Date objEDate = availabilityRequest.getEndDate();
 
+		String xmlResponse = "";
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
+
 		if(objEDate.before(objSDate)){
 
 			objGetAvailabilityResponse = new GetAvailabilityResponse();
 			objGetAvailabilityResponse.setStatus("FAILURE");
+			
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Start Date " + objSDate);
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " End Date " + objEDate);
 
 		}
 		else
 		{
 			objFetchCalendarRequest = getAvailabiltyRequestObject( availabilityRequest );
 
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Start Date " + objSDate);
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " End Date " + objEDate);
+
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Convert request into xml form ");
+
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
 
 			String xmlRequest = AdapterUtility.convertToStreamXML( objFetchCalendarRequest );
 
@@ -1855,20 +2078,46 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			String xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+			while( !(xmlResponse.contains("<com.micros.availability.AvailabilityServiceStub_-FetchCalendarResponse ")) && ( counter < timeUnitCounter )) {
+
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+				try {
+
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
+
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Thread Sleeping Counter " + counter);
+
+				}
+				catch ( Exception exc) {
+
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " checkAvailability ", exc);
+				}
+
+			}
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
 
-			objResponse = new FetchCalendarResponse();
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Convert xml response into object ");
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " checkAvailability ", " No Response from MicrosPMS_OWS ");
 
-			objResponse = ( FetchCalendarResponse ) AdapterUtility.covertToStramObject( xmlResponse );
+				objGetAvailabilityResponse = null;
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Get Response object from response xml ::: " + objResponse);
+			}
+			else {
+				objResponse = new FetchCalendarResponse();
 
-			objGetAvailabilityResponse = getAvailabilityResponseObject( objResponse );
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Convert xml response into object ");
 
+				objResponse = ( FetchCalendarResponse ) AdapterUtility.covertToStramObject( xmlResponse );
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Get Response object from response xml ::: " + objResponse);
+
+				objGetAvailabilityResponse = getAvailabilityResponseObject( objResponse );
+			}
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Response received in message Parser : "+ objGetAvailabilityResponse);
 
 
@@ -1896,6 +2145,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To get the list from availability response.*/
 		List<Availability> objLiAvailabilities = objAvailabilityResponse.getAvailList();
+		
+		if (objLiAvailabilities == null) {
+			
+			objLiAvailabilities = new ArrayList<Availability>();
+		}
 
 		/*To get the calendar daily detail array from response.*/
 		CalendarDailyDetail[] arrCalendarDailyDetail = objResponse.getCalendar().getCalendarDay();
@@ -2015,20 +2269,25 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		AssignRoomRequest objAssignRoomRequest = new AssignRoomRequest();
 
-		/*To set the room number.*/
-		objAssignRoomRequest.setRoomNoRequested( objFetchRoomStatusResponse .getRoomStatus()[0].getRoomNumber());
+		if( objFetchRoomStatusResponse == null ) {
 
-		/*To set the confirmation number.*/
-		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-		objUniqueID.setSource("OPERA-ID");
-		objUniqueID.setString( confirmationNumber );
-		objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
-		objAssignRoomRequest.setResvNameId( objUniqueID );
+			objAssignRoomRequest = null;
+		} 
+		else {
+			/*To set the room number.*/
+			objAssignRoomRequest.setRoomNoRequested( objFetchRoomStatusResponse .getRoomStatus()[0].getRoomNumber());
 
-		/*To set the hotel reference.*/
-		com.micros.reservation.ReservationServiceStub.HotelReference objHotelReference = new  com.micros.reservation.ReservationServiceStub.HotelReference();
-		objHotelReference.setHotelCode(  IMicrosConstants.HOTEL_CODE );
-		objAssignRoomRequest.setHotelReference( objHotelReference );
+			/*To set the confirmation number.*/
+			com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
+			objUniqueID.setSource("OPERA-ID");
+			objUniqueID.setString( confirmationNumber );
+			objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
+			objAssignRoomRequest.setResvNameId( objUniqueID );
+
+			/*To set the hotel reference.*/
+			com.micros.reservation.ReservationServiceStub.HotelReference objHotelReference = new  com.micros.reservation.ReservationServiceStub.HotelReference();
+			objHotelReference.setHotelCode(  IMicrosConstants.HOTEL_CODE );
+			objAssignRoomRequest.setHotelReference( objHotelReference );}
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAssignRoomRequestObject "," Exit getAssignRoomRequestObject method ");
 
@@ -2048,9 +2307,18 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		FetchRoomStatusRequest objFetchRoomStatusRequest = null;
 		FetchRoomStatusResponse objResponse = null;
+		String xmlResponse = "";
+		
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
 
 		objFetchRoomStatusRequest = getFetchRoomRequestObject( roomTypeCode );
 
+		timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+		
+		threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+		
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Convert request into xml form ");
 
 		String xmlRequest = AdapterUtility.convertToStreamXML( objFetchRoomStatusRequest );
@@ -2059,20 +2327,45 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/* To send the xml request to the OXI Simulator via Message Transport. */
 		MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-		String xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+
+		while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusResponse>")) && ( counter < timeUnitCounter )) {
+
+			xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+			try {
+
+				Thread.sleep( threadTime );
+				counter = counter + 1 ;
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Thread Sleeping Counter " + counter);
+
+			}
+			catch ( Exception exc) {
+
+				MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " callFetchRoomStatus ", exc);
+			}
+
+		}
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
 
-		objResponse = new FetchRoomStatusResponse();
+		if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Convert xml response into object ");
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS ");
 
-		objResponse = ( FetchRoomStatusResponse ) AdapterUtility.covertToStramObject(xmlResponse);
+			objResponse = null;
+
+		} else {
+			objResponse = new FetchRoomStatusResponse();
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Convert xml response into object ");
+
+			objResponse = ( FetchRoomStatusResponse ) AdapterUtility.covertToStramObject(xmlResponse); }
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Get Response object from response xml ::: " + objResponse);
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Exit assignRoom method ");
-
 
 		return objResponse ;
 	}
@@ -2103,37 +2396,49 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		AssignRoomRequest objAssignRoomRequest = null;
 		AssignRoomResponse objResponse = null;
 		com.cloudkey.pms.response.AssignRoomResponse objRoomResponse = null;
+		String xmlResponse = "";
+		String xmlRequest = "";
 
-		if(assignRoomRequest != null && assignRoomRequest.getReservation() != null && assignRoomRequest.getReservation().getConfirmationNumber().length() > 0){
+
+		if(assignRoomRequest.getReservation().getConfirmationNumber().length() > 0){
 
 
 			objAssignRoomRequest = getAssignRoomRequestObject( assignRoomRequest );
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Convert request into xml form ");
 
-			String xmlRequest = AdapterUtility.convertToStreamXML( objAssignRoomRequest );
+			if( objAssignRoomRequest == null) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Get Request in xml format :: "+ xmlRequest);
+				objRoomResponse = null;
+			}
+			else {
+				xmlRequest = AdapterUtility.convertToStreamXML( objAssignRoomRequest );
 
-			/* To send the xml request to the OXI Simulator via Message Transport. */
-			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			String xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Get Request in xml format :: "+ xmlRequest);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+				/* To send the xml request to the OXI Simulator via Message Transport. */
+				MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			objResponse = new AssignRoomResponse();
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Convert xml response into object ");
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-			objResponse = ( AssignRoomResponse ) AdapterUtility.covertToStramObject(xmlResponse);
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Get Response object from response xml ::: " + objResponse);
+				objResponse = new AssignRoomResponse();
 
-			objRoomResponse = getAssignRoomResponseObject(objResponse);
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Convert xml response into object ");
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Response received in message Parser : "+ objRoomResponse);
+				objResponse = ( AssignRoomResponse ) AdapterUtility.covertToStramObject(xmlResponse);
 
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Get Response object from response xml ::: " + objResponse);
+
+				objRoomResponse = getAssignRoomResponseObject(objResponse);
+
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Response received in message Parser : "+ objRoomResponse);
+			}
 		}
+
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Exit assignRoom method ");
 
 		return objRoomResponse;
@@ -2169,12 +2474,21 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest objReleaseRoomRequest = null;
 		com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse = null;
 		ReleaseRoomResponse objResponse = null;
-		String xmlRequest = null;
-		String xmlResponse = null;
+
+		String xmlRequest = "";
+		String xmlResponse = "";
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
 
 		if(releaseRoomRequest != null && releaseRoomRequest.getReservationId() != null) {
 
 			objReleaseRoomRequest = getReleaseRoomRequestObject( releaseRoomRequest );
+			
+            timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+			
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Convert request into xml form ");
 
@@ -2184,20 +2498,46 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			/* To send the xml request to the OXI Simulator via Message Transport */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
-			xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+			while( !(xmlResponse.contains("</com.micros.reservation.ReservationServiceStub_-ReleaseRoomResponse>")) && ( counter < timeUnitCounter )) {
+
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+				try {
+
+					Thread.sleep( threadTime );
+					counter = counter + 1 ;
+
+					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," releaseRoom ", " Thread Sleeping Counter " + counter);
+
+				}
+				catch ( Exception exc) {
+
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " releaseRoom ", exc);
+				}
+
+			}
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
 
-			objReleaseRoomResponse = new com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse();
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ",	" Convert xml response into object ");
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " No Response from MicrosPMS_OWS ");
 
-			objReleaseRoomResponse = (com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse) AdapterUtility.covertToStramObject(xmlResponse);
+				objResponse = null;
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response object from response xml ::: " + objReleaseRoomResponse);
+			}
+			else {
+				objReleaseRoomResponse = new com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse();
 
-			objResponse = getReleaseRoomResponseObject( objReleaseRoomResponse );
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ",	" Convert xml response into object ");
 
+				objReleaseRoomResponse = (com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse) AdapterUtility.covertToStramObject(xmlResponse);
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response object from response xml ::: " + objReleaseRoomResponse);
+
+				objResponse = getReleaseRoomResponseObject( objReleaseRoomResponse );
+			}
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Response received in message Parser : " + objResponse);
 		}
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Exit releaseRoom method. ");
@@ -2205,31 +2545,31 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objResponse;
 	}
 
-/**
- * 
- * This method is used to generate the response for release room 
- * by populating the release room response into base release room class. 
- * 
- * @param objReleaseRoomResponse
- * @return
- */
+	/**
+	 * 
+	 * This method is used to generate the response for release room 
+	 * by populating the release room response into base release room class. 
+	 * 
+	 * @param objReleaseRoomResponse
+	 * @return
+	 */
 	private ReleaseRoomResponse getReleaseRoomResponseObject(
 			com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse) {
-		
+
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomResponseObject "," Enter getReleaseRoomResponseObject method ");	
-		
+
 		ReleaseRoomResponse objReleaseRoomRespons = null;
 		String status = null;
-		
+
 		objReleaseRoomRespons = new ReleaseRoomResponse();
-		
+
 		// get the status from release room response.
 		status = objReleaseRoomResponse.getResult().getResultStatusFlag().toString();
 		// set the released room status.
 		objReleaseRoomRespons.setStatus(status);
-		
+
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomResponseObject "," Exit getReleaseRoomResponseObject method ");
-		
+
 		return objReleaseRoomRespons;
 	}
 
@@ -2242,11 +2582,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 */
 	private com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest getReleaseRoomRequestObject(
 			ReleaseRoomRequest releaseRoomRequest) {
-		
+
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Enter getReleaseRoomRequestObject method ");
 
 		String reservationId = releaseRoomRequest.getReservationId();
-		
+
 		com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest objReleaseRoomRequest = new com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest();
 
 		/*To set the reservation name  number.*/
@@ -2255,7 +2595,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objUniqueID.setString( reservationId );
 		objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
 		objReleaseRoomRequest.setResvNameId( objUniqueID );
-		
+
 		/*To set the hotel reference having chain and hotel code.*/
 		HotelReference objHotelReference = new HotelReference();
 		objHotelReference.setHotelCode(IMicrosConstants.HOTEL_CODE);
@@ -2264,7 +2604,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Exit getReleaseRoomRequestObject method ");
 		return objReleaseRoomRequest;
-		
+
 	}
 
 }
