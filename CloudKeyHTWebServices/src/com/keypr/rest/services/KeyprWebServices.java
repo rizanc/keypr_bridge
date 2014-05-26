@@ -1,6 +1,8 @@
 package com.keypr.rest.services;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.ReservationOrders;
+import com.cloudkey.commons.TimeOutError;
 import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.AssignRoomRequest;
@@ -55,7 +59,7 @@ public class KeyprWebServices {
 	 * @param objSearchReservationRequest
 	 * @return Response
 	 */
-	@SuppressWarnings( { "resource", "unchecked" } )
+	@SuppressWarnings( { "resource" } )
 	@Path( "/searchReservation" )
 	@POST
 	@Produces( MediaType.APPLICATION_JSON )
@@ -65,7 +69,7 @@ public class KeyprWebServices {
 		WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " Enter method searchReservation " );
 
 		/* variable to store SearchReservationRespone instance.*/
-		SearchReservationResponse objFindCustomerResponse = null;
+		SearchReservationResponse objSearchReservationResponse = null;
 		/* variable to store application context. */
 		ApplicationContext appContext = null;   
 		/* variable to store response. */
@@ -106,25 +110,37 @@ public class KeyprWebServices {
 				objSearchReservationRequest.setLastName( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			objFindCustomerResponse = new SearchReservationResponse();
+			if( (objSearchReservationRequest.getFirstName().equals( ICloudKeyConstants.EMPTY_STRING) ) 
+					&& (objSearchReservationRequest.getLastName().equals( ICloudKeyConstants.EMPTY_STRING) )
+					&& ( objSearchReservationRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING) ) 
+					&& (objSearchReservationRequest.getCreditCardNumber().equals( ICloudKeyConstants.EMPTY_STRING)) ) {
 
-			if( (objSearchReservationRequest.getFirstName().equals(ICloudKeyConstants.EMPTY_STRING)) 
-					&& (objSearchReservationRequest.getLastName().equals(ICloudKeyConstants.EMPTY_STRING) )
-					&& ( objSearchReservationRequest.getConfirmationNumber().equals(ICloudKeyConstants.EMPTY_STRING)) 
-					&& (objSearchReservationRequest.getCreditCardNumber().equals(ICloudKeyConstants.EMPTY_STRING)) ) {
+				WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " Required Fields are missing " );
 
-				objFindCustomerResponse = new SearchReservationResponse();
+				List<Reservation> resList = new ArrayList<Reservation>();
+				objSearchReservationResponse = new SearchReservationResponse();
+				objSearchReservationResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+				objSearchReservationResponse.setReservationList( resList);
 
-				objFindCustomerResponse.setStatus("FAILURE");
-
-				objFindCustomerResponse.setReservationList( new ArrayList());
-				res = Response.status(200).entity(objFindCustomerResponse).build();
+				res = Response.status(200).entity(objSearchReservationResponse).build();
 
 			}
 			else {
 
-				objFindCustomerResponse = messageParser.searchReservationData( objSearchReservationRequest );
-				res = Response.status(200).entity(objFindCustomerResponse).build();
+				objSearchReservationResponse = messageParser.searchReservationData( objSearchReservationRequest );
+
+				if(objSearchReservationResponse == null) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objSearchReservationResponse).build();
+				}
 			}
 
 		}
@@ -233,16 +249,28 @@ public class KeyprWebServices {
 					|| (objReservation.getCreditCardNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING))) {
 
 				objCheckInResponse = new CheckInResponse();
-				objCheckInResponse.setStatus( "FAILURE" );
-				objCheckInResponse.setReservation( null );
+				objCheckInResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+
+				objCheckInResponse.setReservation( null);
 
 				res = Response.status(200).entity(objCheckInResponse).build();
 
 			} else {
 
-				objCheckInResponse = messageParser.guestCheckIn( objCheckInRequest );
+				objCheckInResponse = messageParser.guestCheckIn(objCheckInRequest);
 
-				res = Response.status(200).entity(objCheckInResponse).build();
+				if( objCheckInResponse == null) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objCheckInResponse).build();
+				}
 			}
 		}
 
@@ -360,14 +388,26 @@ public class KeyprWebServices {
 					|| objAssignRoomRequest.getReservation().getConfirmationNumber().equals(ICloudKeyConstants.EMPTY_STRING) ) {
 
 				objAssignRoomResponse = new AssignRoomResponse();
-				objAssignRoomResponse.setStatus("FAILURE");
+				objAssignRoomResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
 				res = Response.status(200).entity(objAssignRoomResponse).build();
 
 			}
 			else {
 
-				objAssignRoomResponse = messageParser.assignRoom( objAssignRoomRequest );
-				res = Response.status(200).entity(objAssignRoomResponse).build();
+				objAssignRoomResponse = messageParser.assignRoom( objAssignRoomRequest);
+
+				if(objAssignRoomResponse == null) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objAssignRoomResponse).build();
+				}
 			}
 
 		}
@@ -436,13 +476,25 @@ public class KeyprWebServices {
 
 			if( objCheckOutRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING) ) {
 
-				objCheckOutResponse.setStatus("FAILURE");
+				objCheckOutResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
 				res = Response.status(200).entity(objCheckOutResponse).build();
 			} 
 			else {
 
 				objCheckOutResponse = messageParser.guestCheckOut(objCheckOutRequest);
-				res = Response.status(200).entity(objCheckOutResponse).build();
+
+				if( objCheckOutResponse == null ) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objCheckOutResponse).build();
+				}
 			}
 
 		}
@@ -490,12 +542,35 @@ public class KeyprWebServices {
 			// retrieve the current bean and store its reference.
 			messageParser = (IParserInterface) appContext.getBean( parserName );
 
+			Date startDate = objAvailabilityRequest.getStartDate();
+			Date endDate = objAvailabilityRequest.getEndDate();
 
-			objAvailabilityResponse = new GetAvailabilityResponse();
+			if((startDate == null) || (endDate == null)) {
 
-			objAvailabilityResponse = messageParser.checkAvailability( objAvailabilityRequest );
+				objAvailabilityResponse = new GetAvailabilityResponse();
+				objAvailabilityResponse.setStatus( ICloudKeyConstants.RES_FAILURE);
 
-			res = Response.status(200).entity(objAvailabilityResponse).build();
+				res = Response.status(200).entity(objAvailabilityResponse).build();
+			}
+			else {
+
+				objAvailabilityResponse = messageParser.checkAvailability( objAvailabilityRequest );
+
+				if( objAvailabilityResponse == null ) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objAvailabilityResponse).build();
+
+				}
+
+			}
 
 		}
 
@@ -555,7 +630,6 @@ public class KeyprWebServices {
 				objFolioRequest.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-
 			objGetFolioResponse = new GetFolioResponse();
 
 			/**
@@ -563,9 +637,10 @@ public class KeyprWebServices {
 			 */
 			if( objFolioRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING) ) {
 
+				List<ReservationOrders> resList = new ArrayList<ReservationOrders>();
 
-				objGetFolioResponse.setReservation(null);
-				objGetFolioResponse.setReservationOrderList( new ArrayList());
+				objGetFolioResponse.setReservation( null );
+				objGetFolioResponse.setReservationOrderList( resList);
 
 				res = Response.status(200).entity(objGetFolioResponse).build();
 			} 
@@ -573,7 +648,18 @@ public class KeyprWebServices {
 
 				objGetFolioResponse = messageParser.retrieveFolioInfo( objFolioRequest );
 
-				res = Response.status(200).entity(objGetFolioResponse).build();
+				if ( objGetFolioResponse == null) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objGetFolioResponse).build();
+				}
 
 			}
 		}
@@ -589,7 +675,6 @@ public class KeyprWebServices {
 		return res;
 
 	}
-
 
 	/**
 	 * This method makes guest update payment request on the basis of confirmation number.
@@ -618,6 +703,8 @@ public class KeyprWebServices {
 		String parserName = null;
 		/* variable to store message parser. */
 		IParserInterface messageParser = null;
+		/*Variable to hold confirmation number. */
+		String confirmationNumber = null;
 
 		try {
 
@@ -635,11 +722,33 @@ public class KeyprWebServices {
 				objUpPaymentRequest.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			objUpPaymentResponse = new UpdatePaymentResponse();
+			confirmationNumber = objUpPaymentRequest.getConfirmationNumber();
 
-			objUpPaymentResponse = messageParser.updatePayment( objUpPaymentRequest );
+			if( confirmationNumber.equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING)) {
 
-			res = Response.status(200).entity(objUpPaymentResponse).build();
+				objUpPaymentResponse = new UpdatePaymentResponse();
+				objUpPaymentResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+				res = Response.status(200).entity(objUpPaymentResponse).build();
+
+			}
+			else {
+
+				objUpPaymentResponse = messageParser.updatePayment( objUpPaymentRequest );
+
+				if( objUpPaymentResponse == null) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objUpPaymentResponse).build();
+				}
+
+			}
 
 		}
 
@@ -707,19 +816,33 @@ public class KeyprWebServices {
 
 			if( (notes[0].length() < 2) && (notes[1].length() <2 ) ) {
 
-				objUpBookingResponse.setReservation(null);
+				objUpBookingResponse.setReservation( null);
+
 				res = Response.status(200).entity(objUpBookingResponse).build();
 
 			}
 			else if( (objUpBookingRequest.getConfirmationNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING)))  {
 
-				objUpBookingResponse.setReservation(null);
+				objUpBookingResponse.setReservation( null);
 				res = Response.status(200).entity(objUpBookingResponse).build();
 			}
 			else {
 
 				objUpBookingResponse = messageParser.updateBooking( objUpBookingRequest );
-				res = Response.status(200).entity(objUpBookingResponse).build();}
+
+				if( objUpBookingResponse == null ){
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					res = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					res = Response.status(200).entity(objUpBookingResponse).build();
+				}
+			}
 
 		}
 
@@ -787,17 +910,27 @@ public class KeyprWebServices {
 			if( objReleaseRoomRequest.getReservationId().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING) ) {
 
 
-				objReleaseRoomResponse.setStatus("FAILURE");
+				objReleaseRoomResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
 				response = Response.status(200).entity(objReleaseRoomResponse).build();
 			}
 			else {
 
 				objReleaseRoomResponse = messageParser.releaseRoom( objReleaseRoomRequest );
 
-				response = Response.status(200).entity(objReleaseRoomResponse).build();
+				if( objReleaseRoomResponse == null) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					response = Response.status(200).entity(objTimeOutError).build();
+				}
+				else {
+
+					response = Response.status(200).entity(objReleaseRoomResponse).build();
+				}
 
 			}
-
 
 		}
 		catch( Exception exc ) {

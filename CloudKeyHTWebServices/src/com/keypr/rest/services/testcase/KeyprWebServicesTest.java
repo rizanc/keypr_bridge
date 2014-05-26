@@ -19,17 +19,22 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.cloudkey.commons.Reservation;
-import com.cloudkey.constant.ICloudKeyConstants;
+import com.cloudkey.commons.TimeOutError;
+import com.cloudkey.pms.request.AssignRoomRequest;
 import com.cloudkey.pms.request.CheckInRequest;
+import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
+import com.cloudkey.pms.response.AssignRoomResponse;
 import com.cloudkey.pms.response.CheckInResponse;
+import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
+import com.keypr.rest.constants.IWebServiceConstants;
 import com.keypr.web.logger.WebAppLogger;
 
 /**
@@ -56,7 +61,7 @@ public class KeyprWebServicesTest {
 
 		objSearchReservationRequest = new SearchReservationRequest();
 		// For a given confirmation number, we will have only one reservation response
-		objSearchReservationRequest.setConfirmationNumber("100");
+		objSearchReservationRequest.setConfirmationNumber("200");
 
 		objSearchReservationResponse = makeSearchReservationRequest(objSearchReservationRequest);
 
@@ -65,7 +70,7 @@ public class KeyprWebServicesTest {
 			assertTrue( "Number of reservation",  1 == objSearchReservationResponse.getReservationList().size() );
 
 			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
-			assertEquals( 100, Integer.parseInt(objSearchReservationResponse.getReservationList().get(0).getConfirmationNumber()) );
+			assertEquals( 101, Integer.parseInt(objSearchReservationResponse.getReservationList().get(0).getConfirmationNumber()) );
 
 		}
 
@@ -128,7 +133,6 @@ public class KeyprWebServicesTest {
 
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForFailure ", " Enter method testSearchReservationForFailure " );
 
-
 		SearchReservationRequest objSearchReservationRequest = null;
 		SearchReservationResponse objSearchReservationResponse = null;
 
@@ -151,6 +155,37 @@ public class KeyprWebServicesTest {
 	}
 
 	/**
+	 * This test case works to see if the property management system server is shutdown or not. If the server
+	 * is down , then this test case gives positive result otherwise it fails against junit test case.
+	 */
+	@Test
+	public void testSearchReservationForServerShutdown() {
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForServerShutdown ", " Enter method testSearchReservationForServerShutdown " );
+
+		SearchReservationRequest objSearchReservationRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objSearchReservationRequest = new SearchReservationRequest();
+		objSearchReservationRequest.setConfirmationNumber( "200");
+
+		Entity<SearchReservationRequest> entity = Entity.json(objSearchReservationRequest);
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.SEARCH_RESERVATION_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError = response.readEntity(TimeOutError.class);
+
+		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
+		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
+
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForServerShutdown ", " Exit method testSearchReservationForServerShutdown " );
+
+	}
+
+	/**
 	 * This method makes search reservation request to the web service.
 	 * 
 	 * @param objSearchReservationRequest
@@ -164,7 +199,7 @@ public class KeyprWebServicesTest {
 
 		Client client = ClientBuilder.newClient();
 
-		WebTarget target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/searchReservation" );
+		WebTarget target = client.target( IWebServiceConstants.SEARCH_RESERVATION_URL );
 
 		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
 
@@ -257,7 +292,7 @@ public class KeyprWebServicesTest {
 
 		Client client = ClientBuilder.newClient();
 
-		WebTarget target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getFolio" );
+		WebTarget target = client.target( IWebServiceConstants.GET_FOLIO_URL );
 
 		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
 
@@ -320,7 +355,7 @@ public class KeyprWebServicesTest {
 
 		Client client = ClientBuilder.newClient();
 
-		WebTarget target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/updateBooking" );
+		WebTarget target = client.target( IWebServiceConstants.UPDATE_BOOKING_URL );
 
 		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
 
@@ -409,7 +444,7 @@ public class KeyprWebServicesTest {
 
 		Client client = ClientBuilder.newClient();
 
-		WebTarget target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/checkIn" ); 
+		WebTarget target = client.target( IWebServiceConstants.CHECK_IN_URL ); 
 
 		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
 
@@ -454,39 +489,156 @@ public class KeyprWebServicesTest {
 			assertEquals( "Response status must be success" , "SUCCESS", objGetAvailabilityResponse.getStatus() );
 		}
 		catch (Exception exc){
-			
+
 			WebAppLogger.logError( KeyprWebServicesTest.class, "testGetAvailabilityRequest", exc );
 		}
 
-			WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetAvailabilityRequest ", " Exit method testGetAvailabilityRequest " );
-
-		}
-	
-	
-		/**
-		 * This method makes guest check availability request to the web service.
-		 * 
-		 * @param objGetAvailabilityRequest
-		 * @return
-		 */
-		private static GetAvailabilityResponse makeGetAvailabilityRequest( GetAvailabilityRequest objGetAvailabilityRequest) {
-
-			WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeGetAvailabilityRequest ", " Enter method makeGetAvailabilityRequest " );
-
-			Entity<GetAvailabilityRequest> entity = Entity.json( objGetAvailabilityRequest );
-
-			Client client = ClientBuilder.newClient();
-
-			WebTarget target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getAvailability" );
-
-			Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
-
-			GetAvailabilityResponse objGetAvailabilityResponse = response.readEntity(GetAvailabilityResponse.class);
-
-			WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeGetAvailabilityRequest ", " Exit method makeGetAvailabilityRequest " );
-
-			return objGetAvailabilityResponse;
-
-		}
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetAvailabilityRequest ", " Exit method testGetAvailabilityRequest " );
 
 	}
+
+
+	/**
+	 * This method makes guest check availability request to the web service.
+	 * 
+	 * @param objGetAvailabilityRequest
+	 * @return
+	 */
+	private static GetAvailabilityResponse makeGetAvailabilityRequest( GetAvailabilityRequest objGetAvailabilityRequest) {
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeGetAvailabilityRequest ", " Enter method makeGetAvailabilityRequest " );
+
+		Entity<GetAvailabilityRequest> entity = Entity.json( objGetAvailabilityRequest );
+
+		Client client = ClientBuilder.newClient();
+
+		WebTarget target = client.target( IWebServiceConstants.GET_AVAILABILITY_URL );
+
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		GetAvailabilityResponse objGetAvailabilityResponse = response.readEntity(GetAvailabilityResponse.class);
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeGetAvailabilityRequest ", " Exit method makeGetAvailabilityRequest " );
+
+		return objGetAvailabilityResponse;
+
+	}
+
+
+	/**
+	 * This method makes guest checkout request to the web service.
+	 * 
+	 * @param objCheckOutRequest
+	 * @return
+	 */
+	private static CheckOutResponse makeCheckOutRequest( CheckOutRequest objCheckOutRequest) {
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeCheckInRequest ", " Enter method makeCheckInRequest " );
+
+		Entity<CheckOutRequest> entity = Entity.json( objCheckOutRequest );
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.CHECK_OUT_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		CheckOutResponse objCheckOutResponse = response.readEntity(CheckOutResponse.class);
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeCheckInRequest ", " Enter method makeCheckInRequest " );
+
+		return objCheckOutResponse;
+	}
+
+	/**
+	 * This method test checkout process on the basis of confirmation number .
+	 * If the user checkout successfully then the result must be success with
+	 * the reservation details.
+	 * 
+	 */
+	//@Test
+	//@Ignore
+	public void testCheckOutRequest(){
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testCheckOutRequest ", " Enter method testCheckOutRequest " );
+
+		CheckOutRequest objCheckOutRequest = null;
+		CheckOutResponse objCheckOutResponse = null;
+
+		objCheckOutRequest = new CheckOutRequest();
+		objCheckOutRequest.setConfirmationNumber("100");
+
+		objCheckOutResponse = makeCheckOutRequest(objCheckOutRequest);
+
+		assertNotNull( " CheckOutRequest Instance must not be null " , objCheckOutRequest );
+		assertNotNull( " CheckOutRequest Instance must have confirmation number " , objCheckOutRequest.getConfirmationNumber() );
+		assertNotNull( " CheckOutResponse Instance must not be null ",  objCheckOutResponse);
+
+		assertNotNull( "Reservation Instance in response cannot be null ", objCheckOutResponse.getReservation() );
+		assertEquals( "Status Must be Success", "SUCCESS" , objCheckOutResponse.getStatus() );
+		assertEquals( "Confirmation must be Same " , "100" , objCheckOutResponse.getReservation().getConfirmationNumber() );
+
+
+		//			assertTrue ( "CheckIn Date should not be null ", objCheckOutResponse.getReservation().getCheckinDate() != null );
+		//			assertTrue ( "CheckOut Date should not be null ", objCheckOutResponse.getReservation().getCheckoutDate() != null );
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testCheckOutRequest ", " Exit method testCheckOutRequest " );
+
+	}
+
+
+	/**
+	 * This method makes request to call the webservice for assign the room .
+	 * 
+	 * @param assignRoomRequest
+	 * @return AssignRoomResponse
+	 */
+	private static AssignRoomResponse makeAssignRoomRequest( AssignRoomRequest assignRoomRequest) {
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Enter method makeAssignRoomRequest " );
+
+		Entity<AssignRoomRequest> entity = Entity.json( assignRoomRequest );
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.ASSIGN_ROOM_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		AssignRoomResponse objAssignRoomResponse = response.readEntity(AssignRoomResponse.class);
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Enter method makeAssignRoomRequest " );
+
+		return objAssignRoomResponse;
+	}
+
+	/**
+	 * This method assign the room 
+	 */
+	//@Test
+	public void testAssignRoomRequest(){
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testAssignRoomRequest ", " Enter method testAssignRoomRequest " );
+
+		AssignRoomRequest objAssignRoomRequest = null;
+		AssignRoomResponse objAssignRoomResponse = null;
+
+		objAssignRoomRequest = new AssignRoomRequest();
+		objAssignRoomRequest.setRoomTypeCode("XY");
+
+		Reservation objReservation = new Reservation();
+		objReservation.setConfirmationNumber("100");
+
+		objAssignRoomRequest.setReservation(objReservation);
+
+		objAssignRoomResponse = makeAssignRoomRequest(objAssignRoomRequest);
+
+		assertNotNull( " AssignRoomRequest Instance must not be null " , objAssignRoomRequest );
+		assertNotNull( " AssignRoomRequest Instance must have confirmation number " , objAssignRoomRequest.getReservation().getConfirmationNumber() );
+		assertNotNull( " AssignRoomRequest Instance must have room type code " , objAssignRoomRequest.getRoomTypeCode() );
+		assertNotNull( " AssignRoomResponse Instance must not be null ",  objAssignRoomResponse);
+
+		assertNotNull( "Assigned Room Number in  in response cannot be null ", objAssignRoomResponse.getAssignRoomNumber());
+		assertEquals( "Status Must be Success", "SUCCESS" , objAssignRoomResponse.getStatus() );
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testAssignRoomRequest ", " Exit method testAssignRoomRequest " );
+
+	}
+
+}
