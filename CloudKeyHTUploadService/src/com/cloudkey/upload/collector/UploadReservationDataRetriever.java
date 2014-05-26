@@ -119,6 +119,7 @@ public class UploadReservationDataRetriever {
 							reservation.setAffilateId(reservationSet.getString( "reservation.affiliate_id" ));
 							reservation.setMessage(reservationSet.getString( "reservation.messages" ));
 							reservation.setEmail(reservationSet.getString( "reservation.email_id" ));
+							reservation.setReservationAction("reservation.reservation_action");
 							//reservationSet.getString( "status" );
 							//			    reservation.setPropertyImage(reservationSet.getBlob( "property_image" ));
 
@@ -142,6 +143,7 @@ public class UploadReservationDataRetriever {
 
 									int resvUploadId = resvRoomAllocationSet.getInt("resvalloc.reservation_upload_id");
 									reservationRoomAllocation.setRoomNo(Integer.parseInt(resvRoomAllocationSet.getString("resvalloc.room_number")));
+									reservationRoomAllocation.setReservationStatusType("resvalloc.reservation_status_type");
 									roomType.setCode(resvRoomAllocationSet.getString("resvalloc.room_type_code"));
 									reservationRoomAllocation.setRoomType(roomType);
 									

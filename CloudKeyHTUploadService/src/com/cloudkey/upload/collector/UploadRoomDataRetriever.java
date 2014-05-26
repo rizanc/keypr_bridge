@@ -198,7 +198,7 @@ public class UploadRoomDataRetriever {
 				connection = DataBaseHandler.getConnection();
 				stmtOnStartUp = connection.createStatement();
 				UploadServiceLogger.logInfo( UploadRoomDataRetriever.class, " fetchRoomDetailsOnStartup ", " First time connection created " );
-				System.out.println("First tome connection created");
+				
 			} 
 			else{
 
