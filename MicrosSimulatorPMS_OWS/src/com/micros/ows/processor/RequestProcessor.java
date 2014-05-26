@@ -8,12 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 
-
-
-
-
-
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +26,6 @@ import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
-import com.micros.ows.bean.ResultStatus;
 import com.micros.ows.constants.IMicrosOWSConstants;
 import com.micros.ows.logger.OWSMessageLogger;
 import com.micros.ows.utility.OWSUtility;
@@ -76,7 +69,6 @@ import com.micros.reservation.ReservationServiceStub.Rate;
 import com.micros.reservation.ReservationServiceStub.RateList;
 import com.micros.reservation.ReservationServiceStub.RatePlan;
 import com.micros.reservation.ReservationServiceStub.RatePlanList;
-import com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest;
 import com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse;
 import com.micros.reservation.ReservationServiceStub.ResGuest;
 import com.micros.reservation.ReservationServiceStub.ResGuestList;
