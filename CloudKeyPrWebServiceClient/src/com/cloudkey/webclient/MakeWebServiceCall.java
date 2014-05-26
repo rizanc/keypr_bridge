@@ -4,9 +4,7 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +24,12 @@ import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
+import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
 import com.cloudkey.web.logger.MessageLogger;
+import com.cloudkey.webclient.constant.IWebClient;
 
 
 
@@ -81,9 +81,9 @@ public class MakeWebServiceCall extends HttpServlet {
 				objSearchReservationRequest.setFirstName( firstName );
 				objSearchReservationRequest.setLastName( lastName );
 				objSearchReservationRequest.setConfirmationNumber( confirmationNumber );
-				objSearchReservationRequest.setCreditCard(request.getParameter("credit_card"));
+				objSearchReservationRequest.setCreditCardNumber(request.getParameter("credit_card"));
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/searchReservation" );
+				target = client.target( IWebClient.SEARCH_RESERVATION_URL );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -115,11 +115,12 @@ public class MakeWebServiceCall extends HttpServlet {
 				objReservation.setCreditCardNumber(credit);
 				objReservation.setConfirmationNumber(confirmationNumber);
 				objReservation.getRoomDetailList().add(objRoomDetails);
+			
 
 				CheckInRequest objCheckInReq = new CheckInRequest();
 				objCheckInReq.setReservation( objReservation );
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/checkIn" ); 
+				target = client.target( IWebClient.CHECK_IN_URL ); 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 				String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
@@ -141,7 +142,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				GetFolioRequest objGetFolioRequest = new GetFolioRequest();
 				objGetFolioRequest.setConfirmationNumber(confirmationNumber);
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getFolio" );
+				target = client.target( IWebClient.GET_FOLIO_URL );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -164,7 +165,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				objBookingRequest.setConfirmationNumber( confirmationNumber );
 				objBookingRequest.setNotes( new String[]{ request.getParameter("firstNote") , request.getParameter("secondNote") } );
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/updateBooking" );
+				target = client.target( IWebClient.UPDATE_BOOKING_URL );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -203,7 +204,7 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				objUpdatePaymentRequest.setPayments(paymentsList);
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/updatePayment" );
+				target = client.target( IWebClient.UPDATE_PAYMENT_URL );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -233,18 +234,15 @@ public class MakeWebServiceCall extends HttpServlet {
 					objAvailabilityRequest.setStartDate(df.parse(startDate));
 					objAvailabilityRequest.setEndDate(df.parse(endDate));
 
-
 					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " getAvailability Availability Object Added " );
 
-					target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/getAvailability" );
+					target = client.target( IWebClient.GET_AVAILABILITY_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-
 					out.println( " Response Of GetAvailability: " + postResponse );
-
 					
 				}
 				catch(Exception exc){
@@ -285,7 +283,7 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Assign Room Object Added " );
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/assignRoom" );
+				target = client.target( IWebClient.ASSIGN_ROOM_URL );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -299,6 +297,30 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit  Assign Room Block ");
 
 			}
+			else if(command.equalsIgnoreCase( "8" )){
+				
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter Release Room Block Block " );	
+			
+				ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
+				String reservationId = request.getParameter("reservation_id");
+			   // set the reservation id in the request parameters.
+				objReleaseRoomRequest.setReservationId(reservationId);
+				
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Reservation Id is set on the relese room object" );
+				
+				target = client.target( IWebClient.RELESE_ROOM_URL);
+				
+				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+				
+				String postResponse =  invocationBuilder.post( Entity.entity( objReleaseRoomRequest , MediaType.APPLICATION_JSON_TYPE), String.class);
+			
+				out.println( "Response of Release Room: " + postResponse );
+				
+				out.println( " <br><br><br>" );
+				out.println( " <a href= \"\\CloudKeyPrWebServiceClient\">"  + " KeyPrClient Home Page " + " </a> " );
+				
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit Release Room Block " );
+			}
 			else {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter checkOut Block " );
@@ -306,7 +328,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				CheckOutRequest objCheckOutRequest = new CheckOutRequest();
 				objCheckOutRequest.setConfirmationNumber(confirmationNumber);
 
-				target = client.target( "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/checkOut" );
+				target = client.target( IWebClient.CHECK_OUT_URL );
 
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
