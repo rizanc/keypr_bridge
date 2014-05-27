@@ -114,6 +114,11 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				objReservation.setCreditCardNumber(credit);
 				objReservation.setConfirmationNumber(confirmationNumber);
+				
+				if(objReservation.getRoomDetailList() == null){
+					 
+					objReservation.setRoomDetailList( new ArrayList<RoomDetails>());
+				}
 				objReservation.getRoomDetailList().add(objRoomDetails);
 			
 
