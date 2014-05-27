@@ -67,15 +67,6 @@ public class RoomTypeInventory {
 		this.totalRooms = totalRooms;
 	}
 
-	public int getRoomsAvailable() {
-
-		return totalRoomsAvailable;
-	}
-
-	public void setRoomsAvailable(int roomsAvailable) {
-
-		this.totalRoomsAvailable = roomsAvailable;
-	}
 	@Override
 	public String toString() {
 

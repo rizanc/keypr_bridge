@@ -1,6 +1,5 @@
 package com.cloudkey.commons;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /* @author ektas */
@@ -33,10 +32,6 @@ public class ReservationRoomAllocation {
 
 	public List<RoomRate> getRoomRateList() {
 
-		if(roomRateList == null){
-
-			roomRateList = new ArrayList<RoomRate>();	
-		}
 		return roomRateList;
 	}
 

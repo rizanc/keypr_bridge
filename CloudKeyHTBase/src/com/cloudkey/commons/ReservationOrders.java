@@ -1,6 +1,5 @@
 package com.cloudkey.commons;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,10 +39,6 @@ public class ReservationOrders {
 
 	public List<OrderDetails> getOrderDetailList() {
 
-		if(orderDetailList == null){
-
-			orderDetailList = new ArrayList<OrderDetails>();
-		}
 		return orderDetailList;
 	}
 

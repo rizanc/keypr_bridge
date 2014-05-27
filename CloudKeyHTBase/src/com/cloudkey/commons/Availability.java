@@ -1,6 +1,5 @@
 package com.cloudkey.commons;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class Availability {
 	//list of Room Types that are available
 	private List<RoomTypeInventory> roomTypeInventoryList; 
 	
-	
 	//Getter Setters of member variables
 	public Date getDate() {
 		
@@ -33,10 +31,6 @@ public class Availability {
 	
 	public List<RoomTypeInventory> getRoomTypeInventoryList() {
 		
-		if(roomTypeInventoryList == null) {
-			
-			roomTypeInventoryList = new ArrayList<RoomTypeInventory>();
-		}
 		return roomTypeInventoryList;
 	}
 	

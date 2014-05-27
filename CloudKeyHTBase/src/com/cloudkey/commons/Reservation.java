@@ -1,6 +1,5 @@
 package com.cloudkey.commons;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -40,18 +39,6 @@ public class Reservation {
 	/* variable to store the details of the reservation. */
 	private List<ReservationRoomAllocation> reservationRoomAllocationList;
 	private List<RoomDetails> roomDetailList ;
-
-	public List<RoomDetails> getRoomDetailList() {
-		if(roomDetailList == null){
-
-			roomDetailList = new ArrayList<RoomDetails>();
-		}
-		return roomDetailList;
-	}
-
-	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
-		this.roomDetailList = roomDetailList;
-	}
 
 	/* variable to store the confirmation number of the reservation. */
 	private String confirmationNumber ;
@@ -326,6 +313,14 @@ public class Reservation {
 	public void setReservationRoomAllocationList(
 			List<ReservationRoomAllocation> reservationRoomAllocationList) {
 		this.reservationRoomAllocationList = reservationRoomAllocationList;
+	}
+	public List<RoomDetails> getRoomDetailList() {
+
+		return roomDetailList;
+	}
+
+	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
+		this.roomDetailList = roomDetailList;
 	}
 
 	@Override
