@@ -89,8 +89,9 @@ public class UploadInventoryDataRetriver {
 							objRoomType.setCode(roominventorySet.getString("rinventory.room_type"));
 
 							roominventoryDetails.setRoomType(objRoomType);
+							roominventoryDetails.setTotalRoomsAvailable(roominventorySet.getInt("rinventory.total_rooms_available"));
 							roominventoryDetails.setTotalRooms(roominventorySet.getInt("rinventory.total_rooms"));
-							roominventoryDetails.setRoomsAvailable(roominventorySet.getInt("rinventory.total_rooms_available"));
+							//roominventoryDetails.setRoomsAvailable(roominventorySet.getInt("rinventory.total_rooms_available"));
 							//roominventoryDetails.setDateCreated(roominventorySet.getTimestamp("rinventory.date_created"));
 							//roominventoryDetails.setDateModified(roominventorySet.getTimestamp("rinventory.date_modified"));
 
@@ -223,7 +224,7 @@ public class UploadInventoryDataRetriver {
 					roominventoryDetails.setRoomType(objRoomType);
 
 					roominventoryDetails.setTotalRooms(roominventorySet.getInt("rinventory.total_rooms"));
-					roominventoryDetails.setRoomsAvailable(roominventorySet.getInt("rinventory.total_rooms_available"));
+					roominventoryDetails.setTotalRoomsAvailable(roominventorySet.getInt("rinventory.total_rooms_available"));
 					/*roominventoryDetails.setDateCreated(roominventorySet.getTimestamp("rinventory.date_created"));
 					roominventoryDetails.setDateModified(roominventorySet.getTimestamp("rinventory.date_modified"));*/
 					UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Data fetched from  table room_inventory_upload with id " + id);
