@@ -76,7 +76,6 @@ public class DataUtility {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 		    Date d= dateFormat.parse(startDate);
-		    System.out.println(dateFormat.format(d));
 		    Calendar objCalendar =  dateFormat.getCalendar();
 		    
 		switch(type)

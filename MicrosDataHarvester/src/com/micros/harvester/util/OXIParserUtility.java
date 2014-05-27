@@ -107,7 +107,9 @@ public class OXIParserUtility {
 			docBuilder = dbFactory.newDocumentBuilder();
 			objReservation = new Reservation();
 			objRoomAllocation = new ReservationRoomAllocation();
-			obRoomRatesList = objRoomAllocation.getRoomRateList();
+			//obRoomRatesList = objRoomAllocation.getRoomRateList();
+			obRoomRatesList = new ArrayList<RoomRate>();
+			
 			obRoomAllocationsList = new ArrayList<ReservationRoomAllocation>(); 
 			objRoomType = new RoomType();
 			objStringBuffer = new StringBuffer();
@@ -173,8 +175,6 @@ public class OXIParserUtility {
 
 						DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Number of Rate " + rateList.getLength() + " for plan code " + planCode );
 
-						System.out.println("RateList Length is " + rateList.getLength());
-
 						for(int len=0;len<rateList.getLength();len++)
 						{
 							String exprEx = expression+"/Rate['"+len+"']/Amount/valueNum";
@@ -197,14 +197,11 @@ public class OXIParserUtility {
 									 
 									String value = rateNode.item(arrayIndex).getFirstChild().getNodeValue();
 									objRoomRate.setBaseAmount(Double.parseDouble(value));
-									System.out.println("Amount is " + value);
 
 									String start =startTime.item(arrayIndex).getFirstChild().getNodeValue();
 									objRoomRate.setEffectiveDate(start);
-									System.out.println("StartTime " + start);
 
 									int time =Integer.parseInt(timeUnits.item(arrayIndex).getFirstChild().getNodeValue());
-                                     System.out.println("TimeUnits " + time);
                                      
                                      objRoomRate.setExpirationDate(DataUtility.getEndDate(start, time ,"DAY"));
                                      

@@ -509,7 +509,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 								pStatement = objConnection.prepareStatement(sqlQuery);
 
 								pStatement.setInt(1, objRInventory.getTotalRooms());
-								pStatement.setInt(2, objRInventory.getRoomsAvailable());
+								//pStatement.setInt(2, objRInventory.getRoomsAvailable());
+								pStatement.setInt(2, objRInventory.getTotalRoomsAvailable());
 								pStatement.setString(3, objRInventory.getRoomType().getCode());
 
 								int rowsUpdated = pStatement.executeUpdate();
@@ -547,7 +548,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 						pStatement = objConnection.prepareStatement(sqlQuery);
 						pStatement.setString(1, objRInventory.getRoomType().getCode());
 						pStatement.setInt(2, objRInventory.getTotalRooms() );
-						pStatement.setInt(3, objRInventory.getRoomsAvailable());
+						pStatement.setInt(3, objRInventory.getTotalRoomsAvailable());
 
 						int rowUpdated = pStatement.executeUpdate();
 
@@ -628,7 +629,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					isRecordFound = true;
 					com.cloudkey.commons.RoomTypeInventory objRInventoryData = new com.cloudkey.commons.RoomTypeInventory();
 
-					objRInventoryData.setRoomsAvailable(rSet.getInt("total_rooms_available"));
+					//objRInventoryData.setRoomsAvailable(rSet.getInt("total_rooms_available"));
+					objRInventoryData.setTotalRoomsAvailable(rSet.getInt("total_rooms_available"));
 					objRInventoryData.setTotalRooms( rSet.getInt("total_rooms"));
 
 					if( objRInventory.equals(objRInventoryData)) {
@@ -693,7 +695,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			pStatement.setString(1, objRoomInventory.getRoomType().getCode());
 			pStatement.setInt(2, objRoomInventory.getTotalRooms() );
-			pStatement.setInt(3, objRoomInventory.getRoomsAvailable());
+			pStatement.setInt(3, objRoomInventory.getTotalRoomsAvailable());
 
 			int rowUpdated = pStatement.executeUpdate();
 
@@ -801,7 +803,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		objRoomType.setCode( objRoomTypInventory.getRoomTypeCode());
 		objRInventory.setRoomType(objRoomType);
 
-		objRInventory.setRoomsAvailable(objRoomTypInventory.getTotalAvailableRooms().intValue());
+		objRInventory.setTotalRoomsAvailable(objRoomTypInventory.getTotalAvailableRooms().intValue());
 		objRInventory.setTotalRooms( objRoomTypInventory.getTotalRooms().intValue());
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " getRoomTypeInventoryInstance ", " Exit getRoomTypeInventoryInstance method " );
