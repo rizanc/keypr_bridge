@@ -764,7 +764,6 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 
 		}
 
-		List<ReservationRoomAllocation> objRoomAllocationList = objReservation.getReservationRoomAllocationList();		
 		ReservationRoomAllocation objReservationRoomAllocation = new ReservationRoomAllocation(); 
 		com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
 		//		List<RoomRate> objRoomRateList = objReservationRoomAllocation.getRoomRateList();
@@ -1018,7 +1017,6 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		String status = null;
 		String firstName = null;
 		String lastName = null;
-		String creditCardNumber = null;
 		StringBuffer objStringBuffer = null;
 
 		// set status in the response.
@@ -1301,7 +1299,6 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		String countryCode = null;
 		String firstName = null;
 		String lastName = null;
-		String confirmationNumber = null;
 		String description = null;
 
 		double unitPrice ;
@@ -1665,6 +1662,12 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		objRDetailList = objReservation.getRoomDetailList();
 		objRoomStayList = objHotelReservation.getRoomStays();
+		
+        if( objRDetailList == null ){
+			
+			objRDetailList = new ArrayList<RoomDetails>();
+		}
+        
 		arrRoomStay = objRoomStayList.getRoomStay();
 
 		/* To set the room types attributes with comments. */
@@ -1709,6 +1712,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Fetures and Description are Set in response.");
 				objStringBuilder2.setLength(0);
 				obRoomDetails.setRoomType(objRoomType);
+			
 				objRDetailList.add(obRoomDetails);
 
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Exit Room Type .");		
@@ -2142,15 +2146,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
 		/*To set status in response.*/
 		objAvailabilityResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-
-		/*To get the list from availability response.*/
-		List<Availability> objLiAvailabilities = objAvailabilityResponse.getAvailList();
 		
-		if (objLiAvailabilities == null) {
-			
-			objLiAvailabilities = new ArrayList<Availability>();
-		}
-
+		/*To get the list from availability response.*/
+		List<Availability> objLiAvailabilities = new ArrayList<Availability>();
 		/*To get the calendar daily detail array from response.*/
 		CalendarDailyDetail[] arrCalendarDailyDetail = objResponse.getCalendar().getCalendarDay();
 
@@ -2163,8 +2161,8 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			objAvailability.setDate(objCalendarDailyDetail.getDate());      
 
 			/*To set the roomInventory in response.*/
-			List<com.cloudkey.commons.RoomTypeInventory> objLInventories = objAvailability.getRoomTypeInventoryList();			 
-
+			List<com.cloudkey.commons.RoomTypeInventory> objLInventories = new ArrayList<com.cloudkey.commons.RoomTypeInventory>();
+			
 			RoomTypeInventory[] arrRoomTypeInventories =  objCalendarDailyDetail.getOccupancy().getRoomTypeInventory();
 
 			for(RoomTypeInventory objRTypeInventory : arrRoomTypeInventories){ // To traverse room type inventory.
@@ -2172,33 +2170,33 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Traversing room type inventory. ");
 
 				com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();	
-
+				
 				/*To set room type on room inventory.*/
 				com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
 				objRoomType.setCode( objRTypeInventory.getRoomTypeCode() );
 				objRoomTypeInventory.setRoomType( objRoomType );
-
+				
 				//objRoomTypeInventory.setRoomDescription( objRTypeInventory.get );
 				objRoomTypeInventory.setTotalRoomsAvailable( objRTypeInventory.getTotalAvailableRooms().intValue() );
 				objRoomTypeInventory.setTotalRooms( objRTypeInventory.getTotalRooms().intValue() );
-
+				
 				/*To add roomtype inventory in inventory list.*/
 				objLInventories.add( objRoomTypeInventory );
-
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Exit loop for room type inventory. ");	
-
+				
 			}// End room type inventory loop.
-
+            objAvailability.setRoomTypeInventoryList(objLInventories);
+            
 			/*To add availability object into list.*/
 			objLiAvailabilities.add( objAvailability );
-
+			
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Exit traversing calendar details. ");
 		} // End loop for calendar details.
-
 
 		objAvailabilityResponse.setAvailList( objLiAvailabilities );
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Exit getAvailabilityResponseObject method. ");	
+		
 		return objAvailabilityResponse;
 	}
 
