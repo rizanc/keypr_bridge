@@ -25,6 +25,7 @@ import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
+import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.response.AssignRoomResponse;
@@ -32,6 +33,7 @@ import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
+import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
 import com.keypr.rest.constants.IWebServiceConstants;
@@ -158,7 +160,7 @@ public class KeyprWebServicesTest {
 	 * This test case works to see if the property management system server is shutdown or not. If the server
 	 * is down , then this test case gives positive result otherwise it fails against junit test case.
 	 */
-	@Test
+	//@Test
 	public void testSearchReservationForServerShutdown() {
 
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForServerShutdown ", " Enter method testSearchReservationForServerShutdown " );
@@ -208,6 +210,37 @@ public class KeyprWebServicesTest {
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeSearchReservationRequest ", " Exit method makeSearchReservationRequest " );
 
 		return objSearchReservationResponse;
+
+	}
+
+	/**
+	 * This test case works to see if the property management system is shutdown or not.
+	 * if server is down then this test case gives positive result otherwise it fails against junit test case.
+	 */
+	//@Test
+	public void testGetFolioRequestServerShutdown()
+	{
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetFolioRequestServerShutdown ", " Enter method testGetFolioRequestServerShutdown " );
+
+		GetFolioRequest objGetFolioRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objGetFolioRequest = new GetFolioRequest();
+		objGetFolioRequest.setConfirmationNumber("100");
+
+		Entity<GetFolioRequest> entity = Entity.json(objGetFolioRequest);
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.GET_FOLIO_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError = response.readEntity(TimeOutError.class);
+
+		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
+		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
+
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetFolioRequestServerShutdown ", " Exit method testGetFolioRequestServerShutdown " );
 
 	}
 
@@ -304,6 +337,39 @@ public class KeyprWebServicesTest {
 	}
 
 	/**
+	 * This test case works to see if the property management system is shutdown or not.
+	 * if the server is down then this test case gives positive response otherwise it fails against junit test case.
+	 */
+	@Test
+	public void testUpdateBookingRequestServerShutdown()
+	{
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testUpdateBookingRequestServerShutdown ", " Enter method testUpdateBookingRequestServerShutdown " );
+
+		UpdateBookingRequest objUpdateBookingRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objUpdateBookingRequest = new UpdateBookingRequest();
+		objUpdateBookingRequest.setConfirmationNumber("100");
+		objUpdateBookingRequest.setNotes(new String[]{"King","Near Pool"});
+
+		Entity<UpdateBookingRequest> entity = Entity.json(objUpdateBookingRequest);
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.UPDATE_BOOKING_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError = response.readEntity(TimeOutError.class);
+
+		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
+		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
+
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testUpdateBookingRequestServerShutdown ", " Exit method testUpdateBookingRequestServerShutdown " );
+
+	}
+
+
+	/**
 	 * This method test update booking request made to the web service.
 	 */
 	//@Test
@@ -367,6 +433,39 @@ public class KeyprWebServicesTest {
 
 	}
 
+	/**
+	 * This Test case works to see if the property management system is shutdown or not. 
+	 * if server is down then this test case gives positive result otherwise it fails against junit test case. 
+	 */
+
+	//@Test
+	public void testCheckInRequestServerShutdown()
+	{
+		WebAppLogger.logInfo(KeyprWebServicesTest.class, "testCheckInRequestServerShutdown", "Enter method testCheckInRequestServerShutdown" );
+
+		CheckInRequest objCheckInRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objCheckInRequest = new CheckInRequest();
+		Reservation objReservation = new Reservation();
+		objReservation.setConfirmationNumber("100");
+		objReservation.setCreditCardNumber("12345");
+		objCheckInRequest.setReservation(objReservation);
+
+		Entity<CheckInRequest> entity = Entity.json(objCheckInRequest);
+
+		Client client=ClientBuilder.newClient();
+		WebTarget target=client.target(IWebServiceConstants.CHECK_IN_URL);
+		Response response =target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError = response.readEntity(TimeOutError.class);
+
+		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
+		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, "testCheckInRequestServerShutdown",  "Exit method for testCheckInRequestServerShutdown" );
+
+	}
 	/**
 	 * This method defines the junit test case for the chekin request call made to the
 	 * web service method.
@@ -496,7 +595,49 @@ public class KeyprWebServicesTest {
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetAvailabilityRequest ", " Exit method testGetAvailabilityRequest " );
 
 	}
+	/**
+	 * This test case works to see if the property management system server is shutdown or not. If the server
+	 * is down , then this test case gives positive result otherwise it fails against junit test case.
+	 */
+	//@Test
+	public void testGetAvailabilityRequestServerShutdown() {
 
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetAvailabilityRequestServerShutdown ", " Enter method testGetAvailabilityRequestServerShutdown " );
+
+		GetAvailabilityRequest objGetAvailabilityRequest=null;
+		TimeOutError objTimeOutError=null;
+
+		String startDate = ("26-may-2015");
+		String endDate = ("28-jun-2016");
+		DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+
+		objGetAvailabilityRequest = new GetAvailabilityRequest();
+
+		try{
+
+			objGetAvailabilityRequest.setStartDate(df.parse(startDate));
+			objGetAvailabilityRequest.setEndDate(df.parse(endDate));
+
+		}
+		catch (Exception exc){
+
+			WebAppLogger.logError( KeyprWebServicesTest.class, "testGetAvailabilityRequestServerShutdown", exc );
+		}
+
+		Entity<GetAvailabilityRequest> entity = Entity.json(objGetAvailabilityRequest);
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.GET_AVAILABILITY_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError = response.readEntity(TimeOutError.class);
+
+		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
+		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testGetAvailabilityRequestServerShutdown ", " Exit method testGetAvailabilityRequestServerShutdown " );
+
+	}
 
 	/**
 	 * This method makes guest check availability request to the web service.
@@ -546,6 +687,37 @@ public class KeyprWebServicesTest {
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeCheckInRequest ", " Enter method makeCheckInRequest " );
 
 		return objCheckOutResponse;
+	}
+
+	/**
+	 * This test case work to see if the property management system is shutdown or not.
+	 * if server is down this testcase positive result otherwise it fails against junit test case.
+	 */
+	//@Test
+	public void testCheckOutRequestServerShutdown()
+	{
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testCheckOutRequestServerShutdown ", " Enter method testCheckOutRequestServerShutdown " );
+
+		CheckOutRequest objCheckOutRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objCheckOutRequest = new CheckOutRequest();
+		objCheckOutRequest.setConfirmationNumber("100");
+
+		Entity<CheckOutRequest> entity = Entity.json(objCheckOutRequest);
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.CHECK_OUT_URL);
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError = response.readEntity(TimeOutError.class);
+
+		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
+		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
+
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testCheckOutRequestServerShutdown ", " Exit method testCheckOutRequestServerShutdown " );
+
 	}
 
 	/**
@@ -603,9 +775,42 @@ public class KeyprWebServicesTest {
 
 		AssignRoomResponse objAssignRoomResponse = response.readEntity(AssignRoomResponse.class);
 
-		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Enter method makeAssignRoomRequest " );
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Exit method makeAssignRoomRequest " );
 
 		return objAssignRoomResponse;
+	}
+
+	/**
+	 * This test case work to see if the property management system is shut down or not. if server is down then the test case gives positive response
+	 * otherwise it fails against junit test case. 
+	 */
+	//@Test
+	public void testAssignRoomRequestServerShutdown()
+	{
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testAssignRoomRequestServerShutdown ", " Enter methodtestAssignRoomRequestServerShutdown " );
+
+		AssignRoomRequest objAssignRoomRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objAssignRoomRequest = new AssignRoomRequest();
+		objAssignRoomRequest.setRoomTypeCode( "KING");
+		Reservation onjReservation = new Reservation();
+		onjReservation.setConfirmationNumber( "100");
+		objAssignRoomRequest.setReservation(onjReservation);
+
+		Entity<AssignRoomRequest>entity = Entity.json(objAssignRoomRequest);
+
+		Client client=ClientBuilder.newClient();
+		WebTarget target=client.target( IWebServiceConstants.ASSIGN_ROOM_URL );
+		Response response=target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError=response.readEntity(TimeOutError.class);
+
+		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
+		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, "testAssignRoomRequestServerShutdown",  "Exit method for testAssignRoomRequestServerShutdown" );
+
 	}
 
 	/**
@@ -638,6 +843,81 @@ public class KeyprWebServicesTest {
 		assertEquals( "Status Must be Success", "SUCCESS" , objAssignRoomResponse.getStatus() );
 
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testAssignRoomRequest ", " Exit method testAssignRoomRequest " );
+
+	}
+	/**
+	 * This method makes request to call the webservice for Release the room.
+	 * @param releaseRoomRequest
+	 * @return ReleaseRoomResponse
+	 */
+	private static ReleaseRoomResponse makeReleaseRoomRequest( ReleaseRoomRequest releaseRoomRequest) {
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeReleaseRoomRequest ", " Enter method makeReleaseRoomRequest " );
+
+		Entity<ReleaseRoomRequest> entity = Entity.json( releaseRoomRequest );
+
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target( IWebServiceConstants.RELESE_ROOM_URL );
+		Response response = target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		ReleaseRoomResponse objReleaseRoomResponse = response.readEntity(ReleaseRoomResponse.class);
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Exit method makeAssignRoomRequest " );
+
+		return objReleaseRoomResponse;
+	}
+	/**
+	 * This test case work for release a room.
+	 */
+	//@Test
+	public void testReleaseRoomRequest()
+	{
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testReleaseRoomRequest ", " Enter method testReleaseRoomRequest " );
+
+		ReleaseRoomRequest  objReleaseRoomRequest = null;
+		ReleaseRoomResponse objReleaseRoomResponse = null;
+
+		objReleaseRoomRequest = new ReleaseRoomRequest();
+		objReleaseRoomRequest.setReservationId("111");
+
+		objReleaseRoomResponse = makeReleaseRoomRequest(objReleaseRoomRequest);
+
+		assertNotNull( " ReleaseRoomRequest Instance must not be null " , objReleaseRoomRequest );
+		assertNotNull( " ReleaseRoomResponse Instance must not be null " , objReleaseRoomResponse );
+		assertEquals("SUCCESS", objReleaseRoomResponse.getStatus());
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testReleaseRoomRequest ", " Exit method testReleaseRoomRequest " );
+
+	}
+	/**
+	 * This test case works to see if the property management system is shutdown or not. 
+	 * if server is down then this test case give positive result otherwise it fails against junit test case.
+	 */
+	//@Test
+	public void testReleseRoomRequestServerShutdown()
+	{
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testReleseRoomRequestServerShutdown ", " Enter testReleseRoomRequestServerShutdown " );
+
+		ReleaseRoomRequest objReleaseRoomRequest = null;
+		TimeOutError objTimeOutError = null;
+
+		objReleaseRoomRequest = new ReleaseRoomRequest();
+		objReleaseRoomRequest.setReservationId("111");
+
+		Entity<ReleaseRoomRequest>entity = Entity.json(objReleaseRoomRequest);
+
+		Client client=ClientBuilder.newClient();
+		WebTarget target=client.target( IWebServiceConstants.RELESE_ROOM_URL );
+		Response response=target.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(entity);
+
+		objTimeOutError=response.readEntity(TimeOutError.class);
+
+		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
+		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
+
+
+		WebAppLogger.logInfo( KeyprWebServicesTest.class, "testReleseRoomRequestServerShutdown",  "Exit method for testReleseRoomRequestServerShutdown" );
+
 
 	}
 
