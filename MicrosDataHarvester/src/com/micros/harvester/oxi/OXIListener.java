@@ -49,12 +49,12 @@ public class OXIListener implements HttpHandler {
 
 			int portNum = Integer.parseInt( listeningPort );
 
-			oxiListener =  HttpServer.create( new InetSocketAddress( portNum ), 0);
+			oxiListener =  HttpServer.create( new InetSocketAddress( portNum ), IMicrosHarvester.COUNT_ZERO );
 			oxiListener.createContext( listeningURL , this);
 			oxiListener.setExecutor( null);
 			oxiListener.start();
 		}
-		catch(Exception exc) {
+		catch( Exception exc ) {
 
 			DataHarvesterLogger.logError( OXIListener.class, " connectWithOXI ", exc );
 		}
@@ -74,9 +74,11 @@ public class OXIListener implements HttpHandler {
 
 			String oxiRequest = null;
 			IMicrosDAO objMicrosDAO = null;
+			int BufferSize = 0;
 
 			Headers reqHeaders = exchange.getRequestHeaders();
-			String contentType = reqHeaders.getFirst("Content-Type");
+			String contentType = reqHeaders.getFirst( "Content-Type" );
+			BufferSize = Integer.parseInt( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OXI_LISTENER_BUFFER_SIZE ) );
 
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " content type " + contentType );
 
@@ -84,11 +86,11 @@ public class OXIListener implements HttpHandler {
 
 			ByteArrayOutputStream objByteArray = new ByteArrayOutputStream();
 
-			byte objInputArray[] = new byte[4096];
+			byte objInputArray[] = new byte[BufferSize];
 
-			for (int n = objInputStream.read(objInputArray); n > 0; n = objInputStream.read(objInputArray)) {
+			for (int n = objInputStream.read(objInputArray); n > IMicrosHarvester.COUNT_ZERO; n = objInputStream.read(objInputArray) ) {
 
-				objByteArray.write(objInputArray, 0, n);
+				objByteArray.write(objInputArray, IMicrosHarvester.COUNT_ZERO, n);
 			}
 
 			//oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
@@ -96,7 +98,7 @@ public class OXIListener implements HttpHandler {
 
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Reservation Received " + oxiRequest );
 
-			File xmlFile = persistToFile(oxiRequest);
+			File xmlFile = persistToFile( oxiRequest );
 
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " File Created " + xmlFile.getName() );
 
@@ -105,7 +107,7 @@ public class OXIListener implements HttpHandler {
 			Reservation  objReservation = objDataUtility.populateReservation( xmlFile );
 
 			objMicrosDAO = new MicrosDAOImpl();
-			boolean isPersisted = objMicrosDAO.persistReservationData(objReservation);
+			boolean isPersisted = objMicrosDAO.persistReservationData( objReservation );
 
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Reservation Stored in DataBase  " + isPersisted );
 
@@ -140,13 +142,16 @@ public class OXIListener implements HttpHandler {
 
 		File oxiRev = null;
 		FileOutputStream fout = null;
+		String filePath = null;
 
 		try {
 
-			oxiRev = new File( "res/OxiReservation.xml" );
-			fout = new FileOutputStream(oxiRev);
+			filePath = HarvesterConfigurationReader.getProperty( IMicrosHarvester.OXI_XML_PATH_LOCATION );
+			oxiRev = new File( filePath );
+			fout = new FileOutputStream( oxiRev );
 
-			fout.write(oxiRequest.getBytes());
+			fout.write( oxiRequest.getBytes() );
+
 			DataHarvesterLogger.logInfo( OXIListener.class, " persistToFile ", " content written to the file " );
 			fout.close();
 

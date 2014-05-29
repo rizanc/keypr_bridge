@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
 /**
@@ -26,13 +27,15 @@ public class TransIdGenerator {
 
 		DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," enter getTransactioId" );
 
-		int transactionId = 0;
+		int transactionId = IMicrosHarvester.COUNT_ZERO;
+		
 		boolean isEmptyResultSet = true;
 
 		try {
 
 			Connection conn = MicrosDAOImpl.getConnection();
-			String query = " Select transId from IdGenerator ";
+			
+			String query = IMicrosHarvester.QUERY_TRANSACTION_SELECT_BY_ID;
 			
 			DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," Select Query is " + query );
 			
@@ -45,7 +48,7 @@ public class TransIdGenerator {
 				isEmptyResultSet = false;
 				rowsSet.next();
 
-				transactionId = rowsSet.getInt("transId");
+				transactionId = rowsSet.getInt( IMicrosHarvester.TRANSACTION_ID );
 
 				DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," transaction id " + transactionId);
 			}
@@ -58,17 +61,18 @@ public class TransIdGenerator {
 
 				DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," result set contains data" );
 
-				int transId = transactionId + 1; 
-				query = " update IdGenerator set transId = ? ";
+				int transId = transactionId + IMicrosHarvester.COUNT_ONE; 
+				
+				query = IMicrosHarvester.QUERY_TRANSACTION_UPDATE_BY_ID;
 				
 				DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," Update Query " + query );
 				
 				pStmt = conn.prepareStatement( query );
-				pStmt.setInt(1, transId);
+				pStmt.setInt( IMicrosHarvester.COUNT_ONE, transId);
 
 				int rowsUpdated = pStmt.executeUpdate();
 
-				if( rowsUpdated != 0) { // block executes when database has been updated with the incremented value.
+				if( rowsUpdated != IMicrosHarvester.ROWS_UPDATED) { // block executes when database has been updated with the incremented value.
 
 					DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," IdGenerator Table updated " );
 				}
@@ -83,7 +87,7 @@ public class TransIdGenerator {
 				DataHarvesterLogger.logInfo( TransIdGenerator.class, " getTransactionId " ," result set is empty " );
 			}
 		}
-		catch( Exception exc){
+		catch( Exception exc ) {
 
 			DataHarvesterLogger.logError( TransIdGenerator.class, " getTransactionId ", exc );
 		}

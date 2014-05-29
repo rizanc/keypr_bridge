@@ -41,7 +41,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  */
 public class OWSDataCollector {
 
-	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( IMicrosHarvester.COUNT_ONE);
 
 	/**
 	 * This method will runs at fixed interval to collect room status data 
@@ -100,7 +100,8 @@ public class OWSDataCollector {
 		FetchRoomStatusRequest  objFetchRoomStatusRequest = null;
 		ResvAdvancedServiceStub objResvAdvancedServiceStub = null;
 		MicrosDAOImpl objMicrosDAOImpl = null;
-		final long hoursInMillis = 60L * 60L * 1000L;
+
+		final long hoursInMillis = IMicrosHarvester.SIXTY_UNITS * IMicrosHarvester.SIXTY_UNITS * IMicrosHarvester.THOUSAND_UNITS;
 
 
 		try {
@@ -140,7 +141,7 @@ public class OWSDataCollector {
 
 			// Set the date range 
 			Date currentDate = new Date(); 
-			Date updateDate = new Date(currentDate.getTime() +  (24L * hoursInMillis)); 
+			Date updateDate = new Date(currentDate.getTime() +  (IMicrosHarvester.TWENTY_FOUR_UNITS * hoursInMillis)); 
 
 			objFetchRoomStatusRequest.setStartDate(currentDate);
 			objFetchRoomStatusRequest.setEndDate(updateDate);
@@ -169,7 +170,7 @@ public class OWSDataCollector {
 			FetchRoomStatusResponse objFuture = new FetchRoomStatusResponse();
 			objFuture =(FetchRoomStatusResponse)xstream.fromXML( pmsResponse );
 
-			if( pmsResponse.length() != 0 ) {
+			if( pmsResponse.length() != IMicrosHarvester.COUNT_ZERO ) {
 
 				isProcced = true;
 
@@ -250,6 +251,7 @@ public class OWSDataCollector {
 		MicrosMessageTransport objMicrosMessageTransport = null;
 		FetchCalendarRequest  objFetchCalendarRequest = null;
 		MicrosDAOImpl objMicrosDAOImpl = null;
+
 		AvailabilityServiceStub objAvailabilityServiceStub = null;
 		com.micros.availability.AvailabilityServiceStub.OGHeader objOGHeader = null;
 
@@ -306,6 +308,7 @@ public class OWSDataCollector {
 			objTimeSpanAvail.setEndDate( updatedCal );
 			objTimeSpan.setTimeSpanChoice_type0(objTimeSpanAvail);
 			objFetchCalendarRequest.setStayDateRange(objTimeSpan);
+
 			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " makeFetcCalendarRequest Instace created " );
 
 			XStream objStream = new XStream();
@@ -323,7 +326,7 @@ public class OWSDataCollector {
 
 			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Xml Response Received " + pmsResponse );
 
-			if( pmsResponse.length() != 0 ) {
+			if( pmsResponse.length() != IMicrosHarvester.COUNT_ZERO ) {
 
 				isProcced = true;
 
