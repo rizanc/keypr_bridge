@@ -2,6 +2,7 @@ package com.micros.pms.transport;
 
 import com.cloudkey.message.transport.IMessageTransport;
 import com.micros.http.connection.HttpClientRequest;
+import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 
 
@@ -13,7 +14,7 @@ import com.micros.pms.logger.MicrosPMSLogger;
  * 
  */
 public class MicrosMessageTransport implements IMessageTransport {
-	
+
 	@Override
 	public String handlePMSRequest(String xmlRequest) {
 
@@ -26,16 +27,16 @@ public class MicrosMessageTransport implements IMessageTransport {
 
 		try {
 		
-			response = objClientRequest.getHttpPostResponse("http://localhost:8080/MicrosSimulatorPMS_OWS/call", xmlRequest );
+			response = objClientRequest.getHttpPostResponse( IMicrosConstants.PMS_SERVER_URL, xmlRequest );
 
-		} catch (Exception exc) {
+		} catch ( Exception exc ) {
 
 			MicrosPMSLogger.logError(MicrosMessageTransport.class, " handlePMSRequest " , exc);
 		}
 
 		
-		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest " , " Response received from OXI Simulator in xml format :: " + response);
-		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest " , " Exit  handlePMSRequest method " );
+		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Response received from OXI Simulator in xml format :: " + response );
+		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Exit  handlePMSRequest method " );
 		
 		return response;
 	}

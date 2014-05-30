@@ -41,15 +41,15 @@ public class HttpClientRequest {
 	 * @return
 	 * @return : InputStream Type
 	 */
-	public String getHttpPostResponse( String url, String xmlString ) throws Exception{
+	public String getHttpPostResponse( String url, String xmlString ) {
 
-		MicrosPMSLogger.logInfo( HttpClientRequest.class, " getHttpPostResponse " , " Enter getHttpPostResponse method ");
+		MicrosPMSLogger.logInfo( HttpClientRequest.class, " getHttpPostResponse " , " Enter getHttpPostResponse method " );
 	
 		try {
 
 			/* Set up HTTP post. */
 			HttpParams httpParams = new BasicHttpParams();			
-			HttpClient httpClient = new DefaultHttpClient(httpParams);
+			HttpClient httpClient = new DefaultHttpClient( httpParams );
 			HttpPost httpPost = new HttpPost(url);
 
 			/*set xml as request.*/

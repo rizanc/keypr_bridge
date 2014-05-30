@@ -48,6 +48,8 @@ import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.transport.MicrosMessageTransport;
 import com.micros.pms.util.AdapterUtility;
+import com.micros.pms.util.ParserConfigurationReader;
+import com.micros.pms.util.TransIdGenerator;
 import com.micros.reservation.ReservationServiceStub.AccompanyGuest;
 import com.micros.reservation.ReservationServiceStub.AccompanyGuestList;
 import com.micros.reservation.ReservationServiceStub.AssignRoomRequest;
@@ -109,12 +111,13 @@ import com.micros.reservation.ReservationServiceStub.WrittenConfInst;
 public class MicrosPMSMessageParser implements IParserInterface {
 
 	@Override
-	public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) {
+	public CheckInResponse guestCheckIn( CheckInRequest checkInRequest ) {
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, "guestCheckIn "," Enter in checkin method. ");
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest objCheckInRequest = null;
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse objCheckInResponse = null;
+		
 		CheckInResponse objResponse = null;
 
 		String xmlRequest = "" ;
@@ -128,34 +131,33 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 			objCheckInRequest = getCheckInRequestObject( checkInRequest );
 			
-            timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
-			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+            timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT ) );
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME ) );
 
-
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Convert request into xml form ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn ", " Convert request into xml form " );
 
 			xmlRequest = AdapterUtility.convertToStreamXML( objCheckInRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ", " Get Request in xml format :: " + xmlRequest);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn ", " Get Request in xml format :: " + xmlRequest );
 
 			/* To send the xml request to the OXI Simulator via Message Transport */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 		
-			while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckInResponse> ")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPOSNE_CHECK_IN ) ) && ( counter < timeUnitCounter ) ) {
 
 				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckIn ", " Thread Sleeping Counter " + counter);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," guestCheckIn ", " Thread Sleeping Counter " + counter );
 
 				}
 				catch ( Exception exc) {
 
-					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " guestCheckIn ", exc);
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " guestCheckIn ", exc );
 				}
 
 			}
@@ -173,19 +175,19 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 				objCheckInResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse();
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ",	" Convert xml response into object ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn ",	" Convert xml response into object " );
 
-				objCheckInResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse) AdapterUtility.covertToStramObject(xmlResponse);
+				objCheckInResponse = ( com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse ) AdapterUtility.covertToStramObject( xmlResponse );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Get Response object from response xml ::: " + objCheckInResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn "," Get Response object from response xml ::: " + objCheckInResponse );
 
 				objResponse = getCheckInResponseObject( objCheckInResponse );
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Response received in message Parser : " + objResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn "," Response received in message Parser : " + objResponse );
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ", " Exit guestCheckIn method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn ", " Exit guestCheckIn method." );
 
 		return objResponse;
 	}
@@ -197,6 +199,7 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutRequest objCheckOutRequest = null;
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse objCheckOutResponse = null;
+		
 		CheckOutResponse objResponse = null;
 
 		String xmlResponse = "";
@@ -206,31 +209,30 @@ public class MicrosPMSMessageParser implements IParserInterface {
 		int timeUnitCounter = 0;
 
 
-		if( checkOutRequest != null && checkOutRequest.getConfirmationNumber().length() > 0){
+		if( (checkOutRequest != null ) && (checkOutRequest.getConfirmationNumber().length() > 0 ) ) {
 
 			objCheckOutRequest = getCheckOutRequestObject( checkOutRequest );
 			
-			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
-			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT ) );
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME ) );
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Convert request into xml form ");
 
-			String xmlRequest = AdapterUtility.convertToStreamXML(objCheckOutRequest);
+			String xmlRequest = AdapterUtility.convertToStreamXML( objCheckOutRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Get Request in xml format :: "
-					+ xmlRequest);
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Get Request in xml format :: " + xmlRequest);
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckOutResponse>")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_CHECK_OUT ) ) && ( counter < timeUnitCounter ) ) {
 
-				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+				xmlResponse = objMessageTransport.handlePMSRequest( xmlRequest );
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
 					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Thread Sleeping Counter " + counter);
 
@@ -242,7 +244,7 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: " + xmlResponse) ;
 
 			objCheckOutResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse();
 
@@ -255,31 +257,31 @@ public class MicrosPMSMessageParser implements IParserInterface {
 			}
 			else {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Convert xml response into object ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," guestCheckOut ", " Convert xml response into object " );
 
-				objCheckOutResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse) AdapterUtility.covertToStramObject( xmlResponse );
+				objCheckOutResponse = ( com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse ) AdapterUtility.covertToStramObject( xmlResponse );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut "," Get Response object from response xml ::: " + objCheckOutResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," guestCheckOut "," Get Response object from response xml ::: " + objCheckOutResponse );
 
 				objResponse = getCheckOutResponseObject( objCheckOutResponse );
 			}
 
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Response received in message Parser : "+ objCheckOutResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," guestCheckOut ", " Response received in message Parser : "+ objCheckOutResponse );
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," guestCheckOut ", " Exit guestCheckIn method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," guestCheckOut ", " Exit guestCheckIn method." );
 
 		return objResponse;
 	}
 
 	@Override
-	public SearchReservationResponse searchReservationData(
-			SearchReservationRequest futureBookingSummaryRequest) {
+	public SearchReservationResponse searchReservationData( SearchReservationRequest futureBookingSummaryRequest ) {
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Enter searchReservationData method. ");
 
 		FutureBookingSummaryRequest objFutureBookingSummaryRequest = null;
 		FutureBookingSummaryResponse objResponse = null;
+		
 		SearchReservationResponse objSearchReservationResponse = null;
 		String xmlResponse = "";
 
@@ -288,35 +290,35 @@ public class MicrosPMSMessageParser implements IParserInterface {
 		int timeUnitCounter = 0;
 
 
-		if(futureBookingSummaryRequest != null && (futureBookingSummaryRequest.getFirstName().length() > 0 
+		if( futureBookingSummaryRequest != null && (futureBookingSummaryRequest.getFirstName().length() > 0 
 				|| futureBookingSummaryRequest.getLastName().length() > 0 || futureBookingSummaryRequest.getConfirmationNumber().length() > 0
-				|| futureBookingSummaryRequest.getCreditCardNumber().length() > 0)){
+				|| futureBookingSummaryRequest.getCreditCardNumber().length() > 0)) {
 
 			objFutureBookingSummaryRequest = getFutureBookingRequestObject(futureBookingSummaryRequest);
 
-			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT) );
 
-			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME) );
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Convert request into xml form ");
 
-			String xmlRequest = AdapterUtility.convertToStreamXML(objFutureBookingSummaryRequest);
+			String xmlRequest = AdapterUtility.convertToStreamXML( objFutureBookingSummaryRequest );
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Get Request in xml format :: " + xmlRequest);
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			while( !(xmlResponse.contains("<com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryResponse> ")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_FUTURE_BOOKING ) ) && ( counter < timeUnitCounter ) ) {
 
-				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+				xmlResponse = objMessageTransport.handlePMSRequest( xmlRequest );
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData ", " Thread Sleeping Counter " + counter);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData ", " Thread Sleeping Counter " + counter );
 
 				}
 				catch ( Exception exc) {
@@ -326,13 +328,13 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData "," Get Response from OXI Simulator in xml format :: " + xmlResponse );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Convert xml response into object ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData "," Convert xml response into object " );
 
 			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA) ) {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS " );
 
 				objSearchReservationResponse = null;
 
@@ -341,18 +343,18 @@ public class MicrosPMSMessageParser implements IParserInterface {
 			else {
 
 
-				objResponse = (FutureBookingSummaryResponse) AdapterUtility.covertToStramObject(xmlResponse);
+				objResponse = (FutureBookingSummaryResponse) AdapterUtility.covertToStramObject( xmlResponse );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Get Response object from response xml ::: " + objResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData "," Get Response object from response xml ::: " + objResponse );
 
-				objSearchReservationResponse = getFutureBookingResponseObject(objResponse);
+				objSearchReservationResponse = getFutureBookingResponseObject( objResponse );
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Response received in message Parser : "+ objSearchReservationResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData "," Response received in message Parser : "+ objSearchReservationResponse );
 
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," searchReservationData "," Exit searchReservationData method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," searchReservationData "," Exit searchReservationData method " );
 
 		return objSearchReservationResponse;
 	}
@@ -362,10 +364,9 @@ public class MicrosPMSMessageParser implements IParserInterface {
 	 * @param objResponse
 	 * @return
 	 */
-	private SearchReservationResponse getFutureBookingResponseObject(
-			FutureBookingSummaryResponse objResponse) {
+	private SearchReservationResponse getFutureBookingResponseObject( FutureBookingSummaryResponse objResponse ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject "," Enter getFutureBookingResponseObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingResponseObject ", " Enter getFutureBookingResponseObject method." );
 
 		String firstName = null;
 		String lastName = null;
@@ -382,40 +383,43 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
 		HotelReservation[] arrHotelReservation = objResponse.getHotelReservations().getHotelReservation();
 
-		for (HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
+		for ( HotelReservation objHotelReservation : arrHotelReservation ) { // To traverse the hotel reservation.
 
-			MicrosPMSLogger
-			.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Enter in Hotel Reservation Loop.");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFutureBookingResponseObject  ", " Enter in Hotel Reservation Loop." );
 
 			objReservation = new Reservation();
 			StringBuilder objBuilder = new StringBuilder();
+			
 			com.micros.reservation.ReservationServiceStub.UniqueID[] arrUniqueID = objHotelReservation.getUniqueIDList().getUniqueID();
 
-			for (com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID : arrUniqueID) { // To traverse Unique Id list.
+			for ( com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID : arrUniqueID ) { // To traverse Unique Id list.
 
 
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Iterating UniqueID list .");
-				if (objUniqueID.getType().toString().equalsIgnoreCase("INTERNAL")) {
-					objReservation.setConfirmationNumber(objUniqueID.getString());
+				
+				if ( objUniqueID.getType().toString().equalsIgnoreCase("INTERNAL") ) {
+					
+					objReservation.setConfirmationNumber( objUniqueID.getString() );
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Confirmation Number is set.");
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Confirmation Number is set." );
 				}
 				else{
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Confirmation Number is not set.");
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Confirmation Number is not set." );
 				}
 			} // End loop for Unique ID .
 
 			ResGuest[] arrGuest = objHotelReservation.getResGuests().getResGuest();
 
-			for (ResGuest objResGuest : arrGuest) { // To traverse ResGuest.
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Iterating ResGuest Array .");
+			for ( ResGuest objResGuest : arrGuest ) { // To traverse ResGuest.
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFutureBookingResponseObject  ", " Iterating ResGuest Array." );
 
 				Profile[] arrProfiles = objResGuest.getProfiles().getProfile();
 
-				for (Profile objProfile : arrProfiles) { // To traverse profile .
+				for ( Profile objProfile : arrProfiles ) { // To traverse profile .
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Iterating Profile Array .");
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFutureBookingResponseObject  ", " Iterating Profile Array." );
 
 					PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
 					NameCreditCard[] arrNameCreditCard = objProfile.getCreditCards().getNameCreditCard();
@@ -424,26 +428,30 @@ public class MicrosPMSMessageParser implements IParserInterface {
 					firstName = objPersonName.getFirstName();
 					lastName = objPersonName.getLastName();
 
-					if(firstName != null || lastName != null){
-						if (firstName != null) {
-							objBuilder.append(firstName);
-							objReservation.setFirstName(firstName);
+					if( firstName != null || lastName != null ) {
+						
+						if ( firstName != null ) {
+							
+							objBuilder.append( firstName );
+							objReservation.setFirstName( firstName);
 						}
-						if (lastName != null) {
-							objBuilder.append(" " + lastName);
-							objReservation.setLastName(lastName);
-						}
+						if ( lastName != null ) {
+							
+							objBuilder.append( " " + lastName );
+							objReservation.setLastName( lastName );
+						} 
 						objReservation.setFullName(objBuilder.toString());
-						MicrosPMSLogger
-						.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Full Name is set.");
+						
+						MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingResponseObject  ", " Full Name is set." );
 					}
 
-					for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
+					for ( NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
 
-						MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Iterating NameCreditCard  Array .");
-						objReservation.setCreditCardNumber(objNameCreditCard.getCreditCardChoice_type0().getCardNumber());
+						MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingResponseObject  ", " Iterating NameCreditCard  Array." );
+						
+						objReservation.setCreditCardNumber( objNameCreditCard.getCreditCardChoice_type0().getCardNumber() );
 
-						MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  "," Credit Card Number is set.");
+						MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingResponseObject  ", " Credit Card Number is set." );
 					} // End loop for name credit card.
 
 
@@ -488,7 +496,7 @@ public class MicrosPMSMessageParser implements IParserInterface {
 	  } // End loop for Email.
 
 					 */
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject ", " Exit Profile .");	
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingResponseObject ", " Exit Profile ." );	
 
 
 				} // End loop for Profile.
@@ -615,19 +623,19 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 			} // End loop for room Stay.
 			 */		
 			// Set the reservation into response.
-			objLReservations.add(objReservation);
+			objLReservations.add( objReservation );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject  ", " Exit from Hotel Reservation loop.");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingResponseObject  ", " Exit from Hotel Reservation loop." );
 
 		} // End loop for Hotel Reservation.
 
 		/**
 		 * To set the reservation list and status on the response.
 		 */
-		objSearchReservationResponse.setReservationList(objLReservations);
-		objSearchReservationResponse.setStatus(objResponse.getResult().getResultStatusFlag().getValue());
+		objSearchReservationResponse.setReservationList( objLReservations );
+		objSearchReservationResponse.setStatus( objResponse.getResult().getResultStatusFlag().getValue() );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFutureBookingResponseObject "," Exit getFutureBookingResponseObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFutureBookingResponseObject "," Exit getFutureBookingResponseObject method." );
 
 		return objSearchReservationResponse;
 
@@ -640,41 +648,50 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 	 * @param futureBookingSummaryRequest
 	 * @return FutureBookingSummaryRequest
 	 */
-	private FutureBookingSummaryRequest getFutureBookingRequestObject(
-			SearchReservationRequest futureBookingSummaryRequest) {
+	private FutureBookingSummaryRequest getFutureBookingRequestObject( SearchReservationRequest futureBookingSummaryRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,"getFutureBookingRequestObject"," Enter getFutureBookingRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,"getFutureBookingRequestObject"," Enter getFutureBookingRequestObject method " );
 
 		String confirmationNumber = futureBookingSummaryRequest.getConfirmationNumber();
 		String creditCardNumber = futureBookingSummaryRequest.getCreditCardNumber();
 		// String emailID = futureBookingSummaryRequest.getEmailId();
+		
 		String firstName = futureBookingSummaryRequest.getFirstName();
 		String lastName = futureBookingSummaryRequest.getLastName();
 
 		// Creates an instance of header
 		OGHeader objOGHeader = new OGHeader();
+		
+		int transactionId = TransIdGenerator.getTransactionId();
 		// Sets Transaction Identifier
-		objOGHeader.setTransactionID("123456");
+		objOGHeader.setTransactionID( String.valueOf(transactionId ));
 
 		// creates origin end point of header.
 		EndPoint originEndPoint = new EndPoint();
-		originEndPoint.setEntityID("WEBHOTEL");
-		originEndPoint.setSystemType("WEB");
+		
+		String entityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORIGIN_ID);
+		originEndPoint.setEntityID( entityId);
+		
+		String systemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		originEndPoint.setSystemType( systemType );
 
 		// creates destination end point of header.
 		EndPoint destinEndPoint = new EndPoint();
-		destinEndPoint.setEntityID("WEBHOTEL");
-		destinEndPoint.setSystemType("ORS");
+		String destEntityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_DESTINATION_ID);
+		
+		destinEndPoint.setEntityID( destEntityId );
+		String destSystemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_DEST_TYPE);
+		destinEndPoint.setSystemType( destSystemType);
 
 		// sets time stamp
-		objOGHeader.setTimeStamp(AdapterUtility.getCalender());
+		objOGHeader.setTimeStamp( AdapterUtility.getCalender() );
 
 		// prepares OGHeader
-		objOGHeader.setOrigin(originEndPoint);
-		objOGHeader.setDestination(destinEndPoint);
+		objOGHeader.setOrigin( originEndPoint );
+		objOGHeader.setDestination( destinEndPoint );
 
 		OGHeaderE objE = new OGHeaderE();
-		objE.setOGHeader(objOGHeader);
+		objE.setOGHeader( objOGHeader );
 
 		/**
 		 * Creates an instance of FutureBookingSummaryRequest and populates the
@@ -684,36 +701,40 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 
 		/* Sets confirmation number to the request */
 
-		if (confirmationNumber != null) {
+		if ( confirmationNumber != null ) {
+			
 			com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-			objUniqueID
-			.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
+			
+			objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
 			objUniqueID.setString(confirmationNumber);
 
 			FetchBookingFilters objBookingFilters = new FetchBookingFilters();
 			objBookingFilters.setConfirmationNumber(objUniqueID);
-			objFutureBookingSummaryRequest
-			.setAdditionalFilters(objBookingFilters);
+			
+			objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
 		}
 
 		/* Set the credit card number . */
-		if (creditCardNumber != null) {
+		if ( creditCardNumber != null ) {
+			
 			FutureBookingSummaryRequestChoice_type1 objFuChoice_type01 = new FutureBookingSummaryRequestChoice_type1();
-			objFuChoice_type01.setCreditCardNumber(creditCardNumber);
-			objFutureBookingSummaryRequest
-			.setFutureBookingSummaryRequestChoice_type1(objFuChoice_type01);
+			objFuChoice_type01.setCreditCardNumber( creditCardNumber );
+			
+			objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type1( objFuChoice_type01 );
 
 		}
 
-		if (firstName != null) {
-			objFutureBookingSummaryRequest.setFirstName(firstName);
+		if ( firstName != null ) { 
+			
+			objFutureBookingSummaryRequest.setFirstName( firstName );
 		}
 
-		if (lastName != null) {
-			objFutureBookingSummaryRequest.setLastName(lastName);
+		if ( lastName != null ) {
+			
+			objFutureBookingSummaryRequest.setLastName( lastName );
 		}
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,"getFutureBookingRequestObject"," Exit getFutureBookingRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, "getFutureBookingRequestObject", " Exit getFutureBookingRequestObject method " );
 
 		return objFutureBookingSummaryRequest;
 
@@ -726,14 +747,11 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 	 * @param objResponse
 	 * @return CheckInResponse
 	 */
-	private CheckInResponse getCheckInResponseObject(
-			com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse objResponse) {
+	private CheckInResponse getCheckInResponseObject( com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse objResponse ) {
 
 		// Note : rate List not found in xsd  . objResponse contains - profile , checkin compltete and result.
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
-				" getCheckInResponseObject ",
-				" Enter in getCheckInResponseObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInResponseObject ", " Enter in getCheckInResponseObject method." );
 
 		/* Populate response into Reservation instance */
 		CheckInResponse objCheckInResponse = new CheckInResponse();
@@ -753,11 +771,12 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 		objCheckInResponse.setStatus( status );
 
 		CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
+		
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = objCheckInComplete.getReservationID();
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] arrUniqueIDs = objUniqueIDList.getUniqueID();
 
 		/*To set the confirmation number.*/
-		for(com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID : arrUniqueIDs){
+		for( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID : arrUniqueIDs ) {
 
 			confirmationNumber = objUniqueID.getString();
 			objReservation.setConfirmationNumber(confirmationNumber);
@@ -797,11 +816,11 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 
 		// set value in room type object.
 		objRoomType.setCode( roomTypeCode );
-		objRoomType.setDescription("Not Avail");
-		objRoomType.setFeatures(feature);
+		objRoomType.setDescription( IMicrosConstants.ROOM_DESCRIPTION );
+		objRoomType.setFeatures( feature );
 
 
-		objReservationRoomAllocation.setRoomNo(Integer.parseInt(roomNumber));
+		objReservationRoomAllocation.setRoomNo( Integer.parseInt(roomNumber) );
 		objReservationRoomAllocation.setRoomType( objRoomType );
 		//		objReservationRoomAllocation.setRoomRateList( objRoomRateList );
 
@@ -812,36 +831,44 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 		NameCreditCardList objCardList = objProfile.getCreditCards();
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard[] arrNameCreditCard = objCardList.getNameCreditCard();
-		for (com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
+		
+		for ( com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard objNameCreditCard : arrNameCreditCard ) { // To traverse name credit card.
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInResponseObject  "," Iterating NameCreditCard  Array .");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInResponseObject  ", " Iterating NameCreditCard  Array." );
 
-			objReservation.setCreditCardNumber(objNameCreditCard.getCreditCardChoice_type0().getCardNumber());
+			objReservation.setCreditCardNumber( objNameCreditCard.getCreditCardChoice_type0().getCardNumber() );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInResponseObject  "," Credit Card Number is set.");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInResponseObject  ", " Credit Card Number is set." );
 		} // End loop for name credit card.
 
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
+		
 		objStringBuffer = new StringBuffer();
+		
 		/* To set the first name and last name . */
 		firstName = objPersonName.getFirstName();
 		lastName = objPersonName.getLastName();
 
 
-		if(firstName != null || lastName != null){
-			if (firstName != null) {
-				objStringBuffer.append(firstName);
-				objReservation.setFirstName(firstName);
+		if( firstName != null || lastName != null ) {
+			
+			if ( firstName != null ) {
+				
+				objStringBuffer.append( firstName );
+				objReservation.setFirstName( firstName );
 			}
-			if (lastName != null) {
-				objStringBuffer.append(" " + lastName);
-				objReservation.setLastName(lastName);
+			if ( lastName != null ) {
+				
+				objStringBuffer.append( " " + lastName );
+				objReservation.setLastName( lastName );
 			}
+			
 			objReservation.setFullName(objStringBuffer.toString());
-			MicrosPMSLogger
-			.logInfo(MicrosPMSMessageParser.class," getCheckInResponseObject  "," Full Name is set.");
-			objStringBuffer.setLength(0);
+			
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getCheckInResponseObject  "," Full Name is set." );
+			
+			objStringBuffer.setLength( IMicrosConstants.COUNT_ZERO );
 		}
 
 
@@ -889,14 +916,14 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		 */
 
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInResponseObject ", " Exit Profile .");	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInResponseObject ", " Exit Profile." );	
 
-		objCheckInResponse.setReservation(objReservation);
+		objCheckInResponse.setReservation( objReservation );
 
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInResponseObject "," Enter in getCheckInResponseObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInResponseObject "," Enter in getCheckInResponseObject method." );
+		
 		return objCheckInResponse;
-
 	}
 
 	/**
@@ -906,10 +933,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param checkInRequest
 	 * @return CheckInRequest
 	 */
-	private com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest getCheckInRequestObject(
-			CheckInRequest checkInRequest) {
+	private com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest getCheckInRequestObject( CheckInRequest checkInRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInRequestObject "," Enter in getCheckInRequestObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInRequestObject ", " Enter in getCheckInRequestObject method" );
 		
 		String confirmationNumber = null;
 		String creditCardNumber = null;
@@ -923,15 +949,22 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		OGHeader objHeader = new OGHeader();
 
 		EndPoint objEndPoint = new EndPoint();
-		objEndPoint.setEntityID( IMicrosConstants.OWS_ORIGIN_ID );
-		objEndPoint.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
-
+		
+		String entityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORIGIN_ID);
+		objEndPoint.setEntityID( entityId );
+		
+		String systemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		objEndPoint.setSystemType( systemType );
+		
 		/* To set the origin . */
 		objHeader.setOrigin(objEndPoint);
 
 		objEndPoint = new EndPoint();
-		objEndPoint.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
-		objEndPoint.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE);
+		String destEntityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_DESTINATION_ID);
+		objEndPoint.setEntityID( destEntityId );
+		
+		String destSystemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_DEST_TYPE);
+		objEndPoint.setSystemType( destSystemType);
 
 		objHeader.setDestination(objEndPoint);
 
@@ -949,9 +982,10 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		/* To set the card number into checkinRequest. */
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCard objCreditCard = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCard();
 
-		if(creditCardNumber.length() > 0) {
+		if( creditCardNumber.length() > IMicrosConstants.COUNT_ZERO ) {
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
+			
 			objCardChoice_type0.setCardNumber( AdapterUtility.getCreditCardNumber(creditCardNumber) );
 			objCreditCard.setCreditCardChoice_type0( objCardChoice_type0 );
 
@@ -961,7 +995,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To set credit card into credit card info.*/
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardInfo objCreditCardInfo = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardInfo();
-		objCreditCardInfo.setCreditCard(objCreditCard);
+		objCreditCardInfo.setCreditCard( objCreditCard );
 
 
 		/*To set the confirmation number and hotel code into reservation request base*/
@@ -971,27 +1005,31 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
-		objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
-		objUniqueID.setString(confirmationNumber);
-		objUniqueID.setType(com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL);
+		
+		objUniqueID.setSource( IMicrosConstants.OWS_RESV_NAMEID );
+		objUniqueID.setString( confirmationNumber);
+		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 
-		objUniqueIDList.addUniqueID(objUniqueID);
+		objUniqueIDList.addUniqueID( objUniqueID );
 
 		// set the confirmation number.
-		objReservationRequestBase.setReservationID(objUniqueIDList);
+		objReservationRequestBase.setReservationID( objUniqueIDList );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference objHotelReference = new com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference();		
-		objHotelReference.setHotelCode( IMicrosConstants.HOTEL_CODE );
+		com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference objHotelReference = new com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference();
+		
+		String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+		objHotelReference.setHotelCode( hotelCode );
 
 		// set the hotel code.
-		objReservationRequestBase.setHotelReference(objHotelReference);
+		objReservationRequestBase.setHotelReference( objHotelReference );
 
 		/* Set the confirmation . hotel code and credit card info into check in request. */
 
-		objCheckInRequest.setReservationRequest(objReservationRequestBase);
+		objCheckInRequest.setReservationRequest( objReservationRequestBase ); 
+		
 		objCheckInRequest.setCreditCardInfo( objCreditCardInfo );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckInRequestObject "," Exit getCheckInRequestObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInRequestObject ", " Exit getCheckInRequestObject method." );
 
 		return objCheckInRequest;
 
@@ -1004,10 +1042,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objCheckOutResponse2
 	 * @return
 	 */
-	private CheckOutResponse getCheckOutResponseObject(
-			com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse checkOutResponse) {
+	private CheckOutResponse getCheckOutResponseObject( com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse checkOutResponse ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject ","  Enter getCheckOutResponseObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutResponseObject ", "  Enter getCheckOutResponseObject method" );
 
 		/* Populate response into Reservation instance */
 		CheckOutResponse objCheckOutResponse = new CheckOutResponse();
@@ -1023,7 +1060,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		status = checkOutResponse.getResult().getResultStatusFlag().toString();
 		objCheckOutResponse.setStatus( status );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject ","  Status Set ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutResponseObject ", "  Status Set " );
 
 		CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = objCheckOutComplete.getReservationID();
@@ -1033,10 +1070,10 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		for(com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID : arrUniqueIDs){
 
 			confirmationNumber = objUniqueID.getString();
-			objReservation.setConfirmationNumber(confirmationNumber);
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject ","  confirmation Number is  Set ");
+			objReservation.setConfirmationNumber( confirmationNumber );
+			
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutResponseObject ", "  confirmation Number is  Set " );
 		}
-
 
 		// Note :  checkOut response has only 1 profile information.		
 
@@ -1056,24 +1093,30 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		 */
 		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
+		
 		objStringBuffer = new StringBuffer();
+		
 		/* To set the first name and last name . */
 		firstName = objPersonName.getFirstName();
 		lastName = objPersonName.getLastName();
 
-		if(firstName != null || lastName != null){
-			if (firstName != null) {
-				objStringBuffer.append(firstName);
-				objReservation.setFirstName(firstName);
+		if( firstName != null || lastName != null ) {
+			
+			if ( firstName != null ) {
+				
+				objStringBuffer.append( firstName );
+				objReservation.setFirstName( firstName );
 			}
-			if (lastName != null) {
-				objStringBuffer.append(" " + lastName);
-				objReservation.setLastName(lastName);
+			if ( lastName != null ) {
+				
+				objStringBuffer.append( " " + lastName );
+				objReservation.setLastName( lastName );
 			}
 			objReservation.setFullName(objStringBuffer.toString());
-			MicrosPMSLogger
-			.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject  "," Full Name is set.");
-			objStringBuffer.setLength(0);
+			
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutResponseObject  ", " Full Name is set." );
+			
+			objStringBuffer.setLength(IMicrosConstants.COUNT_ZERO);
 		}
 
 
@@ -1121,11 +1164,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		 */
 
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject ", " Exit Profile .");	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutResponseObject ", " Exit Profile." );	
 
-		objCheckOutResponse.setReservation(objReservation);
+		objCheckOutResponse.setReservation( objReservation );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutResponseObject "," Exit getCheckOutResponseObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutResponseObject ", " Exit getCheckOutResponseObject method" );
 
 		return objCheckOutResponse;
 	}
@@ -1137,10 +1180,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param checkOutRequest
 	 * @return
 	 */
-	private com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutRequest getCheckOutRequestObject(
-			CheckOutRequest checkOutRequest) {
+	private com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutRequest getCheckOutRequestObject( CheckOutRequest checkOutRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutRequestObject "," Enter getCheckOutRequestObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutRequestObject ", " Enter getCheckOutRequestObject method." );
 
 		/* To get the request parameters. */
 		String confirmationNumber = checkOutRequest.getConfirmationNumber();
@@ -1150,15 +1192,22 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		OGHeader objHeader = new OGHeader();
 
 		EndPoint objEndPoint = new EndPoint();
-		objEndPoint.setEntityID( IMicrosConstants.OWS_ORIGIN_ID );
-		objEndPoint.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		
+		String entityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORIGIN_ID);
+		objEndPoint.setEntityID( entityId );
+		
+		String systemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		objEndPoint.setSystemType( systemType );
 
 		/* To set the origin . */
 		objHeader.setOrigin(objEndPoint);
 
 		objEndPoint = new EndPoint();
-		objEndPoint.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
-		objEndPoint.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE);
+		
+		String destEntityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_DESTINATION_ID);
+		objEndPoint.setEntityID( destEntityId );
+		String destSystemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_DEST_TYPE);
+		objEndPoint.setSystemType( destSystemType );
 
 		objHeader.setDestination(objEndPoint);
 
@@ -1181,9 +1230,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
-		objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
-		objUniqueID.setString(confirmationNumber);
-		objUniqueID.setType(com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL);
+		
+		objUniqueID.setSource( IMicrosConstants.OWS_RESV_NAMEID );
+		
+		objUniqueID.setString( confirmationNumber);
+		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 
 		objUniqueIDList.addUniqueID(objUniqueID);
 
@@ -1191,23 +1242,26 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objReservationRequestBase.setReservationID(objUniqueIDList);
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference objHotelReference = new com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference();
-		objHotelReference.setHotelCode(IMicrosConstants.HOTEL_CODE);
-		objReservationRequestBase.setHotelReference(objHotelReference);
+		String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+		objHotelReference.setHotelCode( hotelCode );
+		
+		objReservationRequestBase.setHotelReference( objHotelReference );
 
-		objCheckOutRequest.setReservationRequest(objReservationRequestBase);
+		objCheckOutRequest.setReservationRequest( objReservationRequestBase );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getCheckOutRequestObject "," Exit getCheckOutRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckOutRequestObject ", " Exit getCheckOutRequestObject method " );
 
 		return objCheckOutRequest;
 	}
 
 	@Override
-	public GetFolioResponse retrieveFolioInfo(GetFolioRequest folioRequest) {
+	public GetFolioResponse retrieveFolioInfo( GetFolioRequest folioRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Enter in retrieveFolioInfo method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Enter in retrieveFolioInfo method." );
 
 		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest objfolioRequest = null;
 		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objResponse = null;
+		
 		GetFolioResponse objGetFolioResponse = null;
 		String xmlResponse = "";
 
@@ -1216,48 +1270,48 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		int timeUnitCounter = 0;
 
 
-		if(folioRequest != null && folioRequest.getConfirmationNumber().length() > 0){
+		if( ( folioRequest != null ) && (folioRequest.getConfirmationNumber().length() > 0 ) ) {
 
 			objfolioRequest = getFolioRequestObject( folioRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Convert request into xml form ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Convert request into xml form " );
 
-			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT ) );
 
-			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME ) );
 
 
-			String xmlRequest = AdapterUtility.convertToStreamXML(objfolioRequest);
+			String xmlRequest = AdapterUtility.convertToStreamXML( objfolioRequest );
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Get Request in xml format :: "+ xmlRequest);
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-InvoiceResponse>")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_INVOICE)) && ( counter < timeUnitCounter ) ) {
 
 				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Thread Sleeping Counter " + counter);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," retrieveFolioInfo ", " Thread Sleeping Counter " + counter );
 
 				}
 				catch ( Exception exc) {
 
-					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " retrieveFolioInfo ", exc);
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " retrieveFolioInfo ", exc );
 				}
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response from OXI Simulator in xml format :: "+ xmlResponse );
 
-			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA) )  {
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) )  {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo ", " No Response from MicrosPMS_OWS ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " No Response from MicrosPMS_OWS " );
 
 				objGetFolioResponse = null;
 
@@ -1266,19 +1320,19 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				objResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse();
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Convert xml response into object ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Convert xml response into object " );
 
-				objResponse = (com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse) AdapterUtility.covertToStramObject(xmlResponse);
+				objResponse = ( com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse) AdapterUtility.covertToStramObject( xmlResponse );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo "," Get Response object from response xml ::: " + objResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Get Response object from response xml ::: " + objResponse );
 
-				objGetFolioResponse = getFolioResponseObject(objResponse);
+				objGetFolioResponse = getFolioResponseObject( objResponse );
 
 			}
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo "," Response received in message Parser : "+ objGetFolioResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Response received in message Parser : "+ objGetFolioResponse );
 
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," retrieveFolioInfo ", " Exit retrieveFolioInfo method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Exit retrieveFolioInfo method " );
 
 		return objGetFolioResponse;
 	}
@@ -1290,7 +1344,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objResponse
 	 * @return
 	 */
-	private GetFolioResponse getFolioResponseObject(com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objResponse) {
+	private GetFolioResponse getFolioResponseObject( com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objResponse ) {
 
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Enter in getFolioResponseObject method ");
 
@@ -1312,20 +1366,20 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		BillHeader[] arrBillHeader = objResponse.getInvoice();
 
-		for(BillHeader objBillHeader : arrBillHeader){ // Traversing Bill Header
+		for( BillHeader objBillHeader : arrBillHeader ) { // Traversing Bill Header
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Enter to traverse Bill Header ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioResponseObject ", " Enter to traverse Bill Header " );
 
 			addressType = objBillHeader.getAddress().getAddressType();
 			countryCode = objBillHeader.getAddress().getCountryCode();
 
-			objReservation.setAddress( addressType.concat(" ; "+countryCode));
+			objReservation.setAddress( addressType.concat(" ; "+countryCode) );
 
 			firstName = objBillHeader.getName().getFirstName();
 			lastName = objBillHeader.getName().getLastName();
 
-			objReservation.setFirstName(firstName);
-			objReservation.setLastName(lastName);
+			objReservation.setFirstName( firstName );
+			objReservation.setLastName( lastName );
 
 			objReservation.setFullName( firstName.concat(" "+ lastName));
 
@@ -1347,9 +1401,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			BillItem[] arrBillItem = objBillHeader.getBillItems();
 
-			for (int i = 0; i < arrBillItem.length ; i++) { // Traversing bill Items.
+			for (int i = IMicrosConstants.COUNT_ZERO; i < arrBillItem.length ; i++) { // Traversing bill Items.
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Enter to traverse Bill Items ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioResponseObject ", " Enter to traverse Bill Items " );
 				OrderDetails objOrderDetails = new OrderDetails();
 
 				unitPrice = arrBillItem[i].getAmount().get_double();
@@ -1357,12 +1411,14 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				objOrderDetails.setUnitPrice( unitPrice );
 				objOrderDetails.setItemDescription( description );
-				objDetails.add(objOrderDetails);
+				objDetails.add( objOrderDetails );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Exit to traverse Bill Items ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioResponseObject ", " Exit to traverse Bill Items " );
 
 			} // End bill items traversing loop.
-
+            
+			// add order details.
+			objOrders.setOrderDetailList(objDetails);
 			//		surchargeAmount = objBillHeader.getCreditCardSurcharges()[0].getSurchargeAmount().get_double();
 			totalBillAmount = objBillHeader.getCreditCardSurcharges()[0].getTotalBillAmount().get_double();
 			objOrders.setTotalAmount( totalBillAmount );
@@ -1379,13 +1435,15 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				objReservation.setConfirmationNumber(confirmationNumber);
 			}*/
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Exit to traverse Bill Header ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getFolioResponseObject "," Exit to traverse Bill Header " );
 
 
 		} // End Bill Header loop.
 
-		objFolioResponse.setReservation(objReservation);
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioResponseObject "," Exit  getFolioResponseObject method ");
+		objFolioResponse.setReservation( objReservation );
+		
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioResponseObject ", " Exit  getFolioResponseObject method " );
+		
 		return objFolioResponse;
 	}
 
@@ -1396,50 +1454,53 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param folioRequest
 	 * @return
 	 */
-	private com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest getFolioRequestObject(GetFolioRequest folioRequest) {
+	private com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest getFolioRequestObject( GetFolioRequest folioRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioRequestObject "," Enter getFolioRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioRequestObject ", " Enter getFolioRequestObject method " );
 
 		/* To get the request parameters. */
 		String confirmationNumber = folioRequest.getConfirmationNumber();
 		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest objInvoiceRequest = null;
 
-		if(folioRequest != null && folioRequest.getConfirmationNumber().length() > 0){
+		if( (folioRequest != null) && (folioRequest.getConfirmationNumber().length() > 0 ) ) {
 
 			/* To set request using stub classes. */
 
 			objInvoiceRequest = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest();
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference objHotelReference = new com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference();
-			objHotelReference.setHotelCode( IMicrosConstants.HOTEL_CODE );
+			
+			String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+			objHotelReference.setHotelCode( hotelCode );
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
 			com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+			
 			objUId.setString( confirmationNumber );
-			objUId.setSource("PMS_ID");
+			objUId.setSource( IMicrosConstants.PMS_ID );
 			objUId.setType(com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL);
 			objUniqueIDList.addUniqueID( objUId );
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = new com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase();
-			objRequestBase.setReservationID(objUniqueIDList);
-			objRequestBase.setHotelReference(objHotelReference);
+			
+			objRequestBase.setReservationID( objUniqueIDList );
+			objRequestBase.setHotelReference( objHotelReference );
 
 			/*To set the reservation base into invoice request.*/
-			objInvoiceRequest.setReservationRequest(objRequestBase);
+			objInvoiceRequest.setReservationRequest( objRequestBase );
 
 		}
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFolioRequestObject ","  Exit getFolioRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioRequestObject ", "  Exit getFolioRequestObject method " );
 
 		return objInvoiceRequest;
 
 	}
 
 	@Override
-	public UpdateBookingResponse updateBooking(
-			UpdateBookingRequest updateBookingRequest) {
+	public UpdateBookingResponse updateBooking( UpdateBookingRequest updateBookingRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Enter in updateBooking method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," updateBooking ", " Enter in updateBooking method " );
 
 		ModifyBookingRequest objModifyBookingRequest = null;
 		ModifyBookingResponse objResponse = null;
@@ -1450,7 +1511,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		int threadTime = 0;
 		int timeUnitCounter = 0;
 
-		if(updateBookingRequest != null && updateBookingRequest.getConfirmationNumber().length() > 0){
+		if( (updateBookingRequest != null ) && (updateBookingRequest.getConfirmationNumber().length() > 0) ) {
 
 			try {
 
@@ -1462,30 +1523,29 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			}
 
-			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT) );
 
-			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME) );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Convert request into xml form ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " updateBooking ", " Convert request into xml form " );
 
-			String xmlRequest = AdapterUtility.convertToStreamXML(objModifyBookingRequest);
+			String xmlRequest = AdapterUtility.convertToStreamXML( objModifyBookingRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Get Request in xml format :: "
-					+ xmlRequest);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," updateBooking ", " Get Request in xml format :: " + xmlRequest );
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			while( !(xmlResponse.contains("</com.micros.reservation.ReservationServiceStub_-ModifyBookingResponse>")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_MODIFY_BOOKING ) ) && ( counter < timeUnitCounter ) ) {
 
 				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Thread Sleeping Counter " + counter);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," updateBooking ", " Thread Sleeping Counter " + counter );
 
 				}
 				catch ( Exception exc) {
@@ -1494,7 +1554,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				}
 
 			}
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " guestCheckIn ", " Get Response from OXI Simulator in xml format :: " + xmlResponse );
 
 			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
@@ -1507,19 +1567,19 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				objResponse = new ModifyBookingResponse();
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Convert xml response into object ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " updateBooking ",  " Convert xml response into object" );
 
-				objResponse = (ModifyBookingResponse) AdapterUtility.covertToStramObject(xmlResponse);
+				objResponse = (ModifyBookingResponse) AdapterUtility.covertToStramObject( xmlResponse);
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking "," Get Response object from response xml ::: " + objResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," updateBooking "," Get Response object from response xml ::: " + objResponse );
 
 				objUpdateBookingResponse = getModifyBookingResponseObject( objResponse );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Response received in message Parser : "+ objUpdateBookingResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," updateBooking ", " Response received in message Parser : " + objUpdateBookingResponse );
 			}
 		}
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," updateBooking ", " Exit updateBooking method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " updateBooking ", " Exit updateBooking method " );
 
 		return objUpdateBookingResponse;
 
@@ -1531,10 +1591,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objResponse
 	 * @return UpdateBookingResponse
 	 */
-	private UpdateBookingResponse getModifyBookingResponseObject(
-			ModifyBookingResponse objResponse) {
+	private UpdateBookingResponse getModifyBookingResponseObject( ModifyBookingResponse objResponse) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Enter getModifyBookingObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Enter getModifyBookingObject method " );
 
 		String firstName = null;
 		String lastName = null;
@@ -1545,9 +1604,10 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		RoomDetails obRoomDetails = null;
 
 		List<RoomDetails> objRDetailList = null;
-		RoomStayList objRoomStayList =null;
+		RoomStayList objRoomStayList = null;
 		RoomStay[] arrRoomStay = null;
-		Reservation objReservation =null;
+		Reservation objReservation = null;
+		
 		UpdateBookingResponse objUpdateBookingResponse = null;
 		HotelReservation objHotelReservation = null;
 
@@ -1570,18 +1630,18 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		 * Traverse unique id list and set the confirmation number id the unique
 		 * id type is internal.
 		 */
-		for (com.micros.reservation.ReservationServiceStub.UniqueID objId : arrUniIds) {
+		for ( com.micros.reservation.ReservationServiceStub.UniqueID objId : arrUniIds ) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Iterating UniqueID List.");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Iterating UniqueID List." );
 
-			if (objId.getType().toString().equalsIgnoreCase("INTERNAL")) {
+			if ( objId.getType().toString().equalsIgnoreCase("INTERNAL") ) {
 
 				objReservation.setConfirmationNumber(objId.getString());
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Confirmation number is Set in response.");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Confirmation number is Set in response." );
 			} else {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Confirmation number is not Set in response.");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Confirmation number is not Set in response." );
 			}
 		} // End loop for unique Id.
 
@@ -1590,43 +1650,47 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objGuests = objHotelReservation.getResGuests().getResGuest();
 		objBuilder = new StringBuilder();
 
-		for (ResGuest objResGuest : objGuests) { // To traverse the res guest
+		for ( ResGuest objResGuest : objGuests ) { // To traverse the res guest
 			// related information.
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Enter ResGuest Array");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Enter ResGuest Array" );
+			
 			Profile[] arrProfile = objResGuest.getProfiles().getProfile();
 
-			for (Profile objProfile : arrProfile) { // To traverse profile.
+			for ( Profile objProfile : arrProfile ) { // To traverse profile.
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating Profile Array.");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Iterating Profile Array." );
 
 				firstName = objProfile.getProfileChoice_type0().getCustomer().getPersonName().getFirstName();
 				lastName = objProfile.getProfileChoice_type0().getCustomer().getPersonName().getLastName();
 
-				if (firstName != null || lastName != null) {
+				if( (firstName != null ) || (lastName != null ) ) {
 
 					if (firstName != null) {
+						
 						objBuilder.append(firstName);
 					}
-					if (lastName != null) {
+					if( lastName != null ) { 
+						
 						objBuilder.append(" " + lastName);
 					}
 
 					/* To set the full name . */
-					objReservation.setFullName(objBuilder.toString());
+					objReservation.setFullName( objBuilder.toString() );
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Full Name is Set in response.");
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Full Name is Set in response." );
 
 				}
 
 				/* To set the address on the reservation object . */
 				arrNameAddresses = objProfile.getAddresses().getNameAddress();
 
-				for (NameAddress objAddress : arrNameAddresses) {// To traverse Name Address.
+				for ( NameAddress objAddress : arrNameAddresses ) {// To traverse Name Address.
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating NameAddress Array.");
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject "," Iterating NameAddress Array." );
 
-					objReservation.setAddress(objAddress.getCountryCode());
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Address is Set in response.");
+					objReservation.setAddress( objAddress.getCountryCode() );
+					
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Address is Set in response." );
 				} // end loop for Name Address.
 
 				/*
@@ -1650,12 +1714,12 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				 * " getModifyBookingObject ", " Email is Set in response." ); }
 				 */
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Exit Profile .");	
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Exit Profile ." );	
 
 
 			} // End Profile loop.
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Exit Res Guest  .");	
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Exit Res Guest." );	
 
 		} // End ResGuest loop.
 
@@ -1663,7 +1727,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objRDetailList = objReservation.getRoomDetailList();
 		objRoomStayList = objHotelReservation.getRoomStays();
 		
-        if( objRDetailList == null ){
+        if( objRDetailList == null ) {
 			
 			objRDetailList = new ArrayList<RoomDetails>();
 		}
@@ -1671,22 +1735,24 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		arrRoomStay = objRoomStayList.getRoomStay();
 
 		/* To set the room types attributes with comments. */
-		for (RoomStay objRoomStay : arrRoomStay) { // To traverse room stay array.
+		for( RoomStay objRoomStay : arrRoomStay ) { // To traverse room stay array.
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Enter Room Stay Array.");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Enter Room Stay Array." );
 
 			RoomType[] arrRoomType = objRoomStay.getRoomTypes().getRoomType();
 			ReservationComment arrComment[] = objRoomStay.getComments().getComment();
 
-			for (RoomType objRType : arrRoomType) {  // To traverse room type 
+			for( RoomType objRType : arrRoomType ) {  // To traverse room type 
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating Room Type Array.");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Iterating Room Type Array." );
+				
 				obRoomDetails = new RoomDetails();
 
 				com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
-				objRoomType.setCode(objRType.getRoomTypeCode());
+				objRoomType.setCode( objRType.getRoomTypeCode() );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Room Type Code is Set in response.");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Room Type Code is Set in response." );
+				
 				RoomFeature[] arrRoomFeature = objRType.getRoomFeatures().getFeatures();
 
 				/*
@@ -1698,67 +1764,82 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				 * obRoomDetails.setRoomNumber(Integer.parseInt(roomNumber)); }
 				 */
 
-				objBuilder = new StringBuilder();
+				objBuilder = new StringBuilder(); 
+				
 				StringBuilder objStringBuilder2 = new StringBuilder();
-				for (RoomFeature objRFeature : arrRoomFeature) { // To traverse room features.
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating Room Feature Array.");
-					objBuilder.append(objRFeature.getFeature() + ";");
-					objStringBuilder2.append(objRFeature.getDescription() + ";");
+				
+				for ( RoomFeature objRFeature : arrRoomFeature ) { // To traverse room features.
+					
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Iterating Room Feature Array." );
+					
+					objBuilder.append( objRFeature.getFeature() + ";" );
+					objStringBuilder2.append( objRFeature.getDescription() + ";" );
 
 				} // End loop for room features.
 
-				objRoomType.setFeatures(objBuilder.toString());
-				objRoomType.setDescription(objStringBuilder2.toString());
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Fetures and Description are Set in response.");
-				objStringBuilder2.setLength(0);
-				obRoomDetails.setRoomType(objRoomType);
+				objRoomType.setFeatures( objBuilder.toString() );
+				objRoomType.setDescription( objStringBuilder2.toString() );
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Fetures and Description are Set in response." );
+				objStringBuilder2.setLength( IMicrosConstants.COUNT_ZERO );
+				obRoomDetails.setRoomType( objRoomType );
 			
-				objRDetailList.add(obRoomDetails);
+				objRDetailList.add( obRoomDetails );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Exit Room Type .");		
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Exit Room Type." );		
 
 
 			} // End loop for room Type.
 
 			/* For guest count. */
 			arrGuestCount = objRoomStay.getGuestCounts().getGuestCount();
-			for (GuestCount objGuestCount : arrGuestCount) { // To traverse Guest Count.
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating Guest Count Array.");
+			
+			for( GuestCount objGuestCount : arrGuestCount ) { // To traverse Guest Count.
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Iterating Guest Count Array." );
+				
 				guestCount = guestCount + objGuestCount.getCount();
-
 				objReservation.setNumberOfGuests(guestCount);
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Guest Count is Set in response.");
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Guest Count is Set in response." );
 			} // End loop for Guest Count.
 
 			/* To set the checkin and check out date . */
 			TimeSpan objTimeSpan = objRoomStay.getTimeSpan();
-			if (objTimeSpan != null) {
+			
+			if(objTimeSpan != null) {
 
-				objReservation.setCheckinDate(AdapterUtility.getDate(objTimeSpan.getStartDate()));
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," CheckIn Date is Set in response.");
+				objReservation.setCheckinDate(AdapterUtility.getDate (objTimeSpan.getStartDate()) );
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " CheckIn Date is Set in response." );
 
 				TimeSpanChoice_type0 objTimeSpanChoice_type0 = objTimeSpan.getTimeSpanChoice_type0();
 
-				if (objTimeSpanChoice_type0 != null) {
+				if( objTimeSpanChoice_type0 != null ) {
 
-					objReservation.setCheckoutDate(AdapterUtility.getDate(objTimeSpanChoice_type0.getEndDate()));
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," CheckOut Date is Set in response.");
+					objReservation.setCheckoutDate(AdapterUtility.getDate( objTimeSpanChoice_type0.getEndDate()) ); 
+					
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " CheckOut Date is Set in response." );
 				}
 			}
 
 			/* To add notes. */
-			objBuilder = new StringBuilder();
-			for (ReservationComment objReservationComment : arrComment) {// To traverse reservation notes.
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Iterating Reservation Comment Array.");
+			objBuilder = new StringBuilder(); 
+			
+			for ( ReservationComment objReservationComment : arrComment ) {// To traverse reservation notes.
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Iterating Reservation Comment Array." );
+				
 				objBuilder.append(objReservationComment.getCommentType() + ";");
 			} // End loop for notes.
 
 			objReservation.setNotes(objBuilder.toString());
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Notes are Set in response.");
-			objBuilder.setLength(0);
+			
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Notes are Set in response." );
+			
+			objBuilder.setLength( IMicrosConstants.COUNT_ZERO );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject ", " Exit Room Stay .");	
-
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Exit Room Stay." );	
 
 		} // End loop for room Stay.
 
@@ -1766,10 +1847,10 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		 * To set the reservation having room details in update booking response
 		 * object.
 		 */
-		objReservation.setRoomDetailList(objRDetailList);
-		objUpdateBookingResponse.setReservation(objReservation);
+		objReservation.setRoomDetailList( objRDetailList );
+		objUpdateBookingResponse.setReservation( objReservation );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getModifyBookingObject "," Exit  getModifyBookingObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " Exit  getModifyBookingObject method " );
 
 		return objUpdateBookingResponse;
 	}
@@ -1782,10 +1863,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @return
 	 * @throws AxisFault
 	 */
-	private ModifyBookingRequest getUpdateBookingRequestObject(
-			UpdateBookingRequest updateBookingRequest) throws AxisFault {
+	private ModifyBookingRequest getUpdateBookingRequestObject( UpdateBookingRequest updateBookingRequest ) throws AxisFault {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getUpdateBookingRequestObject "," Enter getUpdateBookingRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getUpdateBookingRequestObject ", " Enter getUpdateBookingRequestObject method " );
 
 		/* To set the request parameters. */
 		String confirmationNumber = updateBookingRequest.getConfirmationNumber();
@@ -1799,15 +1879,19 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		OGHeader objHeader = new OGHeader();
 
 		EndPoint objEndPoint = new EndPoint();
-		objEndPoint.setEntityID("WEST");
-		objEndPoint.setSystemType("OWS");
+		String entityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORIGIN_ID);
+		objEndPoint.setEntityID( entityId);
+		String systemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		objEndPoint.setSystemType( systemType );
 
 		/* To set the origin . */
 		objHeader.setOrigin(objEndPoint);
 
 		objEndPoint = new EndPoint();
-		objEndPoint.setEntityID("TI");
-		objEndPoint.setSystemType("ORS");
+		String destEntityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_DESTINATION_ID);
+		objEndPoint.setEntityID( destEntityId );
+		String destSystemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_DEST_TYPE);
+		objEndPoint.setSystemType( destSystemType );
 
 		objHeader.setDestination(objEndPoint);
 
@@ -1830,30 +1914,28 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		/* To create the HOtel Reservation. */
 
 		HotelReservation objHotelReservation = new HotelReservation();
-		objHotelReservation.setTracesCount(1);
-		objHotelReservation.setCommentsCount(2);
+		objHotelReservation.setTracesCount( IMicrosConstants.COUNT_ONE );
+		objHotelReservation.setCommentsCount( IMicrosConstants.COUNT_TWO );
 		objHotelReservation.setAlertExists(true);
 
 		/* To add AccompanyGuest on AccompanyGuest List for Hotel Reservation. */
 		AccompanyGuestList objAccompanyGuestList = new AccompanyGuestList();
 
 		AccompanyGuest objAccompanyGuest = new AccompanyGuest();
-		objAccompanyGuest.setFirstName("John");
-		objAccompanyGuest.setLastName("Michel");
+		objAccompanyGuest.setFirstName( IMicrosConstants.NAME_FIRST );
+		objAccompanyGuest.setLastName( IMicrosConstants.NAME_LAST );
 
 		com.micros.reservation.ReservationServiceStub.UniqueID objId = new com.micros.reservation.ReservationServiceStub.UniqueID();
+		objId.setString( IMicrosConstants.VALUE_UNIQUE_ID );
 
-		objId.setString("4627013");
+		objId.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
+		objAccompanyGuest.setNameID( objId );
 
-		objId.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
-		objAccompanyGuest.setNameID(objId);
-
-		objAccompanyGuestList.addAccompanyGuest(objAccompanyGuest);
-		objHotelReservation.setAccompanyGuests(objAccompanyGuestList);
+		objAccompanyGuestList.addAccompanyGuest( objAccompanyGuest );
+		objHotelReservation.setAccompanyGuests( objAccompanyGuestList );
 
 		/* To set the status type. */
-		objHotelReservation
-		.setComputedReservationStatus(ReservationStatusType.CANCELED);
+		objHotelReservation.setComputedReservationStatus( ReservationStatusType.CANCELED );
 
 		/* To set the room stay information into room stay list. */
 		RoomStayList objRoomStayList = new RoomStayList();
@@ -1861,20 +1943,22 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		RatePlanList objRatePlanList = new RatePlanList();
 		com.micros.reservation.ReservationServiceStub.RatePlan objRatePlan = new com.micros.reservation.ReservationServiceStub.RatePlan();
-		objRatePlan.setRatePlanCode("ABC");
+		
+		objRatePlan.setRatePlanCode( IMicrosConstants.VALUE_PLAN_CODE );
 		objRatePlanList.addRatePlan(objRatePlan);
 		objRoomStay.setRatePlans(objRatePlanList);
 
 		RoomTypeList objRoomTypeList = new RoomTypeList();
 		RoomType objRoomType = new RoomType();
-		objRoomType.setRoomTypeCode("KNG");
-		objRoomType.setNumberOfUnits(1);
+		objRoomType.setRoomTypeCode( IMicrosConstants.VALUE_ROOM_TYPE_CODE );
+		objRoomType.setNumberOfUnits(IMicrosConstants.COUNT_ONE );
 
 		RoomFeatureList objRoomFeatureList = new RoomFeatureList();
+		
 		RoomFeature objRoomFeature = new RoomFeature();
-		objRoomFeature.setFeature("POOL");
+		objRoomFeature.setFeature( IMicrosConstants.VALUE_FEATURE_ONE );
 		RoomFeature objRoomFeature1 = new RoomFeature();
-		objRoomFeature.setFeature("DVD");
+		objRoomFeature.setFeature( IMicrosConstants.VALUE_FEATURE_TWO );
 
 		objRoomFeatureList.addFeatures(objRoomFeature);
 		objRoomFeatureList.addFeatures(objRoomFeature1);
@@ -1887,15 +1971,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		GuestCountList objGuestCountList = new GuestCountList();
 		GuestCount objGuestCount = new GuestCount();
 
-		objGuestCount
-		.setAgeQualifyingCode(com.micros.reservation.ReservationServiceStub.AgeQualifyingCode.CHILD);
-		objGuestCount.setCount(1);
+		objGuestCount.setAgeQualifyingCode( com.micros.reservation.ReservationServiceStub.AgeQualifyingCode.CHILD );
+		objGuestCount.setCount( IMicrosConstants.COUNT_ONE );
 
 		TimeSpan objTimeSpan = new TimeSpan();
-		objTimeSpan.setStartDate(AdapterUtility.getCalender());
+		
+		objTimeSpan.setStartDate( AdapterUtility.getCalender() );
 		TimeSpanChoice_type0 objTimeSpanChoice_type0 = new TimeSpanChoice_type0();
-		objTimeSpanChoice_type0.setEndDate(AdapterUtility.getCalender());
-		objRoomStay.setTimeSpan(objTimeSpan);
+		
+		objTimeSpanChoice_type0.setEndDate( AdapterUtility.getCalender() );
+		objRoomStay.setTimeSpan( objTimeSpan );
 
 		Guarantee objGuarantee = new Guarantee();
 
@@ -1903,23 +1988,27 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		GuaranteeAccepted objGuaranteeAccepted = new GuaranteeAccepted();
 
 		com.micros.reservation.ReservationServiceStub.CreditCard objCreditCard = new com.micros.reservation.ReservationServiceStub.CreditCard();
-		objCreditCard.setCardCode("AN");
-		objCreditCard.setCardHolderName("Mike Haggar ");
-		objCreditCard.setExpirationDate(new Date());
+		objCreditCard.setCardCode( IMicrosConstants.VALUE_CARD_CODE );
+		objCreditCard.setCardHolderName( IMicrosConstants.VALUE_CARD_HOLDER_NAME );
+		objCreditCard.setExpirationDate( new Date() );
 
 		CreditCardChoice_type0 objCardChoice_type0 = new CreditCardChoice_type0();
-		objCardChoice_type0.setCardNumber("XXXX_XXXX_XXXX_1234");
+		objCardChoice_type0.setCardNumber( IMicrosConstants.VALUE_CARD_NUMBER );
 		objCreditCard.setCreditCardChoice_type0(objCardChoice_type0);
 		objGuaranteeAccepted.setGuaranteeCreditCard(objCreditCard);
 		objGuaranteesAccepted.addGuaranteeAccepted(objGuaranteeAccepted);
 
 		com.micros.reservation.ReservationServiceStub.HotelReference objHotelReference = new com.micros.reservation.ReservationServiceStub.HotelReference();
-		objHotelReference.setHotelCode("SEFIVE");
-		objHotelReference.setChainCode("WS");
+		
+		String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+		objHotelReference.setHotelCode( hotelCode);
+		
+		String chainCode = ParserConfigurationReader.getProperty( IMicrosConstants.CHAIN_CODE );
+		objHotelReference.setChainCode( chainCode );
 
 		ResGuestRPHList objGuestRPHList = new ResGuestRPHList();
 		ResGuestRPH objResGuestRPH = new ResGuestRPH();
-		objResGuestRPH.setRPH(0);
+		objResGuestRPH.setRPH( IMicrosConstants.COUNT_ZERO );
 
 		/*
 		 * SpecialRequestList objSpecialRequestList = new SpecialRequestList();
@@ -1929,14 +2018,14 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		ReservationCommentList objReservationCommentList = new ReservationCommentList();
 		ReservationComment objComment = new ReservationComment();
-		objComment.setCommentOriginatorCode("CRO");
-		objComment.setGuestViewable(false);
-		objComment.setCommentType(notes[0]);
+		objComment.setCommentOriginatorCode( IMicrosConstants.VALUE_ORIGINATOR_CODE );
+		objComment.setGuestViewable( false );
+		objComment.setCommentType( notes[IMicrosConstants.COUNT_ZERO] );
 
 		ReservationComment objComment1 = new ReservationComment();
-		objComment1.setCommentOriginatorCode("CRO");
-		objComment1.setGuestViewable(false);
-		objComment1.setCommentType(notes[1]);
+		objComment1.setCommentOriginatorCode( IMicrosConstants.VALUE_ORIGINATOR_CODE );
+		objComment1.setGuestViewable( false );
+		objComment1.setCommentType( notes[IMicrosConstants.COUNT_ONE] );
 
 		/* To add guest count list into room stay object. */
 		objGuestCountList.addGuestCount(objGuestCount);
@@ -1949,17 +2038,17 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		 */
 
 		/* To add guest count list into room stay object. */
-		objRoomType.setRoomFeatures(objRoomFeatureList);
-		objRoomTypeList.addRoomType(objRoomType);
-		objRoomStay.setRoomTypes(objRoomTypeList);
+		objRoomType.setRoomFeatures( objRoomFeatureList );
+		objRoomTypeList.addRoomType( objRoomType );
+		objRoomStay.setRoomTypes( objRoomTypeList );
 
 		/* To add Guarantees accepted into room stay object. */
-		objGuarantee.setGuaranteesAccepted(objGuaranteesAccepted);
-		objRoomStay.setGuarantee(objGuarantee);
+		objGuarantee.setGuaranteesAccepted( objGuaranteesAccepted );
+		objRoomStay.setGuarantee( objGuarantee );
 
 		/* To add RPH into room stay list. */
-		objGuestRPHList.addResGuestRPH(objResGuestRPH);
-		objRoomStay.setResGuestRPHs(objGuestRPHList);
+		objGuestRPHList.addResGuestRPH( objResGuestRPH );
+		objRoomStay.setResGuestRPHs( objGuestRPHList );
 
 		/* To add special request into room stay list. */
 		/*
@@ -1968,17 +2057,17 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		 */
 
 		/* To add comments into room stay object. */
-		objReservationCommentList.addComment(objComment);
-		objReservationCommentList.addComment(objComment1);
-		objRoomStay.setComments(objReservationCommentList);
+		objReservationCommentList.addComment( objComment );
+		objReservationCommentList.addComment( objComment1 );
+		objRoomStay.setComments( objReservationCommentList );
 
 		/* To add hotel reference into room stay object. */
 		/* objRoomStay.setHotelReference( objHotelReference ); */
 
 		/* To add room stay into room stay list. */
-		objRoomStayList.addRoomStay(objRoomStay);
+		objRoomStayList.addRoomStay( objRoomStay );
 
-		objHotelReservation.setRoomStays(objRoomStayList);
+		objHotelReservation.setRoomStays( objRoomStayList );
 
 		ResGuestList objGuestList = new ResGuestList();
 		ResGuest objResGuest = new ResGuest();
@@ -1987,15 +2076,15 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		com.micros.reservation.ReservationServiceStub.UniqueIDList objIdList = new com.micros.reservation.ReservationServiceStub.UniqueIDList();
 		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-		objUniqueID
-		.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
+		objUniqueID.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
 
-		objUniqueID.setString(confirmationNumber);
-		objIdList.addUniqueID(objUniqueID);
-		objProfile.setProfileIDs(objIdList);
-		objHotelReservation.setUniqueIDList(objIdList);
-		objProfileList.addProfile(objProfile);
-		objResGuest.setProfiles(objProfileList);
+		objUniqueID.setString( confirmationNumber );
+		objIdList.addUniqueID( objUniqueID );
+		objProfile.setProfileIDs( objIdList );
+		
+		objHotelReservation.setUniqueIDList( objIdList );
+		objProfileList.addProfile( objProfile );
+		objResGuest.setProfiles( objProfileList );
 
 		TransportInfo objTransportInfo = new TransportInfo();
 		objTransportInfo.setCarrierCode("AA");
@@ -2016,30 +2105,29 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objGuestList.addResGuest(objResGuest);
 
 		WrittenConfInst objWrittenConfInst = new WrittenConfInst();
-		objWrittenConfInst.setEmail("ASURENDRA@micros.com");
+		objWrittenConfInst.setEmail( IMicrosConstants.VALUE_EMAIL_ID );
 
 		/* To add hotelReservation into modify booking request . */
-		objHotelReservation.setResGuests(objGuestList);
-		objHotelReservation.setWrittenConfInst(objWrittenConfInst);
-		objModifyBookingRequest.setHotelReservation(objHotelReservation);
+		objHotelReservation.setResGuests( objGuestList );
+		objHotelReservation.setWrittenConfInst( objWrittenConfInst );
+		objModifyBookingRequest.setHotelReservation( objHotelReservation );
 
 		// objModifyBookingRequest.setCanHandleVaultedCreditCard( true );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getUpdateBookingRequestObject "," Exit getUpdateBookingRequestObject method "+ objModifyBookingRequest);
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getUpdateBookingRequestObject ", " Exit getUpdateBookingRequestObject method " + objModifyBookingRequest );
 		return objModifyBookingRequest;
 	}
 
 	@Override
-	public UpdatePaymentResponse updatePayment(UpdatePaymentRequest arg0) {
+	public UpdatePaymentResponse updatePayment( UpdatePaymentRequest arg0 ) {
 
 		return null;
 	}
 
 	@Override
-	public GetAvailabilityResponse checkAvailability(
-			GetAvailabilityRequest availabilityRequest) {
+	public GetAvailabilityResponse checkAvailability( GetAvailabilityRequest availabilityRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Enter checkAvailability method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Enter checkAvailability method. " );
 
 		FetchCalendarRequest objFetchCalendarRequest = null;
 		FetchCalendarResponse objResponse = null;
@@ -2054,23 +2142,23 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		int threadTime = 0;
 		int timeUnitCounter = 0;
 
-		if(objEDate.before(objSDate)){
+		if( objEDate.before(objSDate) ) {
 
 			objGetAvailabilityResponse = new GetAvailabilityResponse();
-			objGetAvailabilityResponse.setStatus("FAILURE");
+			objGetAvailabilityResponse.setStatus( IMicrosConstants.RESPONSE_FAILURE );
 			
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Start Date " + objSDate);
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " End Date " + objEDate);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Start Date " + objSDate );
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " End Date " + objEDate );
 
 		}
-		else
-		{
+		else {
+			
 			objFetchCalendarRequest = getAvailabiltyRequestObject( availabilityRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Start Date " + objSDate);
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " End Date " + objEDate);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Start Date " + objSDate );
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " End Date " + objEDate );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Convert request into xml form ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Convert request into xml form " );
 
 			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT));
 
@@ -2083,16 +2171,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			while( !(xmlResponse.contains("<com.micros.availability.AvailabilityServiceStub_-FetchCalendarResponse ")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_FETCH_CALENDAR )) && ( counter < timeUnitCounter ) ) {
 
-				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+				xmlResponse = objMessageTransport.handlePMSRequest( xmlRequest );
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Thread Sleeping Counter " + counter);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," checkAvailability ", " Thread Sleeping Counter " + counter );
 
 				}
 				catch ( Exception exc) {
@@ -2102,11 +2190,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Get Response from OXI Simulator in xml format :: " + xmlResponse );
 
 			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " checkAvailability ", " No Response from MicrosPMS_OWS ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " No Response from MicrosPMS_OWS " );
 
 				objGetAvailabilityResponse = null;
 
@@ -2114,19 +2202,19 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			else {
 				objResponse = new FetchCalendarResponse();
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Convert xml response into object ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Convert xml response into object " );
 
 				objResponse = ( FetchCalendarResponse ) AdapterUtility.covertToStramObject( xmlResponse );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Get Response object from response xml ::: " + objResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Get Response object from response xml ::: " + objResponse );
 
 				objGetAvailabilityResponse = getAvailabilityResponseObject( objResponse );
 			}
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability "," Response received in message Parser : "+ objGetAvailabilityResponse);
-
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Response received in message Parser : " + objGetAvailabilityResponse );
 
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Exit checkAvailability method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Exit checkAvailability method " );
+		
 		return objGetAvailabilityResponse;
 
 	}
@@ -2138,41 +2226,41 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objResponse
 	 * @return
 	 */
-	private GetAvailabilityResponse getAvailabilityResponseObject(
-			FetchCalendarResponse objResponse) {
+	private GetAvailabilityResponse getAvailabilityResponseObject( FetchCalendarResponse objResponse ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Enter getAvailabilityResponseObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabilityResponseObject ", " Enter getAvailabilityResponseObject method." );
 
 		GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
 		/*To set status in response.*/
-		objAvailabilityResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
+		objAvailabilityResponse.setStatus( objResponse.getResult().getResultStatusFlag().toString() );
 		
 		/*To get the list from availability response.*/
 		List<Availability> objLiAvailabilities = new ArrayList<Availability>();
 		/*To get the calendar daily detail array from response.*/
 		CalendarDailyDetail[] arrCalendarDailyDetail = objResponse.getCalendar().getCalendarDay();
 
-		for(CalendarDailyDetail objCalendarDailyDetail : arrCalendarDailyDetail){ // To traverse calendar daily detail.
+		for( CalendarDailyDetail objCalendarDailyDetail : arrCalendarDailyDetail ) { // To traverse calendar daily detail.
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Enter for traversing calendar details. ");	
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabilityResponseObject ", " Enter for traversing calendar details." );	
 
 			/*To set the date in response.*/
 			Availability objAvailability = new Availability();		
-			objAvailability.setDate(objCalendarDailyDetail.getDate());      
+			objAvailability.setDate( objCalendarDailyDetail.getDate() );      
 
 			/*To set the roomInventory in response.*/
 			List<com.cloudkey.commons.RoomTypeInventory> objLInventories = new ArrayList<com.cloudkey.commons.RoomTypeInventory>();
 			
 			RoomTypeInventory[] arrRoomTypeInventories =  objCalendarDailyDetail.getOccupancy().getRoomTypeInventory();
 
-			for(RoomTypeInventory objRTypeInventory : arrRoomTypeInventories){ // To traverse room type inventory.
+			for( RoomTypeInventory objRTypeInventory : arrRoomTypeInventories ) { // To traverse room type inventory.
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Traversing room type inventory. ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabilityResponseObject ", " Traversing room type inventory. " );
 
 				com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();	
 				
 				/*To set room type on room inventory.*/
-				com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
+				com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType(); 
+				
 				objRoomType.setCode( objRTypeInventory.getRoomTypeCode() );
 				objRoomTypeInventory.setRoomType( objRoomType );
 				
@@ -2182,20 +2270,21 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				
 				/*To add roomtype inventory in inventory list.*/
 				objLInventories.add( objRoomTypeInventory );
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Exit loop for room type inventory. ");	
+				
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabilityResponseObject ", " Exit loop for room type inventory. " );	
 				
 			}// End room type inventory loop.
-            objAvailability.setRoomTypeInventoryList(objLInventories);
+            objAvailability.setRoomTypeInventoryList( objLInventories );
             
 			/*To add availability object into list.*/
 			objLiAvailabilities.add( objAvailability );
 			
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Exit traversing calendar details. ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabilityResponseObject ", " Exit traversing calendar details. " );
 		} // End loop for calendar details.
 
 		objAvailabilityResponse.setAvailList( objLiAvailabilities );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabilityResponseObject "," Exit getAvailabilityResponseObject method. ");	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabilityResponseObject ", " Exit getAvailabilityResponseObject method. " );	
 		
 		return objAvailabilityResponse;
 	}
@@ -2207,10 +2296,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param availabilityRequest
 	 * @return AvailabilityRequest
 	 */
-	private FetchCalendarRequest getAvailabiltyRequestObject(
-			GetAvailabilityRequest availabilityRequest) {
+	private FetchCalendarRequest getAvailabiltyRequestObject( GetAvailabilityRequest availabilityRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabiltyRequestObject "," Enter getAvailabiltyRequestObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabiltyRequestObject ", " Enter getAvailabiltyRequestObject method. " );
 
 		FetchCalendarRequest objFetchCalendarRequest = null;
 		/*To get the request parameters*/
@@ -2225,23 +2313,26 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To send the hotel code in request parameters.*/
 		com.micros.availability.AvailabilityServiceStub.HotelReference objHotelReference = new  com.micros.availability.AvailabilityServiceStub.HotelReference();
-		objHotelReference.setHotelCode(  IMicrosConstants.HOTEL_CODE );
+		
+		String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+		objHotelReference.setHotelCode(  hotelCode );
 		objFetchCalendarRequest.setHotelReference( objHotelReference );
 
 		/*To set start and end date.*/
-		objCalendar.setTime(objSDate);
+		objCalendar.setTime( objSDate );
 		objTimeSpan.setStartDate( objCalendar );	
 
 		com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0 objType0 = new com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0();
+		
 		objCalendar = Calendar.getInstance();
-		objCalendar.setTime(objEDate);
+		objCalendar.setTime( objEDate );
 		objType0.setEndDate( objCalendar );
 		objTimeSpan.setTimeSpanChoice_type0(objType0); 
 
 		/*To set time span in fetch calendar request.*/
 		objFetchCalendarRequest.setStayDateRange(objTimeSpan);
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAvailabiltyRequestObject "," Exit getAvailabiltyRequestObject method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabiltyRequestObject ", " Exit getAvailabiltyRequestObject method. " );
 
 		return objFetchCalendarRequest;
 	}
@@ -2255,9 +2346,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * 
 	 * @return AssignRoomAdvRequest
 	 */
-	private AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest) {
+	private AssignRoomRequest getAssignRoomRequestObject( com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAssignRoomRequestObject "," Enter getAssignRoomRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Enter getAssignRoomRequestObject method " );
 
 		String roomTypeCode = assignRoomRequest.getRoomTypeCode();
 		String confirmationNumber =  assignRoomRequest.getReservation().getConfirmationNumber();
@@ -2273,21 +2364,23 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		} 
 		else {
 			/*To set the room number.*/
-			objAssignRoomRequest.setRoomNoRequested( objFetchRoomStatusResponse .getRoomStatus()[0].getRoomNumber());
+			objAssignRoomRequest.setRoomNoRequested( objFetchRoomStatusResponse .getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber() );
 
 			/*To set the confirmation number.*/
 			com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-			objUniqueID.setSource("OPERA-ID");
+			objUniqueID.setSource( IMicrosConstants.VALUE_SOURCE_ID );
 			objUniqueID.setString( confirmationNumber );
-			objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
+			objUniqueID.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
 			objAssignRoomRequest.setResvNameId( objUniqueID );
 
 			/*To set the hotel reference.*/
 			com.micros.reservation.ReservationServiceStub.HotelReference objHotelReference = new  com.micros.reservation.ReservationServiceStub.HotelReference();
-			objHotelReference.setHotelCode(  IMicrosConstants.HOTEL_CODE );
+			
+			String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+			objHotelReference.setHotelCode(  hotelCode );
 			objAssignRoomRequest.setHotelReference( objHotelReference );}
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAssignRoomRequestObject "," Exit getAssignRoomRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Exit getAssignRoomRequestObject method " );
 
 		return objAssignRoomRequest;
 	}
@@ -2299,9 +2392,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param roomTypeCode
 	 * @return
 	 */
-	private FetchRoomStatusResponse callFetchRoomStatus(String roomTypeCode) {
+	private FetchRoomStatusResponse callFetchRoomStatus( String roomTypeCode ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Enter callFetchRoomStatus method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " callFetchRoomStatus ", " Enter callFetchRoomStatus method " );
 
 		FetchRoomStatusRequest objFetchRoomStatusRequest = null;
 		FetchRoomStatusResponse objResponse = null;
@@ -2317,7 +2410,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		
 		threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME));
 		
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Convert request into xml form ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " callFetchRoomStatus ", " Convert request into xml form " );
 
 		String xmlRequest = AdapterUtility.convertToStreamXML( objFetchRoomStatusRequest );
 
@@ -2327,16 +2420,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
 
-		while( !(xmlResponse.contains("</com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusResponse>")) && ( counter < timeUnitCounter )) {
+		while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_FETCH_ROOM_STATUS_RESPONSE ) ) && ( counter < timeUnitCounter ) ) {
 
 			xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
 			try {
 
 				Thread.sleep( threadTime );
-				counter = counter + 1 ;
+				counter = counter + IMicrosConstants.COUNT_ONE ;
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Thread Sleeping Counter " + counter);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," callFetchRoomStatus ", " Thread Sleeping Counter " + counter );
 
 			}
 			catch ( Exception exc) {
@@ -2346,24 +2439,25 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		}
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," callFetchRoomStatus "," Get Response from OXI Simulator in xml format :: " + xmlResponse) ;
 
 		if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " searchReservationData ", " No Response from MicrosPMS_OWS " );
 
 			objResponse = null;
 
 		} else {
+			
 			objResponse = new FetchRoomStatusResponse();
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus ", " Convert xml response into object ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " callFetchRoomStatus ",  " Convert xml response into object " );
 
 			objResponse = ( FetchRoomStatusResponse ) AdapterUtility.covertToStramObject(xmlResponse); }
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Get Response object from response xml ::: " + objResponse);
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " callFetchRoomStatus ", " Get Response object from response xml ::: " + objResponse );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," callFetchRoomStatus "," Exit assignRoom method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " callFetchRoomStatus ", " Exit assignRoom method ");
 
 		return objResponse ;
 	}
@@ -2376,34 +2470,34 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 */
 	private FetchRoomStatusRequest getFetchRoomRequestObject(String roomTypeCode) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFetchRoomRequestObject "," Enter getFetchRoomRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchRoomRequestObject "," Enter getFetchRoomRequestObject method " );
 
 		FetchRoomStatusRequest objFetchRoomStatusRequest = new FetchRoomStatusRequest();
 		objFetchRoomStatusRequest.setRoomType(roomTypeCode);
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getFetchRoomRequestObject "," Enter getFetchRoomRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchRoomRequestObject ", " Enter getFetchRoomRequestObject method " );
+		
 		return objFetchRoomStatusRequest;
 	}
 
 	@Override
-	public com.cloudkey.pms.response.AssignRoomResponse assignRoom(
-			com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
+	public com.cloudkey.pms.response.AssignRoomResponse assignRoom( com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Enter assignRoom method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," assignRoom "," Enter assignRoom method " );
 
 		AssignRoomRequest objAssignRoomRequest = null;
 		AssignRoomResponse objResponse = null;
 		com.cloudkey.pms.response.AssignRoomResponse objRoomResponse = null;
+		
 		String xmlResponse = "";
 		String xmlRequest = "";
 
 
-		if(assignRoomRequest.getReservation().getConfirmationNumber().length() > 0){
-
+		if(assignRoomRequest.getReservation().getConfirmationNumber().length() > IMicrosConstants.COUNT_ZERO ) {
 
 			objAssignRoomRequest = getAssignRoomRequestObject( assignRoomRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Convert request into xml form ");
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " assignRoom ", " Convert request into xml form " );
 
 			if( objAssignRoomRequest == null) {
 
@@ -2412,7 +2506,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			else {
 				xmlRequest = AdapterUtility.convertToStreamXML( objAssignRoomRequest );
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom ", " Get Request in xml format :: "+ xmlRequest);
+				MicrosPMSLogger.logInfo (MicrosPMSMessageParser.class," assignRoom ", " Get Request in xml format :: "+ xmlRequest );
 
 				/* To send the xml request to the OXI Simulator via Message Transport. */
 				MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
@@ -2420,7 +2514,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Get Response from OXI Simulator in xml format :: "+ xmlResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," assignRoom ", " Get Response from OXI Simulator in xml format :: "+ xmlResponse) ;
 
 				objResponse = new AssignRoomResponse();
 
@@ -2428,16 +2522,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				objResponse = ( AssignRoomResponse ) AdapterUtility.covertToStramObject(xmlResponse);
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Get Response object from response xml ::: " + objResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," assignRoom ", " Get Response object from response xml ::: " + objResponse );
 
 				objRoomResponse = getAssignRoomResponseObject(objResponse);
 
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Response received in message Parser : "+ objRoomResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," assignRoom ", " Response received in message Parser : " + objRoomResponse );
 			}
 		}
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," assignRoom "," Exit assignRoom method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " assignRoom ", " Exit assignRoom method " );
 
 		return objRoomResponse;
 	}
@@ -2450,27 +2544,28 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objResponse
 	 * @return
 	 */
-	private com.cloudkey.pms.response.AssignRoomResponse getAssignRoomResponseObject(
-			AssignRoomResponse objResponse) {
+	private com.cloudkey.pms.response.AssignRoomResponse getAssignRoomResponseObject( AssignRoomResponse objResponse ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAssignRoomResponseObject "," Enter getAssignRoomResponseObject method ");	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomResponseObject ", " Enter getAssignRoomResponseObject method " );	
 
 		com.cloudkey.pms.response.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.AssignRoomResponse();
 		/*To populate the response into assign Room Response class.*/
-		objAssignRoomResponse.setAssignRoomNumber(objResponse.getRoomNoAssigned());
-		objAssignRoomResponse.setStatus( objResponse.getResult().getResultStatusFlag().toString());
+		objAssignRoomResponse.setAssignRoomNumber( objResponse.getRoomNoAssigned() );
+		objAssignRoomResponse.setStatus( objResponse.getResult().getResultStatusFlag().toString() );
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getAssignRoomResponseObject "," Exit getAssignRoomResponseObject method ");	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomResponseObject ", " Exit getAssignRoomResponseObject method " );	
+		
 		return objAssignRoomResponse;
 	}
 
 	@Override
-	public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) {
+	public ReleaseRoomResponse releaseRoom( ReleaseRoomRequest releaseRoomRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, "releaseRoom "," Enter in releaseRoom method. ");
+		MicrosPMSLogger.logInfo (MicrosPMSMessageParser.class, "releaseRoom ", " Enter in releaseRoom method. " );
 
 		com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest objReleaseRoomRequest = null;
 		com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse = null;
+		
 		ReleaseRoomResponse objResponse = null;
 
 		String xmlRequest = "";
@@ -2480,7 +2575,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		int threadTime = 0;
 		int timeUnitCounter = 0;
 
-		if(releaseRoomRequest != null && releaseRoomRequest.getReservationId() != null) {
+		if( (releaseRoomRequest != null ) && (releaseRoomRequest.getReservationId() != null) ) {
 
 			objReleaseRoomRequest = getReleaseRoomRequestObject( releaseRoomRequest );
 			
@@ -2492,21 +2587,21 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			xmlRequest = AdapterUtility.convertToStreamXML( objReleaseRoomRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Get Request in xml format :: " + xmlRequest);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ", " Get Request in xml format :: " + xmlRequest );
 
 			/* To send the xml request to the OXI Simulator via Message Transport */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			while( !(xmlResponse.contains("</com.micros.reservation.ReservationServiceStub_-ReleaseRoomResponse>")) && ( counter < timeUnitCounter )) {
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_RELEASE_ROOM ) ) && ( counter < timeUnitCounter ) ) {
 
 				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
 				try {
 
 					Thread.sleep( threadTime );
-					counter = counter + 1 ;
+					counter = counter + IMicrosConstants.COUNT_ONE  ;
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," releaseRoom ", " Thread Sleeping Counter " + counter);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," releaseRoom ", " Thread Sleeping Counter " + counter );
 
 				}
 				catch ( Exception exc) {
@@ -2516,11 +2611,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			}
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom "," Get Response from OXI Simulator in xml format :: " + xmlResponse );
 
 			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " No Response from MicrosPMS_OWS ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ", " No Response from MicrosPMS_OWS " );
 
 				objResponse = null;
 
@@ -2528,17 +2623,17 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			else {
 				objReleaseRoomResponse = new com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse();
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ",	" Convert xml response into object ");
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ",	" Convert xml response into object " );
 
 				objReleaseRoomResponse = (com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse) AdapterUtility.covertToStramObject(xmlResponse);
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Get Response object from response xml ::: " + objReleaseRoomResponse);
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ", " Get Response object from response xml ::: " + objReleaseRoomResponse );
 
 				objResponse = getReleaseRoomResponseObject( objReleaseRoomResponse );
 			}
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom "," Response received in message Parser : " + objResponse);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ", " Response received in message Parser : " + objResponse);
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Exit releaseRoom method. ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ", " Exit releaseRoom method." );
 
 		return objResponse;
 	}
@@ -2551,10 +2646,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objReleaseRoomResponse
 	 * @return
 	 */
-	private ReleaseRoomResponse getReleaseRoomResponseObject(
-			com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse) {
+	private ReleaseRoomResponse getReleaseRoomResponseObject( com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomResponseObject "," Enter getReleaseRoomResponseObject method ");	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomResponseObject ", " Enter getReleaseRoomResponseObject method " );	
 
 		ReleaseRoomResponse objReleaseRoomRespons = null;
 		String status = null;
@@ -2566,7 +2660,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		// set the released room status.
 		objReleaseRoomRespons.setStatus(status);
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomResponseObject "," Exit getReleaseRoomResponseObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomResponseObject ", " Exit getReleaseRoomResponseObject method " );
 
 		return objReleaseRoomRespons;
 	}
@@ -2578,10 +2672,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param releaseRoomRequest
 	 * @return
 	 */
-	private com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest getReleaseRoomRequestObject(
-			ReleaseRoomRequest releaseRoomRequest) {
+	private com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest getReleaseRoomRequestObject( ReleaseRoomRequest releaseRoomRequest ) {
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Enter getReleaseRoomRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomRequestObject "," Enter getReleaseRoomRequestObject method " );
 
 		String reservationId = releaseRoomRequest.getReservationId();
 
@@ -2589,18 +2682,23 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To set the reservation name  number.*/
 		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-		objUniqueID.setSource("OPERA");
+		objUniqueID.setSource( IMicrosConstants.VALUE_SOURCE );
 		objUniqueID.setString( reservationId );
 		objUniqueID.setType(com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL);
 		objReleaseRoomRequest.setResvNameId( objUniqueID );
 
 		/*To set the hotel reference having chain and hotel code.*/
 		HotelReference objHotelReference = new HotelReference();
-		objHotelReference.setHotelCode(IMicrosConstants.HOTEL_CODE);
-		objHotelReference.setHotelCode(IMicrosConstants.CHAIN_CODE);
+		String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+		objHotelReference.setHotelCode( hotelCode );
+		
+		String chainCode = ParserConfigurationReader.getProperty( IMicrosConstants.CHAIN_CODE);
+		objHotelReference.setHotelCode(  chainCode );
+		
 		objReleaseRoomRequest.setHotelReference(objHotelReference);
 
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Exit getReleaseRoomRequestObject method ");
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getReleaseRoomRequestObject "," Exit getReleaseRoomRequestObject method " ); 
+		
 		return objReleaseRoomRequest;
 
 	}

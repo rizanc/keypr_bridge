@@ -20,6 +20,9 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.apache.log4j.xml.DOMConfigurator;
+
+import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -32,25 +35,31 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  *
  */
 public class AdapterUtility {
-
+	
+	 static {
+		
+		DOMConfigurator.configure(System.getProperty("user.dir") + "\\res\\log4j.xml" );
+		
+		}
 	/**
 	 * This method return the credit card number after masking the first 12 digits.
 	 * 
 	 * @param creditCardNumber
 	 * @return
 	 */
-	public static String  getCreditCardNumber( String creditCardNumber ){
+	public static String  getCreditCardNumber( String creditCardNumber ) {
 		
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " getStrngFromResponse ", " Enter in getCreditCardNumber method " );
+		
 		StringBuilder strBuilder = new StringBuilder();
 		
-		if( creditCardNumber != null){
+		if( creditCardNumber != null ) {
 			
 			int length = creditCardNumber.length();	
 			
-			if(length > 4) {
+			if( length > IMicrosConstants.COUNT_FOUR ) {
 			
-			creditCardNumber =	creditCardNumber.substring( length - 4  );
+			creditCardNumber =	creditCardNumber.substring( length - IMicrosConstants.COUNT_FOUR );
 			strBuilder.append( "XXXX-XXXX-XXXX-" ).append( creditCardNumber );
 			
 			}
@@ -62,6 +71,7 @@ public class AdapterUtility {
 		}
 		
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " getStrngFromResponse ", " Exit getCreditCardNumber method " );
+		
 		  return strBuilder.toString();
 	  }
 	
@@ -75,18 +85,21 @@ public class AdapterUtility {
 	public static String getStringFromResponse( InputStream objInputStream ) throws IOException {
 		
 		MicrosPMSLogger.logInfo( AdapterUtility.class," getStrngFromResponse ", " Enter in getStrngFromResponse method ");
+		
 		String response = null;
 		
 		StringBuilder strBuilder = new StringBuilder();
-		InputStreamReader isr = new InputStreamReader(objInputStream);
+		InputStreamReader inStreamReader = new InputStreamReader(objInputStream);
 
-		BufferedReader br = new BufferedReader(isr);
-		while ((response = br.readLine()) != null) {
+		BufferedReader br = new BufferedReader( inStreamReader );
+		
+		while ( (response = br.readLine()) != null ) {
 
-			strBuilder.append(response);
+			strBuilder.append( response );
 		}
 	
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " getStrngFromResponse ", " Exit getStrngFromResponse method ");
+		
 		return strBuilder.toString();
 	}
 
@@ -97,12 +110,13 @@ public class AdapterUtility {
 	 * @return 
 	 */
 
-	public static String convertToXML(Object object){
+	public static String convertToXML( Object object ){
 
-		MicrosPMSLogger.logInfo(AdapterUtility.class, " convertToXML ", " Enter in convertToXML method " );
+		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToXML ", " Enter in convertToXML method " );
 
 		byte requestArray[] = null;
 		String xmlString = null;
+		
 		try {
 
 			ByteArrayOutputStream bOutput = new ByteArrayOutputStream();	  
@@ -110,9 +124,9 @@ public class AdapterUtility {
 			JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, true );
 
-			jaxbMarshaller.marshal(object, bOutput);
+			jaxbMarshaller.marshal( object, bOutput );
 			requestArray = bOutput.toByteArray();
 
 		} catch ( JAXBException exc ) {
@@ -120,7 +134,7 @@ public class AdapterUtility {
 			MicrosPMSLogger.logError( AdapterUtility.class, " convertToXML ", exc );
 		}
 
-		xmlString = new String(requestArray);
+		xmlString = new String( requestArray );
 
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToXML ", " xml format of object. " + xmlString );
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToXML ", " Exit convertToXML method " );
@@ -137,19 +151,20 @@ public class AdapterUtility {
 	 * @param rawXML
 	 * @return Object
 	 */
-	public static Object covertToObject( Object object, String rawXML ){
+	public static Object covertToObject( Object object, String rawXML ) {
 
 		MicrosPMSLogger.logInfo( AdapterUtility.class," covertToObject ", " Enter in covertToObject method " );
+		
 		Object	objResponse = null ;
 
 		try {
 
-			JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
+			JAXBContext jaxbContext = JAXBContext.newInstance( object.getClass() );
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-			StringReader reader = new StringReader(rawXML);
+			StringReader reader = new StringReader( rawXML );
 
-			objResponse = jaxbUnmarshaller.unmarshal(reader);
+			objResponse = jaxbUnmarshaller.unmarshal( reader );
 
 		} catch (JAXBException exc) {
 		
@@ -168,7 +183,7 @@ public class AdapterUtility {
 	 * 
 	 * @return XMLGregorianCalendar
 	 */
-	public static XMLGregorianCalendar getGregorianDate(){
+	public static XMLGregorianCalendar getGregorianDate() {
 
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " getGregorianDate ", " Enter in getGregorianDate method " );
 		
@@ -182,12 +197,12 @@ public class AdapterUtility {
 			
 			datatypeFactory = DatatypeFactory.newInstance();
 			
-		} catch (DatatypeConfigurationException exc) {
+		} catch ( DatatypeConfigurationException exc ) {
 			
 			MicrosPMSLogger.logError( AdapterUtility.class , " getGregorianDate ", exc );
 		}
 		
-        now = datatypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+        now = datatypeFactory.newXMLGregorianCalendar( gregorianCalendar );
         
         MicrosPMSLogger.logInfo( AdapterUtility.class," getGregorianDate ", " Current date " + now );
         
@@ -201,14 +216,14 @@ public class AdapterUtility {
 	 * 
 	 * @return Calendar
 	 */
-	public static Calendar getCalender(){
+	public static Calendar getCalender() {
 		
 	/*	Calendar objCalendar = Calendar.getInstance();
 		objCalendar.setFirstDayOfWeek(5);
 		return objCalendar;*/
 		
 		Calendar objCalendar = Calendar.getInstance();
-		objCalendar.setTime(new Date());
+		objCalendar.setTime( new Date() );
 		
 		return objCalendar;
 	}
@@ -220,13 +235,14 @@ public class AdapterUtility {
 	 * @param object
 	 * @return
 	 */
-	public static String convertToStreamXML(Object object){
+	public static String convertToStreamXML( Object object ) {
 
-		MicrosPMSLogger.logInfo(AdapterUtility.class, " convertToStreamXML ", " Enter convertToStreamXML method " );
+		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " Enter convertToStreamXML method " );
 		
 		String xmlString = null;
+		
 		XStream objStream = new XStream( new DomDriver());
-		xmlString = objStream.toXML(object);
+		xmlString = objStream.toXML( object );
 
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " xml format of object. " + xmlString );
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " Exit convertToStreamXML method " );
@@ -243,14 +259,14 @@ public class AdapterUtility {
 	 * 
 	 * @return Object
 	 */
-	public static Object covertToStramObject( String xmlRequestValue ){
+	public static Object covertToStramObject( String xmlRequestValue ) {
 	
 		MicrosPMSLogger.logInfo(AdapterUtility.class, " covertToStramObject ", " Enter covertToStramObject method " );
 		
 		XStream objStream = new XStream(new DomDriver());	
 		
-		
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " covertToStramObject ", " Exit covertToStramObject method " );
+		
 		return objStream.fromXML( xmlRequestValue );
 	}
 	
@@ -261,12 +277,11 @@ public class AdapterUtility {
 	 * @return String
 	 */
 
-	public static String getDate( Calendar objCalendar) {
+	public static String getDate( Calendar objCalendar ) {
 		
-		DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+		DateFormat df = new SimpleDateFormat( IMicrosConstants.DATE_FORMAT );
 	
-		 return  df.format(objCalendar.getTime());
+		 return  df.format( objCalendar.getTime() );
 	}
-
 	
 }
