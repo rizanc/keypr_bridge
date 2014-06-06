@@ -18,12 +18,11 @@ public class MicrosPMSLogger extends Logger {
 	{
 		super(name);
 		
-		//DOMConfigurator.configure("res/log4j.xml");
 	}
 	
 	static{
 		
-		DOMConfigurator.configure("res/log4j.xml");
+		DOMConfigurator.configure(System.getProperty("user.dir") +"\\res\\log4j.xml");
 	}
 	/**
 	 * This method log error message of the application.
