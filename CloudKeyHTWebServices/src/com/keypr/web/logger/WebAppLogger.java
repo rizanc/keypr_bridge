@@ -2,7 +2,6 @@ package com.keypr.web.logger;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 
 /**
  * This class acts as an application logger. It contains methods for logging information and
