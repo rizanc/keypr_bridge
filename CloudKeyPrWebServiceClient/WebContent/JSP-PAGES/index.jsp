@@ -14,10 +14,11 @@
    <a href = "JSP-PAGES/searchReservation.jsp"> Search Reservation</a><br>
     <a href = "JSP-PAGES/getAvailability.jsp"> Get Availability</a><br>
      <a href = "JSP-PAGES/assignRoom.jsp"> Assign Room</a><br>
+   <a href = "JSP-PAGES/releaseRoom.jsp"> Release Room </a><br>
    <a href = "JSP-PAGES/checkIn.jsp">Guest CheckIn</a><br>
    <a href = "JSP-PAGES/checkOut.jsp"> Guest CheckOut</a><br>
    <a href = "JSP-PAGES/getFolio.jsp"> RetrieveFolio </a><br>
-   
+ 
    <a href = "JSP-PAGES/updateBooking.jsp"> Update Booking</a><br>
    
 

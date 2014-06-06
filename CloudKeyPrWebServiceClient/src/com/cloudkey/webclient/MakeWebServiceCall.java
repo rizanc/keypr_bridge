@@ -32,7 +32,6 @@ import com.cloudkey.web.logger.MessageLogger;
 import com.cloudkey.webclient.constant.IWebClient;
 
 
-
 /**
  * This class call the web services methods and display the response . 
  * It has all required web services methods.
@@ -43,7 +42,7 @@ import com.cloudkey.webclient.constant.IWebClient;
 
 public class MakeWebServiceCall extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = IWebClient.COUNT_ONE;
 
 	/**
 	 * This method handles all request made by guest for operations like check in, check out, retrieve bill information, search reservation
@@ -51,7 +50,7 @@ public class MakeWebServiceCall extends HttpServlet {
 	 */
 	protected void doPost( HttpServletRequest request, HttpServletResponse response ) {
 
-		MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter method doPost " );
+		MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Enter method doPost " );
 
 		response.setContentType( " text/html " );
 
@@ -66,22 +65,22 @@ public class MakeWebServiceCall extends HttpServlet {
 
 		Client client = ClientBuilder.newClient();
 
-		MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " WebService Client Created " );
+		MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " WebService Client Created " );
 
 		try {
 
 			out = response.getWriter();
 
-			if( command.equalsIgnoreCase( "1" ) ) {
+			if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_ONE ) ) {
 
-				MessageLogger.logInfo(MakeWebServiceCall.class, " doPost ", " Enter SearchReservation Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter SearchReservation Block " );
 
 				SearchReservationRequest objSearchReservationRequest = new  SearchReservationRequest();
-				
+
 				objSearchReservationRequest.setFirstName( firstName );
 				objSearchReservationRequest.setLastName( lastName );
 				objSearchReservationRequest.setConfirmationNumber( confirmationNumber );
-				objSearchReservationRequest.setCreditCardNumber(request.getParameter("credit_card"));
+				objSearchReservationRequest.setCreditCardNumber( request.getParameter( "credit_card" ) );
 
 				target = client.target( IWebClient.SEARCH_RESERVATION_URL );
 
@@ -89,38 +88,38 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				String postResponse = invocationBuilder.post( Entity.entity( objSearchReservationRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println(" Response Of Search Reservation: " + postResponse);
+				out.println( " Response Of Search Reservation: " + postResponse );
 
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit SearchReservation Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit SearchReservation Block " );
 
 			}
 
-			else if( command.equalsIgnoreCase( "2" ) ) {
+			else if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_TWO ) ) {
 
-				MessageLogger.logInfo(MakeWebServiceCall.class, " doPost ", " Enter CheckIn Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter CheckIn Block " );
 
 				Reservation objReservation = new Reservation(); 
 
 				confirmationNumber = request.getParameter( "confirmation_number" );
-			
-				String credit = request.getParameter("credit_card");
-				
-				objReservation.setCreditCardNumber((credit));
+
+				String credit = request.getParameter( "credit_card" );
+
+				objReservation.setCreditCardNumber( ( credit ) );
 
 				RoomDetails objRoomDetails = new RoomDetails();
 
-				objReservation.setCreditCardNumber(credit);
-				objReservation.setConfirmationNumber(confirmationNumber);
-				
-				if(objReservation.getRoomDetailList() == null){
-					 
-					objReservation.setRoomDetailList( new ArrayList<RoomDetails>());
+				objReservation.setCreditCardNumber( credit );
+				objReservation.setConfirmationNumber( confirmationNumber );
+
+				if( objReservation.getRoomDetailList() == null ) {
+
+					objReservation.setRoomDetailList( new ArrayList<RoomDetails>() );
 				}
-				objReservation.getRoomDetailList().add(objRoomDetails);
-			
+				objReservation.getRoomDetailList().add( objRoomDetails );
+
 
 				CheckInRequest objCheckInReq = new CheckInRequest();
 				objCheckInReq.setReservation( objReservation );
@@ -130,22 +129,21 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-
 				out.println( " Response of CheckIn : " + postResponse );
 
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit CheckIn Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit CheckIn Block " );
 
 			}
 
-			else if( command.equalsIgnoreCase( "3" ) ) {
+			else if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_THREE ) ) {
 
-				MessageLogger.logInfo(MakeWebServiceCall.class, " doPost ", " Enter GetFolio Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Enter GetFolio Block " );
 
 				GetFolioRequest objGetFolioRequest = new GetFolioRequest();
-				objGetFolioRequest.setConfirmationNumber(confirmationNumber);
+				objGetFolioRequest.setConfirmationNumber( confirmationNumber );
 
 				target = client.target( IWebClient.GET_FOLIO_URL );
 
@@ -158,17 +156,17 @@ public class MakeWebServiceCall extends HttpServlet {
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page" + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit GetFolio Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  "  Exit GetFolio Block  " );
 
 			}
 
-			else  if( command.equalsIgnoreCase( "4" ) ) {
+			else  if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_FOUR ) ) {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter updateBooking Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class,  "doPost",  " Enter updateBooking Block " );
 
 				UpdateBookingRequest objBookingRequest = new UpdateBookingRequest();
 				objBookingRequest.setConfirmationNumber( confirmationNumber );
-				objBookingRequest.setNotes( new String[]{ request.getParameter("firstNote") , request.getParameter("secondNote") } );
+				objBookingRequest.setNotes( new String[]{ request.getParameter( "firstNote" ) , request.getParameter( "secondNote" ) } );
 
 				target = client.target( IWebClient.UPDATE_BOOKING_URL );
 
@@ -176,18 +174,18 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				String postResponse = invocationBuilder.post( Entity.entity( objBookingRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " Response Of UpdateBooking: " + postResponse);
+				out.println( " Response Of UpdateBooking: " + postResponse );
 
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit updateBooking Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit updateBooking Block " );
 
 			}
 
-			else if( command.equalsIgnoreCase( "5" ) ) {
+			else if(  command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_FIVE ) ) {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter updatePayment Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter updatePayment Block " );
 
 				UpdatePaymentRequest objUpdatePaymentRequest = new UpdatePaymentRequest();
 				objUpdatePaymentRequest.setConfirmationNumber( confirmationNumber );
@@ -202,12 +200,12 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				objPayments.setAmount( Double.parseDouble(amt) );
 
-				objPayments.setCreditCard(request.getParameter("credit_card_no"));
+				objPayments.setCreditCard( request.getParameter( "credit_card_no" ) );
 
 				List<Payments> paymentsList = new ArrayList<Payments>();
-				paymentsList.add(objPayments);
+				paymentsList.add( objPayments );
 
-				objUpdatePaymentRequest.setPayments(paymentsList);
+				objUpdatePaymentRequest.setPayments( paymentsList );
 
 				target = client.target( IWebClient.UPDATE_PAYMENT_URL );
 
@@ -215,31 +213,31 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( "Response Of UpdatePayments: " + postResponse) ;
+				out.println( "Response Of UpdatePayments: " + postResponse ) ;
 
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit updatePayment Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit updatePayment Block " );
 
 			}
-			else if (command.equalsIgnoreCase( "6" ) ) {
+			else if ( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_SIX ) ) {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter getAvailability Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class,  "doPost",  " Enter getAvailability Block " );
 
-				String startDate = request.getParameter("start_date");
-				String endDate = request.getParameter("end_date");
+				String startDate = request.getParameter( "start_date" );
+				String endDate = request.getParameter( "end_date" );
 
-				DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+				DateFormat df = new SimpleDateFormat( "dd-MMM-yyyy" );
 
 				GetAvailabilityRequest objAvailabilityRequest = new GetAvailabilityRequest();
 
-				try{
-					
-					objAvailabilityRequest.setStartDate(df.parse(startDate));
-					objAvailabilityRequest.setEndDate(df.parse(endDate));
+				try {
 
-					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " getAvailability Availability Object Added " );
+					objAvailabilityRequest.setStartDate( df.parse( startDate ) );
+					objAvailabilityRequest.setEndDate( df.parse( endDate ) );
+
+					MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " getAvailability Availability Object Added " );
 
 					target = client.target( IWebClient.GET_AVAILABILITY_URL );
 
@@ -248,32 +246,35 @@ public class MakeWebServiceCall extends HttpServlet {
 					String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 					out.println( " Response Of GetAvailability: " + postResponse );
-					
-				}
-				catch(Exception exc){
 
-					out.print("Input in dd-MMM-yyy (2-jan-2014) format.");
 				}
-				
+				catch( Exception exc ) {
+
+					out.print( "Input in dd-MMM-yyy ( 2-jan-2014 ) format." );
+				}
+
 				out.println( " <br><br><br >" );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit getAvailability Block ");
+				
+				MessageLogger.logInfo( MakeWebServiceCall.class,  "  doPost  ",  "  Exit getAvailability Block " );
 
 			}
 
-			else if (command.equalsIgnoreCase( "7" ) ) {
+			else if ( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_SEVEN ) ) {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Enter Assign Room Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter Assign Room Block " );
 
 				/*To set the confirmation number.*/
-				confirmationNumber = request.getParameter("confirmation_number");
+				confirmationNumber = request.getParameter( "confirmation_number" );
+
 				/*if(confirmationNumber.equals("")){
 
 					confirmationNumber = "0";
 				}*/
 
 				/*To set the roomTypeCode.*/
-				String roomTypeCode = request.getParameter("room_code");
+				String roomTypeCode = request.getParameter( "room_code" );
+
 				/*if(roomTypeCode.equals("")){
 					roomTypeCode = "0";
 				}*/
@@ -286,7 +287,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				objReservation.setConfirmationNumber( confirmationNumber );
 				objAssignRoomRequest.setReservation( objReservation );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Assign Room Object Added " );
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ", " Assign Room Object Added " );
 
 				target = client.target( IWebClient.ASSIGN_ROOM_URL );
 
@@ -299,31 +300,32 @@ public class MakeWebServiceCall extends HttpServlet {
 				out.println( " <br><br><br >" );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit  Assign Room Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit  Assign Room Block " );
 
 			}
-			else if(command.equalsIgnoreCase( "8" )){
-				
+			else if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_EIGHT  ) ) {
+
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter Release Room Block Block " );	
-			
+
 				ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
-				String reservationId = request.getParameter("reservation_id");
-			   // set the reservation id in the request parameters.
-				objReleaseRoomRequest.setReservationId(reservationId);
+				String reservationId = request.getParameter( "reservation_id" );
 				
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Reservation Id is set on the relese room object" );
-				
-				target = client.target( IWebClient.RELESE_ROOM_URL);
-				
+				// set the reservation id in the request parameters.
+				objReleaseRoomRequest.setReservationId( reservationId );
+
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Reservation Id is set on the relese room object" );
+
+				target = client.target( IWebClient.RELESE_ROOM_URL );
+
 				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
-				
-				String postResponse =  invocationBuilder.post( Entity.entity( objReleaseRoomRequest , MediaType.APPLICATION_JSON_TYPE), String.class);
-			
+
+				String postResponse =  invocationBuilder.post( Entity.entity( objReleaseRoomRequest , MediaType.APPLICATION_JSON_TYPE ), String.class );
+
 				out.println( "Response of Release Room: " + postResponse );
-				
+
 				out.println( " <br><br><br>" );
 				out.println( " <a href= \"\\CloudKeyPrWebServiceClient\">"  + " KeyPrClient Home Page " + " </a> " );
-				
+
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit Release Room Block " );
 			}
 			else {
@@ -331,7 +333,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter checkOut Block " );
 
 				CheckOutRequest objCheckOutRequest = new CheckOutRequest();
-				objCheckOutRequest.setConfirmationNumber(confirmationNumber);
+				objCheckOutRequest.setConfirmationNumber( confirmationNumber );
 
 				target = client.target( IWebClient.CHECK_OUT_URL );
 
@@ -344,7 +346,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				out.println( " <br><br><br> " );
 				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 
-				MessageLogger.logInfo(MakeWebServiceCall.class, "doPost", " Exit checkOut Block ");
+				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Exit checkOut Block " );
 
 			}
 
@@ -352,10 +354,10 @@ public class MakeWebServiceCall extends HttpServlet {
 
 		catch ( Exception exc ) {
 
-			MessageLogger.logError( MakeWebServiceCall.class, " doPost ", exc );
+			MessageLogger.logError( MakeWebServiceCall.class,  " doPost ", exc );
 		}
 
-		MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit method doPost ") ;
+		MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ", " Exit method doPost " ) ;
 
 	}
 

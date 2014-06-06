@@ -21,5 +21,16 @@ public interface IWebClient {
 	String UPDATE_PAYMENT_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/updatePayment";
 	
 	String ASSIGN_ROOM_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/assignRoom";
+	
+	Long COUNT_ONE = 1L;
+	
+	String COMMAND_COUNT_ONE = "1";
+	String COMMAND_COUNT_TWO = "2";
+	String COMMAND_COUNT_THREE = "3";
+	String COMMAND_COUNT_FOUR = "4";
+	String COMMAND_COUNT_FIVE = "5";
+	String COMMAND_COUNT_SIX = "6";
+	String COMMAND_COUNT_SEVEN = "7";
+	String COMMAND_COUNT_EIGHT = "8";
 
 }

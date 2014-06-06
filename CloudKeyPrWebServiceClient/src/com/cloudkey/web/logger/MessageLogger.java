@@ -2,7 +2,6 @@ package com.cloudkey.web.logger;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 /**
  * This class acts as an application logger. It contains methods for logging information and
  * exception messages on the console.
@@ -25,13 +24,13 @@ public class MessageLogger extends Logger {
 	 * @param methodName - Name of the method in which logger is placed.
 	 * @param objObject - reference of object having exception details.
 	 */
-	public static void logError (@SuppressWarnings("rawtypes") Class className, String methodName, Object objObject ) {
+	public static void logError ( @SuppressWarnings("rawtypes") Class className, String methodName, Object objObject ) {
 		
 		/* Creates an Instance of Logger */
 		Logger objLogger = Logger.getLogger( className.getName() );
 
 		/* Checks whether Error logger is enabled or not */
-		if (objLogger.isEnabledFor( Level.ERROR )) {
+		if ( objLogger.isEnabledFor( Level.ERROR ) ) {
 			
 			objLogger.error( " :: " + methodName + " :: ", (Throwable) objObject );
 		}
@@ -53,7 +52,7 @@ public class MessageLogger extends Logger {
 		/* Checks whether Info logger is enabled or not */
 		if ( objLogger.isInfoEnabled() ) {
 			
-			objLogger.info( className.getName() + " :: " + methodName + " :: " + message);
+			objLogger.info( className.getName() + " :: " + methodName + " :: " + message );
 		}
 		
 	}
@@ -65,7 +64,7 @@ public class MessageLogger extends Logger {
 	 * @param methodName - Name of the method in which logger is placed.
 	 * @param message - message to be logged.
 	 */
-	public static void logDebug( @SuppressWarnings("rawtypes") Class className, String methodName, String message ) {
+	public static void logDebug( @SuppressWarnings( "rawtypes" ) Class className, String methodName, String message ) {
 		
 		/* Creates an Instance of Logger */
 		Logger objLogger = Logger.getLogger( className.getName() );
