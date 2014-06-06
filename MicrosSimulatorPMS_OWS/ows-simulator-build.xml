@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="owsSimulator" default="owsSimulatorDist" basedir=".">
+	
 	<description>
-		simple example build file
+		This build file creates a war file of micros simulator and keep the jar in
+		the webapps folder of the tomcat using tomcat_home value of environment variable.
 	</description>
+	
 	<!-- set global properties for this build -->
+	<property environment="env"/>
 	<property name="ows.simulator.src" location="./src" />
 	<property name="ows.simulator.res" location="./res" />
 
@@ -12,15 +16,13 @@
 	<property name="ows.simulator.lib" location="${ows.simulator.web.webinf}/lib" />
 	<property name="ows.simulator.web.classes" location="${ows.simulator.web.webinf}/classes" />
 
-	<property name="tomcat.dir" location="C:/Program Files/Apache Software Foundation/apache-tomcat-7.0.30" />
-	<property name="tomcat.dir.webapps" location="C:/Program Files/Apache Software Foundation/apache-tomcat-7.0.30/webapps" />
+	<property name="tomcat.dir" location="${env.TOMCAT_HOME}"/>
+	<property name="tomcat.dir.webapps" location="${tomcat.dir}\webapps" />
 
 	<property name="ows.simulator.build" location="./build" />
 	<property name="ows.simulator.build.res" location="${ows.simulator.build}/res" />
 	<property name="ows.simulator.build.lib" location="${ows.simulator.build}/lib" />
 	<property name="ows.simulator.dist" location="./dist" />
-
-
 
 	<property name="adapter.project.dir.lib" location="../CloudKeyTestAdapter/lib" />
 	<property name="webservice.client.project.dir.lib" location="../CloudKeyPrWebServiceClient/WebContent/WEB-INF/lib" />
@@ -31,15 +33,14 @@
 	<property name="uploadservice.client.project.dir.lib" location="../UploadServiceRest/WebContent/WEB-INF/lib" />
 	<property name="upload.service.project.dir.lib" location="../CloudKeyHTUploadService/lib" />
 	<property name="micros.adapter.project.dir.lib" location="../MicrosPMSAdapter/lib" />
-
+	
+	<target name="checkTomcatHome" unless="env.TOMCAT_HOME">
+		    <fail message="TOMCAT_HOME must be set!"/>
+	</target>
 
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp />
-		<!-- Create the build directory structure used by compile -->
-		<!-- 		<mkdir dir="${ows.simulator.build}" />
-		<mkdir dir="${ows.simulator.build.res}" />
-		<mkdir dir="${ows.simulator.build.lib}" /> -->
 		<!-- Create the distribution directory -->
 		<mkdir dir="${ows.simulator.dist}" />
 		<mkdir dir="${ows.simulator.web.classes}" />
@@ -69,18 +70,11 @@
 
 	<!-- To compile source -->
 	<target name="compile" depends="init" description="compile the source ">
-		<!-- Compile the java code from ${ows.simulator.src} into ${ows.simulator.web.classes} -->
+		<!-- Compile the java code from ${ows.simulator.src} into ${ows.simulator.web.classes}
 		<javac includeantruntime="false" srcdir="${ows.simulator.src}" destdir="${ows.simulator.web.classes}">
 			<classpath refid="compile.classpath" />
-		</javac>
+		</javac> -->
 
-		<!-- Copy the lib folder to be included in jar -->
-		<!-- <copy todir="${ows.simulator.build}/lib"> <fileset dir="${ows.simulator.lib}"> 
-			<include name="*.jar" /> <type type="file" /> </fileset> </copy> -->
-		<!-- Copy the .classpath and .project to be included in jar -->
-		<!-- <copy todir="${ows.simulator.build}"> <fileset dir="${basedir}"> <include 
-			name=".classpath" /> <include name=".project" /> <type type="file" /> </fileset> 
-			</copy> -->
 	</target>
 
 	<target name="owsSimulatorDist" depends="clean,init,compile" description="generate the distribution">
@@ -100,6 +94,5 @@
 			</fileset>
 		</copy>
 	</target>
-
 
 </project>

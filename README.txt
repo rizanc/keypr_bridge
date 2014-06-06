@@ -46,7 +46,7 @@ For DataBase Set Up:
 ----------------------------------------------------------------
 database\keypr_bridge_db.sql: this script has a new db ‘keypr_bridge_db’ with room_details,room_details_upload, room_inventory, room_inventory_upload,reservation_upload, reservation_room_rates_upload, reservation_room_allocation_upload tables which are currently used by dataharvesting and upload service respectively.
 
-1. Run the script database\keypr_bridge_db.sql on Mysql Query 
+1. Run the script database\keypr_bridge_06062014.sql on Mysql Query 
    Browser.
 2. if the data base credentials are not as follow :	
 	username:root
@@ -129,6 +129,55 @@ e)	DHS-build.xml of MicrsoDataHarvester.
 f)	Micros-adapter-build.xml of MicrosPMSAdapter.
 g)	Ows-simulator-build.xml of MicrosSimulatorPMS_OWS.
 
+
+======================================================
+Note : To run ANT build file on Ubuntu machine
+======================================================
+
+L. ANT build file will be run on command line of Ubuntu Machine as follows.
+
+a) Set  followings environment variableS
+
+    1.TOMCAT_HOME
+    2.ANT_HOME 
+    3.JAVA_HOME 
+  
+  Environment variable to their home folder as 
+
+    TOMCAT_HOME= <path>
+
+    Command:-
+    root@Cloudkey-HT:~# export TOMCAT_HOME=<path>
+
+    ANT_HOME = <"path">
+
+    COMMAND:-
+    root@Cloudkey-HT:~# export ANT_HOME = <path>
+   
+    JAVA_HOME=<path>
+
+    Command:-
+    root@Cloudkey-HT:~# export JAVA_HOME=<path>
+
+b) To ensure all environment variables have been set, run command ant -version. It should display the vesion of the ANT API.
+
+c) update build.properties file of project Cloudkey-HT as follows.
+
+     cloudKey.base.path = <path>/CloudKeyHTBase
+     cloudkey.pms.adapter.path = <path> /MicrosPMSAdapter
+     cloudKey.keypr.client.path = <path>/CloudKeyPrWebServiceClient
+     cloudkey.keypr.webservice.path = <path>/CloudKeyHTWebServices
+     pms.simulator.ows.path = <path>/MicrosSimulatorPMS_OWS
+     pms.simulator.oxi.path = <path>/MicrosSimulator_OXI
+     cloudKey.upload.service.path = <path>/CloudKeyHTUploadService
+     cloudkey.data.harvest.path=<path>/MicrosDataHarvester
+
+
+d) Run ant buid file on command line as follows.
+
+   COMMAND:-
+     ant -buildfile build.xml
+    
 
 
 

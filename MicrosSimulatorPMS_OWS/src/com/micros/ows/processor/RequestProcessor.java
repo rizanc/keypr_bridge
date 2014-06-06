@@ -69,7 +69,6 @@ import com.micros.reservation.ReservationServiceStub.Rate;
 import com.micros.reservation.ReservationServiceStub.RateList;
 import com.micros.reservation.ReservationServiceStub.RatePlan;
 import com.micros.reservation.ReservationServiceStub.RatePlanList;
-import com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest;
 import com.micros.reservation.ReservationServiceStub.ReleaseRoomResponse;
 import com.micros.reservation.ReservationServiceStub.ResGuest;
 import com.micros.reservation.ReservationServiceStub.ResGuestList;
