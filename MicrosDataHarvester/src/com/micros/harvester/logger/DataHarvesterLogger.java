@@ -15,7 +15,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 public class DataHarvesterLogger extends Logger {
 
 	protected DataHarvesterLogger(String name) {
-		
+
 		super(name);
 	}
 
@@ -31,13 +31,13 @@ public class DataHarvesterLogger extends Logger {
 	 * @param objObject - reference of object having exception details.
 	 */
 	public static void logError(@SuppressWarnings("rawtypes") Class className, String methodName, Object objObject) {
-		
+
 		/* Creates an Instance of Logger */
 		Logger objLogger = Logger.getLogger(className.getName());
 
 		/* Checks whether Error logger is enabled or not */
 		if (objLogger.isEnabledFor(Level.ERROR)) {
-			
+
 			objLogger.error(" :: " + methodName + " :: ", (Throwable) objObject);
 		}
 	}
@@ -50,13 +50,13 @@ public class DataHarvesterLogger extends Logger {
 	 * @param message - message to be logged.
 	 */
 	public static void logInfo(@SuppressWarnings("rawtypes") Class className, String methodName, String message) {
-		
+
 		/* Creates an Instance of Logger */
 		Logger objLogger = Logger.getLogger(className.getName());
 
 		/* Checks whether Info logger is enabled or not */
 		if (objLogger.isInfoEnabled()) {
-			
+
 			objLogger.info(className.getName() + " :: " + methodName + " :: " + message);
 		}
 	}
@@ -69,13 +69,13 @@ public class DataHarvesterLogger extends Logger {
 	 * @param message - message to be logged.
 	 */
 	public static void logDebug(@SuppressWarnings("rawtypes") Class className, String methodName, String message) {
-		
+
 		/* Creates an Instance of Logger */
 		Logger objLogger = Logger.getLogger(className.getName());
 
 		/* Checks whether Info logger is enabled or not */
 		if (objLogger.isDebugEnabled()) {
-			
+
 			objLogger.debug(className.getName() + " :: " + methodName + " :: " + message);
 		}
 	}

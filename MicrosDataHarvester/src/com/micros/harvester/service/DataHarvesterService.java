@@ -6,7 +6,7 @@ import com.micros.harvester.oxi.OXIListener;
 
 /**
  * This class acts as a service to collect data from the micros property management system.
- * It start the upload scheduler to gather operation's data from property management system and
+ * It start the data harvesting scheduler to gather operation's data from property management system and
  * make it available to the keypr, thereby synchronizing the keypr database with the database of
  * the property management system.
  * 
@@ -22,11 +22,10 @@ public class DataHarvesterService {
 		OWSDataCollector objOwsDataCollector = null;
 		OXIListener objOxiListener = null;
 		
-		/*objOwsDataCollector = new OWSDataCollector();
+		objOwsDataCollector = new OWSDataCollector();
 
 		objOwsDataCollector.harvestRoomStatusData();
 		objOwsDataCollector.harvestRoomInventoryData();
-		objOwsDataCollector.harvestReservationData();*/
 		
 		objOxiListener = new OXIListener();
 		objOxiListener.connectWithOXI();

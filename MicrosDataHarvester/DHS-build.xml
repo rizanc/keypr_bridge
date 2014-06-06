@@ -1,6 +1,7 @@
 <project name="DataHarvesterService" default="DHSDist" basedir=".">
 	<description>
-        Build file to create executable jar for DataHarvester Service
+		This ant build file creates jar of DataHarvester Service. It places the created jar whererver
+		it is required.
     </description>
 	<!-- set global properties for this build -->
 	<property name="dhs.src" location="./src" />
@@ -8,15 +9,18 @@
 	<property name="dhs.lib" location="./lib" />
 	<property name="dhs.logs" location="./logs" />
 	<property name="dhs.build" location="./build" />
+	
 	<property name="dhs.build.res" location="${dhs.build}/res" />
 	<property name="dhs.build.lib" location="${dhs.build}/lib" />
 	<property name="dhs.build.logs" location="${dhs.build}/logs" />
 	<property name="dhs.dist" location="./dist" />
 	<property name="dhs.dist.lib" location="${dhs.dist}/lib" />
+	
 	<property name="adapter.project.dir.lib" location="../CloudKeyTestAdapter/lib" />
 	<property name="webservice.client.project.dir.lib" location="../CloudKeyPrWebServiceClient/WebContent/WEB-INF/lib" />
 	<property name="webservice.project.dir.lib" location="../CloudKeyHTWebServices/WebContent/WEB-INF/lib" />
 	<property name="dataharvester.project.dir.lib" location="../MicrosDataHarvester/lib" />
+	
 	<property name="microssimulator.oxi.project.dir.lib" location="../MicrosSimulator_OXI/WebContent/WEB-INF/lib" />
 	<property name="microssimulator.ows.project.dir.lib" location="../MicrosSimulatorPMS_OWS/WebContent/WEB-INF/lib" />
 	<property name="uploadservice.client.project.dir.lib" location="../UploadServiceRest/WebContent/WEB-INF/lib" />
@@ -94,17 +98,5 @@
 			<zipgroupfileset dir="${dhs.lib}" includes="**/*.jar" />
 		</jar>
 	</target>
-	
-	<!--<target name="run"   >
-	       <java jar="${dhs.dist}/lib/dhs.jar"
-	           fork="true">
-	         <arg value="-h"/>
-	         <classpath>
-	           <pathelement location="${dhs.dist}/lib/DHS1.jar"/>
-	           <pathelement path="compile.classpath"/>
-	         </classpath>
-	       </java>
-	</target> -->
-	
 	
 </project>
