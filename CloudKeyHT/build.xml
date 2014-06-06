@@ -8,7 +8,7 @@
 
 	<!-- Reference of properties file that contains the properties to be used by this build file -->
 	<property file="build.properties" />
-
+	<property environment="env"/>
 	<!--This target builds base and micros adapter ant build file.-->
 	<target name="build-all-java-app" depends="build-base,build-micros-adapter" />
 
@@ -43,6 +43,35 @@
 	<!--This is the default target to this build file. It depends on "deploy-all-webapps"-->
 	<target name="run-all-services" depends="deploy-all-webapps">
 	</target> 
- 
+ <!--For Tomcat start-->
+	<target name="tomcat-stop" if="tomcat.running" depends="check-port">
+	<echo message="Tomcat is running..stopping it"/>
+	<java jar="{env.TOMCAT_HOME}/bin/bootstrap.jar" fork="true">
+		<jvmarg value="-Dcatalina.home=${env.TOMCAT_HOME}"/>
+		<arg line="stop"/>
+	</java>
+	</target>
+	
+	<target name="check-port" description="Check whether tomcat is running">
+	<echo message="Checking whether Tomcat is running"/>
+		<condition property="tomcat.running">
+			<socket server="localhost" port="8080"/>
+		</condition>
+		<echo message="Checking whether Tomcat is running...."/>
+	</target>
+	
+	<target name="tomcat-start" depends="check-port">
+		<echo message="Tomcat about to run"/>
+		<echo message="${env.TOMCAT_HOME}"/>
+	 <java jar="${env.TOMCAT_HOME}/bin/bootstrap.jar" fork="true">
+		<jvmarg value="-Dcatalina.home=${env.TOMCAT_HOME}"/>
+	    <arg line="start"/>
+	 </java>
+		<echo message="Tomcat is running"/>
+	</target>
+	<!--	<target name="tomcat-start" depends="check-port">
+		<exec executable="${env.TOMCAT_HOME}/bin/startup"/>
+	</target>-->
+<!--For Tomcat ends-->
 	
 </project>
