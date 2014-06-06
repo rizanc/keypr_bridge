@@ -11,9 +11,9 @@ import com.cloudkey.commons.Reservation;
 public class AssignRoomRequest {
 
 	/*Variable to store the response.*/
-    private Reservation reservation ;
-	 private String roomTypeCode;
-	
+	private Reservation reservation ;
+	private String roomTypeCode;
+
 	/*Setter and Getters.*/
 	public Reservation getReservation() {
 		return reservation;
@@ -27,11 +27,11 @@ public class AssignRoomRequest {
 	public void setRoomTypeCode(String roomTypeCode) {
 		this.roomTypeCode = roomTypeCode;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "AssignRoomRequest [reservation=" + reservation
 				+ ", roomTypeCode=" + roomTypeCode + "]";
 	}
-			
+
 }

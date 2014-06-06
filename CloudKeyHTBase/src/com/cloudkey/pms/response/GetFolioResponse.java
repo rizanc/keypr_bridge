@@ -1,6 +1,7 @@
 package com.cloudkey.pms.response;
 
 import java.util.List;
+
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 
@@ -17,10 +18,17 @@ public class GetFolioResponse {
 	private Reservation reservation ;
 	/* Reference variable to store the bill information */
 	private List<ReservationOrders> reservationOrderList;
+	private String status;
 
 	/* Getter and Setter for each Data Member. */
 
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public Reservation getReservation() {
 
@@ -43,7 +51,7 @@ public class GetFolioResponse {
 
 	@Override
 	public String toString() {
-		return "GetFolioResponse [reservation=" + reservation
+		return "GetFolioResponse [status=" + status + ", reservation=" + reservation
 				+ ", reservationOrderList=" + reservationOrderList + "]";
 	}
 

@@ -5,6 +5,7 @@ import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
+import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
@@ -13,6 +14,7 @@ import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
+import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
 import com.cloudkey.pms.response.UpdatePaymentResponse;
@@ -34,6 +36,15 @@ public interface IParserInterface {
 	 * @return GetFolioResponse
 	 */
 	public GetFolioResponse retrieveFolioInfo(GetFolioRequest folioRequest);
+	
+	/**
+	 * This method is used to released the room using reservation id.
+	 * 
+	 * @param releaseRoomRequest
+	 * @return ReleaseRoomResponse
+	 */
+	public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest);
+	
 
 	/**
 	 * This method makes check in request for the guest to the property management system.

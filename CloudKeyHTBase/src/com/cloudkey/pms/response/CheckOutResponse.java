@@ -43,8 +43,8 @@ public class CheckOutResponse {
 
 	@Override
 	public String toString() {
-		
+
 		return "CheckOutResponse [status=" + status + ", reservation=" + reservation + "]";
 	}
-	
+
 }

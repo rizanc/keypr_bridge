@@ -24,7 +24,5 @@ public interface ICloudKeyConstants {
 	String SERVER_TIME_OUT = "cloud.server.time.out.counter";
     String SERVER_THREAD_TIME =	"cloud.server.thread.time";
 	String SERVER_TIME_OUT_CRITERIA = "The requested resource is not available";
-	
-
 
 }
