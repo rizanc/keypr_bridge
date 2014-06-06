@@ -9,6 +9,7 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 import com.cloudkey.dao.DataBaseHandler;
+import com.cloudkey.upload.constant.IUploadConstants;
 import com.cloudkey.upload.logger.UploadServiceLogger;
 
 
@@ -30,7 +31,6 @@ public class UploadQueueDataRemover {
 	public static void removeUploadedRoomDetailsData( List <RoomDetails> roomdetailsList ) {
 
 		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " enter removeUploadedRoomDetailsData method " );
-
 		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail list passed  " + roomdetailsList.size() );
 
 		try {
@@ -38,22 +38,24 @@ public class UploadQueueDataRemover {
 			connection = DataBaseHandler.getConnection();
 			Statement removeStmt = connection.createStatement();
 			String sqlQuery = null;
+
 			Iterator<RoomDetails> roomdetailsItr = roomdetailsList.iterator();
 
-			while(roomdetailsItr.hasNext()){
+			while( roomdetailsItr.hasNext() ) {
 
 				roomDetails = roomdetailsItr.next();
-				sqlQuery = "DELETE FROM keypr_bridge_db.room_details_upload where id= " + roomDetails.getId();
-				
+
+				sqlQuery = IUploadConstants.QUERY_ROOM_DETAILS_UPLOAD_DELETE_BY_ID + roomDetails.getId();
+
 				UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " Query to delete room_details_upload data " + sqlQuery );
+
 				int rowsDeleted = removeStmt.executeUpdate( sqlQuery );
 
-				if( rowsDeleted !=0 ) {
+				if( rowsDeleted != IUploadConstants.COUNT_ZERO ) {
 
 					UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomDetailsData ", " room detail record deleted with id  " + roomDetails.getId() );
 				}
-				
-				
+
 			}
 
 		} catch( Exception exc ) {
@@ -73,8 +75,8 @@ public class UploadQueueDataRemover {
 	public static void removeUploadedRoomInventoryDetailsData( List <RoomTypeInventory> roominventorydetailsList ) {
 
 		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " enter removeUploadedRoomInventoryDetailsData method " );
-
 		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room roominventorydetails list passed  " + roominventorydetailsList.size() );
+
 		String sqlQuery = null;
 
 		try {
@@ -87,25 +89,26 @@ public class UploadQueueDataRemover {
 			while( roominventorydetailsItr.hasNext() ) {
 
 				roominventoryDetails = roominventorydetailsItr.next();
-				sqlQuery = "DELETE FROM keypr_bridge_db.room_inventory_upload where id= "+ roominventoryDetails.getId()+"";
+
+				sqlQuery = IUploadConstants.QUERY_ROOM_INVENTORY_UPLOAD_DELETE_BY_ID + roominventoryDetails.getId() + "";
+
 				int rowsDeleted = removeStmt.executeUpdate( sqlQuery );
 
-				if( rowsDeleted !=0 ) {
+				if( rowsDeleted != IUploadConstants.COUNT_ZERO ) {
 
 					UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " room inventory record deleted with id  " + roominventoryDetails.getId() );
 				}
-				
+
 				UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " Query to delete room_inventory_upload data " + sqlQuery );
-				
+
 			}
 		} catch( Exception exc ) {
 
-			UploadServiceLogger.logError(UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", exc);
+			UploadServiceLogger.logError( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", exc );
 		}
 
 		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeUploadedRoomInventoryDetailsData ", " exit removeUploadedRoomInventoryDetailsData method " );
 	}
-
 
 	/**
 	 * method to delete the data from upload table after getting success 
@@ -121,6 +124,7 @@ public class UploadQueueDataRemover {
 
 		Reservation reservation = null;
 		String sqlQuery = null;
+
 		try {
 
 			connection = DataBaseHandler.getConnection();
@@ -131,22 +135,22 @@ public class UploadQueueDataRemover {
 			while(reservationItr.hasNext()){
 
 				reservation = reservationItr.next();
-				
-				sqlQuery = "DELETE  FROM keypr_bridge_db.reservation_upload  WHERE id = "+ reservation.getId() +"";
+
+				sqlQuery = IUploadConstants.QUERY_RESERVATION_UPLOAD_DELETE_BY_ID + reservation.getId() + "";
 				int rowsDeleted = removeStmt.executeUpdate( sqlQuery);
 
-				if( rowsDeleted !=0 ) {
+				if( rowsDeleted != IUploadConstants.COUNT_ZERO ) {
 
 					UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " reservation data deleted with id  " + reservation.getId() );
 				}
-				
+
 				UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " Query to delete reservation_upload data " + sqlQuery );
-			
+
 			}
 
-		}catch(Exception exc){
+		}catch( Exception exc ){
 
-			UploadServiceLogger.logError(UploadQueueDataRemover.class, " removeReservationData ", exc);
+			UploadServiceLogger.logError( UploadQueueDataRemover.class, " removeReservationData ", exc );
 		}
 
 		UploadServiceLogger.logInfo( UploadQueueDataRemover.class, " removeReservationData ", " exit removeReservationData method " );

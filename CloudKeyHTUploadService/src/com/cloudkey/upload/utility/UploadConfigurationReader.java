@@ -31,8 +31,8 @@ public class UploadConfigurationReader {
 
 			try {
 
-				input = new FileInputStream(popfileName);
-				prop.load(input);
+				input = new FileInputStream( popfileName );
+				prop.load( input );
 
 			}
 			catch( IOException exc ){
@@ -41,16 +41,15 @@ public class UploadConfigurationReader {
 			}
 			catch( Exception exc ){
 
-				UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc);
+				UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc );
 			}
 
 		}
 		catch( Exception exc ){
 
-			UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc);
+			UploadServiceLogger.logError( UploadConfigurationReader.class, "static block", exc );
 		}
 	}// end static block
-
 
 	/**
 	 * This method will return the value of key from properties file. 
@@ -58,7 +57,7 @@ public class UploadConfigurationReader {
 	 * @param propertyKey
 	 * @return String
 	 */
-	public static String getProperty( String propertyKey) {
+	public static String getProperty( String propertyKey ) {
 
 		return prop.getProperty( propertyKey );
 
