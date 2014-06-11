@@ -4,11 +4,14 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -16,9 +19,13 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import org.json.simple.JSONObject;
+
 import com.cloudkey.commons.Payments;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.commons.TimeOutError;
+import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.pms.request.AssignRoomRequest;
 import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
@@ -28,6 +35,7 @@ import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
+import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.web.logger.MessageLogger;
 import com.cloudkey.webclient.constant.IWebClient;
 
@@ -82,16 +90,40 @@ public class MakeWebServiceCall extends HttpServlet {
 				objSearchReservationRequest.setConfirmationNumber( confirmationNumber );
 				objSearchReservationRequest.setCreditCardNumber( request.getParameter( "credit_card" ) );
 
-				target = client.target( IWebClient.SEARCH_RESERVATION_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.SEARCH_RESERVATION_URL );
 
-				String postResponse = invocationBuilder.post( Entity.entity( objSearchReservationRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( " Response Of Search Reservation: " + postResponse );
+					String postResponse = invocationBuilder.post( Entity.entity( objSearchReservationRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br> " );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					out.println( " Response Of Search Reservation: " + postResponse );
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " SearchReservation Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit SearchReservation Block " );
 
@@ -124,15 +156,39 @@ public class MakeWebServiceCall extends HttpServlet {
 				CheckInRequest objCheckInReq = new CheckInRequest();
 				objCheckInReq.setReservation( objReservation );
 
-				target = client.target( IWebClient.CHECK_IN_URL ); 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+				try {
 
-				String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
+					target = client.target( IWebClient.CHECK_IN_URL ); 
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( " Response of CheckIn : " + postResponse );
+					String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br> " );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
+					out.println( " Response of CheckIn : " + postResponse );
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
+				}
+
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " CheckIn Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit CheckIn Block " );
 
@@ -145,16 +201,40 @@ public class MakeWebServiceCall extends HttpServlet {
 				GetFolioRequest objGetFolioRequest = new GetFolioRequest();
 				objGetFolioRequest.setConfirmationNumber( confirmationNumber );
 
-				target = client.target( IWebClient.GET_FOLIO_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.GET_FOLIO_URL );
 
-				String postResponse = invocationBuilder.post( Entity.entity( objGetFolioRequest, MediaType.APPLICATION_JSON_TYPE ), String.class);
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( "Response Of RetrieveFolio: " + postResponse );
+					String postResponse = invocationBuilder.post( Entity.entity( objGetFolioRequest, MediaType.APPLICATION_JSON_TYPE ), String.class);
 
-				out.println( " <br><br><br> " );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page" + " </a> " );
+					out.println( "Response Of RetrieveFolio: " + postResponse );
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page" + " </a> " );
+
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " GetFolio Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  "  Exit GetFolio Block  " );
 
@@ -168,16 +248,40 @@ public class MakeWebServiceCall extends HttpServlet {
 				objBookingRequest.setConfirmationNumber( confirmationNumber );
 				objBookingRequest.setNotes( new String[]{ request.getParameter( "firstNote" ) , request.getParameter( "secondNote" ) } );
 
-				target = client.target( IWebClient.UPDATE_BOOKING_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.UPDATE_BOOKING_URL );
 
-				String postResponse = invocationBuilder.post( Entity.entity( objBookingRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( " Response Of UpdateBooking: " + postResponse );
+					String postResponse = invocationBuilder.post( Entity.entity( objBookingRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br> " );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
+					out.println( " Response Of UpdateBooking: " + postResponse );
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
+
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " updateBooking Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit updateBooking Block " );
 
@@ -207,16 +311,40 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				objUpdatePaymentRequest.setPayments( paymentsList );
 
-				target = client.target( IWebClient.UPDATE_PAYMENT_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.UPDATE_PAYMENT_URL );
 
-				String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( "Response Of UpdatePayments: " + postResponse ) ;
+					String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br> " );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					out.println( "Response Of UpdatePayments: " + postResponse ) ;
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " updatePayment Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit updatePayment Block " );
 
@@ -239,23 +367,60 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " getAvailability Availability Object Added " );
 
-					target = client.target( IWebClient.GET_AVAILABILITY_URL );
+					try {
 
-					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+						target = client.target( IWebClient.GET_AVAILABILITY_URL );
 
-					String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+						invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-					out.println( " Response Of GetAvailability: " + postResponse );
+						String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+						out.println( " Response Of GetAvailability: " + postResponse );
+
+						out.println( " <br><br><br >" );
+						out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					}
+					catch( ServerErrorException sec) {
+
+						MessageLogger.logError(MakeWebServiceCall.class,  " getAvailability Block", sec);
+
+						TimeOutError objTError = new TimeOutError();
+						objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+						objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+						Map<String,String> myMap= new HashMap<String,String>();
+						myMap.put( "Code", objTError.getCode()) ;
+						myMap.put( "Message", objTError.getMessage() );
+
+						JSONObject objTimeOut = new JSONObject(myMap);
+
+						out.println(objTimeOut);
+						
+						out.println( " <br><br><br> " );
+						out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+					}
 				}
 				catch( Exception exc ) {
 
-					out.print( "Input in dd-MMM-yyy ( 2-jan-2014 ) format." );
-				}
+					MessageLogger.logInfo( MakeWebServiceCall.class,  " getAvailability ",  " Required Fields are missing " );
+					
+					GetAvailabilityResponse objGResponse = new GetAvailabilityResponse();
+					objGResponse.setStatus( ICloudKeyConstants.RES_FAILURE);
+					objGResponse.setAvailList(null);
+					
+					Map<String,Object> myMap= new HashMap<String,Object>();
+					myMap.put( "status", objGResponse.getStatus()) ;
+					myMap.put( "availabilityList", objGResponse.getAvailList() );
 
-				out.println( " <br><br><br >" );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-				
+					JSONObject objError = new JSONObject(myMap);
+					
+					out.print( "Response Of GetAvailability " + objError );
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 				MessageLogger.logInfo( MakeWebServiceCall.class,  "  doPost  ",  "  Exit getAvailability Block " );
 
 			}
@@ -289,42 +454,89 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ", " Assign Room Object Added " );
 
-				target = client.target( IWebClient.ASSIGN_ROOM_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.ASSIGN_ROOM_URL );
 
-				String postResponse = invocationBuilder.post( Entity.entity( objAssignRoomRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( " Response Of  Assign Room: " + postResponse );
+					String postResponse = invocationBuilder.post( Entity.entity( objAssignRoomRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br >" );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					out.println( " Response Of  Assign Room: " + postResponse );
+
+					out.println( " <br><br><br >" );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " Assign Room Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit  Assign Room Block " );
 
 			}
 			else if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_EIGHT  ) ) {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter Release Room Block Block " );	
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter Release Room Block " );	
 
 				ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
 				String reservationId = request.getParameter( "reservation_id" );
-				
+
 				// set the reservation id in the request parameters.
 				objReleaseRoomRequest.setReservationId( reservationId );
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Reservation Id is set on the relese room object" );
 
-				target = client.target( IWebClient.RELESE_ROOM_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.RELESE_ROOM_URL );
 
-				String postResponse =  invocationBuilder.post( Entity.entity( objReleaseRoomRequest , MediaType.APPLICATION_JSON_TYPE ), String.class );
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( "Response of Release Room: " + postResponse );
+					String postResponse =  invocationBuilder.post( Entity.entity( objReleaseRoomRequest , MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br>" );
-				out.println( " <a href= \"\\CloudKeyPrWebServiceClient\">"  + " KeyPrClient Home Page " + " </a> " );
+					out.println( "Response of Release Room: " + postResponse );
+
+					out.println( " <br><br><br>" );
+					out.println( " <a href= \"\\CloudKeyPrWebServiceClient\">"  + " KeyPrClient Home Page " + " </a> " );
+
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " Release Room Bloc ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit Release Room Block " );
 			}
@@ -335,16 +547,39 @@ public class MakeWebServiceCall extends HttpServlet {
 				CheckOutRequest objCheckOutRequest = new CheckOutRequest();
 				objCheckOutRequest.setConfirmationNumber( confirmationNumber );
 
-				target = client.target( IWebClient.CHECK_OUT_URL );
+				try {
 
-				invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					target = client.target( IWebClient.CHECK_OUT_URL );
 
-				String postResponse = invocationBuilder.post( Entity.entity( objCheckOutRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
-				out.println( " Response Of Check Out: " + postResponse );
+					String postResponse = invocationBuilder.post( Entity.entity( objCheckOutRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
-				out.println( " <br><br><br> " );
-				out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					out.println( " Response Of Check Out: " + postResponse );
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " checkOut Block ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+
+				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Exit checkOut Block " );
 

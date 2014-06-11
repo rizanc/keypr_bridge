@@ -63,7 +63,7 @@ public class KeyprWebServicesTest {
 
 		objSearchReservationRequest = new SearchReservationRequest();
 		// For a given confirmation number, we will have only one reservation response
-		objSearchReservationRequest.setConfirmationNumber("200");
+		objSearchReservationRequest.setConfirmationNumber("2");
 
 		objSearchReservationResponse = makeSearchReservationRequest(objSearchReservationRequest);
 
@@ -72,8 +72,16 @@ public class KeyprWebServicesTest {
 			assertTrue( "Number of reservation",  1 == objSearchReservationResponse.getReservationList().size() );
 
 			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
-			assertEquals( 101, Integer.parseInt(objSearchReservationResponse.getReservationList().get(0).getConfirmationNumber()) );
+			assertEquals( "2", (objSearchReservationResponse.getReservationList().get(0).getConfirmationNumber()));
 
+		}
+		else {
+			
+			WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForConfirmation ", " Failure From Server " );
+			
+			assertTrue( "Number of reservation",  0 == objSearchReservationResponse.getReservationList().size() );
+			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
+			
 		}
 
 		assertNotNull("SearchReservationResponse Instance must not be null " , objSearchReservationResponse );
@@ -89,7 +97,7 @@ public class KeyprWebServicesTest {
 	 * 
 	 */
 	//@Ignore
-	//@Test
+	@Test
 	public void testSearchReservationForWithoutConfirmation() {
 
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForWithoutConfirmation ", " Enter method testSearchReservationForWithoutConfirmation " );
@@ -100,11 +108,11 @@ public class KeyprWebServicesTest {
 		objSearchReservationRequest = new SearchReservationRequest();
 		objSearchReservationRequest.setFirstName( "robin" );
 		objSearchReservationRequest.setLastName( "Smith" );
-		objSearchReservationRequest.setCreditCardNumber( "1234123412341234");
+		objSearchReservationRequest.setCreditCardNumber( "1234-1234-1234-1234");
 
 		objSearchReservationResponse = makeSearchReservationRequest(objSearchReservationRequest);
 
-		assertNotNull("SearchReservationResponse Instance must not be null " , objSearchReservationResponse );
+		assertNotNull("SearchReservationResponse Instance must not be null ", objSearchReservationResponse );
 		assertNotNull( "SearchReservationRequest Instance must not be null ",  objSearchReservationRequest);
 
 		assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
@@ -113,15 +121,17 @@ public class KeyprWebServicesTest {
 
 			int numbeOfReservations = objSearchReservationResponse.getReservationList().size();
 
-			assertTrue("Number of reservation", 1 <= numbeOfReservations );
+			assertTrue( "Number of reservation", 1 <= numbeOfReservations );
 
 			for( int index = 0; index < numbeOfReservations; index++) {
 
 				assertEquals( "robin", objSearchReservationResponse.getReservationList().get(index).getFirstName());
-				assertEquals( "smith", objSearchReservationResponse.getReservationList().get(index).getLastName());
+				assertEquals( "Smith", objSearchReservationResponse.getReservationList().get(index).getLastName());
 			}
-
+                
+			assertEquals( "XXXX-XXXX-XXXX-1234", objSearchReservationResponse.getReservationList().get(0).getCreditCardNumber());
 		}
+
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testSearchReservationForWithoutConfirmation ", " Exit method testSearchReservationForWithoutConfirmation " );
 	}
 
@@ -340,7 +350,7 @@ public class KeyprWebServicesTest {
 	 * This test case works to see if the property management system is shutdown or not.
 	 * if the server is down then this test case gives positive response otherwise it fails against junit test case.
 	 */
-	@Test
+	//@Test
 	public void testUpdateBookingRequestServerShutdown()
 	{
 		WebAppLogger.logInfo( KeyprWebServicesTest.class, " testUpdateBookingRequestServerShutdown ", " Enter method testUpdateBookingRequestServerShutdown " );

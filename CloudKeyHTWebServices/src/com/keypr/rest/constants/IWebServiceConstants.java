@@ -22,6 +22,8 @@ public interface IWebServiceConstants {
 	
 	String ASSIGN_ROOM_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/assignRoom";
 	
+	String DEFAULT_CREDITCARD_NUMBER = "0000";
+	
 	Integer RESPONSE_STATUS = 200;
-	Integer RESPONSE_STATUS_TIMER = 504;
+	Integer RESPONSE_STATUS_TIMEOUT = 504;
 }

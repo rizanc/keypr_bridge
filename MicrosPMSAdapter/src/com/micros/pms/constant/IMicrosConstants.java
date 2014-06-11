@@ -31,7 +31,7 @@ public interface IMicrosConstants {
 	String RESPONSE_FUTURE_BOOKING = "<com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryResponse> ";
 	String RESPONSE_FETCH_ROOM_STATUS_RESPONSE = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusResponse>";
 	
-	String RESPONSE_FETCH_CALENDAR = "<com.micros.availability.AvailabilityServiceStub_-FetchCalendarResponse ";
+	String RESPONSE_FETCH_CALENDAR = "<com.micros.availability.AvailabilityServiceStub_-FetchCalendarResponse> ";
 	String RESPONSE_INVOICE = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-InvoiceResponse>";
 	
 	String RESPONSE_MODIFY_BOOKING = "<com.micros.reservation.ReservationServiceStub_-ModifyBookingResponse>";
