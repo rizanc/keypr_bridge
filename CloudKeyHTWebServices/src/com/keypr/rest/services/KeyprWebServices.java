@@ -141,7 +141,7 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
 
@@ -255,15 +255,22 @@ public class KeyprWebServices {
 				objReservation.setPhoneNumber( ICloudKeyConstants.EMPTY_STRING );
 			}
 
-			if( ( objReservation.getConfirmationNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) )
-					|| ( objReservation.getCreditCardNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) ) {
+			if( objReservation.getConfirmationNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) {
 
 				objCheckInResponse = new CheckInResponse();
 				objCheckInResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
 
 				objCheckInResponse.setReservation( null );
 
-				WebAppLogger.logInfo( KeyprWebServices.class, " checkIn ", " Required Fields are missing " );
+				WebAppLogger.logInfo( KeyprWebServices.class, " checkIn ", " Confirmation Number is missing " );
+				
+				res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckInResponse ).build();
+				
+			} else if( objReservation.getCreditCardNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING) ) {
+				
+				objReservation.setCreditCardNumber( IWebServiceConstants.DEFAULT_CREDITCARD_NUMBER );
+				
+				objCheckInResponse = messageParser.guestCheckIn( objCheckInRequest );
 				
 				res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckInResponse ).build();
 
@@ -277,7 +284,7 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
 
@@ -419,7 +426,7 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity(objTimeOutError).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity(objTimeOutError).build();
 				}
 				else {
 
@@ -513,7 +520,7 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
 
@@ -592,7 +599,7 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
 
@@ -690,10 +697,11 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
 
+					objGetFolioResponse.setStatus( ICloudKeyConstants.RES_SUCCESS );
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objGetFolioResponse ).build();
 				}
 
@@ -785,7 +793,7 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				} 
 				else {
 
@@ -894,10 +902,11 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
 
+					objUpBookingResponse.setStatus( ICloudKeyConstants.RES_SUCCESS );
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objUpBookingResponse ).build();
 				}
 			}
@@ -986,7 +995,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
-					response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objTimeOutError ).build();
+					response = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
+					
 				}
 				else {
 
