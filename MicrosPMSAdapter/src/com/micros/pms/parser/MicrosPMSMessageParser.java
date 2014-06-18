@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.axis2.AxisFault;
 
@@ -662,7 +663,8 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 		// Creates an instance of header
 		OGHeader objOGHeader = new OGHeader();
 		
-		int transactionId = TransIdGenerator.getTransactionId();
+		//int transactionId = TransIdGenerator.getTransactionId();
+		int transactionId = 111122;
 		// Sets Transaction Identifier
 		objOGHeader.setTransactionID( String.valueOf(transactionId ));
 
@@ -717,7 +719,7 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 		/* Set the credit card number . */
 		if ( creditCardNumber != null ) {
 			
-			FutureBookingSummaryRequestChoice_type1 objFuChoice_type01 = new FutureBookingSummaryRequestChoice_type1();
+			final FutureBookingSummaryRequestChoice_type1 objFuChoice_type01 = new FutureBookingSummaryRequestChoice_type1();
 			objFuChoice_type01.setCreditCardNumber( creditCardNumber );
 			
 			objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type1( objFuChoice_type01 );
@@ -984,7 +986,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		if( creditCardNumber.length() > IMicrosConstants.COUNT_ZERO ) {
 
-			com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
+			final com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
 			
 			objCardChoice_type0.setCardNumber( AdapterUtility.getCreditCardNumber(creditCardNumber) );
 			objCreditCard.setCreditCardChoice_type0( objCardChoice_type0 );
@@ -1813,7 +1815,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				
 				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getModifyBookingObject ", " CheckIn Date is Set in response." );
 
-				TimeSpanChoice_type0 objTimeSpanChoice_type0 = objTimeSpan.getTimeSpanChoice_type0();
+				final TimeSpanChoice_type0 objTimeSpanChoice_type0 = objTimeSpan.getTimeSpanChoice_type0();
 
 				if( objTimeSpanChoice_type0 != null ) {
 
@@ -1977,7 +1979,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		TimeSpan objTimeSpan = new TimeSpan();
 		
 		objTimeSpan.setStartDate( AdapterUtility.getCalender() );
-		TimeSpanChoice_type0 objTimeSpanChoice_type0 = new TimeSpanChoice_type0();
+		final TimeSpanChoice_type0 objTimeSpanChoice_type0 = new TimeSpanChoice_type0();
 		
 		objTimeSpanChoice_type0.setEndDate( AdapterUtility.getCalender() );
 		objRoomStay.setTimeSpan( objTimeSpan );
@@ -1992,7 +1994,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objCreditCard.setCardHolderName( IMicrosConstants.VALUE_CARD_HOLDER_NAME );
 		objCreditCard.setExpirationDate( new Date() );
 
-		CreditCardChoice_type0 objCardChoice_type0 = new CreditCardChoice_type0();
+		final CreditCardChoice_type0 objCardChoice_type0 = new CreditCardChoice_type0();
 		objCardChoice_type0.setCardNumber( IMicrosConstants.VALUE_CARD_NUMBER );
 		objCreditCard.setCreditCardChoice_type0(objCardChoice_type0);
 		objGuaranteeAccepted.setGuaranteeCreditCard(objCreditCard);
@@ -2166,7 +2168,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			String xmlRequest = AdapterUtility.convertToStreamXML( objFetchCalendarRequest );
 
-			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," checkAvailability ", " Get Request in xml format :: "+ xmlRequest);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," checkAvailability ", " Get Request in xml format :: " + xmlRequest);
 
 			/* To send the xml request to the OXI Simulator via Message Transport. */
 			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
@@ -2174,6 +2176,8 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_FETCH_CALENDAR )) && ( counter < timeUnitCounter ) ) {
 
 				xmlResponse = objMessageTransport.handlePMSRequest( xmlRequest );
+				
+				if( (xmlResponse.contains( IMicrosConstants.RESPONSE_FETCH_CALENDAR ))) { break;}
 
 				try {
 
@@ -2309,6 +2313,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objFetchCalendarRequest = new FetchCalendarRequest();
 
 		Calendar objCalendar = Calendar.getInstance();
+		objCalendar.setTimeZone( TimeZone.getTimeZone("Asia/Calcutta"));
 		com.micros.availability.AvailabilityServiceStub.TimeSpan objTimeSpan = new com.micros.availability.AvailabilityServiceStub.TimeSpan();
 
 		/*To send the hotel code in request parameters.*/
@@ -2320,13 +2325,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To set start and end date.*/
 		objCalendar.setTime( objSDate );
-		objTimeSpan.setStartDate( objCalendar );	
-
+		//objCalendar.setTimeInMillis(objSDate.getTime());
+		objTimeSpan.setStartDate( objCalendar );
+		
 		com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0 objType0 = new com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0();
 		
 		objCalendar = Calendar.getInstance();
 		objCalendar.setTime( objEDate );
+		//objCalendar.setTimeInMillis( objEDate.getTime());
 		objType0.setEndDate( objCalendar );
+
 		objTimeSpan.setTimeSpanChoice_type0(objType0); 
 
 		/*To set time span in fetch calendar request.*/

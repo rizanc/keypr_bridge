@@ -52,6 +52,10 @@ public class MakeWebServiceCall extends HttpServlet {
 
 	private static final long serialVersionUID = IWebClient.COUNT_ONE;
 
+	public void init() {
+		
+		MessageLogger.logInfo( MakeWebServiceCall.class,  " Initialized Method " , " MakeWebServiceCall Service is Up and Running");
+	}
 	/**
 	 * This method handles all request made by guest for operations like check in, check out, retrieve bill information, search reservation
 	 * and check room availability.
@@ -70,7 +74,7 @@ public class MakeWebServiceCall extends HttpServlet {
 		String lastName =  request.getParameter( "last_name" );
 		String 	confirmationNumber = request.getParameter( "confirmation_number" );
 		String command = request.getParameter( "command" );
-
+		
 		Client client = ClientBuilder.newClient();
 
 		MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " WebService Client Created " );
@@ -89,10 +93,14 @@ public class MakeWebServiceCall extends HttpServlet {
 				objSearchReservationRequest.setLastName( lastName );
 				objSearchReservationRequest.setConfirmationNumber( confirmationNumber );
 				objSearchReservationRequest.setCreditCardNumber( request.getParameter( "credit_card" ) );
+				
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Request Object created " );
 
 				try {
 
 					target = client.target( IWebClient.SEARCH_RESERVATION_URL );
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", "SearchReservation URL " + IWebClient.SEARCH_RESERVATION_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -101,8 +109,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println( " Response Of Search Reservation: " + postResponse );
 
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
 				}
 				catch( ServerErrorException sec) {
 
@@ -121,8 +129,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit SearchReservation Block " );
@@ -159,14 +166,17 @@ public class MakeWebServiceCall extends HttpServlet {
 				try {
 
 					target = client.target( IWebClient.CHECK_IN_URL ); 
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " CheckInRequest URL " + IWebClient.CHECK_IN_URL );
+					
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 					out.println( " Response of CheckIn : " + postResponse );
-
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
 				}
 
 				catch( ServerErrorException sec) {
@@ -186,8 +196,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit CheckIn Block " );
@@ -205,15 +214,16 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					target = client.target( IWebClient.GET_FOLIO_URL );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetFolioRequest URL " + IWebClient.GET_FOLIO_URL );
+					
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objGetFolioRequest, MediaType.APPLICATION_JSON_TYPE ), String.class);
 
 					out.println( "Response Of RetrieveFolio: " + postResponse );
-
+					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page" + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 				catch( ServerErrorException sec) {
 
@@ -232,8 +242,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  "  Exit GetFolio Block  " );
@@ -252,6 +261,8 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					target = client.target( IWebClient.UPDATE_BOOKING_URL );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " UpdateBooking URL " + IWebClient.UPDATE_BOOKING_URL );
+					
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objBookingRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
@@ -259,8 +270,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println( " Response Of UpdateBooking: " + postResponse );
 
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\">" + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
 				}
 				catch( ServerErrorException sec) {
 
@@ -279,8 +290,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit updateBooking Block " );
@@ -314,16 +324,16 @@ public class MakeWebServiceCall extends HttpServlet {
 				try {
 
 					target = client.target( IWebClient.UPDATE_PAYMENT_URL );
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", "UpdatePayment URL " + IWebClient.UPDATE_PAYMENT_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 					out.println( "Response Of UpdatePayments: " + postResponse ) ;
-
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 				catch( ServerErrorException sec) {
 
@@ -342,8 +352,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit updatePayment Block " );
@@ -370,6 +379,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					try {
 
 						target = client.target( IWebClient.GET_AVAILABILITY_URL );
+						
+						MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetAvailability URL " + IWebClient.GET_AVAILABILITY_URL );
 
 						invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -377,9 +388,10 @@ public class MakeWebServiceCall extends HttpServlet {
 
 						out.println( " Response Of GetAvailability: " + postResponse );
 
-						out.println( " <br><br><br >" );
-						out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-					}
+						out.println( " <br><br><br> " );
+						out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+						
+						}
 					catch( ServerErrorException sec) {
 
 						MessageLogger.logError(MakeWebServiceCall.class,  " getAvailability Block", sec);
@@ -397,8 +409,8 @@ public class MakeWebServiceCall extends HttpServlet {
 						out.println(objTimeOut);
 						
 						out.println( " <br><br><br> " );
-						out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+						out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+						
 					}
 				}
 				catch( Exception exc ) {
@@ -418,8 +430,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.print( "Response Of GetAvailability " + objError );
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 				MessageLogger.logInfo( MakeWebServiceCall.class,  "  doPost  ",  "  Exit getAvailability Block " );
 
@@ -457,6 +468,8 @@ public class MakeWebServiceCall extends HttpServlet {
 				try {
 
 					target = client.target( IWebClient.ASSIGN_ROOM_URL );
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " AssingRoom URL " + IWebClient.ASSIGN_ROOM_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -464,9 +477,10 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					out.println( " Response Of  Assign Room: " + postResponse );
 
-					out.println( " <br><br><br >" );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-				}
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
+					}
 				catch( ServerErrorException sec) {
 
 					MessageLogger.logError(MakeWebServiceCall.class,  " Assign Room Block ", sec);
@@ -484,8 +498,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit  Assign Room Block " );
@@ -504,8 +517,10 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Reservation Id is set on the relese room object" );
 
 				try {
-
+					MessageLogger.logInfo(MakeWebServiceCall.class, "release room", "Server url is "+ IWebClient.RELESE_ROOM_URL);
 					target = client.target( IWebClient.RELESE_ROOM_URL );
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " RealeaseRoom URL " + IWebClient.RELESE_ROOM_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
@@ -513,9 +528,8 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					out.println( "Response of Release Room: " + postResponse );
 
-					out.println( " <br><br><br>" );
-					out.println( " <a href= \"\\CloudKeyPrWebServiceClient\">"  + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 				catch( ServerErrorException sec) {
 
@@ -534,8 +548,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit Release Room Block " );
@@ -552,13 +565,15 @@ public class MakeWebServiceCall extends HttpServlet {
 					target = client.target( IWebClient.CHECK_OUT_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " CheckOutn URL " + IWebClient.CHECK_OUT_URL );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objCheckOutRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
 					out.println( " Response Of Check Out: " + postResponse );
 
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 				catch( ServerErrorException sec) {
 
@@ -577,8 +592,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println(objTimeOut);
 					
 					out.println( " <br><br><br> " );
-					out.println( " <a href=\"\\CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
-
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, "doPost", " Exit checkOut Block " );

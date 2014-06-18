@@ -26,7 +26,8 @@ public class MicrosMessageTransport implements IMessageTransport {
 		HttpClientRequest objClientRequest = new HttpClientRequest();
 
 		try {
-		
+			
+			MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Request made to the MicrosOWS. Waiting for response... " );
 			response = objClientRequest.getHttpPostResponse( IMicrosConstants.PMS_SERVER_URL, xmlRequest );
 
 		} catch ( Exception exc ) {
@@ -34,8 +35,6 @@ public class MicrosMessageTransport implements IMessageTransport {
 			MicrosPMSLogger.logError(MicrosMessageTransport.class, " handlePMSRequest " , exc);
 		}
 
-		
-		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Response received from OXI Simulator in xml format :: " + response );
 		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Exit  handlePMSRequest method " );
 		
 		return response;

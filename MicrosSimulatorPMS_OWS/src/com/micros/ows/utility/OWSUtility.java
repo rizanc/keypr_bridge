@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -98,11 +99,11 @@ public class OWSUtility {
 	 */
 	public static Object covertToStreamObject( String xmlRequestValue ) {
 
-		OWSMessageLogger.logInfo( OWSUtility.class, " covertToStramObject ", " Enter covertToStramObject method " );
+		OWSMessageLogger.logInfo( OWSUtility.class, " covertToStreamObject ", " Enter covertToStreamObject method " );
 
 		XStream objStream = new XStream( new DomDriver() );
 
-		OWSMessageLogger.logInfo( OWSUtility.class, " covertToStramObject ", " Exit covertToStramObject method " );
+		OWSMessageLogger.logInfo( OWSUtility.class, " covertToStreamObject ", " Exit covertToStreamObject method " );
 
 		return objStream.fromXML( xmlRequestValue );
 	}
@@ -115,6 +116,7 @@ public class OWSUtility {
 	public static Calendar getCalender(){
 
 		Calendar objCalendar = Calendar.getInstance();
+		
 		objCalendar.setTime(new Date());
 
 		return objCalendar;
@@ -134,7 +136,6 @@ public class OWSUtility {
 		XStream objStream = new XStream( new DomDriver() );
 		xmlString = objStream.toXML( object );
 
-		OWSMessageLogger.logInfo( OWSUtility.class, " convertToStreamXML ", " xml format of object. " + xmlString );
 		OWSMessageLogger.logInfo( OWSUtility.class, " convertToStreamXML ", " Exit convertToStreamXML method " );
 
 		return xmlString;
@@ -149,8 +150,8 @@ public class OWSUtility {
 
 	public static String getDate( Calendar objCalendar ) {
 
-		DateFormat df = new SimpleDateFormat( "MM-dd-yyyy " );
-
+		DateFormat df = new SimpleDateFormat( "MM-dd-yyyy" );
+        
 		return  df.format( objCalendar.getTime() );
 	}
 

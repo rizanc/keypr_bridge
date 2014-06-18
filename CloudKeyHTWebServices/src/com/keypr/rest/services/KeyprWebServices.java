@@ -1,5 +1,6 @@
 package com.keypr.rest.services;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -335,7 +336,11 @@ public class KeyprWebServices {
 		IParserInterface messageParser = null;
 
 		try {
-
+			File directory = new File(".");
+            
+       	    System.out.println("Current directory cannonical path"+directory.getCanonicalPath());
+            System.out.println(" Absolute path "+ directory.getAbsolutePath());
+       
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
 

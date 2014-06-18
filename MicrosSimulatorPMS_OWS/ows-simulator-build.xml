@@ -70,10 +70,10 @@
 
 	<!-- To compile source -->
 	<target name="compile" depends="init" description="compile the source ">
-		<!-- Compile the java code from ${ows.simulator.src} into ${ows.simulator.web.classes}
+		<!-- Compile the java code from ${ows.simulator.src} into ${ows.simulator.web.classes}-->
 		<javac includeantruntime="false" srcdir="${ows.simulator.src}" destdir="${ows.simulator.web.classes}">
 			<classpath refid="compile.classpath" />
-		</javac> -->
+		</javac> 
 
 	</target>
 
@@ -86,6 +86,10 @@
 			</fileset>
 			<lib dir="${ows.simulator.lib}" />
 			<classes dir="${ows.simulator.web.classes}" />
+
+<classes dir="${ows.simulator.src}" includes="log4j.xml"/>
+
+
 		</war>
 		<copy todir="${tomcat.dir.webapps}">
 			<fileset dir="${ows.simulator.dist}">

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="keyprWebservice" default="keyprWebserviceDist" basedir=".">
-	
+
 	<description>
 	This Ant build file creates a war file of kepypr restful web service repository.
 	It keep the generated war file in the webapps folder of tomcat , whose path is
 	read from tomcat_home environment variable.
 	</description>
 	<!-- set global properties for this build -->
-	
+
 	<property environment="env"/>
-	
+
 	<property name="keypr.webservice.src" location="./src" />
 	<property name="keypr.webservice.res" location="./res" />
 
@@ -17,7 +17,7 @@
 	<property name="keypr.webservice.web.webinf" location="${keypr.webservice.web}/WEB-INF" />
 	<property name="keypr.webservice.lib" location="${keypr.webservice.web.webinf}/lib" />
 	<property name="keypr.webservice.web.classes" location="${keypr.webservice.web.webinf}/classes" />
-	
+
 	<property name="tomcat.dir" location="${env.TOMCAT_HOME}"/>
 	<property name="tomcat.dir.webapps" location="${tomcat.dir}/webapps"/>
 
@@ -25,7 +25,7 @@
 	<property name="keypr.webservice.build.res" location="${keypr.webservice.build}/res" />
 	<property name="keypr.webservice.build.lib" location="${keypr.webservice.build}/lib" />
 	<property name="keypr.webservice.dist" location="./dist" />
-	
+
 	<property name="adapter.project.dir.lib" location="../CloudKeyTestAdapter/lib" />
 	<property name="webservice.client.project.dir.lib"
 		location="../CloudKeyPrWebServiceClient/WebContent/WEB-INF/lib" />
@@ -33,7 +33,7 @@
 		location="../CloudKeyHTWebServices/WebContent/WEB-INF/lib" />
 	<property name="dataharvester.project.dir.lib" location="../MicrosDataHarvester/lib" />
 	<property name="microssimulator.oxi.project.dir.lib" location="../MicrosSimulator_oxi/WebContent/WEB-INF/lib" />
-	
+
 	<property name="microssimulator.oxi.project.dir.lib"
 		location="../MicrosSimulatorPMS_oxi/WebContent/WEB-INF/lib" />
 	<property name="uploadservice.client.project.dir.lib"
@@ -42,16 +42,17 @@
 	<property name="micros.adapter.project.dir.lib" location="../MicrosPMSAdapter/lib" />
 
 	<target name="checkTomcatHome" unless="env.TOMCAT_HOME">
-		    <fail message="TOMCAT_HOME must be set!"/>
-		  </target>
-		
+		<fail message="TOMCAT_HOME must be set!"/>
+	</target>
+
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp />
-		
+
 		<!-- Create the distribution directory -->
 		<mkdir dir="${keypr.webservice.dist}" />
 		<mkdir dir="${keypr.webservice.web.classes}" />
+		<mkdir dir="${keypr.webservice.web.classes}/META-INF" />
 
 	</target>
 	<!-- set the class path to compile -->
@@ -79,15 +80,18 @@
 	<!-- To compile source -->
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${keypr.webservice.src} into ${keypr.webservice.web.classes} -->
-		<javac includeantruntime="false" srcdir="${keypr.webservice.src}"
-			destdir="${keypr.webservice.web.classes}">
+		<javac includeantruntime="false" srcdir="${keypr.webservice.src}" destdir="${keypr.webservice.web.classes}">
 			<classpath refid="compile.classpath" />
 		</javac>
+		<copy todir="${keypr.webservice.web.classes}/META-INF">
+			<fileset dir="${keypr.webservice.src}/META-INF">
+				<include name="parser-beans.xml" />
+			</fileset>
+		</copy>
 
 	</target>
 
-	<target name="keyprWebserviceDist" depends="clean,init,compile"
-		description="generate the distribution">
+	<target name="keyprWebserviceDist" depends="clean,init,compile" description="generate the distribution">
 		<!-- Put everything in ${keypr.webservice.build} into the CloudKeyHTWebServices.war 
 			file -->
 		<war destfile="${keypr.webservice.dist}/CloudKeyHTWebServices.war" webxml="${keypr.webservice.web.webinf}/web.xml">
@@ -96,15 +100,19 @@
 			</fileset>
 			<lib dir="${keypr.webservice.lib}" />
 			<classes dir="${keypr.webservice.web.classes}" />
+			<classes dir="${keypr.webservice.src}" includes="log4j.xml"/>
+			<!--<classes dir="${keypr.webservice.src}" includes="/META-INF/parser-beans.xml"/>-->
+		
+			<!--<metainf dir="${keypr.webservice.src}/META-INF"/>-->
 		</war>
 		<!-- copy the MicrosSimulator_OXI.war to ${tomcat.dir.webapps} folder -->
-				<copy todir="${tomcat.dir.webapps}">
-					<fileset dir="${keypr.webservice.dist}">
-						<include name="*.war" />
-						<type type="file" />
-					</fileset>
-				</copy>
-		
+		<copy todir="${tomcat.dir.webapps}">
+			<fileset dir="${keypr.webservice.dist}">
+				<include name="*.war" />
+				<type type="file" />
+			</fileset>
+		</copy>
+
 	</target>
 
 </project>

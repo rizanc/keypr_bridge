@@ -136,7 +136,6 @@ public class AdapterUtility {
 
 		xmlString = new String( requestArray );
 
-		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToXML ", " xml format of object. " + xmlString );
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToXML ", " Exit convertToXML method " );
 
 		return xmlString;
@@ -171,7 +170,6 @@ public class AdapterUtility {
 			MicrosPMSLogger.logError( AdapterUtility.class , " covertToObject ", exc );
 		}
 
-		MicrosPMSLogger.logInfo( AdapterUtility.class , " covertToObject ", " Xml Coverted object " + objResponse );
 		MicrosPMSLogger.logInfo( AdapterUtility.class , " covertToObject ", " Exit covertToObject method " );
 
 		return objResponse;
@@ -244,7 +242,6 @@ public class AdapterUtility {
 		XStream objStream = new XStream( new DomDriver());
 		xmlString = objStream.toXML( object );
 
-		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " xml format of object. " + xmlString );
 		MicrosPMSLogger.logInfo( AdapterUtility.class, " convertToStreamXML ", " Exit convertToStreamXML method " );
 
 		return xmlString;
