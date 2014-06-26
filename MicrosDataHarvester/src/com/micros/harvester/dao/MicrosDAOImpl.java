@@ -87,7 +87,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Number of RoomStatus is " + objRoomStatusArray.length);
 
-
 		try {
 
 			objConnection = MicrosDAOImpl.getConnection();
@@ -197,6 +196,21 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", exc ) ;
 		}
 
+		finally {
+
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB Connection cannot be closed ", sqe );
+				}
+			}
+		}
+
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Exit persistRoomStatusDataInBridgeDB method " );
 
 		return isInserted;
@@ -271,8 +285,23 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareRecord ", exc ) ;
 		}
+		finally {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Enter compareRecord method " );
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareRecord Connection cannot be closed ", sqe );
+				}
+			}
+
+		}
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Exit compareRecord method " );
 
 		return isNewFiedlValue;
 	}
@@ -318,6 +347,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		catch ( Exception exc ) {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", exc) ;
+		}
+		finally {
+
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus Connection cannot be closed ", sqe );
+				}
+			}
 		}
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Exit persistRecordInBridgeRoomStatus method " );
@@ -373,7 +416,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " pushDataToUpload ", exc) ;
 		}
+		finally {
 
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " pushDataToUpload Connection cannot be closed ", sqe );
+				}
+			}
+		}
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Exit pushDataToUpload method " );
 
 		return isPushed;
@@ -439,7 +495,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistence ", exc) ;
 		}
+		finally {
 
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistence Connection cannot be closed ", sqe );
+				}
+			}
+		}
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " checkExistence method record exists " + isFound );
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Exit checkExistence method " );
 
@@ -584,6 +653,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 						DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomInventoryData ", exc );
 					}
+					finally {
+
+						if( objConnection != null ) {
+
+							try {
+
+								objConnection.close();
+							}
+							catch(SQLException sqe) {
+
+								DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomInventoryData Connection cannot be closed ", sqe );
+							}
+						}
+					}
 				}
 			}
 
@@ -669,7 +752,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareInventoryRecord ", exc );
 		}
+		finally {
 
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareInventoryRecord Connection cannot be closed ", sqe );
+				}
+			}
+		}
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Returning from compareInventoryRecord method " + isDuplicateRow );
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Exit compareInventoryRecord method " );
 
@@ -724,6 +820,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		catch ( Exception exc ) {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", exc );
+		}
+		finally {
+
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload Connection cannot be closed ", sqe );
+				}
+			}
 		}
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Exit persistDataInRoomInventoryUpload method " );
@@ -791,6 +901,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", exc );
 
+		}
+		finally {
+
+			if( objConnection != null ) {
+
+				try {
+
+					objConnection.close();
+				}
+				catch(SQLException sqe) {
+
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistenceInRoomInventory Connection cannot be closed ", sqe );
+				}
+			}
 		}
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Exit checkExistenceInRoomInventory method " );
