@@ -35,6 +35,7 @@ public class MicrosMessageTransport implements IMessageTransport {
 			MicrosPMSLogger.logError(MicrosMessageTransport.class, " handlePMSRequest " , exc);
 		}
 
+		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Response received from PMS " + response );
 		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Exit  handlePMSRequest method " );
 		
 		return response;

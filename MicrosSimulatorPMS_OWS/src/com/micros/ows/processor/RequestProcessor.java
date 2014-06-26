@@ -167,7 +167,9 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLCheckOutResponse();
 
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " exit CheckOutRequest block " );
+			
 		}
 		else if( xmlRequestValue.contains( IMicrosOWSConstants.RELEASE_ROOM_REQUEST ) ) {
 
@@ -175,7 +177,9 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLReleaseRoomResponse();
 
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room block ", " exit Release Room block " );
+			
 		}
 		else if( xmlRequestValue.contains( "com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest" ) ) {
 
@@ -183,6 +187,7 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLModifyBookingResponse();
 
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ModifyBookingRequest block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ModifyBookingRequest block ", " exit ModifyBookingRequest block " );	
 
 		}
@@ -192,7 +197,9 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLFolioResponse();
 
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost getFolio block.. ", " exit getFolio block " );
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost getFolio block ", " response send " + xmlOWSResponse );
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost getFolio block ", " exit getFolio block " );
+			
 		}
 		else if( xmlRequestValue.contains( IMicrosOWSConstants.ASSIGN_ROOM_REQUEST ) ) {
 
@@ -200,6 +207,7 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLAssignRoomResponse();
 
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost assign Room  block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost assign Room  block ", " exit assign Room  block " );
 		}
 
@@ -209,8 +217,7 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLFutureBookingSummaryResponse();
 
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " FutureBookingSummaryRequest Xml Response "  );
-
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FutureBookingSummaryRequest block ", " exit FutureBookingSummaryRequest block " );
 
 		}
@@ -220,8 +227,7 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLFetchRoomStatusResponse();
 
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " FetchRoomStatusRequest Xml Response "  );
-
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " exit FetchRoomStatusRequest block " );
 
 		}
@@ -232,8 +238,7 @@ public class RequestProcessor extends HttpServlet {
 
 			xmlOWSResponse = getXMLFetchCalendarResponse();
 
-			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " FetchCalendarRequest Xml Response "  );
-
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " response send " + xmlOWSResponse  );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " exit FetchCalendarRequest block " );
 
 		}

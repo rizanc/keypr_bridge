@@ -100,12 +100,14 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					target = client.target( IWebClient.SEARCH_RESERVATION_URL );
 					
-					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", "SearchReservation URL " + IWebClient.SEARCH_RESERVATION_URL );
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " SearchReservation URL " + IWebClient.SEARCH_RESERVATION_URL );
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objSearchReservationRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
-
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " SearchReservation Response at Client  " + postResponse );
+					
 					out.println( " Response Of Search Reservation: " + postResponse );
 
 					out.println( " <br><br><br> " );
@@ -124,6 +126,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " SearchReservation Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);
@@ -138,7 +142,7 @@ public class MakeWebServiceCall extends HttpServlet {
 
 			else if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_TWO ) ) {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter CheckIn Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter GuestCheckIn Block " );
 
 				Reservation objReservation = new Reservation(); 
 
@@ -167,12 +171,14 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					target = client.target( IWebClient.CHECK_IN_URL ); 
 					
-					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " CheckInRequest URL " + IWebClient.CHECK_IN_URL );
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GuestCheckIn URL " + IWebClient.CHECK_IN_URL );
 					
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objCheckInReq, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GuestCheckIn Response at Client  " + postResponse );
+					
 					out.println( " Response of CheckIn : " + postResponse );
 					out.println( " <br><br><br> " );
 					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
@@ -181,12 +187,14 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				catch( ServerErrorException sec) {
 
-					MessageLogger.logError(MakeWebServiceCall.class,  " CheckIn Block ", sec);
+					MessageLogger.logError(MakeWebServiceCall.class,  " GuestCheckIn Block ", sec);
 
 					TimeOutError objTError = new TimeOutError();
 					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GuestCheckIn Time Out Response at Client " );
+					
 					Map<String,String> myMap= new HashMap<String,String>();
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
@@ -199,7 +207,7 @@ public class MakeWebServiceCall extends HttpServlet {
 					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
 				}
 
-				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit CheckIn Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Exit GuestCheckIn Block " );
 
 			}
 
@@ -220,6 +228,8 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					String postResponse = invocationBuilder.post( Entity.entity( objGetFolioRequest, MediaType.APPLICATION_JSON_TYPE ), String.class);
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetFolioRequest Response at Client  " + postResponse );
+
 					out.println( "Response Of RetrieveFolio: " + postResponse );
 					
 					out.println( " <br><br><br> " );
@@ -237,6 +247,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetFolio Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);
@@ -266,7 +278,9 @@ public class MakeWebServiceCall extends HttpServlet {
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objBookingRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
-
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " UpdateBooking Response at Client  " + postResponse );
+					
 					out.println( " Response Of UpdateBooking: " + postResponse );
 
 					out.println( " <br><br><br> " );
@@ -284,7 +298,9 @@ public class MakeWebServiceCall extends HttpServlet {
 					Map<String,String> myMap= new HashMap<String,String>();
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
-
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " UpdateBooking Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);
@@ -331,13 +347,16 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					String postResponse = invocationBuilder.post( Entity.entity( objUpdatePaymentRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " UpdatePayment Response at Client  " + postResponse );
+					
 					out.println( "Response Of UpdatePayments: " + postResponse ) ;
 					out.println( " <br><br><br> " );
 					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
 				}
 				catch( ServerErrorException sec) {
 
-					MessageLogger.logError(MakeWebServiceCall.class,  " updatePayment Block ", sec);
+					MessageLogger.logError(MakeWebServiceCall.class,  " UpdatePayment Block ", sec);
 
 					TimeOutError objTError = new TimeOutError();
 					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
@@ -347,6 +366,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " UpdatePayment Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);
@@ -386,6 +407,8 @@ public class MakeWebServiceCall extends HttpServlet {
 
 						String postResponse = invocationBuilder.post( Entity.entity( objAvailabilityRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+						MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetAvailability Response at Client  " + postResponse );
+						
 						out.println( " Response Of GetAvailability: " + postResponse );
 
 						out.println( " <br><br><br> " );
@@ -405,7 +428,9 @@ public class MakeWebServiceCall extends HttpServlet {
 						myMap.put( "Message", objTError.getMessage() );
 
 						JSONObject objTimeOut = new JSONObject(myMap);
-
+						
+						MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetAvailability Time Out Response at Client " );
+						
 						out.println(objTimeOut);
 						
 						out.println( " <br><br><br> " );
@@ -475,6 +500,8 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					String postResponse = invocationBuilder.post( Entity.entity( objAssignRoomRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " AssignRoom Response at Client  " + postResponse );
+					
 					out.println( " Response Of  Assign Room: " + postResponse );
 
 					out.println( " <br><br><br> " );
@@ -493,6 +520,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " AssignRoom Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);
@@ -517,6 +546,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Reservation Id is set on the relese room object" );
 
 				try {
+					
 					MessageLogger.logInfo(MakeWebServiceCall.class, "release room", "Server url is "+ IWebClient.RELESE_ROOM_URL);
 					target = client.target( IWebClient.RELESE_ROOM_URL );
 					
@@ -526,10 +556,13 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					String postResponse =  invocationBuilder.post( Entity.entity( objReleaseRoomRequest , MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " ReleaseRoom Response at Client  " + postResponse );
+					
 					out.println( "Response of Release Room: " + postResponse );
 
 					out.println( " <br><br><br> " );
 					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
 				}
 				catch( ServerErrorException sec) {
 
@@ -543,6 +576,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Releaseroom Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);
@@ -555,7 +590,7 @@ public class MakeWebServiceCall extends HttpServlet {
 			}
 			else {
 
-				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter checkOut Block " );
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter GuestCheckOut Block " );
 
 				CheckOutRequest objCheckOutRequest = new CheckOutRequest();
 				objCheckOutRequest.setConfirmationNumber( confirmationNumber );
@@ -566,14 +601,17 @@ public class MakeWebServiceCall extends HttpServlet {
 
 					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
 					
-					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " CheckOutn URL " + IWebClient.CHECK_OUT_URL );
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GuestCheckOut URL " + IWebClient.CHECK_OUT_URL );
 
 					String postResponse = invocationBuilder.post( Entity.entity( objCheckOutRequest, MediaType.APPLICATION_JSON_TYPE ), String.class );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GuestCheckOut Response at Client  " + postResponse );
+					
 					out.println( " Response Of Check Out: " + postResponse );
 
 					out.println( " <br><br><br> " );
 					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
 				}
 				catch( ServerErrorException sec) {
 
@@ -587,6 +625,8 @@ public class MakeWebServiceCall extends HttpServlet {
 					myMap.put( "Code", objTError.getCode()) ;
 					myMap.put( "Message", objTError.getMessage() );
 
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GuestCheckOut Time Out Response at Client " );
+					
 					JSONObject objTimeOut = new JSONObject(myMap);
 
 					out.println(objTimeOut);

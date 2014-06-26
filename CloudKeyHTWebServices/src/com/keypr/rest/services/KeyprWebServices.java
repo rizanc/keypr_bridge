@@ -1,6 +1,5 @@
 package com.keypr.rest.services;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -141,7 +140,8 @@ public class KeyprWebServices {
 					TimeOutError objTimeOutError = new TimeOutError();
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
-
+					
+					WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " No Response from PMS for SearchReservation " );
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
@@ -284,7 +284,9 @@ public class KeyprWebServices {
 					TimeOutError objTimeOutError = new TimeOutError();
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
-
+					
+					WebAppLogger.logInfo( KeyprWebServices.class, " checkIn ", " No Response from PMS for GuestCheckIn " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
@@ -336,11 +338,7 @@ public class KeyprWebServices {
 		IParserInterface messageParser = null;
 
 		try {
-			File directory = new File(".");
-            
-       	    System.out.println("Current directory cannonical path"+directory.getCanonicalPath());
-            System.out.println(" Absolute path "+ directory.getAbsolutePath());
-       
+
 			// reads the name of message parser bean from configuration file.
 			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
 
@@ -430,7 +428,9 @@ public class KeyprWebServices {
 					TimeOutError objTimeOutError = new TimeOutError();
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
-
+					
+					WebAppLogger.logInfo( KeyprWebServices.class,  " assignRoom ", " No Response From PMS for AssignRoom " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity(objTimeOutError).build();
 				}
 				else {
@@ -525,6 +525,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " No Response From PMS for GuestCheckOut " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
@@ -604,6 +606,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					WebAppLogger.logInfo( KeyprWebServices.class, " getAvailability ", " No Response from PMS for CheckAvailability " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
@@ -702,6 +706,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					WebAppLogger.logInfo( KeyprWebServices.class, " getFolio ", " No Response From PMS for RetrieveFolio " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
@@ -798,6 +804,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					WebAppLogger.logInfo( KeyprWebServices.class, " updatePayment ", " No Response from PMS for updatePayment " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				} 
 				else {
@@ -907,6 +915,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					WebAppLogger.logInfo( KeyprWebServices.class, " updateBooking ", " No Response from PMS for updateBooking " );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
@@ -942,7 +952,7 @@ public class KeyprWebServices {
 	@Consumes( MediaType.APPLICATION_JSON )
 	public Response releaseRoom( com.cloudkey.pms.request.ReleaseRoomRequest objReleaseRoomRequest ) {
 
-		WebAppLogger.logInfo( KeyprWebServices.class,  "  releaseRoom  ", "  Enter method releaseRoom  " );
+		WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ",  " Enter method releaseRoom " );
 
 		/* Variable to store release Room Response instance. */
 		com.cloudkey.pms.response.ReleaseRoomResponse objReleaseRoomResponse = null;		
@@ -1000,6 +1010,8 @@ public class KeyprWebServices {
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
 					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
 
+					WebAppLogger.logInfo( KeyprWebServices.class,  "  releaseRoom  ", " No Response from PMS for releaseRoom " );
+					
 					response = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 					
 				}
