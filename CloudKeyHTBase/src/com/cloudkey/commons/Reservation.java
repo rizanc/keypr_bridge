@@ -16,7 +16,7 @@ public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
 	private int id ;// PK of database.
-	
+
 	/* variable to store pms id. */
 	private String pmsId; // pms_id
 	/* variable to store the number of days to be stayed at hotel. */
@@ -64,13 +64,50 @@ public class Reservation {
 	private Date dateCreated;
 	private List<ReservationOrders> reservationOrderList;
 
+	private String reservationStatus;
+	private String arrivalTime;
+	private String departureTime;
+	private String group;
 
 	/*
 	 * Getter and Setter for each data member.
 	 */
-	
+
+
 	public String getReservationAction() {
 		return reservationAction;
+	}
+
+	public String getReservationStatus() {
+		return reservationStatus;
+	}
+
+	public void setReservationStatus(String reservationStatus) {
+		this.reservationStatus = reservationStatus;
+	}
+
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public String getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 	public void setReservationAction(String reservationAction) {
@@ -337,13 +374,16 @@ public class Reservation {
 				+ checkoutDate + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", notes=" + notes + ", loyaltyProgram="
 				+ loyaltyProgram + ", propertyId=" + propertyId
+				+ ", creditCardNumber=" + creditCardNumber
 				+ ", reservationSource=" + reservationSource
 				+ ", propertyImage=" + Arrays.toString(propertyImage)
 				+ ", affilateId=" + affilateId + ", message=" + message
 				+ ", reservationAction=" + reservationAction
 				+ ", dateModified=" + dateModified + ", dateCreated="
 				+ dateCreated + ", reservationOrderList="
-				+ reservationOrderList + "]";
+				+ reservationOrderList + ", reservationStatus="
+				+ reservationStatus + ", arrivalTime=" + arrivalTime
+				+ ", departureTime=" + departureTime + ", group=" + group + "]";
 	}
 
 }
