@@ -37,8 +37,16 @@ public interface IMicrosConstants {
 	String RESPONSE_MODIFY_BOOKING = "<com.micros.reservation.ReservationServiceStub_-ModifyBookingResponse>";
 	String RESPONSE_RELEASE_ROOM = "<com.micros.reservation.ReservationServiceStub_-ReleaseRoomResponse>";
 	
+	String RESPONSE_MEETING_ROOM = "</com.micros.meeting.MeetingRoomServiceStub_-MeetingMultiPropertyAvailabilityResponse> ";
+	
+	String RESPONSE_SERVER_NOT_FOUND = "The requested resource is not available" ;
+	
+	String EXCEPTION_MESSAGE = "Property Mangaement System is Down! ";
+	
 	String RESPONSE_SUCCESS = "SUCCESS";
 	String RESPONSE_FAILURE = "FAILURE";
+	
+	String MEETING_FEATURE = "PODIUM";
 	
 	Integer COUNT_ZERO = 0;
 	Integer COUNT_ONE = 1;

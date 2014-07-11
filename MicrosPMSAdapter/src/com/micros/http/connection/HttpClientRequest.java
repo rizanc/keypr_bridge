@@ -58,7 +58,12 @@ public class HttpClientRequest {
 
 			/*Set parameters.*/
 			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			long requestTime = System.currentTimeMillis();
 			HttpResponse httpResponse = httpClient.execute(httpPost);
+			long latency = System.currentTimeMillis()- requestTime;
+			
+			MicrosPMSLogger.logInfo( HttpClientRequest.class, " getHttpPostResponse " , " PMS Latency at MessageReceiver End in milliseconds " + latency );
+			
 			HttpEntity httpEntity = httpResponse.getEntity();
 
 			/* Read content & Log. */
@@ -66,7 +71,6 @@ public class HttpClientRequest {
 				
 			/* get response from inputStream. */
 			response = AdapterUtility.getStringFromResponse( inputStream );
-
 			
 		}  catch (IOException ioe) {
 			
