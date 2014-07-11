@@ -32,6 +32,7 @@ import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
+import com.cloudkey.pms.response.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
@@ -129,11 +130,17 @@ public class KeyprWebServices {
 				WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " Required Fields are missing " );
 				
 				res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objSearchReservationResponse ).build();
-
+				
+				
 			}
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objSearchReservationResponse = messageParser.searchReservationData( objSearchReservationRequest );
+				
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " searchReservation ", " SearchReservation response latency period in milliseconds " + latencyTime );
+				
 
 				if( objSearchReservationResponse == null ) {
 
@@ -145,8 +152,9 @@ public class KeyprWebServices {
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
-
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objSearchReservationResponse ).build();
+					
 				}
 			}
 
@@ -277,7 +285,11 @@ public class KeyprWebServices {
 
 			} else  {
 
+				long requestTime = System.currentTimeMillis();
 				objCheckInResponse = messageParser.guestCheckIn( objCheckInRequest );
+				
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " checkIn ", " checkIn response latency period in milliseconds " + latencyTime );
 
 				if( objCheckInResponse == null ) {
 
@@ -292,6 +304,7 @@ public class KeyprWebServices {
 				else {
 
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckInResponse ).build();
+					
 				}
 			}
 		}
@@ -421,7 +434,11 @@ public class KeyprWebServices {
 			}
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objAssignRoomResponse = messageParser.assignRoom( objAssignRoomRequest );
+				
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " assignRoom ", " assignRoom response latency period in milliseconds " + latencyTime );
 
 				if( objAssignRoomResponse == null ) {
 
@@ -434,8 +451,9 @@ public class KeyprWebServices {
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity(objTimeOutError).build();
 				}
 				else {
-
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objAssignRoomResponse ).build();
+					
 				}
 			}
 
@@ -517,7 +535,12 @@ public class KeyprWebServices {
 			} 
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objCheckOutResponse = messageParser.guestCheckOut( objCheckOutRequest );
+				
+				
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " checkOut response latency period in milliseconds " + latencyTime );
 
 				if( objCheckOutResponse == null ) {
 
@@ -530,7 +553,7 @@ public class KeyprWebServices {
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
-
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckOutResponse ).build();
 				}
 			}
@@ -598,7 +621,12 @@ public class KeyprWebServices {
 			}
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objAvailabilityResponse = messageParser.checkAvailability( objAvailabilityRequest );
+
+				
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " getAvailability ", " getAvailability response latency period in milliseconds " + latencyTime );
 
 				if( objAvailabilityResponse == null ) {
 
@@ -611,9 +639,9 @@ public class KeyprWebServices {
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				}
 				else {
-
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objAvailabilityResponse ).build();
-
+				
 				}
 
 			}
@@ -698,7 +726,12 @@ public class KeyprWebServices {
 			} 
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objGetFolioResponse = messageParser.retrieveFolioInfo( objFolioRequest );
+				
+
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " getFolio ", " getFolio response latency period in milliseconds " + latencyTime );
 
 				if ( objGetFolioResponse == null) {
 
@@ -713,7 +746,10 @@ public class KeyprWebServices {
 				else {
 
 					objGetFolioResponse.setStatus( ICloudKeyConstants.RES_SUCCESS );
+					
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objGetFolioResponse ).build();
+					
 				}
 
 			}
@@ -796,7 +832,11 @@ public class KeyprWebServices {
 			}
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objUpPaymentResponse = messageParser.updatePayment( objUpPaymentRequest );
+				
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " updatePayment ", " updatePayment response latency period in milliseconds " + latencyTime );
 
 				if( objUpPaymentResponse == null ) {
 
@@ -809,8 +849,9 @@ public class KeyprWebServices {
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
 				} 
 				else {
-
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objUpPaymentResponse ).build();
+					
 				}
 
 			}
@@ -907,7 +948,12 @@ public class KeyprWebServices {
 			}
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objUpBookingResponse = messageParser.updateBooking( objUpBookingRequest );
+				
+
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " updateBooking ", " updateBooking response latency period in milliseconds " + latencyTime );
 
 				if( objUpBookingResponse == null ) {
 
@@ -922,7 +968,9 @@ public class KeyprWebServices {
 				else {
 
 					objUpBookingResponse.setStatus( ICloudKeyConstants.RES_SUCCESS );
+					
 					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objUpBookingResponse ).build();
+					
 				}
 			}
 
@@ -1002,7 +1050,12 @@ public class KeyprWebServices {
 			}
 			else {
 
+				long requestTime = System.currentTimeMillis();
 				objReleaseRoomResponse = messageParser.releaseRoom( objReleaseRoomRequest );
+				
+
+				long latencyTime = System.currentTimeMillis() - requestTime;
+				WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " releaseRoom response latency period in milliseconds " + latencyTime );
 
 				if( objReleaseRoomResponse == null ) {
 
@@ -1033,4 +1086,83 @@ public class KeyprWebServices {
 		return response;
 	}
 
+	@SuppressWarnings("resource")
+	@Path( "/meetingRoom" )
+	@POST
+	@Produces( MediaType.APPLICATION_JSON )
+	@Consumes( MediaType.APPLICATION_JSON )
+	public Response meetingRoomInformation( com.cloudkey.pms.request.MeetingRoomInformationRequest objMeInformationRequest ) {
+
+		WebAppLogger.logInfo( KeyprWebServices.class,  " meetingRoomInformation   ", "  Enter method meetingRoomInformation  " );
+
+		/* Variable to store release Room Response instance. */
+		com.cloudkey.pms.response.MeetingRoomInformationResponse objMeInformationResponse = null;		
+
+		/* Variable to store application context. */
+		ApplicationContext appContext = null;	
+
+		/* Variable to store response. */
+		Response response = null;		
+
+		/* variable to store message parser name. */
+		String parserName = null;
+
+		/* Variable to store message parser. */
+		IParserInterface messageParser = null;
+
+		try {
+
+			// read the name of message parser bean from the bean configuration file.
+			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
+
+			// create an instance of application context using information from bean configuration file.		
+			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
+
+			messageParser = ( IParserInterface )appContext.getBean( parserName );
+
+			objMeInformationResponse = new MeetingRoomInformationResponse();
+
+			/**
+			 * To check the request at least contains confirmation number with notes.
+			 */
+
+			if( objMeInformationRequest.getNumberOfAttendees().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) {
+
+				objMeInformationResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+				
+				WebAppLogger.logInfo( KeyprWebServices.class, " meetingRoomInformation ", " Required Fields are missing " );
+				
+				response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objMeInformationResponse ).build();
+				
+			}
+			else {
+
+				objMeInformationResponse = messageParser.getMeetingInformation(objMeInformationRequest);
+
+				if( objMeInformationResponse == null ) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					response = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
+					
+				}
+				else {
+
+					response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objMeInformationResponse ).build();
+				}
+
+			}
+
+		}
+		catch( Exception exc ) {
+
+			WebAppLogger.logError( KeyprWebServices.class, " meetingRoomInformation ", exc );
+		}
+
+		WebAppLogger.logInfo( KeyprWebServices.class,  " meetingRoomInformation ", " Exit method meetingRoomInformation " );
+
+		return response;
+	}
 }
