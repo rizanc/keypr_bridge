@@ -22,6 +22,9 @@ public interface IWebClient {
 	
 	String ASSIGN_ROOM_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/assignRoom";
 	
+	String MEETING_INFORMATION_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/meetingRoom";
+	
+	
 	Long COUNT_ONE = 1L;
 	
 	String COMMAND_COUNT_ONE = "1";
@@ -32,5 +35,6 @@ public interface IWebClient {
 	String COMMAND_COUNT_SIX = "6";
 	String COMMAND_COUNT_SEVEN = "7";
 	String COMMAND_COUNT_EIGHT = "8";
+	String COMMAND_COUNT_NINE =  "9";
 
 }

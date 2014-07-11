@@ -31,6 +31,7 @@ import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
+import com.cloudkey.pms.request.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
@@ -588,6 +589,57 @@ public class MakeWebServiceCall extends HttpServlet {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit Release Room Block " );
 			}
+			
+			else if( command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_NINE  ) ) {
+
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter MeetingInformation Block " );	
+
+				MeetingRoomInformationRequest objInformationRequest = new MeetingRoomInformationRequest();
+				
+				objInformationRequest.setNumberOfAttendees( request.getParameter("number_of_attendees"));
+
+				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Number of attendees is set on the relese room object" );
+
+				try {
+					
+					MessageLogger.logInfo(MakeWebServiceCall.class, " MeetingInformation", "Server url is "+ IWebClient.MEETING_INFORMATION_URL);
+					target = client.target( IWebClient.MEETING_INFORMATION_URL );
+					
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " MeetingInformation URL " + IWebClient.MEETING_INFORMATION_URL );
+
+					invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+
+					String postResponse =  invocationBuilder.post( Entity.entity( objInformationRequest , MediaType.APPLICATION_JSON_TYPE ), String.class );
+
+					out.println( "Response of MeetingInformation: " + postResponse );
+
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					
+				}
+				catch( ServerErrorException sec) {
+
+					MessageLogger.logError(MakeWebServiceCall.class,  " MeetingInformation Bloc ", sec);
+
+					TimeOutError objTError = new TimeOutError();
+					objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					Map<String,String> myMap= new HashMap<String,String>();
+					myMap.put( "Code", objTError.getCode()) ;
+					myMap.put( "Message", objTError.getMessage() );
+
+					JSONObject objTimeOut = new JSONObject(myMap);
+
+					out.println(objTimeOut);
+					
+					out.println( " <br><br><br> " );
+					out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+				}
+
+				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit MeetingInformation Block " );
+			}
+			
 			else {
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter GuestCheckOut Block " );

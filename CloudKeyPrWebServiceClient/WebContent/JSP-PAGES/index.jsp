@@ -18,8 +18,8 @@
    <a href = "JSP-PAGES/checkIn.jsp">Guest CheckIn</a><br>
    <a href = "JSP-PAGES/checkOut.jsp"> Guest CheckOut</a><br>
    <a href = "JSP-PAGES/getFolio.jsp"> RetrieveFolio </a><br>
- 
    <a href = "JSP-PAGES/updateBooking.jsp"> Update Booking</a><br>
+   <a href = "JSP-PAGES/meetingRoomInformation.jsp"> MeetingRoom Information</a><br>
    
 
 </div>
