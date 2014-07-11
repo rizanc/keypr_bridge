@@ -20,5 +20,6 @@ public interface IMicrosOWSConstants {
 	String FETCH_CALENDAR_REQUEST = "com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest";
 	
 	String RELEASE_ROOM_REQUEST = "com.micros.reservation.ReservationServiceStub_-ReleaseRoomRequest";
+	String MEETING_ROOM_REQUEST = "com.micros.meeting.MeetingRoomServiceStub_-MeetingMultiPropertyAvailabilityRequest";
 	
 }
