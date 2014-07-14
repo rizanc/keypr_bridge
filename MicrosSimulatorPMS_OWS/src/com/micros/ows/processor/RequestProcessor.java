@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.axis2.databinding.types.Language;
+import org.apache.axis2.databinding.types.NormalizedString;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest;
@@ -27,18 +28,43 @@ import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
-import com.micros.meeting.MeetingRoomServiceStub.Address;
-import com.micros.meeting.MeetingRoomServiceStub.AddressList;
+import com.micros.information.InformationServiceStub;
+import com.micros.information.InformationServiceStub.Address;
+import com.micros.information.InformationServiceStub.AddressList;
+import com.micros.information.InformationServiceStub.AttractionInfo;
+import com.micros.information.InformationServiceStub.AttractionInfoList;
+import com.micros.information.InformationServiceStub.Attraction_type0;
+import com.micros.information.InformationServiceStub.AttractionsType;
+import com.micros.information.InformationServiceStub.ContactEmailList;
+import com.micros.information.InformationServiceStub.Cuisine_type0;
+import com.micros.information.InformationServiceStub.Cuisines_type0;
+import com.micros.information.InformationServiceStub.DescriptiveText;
+import com.micros.information.InformationServiceStub.Email;
+import com.micros.information.InformationServiceStub.ExtendedHotelInfo;
+import com.micros.information.InformationServiceStub.FacilityInfoType;
+import com.micros.information.InformationServiceStub.GuestRoom_type0;
+import com.micros.information.InformationServiceStub.GuestRooms_type0;
+import com.micros.information.InformationServiceStub.HotelContact;
+import com.micros.information.InformationServiceStub.HotelInfo;
+import com.micros.information.InformationServiceStub.HotelInfoList;
+import com.micros.information.InformationServiceStub.HotelInfoType;
+import com.micros.information.InformationServiceStub.HotelInformation_type0;
+import com.micros.information.InformationServiceStub.HotelReference;
+import com.micros.information.InformationServiceStub.Phone;
+import com.micros.information.InformationServiceStub.PhoneData_type0;
+import com.micros.information.InformationServiceStub.PhoneList;
+import com.micros.information.InformationServiceStub.Restaurant_type0;
+import com.micros.information.InformationServiceStub.RestaurantsType;
+import com.micros.information.InformationServiceStub.TextList;
 import com.micros.meeting.MeetingRoomServiceStub.AvailableProperty;
-import com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo;
-import com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType;
-import com.micros.meeting.MeetingRoomServiceStub.HotelContact;
-import com.micros.meeting.MeetingRoomServiceStub.HotelReference;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityResponse;
-import com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingRoomsType;
 import com.micros.meeting.MeetingRoomServiceStub.ResultStatus;
+import com.micros.membership.MembershipServiceStub.NameMembership;
+import com.micros.membership.MembershipServiceStub.NameMembershipList;
+import com.micros.membership.MembershipServiceStub.UniqueID;
+import com.micros.membership.MembershipServiceStub.UniqueIDList;
 import com.micros.ows.constants.IMicrosOWSConstants;
 import com.micros.ows.logger.OWSMessageLogger;
 import com.micros.ows.utility.OWSUtility;
@@ -144,12 +170,11 @@ public class RequestProcessor extends HttpServlet {
 
 			String paramName = parameterNames.nextElement();
 			xmlRequestValue = request.getParameter( paramName );
-
+		
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost ", " xml request is " + xmlRequestValue );
 		}
 
 		xmlOWSResponse = getOWSResponse( xmlRequestValue );
-
 		out.println( xmlOWSResponse );
 
 	}
@@ -183,7 +208,7 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost CheckOutRequest block ", " exit CheckOutRequest block " );
-			
+
 		}
 		else if( xmlRequestValue.contains( IMicrosOWSConstants.RELEASE_ROOM_REQUEST ) ) {
 
@@ -193,7 +218,7 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room block ", " exit Release Room block " );
-			
+
 		}
 		else if( xmlRequestValue.contains( "com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest" ) ) {
 
@@ -213,7 +238,7 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost getFolio block ", " response send " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost getFolio block ", " exit getFolio block " );
-			
+
 		}
 		else if( xmlRequestValue.contains( IMicrosOWSConstants.ASSIGN_ROOM_REQUEST ) ) {
 
@@ -256,6 +281,14 @@ public class RequestProcessor extends HttpServlet {
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendarRequest block ", " exit FetchCalendarRequest block " );
 
 		}
+		else if(xmlRequestValue.contains(IMicrosOWSConstants.HOTEL_INFORMATION_REQUEST)) {
+
+			OWSMessageLogger.logInfo(RequestProcessor.class, " dopost Hotel informationrequest block ", "enter HotelInformationRequest block" );
+
+			xmlOWSResponse = getXMLHotelInformationResponse();
+
+			OWSMessageLogger.logInfo(RequestProcessor.class, " dopost Hotel informationrequest block ", "exit HotelInformationRequest block" );
+		}
 		
 		else if ( xmlRequestValue.contains ( IMicrosOWSConstants.MEETING_ROOM_REQUEST )) {
 			
@@ -265,6 +298,28 @@ public class RequestProcessor extends HttpServlet {
 			
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost MeetingRoomInformation block ", " xml response " + xmlOWSResponse );
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost MeetingRoomInformation block ", " exit MeetingRoomInformation block " );
+			
+		}
+		
+		else if (xmlRequestValue.contains(IMicrosOWSConstants.GUEST_MEMBERSHIP_REQUEST)) {
+			
+           OWSMessageLogger.logInfo( RequestProcessor.class, " doPost GuestMembershipInformation block ", " enter GuestMembershipInformation block " );
+			
+			xmlOWSResponse = getXMLGuestMembershipResponse(); 
+			
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost GuestMembershipInformation block ", " xml response " + xmlOWSResponse );
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost GuestMembershipInformation block ", " exit GuestMembershipInformation block " );
+			
+		}
+		
+		else if (xmlRequestValue.contains(IMicrosOWSConstants.MEMBER_POINTS_REQUEST)) {
+			
+			    OWSMessageLogger.logInfo( RequestProcessor.class, " doPost MemberPointsInformation block ", " enter MemberPointsInformation block " );
+				
+				xmlOWSResponse = getXMLMemberPointsResponse(); 
+				
+				OWSMessageLogger.logInfo( RequestProcessor.class, " doPost MemberPointsInformation block ", " xml response " + xmlOWSResponse );
+				OWSMessageLogger.logInfo( RequestProcessor.class, " doPost MemberPointsInformation block ", " exit MemberPointsInformation block " );
 			
 		}
 		else {
@@ -308,14 +363,14 @@ public class RequestProcessor extends HttpServlet {
 	    /* Creating first Available Property. */
 		AvailableProperty objAvailableProperty = new AvailableProperty();
 		
-		HotelReference objHotelReference = new HotelReference();
+		com.micros.meeting.MeetingRoomServiceStub.HotelReference objHotelReference = new com.micros.meeting.MeetingRoomServiceStub.HotelReference();
 		objHotelReference.setString( "Opera Demo Hotel, Small");
 		objAvailableProperty.setHotelReference(objHotelReference);
 		
-		HotelContact objHotelContact = new HotelContact();
-		AddressList objAddressList = new AddressList();
+		com.micros.meeting.MeetingRoomServiceStub.HotelContact objHotelContact = new com.micros.meeting.MeetingRoomServiceStub.HotelContact();
+		com.micros.meeting.MeetingRoomServiceStub.AddressList objAddressList = new com.micros.meeting.MeetingRoomServiceStub.AddressList();
 		
-		Address objAddress = new Address();
+		com.micros.meeting.MeetingRoomServiceStub.Address objAddress = new com.micros.meeting.MeetingRoomServiceStub.Address();
 		objAddress.setCityName("PARIS");
 		objAddress.setCountryCode("FR");
 		objAddress.setPostalCode("44005");
@@ -336,13 +391,13 @@ public class RequestProcessor extends HttpServlet {
 		NonNegativeInteger objNegativeInteger2 = new NonNegativeInteger("10");
 		objMeetingRoomsType.setSmallestSeatingCapacity(objNegativeInteger2);
 		
-		MeetingRoom_type0[] objRoomArray = new MeetingRoom_type0[2];
+		com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0[] objRoomArray = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0[2];
 		
 		for(int objRAray = 0; objRAray<objRoomArray.length; objRAray ++ ) {
 	
 		if(objRAray == 0){
 			
-		MeetingRoom_type0 objMeetingRoom_type0 = new MeetingRoom_type0();
+			com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0 objMeetingRoom_type0 = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0();
 		objMeetingRoom_type0.setRoomName( "AWS");
 		NonNegativeInteger objNegativeInteger3 = new NonNegativeInteger("10");
 		objMeetingRoom_type0.setMeetingRoomCapacity(objNegativeInteger3);
@@ -361,7 +416,7 @@ public class RequestProcessor extends HttpServlet {
 		}
 		else {
 			
-		MeetingRoom_type0 objMeetingRoom_type0 = new MeetingRoom_type0();
+		com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0 objMeetingRoom_type0 = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0();
 		objMeetingRoom_type0.setRoomName( "PWD");
 		NonNegativeInteger objNegativeInteger3 = new NonNegativeInteger("12");
 		objMeetingRoom_type0.setMeetingRoomCapacity(objNegativeInteger3);
@@ -381,8 +436,8 @@ public class RequestProcessor extends HttpServlet {
 	
 		objMeetingRoomsType.setMeetingRoom(objRoomArray);
 		
-		ExtendedHotelInfo objHotelInfo = new ExtendedHotelInfo();
-		FacilityInfoType objFacilityInfoType = new FacilityInfoType();
+		com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo objHotelInfo = new com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo();
+		com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType objFacilityInfoType = new com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType();
 		objFacilityInfoType.setMeetingRooms(objMeetingRoomsType);
 		
 		objHotelInfo.setFacilityInfo(objFacilityInfoType);
@@ -456,6 +511,137 @@ public class RequestProcessor extends HttpServlet {
 		
 		return meetingRooomInformation;
 	}
+	
+	
+	/**
+	 * This method returns the response having Member points  status.
+	 * 
+	 * @return String
+	 */
+	private String getXMLMemberPointsResponse() {
+	
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMemberPointsResponse ", " enter getXMLMemberPointsResponse " );
+	
+		com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse objFetchMemberPointsResponse = null;
+		String memberPointsInformation = "";
+		
+		try {
+			
+			objFetchMemberPointsResponse = new com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse();
+			
+			com.micros.membership.MembershipServiceStub.ResultStatus objResultStatus = new com.micros.membership.MembershipServiceStub.ResultStatus();
+			objResultStatus.setResultStatusFlag(com.micros.membership.MembershipServiceStub.ResultStatusFlag.SUCCESS);
+			objFetchMemberPointsResponse.setResult(objResultStatus);
+			
+			com.micros.membership.MembershipServiceStub.Membership memberinfo = new com.micros.membership.MembershipServiceStub.Membership();
+			
+			memberinfo.setMemberName("White Peterson");
+			
+			UniqueID objId = new UniqueID();
+		
+			objId.setString("100");
+			memberinfo.setMembershipid(objId);
+			memberinfo.setMembershipType("GC");
+			memberinfo.setMembershipNumber("TAMMY");
+			memberinfo.setMembershipLevel("GOLD");
+			
+			memberinfo.setEffectiveDate(new Date());
+		    memberinfo.setExpirationDate(new Date());
+		
+			memberinfo.setInactive(true);
+			
+			UniqueIDList objIdList = new UniqueIDList();
+			UniqueID[] objUniqueID = new UniqueID[1];
+			UniqueID objUniqueID2 = new UniqueID();
+			objUniqueID2.setString("100");
+			objUniqueID[0] = objUniqueID2;
+			objIdList.setUniqueID(objUniqueID);
+			memberinfo.setResvNameId(objIdList);
+			
+			objFetchMemberPointsResponse.setMemberInfo(memberinfo);
+			
+			com.micros.membership.MembershipServiceStub.PointsInfo pointsInfo = new com.micros.membership.MembershipServiceStub.PointsInfo();
+			com.micros.membership.MembershipServiceStub.AwardPointsInfo obAwardPointsInfo = new com.micros.membership.MembershipServiceStub.AwardPointsInfo();
+		  
+			obAwardPointsInfo.setTotalPoints(new Double("123"));
+		    obAwardPointsInfo.setBonusPoints(new Double("10"));
+			
+		    pointsInfo.setAwardPointsInfo(obAwardPointsInfo);
+			
+			com.micros.membership.MembershipServiceStub.StayPointsInfo objStayPointsInfo = new com.micros.membership.MembershipServiceStub.StayPointsInfo();
+			objStayPointsInfo.setGuestTotalNights(new Integer("11"));
+			objStayPointsInfo.setGuestTotalStays(new Integer("12"));
+		
+			pointsInfo.setStayPointsInfo(objStayPointsInfo);
+			objFetchMemberPointsResponse.setPointsInfo(pointsInfo);
+			
+			memberPointsInformation = OWSUtility.convertToStreamXML( objFetchMemberPointsResponse ); 
+		
+			OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMemberPointsResponse ", " getXMLMemberPointsResponse Response created " );
+			
+		}
+		catch(Exception e) {
+			
+			OWSMessageLogger.logError(RequestProcessor.class, " getXMLMemberPointsResponse ", e);
+			
+		}
+		
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMemberPointsResponse ", " exit getXMLMemberPointsResponse " );
+	     return memberPointsInformation;
+	}
+	
+	/**
+	 * This method returns the response having Guest Membership status.
+	 * 
+	 * @return String
+	 */
+	
+	private String getXMLGuestMembershipResponse() {
+		
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLGuestMembershipResponse ", " enter getXMLGuestMembershipResponse " );
+		
+		com.micros.membership.MembershipServiceStub.FetchMembershipsResponse objFetchMembershipsResponse = null;
+		String guestMembershipInformation = "";
+		
+		try {
+			objFetchMembershipsResponse = new com.micros.membership.MembershipServiceStub.FetchMembershipsResponse();
+			
+			com.micros.membership.MembershipServiceStub.ResultStatus objResultStatus = new com.micros.membership.MembershipServiceStub.ResultStatus();
+			objResultStatus.setResultStatusFlag(com.micros.membership.MembershipServiceStub.ResultStatusFlag.SUCCESS);
+			objFetchMembershipsResponse.setResult(objResultStatus);
+			
+			NameMembershipList objMembershipList = new NameMembershipList();
+			NameMembership[] objNameMembership = new NameMembership[1];
+			NameMembership objMembership = new NameMembership();
+			
+			objMembership.setMembershipType("GC");
+			objMembership.setMembershipNumber("0209639");
+			objMembership.setMembershipLevel("LV2");
+			UniqueID objId = new UniqueID();
+		
+			objId.setString("100");
+			objMembership.setMembershipid(objId);
+			objMembership.setOperaId(new Long("13748"));
+			objMembership.setExternalId("109");
+			objMembership.setPoints_label("Golden Circle Points");
+			objMembership.setMemberName("ALAN MURRAY SMITH");
+			
+			objNameMembership[0] = objMembership;
+			objMembershipList.setNameMembership(objNameMembership);
+			objFetchMembershipsResponse.setNameMembershiphList(objMembershipList);
+			
+			guestMembershipInformation = OWSUtility.convertToStreamXML( objFetchMembershipsResponse ); 
+			
+			OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLGuestMembershipResponse ", " GuestMembership Response created " );
+		}
+		catch (Exception e) {
+			
+			OWSMessageLogger.logError(RequestProcessor.class, " getXMLGuestMembershipResponse ", e);
+		}
+		
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLGuestMembershipResponse ", " exit getXMLGuestMembershipResponse " );
+		return guestMembershipInformation;
+	}
 
 
 	/**
@@ -465,7 +651,7 @@ public class RequestProcessor extends HttpServlet {
 	 */
 	private String getXMLReleaseRoomResponse() {
 
-		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLReleaseRoomResponse ", " enter getXMLReleaseRoomResponse " );
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room Request block ", " enter Release Room request block " );
 
 		String releaseRoomResponse = null;	
 		ReleaseRoomResponse objReleaseRoomResponse = new ReleaseRoomResponse();
@@ -478,10 +664,308 @@ public class RequestProcessor extends HttpServlet {
 
 		releaseRoomResponse = OWSUtility.convertToStreamXML( objReleaseRoomResponse ); 
 
-		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLReleaseRoomResponse ", " exit getXMLReleaseRoomResponse" );
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Release Room Request block ", " exit Release Room Request block " );
 
 		return releaseRoomResponse;
 	}
+	
+	/**
+	 * This method returns the response having HotelInformation result, HotelName, Address, City, Country, Zip, contactEmails, Phone, Fax, CheckInTime, CheckOutTime, Notes
+	 * RoomTypes, Restaurants.
+	 * 
+	 * @return String
+	 */
+	private String getXMLHotelInformationResponse() {
+
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " enter getXMLHotelInformationResponse request block " );
+
+		com.micros.information.InformationServiceStub.HotelInformationResponse objHotelInformationResponse = null;
+
+		String hotelInformationResponse = null;
+
+		try {
+
+			objHotelInformationResponse = new com.micros.information.InformationServiceStub.HotelInformationResponse();
+
+			com.micros.information.InformationServiceStub.GDSResultStatus objResultStatus = new com.micros.information.InformationServiceStub.GDSResultStatus();
+			objResultStatus.setResultStatusFlag( InformationServiceStub.ResultStatusFlag.SUCCESS );
+			objHotelInformationResponse.setResult( objResultStatus );
+
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " Result status set " );
+
+			HotelInformation_type0 objHotelInformation_type0 = new HotelInformation_type0();
+
+			/* set hotel name */
+			HotelReference objHotelReference = new HotelReference();
+			objHotelReference.setString("Opera Demo Hotel");
+
+			/* set hotel contact information */
+			HotelContact objHotelContact = new HotelContact();
+
+			/*set email contact list  */
+			ContactEmailList obj = new ContactEmailList();
+			Email[] objEmail = new Email[1];
+			Email email = new Email();
+
+			email.setString("5thavesales@hotels.com");
+			objEmail[0] = email;
+
+			obj.setContactEmail(objEmail);
+			objHotelContact.setContactEmails(obj);
+
+			/* set address list  */
+			AddressList objAddress = new AddressList();
+			Address[] objAdd = new Address[1];
+
+			Address address = new Address();
+			address.setAddressLine(new String[]{"415 Fifth Ave"});
+
+			address.setCityName("Naples");
+			address.setCountryCode("US");
+			address.setPostalCode(" 34101 ");
+
+			objAdd[0] = address;
+			objAddress.setAddress(objAdd);
+			objHotelContact.setAddresses(objAddress);
+
+			/* set phone list   */
+			PhoneList objPhone = new PhoneList();
+			Phone[] objph = new Phone[2];
+
+			Phone phone = new Phone();
+			phone.setPhoneRole("PHONE");
+
+			PhoneData_type0 objPhoneData_type0 = new PhoneData_type0();
+			objPhoneData_type0.setAreaCode(" 329 ");
+			objPhoneData_type0.setPhoneNumber(" 2397895678 ");
+			objPhoneData_type0.setExtension(" 193 ");
+
+			phone.setPhoneData(objPhoneData_type0);
+			objph[0] = phone;
+
+			/* set Fax  */
+			Phone phone1 = new Phone();
+
+			phone1.setPhoneRole("FAX");
+			phone1.setPhoneNumber("9543764555");
+
+			objph[1] = phone1;
+			objPhone.setPhone(objph);
+
+			objHotelContact.setContactPhones(objPhone);
+
+			/* set restaurant types information  */
+			ExtendedHotelInfo objExtendedHotelInfo = new ExtendedHotelInfo();
+			FacilityInfoType objFacilityInfoType = new FacilityInfoType();
+
+			RestaurantsType objRestaurantsType = new RestaurantsType();
+			Restaurant_type0[] objRestaurant_type0 = new Restaurant_type0[2];
+			Restaurant_type0 objRestaurant_type02 = new Restaurant_type0();
+
+			objRestaurant_type02.setRestaurantName(" Terrace Garden ");
+
+			com.micros.information.InformationServiceStub.Paragraph[] objParagraph = new com.micros.information.InformationServiceStub.Paragraph[1];
+			com.micros.information.InformationServiceStub.Paragraph objParagraph2 =new com.micros.information.InformationServiceStub.Paragraph();
+			com.micros.information.InformationServiceStub.ParagraphChoice objChoice = new com.micros.information.InformationServiceStub.ParagraphChoice();
+			com.micros.information.InformationServiceStub.Text objText = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objString = new NormalizedString();
+			objString.setValue(" Full-service dining and outdoor terrace with view of the Puget Sound serving Northwest cuisine ");
+			objText.setNormalizedString(objString);
+			objChoice.setText(objText);
+
+			objParagraph2.addParagraphChoice(objChoice); 
+			objParagraph[0] = objParagraph2;
+			objRestaurant_type02.setRestaurantDescription(objParagraph);
+
+			Cuisines_type0 objcCuisines_type0 =new Cuisines_type0();
+			Cuisine_type0[] objcCuisine_type0s = new Cuisine_type0[1];
+			Cuisine_type0 objCuisine_type0 = new Cuisine_type0();
+
+			objCuisine_type0.setDescription(" FULL-SERVICE DINING ");
+			objcCuisine_type0s[0] = objCuisine_type0;
+			objcCuisines_type0.setCuisine(objcCuisine_type0s);
+
+			objRestaurant_type02.setCuisines(objcCuisines_type0);
+
+			Restaurant_type0 objRestaurant_type022 = new Restaurant_type0();
+			objRestaurant_type022.setRestaurantName(" Elephant and Castle Pub ");
+
+			com.micros.information.InformationServiceStub.Paragraph[] objParagraph1 = new com.micros.information.InformationServiceStub.Paragraph[1];
+			com.micros.information.InformationServiceStub.Paragraph objParagraph21 =new com.micros.information.InformationServiceStub.Paragraph();
+			com.micros.information.InformationServiceStub.ParagraphChoice objChoice1 = new com.micros.information.InformationServiceStub.ParagraphChoice();
+			com.micros.information.InformationServiceStub.Text objText1 = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objString1 = new NormalizedString();
+			objString1.setValue(" fireplace or patio seating, authentic English cuisine this is s a test to see how long fireplace or patio seating ");
+			objText1.setNormalizedString(objString1);
+			objChoice1.setText(objText1);
+
+			objParagraph21.addParagraphChoice(objChoice1); 
+			objParagraph1[0] = objParagraph21;
+
+			objRestaurant_type022.setRestaurantDescription(objParagraph1);
+
+			Cuisines_type0 objcCuisines_type01 =new Cuisines_type0();
+			Cuisine_type0[] objcCuisine_type0s1 = new Cuisine_type0[1];
+			Cuisine_type0 objCuisine_type01 = new Cuisine_type0();
+
+			objCuisine_type01.setDescription(" CASUAL DINING ");
+			objcCuisine_type0s1[0] = objCuisine_type01;
+			objcCuisines_type01.setCuisine(objcCuisine_type0s1);
+
+			objRestaurant_type022.setCuisines(objcCuisines_type01);
+
+			objRestaurant_type0[0] = objRestaurant_type02;
+			objRestaurant_type0[1] = objRestaurant_type022;
+			objRestaurantsType.setRestaurant(objRestaurant_type0);
+
+			/*  set room types information  */
+			GuestRooms_type0 objGuestRooms_type0 =new GuestRooms_type0();
+			GuestRoom_type0[] objGuestRoom_type0 = new GuestRoom_type0[2];
+			GuestRoom_type0 objGuestRoom_type02 = new GuestRoom_type0();
+
+			objGuestRoom_type02.setCode(" KNG ");
+
+			DescriptiveText objDescriptiveText = new DescriptiveText();
+			TextList objTextList = new TextList();
+
+			com.micros.information.InformationServiceStub.Text[] objText2 = new com.micros.information.InformationServiceStub.Text[1];
+			com.micros.information.InformationServiceStub.Text objText3 = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objNormalizedString =new NormalizedString();
+			objNormalizedString.setValue(" K - King Room 2 beds ");
+			objText3.setNormalizedString(objNormalizedString);
+
+			objText2[0] = objText3;
+			objTextList.setTextElement(objText2);
+			objDescriptiveText.setText(objTextList);
+
+			objGuestRoom_type02.setRoomDescription(objDescriptiveText);
+
+			GuestRoom_type0 objGuestRoom_type03 = new GuestRoom_type0();
+			objGuestRoom_type03.setCode("MLK");
+
+			DescriptiveText objDescriptiveText1 = new DescriptiveText();
+			TextList objTextList1 = new TextList();
+
+			com.micros.information.InformationServiceStub.Text[] objText11 = new com.micros.information.InformationServiceStub.Text[1];
+			com.micros.information.InformationServiceStub.Text objText44 = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objNormalizedString1 =new NormalizedString();
+			objNormalizedString1.setValue(" MLSK - Mid Level King Room  2  beds ");
+			objText44.setNormalizedString(objNormalizedString1);
+
+			objText11[0] = objText44;
+			objTextList1.setTextElement(objText11);
+			objDescriptiveText1.setText(objTextList1);
+
+			objGuestRoom_type03.setRoomDescription(objDescriptiveText1);
+
+			objGuestRoom_type0[0] = objGuestRoom_type02;
+			objGuestRoom_type0[1] = objGuestRoom_type03;
+			objGuestRooms_type0.setGuestRoom(objGuestRoom_type0);
+
+			/* set attraction type as note. */
+			AttractionsType objAttractionsType = new AttractionsType();
+
+			Attraction_type0[] objAttraction_type0 = new Attraction_type0[1];
+			Attraction_type0 objAttraction_type02 = new Attraction_type0();
+			objAttraction_type02.setAttractionName(" City Center  ");
+
+			AttractionInfoList objAttractionInfoList = new AttractionInfoList();
+			AttractionInfo[] objAttractionInfo =new AttractionInfo[1];
+			AttractionInfo objAttractionInfo2 =new AttractionInfo();
+
+			TextList objList =new TextList();
+			com.micros.information.InformationServiceStub.Text[] objText4 = new com.micros.information.InformationServiceStub.Text[1];
+			com.micros.information.InformationServiceStub.Text objText5 = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objNormalizedString2 = new NormalizedString();
+			objNormalizedString2.setValue(" Naples ");
+
+			objText5.setNormalizedString(objNormalizedString2); 
+			objText4[0] = objText5;
+
+			objList.setTextElement(objText4);
+
+			objAttractionInfo2.setText(objList);
+			objAttractionInfo[0] = objAttractionInfo2; 
+			objAttractionInfoList.setAttractionInfo(objAttractionInfo);
+			objAttraction_type02.setAttractionInformation(objAttractionInfoList);
+
+			objAttraction_type0[0] = objAttraction_type02;
+			objAttractionsType.setAttraction(objAttraction_type0);
+
+			objFacilityInfoType.setAttractions(objAttractionsType);
+
+			objFacilityInfoType.setGuestRooms(objGuestRooms_type0);
+			objFacilityInfoType.setRestaurants(objRestaurantsType);
+
+			/* set check in info and check out info   */
+			HotelInfoList objHotelInfoList = new HotelInfoList();
+			HotelInfo[] objHotelInfo = new HotelInfo[2];
+
+			HotelInfo objHotelInfo2 = new HotelInfo();
+			objHotelInfo2.setHotelInfoType(HotelInfoType.CHECKININFO);
+
+			TextList objTList = new TextList();
+			com.micros.information.InformationServiceStub.Text[] myText = new com.micros.information.InformationServiceStub.Text[1];
+			com.micros.information.InformationServiceStub.Text myT = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objNormalizedString3 = new NormalizedString();
+			objNormalizedString3.setValue("8:00");
+			myT.setNormalizedString(objNormalizedString3);
+
+			myText[0] = myT;
+			objTList.setTextElement(myText);
+			objHotelInfo2.setText(objTList);
+
+			objHotelInfo[0] = objHotelInfo2;
+
+			HotelInfo objHotelInfo4 = new HotelInfo();
+			objHotelInfo4.setHotelInfoType(HotelInfoType.CHECKOUTINFO);
+			TextList objTList1 = new TextList();
+
+			com.micros.information.InformationServiceStub.Text[] myText1 = new com.micros.information.InformationServiceStub.Text[1];
+			com.micros.information.InformationServiceStub.Text myT1 = new com.micros.information.InformationServiceStub.Text();
+
+			NormalizedString objNormalizedString4 = new NormalizedString();
+			objNormalizedString4.setValue("15:00");
+			myT1.setNormalizedString(objNormalizedString4);
+
+			myText1[0] = myT1;
+			objTList1.setTextElement(myText1);
+			objHotelInfo4.setText(objTList1);
+
+			objHotelInfo[1] = objHotelInfo4;
+			objHotelInfoList.setHotelInfo(objHotelInfo);
+
+			objExtendedHotelInfo.setHotelInformation(objHotelInfoList);
+			objExtendedHotelInfo.setFacilityInfo(objFacilityInfoType);
+
+			objHotelInformation_type0.setHotelExtendedInformation(objExtendedHotelInfo);
+			objHotelInformation_type0.setHotelContactInformation(objHotelContact);
+			objHotelInformation_type0.setHotelInformation(objHotelReference);
+
+			objHotelInformationResponse.setHotelInformation(objHotelInformation_type0);
+
+			hotelInformationResponse = OWSUtility.convertToStreamXML( objHotelInformationResponse ); 
+
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " exit Hotel getXMLHotelInformationResponse Requestt block " );
+
+		}
+		catch( Exception e) {
+
+			OWSMessageLogger.logError(RequestProcessor.class, " Hotel information Request block", e);
+
+		}
+
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " exit HotelInformation request block " );
+
+		return hotelInformationResponse;
+	}
+
 
 	/**
 	 * This method returns the response having room inventory and Fetch calendar response status .
@@ -490,7 +974,7 @@ public class RequestProcessor extends HttpServlet {
 	 */
 	private String getXMLFetchCalendarResponse() {
 
-		OWSMessageLogger.logInfo( RequestProcessor.class, "getXMLFetchCalendarResponse ", " enter getXMLFetchCalendarResponse " );
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendar Request block ", " enter FetchCalendar request block " );
 
 		String fetchCalendarResponse = null;
 		FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
@@ -561,6 +1045,7 @@ public class RequestProcessor extends HttpServlet {
 		try  {
 			objDate = ( Date )objDateFormat.parse( strDate );
 			objCalendarDailyDetail.setDate( objDate );
+
 		}  catch ( ParseException exc ) {
 
 			OWSMessageLogger.logError( RequestProcessor.class, " doPost FetchCalendar Request block ", exc );
@@ -598,7 +1083,7 @@ public class RequestProcessor extends HttpServlet {
 
 		}  catch ( ParseException exc ) {
 
-			OWSMessageLogger.logError( RequestProcessor.class, " getXMLFetchCalendarResponse ", exc );		
+			OWSMessageLogger.logError( RequestProcessor.class, " doPost FetchCalendar Request block ", exc );		
 		}
 
 		objCalendarDailyDetailArray[1] = objCalendarDailyDetail;
@@ -611,7 +1096,7 @@ public class RequestProcessor extends HttpServlet {
 
 		fetchCalendarResponse = OWSUtility.convertToStreamXML( objFetchCalendarResponse ); 
 
-		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLFetchCalendarResponse ", " exit getXMLFetchCalendarResponse " +  fetchCalendarResponse );
+		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchCalendar Request block ", " exit FetchCalendar request block " +  fetchCalendarResponse );
 
 		return fetchCalendarResponse;
 	}
@@ -637,7 +1122,7 @@ public class RequestProcessor extends HttpServlet {
 
 		/*To convert the request xml into request object .*/
 		objFutureBookingSummaryRequest = ( FutureBookingSummaryRequest )OWSUtility.covertToStreamObject( xmlRequestValue );
-		
+
 		/*To create the dummy response for modify booking*/		
 		objFutureBookingSummaryResponse = new FutureBookingSummaryResponse();
 
@@ -655,7 +1140,7 @@ public class RequestProcessor extends HttpServlet {
 		com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
 
 		confirmationNumber = objFutureBookingSummaryRequest.getAdditionalFilters().getConfirmationNumber().getString();
-		
+
 		/*To set the confirmation number.*/
 		if( confirmationNumber.length() >= 1 ) {
 
@@ -671,10 +1156,6 @@ public class RequestProcessor extends HttpServlet {
 		/*To set the profile related information into res guestlist.*/
 		ResGuestList objGuestList = new ResGuestList();
 		ResGuest objResGuest = new ResGuest();
-		
-		/*Added Guest ArrivalTime and Guest DepartureTime */
-		objResGuest.setArrivalTime( null );
-		objResGuest.setDepartureTime( null );
 
 		ProfileList objProfileList = new ProfileList();
 		com.micros.reservation.ReservationServiceStub.Profile objProfile = new com.micros.reservation.ReservationServiceStub.Profile();
@@ -734,14 +1215,6 @@ public class RequestProcessor extends HttpServlet {
 		if( confirmationNumber.length() == 0 ) {
 
 			objHotelReservation_type0 = new HotelReservation_type0();
-			
-			/* Added Reservation Status Type. */
-			ReservationStatusType obj1 = ReservationStatusType.Factory.fromValue(ReservationStatusType._CANCELED);
-			objHotelReservation_type0.setReservationStatus( obj1 );
-			
-			/* Set reservation group */
-			objHotelReservation_type0.setGroup( "FinVisitor");
-			
 			objUniqueIDList = new com.micros.reservation.ReservationServiceStub.UniqueIDList();
 			objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
 
@@ -782,14 +1255,12 @@ public class RequestProcessor extends HttpServlet {
 			objName.setFirstName( objFutureBookingSummaryRequest.getFirstName() );
 			objName.setLastName( objFutureBookingSummaryRequest.getLastName() );
 
-			
 			objCustomer.setPersonName( objName );
 			objChoice_type02.setCustomer( objCustomer );
 			objProfile.setProfileChoice_type0( objChoice_type02 );
 
 			objProfile.setLanguageCode ( "EN" );
 			objProfile.setNationality( "In" );
-		
 
 			objProfileList.addProfile( objProfile );
 			objResGuest.setProfiles( objProfileList );
@@ -1215,7 +1686,6 @@ public class RequestProcessor extends HttpServlet {
 		objHotelReservation.setResGuests( objGuestList );
 		objHotelReservation.setRoomStays( objRoomStayList );
 		objHotelReservation.setUniqueIDList( objUniqueIDList );
-		
 
 		objBookingResponse.setResult( objResultStatus );
 		objBookingResponse.setHotelReservation( objHotelReservation );
@@ -1570,7 +2040,6 @@ public class RequestProcessor extends HttpServlet {
 
 		/* Sets the unique identifier list with the reservation identifier. */
 		objCheckInComplete.setReservationID( objUniqueIDList );
-		
 
 		/* set credit card number. */
 		com.micros.adv.reservation.ResvAdvancedServiceStub.Profile objProfile = new com.micros.adv.reservation.ResvAdvancedServiceStub.Profile();

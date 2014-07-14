@@ -20,6 +20,12 @@ public interface IMicrosOWSConstants {
 	String FETCH_CALENDAR_REQUEST = "com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest";
 	
 	String RELEASE_ROOM_REQUEST = "com.micros.reservation.ReservationServiceStub_-ReleaseRoomRequest";
-	String MEETING_ROOM_REQUEST = "com.micros.meeting.MeetingRoomServiceStub_-MeetingMultiPropertyAvailabilityRequest";
+
+	String HOTEL_INFORMATION_REQUEST = "com.micros.information.InformationServiceStub_-HotelInformationRequest";
+	
+	String MEETING_ROOM_REQUEST = "<com.micros.meeting.MeetingRoomServiceStub_-MeetingMultiPropertyAvailabilityRequest>";
+	
+	String GUEST_MEMBERSHIP_REQUEST = "<com.micros.membership.MembershipServiceStub_-FetchMembershipsRequest>";
+	String MEMBER_POINTS_REQUEST = "<com.micros.membership.MembershipServiceStub_-FetchMemberPointsRequest>";
 	
 }
