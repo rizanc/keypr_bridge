@@ -39,10 +39,15 @@ public interface IMicrosConstants {
 	
 	String RESPONSE_MEETING_ROOM = "</com.micros.meeting.MeetingRoomServiceStub_-MeetingMultiPropertyAvailabilityResponse> ";
 	
+	String RESPONSE_GUEST_MEMBERSHIP = "<com.micros.membership.MembershipServiceStub_-FetchMembershipsResponse>";
+	
 	String RESPONSE_SERVER_NOT_FOUND = "The requested resource is not available" ;
 	
 	String EXCEPTION_MESSAGE = "Property Mangaement System is Down! ";
 	
+	String RESPONSE_HOTEL_INFORMATION = "com.micros.information.InformationServiceStub_-HotelInformationResponse ";
+	String RESPONSE_MEMBER_POINTS = "<com.micros.membership.MembershipServiceStub_-FetchMemberPointsResponse>";
+	                                  
 	String RESPONSE_SUCCESS = "SUCCESS";
 	String RESPONSE_FAILURE = "FAILURE";
 	
