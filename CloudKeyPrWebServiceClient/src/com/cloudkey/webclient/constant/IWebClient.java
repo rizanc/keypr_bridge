@@ -21,9 +21,11 @@ public interface IWebClient {
 	String UPDATE_PAYMENT_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/updatePayment";
 	
 	String ASSIGN_ROOM_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/assignRoom";
+	String HOTEL_INFORMATION_URL ="http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/hotelInformation";
+	String MEMBER_POINT_URL ="http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/memberPoints";
 	
 	String MEETING_INFORMATION_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/meetingRoom";
-	
+	String GUEST_MEMBERSHIP_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/guestMembership";
 	
 	Long COUNT_ONE = 1L;
 	
@@ -35,6 +37,9 @@ public interface IWebClient {
 	String COMMAND_COUNT_SIX = "6";
 	String COMMAND_COUNT_SEVEN = "7";
 	String COMMAND_COUNT_EIGHT = "8";
-	String COMMAND_COUNT_NINE =  "9";
+	String COMMAND_COUNT_NINE = "9";
+	String COMMAND_COUNT_TEN = "10";
+	String COMMAND_COUNT_ELEVEN =  "11";
+	String COMMAND_COUNT_TWELVE = "12";
 
 }

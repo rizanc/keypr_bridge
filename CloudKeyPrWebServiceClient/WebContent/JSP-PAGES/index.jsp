@@ -19,8 +19,10 @@
    <a href = "JSP-PAGES/checkOut.jsp"> Guest CheckOut</a><br>
    <a href = "JSP-PAGES/getFolio.jsp"> RetrieveFolio </a><br>
    <a href = "JSP-PAGES/updateBooking.jsp"> Update Booking</a><br>
+   <a href = "JSP-PAGES/hotelInformation.jsp">Hotel Information</a><br>
+   <a href = "JSP-PAGES/memberPoints.jsp">Member Points</a><br>
    <a href = "JSP-PAGES/meetingRoomInformation.jsp"> MeetingRoom Information</a><br>
-   
+   <a href = "JSP-PAGES/guestMembership .jsp">Guest Membership </a>
 
 </div>
 
