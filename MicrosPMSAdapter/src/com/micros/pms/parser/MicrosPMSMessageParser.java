@@ -8,8 +8,6 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
 
-import sun.security.util.Length;
-
 import com.cloudkey.commons.Availability;
 import com.cloudkey.commons.OrderDetails;
 import com.cloudkey.commons.Reservation;
@@ -24,8 +22,9 @@ import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
 import com.cloudkey.pms.request.GuestMembershipsRequest;
 import com.cloudkey.pms.request.HotelInformationRequest;
-import com.cloudkey.pms.request.MemberPointsRequest;
 import com.cloudkey.pms.request.MeetingRoomInformationRequest;
+import com.cloudkey.pms.request.MemberPointsRequest;
+import com.cloudkey.pms.request.NameIdByMembershipRequest;
 import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
@@ -38,6 +37,7 @@ import com.cloudkey.pms.response.GuestMembershipResponse;
 import com.cloudkey.pms.response.HotelInformationResponse;
 import com.cloudkey.pms.response.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.MemberPointsResponse;
+import com.cloudkey.pms.response.NameIdBymembershipResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
@@ -77,20 +77,18 @@ import com.micros.meeting.MeetingRoomServiceStub.AvailableProperty;
 import com.micros.meeting.MeetingRoomServiceStub.Code_type0;
 import com.micros.meeting.MeetingRoomServiceStub.Codes_type0;
 import com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType;
-import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest;
-import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequestChoice_type0;
-import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityResponse;
+import com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest;
+import com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityResponse;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingRoomsType;
-import com.micros.meeting.MeetingRoomServiceStub.MeetingSearch;
-import com.micros.meeting.MeetingRoomServiceStub.RegionalSearchCode;
-import com.micros.meeting.MeetingRoomServiceStub.RegionalSearchCodeType;
 import com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest;
 import com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse;
 import com.micros.membership.MembershipServiceStub.FetchMembershipsRequest;
 import com.micros.membership.MembershipServiceStub.FetchMembershipsResponse;
 import com.micros.membership.MembershipServiceStub.NameMembership;
-import com.micros.membership.MembershipServiceStub.NameMembershipList;
+import com.micros.name.NameServiceStub.FetchNameIdByMembershipRequest;
+import com.micros.name.NameServiceStub.FetchNameIdByMembershipResponse;
+import com.micros.name.NameServiceStub.NameIdNameAddress;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.transport.MicrosMessageTransport;
@@ -3006,13 +3004,13 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objReleaseRoomRequest;
 
 	}
-	@Override
+
 	public MeetingRoomInformationResponse getMeetingInformation( MeetingRoomInformationRequest arg0) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation "," Enter getMeetingInformation method " );
 
-		com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest objAvailabilityRequest = null;
-		com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityResponse objAvailabilityResponse = null;
+		com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest objAvailabilityRequest = null;
+		com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityResponse objAvailabilityResponse = null;
 
 		MeetingRoomInformationResponse objResponse = null;
 
@@ -3053,7 +3051,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				}
 				catch ( Exception exc) {
 
-					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " guestCheckIn ", exc );
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " getMeetingInformation ", exc );
 				}
 
 			}
@@ -3069,11 +3067,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			}
 			else {
 
-				objAvailabilityResponse = new MeetingMultiPropertyAvailabilityResponse();
+				objAvailabilityResponse = new MeetingAvailabilityResponse();
 
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation ",	" Convert xml response into object " );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation ",     " Convert xml response into object " );
 
-				objAvailabilityResponse = ( MeetingMultiPropertyAvailabilityResponse ) AdapterUtility.covertToStramObject( xmlResponse );
+				objAvailabilityResponse = ( MeetingAvailabilityResponse ) AdapterUtility.covertToStramObject( xmlResponse );
 
 				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation "," Get Response object from response xml ::: " + objAvailabilityResponse );
 
@@ -3089,23 +3087,21 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objResponse;
 	}
 
-	private MeetingRoomInformationResponse getMeetinRoomInformationResponse( MeetingMultiPropertyAvailabilityResponse objAvailabilityResponse) {
+	private MeetingRoomInformationResponse getMeetinRoomInformationResponse( MeetingAvailabilityResponse objAvailabilityResponse) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse "," Enter getMeetinRoomInformationResponse method " );
 
-		MeetingRoomInformationResponse objMultiInformationResponse = new MeetingRoomInformationResponse();
+		MeetingRoomInformationResponse objMeetingInformationResponse = new MeetingRoomInformationResponse();
 
-		objMultiInformationResponse.setResult( objAvailabilityResponse.getResult().getResultStatusFlag().getValue() );
+		objMeetingInformationResponse.setResult( objAvailabilityResponse.getResult().getResultStatusFlag().getValue() );
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse "," ResultStatus Set to the response " );
 
-		AvailableProperty[] objAvailablePropertyArray =  objAvailabilityResponse.getAvailableProperties();
+		com.micros.meeting.MeetingRoomServiceStub.AvailableProperty objAvailableProperty =  objAvailabilityResponse.getAvailableProperties();
 
-		int noOfAvailableProperty = objAvailablePropertyArray.length;
+		//MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse "," Number of Available Property is " + noOfAvailableProperty );
 
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse "," Number of Available Property is " + noOfAvailableProperty );
-
-		List<com.cloudkey.commons.AvailableProperty> availPropertyList = objMultiInformationResponse.getAvailableProperty();
+		List<com.cloudkey.commons.AvailableProperty> availPropertyList = objMeetingInformationResponse.getAvailableProperty();
 
 		if ( availPropertyList == null ) {
 
@@ -3113,96 +3109,96 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			com.cloudkey.commons.AvailableProperty objParserAvailableProperty = new com.cloudkey.commons.AvailableProperty();
 
-			for (int index = IMicrosConstants.COUNT_ZERO; index < noOfAvailableProperty; index ++ ) {
+			//for (int index = IMicrosConstants.COUNT_ZERO; index < noOfAvailableProperty; index ++ ) {
 
-				AvailableProperty objAvailablePropertyPms = objAvailablePropertyArray[index];
+			AvailableProperty objAvailablePropertyPms = objAvailableProperty;
 
-				String hotelName = objAvailablePropertyPms.getHotelReference().getString();
-				objParserAvailableProperty.setHotel(hotelName);
+			String hotelName = objAvailablePropertyPms.getHotelReference().getString();
+			objParserAvailableProperty.setHotel(hotelName);
 
-				com.micros.meeting.MeetingRoomServiceStub.HotelContact objHotelContact = objAvailablePropertyPms.getHotelContact();
+			com.micros.meeting.MeetingRoomServiceStub.HotelContact objHotelContact = objAvailablePropertyPms.getHotelContact();
 
-				com.micros.meeting.MeetingRoomServiceStub.AddressList objAddressList = objHotelContact.getAddresses();
+			com.micros.meeting.MeetingRoomServiceStub.AddressList objAddressList = objHotelContact.getAddresses();
 
-				com.micros.meeting.MeetingRoomServiceStub.Address[] objArray = objAddressList.getAddress();
+			com.micros.meeting.MeetingRoomServiceStub.Address[] objArray = objAddressList.getAddress();
 
-				String cityName = objArray[IMicrosConstants.COUNT_ZERO].getCityName();
-				objParserAvailableProperty.setCity(cityName);
+			String cityName = objArray[IMicrosConstants.COUNT_ZERO].getCityName();
+			objParserAvailableProperty.setCity(cityName);
 
-				String postalCode = objArray[IMicrosConstants.COUNT_ZERO].getPostalCode();
-				objParserAvailableProperty.setPostal(postalCode);
+			String postalCode = objArray[IMicrosConstants.COUNT_ZERO].getPostalCode();
+			objParserAvailableProperty.setPostal(postalCode);
 
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Hotel Contact added to the Available Property " );
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Hotel Contact added to the Available Property " );
 
-				FacilityInfoType objFacilityInfor = objAvailablePropertyPms.getHotelExtendedInformation().getFacilityInfo();
-				MeetingRoomsType objMeetingRoomTye = objFacilityInfor.getMeetingRooms();
+			FacilityInfoType objFacilityInfor = objAvailablePropertyPms.getHotelExtendedInformation().getFacilityInfo();
+			MeetingRoomsType objMeetingRoomTye = objFacilityInfor.getMeetingRooms();
 
-				byte meetingRoomCount = objMeetingRoomTye.getMeetingRoomCount().byteValue();
-				objParserAvailableProperty.setTotalMeetingRooms(String.valueOf(meetingRoomCount));
+			byte meetingRoomCount = objMeetingRoomTye.getMeetingRoomCount().byteValue();
+			objParserAvailableProperty.setTotalMeetingRooms(String.valueOf(meetingRoomCount));
 
-				byte smallestCapacity = objMeetingRoomTye.getSmallestSeatingCapacity().byteValue();
-				objParserAvailableProperty.setSmallestSeatingCapacity(String.valueOf(smallestCapacity));
+			byte smallestCapacity = objMeetingRoomTye.getSmallestSeatingCapacity().byteValue();
+			objParserAvailableProperty.setSmallestSeatingCapacity(String.valueOf(smallestCapacity));
 
-				byte largestCapacity = objMeetingRoomTye.getLargestSeatingCapacity().byteValue();
-				objParserAvailableProperty.setLargestSeatingCapacity( String.valueOf( largestCapacity));
+			byte largestCapacity = objMeetingRoomTye.getLargestSeatingCapacity().byteValue();
+			objParserAvailableProperty.setLargestSeatingCapacity( String.valueOf( largestCapacity));
 
-				MeetingRoom_type0[] meetingRoomsArray = objMeetingRoomTye.getMeetingRoom();
+			MeetingRoom_type0[] meetingRoomsArray = objMeetingRoomTye.getMeetingRoom();
 
-				int lengthArray =  meetingRoomsArray.length;
+			int lengthArray =  meetingRoomsArray.length;
 
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Number of Meeting room information is " + lengthArray );
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Number of Meeting room information is " + lengthArray );
 
-				List<com.cloudkey.commons.MeetingRoom> meetingRoomsList = objParserAvailableProperty.getMeetingRoom();
+			List<com.cloudkey.commons.MeetingRoom> meetingRoomsList = objParserAvailableProperty.getMeetingRoom();
 
-				if( meetingRoomsList == null) {
+			if( meetingRoomsList == null) {
 
-					List<com.cloudkey.commons.MeetingRoom> meetingRoomsList1 = new ArrayList<com.cloudkey.commons.MeetingRoom>();
+				List<com.cloudkey.commons.MeetingRoom> meetingRoomsList1 = new ArrayList<com.cloudkey.commons.MeetingRoom>();
 
-					com.cloudkey.commons.MeetingRoom objMRoom =  null;
+				com.cloudkey.commons.MeetingRoom objMRoom =  null;
 
-					for ( int inde = IMicrosConstants.COUNT_ZERO; inde < lengthArray; inde++ ) {
+				for ( int inde = IMicrosConstants.COUNT_ZERO; inde < lengthArray; inde++ ) {
 
-						objMRoom = new com.cloudkey.commons.MeetingRoom();
+					objMRoom = new com.cloudkey.commons.MeetingRoom();
 
-						MeetingRoom_type0 objMeetingRoomType = meetingRoomsArray[inde];
-						String roomName = objMeetingRoomType.getRoomName();
-						byte  roomCap = objMeetingRoomType.getMeetingRoomCapacity().byteValue();
-						String valueCap = String.valueOf( roomCap );
+					MeetingRoom_type0 objMeetingRoomType = meetingRoomsArray[inde];
+					String roomName = objMeetingRoomType.getRoomName();
+					byte  roomCap = objMeetingRoomType.getMeetingRoomCapacity().byteValue();
+					String valueCap = String.valueOf( roomCap );
 
-						Codes_type0 objCodes_type0 = objMeetingRoomType.getCodes();
-						Code_type0[] arrayCode = objCodes_type0.getCode();
-						int codelengh = arrayCode.length;
+					Codes_type0 objCodes_type0 = objMeetingRoomType.getCodes();
+					Code_type0[] arrayCode = objCodes_type0.getCode();
+					int codelengh = arrayCode.length;
 
-						for( int len = IMicrosConstants.COUNT_ZERO; len<codelengh ;len++ ){
+					for( int len = IMicrosConstants.COUNT_ZERO; len<codelengh ;len++ ){
 
-							Code_type0 typeCode = arrayCode[len];
-							String code = typeCode.getCode();
+						Code_type0 typeCode = arrayCode[len];
+						String code = typeCode.getCode();
 
-							objMRoom.setCode(code);
-							String charge = typeCode.getCharge();
-							objMRoom.setCharge(charge);
-						}
-
-						objMRoom.setCapacity(valueCap);
-						objMRoom.setName(roomName);
-
-						meetingRoomsList1.add(objMRoom);
-						MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Meeting Room added to the MeetingRoom List " );
-
+						objMRoom.setCode(code);
+						String charge = typeCode.getCharge();
+						objMRoom.setCharge(charge);
 					}
-					objParserAvailableProperty.setMeetingRoom(meetingRoomsList1);
 
-					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Meeting Room List added to the Available Property " );
+					objMRoom.setCapacity(valueCap);
+					objMRoom.setName(roomName);
+
+					meetingRoomsList1.add(objMRoom);
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Meeting Room added to the MeetingRoom List " );
+
 				}
+				objParserAvailableProperty.setMeetingRoom(meetingRoomsList1);
 
-				myPropertyList.add(objParserAvailableProperty);
-
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Available Property added to the Available Property List " );
-
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Meeting Room List added to the Available Property " );
 			}
 
-			objMultiInformationResponse.setAvailableProperty(myPropertyList);
-			objMultiInformationResponse.setStatus( IMicrosConstants.RESPONSE_SUCCESS );
+			myPropertyList.add(objParserAvailableProperty);
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Available Property added to the Available Property List " );
+
+			//}
+
+			objMeetingInformationResponse.setAvailableProperty(myPropertyList);
+			objMeetingInformationResponse.setStatus( IMicrosConstants.RESPONSE_SUCCESS );
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse ", " Available Property List added to the response " );
 
@@ -3210,18 +3206,38 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetinRoomInformationResponse "," Exit getMeetinRoomInformationResponse method " );
 
-		return objMultiInformationResponse;
+		return objMeetingInformationResponse;
 	}
 
-	private MeetingMultiPropertyAvailabilityRequest getMeetingRoomInformationRequestObject( MeetingRoomInformationRequest objRequest) {
+	private MeetingAvailabilityRequest getMeetingRoomInformationRequestObject( MeetingRoomInformationRequest objRequest) {
 
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject "," Enter getMeetingRoomInformationRequestObject method " );
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Enter getMeetingRoomInformationRequestObject method " );
 
-		com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest objAvailabilityRequest = null;
+		String hotelCode = "";
+		com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest objAvailabilityRequest = null;
 
-		objAvailabilityRequest = new com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest();
+		objAvailabilityRequest = new com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest();
+
+		hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.MEETING_HOTEL_CODE);
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Hotel Code for Meeting Availability = " + hotelCode );
 
 		com.micros.meeting.MeetingRoomServiceStub.OGHeader objHeader = new com.micros.meeting.MeetingRoomServiceStub.OGHeader();
+
+		int transactionIdentifier = TransIdGenerator.getTransactionId();
+		String transId = String.valueOf( transactionIdentifier );
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Current transaction Id = " + transId );
+
+		objHeader.setTransactionID( transId );
+
+		com.micros.meeting.MeetingRoomServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.meeting.MeetingRoomServiceStub.PrimaryLangID_type0();
+		objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+		objHeader.setPrimaryLangID( objId_type0 );
+
+		Calendar objCalendar = Calendar.getInstance();
+		objHeader.setTimeStamp( objCalendar );
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Current TimeStamp :: " + objCalendar );
 
 		com.micros.meeting.MeetingRoomServiceStub.EndPoint origin = new com.micros.meeting.MeetingRoomServiceStub.EndPoint();
 
@@ -3238,56 +3254,51 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.meeting.MeetingRoomServiceStub.OGHeaderE objHeader2 = new com.micros.meeting.MeetingRoomServiceStub.OGHeaderE();
 		objHeader2.setOGHeader(objHeader);
 
-		RegionalSearchCode objRegionalSearchCode = new RegionalSearchCode();
-		
-		RegionalSearchCodeType obj = RegionalSearchCodeType.CITY;
-		objRegionalSearchCode.setRegionalSearchCodeType(obj);
+		objAvailabilityRequest.setSummaryOnly( true );
+		objAvailabilityRequest.setAlternateInventory( true );
 
-		MeetingMultiPropertyAvailabilityRequestChoice_type0 obch = new MeetingMultiPropertyAvailabilityRequestChoice_type0();
-		obch.setRegionalSearchCode(objRegionalSearchCode);
+		int numberOfAttendees = Integer.parseInt(objRequest.getNumberOfAttendees() );
+		objAvailabilityRequest.setNumberOfAttendees( numberOfAttendees );
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Number Of Attendees :: " + numberOfAttendees );
 
-		objAvailabilityRequest.setMeetingMultiPropertyAvailabilityRequestChoice_type0(obch);
-
-		MeetingSearch objMeetingSearch = new MeetingSearch();
-		objMeetingSearch.setNumberOfAttendees( Integer.parseInt(objRequest.getNumberOfAttendees()) );
-
-		objMeetingSearch.setMeetingFeature( IMicrosConstants.MEETING_FEATURE );
-		objAvailabilityRequest.setMeetingSearchCretria(objMeetingSearch);
+		com.micros.meeting.MeetingRoomServiceStub.HotelReference objHotelReference = new com.micros.meeting.MeetingRoomServiceStub.HotelReference();//hotelCode
+		objHotelReference.setHotelCode( hotelCode );
+		objAvailabilityRequest.setHotelReference( objHotelReference );
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject "," Exit getMeetingRoomInformationRequestObject method " );
 
 		return objAvailabilityRequest;
 	}
 
-	   /*
-	    * This method is used to set response for Member points.
-	    */
+	/*
+	 * This method is used to set response for Member points.
+	 */
 	private MemberPointsResponse getMemberPointsResponse(FetchMemberPointsResponse objFetchMemberPointsResponse) {
-		
+
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Enter getMemberPointsResponse method " );
-		
+
 		MemberPointsResponse objMemberPointsResponse = new MemberPointsResponse();
-		
+
 		objMemberPointsResponse.setResult(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
 		objMemberPointsResponse.setStatus(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Result Status Set to the response " );
-		
+
 		com.micros.membership.MembershipServiceStub.Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
 
 		String membername = objMembership.getMemberName();
 		String membershipId = objMembership.getMembershipid().getString();
-	
+
 		String membershipType = objMembership.getMembershipType();
 		String membershipNumber = objMembership.getMembershipNumber();
-	
+
 		String membershipLevel = objMembership.getMembershipLevel();
 		Date effectiveDate = objMembership.getEffectiveDate();
 		Date expiredate = objMembership.getExpirationDate();
-	
+
 		Boolean objBoolean = objMembership.getInactive();
 		String inactive = String.valueOf(objBoolean);
-		
+
 		com.micros.membership.MembershipServiceStub.UniqueID[] objId =  objMembership.getResvNameId().getUniqueID();
 		com.micros.membership.MembershipServiceStub.UniqueID resvNameId = objId[0];
 		String rev = resvNameId.getString();
@@ -3296,7 +3307,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		double tpoints = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo().getTotalPoints();
 		int tnight = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo().getGuestTotalNights();
 		int tstay = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo().getGuestTotalStays();
-	
+
 		String totalPoints = String.valueOf(tpoints);
 		String bonusPoints = String.valueOf(bpoint);
 		String guestTotalNight = String.valueOf(tnight);
@@ -3305,7 +3316,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objMemberPointsResponse.setMemberName(membername);
 		objMemberPointsResponse.setMembershipId(membershipId);
 		objMemberPointsResponse.setMembershipType(membershipType);
-	
+
 		objMemberPointsResponse.setMembershipNumber(membershipNumber);
 		objMemberPointsResponse.setMembershipLevel(membershipLevel);
 		objMemberPointsResponse.setEffectiveDate(effectiveDate);
@@ -3318,14 +3329,14 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objMemberPointsResponse.setGuestTotalNights(guestTotalNight);
 
 		objMemberPointsResponse.setGuestTotalStay(guestTotalStay);
-	
+
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Exit getMemberPointsResponse method " );
 		return objMemberPointsResponse;
 	}
 
-   /*
-    * This method is used to set response for Guest membership.
-    */
+	/*
+	 * This method is used to set response for Guest membership.
+	 */
 	private GuestMembershipResponse getMembershipResponse(FetchMembershipsResponse objFetchMembershipsResponse) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Enter getMembershipResponse method " );
@@ -3383,10 +3394,10 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		return objGuestMembershipResponse;	
 	}
-	
+
 	/*
-     * this method is used to set request for member points.
-    */
+	 * this method is used to set request for member points.
+	 */
 	private FetchMemberPointsRequest getFetchMemberPointsRequestObject(MemberPointsRequest objMemberPointsRequest) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Enter getFetchMemberPointsRequestObject method " );
@@ -3415,9 +3426,9 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objFetchMemberPointsRequest;
 	}
 
-      /*
-       * this method is used to set request for Guest membership.
-      */
+	/*
+	 * this method is used to set request for Guest membership.
+	 */
 	private FetchMembershipsRequest getFetchGuestMembershipRequestObject( GuestMembershipsRequest objRequest) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject "," Enter getFetchGuestMembershipRequestObject method " );
@@ -3449,7 +3460,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		return objMembershipsRequest;
 	}
-	
+
 	/**
 	 * This method accepts the client request for Guest Membership method and generate
 	 * the Guest membership request and provide response.
@@ -3668,7 +3679,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery "," Exit hotelInformationQuery method " );
 		return objResponse;
 	}
-	
+
 	/**
 	 * This method is used to create the  guest member points request .
 	 * it uses membership  id and gives details response about guest membership points .
@@ -3727,36 +3738,186 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " memberPointsQuery ", exc );
 				}
 
-			 }
+			}
 
 			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " memberPointsQuery "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
 
 			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA )) {
 
 				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " memberPointsQuery ", " No Response from MicrosPMS_OWS ");
-			
 
-			objMemberPointsResponse = null;
+
+				objMemberPointsResponse = null;
 			}
-		
-		else {
-			objFetchMemberPointsResponse = new com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse();
 
-			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipInformation ",	" Convert xml response into object " );
+			else {
+				objFetchMemberPointsResponse = new com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse();
 
-			objFetchMemberPointsResponse = (FetchMemberPointsResponse) AdapterUtility.covertToStramObject( xmlResponse );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipInformation ",	" Convert xml response into object " );
 
-			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipInformation "," Get Response object from response xml ::: " + objMemberPointsResponse );
+				objFetchMemberPointsResponse = (FetchMemberPointsResponse) AdapterUtility.covertToStramObject( xmlResponse );
 
-			objMemberPointsResponse = getMemberPointsResponse( objFetchMemberPointsResponse );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipInformation "," Get Response object from response xml ::: " + objMemberPointsResponse );
 
-		 }
+				objMemberPointsResponse = getMemberPointsResponse( objFetchMemberPointsResponse );
 
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery "," Response received in message Parser : " + objMemberPointsResponse );
+			}
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery "," Response received in message Parser : " + objMemberPointsResponse );
 		}
 		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " memberPointsQuery ", " Exit memberPointsQuery block");
 
 		return objMemberPointsResponse;
+	}
+
+	public NameIdBymembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation "," Enter getNameIdInformation method " );
+
+		com.micros.name.NameServiceStub.FetchNameIdByMembershipRequest objFetchNameIdByMembershipRequest = null;
+		com.micros.name.NameServiceStub.FetchNameIdByMembershipResponse objFetchNameIdByMembershipResponse = null;
+
+		NameIdBymembershipResponse objResponse = null;
+
+		String xmlRequest = "" ;
+		String xmlResponse = "" ;
+
+		int counter = 0;
+		int threadTime = 0;
+		int timeUnitCounter = 0;
+
+		if( (objNameIdByMembershipRequest.getMembershipNumber().length() > 0) && (objNameIdByMembershipRequest.getMembershipType().length() > 0)) {
+
+			objFetchNameIdByMembershipRequest = getNameIdRequestObject( objNameIdByMembershipRequest );
+
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT ) );
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME ) );
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation ", " Convert request into xml form " );
+
+			xmlRequest = AdapterUtility.convertToStreamXML( objFetchNameIdByMembershipRequest );
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation ", " Get Request in xml format :: " + xmlRequest );
+
+			// To send the xml request to the OXI Simulator via Message Transport 
+			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
+
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_NAME_ID ) ) && ( counter < timeUnitCounter ) ) {
+
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
+
+				try {
+
+					Thread.sleep( threadTime );
+					counter = counter + IMicrosConstants.COUNT_ONE ;
+
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," getNameIdInformation ", " Thread Sleeping Counter " + counter );
+
+				}
+				catch ( Exception exc) {
+
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " getNameIdInformation ", exc );
+				}
+
+			}
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getNameIdInformation "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA )) {
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getNameIdInformation ", " No Response from MicrosPMS_OWS ");
+
+				objResponse = null;
+
+			}
+			else {
+
+				objFetchNameIdByMembershipResponse = new com.micros.name.NameServiceStub.FetchNameIdByMembershipResponse();
+
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation ",	" Convert xml response into object " );
+
+				objFetchNameIdByMembershipResponse = ( FetchNameIdByMembershipResponse ) AdapterUtility.covertToStramObject( xmlResponse );
+
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation "," Get Response object from response xml ::: " + objFetchNameIdByMembershipResponse );
+
+				objResponse = getNameIdResponse( objFetchNameIdByMembershipResponse );
+
+			}
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation "," Response received in message Parser : " + objResponse );
+		}
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation "," Exit getNameIdInformation method " );
+
+		return objResponse;
+	}
+
+
+	private NameIdBymembershipResponse getNameIdResponse(FetchNameIdByMembershipResponse objFetchNameIdByMembershipResponse) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdResponse "," Enter getNameIdResponse method " );
+
+		NameIdBymembershipResponse objNameIdBymembershipResponse = new NameIdBymembershipResponse();
+
+
+		objNameIdBymembershipResponse.setResult(objFetchNameIdByMembershipResponse.getResult().getResultStatusFlag().getValue());
+		objNameIdBymembershipResponse.setStatus("SUCCESS");
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdResponse "," Result Status Set to the response " );
+
+		NameIdNameAddress[] objNameIdNameAddresses = objFetchNameIdByMembershipResponse.getNameIdNameAddressList().getNameAndAddresses();
+		int l = objNameIdNameAddresses.length;
+
+		for(int i=0;i<l; i++) {
+
+			String profileId = objNameIdNameAddresses[i].getProfileId().getString();
+			String externalId = objNameIdNameAddresses[i].getAddress().getExternalId();
+
+			long opid = objNameIdNameAddresses[i].getAddress().getOperaId();
+			String operaId = String.valueOf(opid);
+			objNameIdBymembershipResponse.setNameId(operaId);
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " profile id : ", profileId);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " External id : ", externalId);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " Opera id : ", operaId);
+		}
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdResponse "," Exit getNameIdResponse method " );
+		return objNameIdBymembershipResponse;
+	}
+
+
+	private FetchNameIdByMembershipRequest getNameIdRequestObject( NameIdByMembershipRequest objRequest) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdRequestObject "," Enter getNameIdRequestObject method " );
+
+		com.micros.name.NameServiceStub.FetchNameIdByMembershipRequest objNameIdByMembershipRequest = null;
+
+		objNameIdByMembershipRequest = new com.micros.name.NameServiceStub.FetchNameIdByMembershipRequest();
+
+		com.micros.name.NameServiceStub.OGHeader objHeader = new com.micros.name.NameServiceStub.OGHeader();
+		com.micros.name.NameServiceStub.EndPoint origin = new com.micros.name.NameServiceStub.EndPoint();
+
+		origin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
+		origin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		objHeader.setOrigin(origin);
+
+		com.micros.name.NameServiceStub.EndPoint destination = new com.micros.name.NameServiceStub.EndPoint();
+
+		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+		objHeader.setDestination(destination);
+
+		com.micros.name.NameServiceStub.OGHeaderE objHeader2 = new com.micros.name.NameServiceStub.OGHeaderE();
+		objHeader2.setOGHeader(objHeader);
+
+		objNameIdByMembershipRequest.setMembershipType(objRequest.getMembershipType());
+		objNameIdByMembershipRequest.setMembershipNumber(objRequest.getMembershipNumber());
+		objNameIdByMembershipRequest.setLastName(objRequest.getLastname());
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdRequestObject "," Exit getNameIdRequestObject method " );
+
+		return objNameIdByMembershipRequest;
 	}
 
 
