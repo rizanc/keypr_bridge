@@ -57,6 +57,7 @@ import com.micros.information.InformationServiceStub.Restaurant_type0;
 import com.micros.information.InformationServiceStub.RestaurantsType;
 import com.micros.information.InformationServiceStub.TextList;
 import com.micros.meeting.MeetingRoomServiceStub.AvailableProperty;
+import com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityResponse;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingRoomsType;
@@ -65,6 +66,9 @@ import com.micros.membership.MembershipServiceStub.NameMembership;
 import com.micros.membership.MembershipServiceStub.NameMembershipList;
 import com.micros.membership.MembershipServiceStub.UniqueID;
 import com.micros.membership.MembershipServiceStub.UniqueIDList;
+import com.micros.name.NameServiceStub.NameAddress;
+import com.micros.name.NameServiceStub.NameIdNameAddress;
+import com.micros.name.NameServiceStub.NameIdNameAddressList;
 import com.micros.ows.constants.IMicrosOWSConstants;
 import com.micros.ows.logger.OWSMessageLogger;
 import com.micros.ows.utility.OWSUtility;
@@ -322,6 +326,17 @@ public class RequestProcessor extends HttpServlet {
 				OWSMessageLogger.logInfo( RequestProcessor.class, " doPost MemberPointsInformation block ", " exit MemberPointsInformation block " );
 			
 		}
+		
+		else if (xmlRequestValue.contains(IMicrosOWSConstants.NAME_ID_REQUEST)) {
+			
+		    OWSMessageLogger.logInfo( RequestProcessor.class, " doPost NameIDInformation block ", " enter NameIDInformation block " );
+			
+			xmlOWSResponse = getXMLNameIDResponse(); 
+			
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost NameIDInformation block ", " xml response " + xmlOWSResponse );
+			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost NameIDInformation block ", " exit NameIDInformation block " );
+		
+	}
 		else {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost invalid block ", " enter invalid request block " );
@@ -335,181 +350,236 @@ public class RequestProcessor extends HttpServlet {
 	}
 
 	private String getXMLMeetingRoomResponse() {
+        
+        OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " enter getXMLMeetingRoomResponse " );
+        
+        String meetingRooomInformation = "";
+        MeetingAvailabilityRequest obMeetingAvailabilityRequest = null;
+        
+        obMeetingAvailabilityRequest = new com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest();
+        
+        obMeetingAvailabilityRequest = ( MeetingAvailabilityRequest )OWSUtility.covertToStreamObject( xmlRequestValue );
+ 
+        int numberOfAttendess = obMeetingAvailabilityRequest.getNumberOfAttendees();
+        
+        OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " Number of Attendess " + numberOfAttendess );
+        
+        com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityResponse objMeetingAvailabilityResponse = new com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityResponse();
+        
+     ResultStatus objStatus = new ResultStatus();
+     
+     objStatus.setResultStatusFlag(com.micros.meeting.MeetingRoomServiceStub.ResultStatusFlag.SUCCESS);
+     objMeetingAvailabilityResponse.setResult(objStatus);
+     
+     OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " ResultStatus Set to Success " );
+     
+     OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " Creating First AvailProperty " );
+     
+     /* Creating first Available Property. */
+        AvailableProperty objAvailableProperty = new AvailableProperty();
+        
+        com.micros.meeting.MeetingRoomServiceStub.HotelReference objHotelReference = new com.micros.meeting.MeetingRoomServiceStub.HotelReference();
+        objHotelReference.setString( "Opera Demo Hotel, Small");
+        objAvailableProperty.setHotelReference(objHotelReference);
+        
+        com.micros.meeting.MeetingRoomServiceStub.HotelContact objHotelContact = new com.micros.meeting.MeetingRoomServiceStub.HotelContact();
+        com.micros.meeting.MeetingRoomServiceStub.AddressList objAddressList = new com.micros.meeting.MeetingRoomServiceStub.AddressList();
+        
+        com.micros.meeting.MeetingRoomServiceStub.Address objAddress = new com.micros.meeting.MeetingRoomServiceStub.Address();
+        objAddress.setCityName("BERLIN");
+        objAddress.setCountryCode("FR");
+        objAddress.setPostalCode("44005");
+        
+        objAddressList.addAddress(objAddress);
+        objHotelContact.setAddresses(objAddressList);
+        
+        objAvailableProperty.setHotelContact(objHotelContact);
+        OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " Hotel Contact added to the response " );
+        
+        MeetingRoomsType objMeetingRoomsType = new MeetingRoomsType();
+        NonNegativeInteger objNegativeInteger = new NonNegativeInteger("12");
+        objMeetingRoomsType.setMeetingRoomCount(objNegativeInteger);
+        
+        NonNegativeInteger objNegativeInteger1 = new NonNegativeInteger("120");
+        objMeetingRoomsType.setLargestSeatingCapacity(objNegativeInteger1);
+        
+        NonNegativeInteger objNegativeInteger2 = new NonNegativeInteger("10");
+        objMeetingRoomsType.setSmallestSeatingCapacity(objNegativeInteger2);
+        
+        com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0[] objRoomArray = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0[2];
+        
+        for(int objRAray = 0; objRAray<objRoomArray.length; objRAray ++ ) {
+ 
+        if(objRAray == 0){
+               
+        	com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0 objMeetingRoom_type0 = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0();
+        objMeetingRoom_type0.setRoomName( "AWS");
+        NonNegativeInteger objNegativeInteger3 = new NonNegativeInteger("10");
+        objMeetingRoom_type0.setMeetingRoomCapacity(objNegativeInteger3);
+        
+        com.micros.meeting.MeetingRoomServiceStub.Code_type0[] objCodesArray = new com.micros.meeting.MeetingRoomServiceStub.Code_type0[1];
+        com.micros.meeting.MeetingRoomServiceStub.Code_type0 objC = new com.micros.meeting.MeetingRoomServiceStub.Code_type0();
+        objC.setCode("001");
+        objC.setCharge("100");
+        objCodesArray[0] = objC;
+        com.micros.meeting.MeetingRoomServiceStub.Codes_type0 objCode = new com.micros.meeting.MeetingRoomServiceStub.Codes_type0();
+        objCode.setCode(objCodesArray);
+        
+        objMeetingRoom_type0.setCodes(objCode);
+        objRoomArray[objRAray] = objMeetingRoom_type0;
+        
+        }
+        else {
+               
+        	com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0 objMeetingRoom_type0 = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0();
+        objMeetingRoom_type0.setRoomName( "PWD");
+        NonNegativeInteger objNegativeInteger3 = new NonNegativeInteger("12");
+        objMeetingRoom_type0.setMeetingRoomCapacity(objNegativeInteger3);
+        
+        com.micros.meeting.MeetingRoomServiceStub.Code_type0[] objCodesArray = new com.micros.meeting.MeetingRoomServiceStub.Code_type0[1];
+        com.micros.meeting.MeetingRoomServiceStub.Code_type0 objC = new com.micros.meeting.MeetingRoomServiceStub.Code_type0();
+        objC.setCode("002");
+        objC.setCharge("600");
+        objCodesArray[0] = objC;
+        com.micros.meeting.MeetingRoomServiceStub.Codes_type0 objCode = new com.micros.meeting.MeetingRoomServiceStub.Codes_type0();
+        objCode.setCode(objCodesArray);
+        
+        objMeetingRoom_type0.setCodes(objCode);
+        objRoomArray[objRAray] = objMeetingRoom_type0;
+        }
+        }
+ 
+        objMeetingRoomsType.setMeetingRoom(objRoomArray);
+        
+        com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo objHotelInfo = new com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo();
+        com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType objFacilityInfoType = new com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType();
+        objFacilityInfoType.setMeetingRooms(objMeetingRoomsType);
+        
+        objHotelInfo.setFacilityInfo(objFacilityInfoType);
+        
+        objAvailableProperty.setHotelExtendedInformation(objHotelInfo);
+        
+        /*
+        HotelContact objHotelContact = new HotelContact();
+        
+        AddressList objAddressList = new AddressList();
+        Address objAdd = new Address();
+        objAdd.addAddressLine( "s-110, turkey mackwell lane ");
+        objAdd.setCityName( "New York");
+        objAdd.setCountryCode( "A-011");
+        objAdd.setPostalCode( "0112176");
+        objAddressList.addAddress(objAdd);
+        objHotelContact.setAddresses(objAddressList);
+        
+        PhoneList objPhoneList = new PhoneList();
+        Phone obP = new Phone();
+        obP.setPhoneNumber("011-89878987");
+        obP.setPhoneType( "Business");
+        objPhoneList.addPhone(obP);
+        objHotelContact.setContactPhones(objPhoneList);
+        
+        objAvailableProperty.setHotelContact(objHotelContact);
+        
+        HotelReference objHotelReference = new HotelReference();
+        objHotelReference.setChainCode( chainCode);
+        objHotelReference.setHotelCode( hotelCode);
+        objHotelReference.setString( "Opera Demo Hotel,Small" );
+        objAvailableProperty.setHotelReference(objHotelReference);
+        
+        FunctionSpace_type0 objSpace_type0 = new FunctionSpace_type0();
+        objSpace_type0.setLocationType("Main Building");
+        
+        objSpace_type0.setFloor("1st Floor");
+        objSpace_type0.setFloorDescription( "Top Floor");
+        
+        objSpace_type0.setHandicapFacility(true);
+        
+        objSpace_type0.setSpaceType( " Maximum Capacity ");
+        
+        objSpace_type0.setRoom("KIWI");
+        
+        CateringRateCode objCateringRateCode = new CateringRateCode();
+        CateringRate objCateringRate = new CateringRate();
+        Amount amount = new Amount();
+        
+        amount.set_double(3000);
+        
+        objCateringRate.setTotalRate(amount);
+        objCateringRateCode.setRate(objCateringRate);
+        CateringRateCode[] cc = new CateringRateCode[1];
+        cc[0]= objCateringRateCode;
+        objSpace_type0.setRateDetails(cc);
+        
+        FunctionSpace_type0[] myArray = new FunctionSpace_type0[1];
+        myArray[0] = objSpace_type0;
+        
+        objAvailableProperty.setFunctionSpace(myArray);*/
+        
+ /*     AvailableProperty[] objAvailArray = new AvailableProperty[1];
+        objAvailArray[0] = objAvailableProperty;*/
+        objMeetingAvailabilityResponse.setAvailableProperties(objAvailableProperty);
+        //objMeetingAvailabilityResponse.setAvailableProperties(objAvailArray);
+        
+        meetingRooomInformation = OWSUtility.convertToStreamXML( objMeetingAvailabilityResponse ); 
+        
+        OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " exit getXMLMeetingRoomResponse " );
+        
+        return meetingRooomInformation;
+ }
+
+	/**
+	 * This method returns the response having Name id.
+	 * 
+	 * @return String
+	 */
+	private String getXMLNameIDResponse() {
 		
-		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " enter getXMLMeetingRoomResponse " );
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLNameIDResponse ", " enter getXMLNameIDResponse " );
 		
-		String meetingRooomInformation = "";
-		MeetingMultiPropertyAvailabilityRequest obMeetingAvailabilityRequest = null;
+		com.micros.name.NameServiceStub.FetchNameIdByMembershipResponse objFetchNameIdByMembershipResponse = null;
+		String objNameIdInformation = "";
 		
-		obMeetingAvailabilityRequest = new com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest();
-		
-		obMeetingAvailabilityRequest = ( MeetingMultiPropertyAvailabilityRequest )OWSUtility.covertToStreamObject( xmlRequestValue );
-	
-		int numberOfAttendess = obMeetingAvailabilityRequest.getMeetingSearchCretria().getNumberOfAttendees();
-		
-		 OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " Number of Attendess " + numberOfAttendess );
-		 
-		MeetingMultiPropertyAvailabilityResponse objMeetingAvailabilityResponse = new MeetingMultiPropertyAvailabilityResponse();
-		
-	    ResultStatus objStatus = new ResultStatus();
-	    
-	    objStatus.setResultStatusFlag(com.micros.meeting.MeetingRoomServiceStub.ResultStatusFlag.SUCCESS);
-	    objMeetingAvailabilityResponse.setResult(objStatus);
-	    
-	    OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " ResultStatus Set to Success " );
-	    
-	    OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " Creating First AvailProperty " );
-	    
-	    /* Creating first Available Property. */
-		AvailableProperty objAvailableProperty = new AvailableProperty();
-		
-		com.micros.meeting.MeetingRoomServiceStub.HotelReference objHotelReference = new com.micros.meeting.MeetingRoomServiceStub.HotelReference();
-		objHotelReference.setString( "Opera Demo Hotel, Small");
-		objAvailableProperty.setHotelReference(objHotelReference);
-		
-		com.micros.meeting.MeetingRoomServiceStub.HotelContact objHotelContact = new com.micros.meeting.MeetingRoomServiceStub.HotelContact();
-		com.micros.meeting.MeetingRoomServiceStub.AddressList objAddressList = new com.micros.meeting.MeetingRoomServiceStub.AddressList();
-		
-		com.micros.meeting.MeetingRoomServiceStub.Address objAddress = new com.micros.meeting.MeetingRoomServiceStub.Address();
-		objAddress.setCityName("PARIS");
-		objAddress.setCountryCode("FR");
-		objAddress.setPostalCode("44005");
-		
-		objAddressList.addAddress(objAddress);
-		objHotelContact.setAddresses(objAddressList);
-		
-		objAvailableProperty.setHotelContact(objHotelContact);
-		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " Hotel Contact added to the response " );
-		
-		MeetingRoomsType objMeetingRoomsType = new MeetingRoomsType();
-		NonNegativeInteger objNegativeInteger = new NonNegativeInteger("12");
-		objMeetingRoomsType.setMeetingRoomCount(objNegativeInteger);
-		
-		NonNegativeInteger objNegativeInteger1 = new NonNegativeInteger("120");
-		objMeetingRoomsType.setLargestSeatingCapacity(objNegativeInteger1);
-		
-		NonNegativeInteger objNegativeInteger2 = new NonNegativeInteger("10");
-		objMeetingRoomsType.setSmallestSeatingCapacity(objNegativeInteger2);
-		
-		com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0[] objRoomArray = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0[2];
-		
-		for(int objRAray = 0; objRAray<objRoomArray.length; objRAray ++ ) {
-	
-		if(objRAray == 0){
+		try {
 			
-			com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0 objMeetingRoom_type0 = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0();
-		objMeetingRoom_type0.setRoomName( "AWS");
-		NonNegativeInteger objNegativeInteger3 = new NonNegativeInteger("10");
-		objMeetingRoom_type0.setMeetingRoomCapacity(objNegativeInteger3);
-		
-		com.micros.meeting.MeetingRoomServiceStub.Code_type0[] objCodesArray = new com.micros.meeting.MeetingRoomServiceStub.Code_type0[1];
-		com.micros.meeting.MeetingRoomServiceStub.Code_type0 objC = new com.micros.meeting.MeetingRoomServiceStub.Code_type0();
-		objC.setCode("001");
-		objC.setCharge("100");
-		objCodesArray[0] = objC;
-		com.micros.meeting.MeetingRoomServiceStub.Codes_type0 objCode = new com.micros.meeting.MeetingRoomServiceStub.Codes_type0();
-		objCode.setCode(objCodesArray);
-		
-		objMeetingRoom_type0.setCodes(objCode);
-		objRoomArray[objRAray] = objMeetingRoom_type0;
-		
-		}
-		else {
+			objFetchNameIdByMembershipResponse = new com.micros.name.NameServiceStub.FetchNameIdByMembershipResponse();
 			
-		com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0 objMeetingRoom_type0 = new com.micros.meeting.MeetingRoomServiceStub.MeetingRoom_type0();
-		objMeetingRoom_type0.setRoomName( "PWD");
-		NonNegativeInteger objNegativeInteger3 = new NonNegativeInteger("12");
-		objMeetingRoom_type0.setMeetingRoomCapacity(objNegativeInteger3);
-		
-		com.micros.meeting.MeetingRoomServiceStub.Code_type0[] objCodesArray = new com.micros.meeting.MeetingRoomServiceStub.Code_type0[1];
-		com.micros.meeting.MeetingRoomServiceStub.Code_type0 objC = new com.micros.meeting.MeetingRoomServiceStub.Code_type0();
-		objC.setCode("002");
-		objC.setCharge("600");
-		objCodesArray[0] = objC;
-		com.micros.meeting.MeetingRoomServiceStub.Codes_type0 objCode = new com.micros.meeting.MeetingRoomServiceStub.Codes_type0();
-		objCode.setCode(objCodesArray);
-		
-		objMeetingRoom_type0.setCodes(objCode);
-		objRoomArray[objRAray] = objMeetingRoom_type0;
+			com.micros.name.NameServiceStub.ResultStatus objResultStatus = new com.micros.name.NameServiceStub.ResultStatus();
+			objResultStatus.setResultStatusFlag(com.micros.name.NameServiceStub.ResultStatusFlag.SUCCESS);
+			objFetchNameIdByMembershipResponse.setResult(objResultStatus);
+			
+			NameIdNameAddressList objIdNameAddressList = new NameIdNameAddressList();
+			NameIdNameAddress[] objIdNameAddresses = new NameIdNameAddress[1];
+			NameIdNameAddress objAddress = new NameIdNameAddress();
+			
+			com.micros.name.NameServiceStub.UniqueID objUniqueID = new com.micros.name.NameServiceStub.UniqueID();
+			objUniqueID.setString("100");
+			objAddress.setProfileId(objUniqueID);
+			
+			NameAddress objNameAddress = new NameAddress();
+			
+			objNameAddress.setOperaId(new Long("200"));
+			objNameAddress.setExternalId("300");
+			
+			objAddress.setAddress(objNameAddress);
+			
+			objIdNameAddresses[0] = objAddress;
+			objIdNameAddressList.setNameAndAddresses(objIdNameAddresses);
+			objFetchNameIdByMembershipResponse.setNameIdNameAddressList(objIdNameAddressList);
+			
+			objNameIdInformation = OWSUtility.convertToStreamXML( objFetchNameIdByMembershipResponse ); 
+			OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLNameIDResponse ", " getXMLNameIDResponse Response created " );
+			
 		}
+		catch(Exception exc) {
+			
+			OWSMessageLogger.logError(RequestProcessor.class, " getXMLNameIDResponse ", exc);
+			
 		}
-	
-		objMeetingRoomsType.setMeetingRoom(objRoomArray);
 		
-		com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo objHotelInfo = new com.micros.meeting.MeetingRoomServiceStub.ExtendedHotelInfo();
-		com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType objFacilityInfoType = new com.micros.meeting.MeetingRoomServiceStub.FacilityInfoType();
-		objFacilityInfoType.setMeetingRooms(objMeetingRoomsType);
 		
-		objHotelInfo.setFacilityInfo(objFacilityInfoType);
+		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLNameIDResponse ", " exit getXMLNameIDResponse " );
 		
-		objAvailableProperty.setHotelExtendedInformation(objHotelInfo);
-		
-		/*
-		HotelContact objHotelContact = new HotelContact();
-		
-		AddressList objAddressList = new AddressList();
-		Address objAdd = new Address();
-		objAdd.addAddressLine( "s-110, turkey mackwell lane ");
-		objAdd.setCityName( "New York");
-		objAdd.setCountryCode( "A-011");
-		objAdd.setPostalCode( "0112176");
-		objAddressList.addAddress(objAdd);
-		objHotelContact.setAddresses(objAddressList);
-		
-		PhoneList objPhoneList = new PhoneList();
-		Phone obP = new Phone();
-		obP.setPhoneNumber("011-89878987");
-		obP.setPhoneType( "Business");
-		objPhoneList.addPhone(obP);
-		objHotelContact.setContactPhones(objPhoneList);
-		
-		objAvailableProperty.setHotelContact(objHotelContact);
-		
-		HotelReference objHotelReference = new HotelReference();
-		objHotelReference.setChainCode( chainCode);
-		objHotelReference.setHotelCode( hotelCode);
-		objHotelReference.setString( "Opera Demo Hotel,Small" );
-		objAvailableProperty.setHotelReference(objHotelReference);
-		
-		FunctionSpace_type0 objSpace_type0 = new FunctionSpace_type0();
-		objSpace_type0.setLocationType("Main Building");
-		
-		objSpace_type0.setFloor("1st Floor");
-		objSpace_type0.setFloorDescription( "Top Floor");
-		
-		objSpace_type0.setHandicapFacility(true);
-		
-		objSpace_type0.setSpaceType( " Maximum Capacity ");
-		
-		objSpace_type0.setRoom("KIWI");
-		
-		CateringRateCode objCateringRateCode = new CateringRateCode();
-		CateringRate objCateringRate = new CateringRate();
-		Amount amount = new Amount();
-		
-		amount.set_double(3000);
-		
-		objCateringRate.setTotalRate(amount);
-		objCateringRateCode.setRate(objCateringRate);
-		CateringRateCode[] cc = new CateringRateCode[1];
-		cc[0]= objCateringRateCode;
-		objSpace_type0.setRateDetails(cc);
-		
-		FunctionSpace_type0[] myArray = new FunctionSpace_type0[1];
-		myArray[0] = objSpace_type0;
-		
-		objAvailableProperty.setFunctionSpace(myArray);*/
-		
-		AvailableProperty[] objAvailArray = new AvailableProperty[1];
-		objAvailArray[0] = objAvailableProperty;
-		
-		objMeetingAvailabilityResponse.setAvailableProperties(objAvailArray);
-		
-		meetingRooomInformation = OWSUtility.convertToStreamXML( objMeetingAvailabilityResponse ); 
-		
-		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLMeetingRoomResponse ", " exit getXMLMeetingRoomResponse " );
-		
-		return meetingRooomInformation;
+		return objNameIdInformation;
 	}
 	
 	

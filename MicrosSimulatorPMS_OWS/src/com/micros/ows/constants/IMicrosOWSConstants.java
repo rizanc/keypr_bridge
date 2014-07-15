@@ -23,9 +23,11 @@ public interface IMicrosOWSConstants {
 
 	String HOTEL_INFORMATION_REQUEST = "com.micros.information.InformationServiceStub_-HotelInformationRequest";
 	
-	String MEETING_ROOM_REQUEST = "<com.micros.meeting.MeetingRoomServiceStub_-MeetingMultiPropertyAvailabilityRequest>";
+	String MEETING_ROOM_REQUEST = "com.micros.meeting.MeetingRoomServiceStub_-MeetingAvailabilityRequest";
 	
 	String GUEST_MEMBERSHIP_REQUEST = "<com.micros.membership.MembershipServiceStub_-FetchMembershipsRequest>";
 	String MEMBER_POINTS_REQUEST = "<com.micros.membership.MembershipServiceStub_-FetchMemberPointsRequest>";
+	
+	String NAME_ID_REQUEST = "<com.micros.name.NameServiceStub_-FetchNameIdByMembershipRequest>";
 	
 }
