@@ -37,6 +37,7 @@ import com.cloudkey.pms.response.GetFolioResponse;
 import com.cloudkey.pms.response.GuestMembershipResponse;
 import com.cloudkey.pms.response.HotelInformationResponse;
 import com.cloudkey.pms.response.MeetingRoomInformationResponse;
+import com.cloudkey.pms.response.NameIdBymembershipResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
@@ -1341,6 +1342,86 @@ public class KeyprWebServices {
 		}
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " meetingRoomInformation ", " Exit method meetingRoomInformation " );
+
+		return response;
+	}
+
+	@SuppressWarnings("resource")
+	@Path( "/nameID" )
+	@POST
+	@Produces( MediaType.APPLICATION_JSON )
+	@Consumes( MediaType.APPLICATION_JSON )
+	public Response nameIdInformation( com.cloudkey.pms.request.NameIdByMembershipRequest objNameIdByMembershipRequest ) {
+
+		WebAppLogger.logInfo( KeyprWebServices.class,  " nameIdInformation   ", "  Enter method nameIdInformation  " );
+
+		/* Variable to store release Room Response instance. */
+		com.cloudkey.pms.response.NameIdBymembershipResponse objNameIdBymembershipResponse = null;		
+
+		/* Variable to store application context. */
+		ApplicationContext appContext = null;	
+
+		/* Variable to store response. */
+		Response response = null;		
+
+		/* variable to store message parser name. */
+		String parserName = null;
+
+		/* Variable to store message parser. */
+		IParserInterface messageParser = null;
+
+		try {
+
+			// read the name of message parser bean from the bean configuration file.
+			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
+
+			// create an instance of application context using information from bean configuration file.		
+			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
+
+			messageParser = ( IParserInterface )appContext.getBean( parserName );
+
+			objNameIdBymembershipResponse = new NameIdBymembershipResponse();
+
+			/**
+			 * To check the request at least contains confirmation number with notes.
+			 */
+
+			if( (objNameIdByMembershipRequest.getMembershipType().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING )) &&(objNameIdByMembershipRequest.getMembershipNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING )) && (objNameIdByMembershipRequest.getLastname().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING )) ) {
+
+				objNameIdBymembershipResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+				
+				WebAppLogger.logInfo( KeyprWebServices.class, " nameIdInformation ", " Required Fields are missing " );
+				
+				response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objNameIdBymembershipResponse ).build();
+				
+			}
+			else {
+
+				objNameIdBymembershipResponse = messageParser.getNameIdInformation(objNameIdByMembershipRequest);
+
+				if( objNameIdBymembershipResponse == null ) {
+
+					TimeOutError objTimeOutError = new TimeOutError();
+					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+					response = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
+					
+				}
+				else {
+
+					response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objNameIdBymembershipResponse ).build();
+				}
+
+			}
+
+		}
+		catch( Exception exc ) {
+
+			WebAppLogger.logError( KeyprWebServices.class, " nameIdInformation ", exc );
+		}
+
+		WebAppLogger.logInfo( KeyprWebServices.class,  " nameIdInformation ", " Exit method nameIdInformation " );
 
 		return response;
 	}
