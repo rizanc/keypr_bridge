@@ -27,6 +27,8 @@ public interface IWebClient {
 	String MEETING_INFORMATION_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/meetingRoom";
 	String GUEST_MEMBERSHIP_URL = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/guestMembership";
 	
+	String GET_NAME_ID = "http://localhost:8080/CloudKeyHTWebServices/keyservice/Service/nameID";
+	
 	Long COUNT_ONE = 1L;
 	
 	String COMMAND_COUNT_ONE = "1";
@@ -41,5 +43,5 @@ public interface IWebClient {
 	String COMMAND_COUNT_TEN = "10";
 	String COMMAND_COUNT_ELEVEN =  "11";
 	String COMMAND_COUNT_TWELVE = "12";
-
+    String COMMAND_COUNT_THIRTEEN = "13";
 }

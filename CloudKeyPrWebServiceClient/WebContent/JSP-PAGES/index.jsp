@@ -22,8 +22,8 @@
    <a href = "JSP-PAGES/hotelInformation.jsp">Hotel Information</a><br>
    <a href = "JSP-PAGES/memberPoints.jsp">Member Points</a><br>
    <a href = "JSP-PAGES/meetingRoomInformation.jsp"> MeetingRoom Information</a><br>
-   <a href = "JSP-PAGES/guestMembership .jsp">Guest Membership </a>
-
+   <a href = "JSP-PAGES/guestMembership .jsp">Guest Membership </a><br>
+   <a href = "JSP-PAGES/NameID.jsp">Get Name ID</a>
 </div>
 
 </body>

@@ -35,6 +35,7 @@ import com.cloudkey.pms.request.GuestMembershipsRequest;
 import com.cloudkey.pms.request.HotelInformationRequest;
 import com.cloudkey.pms.request.MemberPointsRequest;
 import com.cloudkey.pms.request.MeetingRoomInformationRequest;
+import com.cloudkey.pms.request.NameIdByMembershipRequest;
 import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
@@ -809,6 +810,59 @@ public class MakeWebServiceCall extends HttpServlet {
 				}
 
 				MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit GuestMembership Block " );
+			}
+			
+			else if(command.equalsIgnoreCase( IWebClient.COMMAND_COUNT_THIRTEEN )) {
+
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Enter GetNameId Block " );	
+
+					NameIdByMembershipRequest objNameIdByMembershipRequest = new NameIdByMembershipRequest();
+					
+					objNameIdByMembershipRequest.setMembershipType(request.getParameter("membership_type"));
+					objNameIdByMembershipRequest.setMembershipNumber(request.getParameter("membership_number"));
+					objNameIdByMembershipRequest.setLastname(request.getParameter("last_name"));
+
+					MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Membership type,membership number and last name are set on the Name id  object" );
+
+					try {
+						
+						MessageLogger.logInfo(MakeWebServiceCall.class, " GetNameId", "Server url is "+ IWebClient.GET_NAME_ID);
+						target = client.target( IWebClient.GET_NAME_ID );
+						
+						MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " GetNameId URL " + IWebClient.GET_NAME_ID );
+
+						invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE );
+
+						String postResponse =  invocationBuilder.post( Entity.entity( objNameIdByMembershipRequest , MediaType.APPLICATION_JSON_TYPE ), String.class );
+
+						out.println( "Response of GetNameId: " + postResponse );
+
+						out.println( " <br><br><br> " );
+						out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+						
+					}
+					catch( ServerErrorException sec) {
+
+						MessageLogger.logError(MakeWebServiceCall.class,  " GetNameId Bloc ", sec);
+
+						TimeOutError objTError = new TimeOutError();
+						objTError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+						objTError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+						Map<String,String> myMap= new HashMap<String,String>();
+						myMap.put( "Code", objTError.getCode()) ;
+						myMap.put( "Message", objTError.getMessage() );
+
+						JSONObject objTimeOut = new JSONObject(myMap);
+
+						out.println(objTimeOut);
+						
+						out.println( " <br><br><br> " );
+						out.println( " <a href=\"/CloudKeyPrWebServiceClient\"> " + " KeyPrClient Home Page " + " </a> " );
+					}
+
+					MessageLogger.logInfo( MakeWebServiceCall.class, " doPost ", " Exit GetNameId Block " );
+
 			}
 			
 			else {
