@@ -5,7 +5,11 @@ import com.cloudkey.pms.request.CheckInRequest;
 import com.cloudkey.pms.request.CheckOutRequest;
 import com.cloudkey.pms.request.GetAvailabilityRequest;
 import com.cloudkey.pms.request.GetFolioRequest;
+import com.cloudkey.pms.request.GuestMembershipsRequest;
+import com.cloudkey.pms.request.HotelInformationRequest;
 import com.cloudkey.pms.request.MeetingRoomInformationRequest;
+import com.cloudkey.pms.request.MemberPointsRequest;
+import com.cloudkey.pms.request.NameIdByMembershipRequest;
 import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
@@ -15,7 +19,11 @@ import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
+import com.cloudkey.pms.response.GuestMembershipResponse;
+import com.cloudkey.pms.response.HotelInformationResponse;
 import com.cloudkey.pms.response.MeetingRoomInformationResponse;
+import com.cloudkey.pms.response.MemberPointsResponse;
+import com.cloudkey.pms.response.NameIdBymembershipResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
@@ -121,5 +129,42 @@ public interface IParserInterface {
 	 * @return
 	 */
 	public MeetingRoomInformationResponse getMeetingInformation( MeetingRoomInformationRequest objInformationRequest);
-
+	
+	/**
+	 * This method searches for Details of Guest Membership on the basis of Name Id. It returns
+	 * membership details .
+	 * 
+	 * @param objGuestMembershipsRequest
+	 * @return
+	 */
+	public GuestMembershipResponse getMembershipInformation( GuestMembershipsRequest objGuestMembershipsRequest);
+	
+	/**
+	 * This method searches for Name Id. It returns name id to guest.
+	 * 
+	 * @param objNameIdByMembershipRequest
+	 * @return
+	 */
+	
+	public NameIdBymembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest);
+	
+	/**
+	 * This method searches for Details of Hotel Information on the basis of hotel code. It returns
+	 * details of Hotel information.
+	 * 
+	 * @param objHotelInformationRequest
+	 * @return
+	 */
+	
+	public HotelInformationResponse hotelInformationQuery(HotelInformationRequest objHotelInformationRequest);
+	
+	/**
+	 * This method searches for Details of Member points  on the basis of membership id. It returns
+	 * details of member points.
+	 * 
+	 * @param objMemberPointsRequest
+	 * @return
+	 */
+	
+	public MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest);
 }
