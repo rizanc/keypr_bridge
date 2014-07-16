@@ -9,7 +9,7 @@ public interface IMicrosConstants {
 
 	String HOTEL_CODE = "ows.hotel.code";
 	String CHAIN_CODE = "ows.chain.code";
-
+	
 	String OWS_ORIGIN_ID = "origin.entity.id";
 	String OWS_ORI_SYSTEM_TYPE = "origin.system.type";
 

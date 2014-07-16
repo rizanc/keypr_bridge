@@ -53,10 +53,12 @@ import com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCardList;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.Room;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList;
+import com.micros.availability.AvailabilityServiceStub.Authentication_type0;
 import com.micros.availability.AvailabilityServiceStub.CalendarDailyDetail;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
+import com.micros.availability.AvailabilityServiceStub.UserCredentials_type0;
 import com.micros.information.InformationServiceStub.Address;
 import com.micros.information.InformationServiceStub.AddressList;
 import com.micros.information.InformationServiceStub.AttractionInfo;
@@ -716,7 +718,7 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 	 */
 	private FutureBookingSummaryRequest getFutureBookingRequestObject( SearchReservationRequest futureBookingSummaryRequest ) {
 
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, "getFutureBookingRequestObject", " Enter getFutureBookingRequestObject method " );
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingRequestObject ", " Enter getFutureBookingRequestObject method " );
 
 		String confirmationNumber = futureBookingSummaryRequest.getConfirmationNumber();
 		String creditCardNumber = futureBookingSummaryRequest.getCreditCardNumber();
@@ -727,10 +729,13 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 
 		// Creates an instance of header
 		OGHeader objOGHeader = new OGHeader();
-
+		
 		int transactionId = TransIdGenerator.getTransactionId();
 		// Sets Transaction Identifier
 		objOGHeader.setTransactionID( String.valueOf(transactionId ));
+		
+		// sets time stamp
+		objOGHeader.setTimeStamp( AdapterUtility.getCalender() );
 
 		// creates origin end point of header.
 		EndPoint originEndPoint = new EndPoint();
@@ -749,8 +754,16 @@ MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class,
 		String destSystemType = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORI_DEST_TYPE);
 		destinEndPoint.setSystemType( destSystemType);
 
-		// sets time stamp
-		objOGHeader.setTimeStamp( AdapterUtility.getCalender() );
+        com.micros.reservation.ReservationServiceStub.Authentication_type0 objAuthentication_type0 = new  com.micros.reservation.ReservationServiceStub.Authentication_type0();
+        com.micros.reservation.ReservationServiceStub.UserCredentials_type0 objCredentials_type0 = new  com.micros.reservation.ReservationServiceStub.UserCredentials_type0();
+       
+        objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+        objOGHeader.setAuthentication(objAuthentication_type0);
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFutureBookingRequestObject ", "  Authentication UserCredentials Set  " );
+		
 
 		// prepares OGHeader
 		objOGHeader.setOrigin( originEndPoint );
@@ -1014,8 +1027,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		/*	( NOTE : For now OG Header take confirmation number as the transaction id ) */
 		OGHeader objHeader = new OGHeader();
 
+		/* To set the confirmation number as transactionID. */
+		objHeader.setTransactionID( confirmationNumber );
+		objHeader.setTimeStamp( AdapterUtility.getCalender() );
+		
 		EndPoint objEndPoint = new EndPoint();
-
 		String entityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORIGIN_ID);
 		objEndPoint.setEntityID( entityId );
 
@@ -1034,10 +1050,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		objHeader.setDestination(objEndPoint);
 
-		/* To set the confirmation number as transactionID. */
-		objHeader.setTransactionID( confirmationNumber );
-		objHeader.setTimeStamp( AdapterUtility.getCalender() );
-
+		
 		/* To set the OGHeader into OGHeaderE. */
 		OGHeaderE objHeaderE = new OGHeaderE();
 		objHeaderE.setOGHeader(objHeader);
@@ -1258,9 +1271,12 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		/* To set the ogHeader. */ 
 		/*	( NOTE : For now OG Header take confirmation number as the transaction id ) */
 		OGHeader objHeader = new OGHeader();
+		
+		/* To set the confirmation number as transactionID. */
+		objHeader.setTransactionID( confirmationNumber );
+		objHeader.setTimeStamp( AdapterUtility.getCalender() );
 
 		EndPoint objEndPoint = new EndPoint();
-
 		String entityId = ParserConfigurationReader.getProperty( IMicrosConstants.OWS_ORIGIN_ID);
 		objEndPoint.setEntityID( entityId );
 
@@ -1278,11 +1294,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objEndPoint.setSystemType( destSystemType );
 
 		objHeader.setDestination(objEndPoint);
-
-		/* To set the confirmation number as transactionID. */
-		objHeader.setTransactionID( confirmationNumber );
-		objHeader.setTimeStamp( AdapterUtility.getCalender() );
-
+		
 		/* To set the OGHeader into OGHeaderE. */
 		OGHeaderE objHeaderE = new OGHeaderE();
 		objHeaderE.setOGHeader(objHeader);
@@ -1539,7 +1551,49 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		if( (folioRequest != null) && (folioRequest.getConfirmationNumber().length() > 0 ) ) {
 
 			/* To set request using stub classes. */
+			
+			com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader objHeader = new com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader();
+			
+			int transactionIdentifier = TransIdGenerator.getTransactionId();
+             String transId = String.valueOf( transactionIdentifier );
+             
+             MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioRequestObject ", " Current transaction Id = " + transId );
+             
+             objHeader.setTransactionID( transId );
+             
+             com.micros.adv.reservation.ResvAdvancedServiceStub.PrimaryLangID_type0 objId_type0 = new  com.micros.adv.reservation.ResvAdvancedServiceStub.PrimaryLangID_type0();
+             objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+             objHeader.setPrimaryLangID( objId_type0 );
+             
+             Calendar objCalendar = Calendar.getInstance();
+             objHeader.setTimeStamp( objCalendar );
+             
+             MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioRequestObject ", " Current TimeStamp :: " + objCalendar );
 
+             com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint origin = new  com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint();
+
+     		origin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
+     		origin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+     		objHeader.setOrigin(origin);
+
+     		 com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint destination = new  com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint();
+
+     		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+     		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+     		objHeader.setDestination(destination);
+     		
+     		 com.micros.adv.reservation.ResvAdvancedServiceStub.Authentication_type0 objAuthentication_type0 = new  com.micros.adv.reservation.ResvAdvancedServiceStub.Authentication_type0();
+     		 com.micros.adv.reservation.ResvAdvancedServiceStub.UserCredentials_type0 objCredentials_type0 = new  com.micros.adv.reservation.ResvAdvancedServiceStub.UserCredentials_type0();
+             objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+             objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+             objAuthentication_type0.setUserCredentials(objCredentials_type0);
+             objHeader.setAuthentication(objAuthentication_type0);
+             
+             MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFolioRequestObject ", "  Authentication UserCredentials Set  " );
+
+             com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeaderE objHeaderE = new com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeaderE();
+             objHeaderE.setOGHeader(objHeader);
+             
 			objInvoiceRequest = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest();
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference objHotelReference = new com.micros.adv.reservation.ResvAdvancedServiceStub.HotelReference();
@@ -1979,6 +2033,17 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objHeader.setTransactionID(confirmationNumber);
 		objHeader.setTimeStamp(AdapterUtility.getCalender());
 
+		com.micros.reservation.ReservationServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.reservation.ReservationServiceStub.Authentication_type0();
+		com.micros.reservation.ReservationServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.reservation.ReservationServiceStub.UserCredentials_type0();
+	       
+		objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+	    objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+	    objAuthentication_type0.setUserCredentials(objCredentials_type0);
+	    objHeader.setAuthentication(objAuthentication_type0);
+	        
+	    MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getUpdateBookingRequestObject ", "  Authentication UserCredentials Set  " );
+
+		
 		/* To set the OGHeader into OGHeaderE. */
 		OGHeaderE objHeaderE = new OGHeaderE();
 		objHeaderE.setOGHeader(objHeader);
@@ -2392,10 +2457,50 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To create the request for availability.*/
 		objFetchCalendarRequest = new FetchCalendarRequest();
-
+		
+        com.micros.availability.AvailabilityServiceStub.OGHeader objHeader = new com.micros.availability.AvailabilityServiceStub.OGHeader();
+      
+        int transactionIdentifier = TransIdGenerator.getTransactionId();
+        String transId = String.valueOf( transactionIdentifier );
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabiltyRequestObject ", " Current transaction Id = " + transId );
+        
+        objHeader.setTransactionID( transId );
+        
+        com.micros.availability.AvailabilityServiceStub.PrimaryLangID_type0 objId_type0 = new  com.micros.availability.AvailabilityServiceStub.PrimaryLangID_type0();
+        objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+        objHeader.setPrimaryLangID( objId_type0 );
+        
 		Calendar objCalendar = Calendar.getInstance();
-		com.micros.availability.AvailabilityServiceStub.TimeSpan objTimeSpan = new com.micros.availability.AvailabilityServiceStub.TimeSpan();
+	    objHeader.setTimeStamp( objCalendar );
+		 
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabiltyRequestObject ", " Current TimeStamp :: " + objCalendar );
+        
+        com.micros.availability.AvailabilityServiceStub.EndPoint origin = new com.micros.availability.AvailabilityServiceStub.EndPoint();
+        origin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
+        origin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+        objHeader.setOrigin(origin);
 
+        com.micros.availability.AvailabilityServiceStub.EndPoint destination = new com.micros.availability.AvailabilityServiceStub.EndPoint();
+        destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+        destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+        objHeader.setDestination(destination);
+        
+        Authentication_type0 objAuthentication_type0 = new Authentication_type0();
+        UserCredentials_type0 objCredentials_type0 = new UserCredentials_type0();
+       
+        objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+        objHeader.setAuthentication(objAuthentication_type0);
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabiltyRequestObject ", "  Authentication UserCredentials Set  " );
+
+        com.micros.availability.AvailabilityServiceStub.OGHeaderE objHeaderE = new  com.micros.availability.AvailabilityServiceStub.OGHeaderE();
+        objHeaderE.setOGHeader(objHeader);
+        
+		com.micros.availability.AvailabilityServiceStub.TimeSpan objTimeSpan = new com.micros.availability.AvailabilityServiceStub.TimeSpan();
+		
 		/*To send the hotel code in request parameters.*/
 		com.micros.availability.AvailabilityServiceStub.HotelReference objHotelReference = new  com.micros.availability.AvailabilityServiceStub.HotelReference();
 
@@ -2427,56 +2532,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		return objFetchCalendarRequest;
 	}
-
-
-
-	/**
-	 * This method is used to make the request for the assignment of requested
-	 * room.
-	 * @param assignRoomRequest 
-	 * 
-	 * @return AssignRoomAdvRequest
-	 */
-	private AssignRoomRequest getAssignRoomRequestObject( com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Enter getAssignRoomRequestObject method " );
-
-		String roomTypeCode = assignRoomRequest.getRoomTypeCode();
-		String confirmationNumber =  assignRoomRequest.getReservation().getConfirmationNumber();
-		FetchRoomStatusResponse objFetchRoomStatusResponse = null;
-
-		objFetchRoomStatusResponse =  callFetchRoomStatus(roomTypeCode);
-
-		AssignRoomRequest objAssignRoomRequest = new AssignRoomRequest();
-
-		if( objFetchRoomStatusResponse == null ) {
-
-			objAssignRoomRequest = null;
-		} 
-		else {
-			/*To set the room number.*/
-			objAssignRoomRequest.setRoomNoRequested( objFetchRoomStatusResponse .getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber() );
-
-			/*To set the confirmation number.*/
-			com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
-			objUniqueID.setSource( IMicrosConstants.VALUE_SOURCE_ID );
-			objUniqueID.setString( confirmationNumber );
-			objUniqueID.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
-			objAssignRoomRequest.setResvNameId( objUniqueID );
-
-			/*To set the hotel reference.*/
-			com.micros.reservation.ReservationServiceStub.HotelReference objHotelReference = new  com.micros.reservation.ReservationServiceStub.HotelReference();
-
-			String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
-			objHotelReference.setHotelCode(  hotelCode );
-			objAssignRoomRequest.setHotelReference( objHotelReference );}
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Exit getAssignRoomRequestObject method " );
-
-		return objAssignRoomRequest;
-	}
-
-
+	
 	/**
 	 * This method is used to make request for the room numbers on the basis of room type.
 	 * 
@@ -2632,6 +2688,93 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objRoomResponse;
 	}
 
+	/**
+	 * This method is used to make the request for the assignment of requested
+	 * room.
+	 * @param assignRoomRequest 
+	 * 
+	 * @return AssignRoomAdvRequest
+	 */
+	private AssignRoomRequest getAssignRoomRequestObject( com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Enter getAssignRoomRequestObject method " );
+
+		String roomTypeCode = assignRoomRequest.getRoomTypeCode();
+		String confirmationNumber =  assignRoomRequest.getReservation().getConfirmationNumber();
+		FetchRoomStatusResponse objFetchRoomStatusResponse = null;
+
+		objFetchRoomStatusResponse =  callFetchRoomStatus(roomTypeCode);
+
+		AssignRoomRequest objAssignRoomRequest = new AssignRoomRequest();
+
+		if( objFetchRoomStatusResponse == null ) {
+
+			objAssignRoomRequest = null;
+		} 
+		else {
+			
+			com.micros.reservation.ReservationServiceStub.OGHeader objHeader = new com.micros.reservation.ReservationServiceStub.OGHeader();
+			
+			int transactionIdentifier = TransIdGenerator.getTransactionId();
+            String transId = String.valueOf( transactionIdentifier );
+            
+            MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Current transaction Id = " + transId );
+            
+            objHeader.setTransactionID( transId );
+            
+            Calendar objCalendar = Calendar.getInstance();
+            objHeader.setTimeStamp( objCalendar );
+            MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Current TimeStamp :: " + objCalendar );
+			
+            com.micros.reservation.ReservationServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.reservation.ReservationServiceStub.PrimaryLangID_type0();
+            objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+            objHeader.setPrimaryLangID( objId_type0 );
+            
+			com.micros.reservation.ReservationServiceStub.EndPoint origin = new com.micros.reservation.ReservationServiceStub.EndPoint();
+			origin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
+			origin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+			objHeader.setOrigin(origin);
+
+			com.micros.reservation.ReservationServiceStub.EndPoint destination = new com.micros.reservation.ReservationServiceStub.EndPoint();
+
+			destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+			destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+			objHeader.setDestination(destination);
+			
+			com.micros.reservation.ReservationServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.reservation.ReservationServiceStub.Authentication_type0();
+			com.micros.reservation.ReservationServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.reservation.ReservationServiceStub.UserCredentials_type0();
+	        objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+	        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+	        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+	        objHeader.setAuthentication(objAuthentication_type0);
+	        
+	        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", "  Authentication UserCredentials Set  " );
+			
+	        com.micros.reservation.ReservationServiceStub.OGHeaderE objHeaderE = new com.micros.reservation.ReservationServiceStub.OGHeaderE();
+	        objHeaderE.setOGHeader(objHeader);
+			
+			/*To set the room number.*/
+			objAssignRoomRequest.setRoomNoRequested( objFetchRoomStatusResponse .getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber() );
+
+			/*To set the confirmation number.*/
+			com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
+			objUniqueID.setSource( IMicrosConstants.VALUE_SOURCE_ID );
+			objUniqueID.setString( confirmationNumber );
+			objUniqueID.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
+			objAssignRoomRequest.setResvNameId( objUniqueID );
+
+			/*To set the hotel reference.*/
+			com.micros.reservation.ReservationServiceStub.HotelReference objHotelReference = new  com.micros.reservation.ReservationServiceStub.HotelReference();
+
+			String hotelCode = ParserConfigurationReader.getProperty( IMicrosConstants.HOTEL_CODE );
+			objHotelReference.setHotelCode(  hotelCode );
+			objAssignRoomRequest.setHotelReference( objHotelReference );}
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Exit getAssignRoomRequestObject method " );
+
+		return objAssignRoomRequest;
+	}
+
 
 	/**
 	 * This method is used to get the assign room response 
@@ -2765,207 +2908,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objReleaseRoomRespons;
 	}
 
-	/**
-	 * This method is used to generate the response for Hotel information .
-	 * 
-	 * @param objHotelInformationResponse
-	 * @return
-	 */
-	private HotelInformationResponse getHotelInformationResponseObject(com.micros.information.InformationServiceStub.HotelInformationResponse objHotelInformationResponse) {
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Enter getHotelInformationResponseObject method " );	
-
-		HotelInformationResponse objHotelInformationResponse2 = null;
-
-		String result = null;
-		String contactEmail = null;
-		String phoneNo = null;
-		String addressLine = null;
-		String cityName = null;
-		String countryCode = null;
-		String postalCode = null;
-		String fax = null;
-		String hotelName = null;
-		String notes = null;
-		String checkinTime = null;
-		String checkoutTime = null;
-
-		int len = 0;
-		objHotelInformationResponse2 = new HotelInformationResponse();
-
-		result = objHotelInformationResponse.getResult().getResultStatusFlag().toString();
-		hotelName = objHotelInformationResponse.getHotelInformation().getHotelInformation().getString();
-
-		HotelInformation_type0 objHotelInformation_type0 = objHotelInformationResponse.getHotelInformation();
-		HotelContact objContact = objHotelInformation_type0.getHotelContactInformation();
-
-		//populate  contactEmail details  
-		ContactEmailList objEmailList = objContact.getContactEmails();
-		Email[] emailObj = objEmailList.getContactEmail();
-		len = emailObj.length;
-
-		for( int j=0;j<len;j++) {
-			Email mail = emailObj[j];
-			contactEmail = mail.toString();
-
-			objHotelInformationResponse2.setContactEmails(contactEmail);
-		}
-
-		/*populate attraction details for note */
-		Attraction_type0[] objAttraction_type0 = objHotelInformation_type0.getHotelExtendedInformation().getFacilityInfo().getAttractions().getAttraction();
-		len = objAttraction_type0.length;
-
-		for(int i=0;i<len;i++) {
-
-			String attractionName = objAttraction_type0[i].getAttractionName();
-			AttractionInfo[] objAttractionInfo = objAttraction_type0[i].getAttractionInformation().getAttractionInfo();
-			Text[] objText = objAttractionInfo[i].getText().getTextElement();
-
-			NormalizedString objNormalizedString = objText[i].getNormalizedString();
-			String attractionInformation =	objNormalizedString.toString();
-
-			notes = attractionName.concat(attractionInformation);
-		}
-
-		objHotelInformationResponse2.setNotes(notes);
-
-		/* populate check in and checkout info details.*/
-		HotelInfo[] objHotelInfo1 = objHotelInformation_type0.getHotelExtendedInformation().getHotelInformation().getHotelInfo();
-		int l = objHotelInfo1.length;
-
-		for(int i=0;i<l;i++) {
-			String textValue =  objHotelInfo1[i].getHotelInfoType().getValue();
-
-			if(textValue.equalsIgnoreCase(objHotelInfo1[i].getHotelInfoType()._CHECKININFO)) {
-
-				Text[] objText =  objHotelInfo1[i].getText().getTextElement();
-				NormalizedString objNormalizedString = objText[0].getNormalizedString();
-				checkinTime = objNormalizedString.toString();
-			}
-
-			if(textValue.equalsIgnoreCase(objHotelInfo1[i].getHotelInfoType()._CHECKOUTINFO)) {
-
-				Text[] objText =  objHotelInfo1[i].getText().getTextElement();
-				NormalizedString objNormalizedString = objText[0].getNormalizedString();
-				checkoutTime = objNormalizedString.toString();
-			}
-		}
-		objHotelInformationResponse2.setCheckInTime(checkinTime);
-		objHotelInformationResponse2.setCheckOutTime(checkoutTime);
-
-		/*  populate details information of restaurants type */
-		Restaurant_type0[] objRestaurant_type0 = objHotelInformation_type0.getHotelExtendedInformation().getFacilityInfo().getRestaurants().getRestaurant();
-		List<com.cloudkey.commons.Restaurants> restaurantList = objHotelInformationResponse2.getRestaurantsList();
-
-		if(restaurantList == null ){
-
-			restaurantList = new ArrayList<com.cloudkey.commons.Restaurants>();
-		}
-
-		len =objRestaurant_type0.length;
-		com.cloudkey.commons.Restaurants obRestaurants = null;
-
-		for(int i=0;i<len;i++) {
-
-			obRestaurants = new 	com.cloudkey.commons.Restaurants() ;
-			obRestaurants.setName(objRestaurant_type0[i].getRestaurantName());
-
-			Paragraph[] objParagraph = objRestaurant_type0[i].getRestaurantDescription();
-			ParagraphChoice[] objChoice = objParagraph[0].getParagraphChoice();
-			Text obText = objChoice[0].getText();
-			NormalizedString objNormalizedString = obText.getNormalizedString();
-
-			String restaruantDesc = objNormalizedString.toString();
-			obRestaurants.setDescription(restaruantDesc);
-
-			Cuisine_type0[] objCuisine_type0 = objRestaurant_type0[i].getCuisines().getCuisine();
-			String cusisine = objCuisine_type0[0].getDescription();
-
-			obRestaurants.setCuisine(cusisine);
-			restaurantList.add(obRestaurants);
-		}
-
-		objHotelInformationResponse2.setRestaurantsList(restaurantList);
-
-		/* populate guestRoom information */
-		GuestRoom_type0[] bb = objHotelInformation_type0.getHotelExtendedInformation().getFacilityInfo().getGuestRooms().getGuestRoom();
-		List<com.cloudkey.commons.RoomType> roomList = objHotelInformationResponse2.getRoomTypeList();
-
-		if(roomList == null ){
-
-			roomList = new ArrayList<com.cloudkey.commons.RoomType>();
-		}
-
-		int arrayLength = bb.length;
-		com.cloudkey.commons.RoomType roomType =  null;
-
-		for( int index=0 ;index< arrayLength;index ++){
-
-			roomType = new com.cloudkey.commons.RoomType();
-			roomType.setCode( bb[index].getCode() );
-
-			Text[] objText = bb[index].getRoomDescription().getText().getTextElement();
-			NormalizedString objNormalizedString = objText[0].getNormalizedString();
-			String roomDesc = objNormalizedString.toString();
-
-			roomType.setDescription(roomDesc);
-			roomList.add(roomType);
-
-		}
-
-		objHotelInformationResponse2.setRoomTypeList(roomList);
-
-		/* populate  contact phone list */ 
-		Phone[] phoneObj = objContact.getContactPhones().getPhone();
-		len = phoneObj.length;
-
-		for(int i=0;i<len;i++) {
-
-			String textValue =  phoneObj[i].getPhoneRole();
-
-			if(textValue.equalsIgnoreCase("PHONE")) {
-
-				String AreaCode = phoneObj[i].getPhoneData().getAreaCode();
-				String phoneNumber = phoneObj[i].getPhoneData().getPhoneNumber();
-				String extension = phoneObj[i].getPhoneData().getExtension();
-				phoneNo = "AreaCode : ".concat(AreaCode).concat(" Number : ").concat(phoneNumber).concat(" Ext : ").concat(extension);
-			}
-
-			if(textValue.equalsIgnoreCase("FAX")) {
-				fax = phoneObj[i].getPhoneNumber();
-			}
-
-		}
-		objHotelInformationResponse2.setFax(fax);
-		objHotelInformationResponse2.setContactPhones(phoneNo);
-
-		/* populate addresslist  */
-		AddressList objAddressList = objContact.getAddresses();
-		Address[] objAddress = objAddressList.getAddress();
-		len = objAddress.length;
-
-		for(int i=0;i<len;i++) {
-
-			Address objAdd = objAddress[i];
-
-			cityName = objAdd.getCityName();
-			addressLine = objAdd.getAddressLine()[0];
-			countryCode = objAdd.getCountryCode();
-			postalCode = objAdd.getPostalCode();
-		}
-		objHotelInformationResponse2.setCity(cityName);
-		objHotelInformationResponse2.setAddress(addressLine);
-		objHotelInformationResponse2.setCountry(countryCode);
-		objHotelInformationResponse2.setPostalCode(postalCode);
-
-		objHotelInformationResponse2.setStatus(result);
-		objHotelInformationResponse2.setResult(result);
-		objHotelInformationResponse2.setHotelName(hotelName);
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Exit getHotelInformationResponseObject method " );	
-
-		return objHotelInformationResponse2;
-	}
+	
 
 	/**
 	 * This method is used to create the release room request .
@@ -2979,6 +2922,46 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomRequestObject "," Enter getReleaseRoomRequestObject method " );
 
 		String reservationId = releaseRoomRequest.getReservationId();
+		
+		com.micros.reservation.ReservationServiceStub.OGHeader objHeader = new com.micros.reservation.ReservationServiceStub.OGHeader();
+		
+		 int transactionIdentifier = TransIdGenerator.getTransactionId();
+         String transId = String.valueOf( transactionIdentifier );
+         
+         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomRequestObject ", " Current transaction Id = " + transId );
+         
+         objHeader.setTransactionID( transId );
+         
+         com.micros.reservation.ReservationServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.reservation.ReservationServiceStub.PrimaryLangID_type0();
+         objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+         objHeader.setPrimaryLangID( objId_type0 );
+         
+         Calendar objCalendar = Calendar.getInstance();
+         objHeader.setTimeStamp( objCalendar );
+         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomRequestObject ", " Current TimeStamp :: " + objCalendar );
+		
+		com.micros.reservation.ReservationServiceStub.EndPoint origin = new com.micros.reservation.ReservationServiceStub.EndPoint();
+		origin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
+		origin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		objHeader.setOrigin(origin);
+
+		com.micros.reservation.ReservationServiceStub.EndPoint destination = new com.micros.reservation.ReservationServiceStub.EndPoint();
+		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+		objHeader.setDestination(destination);
+		
+		com.micros.reservation.ReservationServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.reservation.ReservationServiceStub.Authentication_type0();
+		com.micros.reservation.ReservationServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.reservation.ReservationServiceStub.UserCredentials_type0();
+        
+		objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+        objHeader.setAuthentication(objAuthentication_type0);
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getReleaseRoomRequestObject ", "  Authentication UserCredentials Set  " );
+
+        com.micros.reservation.ReservationServiceStub.OGHeaderE objHeaderE = new com.micros.reservation.ReservationServiceStub.OGHeaderE();
+        objHeaderE.setOGHeader(objHeader);
 
 		com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest objReleaseRoomRequest = new com.micros.reservation.ReservationServiceStub.ReleaseRoomRequest();
 
@@ -3250,6 +3233,15 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
 		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
 		objHeader.setDestination(destination);
+		
+		com.micros.meeting.MeetingRoomServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.meeting.MeetingRoomServiceStub.Authentication_type0();
+		com.micros.meeting.MeetingRoomServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.meeting.MeetingRoomServiceStub.UserCredentials_type0();
+        objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+        objHeader.setAuthentication(objAuthentication_type0);
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", "  Authentication UserCredentials Set  " );
 
 		com.micros.meeting.MeetingRoomServiceStub.OGHeaderE objHeader2 = new com.micros.meeting.MeetingRoomServiceStub.OGHeaderE();
 		objHeader2.setOGHeader(objHeader);
@@ -3268,197 +3260,6 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject "," Exit getMeetingRoomInformationRequestObject method " );
 
 		return objAvailabilityRequest;
-	}
-
-	/*
-	 * This method is used to set response for Member points.
-	 */
-	private MemberPointsResponse getMemberPointsResponse(FetchMemberPointsResponse objFetchMemberPointsResponse) {
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Enter getMemberPointsResponse method " );
-
-		MemberPointsResponse objMemberPointsResponse = new MemberPointsResponse();
-
-		objMemberPointsResponse.setResult(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
-		objMemberPointsResponse.setStatus(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Result Status Set to the response " );
-
-		com.micros.membership.MembershipServiceStub.Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
-
-		String membername = objMembership.getMemberName();
-		String membershipId = objMembership.getMembershipid().getString();
-
-		String membershipType = objMembership.getMembershipType();
-		String membershipNumber = objMembership.getMembershipNumber();
-
-		String membershipLevel = objMembership.getMembershipLevel();
-		Date effectiveDate = objMembership.getEffectiveDate();
-		Date expiredate = objMembership.getExpirationDate();
-
-		Boolean objBoolean = objMembership.getInactive();
-		String inactive = String.valueOf(objBoolean);
-
-		com.micros.membership.MembershipServiceStub.UniqueID[] objId =  objMembership.getResvNameId().getUniqueID();
-		com.micros.membership.MembershipServiceStub.UniqueID resvNameId = objId[0];
-		String rev = resvNameId.getString();
-
-		double bpoint = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo().getBonusPoints();
-		double tpoints = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo().getTotalPoints();
-		int tnight = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo().getGuestTotalNights();
-		int tstay = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo().getGuestTotalStays();
-
-		String totalPoints = String.valueOf(tpoints);
-		String bonusPoints = String.valueOf(bpoint);
-		String guestTotalNight = String.valueOf(tnight);
-		String guestTotalStay = String.valueOf(tstay);
-
-		objMemberPointsResponse.setMemberName(membername);
-		objMemberPointsResponse.setMembershipId(membershipId);
-		objMemberPointsResponse.setMembershipType(membershipType);
-
-		objMemberPointsResponse.setMembershipNumber(membershipNumber);
-		objMemberPointsResponse.setMembershipLevel(membershipLevel);
-		objMemberPointsResponse.setEffectiveDate(effectiveDate);
-		objMemberPointsResponse.setExpireDate(expiredate);
-		objMemberPointsResponse.setInactive(inactive);
-
-		objMemberPointsResponse.setResvnameId(rev);
-		objMemberPointsResponse.setTotalPoints(totalPoints);
-		objMemberPointsResponse.setBonuspoints(bonusPoints);
-		objMemberPointsResponse.setGuestTotalNights(guestTotalNight);
-
-		objMemberPointsResponse.setGuestTotalStay(guestTotalStay);
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Exit getMemberPointsResponse method " );
-		return objMemberPointsResponse;
-	}
-
-	/*
-	 * This method is used to set response for Guest membership.
-	 */
-	private GuestMembershipResponse getMembershipResponse(FetchMembershipsResponse objFetchMembershipsResponse) {
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Enter getMembershipResponse method " );
-
-		GuestMembershipResponse objGuestMembershipResponse = new GuestMembershipResponse();
-
-		objGuestMembershipResponse.setResult(objFetchMembershipsResponse.getResult().getResultStatusFlag().getValue());
-		objGuestMembershipResponse.setStatus(objFetchMembershipsResponse.getResult().getResultStatusFlag().getValue());
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Result Status Set to the response " );
-
-		NameMembership[] objMembership = objFetchMembershipsResponse.getNameMembershiphList().getNameMembership();
-
-		int len = objMembership.length;
-
-		List<com.cloudkey.commons.Membership> membershipList = objGuestMembershipResponse.getMembershipList();
-
-		if ( membershipList == null ) {
-
-			List<com.cloudkey.commons.Membership> myPropertyList = new ArrayList<com.cloudkey.commons.Membership>();
-
-			com.cloudkey.commons.Membership objList = null;
-
-			for (int index = IMicrosConstants.COUNT_ZERO; index < len; index ++ ) {
-
-				objList = new com.cloudkey.commons.Membership();
-
-				String membershipType = objMembership[index].getMembershipType();
-				String membershipNumber = objMembership[index].getMembershipNumber();
-				String membershipLevel = objMembership[index].getMembershipLevel();
-				String membershipId = objMembership[index].getMembershipid().getString();
-
-				long operaId = objMembership[index].getOperaId();
-				String opId = String.valueOf(operaId);
-				String externalId = objMembership[index].getExternalId();
-				String pointLabel = objMembership[index].getPoints_label();
-				String memberName =  objMembership[index].getMemberName();
-
-				objList.setMembershipType(membershipType);
-				objList.setMembershipNumber(membershipNumber);
-				objList.setMembershipLevel(membershipLevel);
-				objList.setOperaId(opId);
-				objList.setExternalId(externalId);
-				objList.setPointsLabel(pointLabel);
-				objList.setMembershipId(membershipId);
-				objList.setMemberName(memberName);
-
-				myPropertyList.add(objList);
-			}
-
-			objGuestMembershipResponse.setMembershipList(myPropertyList);
-		}
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Exit getMeetinRoomInformationResponse method " );
-
-		return objGuestMembershipResponse;	
-	}
-
-	/*
-	 * this method is used to set request for member points.
-	 */
-	private FetchMemberPointsRequest getFetchMemberPointsRequestObject(MemberPointsRequest objMemberPointsRequest) {
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Enter getFetchMemberPointsRequestObject method " );
-
-		com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
-
-		objFetchMemberPointsRequest = new com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest();
-		objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipId());
-
-		com.micros.membership.MembershipServiceStub.OGHeader objHeader = new com.micros.membership.MembershipServiceStub.OGHeader();
-		com.micros.membership.MembershipServiceStub.EndPoint objOrigin = new com.micros.membership.MembershipServiceStub.EndPoint();
-
-		objOrigin.setEntityID("WEST");
-		objOrigin.setSystemType("WEB");
-		objHeader.setOrigin(objOrigin);
-
-		com.micros.membership.MembershipServiceStub.EndPoint objDest = new com.micros.membership.MembershipServiceStub.EndPoint();
-		objDest.setEntityID("TI");
-		objDest.setSystemType("ORS");
-		objHeader.setDestination(objDest);
-
-		com.micros.membership.MembershipServiceStub.OGHeaderE objE= new com.micros.membership.MembershipServiceStub.OGHeaderE();
-		objE.setOGHeader( objHeader );
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
-		return objFetchMemberPointsRequest;
-	}
-
-	/*
-	 * this method is used to set request for Guest membership.
-	 */
-	private FetchMembershipsRequest getFetchGuestMembershipRequestObject( GuestMembershipsRequest objRequest) {
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject "," Enter getFetchGuestMembershipRequestObject method " );
-
-		com.micros.membership.MembershipServiceStub.FetchMembershipsRequest objMembershipsRequest = null;
-
-		objMembershipsRequest = new com.micros.membership.MembershipServiceStub.FetchMembershipsRequest();
-
-		com.micros.membership.MembershipServiceStub.OGHeader obHeader = new com.micros.membership.MembershipServiceStub.OGHeader();
-		com.micros.membership.MembershipServiceStub.EndPoint origin = new com.micros.membership.MembershipServiceStub.EndPoint();
-
-		origin.setEntityID(IMicrosConstants.OWS_ORIGIN_ID);
-		origin.setSystemType(IMicrosConstants.OWS_ORI_SYSTEM_TYPE);
-		obHeader.setOrigin(origin);
-
-		com.micros.membership.MembershipServiceStub.EndPoint destination = new com.micros.membership.MembershipServiceStub.EndPoint();
-		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
-		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
-		obHeader.setDestination(destination);
-
-		com.micros.membership.MembershipServiceStub.OGHeaderE objHeaderE = new com.micros.membership.MembershipServiceStub.OGHeaderE();
-		objHeaderE.setOGHeader(obHeader);
-
-		com.micros.membership.MembershipServiceStub.UniqueID objId = new com.micros.membership.MembershipServiceStub.UniqueID();
-		objId.setString(objRequest.getNameId());
-		objMembershipsRequest.setNameID(objId);
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject "," Exit getFetchGuestMembershipRequestObject method " );
-
-		return objMembershipsRequest;
 	}
 
 	/**
@@ -3551,8 +3352,131 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objResponse;
 
 	}
+	
 
+	/*
+	 * This method is used to set response for Guest membership.
+	 */
+	private GuestMembershipResponse getMembershipResponse(FetchMembershipsResponse objFetchMembershipsResponse) {
 
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Enter getMembershipResponse method " );
+
+		GuestMembershipResponse objGuestMembershipResponse = new GuestMembershipResponse();
+
+		objGuestMembershipResponse.setResult(objFetchMembershipsResponse.getResult().getResultStatusFlag().getValue());
+		objGuestMembershipResponse.setStatus(objFetchMembershipsResponse.getResult().getResultStatusFlag().getValue());
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Result Status Set to the response " );
+
+		NameMembership[] objMembership = objFetchMembershipsResponse.getNameMembershiphList().getNameMembership();
+
+		int len = objMembership.length;
+
+		List<com.cloudkey.commons.Membership> membershipList = objGuestMembershipResponse.getMembershipList();
+
+		if ( membershipList == null ) {
+
+			List<com.cloudkey.commons.Membership> myPropertyList = new ArrayList<com.cloudkey.commons.Membership>();
+
+			com.cloudkey.commons.Membership objList = null;
+
+			for (int index = IMicrosConstants.COUNT_ZERO; index < len; index ++ ) {
+
+				objList = new com.cloudkey.commons.Membership();
+
+				String membershipType = objMembership[index].getMembershipType();
+				String membershipNumber = objMembership[index].getMembershipNumber();
+				String membershipLevel = objMembership[index].getMembershipLevel();
+				String membershipId = objMembership[index].getMembershipid().getString();
+
+				long operaId = objMembership[index].getOperaId();
+				String opId = String.valueOf(operaId);
+				String externalId = objMembership[index].getExternalId();
+				String pointLabel = objMembership[index].getPoints_label();
+				String memberName =  objMembership[index].getMemberName();
+
+				objList.setMembershipType(membershipType);
+				objList.setMembershipNumber(membershipNumber);
+				objList.setMembershipLevel(membershipLevel);
+				objList.setOperaId(opId);
+				objList.setExternalId(externalId);
+				objList.setPointsLabel(pointLabel);
+				objList.setMembershipId(membershipId);
+				objList.setMemberName(memberName);
+
+				myPropertyList.add(objList);
+			}
+
+			objGuestMembershipResponse.setMembershipList(myPropertyList);
+		}
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMembershipResponse "," Exit getMeetinRoomInformationResponse method " );
+
+		return objGuestMembershipResponse;	
+	}
+
+	
+	/*
+	 * this method is used to set request for Guest membership.
+	 */
+	private FetchMembershipsRequest getFetchGuestMembershipRequestObject( GuestMembershipsRequest objRequest) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject "," Enter getFetchGuestMembershipRequestObject method " );
+
+		com.micros.membership.MembershipServiceStub.FetchMembershipsRequest objMembershipsRequest = null;
+
+		objMembershipsRequest = new com.micros.membership.MembershipServiceStub.FetchMembershipsRequest();
+
+		com.micros.membership.MembershipServiceStub.OGHeader objHeader = new com.micros.membership.MembershipServiceStub.OGHeader();
+		
+		 int transactionIdentifier = TransIdGenerator.getTransactionId();
+         String transId = String.valueOf( transactionIdentifier );
+         
+         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject ", " Current transaction Id = " + transId );
+         
+         objHeader.setTransactionID( transId );
+         
+         com.micros.membership.MembershipServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.membership.MembershipServiceStub.PrimaryLangID_type0();
+         objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+         objHeader.setPrimaryLangID( objId_type0 );
+         
+         Calendar objCalendar = Calendar.getInstance();
+         objHeader.setTimeStamp( objCalendar );
+         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject ", " Current TimeStamp :: " + objCalendar );
+		
+		com.micros.membership.MembershipServiceStub.EndPoint origin = new com.micros.membership.MembershipServiceStub.EndPoint();
+		origin.setEntityID(IMicrosConstants.OWS_ORIGIN_ID);
+		origin.setSystemType(IMicrosConstants.OWS_ORI_SYSTEM_TYPE);
+		objHeader.setOrigin(origin);
+
+		com.micros.membership.MembershipServiceStub.EndPoint destination = new com.micros.membership.MembershipServiceStub.EndPoint();
+		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+		objHeader.setDestination(destination);
+		
+		com.micros.membership.MembershipServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.membership.MembershipServiceStub.Authentication_type0();
+		com.micros.membership.MembershipServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.membership.MembershipServiceStub.UserCredentials_type0();
+       
+		objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+        objHeader.setAuthentication(objAuthentication_type0);
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject ", "  Authentication UserCredentials Set  " );
+
+		com.micros.membership.MembershipServiceStub.OGHeaderE objHeaderE = new com.micros.membership.MembershipServiceStub.OGHeaderE();
+		objHeaderE.setOGHeader(objHeader);
+
+		com.micros.membership.MembershipServiceStub.UniqueID objId = new com.micros.membership.MembershipServiceStub.UniqueID();
+		objId.setString(objRequest.getNameId());
+		objMembershipsRequest.setNameID(objId);
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchGuestMembershipRequestObject "," Exit getFetchGuestMembershipRequestObject method " );
+
+		return objMembershipsRequest;
+	}
+
+	
 	/**
 	 * This method is used to create the Hotel information request .
 	 * it uses Hotel code  and gives details response about hotel .
@@ -3565,121 +3489,343 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery "," Enter hotelInformationQuery method " );
 
 		com.micros.information.InformationServiceStub.HotelInformationResponse objHotelInformationResponse = null;
-
 		com.micros.information.InformationServiceStub.HotelInformationRequest objHotelInformationRequest = null;
-
+		
 		HotelInformationResponse objResponse = null;
-		MicrosMessageTransport objMicrosMessageTransport = null;
-		String xmlRequest = null;
-		String xmlResponse = "";
-		String pmsResponse = null;
+
+		String xmlRequest = "" ;
+		String xmlResponse = "" ;
 
 		int counter = 0;
 		int threadTime = 0;
 		int timeUnitCounter = 0;
 
-		try {
+		if( informationRequest.getHotelCode().length() > 0) {
 
-			objHotelInformationRequest = new com.micros.information.InformationServiceStub.HotelInformationRequest();
+			objHotelInformationRequest = getHotelInformationRequestObject( informationRequest );
 
-			com.micros.information.InformationServiceStub.HotelReference objHotelReference = new com.micros.information.InformationServiceStub.HotelReference();
-			objHotelReference.setHotelCode(informationRequest.getHotelCode());
-			objHotelInformationRequest.setHotelInformationQuery(objHotelReference);
+			timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT ) );
+			threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME ) );
 
-			com.micros.information.InformationServiceStub.OGHeader objHeader = new com.micros.information.InformationServiceStub.OGHeader();
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery ", " Convert request into xml form " );
 
-			com.micros.information.InformationServiceStub.EndPoint objOrigin = new com.micros.information.InformationServiceStub.EndPoint();
-			objOrigin.setEntityID("WEST");
-			objOrigin.setSystemType("WEB");
-			objHeader.setOrigin(objOrigin);
+			xmlRequest = AdapterUtility.convertToStreamXML( objHotelInformationRequest );
 
-			com.micros.information.InformationServiceStub.EndPoint objDest = new com.micros.information.InformationServiceStub.EndPoint();
-			objDest.setEntityID("TI");
-			objDest.setSystemType("ORS");
-			objHeader.setDestination(objDest);
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery ", " Get Request in xml format :: " + xmlRequest );
 
-			com.micros.information.InformationServiceStub.OGHeaderE objE = new com.micros.information.InformationServiceStub.OGHeaderE();
-			objE.setOGHeader( objHeader );
+			/* To send the xml request to the OXI Simulator via Message Transport */
+			MicrosMessageTransport objMessageTransport = new MicrosMessageTransport();
 
-			//com.micros.information.InformationServiceStub.HotelInformationResponse objHotelInformationResponse = objInformationServiceStub.queryHotelInformation(objHotelInformationRequest, objE);
+			while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_HOTEL_INFORMATION ) ) && ( counter < timeUnitCounter ) ) {
 
-			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery ", " HotelInformationRequest Instace created " );
+				xmlResponse = objMessageTransport.handlePMSRequest(xmlRequest);
 
+				try {
 
-			if( (informationRequest != null ) && (informationRequest.getHotelCode().length() > 0 ) ) {
+					Thread.sleep( threadTime );
+					counter = counter + IMicrosConstants.COUNT_ONE ;
 
-				timeUnitCounter = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_TIME_OUT ) );
-				threadTime = Integer.parseInt( BaseConfigurationReader.getProperty( ICloudKeyConstants.SERVER_THREAD_TIME ) );
-
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery ", " Convert request into xml form " );
-
-				xmlRequest = AdapterUtility.convertToStreamXML( objHotelInformationRequest );
-
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery ", " Get Request in xml format :: " + xmlRequest );
-
-				objMicrosMessageTransport = new MicrosMessageTransport();
-
-				while( !(xmlResponse.contains( IMicrosConstants.RESPONSE_HOTEL_INFORMATION) ) && ( counter < timeUnitCounter ) ) {
-
-					if(xmlResponse.contains( IMicrosConstants.RESPONSE_SERVER_NOT_FOUND) ) {
-
-						break;
-					}
-
-					pmsResponse = objMicrosMessageTransport.handlePMSRequest(xmlRequest);
-
-					try {
-
-						Thread.sleep( threadTime );
-						counter = counter + IMicrosConstants.COUNT_ONE ;
-
-						MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class," hotelInformationQuery ", " Thread Sleeping Counter " + counter);
-
-					}
-					catch ( Exception exc) {
-
-						MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " hotelInformationQuery ", exc);
-					}
+					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," hotelInformationQuery ", " Thread Sleeping Counter " + counter );
 
 				}
+				catch ( Exception exc) {
 
-				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery", " read pms response ::" + pmsResponse);
+					MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " hotelInformationQuery ", exc );
+				}
+
+			}
+
+			MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery "," Get Response from OXI Simulator in xml format :: " + xmlResponse);
+
+			if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA )) {
+
+				MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery ", " No Response from MicrosPMS_OWS ");
+
+				objResponse = null;
+
+			}
+			else {
 
 				objHotelInformationResponse = new com.micros.information.InformationServiceStub.HotelInformationResponse();
 
-				if( xmlResponse.contains( ICloudKeyConstants.SERVER_TIME_OUT_CRITERIA ) ) {
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery ",     " Convert xml response into object " );
 
-					MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery ", " No Response from PMS ");
+				objHotelInformationResponse = ( com.micros.information.InformationServiceStub.HotelInformationResponse ) AdapterUtility.covertToStramObject( xmlResponse );
 
-					objResponse = null;
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery "," Get Response object from response xml ::: " + objHotelInformationResponse );
 
-				}
-				else {
+				objResponse = getHotelInformationResponseObject( objHotelInformationResponse );
 
-					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " HotelInformation ",	" Convert xml response into object " );
-
-
-					objHotelInformationResponse = (com.micros.information.InformationServiceStub.HotelInformationResponse) AdapterUtility.covertToStramObject(pmsResponse);
-
-					MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " HotelInformation ", " Get Response object from response xml " + objHotelInformationResponse );
-
-					objResponse = new HotelInformationResponse();
-					objResponse = getHotelInformationResponseObject(objHotelInformationResponse);
-
-				}
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," HotelInformation ", " Response received in message Parser : " + objResponse );
 			}
+
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery "," Response received in message Parser : " + objResponse );
 		}
 
-		catch (Exception exc ){
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery "," Exit getMeetingInformation method " );
 
-			MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " hotelInformationQuery ", exc );
-		}
-
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " hotelInformationQuery "," Exit hotelInformationQuery method " );
 		return objResponse;
 	}
+	
+	private com.micros.information.InformationServiceStub.HotelInformationRequest getHotelInformationRequestObject( HotelInformationRequest objRequest) {
 
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestObject "," Enter getHotelInformationRequestObject method " );
+
+		com.micros.information.InformationServiceStub.HotelInformationRequest objHotelInformationRequest = null;
+
+		com.micros.information.InformationServiceStub.OGHeader objHeader = new com.micros.information.InformationServiceStub.OGHeader();
+
+		int transactionIdentifier = TransIdGenerator.getTransactionId();
+        String transId = String.valueOf( transactionIdentifier );
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestObject ", " Current transaction Id = " + transId );
+        
+        objHeader.setTransactionID( transId );
+        
+        com.micros.information.InformationServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.information.InformationServiceStub.PrimaryLangID_type0();
+        objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+        objHeader.setPrimaryLangID( objId_type0 );
+        
+        Calendar objCalendar = Calendar.getInstance();
+        objHeader.setTimeStamp( objCalendar );
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestObject ", " Current TimeStamp :: " + objCalendar );
+		
+		com.micros.information.InformationServiceStub.EndPoint objOrigin = new com.micros.information.InformationServiceStub.EndPoint();
+		objOrigin.setEntityID("WEST");
+		objOrigin.setSystemType("WEB");
+		objHeader.setOrigin(objOrigin);
+
+		com.micros.information.InformationServiceStub.EndPoint objDest = new com.micros.information.InformationServiceStub.EndPoint();
+		objDest.setEntityID("TI");
+		objDest.setSystemType("ORS");
+		objHeader.setDestination(objDest);
+		
+		com.micros.information.InformationServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.information.InformationServiceStub.Authentication_type0();
+		com.micros.information.InformationServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.information.InformationServiceStub.UserCredentials_type0();
+	        
+	     objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+	     objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+	     objAuthentication_type0.setUserCredentials(objCredentials_type0);
+	     objHeader.setAuthentication(objAuthentication_type0);
+	        
+	    MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestObject ", "  Authentication UserCredentials Set  " );
+
+		com.micros.information.InformationServiceStub.OGHeaderE objE = new com.micros.information.InformationServiceStub.OGHeaderE();
+		objE.setOGHeader( objHeader );
+
+		objHotelInformationRequest = new com.micros.information.InformationServiceStub.HotelInformationRequest();
+
+		com.micros.information.InformationServiceStub.HotelReference objHotelReference = new com.micros.information.InformationServiceStub.HotelReference();
+		objHotelReference.setHotelCode(objRequest.getHotelCode());
+		objHotelInformationRequest.setHotelInformationQuery(objHotelReference);
+		
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestObject ", " HotelInformationRequest Instace created " );	
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestObject "," Exit getHotelInformationRequestObject method " );
+		
+		return objHotelInformationRequest;
+	}
+	
+	/**
+	 * This method is used to generate the response for Hotel information .
+	 * 
+	 * @param objHotelInformationResponse
+	 * @return
+	 */
+	private HotelInformationResponse getHotelInformationResponseObject(com.micros.information.InformationServiceStub.HotelInformationResponse objHotelInformationResponse) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Enter getHotelInformationResponseObject method " );	
+
+		HotelInformationResponse objHotelInformationResponse2 = null;
+
+		String result = null;
+		String contactEmail = null;
+		String phoneNo = null;
+		String addressLine = null;
+		String cityName = null;
+		String countryCode = null;
+		String postalCode = null;
+		String fax = null;
+		String hotelName = null;
+		String notes = null;
+		String checkinTime = null;
+		String checkoutTime = null;
+
+		int len = 0;
+		objHotelInformationResponse2 = new HotelInformationResponse();
+
+		result = objHotelInformationResponse.getResult().getResultStatusFlag().toString();
+		hotelName = objHotelInformationResponse.getHotelInformation().getHotelInformation().getString();
+
+		HotelInformation_type0 objHotelInformation_type0 = objHotelInformationResponse.getHotelInformation();
+		HotelContact objContact = objHotelInformation_type0.getHotelContactInformation();
+
+		//populate  contactEmail details  
+		ContactEmailList objEmailList = objContact.getContactEmails();
+		Email[] emailObj = objEmailList.getContactEmail();
+		len = emailObj.length;
+
+		for( int j=0;j<len;j++) {
+			Email mail = emailObj[j];
+			contactEmail = mail.toString();
+
+			objHotelInformationResponse2.setContactEmails(contactEmail);
+		}
+
+		/*populate attraction details for note */
+		Attraction_type0[] objAttraction_type0 = objHotelInformation_type0.getHotelExtendedInformation().getFacilityInfo().getAttractions().getAttraction();
+		len = objAttraction_type0.length;
+
+		for(int i=0;i<len;i++) {
+
+			String attractionName = objAttraction_type0[i].getAttractionName();
+			AttractionInfo[] objAttractionInfo = objAttraction_type0[i].getAttractionInformation().getAttractionInfo();
+			Text[] objText = objAttractionInfo[i].getText().getTextElement();
+
+			NormalizedString objNormalizedString = objText[i].getNormalizedString();
+			String attractionInformation =	objNormalizedString.toString();
+
+			notes = attractionName.concat(attractionInformation);
+		}
+
+		objHotelInformationResponse2.setNotes(notes);
+
+		/* populate check in and checkout info details.*/
+		HotelInfo[] objHotelInfo1 = objHotelInformation_type0.getHotelExtendedInformation().getHotelInformation().getHotelInfo();
+		int l = objHotelInfo1.length;
+
+		for(int i=0;i<l;i++) {
+			String textValue =  objHotelInfo1[i].getHotelInfoType().getValue();
+
+			if(textValue.equalsIgnoreCase(objHotelInfo1[i].getHotelInfoType()._CHECKININFO)) {
+
+				Text[] objText =  objHotelInfo1[i].getText().getTextElement();
+				NormalizedString objNormalizedString = objText[0].getNormalizedString();
+				checkinTime = objNormalizedString.toString();
+			}
+
+			if(textValue.equalsIgnoreCase(objHotelInfo1[i].getHotelInfoType()._CHECKOUTINFO)) {
+
+				Text[] objText =  objHotelInfo1[i].getText().getTextElement();
+				NormalizedString objNormalizedString = objText[0].getNormalizedString();
+				checkoutTime = objNormalizedString.toString();
+			}
+		}
+		objHotelInformationResponse2.setCheckInTime(checkinTime);
+		objHotelInformationResponse2.setCheckOutTime(checkoutTime);
+
+		/*  populate details information of restaurants type */
+		Restaurant_type0[] objRestaurant_type0 = objHotelInformation_type0.getHotelExtendedInformation().getFacilityInfo().getRestaurants().getRestaurant();
+		List<com.cloudkey.commons.Restaurants> restaurantList = objHotelInformationResponse2.getRestaurantsList();
+
+		if(restaurantList == null ){
+
+			restaurantList = new ArrayList<com.cloudkey.commons.Restaurants>();
+		}
+
+		len =objRestaurant_type0.length;
+		com.cloudkey.commons.Restaurants obRestaurants = null;
+
+		for(int i=0;i<len;i++) {
+
+			obRestaurants = new 	com.cloudkey.commons.Restaurants() ;
+			obRestaurants.setName(objRestaurant_type0[i].getRestaurantName());
+
+			Paragraph[] objParagraph = objRestaurant_type0[i].getRestaurantDescription();
+			ParagraphChoice[] objChoice = objParagraph[0].getParagraphChoice();
+			Text obText = objChoice[0].getText();
+			NormalizedString objNormalizedString = obText.getNormalizedString();
+
+			String restaruantDesc = objNormalizedString.toString();
+			obRestaurants.setDescription(restaruantDesc);
+
+			Cuisine_type0[] objCuisine_type0 = objRestaurant_type0[i].getCuisines().getCuisine();
+			String cusisine = objCuisine_type0[0].getDescription();
+
+			obRestaurants.setCuisine(cusisine);
+			restaurantList.add(obRestaurants);
+		}
+
+		objHotelInformationResponse2.setRestaurantsList(restaurantList);
+
+		/* populate guestRoom information */
+		GuestRoom_type0[] bb = objHotelInformation_type0.getHotelExtendedInformation().getFacilityInfo().getGuestRooms().getGuestRoom();
+		List<com.cloudkey.commons.RoomType> roomList = objHotelInformationResponse2.getRoomTypeList();
+
+		if(roomList == null ){
+
+			roomList = new ArrayList<com.cloudkey.commons.RoomType>();
+		}
+
+		int arrayLength = bb.length;
+		com.cloudkey.commons.RoomType roomType =  null;
+
+		for( int index=0 ;index< arrayLength;index ++){
+
+			roomType = new com.cloudkey.commons.RoomType();
+			roomType.setCode( bb[index].getCode() );
+
+			Text[] objText = bb[index].getRoomDescription().getText().getTextElement();
+			NormalizedString objNormalizedString = objText[0].getNormalizedString();
+			String roomDesc = objNormalizedString.toString();
+
+			roomType.setDescription(roomDesc);
+			roomList.add(roomType);
+
+		}
+
+		objHotelInformationResponse2.setRoomTypeList(roomList);
+
+		/* populate  contact phone list */ 
+		Phone[] phoneObj = objContact.getContactPhones().getPhone();
+		len = phoneObj.length;
+
+		for(int i=0;i<len;i++) {
+
+			String textValue =  phoneObj[i].getPhoneRole();
+
+			if(textValue.equalsIgnoreCase("PHONE")) {
+
+				String AreaCode = phoneObj[i].getPhoneData().getAreaCode();
+				String phoneNumber = phoneObj[i].getPhoneData().getPhoneNumber();
+				String extension = phoneObj[i].getPhoneData().getExtension();
+				phoneNo = "AreaCode : ".concat(AreaCode).concat(" Number : ").concat(phoneNumber).concat(" Ext : ").concat(extension);
+			}
+
+			if(textValue.equalsIgnoreCase("FAX")) {
+				fax = phoneObj[i].getPhoneNumber();
+			}
+
+		}
+		objHotelInformationResponse2.setFax(fax);
+		objHotelInformationResponse2.setContactPhones(phoneNo);
+
+		/* populate addresslist  */
+		AddressList objAddressList = objContact.getAddresses();
+		Address[] objAddress = objAddressList.getAddress();
+		len = objAddress.length;
+
+		for(int i=0;i<len;i++) {
+
+			Address objAdd = objAddress[i];
+
+			cityName = objAdd.getCityName();
+			addressLine = objAdd.getAddressLine()[0];
+			countryCode = objAdd.getCountryCode();
+			postalCode = objAdd.getPostalCode();
+		}
+		objHotelInformationResponse2.setCity(cityName);
+		objHotelInformationResponse2.setAddress(addressLine);
+		objHotelInformationResponse2.setCountry(countryCode);
+		objHotelInformationResponse2.setPostalCode(postalCode);
+
+		objHotelInformationResponse2.setStatus(result);
+		objHotelInformationResponse2.setResult(result);
+		objHotelInformationResponse2.setHotelName(hotelName);
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Exit getHotelInformationResponseObject method " );	
+
+		return objHotelInformationResponse2;
+	}
+	
 	/**
 	 * This method is used to create the  guest member points request .
 	 * it uses membership  id and gives details response about guest membership points .
@@ -3770,6 +3916,128 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objMemberPointsResponse;
 	}
 
+	 /*
+	  * this method is used to set request for member points.
+	  */
+	private FetchMemberPointsRequest getFetchMemberPointsRequestObject(MemberPointsRequest objMemberPointsRequest) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Enter getFetchMemberPointsRequestObject method " );
+
+		com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
+
+		objFetchMemberPointsRequest = new com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest();
+		objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipId());
+
+		com.micros.membership.MembershipServiceStub.OGHeader objHeader = new com.micros.membership.MembershipServiceStub.OGHeader();
+		
+		 int transactionIdentifier = TransIdGenerator.getTransactionId();
+         String transId = String.valueOf( transactionIdentifier );
+         
+         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", " Current transaction Id = " + transId );
+         
+         objHeader.setTransactionID( transId );
+         
+         com.micros.membership.MembershipServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.membership.MembershipServiceStub.PrimaryLangID_type0();
+         objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+         objHeader.setPrimaryLangID( objId_type0 );
+         
+         Calendar objCalendar = Calendar.getInstance();
+         objHeader.setTimeStamp( objCalendar );
+         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", " Current TimeStamp :: " + objCalendar );
+		
+		com.micros.membership.MembershipServiceStub.EndPoint objOrigin = new com.micros.membership.MembershipServiceStub.EndPoint();
+
+		objOrigin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
+		objOrigin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
+		objHeader.setOrigin(objOrigin);
+
+
+		com.micros.membership.MembershipServiceStub.EndPoint objDest = new com.micros.membership.MembershipServiceStub.EndPoint();
+		objDest.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
+		objDest.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
+		objHeader.setDestination(objDest);
+
+		com.micros.membership.MembershipServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.membership.MembershipServiceStub.Authentication_type0();
+		com.micros.membership.MembershipServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.membership.MembershipServiceStub.UserCredentials_type0();
+       
+		objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+        objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+        objAuthentication_type0.setUserCredentials(objCredentials_type0);
+        objHeader.setAuthentication(objAuthentication_type0);
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", "  Authentication UserCredentials Set  " );
+        
+		com.micros.membership.MembershipServiceStub.OGHeaderE objE= new com.micros.membership.MembershipServiceStub.OGHeaderE();
+		objE.setOGHeader( objHeader );
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
+		return objFetchMemberPointsRequest;
+	}
+
+	/*
+	 * This method is used to set response for Member points.
+	 */
+	private MemberPointsResponse getMemberPointsResponse(FetchMemberPointsResponse objFetchMemberPointsResponse) {
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Enter getMemberPointsResponse method " );
+
+		MemberPointsResponse objMemberPointsResponse = new MemberPointsResponse();
+
+		objMemberPointsResponse.setResult(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
+		objMemberPointsResponse.setStatus(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Result Status Set to the response " );
+
+		com.micros.membership.MembershipServiceStub.Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
+
+		String membername = objMembership.getMemberName();
+		String membershipId = objMembership.getMembershipid().getString();
+
+		String membershipType = objMembership.getMembershipType();
+		String membershipNumber = objMembership.getMembershipNumber();
+
+		String membershipLevel = objMembership.getMembershipLevel();
+		Date effectiveDate = objMembership.getEffectiveDate();
+		Date expiredate = objMembership.getExpirationDate();
+
+		Boolean objBoolean = objMembership.getInactive();
+		String inactive = String.valueOf(objBoolean);
+
+		com.micros.membership.MembershipServiceStub.UniqueID[] objId =  objMembership.getResvNameId().getUniqueID();
+		com.micros.membership.MembershipServiceStub.UniqueID resvNameId = objId[0];
+		String rev = resvNameId.getString();
+
+		double bpoint = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo().getBonusPoints();
+		double tpoints = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo().getTotalPoints();
+		int tnight = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo().getGuestTotalNights();
+		int tstay = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo().getGuestTotalStays();
+
+		String totalPoints = String.valueOf(tpoints);
+		String bonusPoints = String.valueOf(bpoint);
+		String guestTotalNight = String.valueOf(tnight);
+		String guestTotalStay = String.valueOf(tstay);
+
+		objMemberPointsResponse.setMemberName(membername);
+		objMemberPointsResponse.setMembershipId(membershipId);
+		objMemberPointsResponse.setMembershipType(membershipType);
+
+		objMemberPointsResponse.setMembershipNumber(membershipNumber);
+		objMemberPointsResponse.setMembershipLevel(membershipLevel);
+		objMemberPointsResponse.setEffectiveDate(effectiveDate);
+		objMemberPointsResponse.setExpireDate(expiredate);
+		objMemberPointsResponse.setInactive(inactive);
+
+		objMemberPointsResponse.setResvnameId(rev);
+		objMemberPointsResponse.setTotalPoints(totalPoints);
+		objMemberPointsResponse.setBonuspoints(bonusPoints);
+		objMemberPointsResponse.setGuestTotalNights(guestTotalNight);
+
+		objMemberPointsResponse.setGuestTotalStay(guestTotalStay);
+
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Exit getMemberPointsResponse method " );
+		return objMemberPointsResponse;
+	}
+	
 	public NameIdBymembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation "," Enter getNameIdInformation method " );
@@ -3896,8 +4164,23 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objNameIdByMembershipRequest = new com.micros.name.NameServiceStub.FetchNameIdByMembershipRequest();
 
 		com.micros.name.NameServiceStub.OGHeader objHeader = new com.micros.name.NameServiceStub.OGHeader();
+		
+		int transactionIdentifier = TransIdGenerator.getTransactionId();
+        String transId = String.valueOf( transactionIdentifier );
+        
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdRequestObject ", " Current transaction Id = " + transId );
+        
+        objHeader.setTransactionID( transId );
+        
+        com.micros.name.NameServiceStub.PrimaryLangID_type0 objId_type0 = new com.micros.name.NameServiceStub.PrimaryLangID_type0();
+        objId_type0.setPrimaryLangID_type0( IMicrosConstants.ENG_LANG );
+        objHeader.setPrimaryLangID( objId_type0 );
+        
+        Calendar objCalendar = Calendar.getInstance();
+        objHeader.setTimeStamp( objCalendar );
+        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdRequestObject ", " Current TimeStamp :: " + objCalendar );
+		
 		com.micros.name.NameServiceStub.EndPoint origin = new com.micros.name.NameServiceStub.EndPoint();
-
 		origin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
 		origin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
 		objHeader.setOrigin(origin);
@@ -3907,6 +4190,16 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		destination.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
 		destination.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
 		objHeader.setDestination(destination);
+		
+		com.micros.name.NameServiceStub.Authentication_type0 objAuthentication_type0 = new com.micros.name.NameServiceStub.Authentication_type0();
+		com.micros.name.NameServiceStub.UserCredentials_type0 objCredentials_type0 = new com.micros.name.NameServiceStub.UserCredentials_type0();
+	        
+	     objCredentials_type0.setUserName(IMicrosConstants.OWS_USER_NAME );
+	     objCredentials_type0.setUserPassword(IMicrosConstants.OWS_USER_PASS);
+	     objAuthentication_type0.setUserCredentials(objCredentials_type0);
+	     objHeader.setAuthentication(objAuthentication_type0);
+	        
+	    MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdRequestObject ", "  Authentication UserCredentials Set  " );
 
 		com.micros.name.NameServiceStub.OGHeaderE objHeader2 = new com.micros.name.NameServiceStub.OGHeaderE();
 		objHeader2.setOGHeader(objHeader);
