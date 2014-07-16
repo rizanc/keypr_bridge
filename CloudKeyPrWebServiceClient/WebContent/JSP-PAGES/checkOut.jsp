@@ -18,7 +18,7 @@
 <tr><td></td><td></td></tr>
 <tr><td colspan="2" align="center"><input type="submit" value="Check Out"></td></tr>
 </table>
-<input type="hidden" name="command" value="10"/>
+<input type="hidden" name="command" value="15"/>
 </form>
 </body>
 </body>
