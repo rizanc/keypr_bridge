@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
+//import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
 
 
@@ -24,7 +24,7 @@ public interface IMicrosDAO {
 	 * @param objFetchRoomStatusResponse - reference of FetchRoomStatusResponse
 	 * @return
 	 */
-	boolean persistRoomStatusDataInBridgeDB ( FetchRoomStatusResponse objFetchRoomStatusResponse ) ;
+//	boolean persistRoomStatusDataInBridgeDB ( FetchRoomStatusResponse objFetchRoomStatusResponse ) ;
 
 	/**
 	 * This method will store the room status record received from the property management system

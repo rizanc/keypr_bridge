@@ -9,9 +9,11 @@ public interface IMicrosConstants {
 
 	String HOTEL_CODE = "ows.hotel.code";
 	String CHAIN_CODE = "ows.chain.code";
-	
+    String OWS_STATION_ID = "ows.station.id";
+
 	String OWS_ORIGIN_ID = "origin.entity.id";
 	String OWS_ORI_SYSTEM_TYPE = "origin.system.type";
+
 
 	String OWS_DESTINATION_ID = "destination.entity.id";
 	String OWS_ORI_DEST_TYPE = "destination.system.type";
@@ -24,6 +26,8 @@ public interface IMicrosConstants {
 	String DATE_FORMAT =  "MM-dd-yyyy";
 
 	String PMS_SERVER_URL = "http://localhost:8080/MicrosSimulatorPMS_OWS/call";
+
+    String OWS_URL_ROOT = "com.micros.ows.url";
 
 	String RESPOSNE_CHECK_IN = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckInResponse> ";
 	String RESPONSE_CHECK_OUT = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckOutResponse>";

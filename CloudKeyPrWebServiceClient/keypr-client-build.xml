@@ -57,7 +57,7 @@
 	<!-- To compile source -->
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${keypr.client.src} into ${keypr.client.web.classes} -->
-		<javac includeantruntime="false" srcdir="${keypr.client.src}"
+		<javac includeantruntime="false" debug="true" srcdir="${keypr.client.src}"
 			destdir="${keypr.client.web.classes}">
 			<classpath refid="compile.classpath" />
 		</javac>

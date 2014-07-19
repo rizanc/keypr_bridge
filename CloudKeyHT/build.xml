@@ -1,77 +1,86 @@
 <project name="CloudKeyHT" default="run-all-services" basedir=".">
-	<description>
+    <description>
         Build file to run all web applications of the keypr projects as well as to generate
-		jars of common base and micros adappter. It pushes the base and microsadapter jars to
-		the required projects. It pushes war files of web services, web service client and micros
-		property manangement simulator to the web apps folder of tomcat.
+        jars of common base and micros adappter. It pushes the base and microsadapter jars to
+        the required projects. It pushes war files of web services, web service client and micros
+        property manangement simulator to the web apps folder of tomcat.
     </description>
 
-	<!-- Reference of properties file that contains the properties to be used by this build file -->
-	<property file="build.properties" />
-	<property environment="env"/>
-	<!--This target builds base and micros adapter ant build file.-->
-	<target name="build-all-java-app" depends="build-base,build-micros-adapter" />
+    <!-- Reference of properties file that contains the properties to be used by this build file -->
+    <property file="build.properties"/>
+    <property environment="env"/>
+    <!--This target builds base and micros adapter ant build file.-->
+    <target name="build-all-java-app" depends="build-base,build-micros-adapter"/>
 
     <echo message="Building CloudKeyHTBase Build File/"></echo>
-	<target name="build-base">
-		<ant antfile="${cloudKey.base.path}/base-build.xml" target="baseDist" inheritall="false" />
-	</target>
+    <target name="build-base">
+        <ant antfile="${cloudKey.base.path}/base-build.xml" target="baseDist" inheritall="false"/>
+    </target>
 
-	<echo message="Building MicrosPMSAdapter Build File/"></echo>
-	<target name="build-micros-adapter">
-		<ant antfile="${cloudkey.pms.adapter.path}/micros-adapter-build.xml" inheritall="false" target="microsAdapterDist" />
-	</target>
-	
+    <echo message="Building MicrosPMSAdapter Build File/"></echo>
+    <target name="build-micros-adapter">
+        <ant antfile="${cloudkey.pms.adapter.path}/micros-adapter-build.xml" inheritall="false"
+             target="microsAdapterDist"/>
+    </target>
+
     <!--This target deploy add web application war to webapps folder of tomcat after completing target "build-all-java-app"-->
-	<target name="deploy-all-webapps" depends="build-all-java-app,deploy-micros-ows-simulator,deploy-webservice-client,deploy-keypr-ws" />
-  
-	<echo message="Deploying Micrso OWS Simulator"></echo>
-	<target name="deploy-micros-ows-simulator" description="deploy micros ows simulator on tomcat server">
-		<ant antfile="${pms.simulator.ows.path}/ows-simulator-build.xml" inheritall="false" target="owsSimulatorDist" />
-	</target>
-	
-	<echo message="Deploying Micros Client"></echo>
-	<target name="deploy-webservice-client" description="deploy keypr bridge webservice client - it is only for testing will be removed">
-		<ant antfile="${cloudKey.keypr.client.path}/keypr-client-build.xml" inheritall="false" target="keyprClientDist" />
-	</target>
-	
-	<echo message="Deploying KeypWeb Services"></echo>
-	<target name="deploy-keypr-ws" description="deploy keypr bridge webservice">
-		<ant antfile="${cloudkey.keypr.webservice.path}/keypr-webservice-build.xml" inheritall="false" target="keyprWebserviceDist" />
-	</target>
-	
-	<!--This is the default target to this build file. It depends on "deploy-all-webapps"-->
-	<target name="run-all-services" depends="deploy-all-webapps">
-	</target> 
- <!--For Tomcat start-->
-	<target name="tomcat-stop" if="tomcat.running" depends="check-port">
-	<echo message="Tomcat is running..stopping it"/>
-	<java jar="{env.TOMCAT_HOME}/bin/bootstrap.jar" fork="true">
-		<jvmarg value="-Dcatalina.home=${env.TOMCAT_HOME}"/>
-		<arg line="stop"/>
-	</java>
-	</target>
-	
-	<target name="check-port" description="Check whether tomcat is running">
-	<echo message="Checking whether Tomcat is running"/>
-		<condition property="tomcat.running">
-			<socket server="localhost" port="8080"/>
-		</condition>
-		<echo message="Checking whether Tomcat is running...."/>
-	</target>
-	
-	<target name="tomcat-start" depends="check-port">
-		<echo message="Tomcat about to run"/>
-		<echo message="${env.TOMCAT_HOME}"/>
-	 <java jar="${env.TOMCAT_HOME}/bin/bootstrap.jar" fork="true">
-		<jvmarg value="-Dcatalina.home=${env.TOMCAT_HOME}"/>
-	    <arg line="start"/>
-	 </java>
-		<echo message="Tomcat is running"/>
-	</target>
-	<!--	<target name="tomcat-start" depends="check-port">
-		<exec executable="${env.TOMCAT_HOME}/bin/startup"/>
-	</target>-->
-<!--For Tomcat ends-->
-	
+<!--
+    <target name="deploy-all-webapps"
+            depends="build-all-java-app,deploy-micros-ows-simulator,deploy-webservice-client,deploy-keypr-ws"/>
+-->
+    <target name="deploy-all-webapps"
+            depends="build-all-java-app,deploy-keypr-ws"/>
+
+<!--    <echo message="Deploying Micrso OWS Simulator"></echo>
+    <target name="deploy-micros-ows-simulator" description="deploy micros ows simulator on tomcat server">
+        <ant antfile="${pms.simulator.ows.path}/ows-simulator-build.xml" inheritall="false" target="owsSimulatorDist"/>
+    </target>-->
+
+<!--    <echo message="Deploying Micros Client"></echo>
+    <target name="deploy-webservice-client"
+            description="deploy keypr bridge webservice client - it is only for testing will be removed">
+        <ant antfile="${cloudKey.keypr.client.path}/keypr-client-build.xml" inheritall="false"
+             target="keyprClientDist"/>
+    </target>-->
+
+    <echo message="Deploying KeypWeb Services"></echo>
+    <target name="deploy-keypr-ws" description="deploy keypr bridge webservice">
+        <ant antfile="${cloudkey.keypr.webservice.path}/keypr-webservice-build.xml" inheritall="false"
+             target="keyprWebserviceDist"/>
+    </target>
+
+    <!--This is the default target to this build file. It depends on "deploy-all-webapps"-->
+    <target name="run-all-services" depends="deploy-all-webapps">
+    </target>
+    <!--For Tomcat start-->
+    <target name="tomcat-stop" if="tomcat.running" depends="check-port">
+        <echo message="Tomcat is running..stopping it"/>
+        <java jar="{env.TOMCAT_HOME}/bin/bootstrap.jar" fork="true">
+            <jvmarg value="-Dcatalina.home=${env.TOMCAT_HOME}"/>
+            <arg line="stop"/>
+        </java>
+    </target>
+
+    <target name="check-port" description="Check whether tomcat is running">
+        <echo message="Checking whether Tomcat is running"/>
+        <condition property="tomcat.running">
+            <socket server="localhost" port="8080"/>
+        </condition>
+        <echo message="Checking whether Tomcat is running...."/>
+    </target>
+
+    <target name="tomcat-start" depends="check-port">
+        <echo message="Tomcat about to run"/>
+        <echo message="${env.TOMCAT_HOME}"/>
+        <java jar="${env.TOMCAT_HOME}/bin/bootstrap.jar" fork="true">
+            <jvmarg value="-Dcatalina.home=${env.TOMCAT_HOME}"/>
+            <arg line="start"/>
+        </java>
+        <echo message="Tomcat is running"/>
+    </target>
+    <!--	<target name="tomcat-start" depends="check-port">
+        <exec executable="${env.TOMCAT_HOME}/bin/startup"/>
+    </target>-->
+    <!--For Tomcat ends-->
+
 </project>

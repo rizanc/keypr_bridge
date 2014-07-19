@@ -24,7 +24,7 @@ public class DataHarvesterService {
 		
 		objOwsDataCollector = new OWSDataCollector();
 
-		objOwsDataCollector.harvestRoomStatusData();
+		//objOwsDataCollector.harvestRoomStatusData();
 		objOwsDataCollector.harvestRoomInventoryData();
 		
 		objOxiListener = new OXIListener();

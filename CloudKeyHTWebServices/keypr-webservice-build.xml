@@ -80,7 +80,7 @@
 	<!-- To compile source -->
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${keypr.webservice.src} into ${keypr.webservice.web.classes} -->
-		<javac includeantruntime="false" srcdir="${keypr.webservice.src}" destdir="${keypr.webservice.web.classes}">
+		<javac includeantruntime="false" debug="true" srcdir="${keypr.webservice.src}" destdir="${keypr.webservice.web.classes}">
 			<classpath refid="compile.classpath" />
 		</javac>
 		<copy todir="${keypr.webservice.web.classes}/META-INF">

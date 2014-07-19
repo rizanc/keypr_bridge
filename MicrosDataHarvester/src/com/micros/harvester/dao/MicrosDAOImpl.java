@@ -14,7 +14,7 @@ import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.dao.DataBaseHandler;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
+//import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub.Calendar;
 import com.micros.availability.AvailabilityServiceStub.CalendarDailyDetail;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
@@ -63,6 +63,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 	}
 
+/*
 	@Override
 	public boolean persistRoomStatusDataInBridgeDB( FetchRoomStatusResponse objFetchRoomStatusResponse ) {
 
@@ -79,10 +80,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		boolean isInserted = false;
 
-		/*ResultStatus objRStatus = objFetchRoomStatusResponse.getResult();
+		*/
+/*ResultStatus objRStatus = objFetchRoomStatusResponse.getResult();
 		ResultStatusFlag objReFlag  = objRStatus.getResultStatusFlag();
 		String status = objReFlag.getValue();
-		 */
+		 *//*
+
 		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[] objRoomStatusArray = objFetchRoomStatusResponse.getRoomStatus();
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Number of RoomStatus is " + objRoomStatusArray.length);
@@ -215,6 +218,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		return isInserted;
 	}
+*/
 
 	/**
 	 * This method will compare the contents of record received from the property management system as room status

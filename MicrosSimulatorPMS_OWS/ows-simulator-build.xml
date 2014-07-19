@@ -1,102 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="owsSimulator" default="owsSimulatorDist" basedir=".">
-	
-	<description>
-		This build file creates a war file of micros simulator and keep the jar in
-		the webapps folder of the tomcat using tomcat_home value of environment variable.
-	</description>
-	
-	<!-- set global properties for this build -->
-	<property environment="env"/>
-	<property name="ows.simulator.src" location="./src" />
-	<property name="ows.simulator.res" location="./res" />
 
-	<property name="ows.simulator.web" location="./WebContent" />
-	<property name="ows.simulator.web.webinf" location="${ows.simulator.web}/WEB-INF" />
-	<property name="ows.simulator.lib" location="${ows.simulator.web.webinf}/lib" />
-	<property name="ows.simulator.web.classes" location="${ows.simulator.web.webinf}/classes" />
+    <description>
+        This build file creates a war file of micros simulator and keep the jar in
+        the webapps folder of the tomcat using tomcat_home value of environment variable.
+    </description>
 
-	<property name="tomcat.dir" location="${env.TOMCAT_HOME}"/>
-	<property name="tomcat.dir.webapps" location="${tomcat.dir}\webapps" />
+    <!-- set global properties for this build -->
+    <property environment="env"/>
+    <property name="ows.simulator.src" location="./src"/>
+    <property name="ows.simulator.res" location="./res"/>
 
-	<property name="ows.simulator.build" location="./build" />
-	<property name="ows.simulator.build.res" location="${ows.simulator.build}/res" />
-	<property name="ows.simulator.build.lib" location="${ows.simulator.build}/lib" />
-	<property name="ows.simulator.dist" location="./dist" />
+    <property name="ows.simulator.web" location="./WebContent"/>
+    <property name="ows.simulator.web.webinf" location="${ows.simulator.web}/WEB-INF"/>
+    <property name="ows.simulator.lib" location="${ows.simulator.web.webinf}/lib"/>
+    <property name="ows.simulator.web.classes" location="${ows.simulator.web.webinf}/classes"/>
 
-	<property name="adapter.project.dir.lib" location="../CloudKeyTestAdapter/lib" />
-	<property name="webservice.client.project.dir.lib" location="../CloudKeyPrWebServiceClient/WebContent/WEB-INF/lib" />
-	<property name="webservice.project.dir.lib" location="../CloudKeyHTWebServices/WebContent/WEB-INF/lib" />
-	<property name="dataharvester.project.dir.lib" location="../MicrosDataHarvester/lib" />
-	<property name="microssimulator.ows.project.dir.lib" location="../MicrosSimulator_ows/WebContent/WEB-INF/lib" />
-	<property name="microssimulator.ows.project.dir.lib" location="../MicrosSimulatorPMS_OWS/WebContent/WEB-INF/lib" />
-	<property name="uploadservice.client.project.dir.lib" location="../UploadServiceRest/WebContent/WEB-INF/lib" />
-	<property name="upload.service.project.dir.lib" location="../CloudKeyHTUploadService/lib" />
-	<property name="micros.adapter.project.dir.lib" location="../MicrosPMSAdapter/lib" />
-	
-	<target name="checkTomcatHome" unless="env.TOMCAT_HOME">
-		    <fail message="TOMCAT_HOME must be set!"/>
-	</target>
+    <property name="tomcat.dir" location="${env.TOMCAT_HOME}"/>
+    <property name="tomcat.dir.webapps" location="${tomcat.dir}\webapps"/>
 
-	<target name="init">
-		<!-- Create the time stamp -->
-		<tstamp />
-		<!-- Create the distribution directory -->
-		<mkdir dir="${ows.simulator.dist}" />
-		<mkdir dir="${ows.simulator.web.classes}" />
+    <property name="ows.simulator.build" location="./build"/>
+    <property name="ows.simulator.build.res" location="${ows.simulator.build}/res"/>
+    <property name="ows.simulator.build.lib" location="${ows.simulator.build}/lib"/>
+    <property name="ows.simulator.dist" location="./dist"/>
 
-	</target>
-	<!-- set the class path to compile -->
-	<path id='compile.classpath'>
-		<fileset dir='${ows.simulator.lib}'>
-			<include name='*.jar' />
-		</fileset>
-		<fileset dir="${tomcat.dir}/bin">
-			<include name="*.jar" />
-		</fileset>
-		<pathelement location="${tomcat.dir}/lib" />
-		<fileset dir="${tomcat.dir}/lib">
-			<include name="*.jar" />
-		</fileset>
-	</path>
+    <property name="adapter.project.dir.lib" location="../CloudKeyTestAdapter/lib"/>
+    <property name="webservice.client.project.dir.lib" location="../CloudKeyPrWebServiceClient/WebContent/WEB-INF/lib"/>
+    <property name="webservice.project.dir.lib" location="../CloudKeyHTWebServices/WebContent/WEB-INF/lib"/>
+    <property name="dataharvester.project.dir.lib" location="../MicrosDataHarvester/lib"/>
+    <property name="microssimulator.ows.project.dir.lib" location="../MicrosSimulator_ows/WebContent/WEB-INF/lib"/>
+    <property name="microssimulator.ows.project.dir.lib" location="../MicrosSimulatorPMS_OWS/WebContent/WEB-INF/lib"/>
+    <property name="uploadservice.client.project.dir.lib" location="../UploadServiceRest/WebContent/WEB-INF/lib"/>
+    <property name="upload.service.project.dir.lib" location="../CloudKeyHTUploadService/lib"/>
+    <property name="micros.adapter.project.dir.lib" location="../MicrosPMSAdapter/lib"/>
 
-	<!-- To delete the folders created on initialization -->
-	<target name="clean" description="clean up">
-		<!-- Delete the ${ows.simulator.build} and ${ows.simulator.dist} directory 
-			trees -->
-		<delete dir="${ows.simulator.web.classes}" />
-		<delete dir="${ows.simulator.dist}" />
-	</target>
+    <target name="checkTomcatHome" unless="env.TOMCAT_HOME">
+        <fail message="TOMCAT_HOME must be set!"/>
+    </target>
 
-	<!-- To compile source -->
-	<target name="compile" depends="init" description="compile the source ">
-		<!-- Compile the java code from ${ows.simulator.src} into ${ows.simulator.web.classes}-->
-		<javac includeantruntime="false" srcdir="${ows.simulator.src}" destdir="${ows.simulator.web.classes}">
-			<classpath refid="compile.classpath" />
-		</javac> 
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the distribution directory -->
+        <mkdir dir="${ows.simulator.dist}"/>
+        <mkdir dir="${ows.simulator.web.classes}"/>
 
-	</target>
+    </target>
+    <!-- set the class path to compile -->
+    <path id='compile.classpath'>
+        <fileset dir='${ows.simulator.lib}'>
+            <include name='*.jar'/>
+        </fileset>
+        <fileset dir="${tomcat.dir}/bin">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${tomcat.dir}/lib"/>
+        <fileset dir="${tomcat.dir}/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
 
-	<target name="owsSimulatorDist" depends="clean,init,compile" description="generate the distribution">
-		<!-- Put everything in ${ows.simulator.build} into the ows.simulator.jar 
-			file -->
-		<war destfile="${ows.simulator.dist}/MicrosSimulatorPMS_OWS.war" webxml="${ows.simulator.web.webinf}/web.xml">
-			<fileset dir="${ows.simulator.web}">
-				<include name="**/*.*" />
-			</fileset>
-			<lib dir="${ows.simulator.lib}" />
-			<classes dir="${ows.simulator.web.classes}" />
+    <!-- To delete the folders created on initialization -->
+    <target name="clean" description="clean up">
+        <!-- Delete the ${ows.simulator.build} and ${ows.simulator.dist} directory
+            trees -->
+        <delete dir="${ows.simulator.web.classes}"/>
+        <delete dir="${ows.simulator.dist}"/>
+    </target>
 
-<classes dir="${ows.simulator.src}" includes="log4j.xml"/>
+    <!-- To compile source -->
+    <target name="compile" depends="init" description="compile the source ">
+        <!-- Compile the java code from ${ows.simulator.src} into ${ows.simulator.web.classes}-->
+        <javac includeantruntime="false" debug="true" srcdir="${ows.simulator.src}"
+               destdir="${ows.simulator.web.classes}">
+            <classpath refid="compile.classpath"/>
+        </javac>
+
+    </target>
+
+    <target name="owsSimulatorDist" depends="clean,init,compile" description="generate the distribution">
+        <!-- Put everything in ${ows.simulator.build} into the ows.simulator.jar
+            file -->
+        <war destfile="${ows.simulator.dist}/MicrosSimulatorPMS_OWS.war" webxml="${ows.simulator.web.webinf}/web.xml">
+            <fileset dir="${ows.simulator.web}">
+                <include name="**/*.*"/>
+            </fileset>
+            <lib dir="${ows.simulator.lib}"/>
+            <classes dir="${ows.simulator.web.classes}"/>
+
+            <classes dir="${ows.simulator.src}" includes="log4j.xml"/>
 
 
-		</war>
-		<copy todir="${tomcat.dir.webapps}">
-			<fileset dir="${ows.simulator.dist}">
-				<include name="MicrosSimulatorPMS_OWS.war" />
-				<type type="file" />
-			</fileset>
-		</copy>
-	</target>
+        </war>
+        <copy todir="${tomcat.dir.webapps}">
+            <fileset dir="${ows.simulator.dist}">
+                <include name="MicrosSimulatorPMS_OWS.war"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
 
 </project>

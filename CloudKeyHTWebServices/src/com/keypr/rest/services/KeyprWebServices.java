@@ -1095,6 +1095,7 @@ public class KeyprWebServices {
 	 * @param objHotelInformationRequest
 	 * @return Response
 	 */
+/*
 	@SuppressWarnings( "resource" )
 	@Path( "/hotelInformation" )
 	@POST
@@ -1174,6 +1175,7 @@ public class KeyprWebServices {
 
 		return res;
 	}
+*/
 
 	/**
 	 * This method make member points information.
@@ -1182,6 +1184,7 @@ public class KeyprWebServices {
 	 * @param objMemberPointsRequest
 	 * @return
 	 */
+/*
 	@SuppressWarnings("resource")
 	@Path( "/memberPoints" )
 	@POST
@@ -1220,9 +1223,11 @@ public class KeyprWebServices {
 
 			objMemberPointsResponse = new MemberPointsResponse();
 
-			/**
+			*/
+/**
 			 * To check the request at least contains confirmation number with notes.
-			 */
+			 *//*
+
 
 			if( objMemberPointsRequest.getMembershipId().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) {
 
@@ -1265,6 +1270,7 @@ public class KeyprWebServices {
 
 		return response;
 	}
+*/
 
 	@SuppressWarnings("resource")
 	@Path( "/meetingRoom" )
@@ -1426,6 +1432,7 @@ public class KeyprWebServices {
 		return response;
 	}
 	
+/*
 	@SuppressWarnings("resource")
 	@Path( "/guestMembership" )
 	@POST
@@ -1435,19 +1442,29 @@ public class KeyprWebServices {
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " guestMembershipInformation   ", "  Enter method guestMembershipInformation  " );
 
-		/* Variable to store release Room Response instance. */
+		*/
+/* Variable to store release Room Response instance. *//*
+
 		com.cloudkey.pms.response.GuestMembershipResponse objGuestMembershipResponse= null;		
 
-		/* Variable to store application context. */
+		*/
+/* Variable to store application context. *//*
+
 		ApplicationContext appContext = null;	
 
-		/* Variable to store response. */
+		*/
+/* Variable to store response. *//*
+
 		Response response = null;		
 
-		/* variable to store message parser name. */
+		*/
+/* variable to store message parser name. *//*
+
 		String parserName = null;
 
-		/* Variable to store message parser. */
+		*/
+/* Variable to store message parser. *//*
+
 		IParserInterface messageParser = null;
 
 		try {
@@ -1462,9 +1479,11 @@ public class KeyprWebServices {
 
 			objGuestMembershipResponse = new GuestMembershipResponse();
 
-			/**
+			*/
+/**
 			 * To check the request at least contains confirmation number with notes.
-			 */
+			 *//*
+
 
 	if(objgGuestMembershipsRequest.getNameId().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) {
 
@@ -1505,5 +1524,6 @@ public class KeyprWebServices {
 
 		return response;
 	}
+*/
 
 }

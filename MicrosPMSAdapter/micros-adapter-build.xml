@@ -52,7 +52,7 @@
 	<!-- To compile source and add required files to be included in jar -->
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${micros.adapter.src} into ${micros.adapter.build} -->
-		<javac includeantruntime="false" srcdir="${micros.adapter.src}" destdir="${micros.adapter.build}">
+		<javac includeantruntime="false" debug="true" srcdir="${micros.adapter.src}" destdir="${micros.adapter.build}">
 			<classpath refid="compile.classpath" />
 		</javac>
 	<!-- Copy the lib folder to be included in jar  -->

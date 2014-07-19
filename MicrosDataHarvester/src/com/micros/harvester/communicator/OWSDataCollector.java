@@ -8,14 +8,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import com.micros.adv.reservation.ResvAdvancedServiceStub;
+/*import com.micros.adv.reservation.ResvAdvancedServiceStub;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.Authentication_type0;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusRequest;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeaderE;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.UserCredentials_type0;
+import com.micros.adv.reservation.ResvAdvancedServiceStub.UserCredentials_type0;*/
 import com.micros.availability.AvailabilityServiceStub;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
@@ -47,6 +47,7 @@ public class OWSDataCollector {
 	 * This method will runs at fixed interval to collect room status data 
 	 * from the property management system.
 	 */
+/*
 	public void harvestRoomStatusData() {
 
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Enter harvestRoomStatusData method " );
@@ -81,6 +82,7 @@ public class OWSDataCollector {
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Exit harvestRoomStatusData method " );
 
 	} // ends collectReservationData
+*/
 
 	/**
 	 * This method creates instance of FetchRoomStatus request and make call to the
@@ -90,6 +92,7 @@ public class OWSDataCollector {
 	 * 
 	 * @return
 	 */
+/*
 	private static boolean makeFetchRoomStatusRequest() {
 
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " Enter makeFetchRoomStatusRequest method " );
@@ -192,6 +195,7 @@ public class OWSDataCollector {
 		return isProcced;
 
 	}
+*/
 
 	private final ScheduledExecutorService schedulerInventory = Executors.newScheduledThreadPool(1);
 

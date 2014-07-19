@@ -57,7 +57,7 @@
 	<!-- To compile source and add required files to be included in jar -->
 	<target name="compile" depends="init" description="compile the source ">
 		<!-- Compile the java code from ${dhs.src} into ${dhs.build} -->
-		<javac includeantruntime="false" srcdir="${dhs.src}" destdir="${dhs.build}">
+		<javac includeantruntime="false" debug="true" srcdir="${dhs.src}" destdir="${dhs.build}">
 			<classpath refid="compile.classpath" />
 		</javac>
 		<!-- Copy the res folder to be included in jar  -->

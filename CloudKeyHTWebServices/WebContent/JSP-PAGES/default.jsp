@@ -7,7 +7,7 @@
 <title>KeyPr Web Services</title>
 </head>
 <body>
-  <h3 align = "center"> Keypr WebServices </h3>
+  <h3 align = "center">  Keypr WebServices </h3>
   <hr width ="80%">
   
  <!--  <form action ="CloudKeyWebService" method ="post">
