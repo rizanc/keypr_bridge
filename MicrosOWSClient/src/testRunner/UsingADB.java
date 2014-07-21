@@ -18,7 +18,9 @@ public class UsingADB {
 
       //TestOWS.ReleaseRoom();
 
-      TestOWS.Availability();
+      //TestOWS.Availability();
+
+      TestOWS.ModifyBooking();
 
   }
 

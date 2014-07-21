@@ -4,12 +4,14 @@ import com.micros.pms.logger.MicrosPMSLogger;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
+import com.micros.pms.processor.OWSAvailabilityProcessor;
 import com.micros.pms.processor.OWSReservationProcessor;
 import com.micros.pms.processor.OWSResvAdvancedProcessor;
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
+
 public class MicrosOWSParser implements IParserInterface {
     @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
@@ -59,7 +61,13 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) {
-        return null;
+
+        UpdateBookingResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " updateBooking ", " Enter updateBooking method. ");
+        response = new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
+
+        return response;
     }
 
     @Override
@@ -69,7 +77,13 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) {
-        return null;
+
+        GetAvailabilityResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " checkAvailability ", " Enter checkAvailability method. ");
+        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+
+        return response;
     }
 
     @Override

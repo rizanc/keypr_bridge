@@ -94,4 +94,19 @@ public class TestOWS {
         owsResvAdvancedProcessor.processCheckOut(request);
 
     }
+
+    public static void ModifyBooking() {
+
+        OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
+        //owsReservationProcessor.fetchBooking("938929");
+        //owsReservationProcessor.fetchBooking("11900");
+
+
+        UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest();
+        updateBookingRequest.setConfirmationNumber("1111900");
+
+        String[] notes = new String[]{"Comment 1","Comment 2","Comment 3"};
+        updateBookingRequest.setNotes(notes);
+        owsReservationProcessor.processUpdateBooking(updateBookingRequest);
+    }
 }

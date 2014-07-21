@@ -5,16 +5,21 @@ import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.request.AssignRoomRequest;
 import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
+import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.response.AssignRoomResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
+import com.cloudkey.pms.response.UpdateBookingResponse;
+import com.micros.ows.availability.AvailabilityServiceStub;
 import com.micros.ows.resvadvanced.ResvAdvancedServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
+import com.micros.pms.parser.MicrosPMSMessageParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import com.micros.ows.reservation.ReservationServiceStub;
 import org.apache.axis2.AxisFault;
+import org.apache.axis2.databinding.types.NormalizedString;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -28,6 +33,47 @@ public class OWSReservationProcessor {
 
     final static String URL_RESERVATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Reservation.asmx";
 
+
+    public ReservationServiceStub.FetchBookingResponse fetchBooking(String confirmation) {
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " fetchBooking ", " Enter in fetchBooking method ");
+
+        ReservationServiceStub.FetchBookingRequest request = new ReservationServiceStub.FetchBookingRequest();
+
+        ReservationServiceStub.UniqueID uid = new ReservationServiceStub.UniqueID();
+        uid.setType(ReservationServiceStub.UniqueIDType.INTERNAL);
+        uid.setString(confirmation);
+
+        request.setConfirmationNumber(uid);
+        request.setHotelReference(getDefaultHotelReference());
+
+        ReservationServiceStub.OGHeaderE ogh = getHeaderE();
+
+        ReservationServiceStub rstub = getReservationServiceStub();
+
+        ReservationServiceStub.FetchBookingRequestE reqE = new
+                ReservationServiceStub.FetchBookingRequestE();
+        reqE.setFetchBookingRequest(request);
+
+
+        ReservationServiceStub.FetchBookingResponse response = null;
+
+        try {
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "fetchBooking ",
+                    AdapterUtility.convertToStreamXML(reqE));
+            ReservationServiceStub.FetchBookingResponseE respE = rstub.fetchBooking(reqE, ogh);
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "fetchBooking ",
+                    AdapterUtility.convertToStreamXML(respE));
+
+            response = respE.getFetchBookingResponse();
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            MicrosPMSLogger.logError(OWSReservationProcessor.class, "fetchBooking ",
+                    e.getMessage());
+        }
+
+        return response;
+    }
 
     public AssignRoomResponse processAssignRoom(AssignRoomRequest request) {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ", " Enter in processSearchReservationData method. ");
@@ -51,6 +97,7 @@ public class OWSReservationProcessor {
             MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
                     AdapterUtility.convertToStreamXML(reqE));
             ReservationServiceStub.AssignRoomResponseE respE = rstub.assignRoom(reqE, ogh);
+
             MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
                     AdapterUtility.convertToStreamXML(respE));
 
@@ -108,9 +155,171 @@ public class OWSReservationProcessor {
 
     }
 
-    private ReleaseRoomResponse getReleaseRoomResponseObject( ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse ) {
+    public UpdateBookingResponse processUpdateBooking(UpdateBookingRequest updateBookingRequest) {
 
-        MicrosPMSLogger.logInfo( OWSReservationProcessor.class, " getReleaseRoomResponseObject ", " Enter getReleaseRoomResponseObject method " );
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processUpdateBooking ", " Enter in processUpdateBooking method ");
+
+        ReservationServiceStub.ModifyBookingRequest objResponse = null;
+
+        ReservationServiceStub.OGHeaderE ogh = getHeaderE();
+
+        ReservationServiceStub.ModifyBookingRequest req =
+                getUpdateBookingRequestObject(updateBookingRequest);
+
+        ReservationServiceStub rstub = getReservationServiceStub();
+
+        ReservationServiceStub.ModifyBookingRequestE reqE = new
+                ReservationServiceStub.ModifyBookingRequestE();
+        reqE.setModifyBookingRequest(req);
+
+        UpdateBookingResponse response = null;
+
+        try {
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
+                    AdapterUtility.convertToStreamXML(reqE));
+            ReservationServiceStub.ModifyBookingResponseE respE = rstub.modifyBooking(reqE, ogh);
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
+                    AdapterUtility.convertToStreamXML(respE));
+
+            response = getUpdateBookingResponseObject(respE.getModifyBookingResponse());
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
+                    AdapterUtility.convertToStreamXML(response));
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processUpdateBooking ",
+                    e.getMessage());
+        }
+
+        return response;
+
+    }
+
+    /**
+     * @param objResponse
+     * @return UpdateBookingResponse
+     */
+    private UpdateBookingResponse getUpdateBookingResponseObject(ReservationServiceStub.ModifyBookingResponse objResponse) {
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getUpdateBookingResponseObject ", " Enter getUpdateBookingResponseObject method ");
+
+        UpdateBookingResponse objUpdateBookingResponse = new UpdateBookingResponse();
+        objUpdateBookingResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
+        if (objResponse.getResult().getResultStatusFlag() == ReservationServiceStub.ResultStatusFlag.FAIL) {
+            String errorMessage = getErrorMessage(objResponse.getResult());
+
+            //TODO: Add errorMessage
+            //objUpdateBookingResponse.setErrorMessage(errorMessage);
+            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getUpdateBookingResponseObject ", " Update Failed:" + errorMessage);
+            return objUpdateBookingResponse;
+        }
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getUpdateBookingResponseObject ", " Exit  getUpdateBookingResponseObject method ");
+
+        return objUpdateBookingResponse;
+    }
+
+    /**
+     * This method is used to make the request for update the booking (pre -
+     * checkin.
+     *
+     * @param updateBookingRequest
+     * @return
+     * @throws AxisFault
+     */
+    private ReservationServiceStub.ModifyBookingRequest getUpdateBookingRequestObject(UpdateBookingRequest updateBookingRequest) {
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getUpdateBookingRequestObject ", " Enter getUpdateBookingRequestObject method ");
+
+		/* To set the request parameters. */
+        ReservationServiceStub.OGHeaderE objHeaderE = getHeaderE();
+        ReservationServiceStub.ModifyBookingRequest objModifyBookingRequest = new ReservationServiceStub.ModifyBookingRequest();
+
+        ReservationServiceStub.HotelReference objHotelReference = getDefaultHotelReference();
+
+        ReservationServiceStub.HotelReservation hotelReservation = new ReservationServiceStub.HotelReservation();
+        objModifyBookingRequest.setHotelReservation(hotelReservation);
+
+        ReservationServiceStub.ArrayOfUniqueID uidList = new ReservationServiceStub.ArrayOfUniqueID();
+        hotelReservation.setUniqueIDList(uidList);
+
+        ReservationServiceStub.UniqueID uid = new ReservationServiceStub.UniqueID();
+        uidList.addUniqueID(uid);
+
+        uid.setString(updateBookingRequest.getConfirmationNumber());
+        uid.setType(ReservationServiceStub.UniqueIDType.INTERNAL);
+
+        ReservationServiceStub.ArrayOfRoomStay roomStays = new ReservationServiceStub.ArrayOfRoomStay();
+        hotelReservation.setRoomStays(roomStays);
+
+        ReservationServiceStub.RoomStay roomStay = new ReservationServiceStub.RoomStay();
+        roomStays.addRoomStay(roomStay);
+
+        roomStay.setHotelReference(objHotelReference);
+
+        if (updateBookingRequest != null &&
+                updateBookingRequest.getNotes() != null &&
+                updateBookingRequest.getNotes().length > 0) {
+            // Update Comments
+            ReservationServiceStub.ArrayOfReservationComment comments = new ReservationServiceStub.ArrayOfReservationComment();
+            roomStay.setComments(comments);
+
+            for (String commentValue : updateBookingRequest.getNotes()) {
+                ReservationServiceStub.ReservationComment comment = new ReservationServiceStub.ReservationComment();
+                comments.addComment(comment);
+                comment.setCommentType("RESERVATION");
+                comment.setGuestViewable(false);
+
+                String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
+                if (entityId != null && !entityId.isEmpty()) {
+                    comment.setCommentOriginatorCode(entityId);
+                }
+
+                ReservationServiceStub.ParagraphChoice_type0 paragraphChoice_type0 = new ReservationServiceStub.ParagraphChoice_type0();
+                comment.addParagraphChoice_type0(paragraphChoice_type0);
+
+                ReservationServiceStub.Text text = new ReservationServiceStub.Text();
+                paragraphChoice_type0.setText(text);
+
+                NormalizedString normalizedString = new NormalizedString();
+                normalizedString.setValue(commentValue);
+
+                text.setNormalizedString(normalizedString);
+                text.setFormatted(false);
+            }
+        }
+       /* <localComment>
+        <com.micros.ows.reservation.ReservationServiceStub_-ReservationComment>
+        <localParagraphChoice__type0>
+        <com.micros.ows.reservation.ReservationServiceStub_-ParagraphChoice__type0>
+        <localImageTracker>false</localImageTracker>
+        <localText>
+        <localNormalizedString>
+        <m__value>Big room, away from elevator.</m__value>
+        </localNormalizedString>
+        <localFormatted>false</localFormatted>
+        </localText>
+        <localTextTracker>true</localTextTracker>
+        <localURLTracker>false</localURLTracker>
+        </com.micros.ows.reservation.ReservationServiceStub_-ParagraphChoice__type0>
+        </localParagraphChoice__type0>
+        <localParagraphChoice__type0Tracker>true</localParagraphChoice__type0Tracker>
+        <localCommentId>NaN</localCommentId>
+        <localCommentIdTracker>false</localCommentIdTracker>
+        <localInternalYn>false</localInternalYn>
+        <localInternalYnTracker>false</localInternalYnTracker>
+        <localCommentTypeTracker>false</localCommentTypeTracker>
+        <localGuestViewable>true</localGuestViewable>
+        </com.micros.ows.reservation.ReservationServiceStub_-ReservationComment>
+        </localComment>*/
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getUpdateBookingRequestObject ", " Exit getUpdateBookingRequestObject method " + objModifyBookingRequest);
+        return objModifyBookingRequest;
+    }
+
+    private ReleaseRoomResponse getReleaseRoomResponseObject(ReservationServiceStub.ReleaseRoomResponse objReleaseRoomResponse) {
+
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getReleaseRoomResponseObject ", " Enter getReleaseRoomResponseObject method ");
 
         ReleaseRoomResponse objReleaseRoomRespons = null;
         String status = null;
@@ -122,14 +331,14 @@ public class OWSReservationProcessor {
         // set the released room status.
         objReleaseRoomRespons.setStatus(status);
 
-        MicrosPMSLogger.logInfo( OWSReservationProcessor.class, " getReleaseRoomResponseObject ", " Exit getReleaseRoomResponseObject method " );
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getReleaseRoomResponseObject ", " Exit getReleaseRoomResponseObject method ");
 
         return objReleaseRoomRespons;
     }
 
-    private ReservationServiceStub.ReleaseRoomRequest getReleaseRoomRequestObject( ReleaseRoomRequest releaseRoomRequest ) {
+    private ReservationServiceStub.ReleaseRoomRequest getReleaseRoomRequestObject(ReleaseRoomRequest releaseRoomRequest) {
 
-        MicrosPMSLogger.logInfo( OWSReservationProcessor.class, " getReleaseRoomRequestObject "," Enter getReleaseRoomRequestObject method " );
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getReleaseRoomRequestObject ", " Enter getReleaseRoomRequestObject method ");
 
         String reservationId = releaseRoomRequest.getReservationId();
 
@@ -137,35 +346,35 @@ public class OWSReservationProcessor {
 
 		/*To set the reservation name  number.*/
         ReservationServiceStub.UniqueID objUniqueID = new ReservationServiceStub.UniqueID();
-        objUniqueID.setSource( IMicrosConstants.VALUE_SOURCE );
-        objUniqueID.setString( reservationId );
+        objUniqueID.setSource(IMicrosConstants.VALUE_SOURCE);
+        objUniqueID.setString(reservationId);
         objUniqueID.setType(ReservationServiceStub.UniqueIDType.INTERNAL);
-        objReleaseRoomRequest.setResvNameId( objUniqueID );
+        objReleaseRoomRequest.setResvNameId(objUniqueID);
 
         objReleaseRoomRequest.setHotelReference(getDefaultHotelReference());
 
-        MicrosPMSLogger.logInfo( OWSReservationProcessor.class," getReleaseRoomRequestObject "," Exit getReleaseRoomRequestObject method " );
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getReleaseRoomRequestObject ", " Exit getReleaseRoomRequestObject method ");
 
         return objReleaseRoomRequest;
 
     }
 
 
-    private AssignRoomResponse getAssignRoomResponseObject( ReservationServiceStub.AssignRoomResponse objResponse ) {
+    private AssignRoomResponse getAssignRoomResponseObject(ReservationServiceStub.AssignRoomResponse objResponse) {
 
-        MicrosPMSLogger.logInfo( OWSReservationProcessor.class, " getAssignRoomResponseObject ", " Enter getAssignRoomResponseObject method " );
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getAssignRoomResponseObject ", " Enter getAssignRoomResponseObject method ");
 
         AssignRoomResponse objAssignRoomResponse = new AssignRoomResponse();
 
-        objAssignRoomResponse.setStatus( objResponse.getResult().getResultStatusFlag().toString() );
+        objAssignRoomResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objAssignRoomResponse.getStatus().equalsIgnoreCase("FAIL")) {
             String message = getErrorMessage(objResponse.getResult());
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " CheckIn Failed:" + message);
             return objAssignRoomResponse;
         }
 
-        objAssignRoomResponse.setAssignRoomNumber( objResponse.getRoomNoAssigned() );
-        MicrosPMSLogger.logInfo( OWSReservationProcessor.class, " getAssignRoomResponseObject ", " Exit getAssignRoomResponseObject method " );
+        objAssignRoomResponse.setAssignRoomNumber(objResponse.getRoomNoAssigned());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getAssignRoomResponseObject ", " Exit getAssignRoomResponseObject method ");
 
         return objAssignRoomResponse;
     }
@@ -181,8 +390,7 @@ public class OWSReservationProcessor {
         ReservationServiceStub.AssignRoomRequest objAssignRoomRequest = null;
 
         String nextAvailableRoom = new OWSResvAdvancedProcessor().getNextAvailableRoom(roomTypeCode);
-        if (nextAvailableRoom != null)
-        {
+        if (nextAvailableRoom != null) {
             objAssignRoomRequest = new ReservationServiceStub.AssignRoomRequest();
             objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);
 
