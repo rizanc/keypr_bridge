@@ -2,21 +2,24 @@ package testRunner;
 
 import com.micros.ows.reservation.ReservationServiceStub;
 import org.apache.axis2.AxisFault;
-import tests.TestReservation;
+import tests.TestOWS;
 
 public class UsingADB {
   public static void main(String[] argv) {
 
 
-      TestReservation.FutureBookingSummary();
+      //TestOWS.FutureBookingSummary();
 
-      //TestReservation.AssignRoom();
+      //TestOWS.AssignRoom();
 
-      //TestReservation.CheckIn();
+      //TestOWS.CheckIn();
 
-      //TestReservation.CheckOut();
+      //TestOWS.CheckOut();
 
-      //TestReservation.ReleaseRoom();
+      //TestOWS.ReleaseRoom();
+
+      TestOWS.Availability();
+
   }
 
 

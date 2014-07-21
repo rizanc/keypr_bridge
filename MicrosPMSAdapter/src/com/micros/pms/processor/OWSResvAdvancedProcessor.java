@@ -15,6 +15,7 @@ import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by crizan2 on 17/07/2014.
@@ -496,12 +497,11 @@ public class OWSResvAdvancedProcessor {
 
     private ResvAdvancedServiceStub.OGHeaderE getHeaderE() {
 
-        //TODO: Refactor
-        int transactionId = 5555; //TransIdGenerator.getTransactionId();
+        String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
         // Sets Transaction Identifier
         ResvAdvancedServiceStub.OGHeader ogHeader = new ResvAdvancedServiceStub.OGHeader();
 
-        ogHeader.setTransactionID(String.valueOf(transactionId));
+        ogHeader.setTransactionID(transactionId);
 
         // creates origin end point of header.
         ResvAdvancedServiceStub.EndPoint origin = new ResvAdvancedServiceStub.EndPoint();
@@ -538,8 +538,8 @@ public class OWSResvAdvancedProcessor {
             ResvAdvancedServiceStub.OGHeaderAuthenticationUserCredentials cred = new ResvAdvancedServiceStub.OGHeaderAuthenticationUserCredentials();
             auth.setUserCredentials(cred);
 
-            cred.setUserName("SUPERVISOR");
-            cred.setUserPassword("BETTERTHANV6");
+            cred.setUserName(username);
+            cred.setUserPassword(password);
         }
 
         ResvAdvancedServiceStub.OGHeaderE ogHeaderE = new ResvAdvancedServiceStub.OGHeaderE();

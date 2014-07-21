@@ -19,6 +19,7 @@ import org.apache.axis2.AxisFault;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by crizan2 on 16/07/2014.
@@ -284,9 +285,10 @@ public class OWSReservationProcessor {
          * data members.
          */
         ReservationServiceStub.FutureBookingSummaryRequest objFutureBookingSummaryRequest = new ReservationServiceStub.FutureBookingSummaryRequest();
+        ReservationServiceStub.FetchBookingFilters objBookingFilters = new ReservationServiceStub.FetchBookingFilters();
+        objBookingFilters.setHotelReference(getDefaultHotelReference());
 
 		/* Sets confirmation number to the request */
-
         if (confirmationNumber != null) {
 
             com.micros.ows.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.ows.reservation.ReservationServiceStub.UniqueID();
@@ -295,9 +297,7 @@ public class OWSReservationProcessor {
             objUniqueID.setString(confirmationNumber);
             objUniqueID.setSource("CONFIRMATION_NO");
 
-            ReservationServiceStub.FetchBookingFilters objBookingFilters = new ReservationServiceStub.FetchBookingFilters();
             objBookingFilters.setConfirmationNumber(objUniqueID);
-            objBookingFilters.setHotelReference(getDefaultHotelReference());
 
             objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
         }
@@ -634,14 +634,13 @@ public class OWSReservationProcessor {
 
     }
 
-    public ReservationServiceStub.OGHeaderE getHeaderE() {
+    private ReservationServiceStub.OGHeaderE getHeaderE() {
 
-        //TODO: Refactor
-        int transactionId = 5555; //TransIdGenerator.getTransactionId();
+        String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
         // Sets Transaction Identifier
         ReservationServiceStub.OGHeader ogHeader = new ReservationServiceStub.OGHeader();
 
-        ogHeader.setTransactionID(String.valueOf(transactionId));
+        ogHeader.setTransactionID(transactionId);
 
         // creates origin end point of header.
         ReservationServiceStub.EndPoint origin = new ReservationServiceStub.EndPoint();
@@ -678,8 +677,8 @@ public class OWSReservationProcessor {
             ReservationServiceStub.OGHeaderAuthenticationUserCredentials cred = new ReservationServiceStub.OGHeaderAuthenticationUserCredentials();
             auth.setUserCredentials(cred);
 
-            cred.setUserName("SUPERVISOR");
-            cred.setUserPassword("BETTERTHANV6");
+            cred.setUserName(username);
+            cred.setUserPassword(password);
         }
 
         ReservationServiceStub.OGHeaderE ogHeaderE = new ReservationServiceStub.OGHeaderE();
