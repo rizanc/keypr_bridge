@@ -54,6 +54,7 @@ public interface IMicrosConstants {
 
 
 	String ENG_LANG = "E";
+	String EMPTY_STRING = "";
 
 
 	String RESPONSE_SUCCESS = "SUCCESS";
@@ -88,4 +89,8 @@ public interface IMicrosConstants {
 	String TRANSACTION_ID = "transId";
 
 	Integer ROWS_UPDATED = 0;
+	String ADV_RESERVATION_URL = "ows.adv.reservation.service.url";
+	String RESERVATION_URL = "ows.reservation.service.url";
+	String RESERVATION_ID = "RESVID";
+	
 }
