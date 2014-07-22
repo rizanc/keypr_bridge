@@ -10,8 +10,6 @@ import com.cloudkey.pms.response.AssignRoomResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
-import com.micros.ows.availability.AvailabilityServiceStub;
-import com.micros.ows.resvadvanced.ResvAdvancedServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.parser.MicrosPMSMessageParser;
@@ -22,9 +20,7 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by crizan2 on 16/07/2014.
@@ -207,9 +203,7 @@ public class OWSReservationProcessor {
         objUpdateBookingResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objResponse.getResult().getResultStatusFlag() == ReservationServiceStub.ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
-
-            //TODO: Add errorMessage
-            //objUpdateBookingResponse.setErrorMessage(errorMessage);
+            objUpdateBookingResponse.setErrorMessage(errorMessage);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getUpdateBookingResponseObject ", " Update Failed:" + errorMessage);
             return objUpdateBookingResponse;
         }
@@ -565,6 +559,15 @@ public class OWSReservationProcessor {
 
 		/* Populate response into Reservation instance */
         SearchReservationResponse objSearchReservationResponse = new SearchReservationResponse();
+        objSearchReservationResponse.setStatus(objResponse.getResult().getResultStatusFlag().getValue());
+        if (objResponse.getResult().getResultStatusFlag() == ReservationServiceStub.ResultStatusFlag.FAIL) {
+            String errorMessage = getErrorMessage(objResponse.getResult());
+            objSearchReservationResponse.setErrorMessage(errorMessage);
+            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getUpdateBookingResponseObject ", " Update Failed:" + errorMessage);
+            return objSearchReservationResponse;
+        }
+
+
         List<Reservation> objLReservations = objSearchReservationResponse.getReservationList();
 
         if (objLReservations == null) {
@@ -574,11 +577,33 @@ public class OWSReservationProcessor {
 
         ReservationServiceStub.HotelReservation[] arrHotelReservation = objResponse.getHotelReservations().getHotelReservation();
 
+        objLReservations = parseHotelReservation(arrHotelReservation);
+
+        /**
+         * To set the reservation list and status on the response.
+         */
+        objSearchReservationResponse.setReservationList(objLReservations);
+
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getFutureBookingResponseObject ", " Exit getFutureBookingResponseObject method.");
+
+        return objSearchReservationResponse;
+
+    }
+
+    private List<Reservation> parseHotelReservation(ReservationServiceStub.HotelReservation[] arrHotelReservation) {
+
+        List<Reservation> objLReservations = new ArrayList<Reservation>();
+        Reservation objReservation;
+        String firstName;
+        String lastName;
+
         for (ReservationServiceStub.HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
 
             MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getFutureBookingResponseObject  ", " Enter in Hotel Reservation Loop.");
 
             objReservation = new Reservation();
+            objLReservations.add(objReservation);
+
             StringBuilder objBuilder = new StringBuilder();
 
 
@@ -658,7 +683,6 @@ public class OWSReservationProcessor {
                         } // End loop for name credit card.
                     }
 
-
                     ReservationServiceStub.ArrayOfNameAddress arrNameAddresses = objProfile.getAddresses();
                     if (arrNameAddresses != null) {
                         for (ReservationServiceStub.NameAddress objAddress : arrNameAddresses.getNameAddress()) {// To traverse Name Address.
@@ -709,6 +733,8 @@ public class OWSReservationProcessor {
                 objRDetailList = new ArrayList<>();
             }
 
+            objReservation.setRoomDetailList(objRDetailList);
+
             ReservationServiceStub.ArrayOfRoomStay arrRoomStay = objHotelReservation.getRoomStays();
 
             for (ReservationServiceStub.RoomStay objRoomStay : arrRoomStay.getRoomStay()) { // To traverse room stay array.
@@ -738,8 +764,10 @@ public class OWSReservationProcessor {
 
                     String[] arrRoomNumber = objRType.getRoomNumber();
 
-                    for (String roomNumber : arrRoomNumber) {
-                        obRoomDetails.setRoomNumber(Integer.parseInt(roomNumber));
+                    if (arrRoomNumber != null) {
+                        for (String roomNumber : arrRoomNumber) {
+                            obRoomDetails.setRoomNumber(Integer.parseInt(roomNumber));
+                        }
                     }
 
                     objBuilder = new StringBuilder();
@@ -747,15 +775,17 @@ public class OWSReservationProcessor {
 
                     if (arrRoomFeature != null) {
                         ReservationServiceStub.RoomFeature[] features = arrRoomFeature.getFeatures();
-                        for (int i = 0, featuresLength = features.length; i < featuresLength; i++) {
-                            ReservationServiceStub.RoomFeature objRFeature = features[i]; // To traverse room features.
-                            MicrosPMSLogger.logInfo(OWSReservationProcessor.class,
-                                    " getFutureBookingResponseObject ",
-                                    " Iterating Room Feature Array.");
-                            objBuilder.append(objRFeature.getFeature() + ";");
-                            objStringBuilder2
-                                    .append(objRFeature.getDescription() + ";");
+                        if (features != null) {
+                            for (int i = 0, featuresLength = features.length; i < featuresLength; i++) {
+                                ReservationServiceStub.RoomFeature objRFeature = features[i]; // To traverse room features.
+                                MicrosPMSLogger.logInfo(OWSReservationProcessor.class,
+                                        " getFutureBookingResponseObject ",
+                                        " Iterating Room Feature Array.");
+                                objBuilder.append(objRFeature.getFeature() + ";");
+                                objStringBuilder2
+                                        .append(objRFeature.getDescription() + ";");
 
+                            }
                         }
                     }
                     objRoomType.setFeatures(objBuilder.toString());
@@ -763,7 +793,7 @@ public class OWSReservationProcessor {
                     objRoomType.setDescription(objStringBuilder2.toString());
                     MicrosPMSLogger.logInfo(OWSReservationProcessor.class,
                             " getFutureBookingResponseObject ",
-                            " Fetures and Description are Set in response.");
+                            " Features and Description are Set in response.");
                     objStringBuilder2.setLength(0);
                     obRoomDetails.setRoomType(objRoomType);
                     objRDetailList.add(obRoomDetails);
@@ -830,16 +860,7 @@ public class OWSReservationProcessor {
 
         } // End loop for Hotel Reservation.
 
-        /**
-         * To set the reservation list and status on the response.
-         */
-        objSearchReservationResponse.setReservationList(objLReservations);
-        objSearchReservationResponse.setStatus(objResponse.getResult().getResultStatusFlag().getValue());
-
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getFutureBookingResponseObject ", " Exit getFutureBookingResponseObject method.");
-
-        return objSearchReservationResponse;
-
+        return objLReservations;
     }
 
     private ReservationServiceStub.OGHeaderE getHeaderE() {
@@ -897,7 +918,18 @@ public class OWSReservationProcessor {
     private String getErrorMessage(ReservationServiceStub.ResultStatus resultStatus) {
 
         String message = "";
-        if (resultStatus.getText() != null &&
+        if (resultStatus instanceof ReservationServiceStub.GDSResultStatus) {
+            ReservationServiceStub.GDSResultStatus gdsResultStatus = (ReservationServiceStub.GDSResultStatus) resultStatus;
+            if (gdsResultStatus.isGDSErrorSpecified()) {
+                message = gdsResultStatus.getGDSError().toString();
+            } else if (gdsResultStatus.isTextSpecified()){
+                if (gdsResultStatus.getText() != null &&
+                        gdsResultStatus.getText().getTextElement() != null &&
+                        gdsResultStatus.getText().getTextElement().length > 0
+                        )
+                message=  gdsResultStatus.getText().getTextElement()[0].toString();
+            }
+        } else if (resultStatus.getText() != null &&
                 resultStatus.getText().getTextElement() != null &&
                 resultStatus.getText().getTextElement().length > 0) {
             message = resultStatus.getText().getTextElement()[0].toString();

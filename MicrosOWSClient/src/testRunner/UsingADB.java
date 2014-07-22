@@ -5,24 +5,26 @@ import org.apache.axis2.AxisFault;
 import tests.TestOWS;
 
 public class UsingADB {
-  public static void main(String[] argv) {
+    public static void main(String[] argv) {
+
+        //TestOWS.AssignRoom();
+        TestOWS.FutureBookingSummary();
 
 
-      //TestOWS.FutureBookingSummary();
 
-      //TestOWS.AssignRoom();
+        //TestOWS.CheckIn();
 
-      //TestOWS.CheckIn();
+        //TestOWS.CheckOut();
 
-      //TestOWS.CheckOut();
+        //TestOWS.ReleaseRoom();
 
-      //TestOWS.ReleaseRoom();
+        //TestOWS.Availability();
 
-      //TestOWS.Availability();
+        //TestOWS.ModifyBooking();
 
-      TestOWS.ModifyBooking();
+        //TestOWS.Folio();
 
-  }
+    }
 
 
 }

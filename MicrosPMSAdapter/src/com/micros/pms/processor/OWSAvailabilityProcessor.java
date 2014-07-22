@@ -59,10 +59,8 @@ public class OWSAvailabilityProcessor {
 
             MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processAvailability ", " Convert request into xml form ");
 
-            GetAvailabilityResponse response = null;
             AvailabilityServiceStub.OGHeaderE ogh = getHeaderE();
 
-            getHeaderE();
             try {
                 MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
                         AdapterUtility.convertToStreamXML(reqE));
@@ -70,9 +68,9 @@ public class OWSAvailabilityProcessor {
                 MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
                         AdapterUtility.convertToStreamXML(respE));
 
-                response = getAvailabilityResponseObject(respE.getFetchCalendarResponse());
+                objGetAvailabilityResponse = getAvailabilityResponseObject(respE.getFetchCalendarResponse());
                 MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                        AdapterUtility.convertToStreamXML(response));
+                        AdapterUtility.convertToStreamXML(objGetAvailabilityResponse));
 
 
             } catch (RemoteException e) {
@@ -269,10 +267,22 @@ public class OWSAvailabilityProcessor {
         return ogHeaderE;
     }
 
+
     private String getErrorMessage(AvailabilityServiceStub.ResultStatus resultStatus) {
 
         String message = "";
-        if (resultStatus.getText() != null &&
+        if (resultStatus instanceof AvailabilityServiceStub.GDSResultStatus) {
+            AvailabilityServiceStub.GDSResultStatus gdsResultStatus = (AvailabilityServiceStub.GDSResultStatus) resultStatus;
+            if (gdsResultStatus.isGDSErrorSpecified()) {
+                message = gdsResultStatus.getGDSError().toString();
+            } else if (gdsResultStatus.isTextSpecified()){
+                if (gdsResultStatus.getText() != null &&
+                        gdsResultStatus.getText().getTextElement() != null &&
+                        gdsResultStatus.getText().getTextElement().length > 0
+                        )
+                    message=  gdsResultStatus.getText().getTextElement()[0].toString();
+            }
+        } else if (resultStatus.getText() != null &&
                 resultStatus.getText().getTextElement() != null &&
                 resultStatus.getText().getTextElement().length > 0) {
             message = resultStatus.getText().getTextElement()[0].toString();
