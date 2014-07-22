@@ -2,6 +2,7 @@ package com.cloudkey.pms.response;
 
 import java.util.List;
 
+import com.cloudkey.commons.Response;
 import com.cloudkey.commons.Restaurants;
 import com.cloudkey.commons.RoomType;
 
@@ -9,7 +10,7 @@ import com.cloudkey.commons.RoomType;
  * This Class has information of Hotel. 
  * @author 
  */
-public class HotelInformationResponse {
+public class HotelInformationResponse extends Response {
 	
 	/* Reference variable to store the hotel information */
 	
@@ -27,8 +28,7 @@ public class HotelInformationResponse {
 	private String notes;
 	private List<RoomType> roomTypeList;
 	private List<Restaurants> restaurantsList;
-	private String result;
-	private String status ;
+	
 	
 	/*generate getter setter for hotel information response. */
 	public String getHotelName() {
@@ -133,26 +133,9 @@ public class HotelInformationResponse {
 		
 		this.restaurantsList = restaurantsList;
 	}
-	public String getResult() {
-		
-		return result;
-	}
-	public void setResult(String result) {
-		
-		this.result = result;
-	}
-	public String getStatus() {
-		
-		return status;
-	}
-	public void setStatus(String status) {
-		
-		this.status = status;
-	}
 	
 	@Override
 	public String toString() {
-		
 		return "HotelInformationResponse [hotelName=" + hotelName
 				+ ", address=" + address + ", city=" + city + ", country="
 				+ country + ", postalCode=" + postalCode + ", contactEmails="
@@ -160,7 +143,7 @@ public class HotelInformationResponse {
 				+ fax + ", checkInTime=" + checkInTime + ", checkOutTime="
 				+ checkOutTime + ", notes=" + notes + ", roomTypeList="
 				+ roomTypeList + ", restaurantsList=" + restaurantsList
-				+ ", result=" + result + ", status=" + status + "]";
+				+ ", status=" + status + ", errorMessage=" + errorMessage + "]";
 	}
-
+	
 }

@@ -1,6 +1,7 @@
 package com.cloudkey.pms.response;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.Response;
 
 /**
  * The Class stores the check out response for the guest. It has the details of check out response
@@ -9,27 +10,12 @@ import com.cloudkey.commons.Reservation;
  * @author vinayk2
  * 
  */
-public class CheckOutResponse {
+public class CheckOutResponse extends Response {
 
-
-
-	/* Reference variable to store the room status. */
-	private String status ;
 	/* Reference variable to store the reservation data. */
 	private Reservation reservation ;
 
-
 	/* Getter and Setter for each Data Member. */
-
-	public String getStatus() {
-
-		return status;
-	}
-
-	public void setStatus(String status) {
-
-		this.status = status;
-	}
 
 	public Reservation getReservation() {
 
@@ -43,8 +29,8 @@ public class CheckOutResponse {
 
 	@Override
 	public String toString() {
-
-		return "CheckOutResponse [status=" + status + ", reservation=" + reservation + "]";
+		return "CheckOutResponse [reservation=" + reservation + ", status="
+				+ status + ", errorMessage=" + errorMessage + "]";
 	}
-
+	
 }

@@ -8,7 +8,9 @@ package com.cloudkey.pms.response;
 
 import java.util.Date;
 
-public class MemberPointsResponse {
+import com.cloudkey.commons.Response;
+
+public class MemberPointsResponse extends Response {
 	
 	/* reference variable to store member points response*/
 	private String membershipId;
@@ -24,8 +26,6 @@ public class MemberPointsResponse {
 	private String bonuspoints;
 	private String guestTotalNights;
 	private String guestTotalStay;
-	private String status;
-	private String result;
 	
 	/*
 	 * Generate getter and setter for data member.
@@ -136,26 +136,8 @@ public class MemberPointsResponse {
 		
 		this.guestTotalStay = guestTotalStay;
 	}
-	public String getStatus() {
-		
-		return status;
-	}
-	public void setStatus(String status) {
-		
-		this.status = status;
-	}
-	public String getResult() {
-		
-		return result;
-	}
-	public void setResult(String result) {
-		
-		this.result = result;
-	}
-	
 	@Override
 	public String toString() {
-		
 		return "MemberPointsResponse [membershipId=" + membershipId
 				+ ", membershipType=" + membershipType + ", membershipLevel="
 				+ membershipLevel + ", memberName=" + memberName
@@ -165,6 +147,7 @@ public class MemberPointsResponse {
 				+ ", totalPoints=" + totalPoints + ", bonuspoints="
 				+ bonuspoints + ", guestTotalNights=" + guestTotalNights
 				+ ", guestTotalStay=" + guestTotalStay + ", status=" + status
-				+ ", result=" + result + "]";
+				+ ", errorMessage=" + errorMessage + "]";
 	}
+	
 }

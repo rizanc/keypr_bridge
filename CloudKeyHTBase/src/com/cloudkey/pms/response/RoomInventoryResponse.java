@@ -1,5 +1,6 @@
 package com.cloudkey.pms.response;
 
+import com.cloudkey.commons.Response;
 import com.cloudkey.commons.RoomDetails;
 
 /**
@@ -9,20 +10,12 @@ import com.cloudkey.commons.RoomDetails;
  * @author vinayk2
  *
  */
-public class RoomInventoryResponse {
+public class RoomInventoryResponse extends Response {
 	
 	// Variables to store data.
-	String status;
 	RoomDetails roomDetailList;
 
 	// Getter and Setter for each data member.
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public RoomDetails getRoomDetailList() {
 		return roomDetailList;
@@ -30,6 +23,12 @@ public class RoomInventoryResponse {
 
 	public void setRoomDetailList(RoomDetails roomDetailList) {
 		this.roomDetailList = roomDetailList;
+	}
+
+	@Override
+	public String toString() {
+		return "RoomInventoryResponse [roomDetailList=" + roomDetailList
+				+ ", status=" + status + ", errorMessage=" + errorMessage + "]";
 	}
 
 }

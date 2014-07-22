@@ -1,6 +1,7 @@
 package com.cloudkey.pms.response;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.Response;
 
 /**
  * This class stores the response of booking update request made by the guest.
@@ -8,12 +9,10 @@ import com.cloudkey.commons.Reservation;
  * 
  * @author vinayk2
  */
-public class UpdateBookingResponse {
+public class UpdateBookingResponse extends Response {
 
 	/* Reference variable to store the reservation data */
 	private Reservation reservation ;
-	private String status;
-
 
 	/* Getter and Setter for each Data Member. */
 
@@ -26,18 +25,11 @@ public class UpdateBookingResponse {
 
 		this.reservation = reservation;
 	}
-	
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	@Override
 	public String toString() {
 		return "UpdateBookingResponse [reservation=" + reservation
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", errorMessage=" + errorMessage + "]";
 	}
 
 }

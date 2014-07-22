@@ -3,6 +3,7 @@ package com.cloudkey.pms.response;
 import java.util.List;
 
 import com.cloudkey.commons.Availability;
+import com.cloudkey.commons.Response;
 
 /**
  * The Class has the details of reservation availability. It has the information of response status
@@ -11,10 +12,8 @@ import com.cloudkey.commons.Availability;
  * @author vinayk2
  * 
  */
-public class GetAvailabilityResponse {
+public class GetAvailabilityResponse extends Response {
 
-	/* Reference variable to store the room status. */
-	private String status ;
 	/* Reference variable to store the room availability. */
 	private List<Availability> availabiltyList ;
 
@@ -31,20 +30,10 @@ public class GetAvailabilityResponse {
 		this.availabiltyList = availList;
 	}
 
-	public String getStatus() {
-
-		return status;
-	}
-
-	public void setStatus(String status) {
-
-		this.status = status;
-	}
-
 	@Override
 	public String toString() {
-
-		return "GetAvailabilityResponse [status=" + status + ", availabiltyList=" + availabiltyList + "]";
+		return "GetAvailabilityResponse [availabiltyList=" + availabiltyList
+				+ ", status=" + status + ", errorMessage=" + errorMessage + "]";
 	}
 
 }
