@@ -16,7 +16,11 @@ public class MicrosOWSParser implements IParserInterface {
     @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
 
-        return null;
+        GetFolioResponse response;
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
+        response = new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
+
+        return response;
     }
 
     @Override

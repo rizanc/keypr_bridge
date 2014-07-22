@@ -6,30 +6,30 @@ import com.cloudkey.commons.Response;
 /**
  * This class stores the response of booking update request made by the guest.
  * It has the detail of guest reservation.
- * 
+ *
  * @author vinayk2
  */
 public class UpdateBookingResponse extends Response {
 
-	/* Reference variable to store the reservation data */
-	private Reservation reservation ;
+    /* Reference variable to store the reservation data */
+    private Reservation reservation ;
 
 	/* Getter and Setter for each Data Member. */
 
-	public Reservation getReservation() {
+    public Reservation getReservation() {
 
-		return reservation;
-	}
+        return reservation;
+    }
 
-	public void setReservation(Reservation reservation) {
+    public void setReservation(Reservation reservation) {
 
-		this.reservation = reservation;
-	}
+        this.reservation = reservation;
+    }
 
-	@Override
-	public String toString() {
-		return "UpdateBookingResponse [reservation=" + reservation
-				+ ", status=" + status + ", errorMessage=" + errorMessage + "]";
-	}
+    @Override
+    public String toString() {
+        return "UpdateBookingResponse [reservation=" + reservation
+                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
+    }
 
 }

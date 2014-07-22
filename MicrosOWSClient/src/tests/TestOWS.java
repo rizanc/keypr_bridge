@@ -10,19 +10,26 @@ import com.micros.pms.processor.OWSResvAdvancedProcessor;
 
 import java.util.Date;
 
-
 /**
  * Created by crizan2 on 16/07/2014.
  */
 public class TestOWS {
+
+    private static final String CONFIRMATION_NO = "11900";
+    private static final Date START_DATE = new Date(2014, 10, 5);
+    private static final Date END_DATE = new Date(2014, 10, 11);
+    private static final String ROOM_TYPE_DEFAULT = "SKN";
+    private static final String CREDIT_CARD_NO = "4111111111111111";
+    private static final String LAST_NAME = "Ellison";
+    private static final String FIRST_NAME = "LARRY";
 
     public static void Availability() {
 
         OWSAvailabilityProcessor owsAvailabilityProcessor = new OWSAvailabilityProcessor();
 
         GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest();
-        getAvailabilityRequest.setStartDate(new Date(2014,10,5));
-        getAvailabilityRequest.setEndDate(new Date(2014,10,11));
+        getAvailabilityRequest.setStartDate(START_DATE);
+        getAvailabilityRequest.setEndDate(END_DATE);
 
         GetAvailabilityResponse response =
                 owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
@@ -33,8 +40,10 @@ public class TestOWS {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
         SearchReservationRequest request = new SearchReservationRequest();
-//        request.setConfirmationNumber("11650");
-        request.setConfirmationNumber("938929");
+        //request.setConfirmationNumber(CONFIRMATION_NO);
+        request.setLastName(LAST_NAME);
+        request.setFirstName(FIRST_NAME);
+        //request.setCreditCardNumber(CREDIT_CARD_NO);
         owsReservationProcessor.processSearchReservationData(request);
 
 
@@ -46,10 +55,10 @@ public class TestOWS {
         AssignRoomRequest request = new AssignRoomRequest();
 
         Reservation reservation = new Reservation();
-        reservation.setConfirmationNumber("11651");
+        reservation.setConfirmationNumber(CONFIRMATION_NO);
 
         request.setReservation(reservation);
-        request.setRoomTypeCode("SKN");
+        request.setRoomTypeCode(ROOM_TYPE_DEFAULT);
         owsReservationProcessor.processAssignRoom(request);
 
 
@@ -61,8 +70,8 @@ public class TestOWS {
         ReleaseRoomRequest request = new ReleaseRoomRequest();
 
         Reservation reservation = new Reservation();
-        reservation.setConfirmationNumber("11651");
-        request.setReservationId("11651");
+        reservation.setConfirmationNumber(CONFIRMATION_NO);
+        request.setReservationId(CONFIRMATION_NO);
 
         owsReservationProcessor.processReleaseRoom(request);
 
@@ -74,8 +83,8 @@ public class TestOWS {
         CheckInRequest request = new CheckInRequest();
 
         Reservation reservation = new Reservation();
-        reservation.setConfirmationNumber("11651");
-        reservation.setCreditCardNumber("4111111111111111");
+        reservation.setConfirmationNumber(CONFIRMATION_NO);
+        reservation.setCreditCardNumber(CREDIT_CARD_NO);
 
         request.setReservation(reservation);
 
@@ -89,7 +98,7 @@ public class TestOWS {
         OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
         CheckOutRequest request = new CheckOutRequest();
 
-        request.setConfirmationNumber("11651");
+        request.setConfirmationNumber(CONFIRMATION_NO);
 
         owsResvAdvancedProcessor.processCheckOut(request);
 
@@ -103,10 +112,21 @@ public class TestOWS {
 
 
         UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest();
-        updateBookingRequest.setConfirmationNumber("1111900");
+        updateBookingRequest.setConfirmationNumber(CONFIRMATION_NO);
 
-        String[] notes = new String[]{"Comment 1","Comment 2","Comment 3"};
+        String[] notes = new String[]{"Comment 1", "Comment 2", "Comment 3"};
         updateBookingRequest.setNotes(notes);
         owsReservationProcessor.processUpdateBooking(updateBookingRequest);
+    }
+
+    public static void Folio() {
+
+        OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
+
+        GetFolioRequest request = new GetFolioRequest();
+        request.setConfirmationNumber(CONFIRMATION_NO);
+
+        owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
+
     }
 }
