@@ -20,8 +20,7 @@ public class DataBaseHandler {
 	private final static Logger LOGGER = Logger.getLogger(DataBaseHandler.class); 
 
 	static {
-
-		DOMConfigurator.configure("res/log4j.xml");
+		DOMConfigurator.configure(DataBaseHandler.class.getClassLoader().getResource("log4j.xml"));
 	}
 
 

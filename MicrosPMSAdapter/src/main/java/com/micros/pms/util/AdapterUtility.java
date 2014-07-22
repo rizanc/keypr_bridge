@@ -38,7 +38,7 @@ public class AdapterUtility {
 	
 	 static {
 		
-		DOMConfigurator.configure(System.getProperty("user.dir") + "\\res\\log4j.xml" );
+		DOMConfigurator.configure(AdapterUtility.class.getClassLoader().getResource("log4j.xml"));
 		
 		}
 	/**

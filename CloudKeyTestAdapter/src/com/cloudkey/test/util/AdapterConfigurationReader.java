@@ -23,18 +23,10 @@ public class AdapterConfigurationReader {
 	static {
 
 		try {
-
 			prop = new Properties();
-			ClassLoader loader = null;
-			loader = AdapterConfigurationReader.class.getClassLoader();
 
-			if( loader== null ){
-
-				loader = ClassLoader.getSystemClassLoader();
-			}
-
-			String popfileName = "res/adapterConfiguration.properties";
-			java.net.URL url = loader.getResource(popfileName);
+			String popfileName = "adapterConfiguration.properties";
+			java.net.URL url = AdapterConfigurationReader.class.getClassLoader().getResource(popfileName);
 
 			try {
 

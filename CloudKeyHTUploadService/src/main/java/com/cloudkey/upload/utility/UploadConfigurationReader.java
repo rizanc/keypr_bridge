@@ -23,17 +23,13 @@ public class UploadConfigurationReader {
 	static {
 
 		try {
-
 			prop = new Properties();
-			InputStream input = null;
 
-			String popfileName = "uploadconfig.properties";
+			InputStream input;
 
 			try {
-
-				input = new FileInputStream( popfileName );
+				input = UploadConfigurationReader.class.getClassLoader().getResourceAsStream("uploadconfig.properties");
 				prop.load( input );
-
 			}
 			catch( IOException exc ){
 

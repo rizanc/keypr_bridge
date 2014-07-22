@@ -4,6 +4,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import java.net.URL;
+
 /**
  * This class acts as an application logger. It contains methods for logging information and
  * exception messages on the console.
@@ -20,8 +22,7 @@ public class UploadServiceLogger extends Logger {
 	}
 
 	static {
-
-		DOMConfigurator.configure("log4j.xml");
+		DOMConfigurator.configure(UploadServiceLogger.class.getClassLoader().getResource("log4j.xml"));
 	}
 
 	/**

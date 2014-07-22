@@ -6,7 +6,7 @@
 
     <appender name="DEFAULT-LOG"
         class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="res/cloudkey.log"/>
+        <param name="File" value="cloudkey.log"/>
 
         <param name="MaxFileSize" value="100MB"/>
         <param name="MaxBackupIndex" value="10"/>

@@ -1,3 +1,6 @@
+apply plugin:'application'
+mainClassName = 'com.cloudkey.upload.service.UploadServiceInitiater'
+
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')

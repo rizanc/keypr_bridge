@@ -12,11 +12,13 @@ import com.cloudkey.upload.collector.UploadRoomDataRetriever;
 import com.cloudkey.upload.constant.IUploadConstants;
 import com.cloudkey.upload.logger.UploadServiceLogger;
 
+import java.io.InputStream;
+import java.net.URL;
+
 public class UploadServiceInitiater  {
 
 	static {
-
-		DOMConfigurator.configure( "log4j.xml" );
+		DOMConfigurator.configure(UploadServiceInitiater.class.getClassLoader().getResource("log4j.xml"));
 	}
 
 	public static void main( String[] args ) {
