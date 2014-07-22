@@ -5,7 +5,7 @@
     </description>
 	<!-- set global properties for this build -->
 	<property name="dhs.src" location="./src" />
-	<property name="dhs.res" location="./res" />
+	<property name="dhs.res" location="src/main/resources" />
 	<property name="dhs.lib" location="./lib" />
 	<property name="dhs.logs" location="./logs" />
 	<property name="dhs.build" location="./build" />
@@ -61,8 +61,8 @@
 			<classpath refid="compile.classpath" />
 		</javac>
 		<!-- Copy the res folder to be included in jar  -->
-		<copy todir="${dhs.build}/res">
-			<fileset dir="${dhs.res}">
+		<copy todir="${dhs.build}/resources">
+			<fileset dir="src/main/resources">
 				<include name="*.*" />
 				<type type="file" />
 			</fileset>

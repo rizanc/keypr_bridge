@@ -17,8 +17,7 @@ public class MessageLogger extends Logger {
 	protected MessageLogger(String name)
 	{
 		super(name);
-		
-		DOMConfigurator.configure("res/log4j.xml");
+		DOMConfigurator.configure("log4j.xml");
 	}
 	
 	/**

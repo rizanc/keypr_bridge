@@ -1,0 +1,22 @@
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+    compile project(':MicrosPMSAdapter')
+    compile project(':MicrosOWSServices:Availability')
+    compile project(':MicrosOWSServices:Reservation')
+    compile project(':MicrosOWSServices:ResvAdvanced')
+
+    // External dependencies
+    compile axis2_adb
+    compile commons_logging
+    compile commons_logging_api
+    compile sun_httpserver
+    compile axis2_xmlbeans
+    compile axis2_kernel
+    compile jaxb_api
+    compile jaxb_impl
+    compile jaxb_xjc
+    compile log4j
+    compile mysql_connector_java
+    compile xmlbeans
+}

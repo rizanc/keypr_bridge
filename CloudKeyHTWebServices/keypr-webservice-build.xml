@@ -13,7 +13,7 @@
 	<property name="keypr.webservice.src" location="./src" />
 	<property name="keypr.webservice.res" location="./res" />
 
-	<property name="keypr.webservice.web" location="./WebContent" />
+	<property name="keypr.webservice.web" location="src/main/webapp" />
 	<property name="keypr.webservice.web.webinf" location="${keypr.webservice.web}/WEB-INF" />
 	<property name="keypr.webservice.lib" location="${keypr.webservice.web.webinf}/lib" />
 	<property name="keypr.webservice.web.classes" location="${keypr.webservice.web.webinf}/classes" />
@@ -30,14 +30,14 @@
 	<property name="webservice.client.project.dir.lib"
 		location="../CloudKeyPrWebServiceClient/WebContent/WEB-INF/lib" />
 	<property name="webservice.project.dir.lib"
-		location="../CloudKeyHTWebServices/WebContent/WEB-INF/lib" />
+		location="src/main/webapp/WEB-INF/lib" />
 	<property name="dataharvester.project.dir.lib" location="../MicrosDataHarvester/lib" />
 	<property name="microssimulator.oxi.project.dir.lib" location="../MicrosSimulator_oxi/WebContent/WEB-INF/lib" />
 
 	<property name="microssimulator.oxi.project.dir.lib"
 		location="../MicrosSimulatorPMS_oxi/WebContent/WEB-INF/lib" />
 	<property name="uploadservice.client.project.dir.lib"
-		location="../UploadServiceRest/WebContent/WEB-INF/lib" />
+		location="../UploadServiceRest/src/main/webapp/WEB-INF/lib" />
 	<property name="upload.service.project.dir.lib" location="../CloudKeyHTUploadService/lib" />
 	<property name="micros.adapter.project.dir.lib" location="../MicrosPMSAdapter/lib" />
 
@@ -84,7 +84,7 @@
 			<classpath refid="compile.classpath" />
 		</javac>
 		<copy todir="${keypr.webservice.web.classes}/META-INF">
-			<fileset dir="${keypr.webservice.src}/META-INF">
+			<fileset dir="src/resources/META-INF">
 				<include name="parser-beans.xml" />
 			</fileset>
 		</copy>

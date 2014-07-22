@@ -12,7 +12,7 @@
 	<property name="keypr.client.src" location="./src" />
 	<property name="keypr.client.res" location="./res" />
 	<property name="keypr.client.web" location="./WebContent" />
-	<property name="keypr.client.web.webinf" location="${keypr.client.web}/WEB-INF" />
+	<property name="keypr.client.web.webinf" location="src/main/webapp/WEB-INF" />
 	<property name="keypr.client.lib" location="${keypr.client.web.webinf}/lib" />
 	
 	<property name="keypr.client.web.classes" location="${keypr.client.web.webinf}/classes" />

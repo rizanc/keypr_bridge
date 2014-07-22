@@ -1,0 +1,24 @@
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+    compile project(':MicrosPMSAdapter')
+
+    // External dependencies
+    compile cglib
+    compile commons_codec
+    compile commons_logging
+    compile genson
+    compile guava
+    compile hk2_api
+    compile hk2_locator
+    compile hk2_utils
+    compile jackson_core
+    compile jackson_databind
+    compile javax_inject
+    compile javax_ws_rs_api
+    compile jersey_client
+    compile jersey_common
+    compile json_simple
+    compile log4j
+    compile mysql_connector_java
+}

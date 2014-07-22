@@ -30,7 +30,7 @@ public class BaseConfigurationReader {
 				loader = ClassLoader.getSystemClassLoader();
 			}
 
-			String popfileName = "res/baseconfiguration.properties";
+			String popfileName = "baseconfiguration.properties";
 			java.net.URL url = loader.getResource(popfileName);
 
 			try {

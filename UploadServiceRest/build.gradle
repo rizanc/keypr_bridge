@@ -1,0 +1,7 @@
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+
+    // External dependencies
+    compile javax_ws_rs_api
+}

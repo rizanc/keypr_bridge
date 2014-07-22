@@ -4,7 +4,7 @@
     </description>
 	<!-- set global properties for this build -->
 	<property name="micros.adapter.src" location="./src" />
-	<property name="micros.adapter.res" location="./res" />
+	<property name="micros.adapter.res" location="src/main/resources" />
 	<property name="micros.adapter.lib" location="./lib" />
 	<property name="micros.adapter.logs" location="./logs" />
 	<property name="micros.adapter.build" location="./build" />
@@ -19,7 +19,7 @@
 	<property name="dataharvester.project.dir.lib" location="../MicrosDataHarvester/lib" />
 	<property name="microssimulator.oxi.project.dir.lib" location="../MicrosSimulator_OXI/WebContent/WEB-INF/lib" />
 	<property name="microssimulator.ows.project.dir.lib" location="../MicrosSimulatorPMS_OWS/WebContent/WEB-INF/lib" />
-	<property name="uploadservice.client.project.dir.lib" location="../UploadServiceRest/WebContent/WEB-INF/lib" />
+	<property name="uploadservice.client.project.dir.lib" location="../UploadServiceRest/src/main/webapp/WEB-INF/lib" />
 	<property name="upload.service.project.dir.lib" location="../CloudKeyHTUploadService/lib" />
 	<property name="micros.adapter.project.dir.lib" location="../MicrosPMSAdapter/lib" />
 
@@ -64,7 +64,7 @@
 		</copy>
 		<!-- Copy the res folder to be included in jar  -->
 				<copy todir="${micros.adapter.build.res}">
-					<fileset dir="${micros.adapter.res}">
+					<fileset dir="/src/main/res">
 						<include name="*.*" />
 						<type type="file" />
 					</fileset>

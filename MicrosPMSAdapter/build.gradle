@@ -1,0 +1,32 @@
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+    compile project(':MicrosOWSServices:Availability')
+    compile project(':MicrosOWSServices:Reservation')
+    compile project(':MicrosOWSServices:ResvAdvanced')
+
+    // External dependencies
+    compile httpcomponents_httpclient
+    compile axis2_adb
+    compile axis2_adb_codegen
+    compile axis2_codegen
+    compile xmlpull
+    compile log4j
+    compile javax_mail
+    compile axis2_java2wsdl
+    compile axis2_jaxws
+    compile axis2_transport_local
+    compile axis2_transport_http
+    compile axis2_kernel
+    compile axiom_impl
+    compile commons_codec
+    compile commons_httpclient
+    compile commons_logging
+    compile commons_logging_api
+    compile httpcomponents_httpcore
+    compile neethi
+    compile wsdl4j
+    compile xmlschema
+    compile xstream
+    compile micros_services
+}
