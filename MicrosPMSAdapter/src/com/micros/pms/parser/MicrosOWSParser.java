@@ -5,13 +5,14 @@ import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
 import com.micros.pms.processor.OWSAvailabilityProcessor;
+import com.micros.pms.processor.OWSInformationProcessor;
 import com.micros.pms.processor.OWSReservationProcessor;
 import com.micros.pms.processor.OWSResvAdvancedProcessor;
+
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
-
 public class MicrosOWSParser implements IParserInterface {
     @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
@@ -119,7 +120,12 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) {
-        return null;
+        HotelInformationResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
+        response = new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
+
+        return response;
     }
 
     @Override

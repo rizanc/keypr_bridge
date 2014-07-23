@@ -1095,7 +1095,6 @@ public class KeyprWebServices {
 	 * @param objHotelInformationRequest
 	 * @return Response
 	 */
-/*
 	@SuppressWarnings( "resource" )
 	@Path( "/hotelInformation" )
 	@POST
@@ -1175,7 +1174,6 @@ public class KeyprWebServices {
 
 		return res;
 	}
-*/
 
 	/**
 	 * This method make member points information.

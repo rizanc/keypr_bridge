@@ -7,12 +7,11 @@ import tests.TestOWS;
 public class UsingADB {
     public static void main(String[] argv) {
 
-        TestOWS.AssignRoom();
+        // TestOWS.AssignRoom();
+
         //TestOWS.FutureBookingSummary();
 
-
-
-        //TestOWS.CheckIn();
+       //TestOWS.CheckIn();
 
         //TestOWS.CheckOut();
 
@@ -23,6 +22,8 @@ public class UsingADB {
         //TestOWS.ModifyBooking();
 
         //TestOWS.Folio();
+
+        TestOWS.HotelInformation();
 
     }
 
