@@ -93,4 +93,8 @@ public interface IMicrosConstants {
 	String RESERVATION_URL = "ows.reservation.service.url";
 	String RESERVATION_ID = "RESVID";
 	
+	String INFORMATION_URL = "ows.hotel.info.service.url";
+	String MEETINGROOM_URL = "ows.meeting.avail.service.url";
+	String MEMBERSHIP_URL = "ows.guest.member.service.url";
+	
 }
