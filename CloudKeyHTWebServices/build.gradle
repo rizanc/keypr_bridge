@@ -1,3 +1,5 @@
+apply plugin:'war'
+
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
@@ -17,11 +19,13 @@ dependencies {
     compile hk2_locator
     compile hk2_utils
     compile javax_inject
+    compile javax_ws_rs_api
     compile jackson_core
     compile jackson_databind
     compile jersey_client
     compile jersey_common
-    compile javax_ws_rs_api
+    compile jersey_container_servlet
+    compile jersey_media_json_jackson
     compile log4j
     compile mysql_connector_java
     compile json_simple
@@ -31,13 +35,6 @@ dependencies {
     compile axiom_api
     compile axiom_dom
     compile axiom_impl
-    compile axis2_adb
-    compile axis2_adb_codegen
-    compile axis2_codegen
-    compile axis2_java2wsdl
-    compile axis2_jaxws
-    compile axis2_kernel
-    compile axis2_transport_http
     compile xmlschema
     compile spring_beans
     compile spring_context
@@ -46,5 +43,4 @@ dependencies {
     compile spring_expression
     compile spring_web
     testCompile junit
-    testCompile genson
 }

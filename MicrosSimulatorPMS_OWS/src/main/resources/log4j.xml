@@ -38,7 +38,7 @@
 	</appender>
 	<root>
 		<priority value="INFO" />
-		<appender-ref ref="rollAppender" />
+		<appender-ref ref="consoleAppender" />
 	</root>
 
 </log4j:configuration>

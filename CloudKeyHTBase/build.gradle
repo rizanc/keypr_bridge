@@ -1,6 +1,9 @@
+
+
 dependencies {
     compile commons_logging
     compile commons_logging_api
     compile log4j
     compile mysql_connector_java
+    compile genson
 }

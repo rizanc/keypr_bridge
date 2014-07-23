@@ -88,7 +88,6 @@
 				<include name="parser-beans.xml" />
 			</fileset>
 		</copy>
-
 	</target>
 
 	<target name="keyprWebserviceDist" depends="clean,init,compile" description="generate the distribution">

@@ -3,5 +3,5 @@ dependencies {
     compile project(':CloudKeyHTBase')
 
     // External dependencies
-    compile javax_ws_rs_api
+    compile jersey_container_servlet
 }

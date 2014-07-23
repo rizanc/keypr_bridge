@@ -1,6 +1,7 @@
 package com.cloudkey.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -10,48 +11,33 @@ import org.apache.log4j.Logger;
  * It method accepts the key name returns the corresponding value from properties file.
  * 
  * @author niveditat
- *
  */
 public class BaseConfigurationReader {
 
 	/* Reference variable to store properties. */
 	private static Properties prop =  null;
 	private final static Logger LOGGER = Logger.getLogger(BaseConfigurationReader.class); 
+
 	static {
-
 		try {
-
 			prop = new Properties();
-			ClassLoader loader = null;
-			loader = BaseConfigurationReader.class.getClassLoader();
 
-			if( loader== null ){
-
-				loader = ClassLoader.getSystemClassLoader();
-			}
-
-			String popfileName = "baseconfiguration.properties";
-			java.net.URL url = loader.getResource(popfileName);
+            String popfileName = "baseconfiguration.properties";
+			InputStream propStream = BaseConfigurationReader.class.getClassLoader().getResourceAsStream(popfileName);
 
 			try {
-
-				prop.load(url.openStream());
-			}
-			catch( IOException exc ){
+				prop.load(propStream);
+			} catch (IOException exc){
 
 				LOGGER.error(BaseConfigurationReader.class + " :: " +"static block" + " :: " +
 						exc);
 
-			}
-			catch( Exception exc ){
-
+			} catch (Exception exc){
 				LOGGER.error(BaseConfigurationReader.class + " :: " +"static block" + " :: " +
 						exc);
 			}
 
-		}
-		catch( Exception exc ){
-
+		} catch (Exception exc){
 			LOGGER.error(BaseConfigurationReader.class + " :: " +"static block" + " :: " +
 					exc);
 		}

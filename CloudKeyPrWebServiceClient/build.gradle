@@ -1,3 +1,5 @@
+apply plugin:'war'
+
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
@@ -16,9 +18,10 @@ dependencies {
     compile jackson_databind
     compile jersey_client
     compile jersey_common
-    compile javax_ws_rs_api
+    compile jersey_media_json_jackson
     compile log4j
     compile mysql_connector_java
     compile json_simple
     compile servlet_api
+    compile javax_ws_rs_api
 }

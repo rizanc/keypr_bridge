@@ -18,9 +18,9 @@ dependencies {
     compile jackson_core
     compile jackson_databind
     compile javax_inject
-    compile javax_ws_rs_api
     compile jersey_client
     compile jersey_common
+    compile jersey_media_json_jackson
     compile json_simple
     compile log4j
     compile mysql_connector_java
