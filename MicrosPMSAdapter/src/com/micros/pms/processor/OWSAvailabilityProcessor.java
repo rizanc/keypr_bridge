@@ -130,6 +130,7 @@ public class OWSAvailabilityProcessor {
         objAvailabilityResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objResponse.getResult().getResultStatusFlag() == AvailabilityServiceStub.ResultStatusFlag.FAIL) {
             String message = getErrorMessage(objResponse.getResult());
+            objAvailabilityResponse.setErrorMessage(message);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getAvailabilityResponseObject ", " Availability Failed:" + message);
             return objAvailabilityResponse;
         }

@@ -12,3 +12,4 @@ MicrosOWSClient/src/res/lab.configuration.properties
 MicrosOWSClient/src/res/operademo3.configuration.properties
 MicrosPMSAdapter/res/lab.configuration.properties
 MicrosPMSAdapter/res/operademo3.configuration.properties
+.gradle/

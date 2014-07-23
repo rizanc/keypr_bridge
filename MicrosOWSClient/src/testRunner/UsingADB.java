@@ -7,8 +7,8 @@ import tests.TestOWS;
 public class UsingADB {
     public static void main(String[] argv) {
 
-        //TestOWS.AssignRoom();
-        TestOWS.FutureBookingSummary();
+        TestOWS.AssignRoom();
+        //TestOWS.FutureBookingSummary();
 
 
 

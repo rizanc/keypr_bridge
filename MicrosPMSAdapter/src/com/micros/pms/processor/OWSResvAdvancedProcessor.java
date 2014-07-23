@@ -317,6 +317,7 @@ public class OWSResvAdvancedProcessor {
 
         if (checkOutResponse.getResult().getResultStatusFlag() != ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS) {
             String message = getErrorMessage(checkOutResponse.getResult());
+            objCheckOutResponse.setErrorMessage(message);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "Could not check out:" + message);
             return objCheckOutResponse;
         }

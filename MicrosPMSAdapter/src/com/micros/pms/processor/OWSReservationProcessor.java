@@ -320,10 +320,12 @@ public class OWSReservationProcessor {
 
         objReleaseRoomRespons = new ReleaseRoomResponse();
 
-        // get the status from release room response.
         status = objReleaseRoomResponse.getResult().getResultStatusFlag().toString();
-        // set the released room status.
         objReleaseRoomRespons.setStatus(status);
+
+        if (objReleaseRoomResponse.getResult().getResultStatusFlag() == ReservationServiceStub.ResultStatusFlag.FAIL) {
+            objReleaseRoomRespons.setErrorMessage(getErrorMessage(objReleaseRoomResponse.getResult()));
+        }
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getReleaseRoomResponseObject ", " Exit getReleaseRoomResponseObject method ");
 
@@ -363,6 +365,7 @@ public class OWSReservationProcessor {
         objAssignRoomResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objAssignRoomResponse.getStatus().equalsIgnoreCase("FAIL")) {
             String message = getErrorMessage(objResponse.getResult());
+            objAssignRoomResponse.setErrorMessage(message);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " CheckIn Failed:" + message);
             return objAssignRoomResponse;
         }
@@ -922,12 +925,12 @@ public class OWSReservationProcessor {
             ReservationServiceStub.GDSResultStatus gdsResultStatus = (ReservationServiceStub.GDSResultStatus) resultStatus;
             if (gdsResultStatus.isGDSErrorSpecified()) {
                 message = gdsResultStatus.getGDSError().toString();
-            } else if (gdsResultStatus.isTextSpecified()){
+            } else if (gdsResultStatus.isTextSpecified()) {
                 if (gdsResultStatus.getText() != null &&
                         gdsResultStatus.getText().getTextElement() != null &&
                         gdsResultStatus.getText().getTextElement().length > 0
                         )
-                message=  gdsResultStatus.getText().getTextElement()[0].toString();
+                    message = gdsResultStatus.getText().getTextElement()[0].toString();
             }
         } else if (resultStatus.getText() != null &&
                 resultStatus.getText().getTextElement() != null &&
