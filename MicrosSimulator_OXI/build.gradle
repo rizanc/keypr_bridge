@@ -1,0 +1,13 @@
+apply plugin:'war'
+
+dependencies {
+    // Local dependencies
+
+    // External dependencies
+    compile servlet_api
+    compile commons_logging
+    compile commons_logging_api
+    compile httpcomponents_httpcore
+    compile httpcomponents_httpclient
+    compile log4j
+}

@@ -3,6 +3,7 @@ dependencies {
     compile project(':CloudKeyHTBase')
 
     // External dependencies
-    compile jersey_container_servlet
-    compile jersey_media_json_jackson
+    compile commons_logging
+    compile commons_logging_api
+    compile log4j
 }

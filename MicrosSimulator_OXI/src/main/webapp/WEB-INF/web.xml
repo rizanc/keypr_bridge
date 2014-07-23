@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>OXI Simulator</display-name>
 	<welcome-file-list>
-		<welcome-file>/JSP-PAGES/index.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<description></description>

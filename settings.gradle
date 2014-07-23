@@ -1,10 +1,14 @@
 rootProject.name = 'keypr_bridge'
+
 include "CloudKeyHTBase"
 include "CloudKeyHTUploadService"
 include "CloudKeyHTWebServices"
 include "CloudKeyPrWebServiceClient"
+/*
+   CloudKeyTestAdapter is out of date with CloudKeyHTBase and will not build.
+
 include "CloudKeyTestAdapter"
-include "CloudKeyTestAdapter"
+ */
 include "MicrosDataHarvester"
 include "MicrosOWSClient"
 include "MicrosOWSServices:Availability"
@@ -13,3 +17,4 @@ include "MicrosOWSServices:ResvAdvanced"
 include "MicrosPMSAdapter"
 include "MicrosSimulator_OXI"
 include "MicrosSimulatorPMS_OWS"
+include "UploadServiceRest"

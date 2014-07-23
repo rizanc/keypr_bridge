@@ -1,4 +1,5 @@
 package com.keypr.rest.services;
+
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -13,12 +14,11 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 
-/**Keypr web service to accept the updated data of upload Queue for RoomDetails,RoomInventory,Reservation, as Json object and
+/**
+ * Keypr web service to accept the updated data of upload Queue for RoomDetails,RoomInventory,Reservation, as Json object and
  * send response to the client, weather it gets the updated data or
  * @author ektas -
- 
  */
-
 @Path("/Service")
 public class UploadService {
 

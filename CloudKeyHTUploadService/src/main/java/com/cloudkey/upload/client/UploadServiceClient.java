@@ -24,9 +24,7 @@ import com.cloudkey.upload.utility.UploadConfigurationReader;
  * and expecting response from Keypr service as Success and Failure.
  * 
  * @author ektas 
- *
  */
-
 public class UploadServiceClient {
 
 	private static String result = IUploadConstants.WEB_SERVICE_RESULT_FAILURE;
