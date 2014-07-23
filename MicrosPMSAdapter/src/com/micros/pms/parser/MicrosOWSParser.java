@@ -13,6 +13,7 @@ import com.micros.pms.processor.OWSResvAdvancedProcessor;
 /**
  * Created by crizan2 on 16/07/2014.
  */
+
 public class MicrosOWSParser implements IParserInterface {
     @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {

@@ -1,5 +1,4 @@
 *.war
-*.iml
 *.class
 test*.xml
 base.jar

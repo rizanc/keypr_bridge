@@ -4,9 +4,13 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
+<<<<<<< HEAD
 import com.cloudkey.pms.response.HotelInformationResponse;
 import com.micros.pms.processor.OWSAvailabilityProcessor;
 import com.micros.pms.processor.OWSInformationProcessor;
+=======
+import com.micros.pms.processor.OWSAvailabilityProcessor;
+>>>>>>> b7c36a8c0bd2ba4bd4e759a17007f5d33af5a1fc
 import com.micros.pms.processor.OWSReservationProcessor;
 import com.micros.pms.processor.OWSResvAdvancedProcessor;
 
@@ -24,7 +28,10 @@ public class TestOWS {
     private static final String CREDIT_CARD_NO = "4111111111111111";
     private static final String LAST_NAME = "Ellison";
     private static final String FIRST_NAME = "LARRY";
+<<<<<<< HEAD
     private static final String HOTEL_CODE = "GSDH";
+=======
+>>>>>>> b7c36a8c0bd2ba4bd4e759a17007f5d33af5a1fc
 
     public static void Availability() {
 
@@ -132,6 +139,7 @@ public class TestOWS {
         owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
 
     }
+<<<<<<< HEAD
 
     public static void HotelInformation() {
 
@@ -143,4 +151,6 @@ public class TestOWS {
         owsInformationProcessor.processHotelInformation(request);
 
     }
+=======
+>>>>>>> b7c36a8c0bd2ba4bd4e759a17007f5d33af5a1fc
 }
