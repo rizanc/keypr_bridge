@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
+import com.cloudkey.commons.Response;
 
 /**
  * This Class has information of bill requested by the guest. It has details of reservations 
@@ -12,23 +13,14 @@ import com.cloudkey.commons.ReservationOrders;
  * @author vinayk2
  */
 
-public class GetFolioResponse {
+public class GetFolioResponse extends Response {
 
 	/* Reference variable to store the reservation data */
 	private Reservation reservation ;
 	/* Reference variable to store the bill information */
 	private List<ReservationOrders> reservationOrderList;
-	private String status;
-
+	
 	/* Getter and Setter for each Data Member. */
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public Reservation getReservation() {
 
@@ -51,9 +43,9 @@ public class GetFolioResponse {
 
 	@Override
 	public String toString() {
-		return "GetFolioResponse [status=" + status + ", reservation=" + reservation
-				+ ", reservationOrderList=" + reservationOrderList + "]";
+		return "GetFolioResponse [reservation=" + reservation
+				+ ", reservationOrderList=" + reservationOrderList
+				+ ", status=" + status + ", errorMessage=" + errorMessage + "]";
 	}
-
 	
 }

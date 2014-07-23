@@ -1,28 +1,21 @@
 package com.cloudkey.pms.response;
 
+import com.cloudkey.commons.Response;
+
 /**
  * This class stores the released rooms result status .
  * 
  * @author niveditat
  *
  */
-public class ReleaseRoomResponse {
-	
-	private String status;
-	
-	// setter and getters.
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+public class ReleaseRoomResponse extends Response {
 
 	@Override
 	public String toString() {
-		return "ReleaseRoomResponse [status=" + status + "]";
-	}	
+		return "ReleaseRoomResponse [status=" + status + ", errorMessage="
+				+ errorMessage + "]";
+	}
+	
+	
 }
 
