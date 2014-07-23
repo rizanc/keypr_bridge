@@ -47,7 +47,7 @@ import com.micros.reservation.ReservationServiceStub.RoomFeature;
 import com.micros.reservation.ReservationServiceStub.RoomFeatureList;
 import com.micros.reservation.ReservationServiceStub.RoomType;
 import org.apache.axis2.AxisFault;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,7 +87,7 @@ public class MicrosPMSMessageParser implements IParserInterface {
 
     @Override
     public MeetingRoomInformationResponse getMeetingInformation(com.cloudkey.pms.request.MeetingRoomInformationRequest meetingRoomInformationRequest){
-        throw new NotImplementedException();
+        throw new NotImplementedException("TODO");
     }
 
     @Override

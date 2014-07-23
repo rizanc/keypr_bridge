@@ -37,7 +37,7 @@ public class TestPMSMessageParser implements IParserInterface {
 	private static Class tag = "TestPMSMessageParser".getClass();
 
 	/**
-	 * This method accept the serachReservation Request and return the search Reservation response.
+	 * This method accept the searchReservation Request and return the search Reservation response.
 	 */
 	@Override
 	public SearchReservationResponse searchReservationData(SearchReservationRequest reservationRequest) {
