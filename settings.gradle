@@ -16,5 +16,9 @@ include "MicrosOWSServices:Reservation"
 include "MicrosOWSServices:ResvAdvanced"
 include "MicrosPMSAdapter"
 include "MicrosSimulator_OXI"
+/*
+    MicrosSimulatorPMS_OWS depends on outdated versions of the micros services, and is not used currently.
+
 include "MicrosSimulatorPMS_OWS"
+ */
 include "UploadServiceRest"

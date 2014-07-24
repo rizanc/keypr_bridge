@@ -7,18 +7,18 @@ dependencies {
 
     // External dependencies
     compile httpcomponents_httpclient
-//    compile axis2_adb
-//    compile axis2_adb_codegen
-//    compile axis2_codegen
     compile xmlpull
     compile genson
     compile log4j
     compile javax_mail
-//    compile axis2_java2wsdl
-//    compile axis2_jaxws
-//    compile axis2_transport_local
+    compile axis2_adb
+    compile axis2_adb_codegen
+    compile axis2_codegen
+    compile axis2_java2wsdl
+    compile axis2_jaxws
+    compile axis2_transport_local
     compile axis2_transport_http
-//    compile axis2_kernel
+    compile axis2_kernel
     compile axiom_impl
     compile commons_codec
     compile commons_lang

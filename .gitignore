@@ -4,7 +4,11 @@
 *.ipr
 *.iws
 /.idea
+intellij/
+intellij_project_settings/
+
 *.swp
+test*.xml
 
 .project
 .settings
@@ -13,5 +17,11 @@
 *.launch
 
 build
+dist/
 tmp
 .DS_Store
+
+MicrosOWSClient/src/main/resources/lab.configuration.properties
+MicrosOWSClient/src/main/resources/operademo3.configuration.properties
+MicrosPMSAdapter/src/main/resources/lab.configuration.properties
+MicrosPMSAdapter/src/main/resources/operademo3.configuration.properties

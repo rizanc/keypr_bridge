@@ -1,5 +1,10 @@
+apply plugin:'application'
+mainClassName = 'com.micros.ows.client.UsingADB'
+
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
     compile project(':MicrosPMSAdapter')
+    compile micros_services
+    compile junit
 }

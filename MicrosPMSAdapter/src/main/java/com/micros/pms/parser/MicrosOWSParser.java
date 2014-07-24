@@ -4,17 +4,25 @@ import com.micros.pms.logger.MicrosPMSLogger;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
+import com.micros.pms.processor.OWSAvailabilityProcessor;
+import com.micros.pms.processor.OWSInformationProcessor;
 import com.micros.pms.processor.OWSReservationProcessor;
 import com.micros.pms.processor.OWSResvAdvancedProcessor;
+
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
+
 public class MicrosOWSParser implements IParserInterface {
     @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
 
-        return null;
+        GetFolioResponse response;
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
+        response = new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
+
+        return response;
     }
 
     @Override
@@ -59,7 +67,13 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) {
-        return null;
+
+        UpdateBookingResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " updateBooking ", " Enter updateBooking method. ");
+        response = new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
+
+        return response;
     }
 
     @Override
@@ -69,7 +83,13 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) {
-        return null;
+
+        GetAvailabilityResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " checkAvailability ", " Enter checkAvailability method. ");
+        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+
+        return response;
     }
 
     @Override
@@ -101,7 +121,12 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) {
-        return null;
+        HotelInformationResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
+        response = new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
+
+        return response;
     }
 
     @Override

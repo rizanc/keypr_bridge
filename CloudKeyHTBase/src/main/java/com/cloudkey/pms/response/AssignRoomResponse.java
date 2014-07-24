@@ -1,36 +1,32 @@
 package com.cloudkey.pms.response;
 
+import com.cloudkey.commons.Response;
+
 /**
  * This class is used to sote the response status and assign room number .
- * 
+ *
  * @author niveditat
  *
  */
-public class AssignRoomResponse {
+public class AssignRoomResponse extends Response {
 
-	/*Variable to store the response.*/
-	private String status;
-	private String assignRoomNumber;
+    /*Variable to store the response.*/
+    private String assignRoomNumber;
 
 	/*setter and getters.*/
 
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getAssignRoomNumber() {
-		return assignRoomNumber;
-	}
-	public void setAssignRoomNumber(String assignRoomNumber) {
-		this.assignRoomNumber = assignRoomNumber;
-	}
+    public String getAssignRoomNumber() {
+        return assignRoomNumber;
+    }
 
-	@Override
-	public String toString() {
-		return "AssignRoomResponse [status=" + status + ", assignRoomNumber="
-				+ assignRoomNumber + "]";
-	}
+    public void setAssignRoomNumber(String assignRoomNumber) {
+        this.assignRoomNumber = assignRoomNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "AssignRoomResponse [assignRoomNumber=" + assignRoomNumber
+                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
+    }
 
 }

@@ -19,13 +19,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 /**
- * This class contains junit test cases to test the web service calls.
- * 
- * @author vinayk2
- *
- */
+* This class contains junit test cases to test the web service calls.
+*
+* @author vinayk2
+*
+*/
 
 public class KeyprWebServicesTest {
 
@@ -57,12 +58,12 @@ public class KeyprWebServicesTest {
 
 		}
 		else {
-			
+
 			WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForConfirmation ", " Failure From Server ");
-			
+
 			assertTrue( "Number of reservation",  0 == objSearchReservationResponse.getReservationList().size() );
 			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
-			
+
 		}
 
 		assertNotNull("SearchReservationResponse Instance must not be null " , objSearchReservationResponse );
@@ -74,8 +75,8 @@ public class KeyprWebServicesTest {
 	/**
 	 * This method test search reservation request to the web service. It uses combination of first name and
 	 * last name to search reservation. This test case compare the first and last name in each of the reservation
-	 * object received as response. 
-	 * 
+	 * object received as response.
+	 *
 	 */
 	//@Ignore
 	@Test
@@ -109,7 +110,7 @@ public class KeyprWebServicesTest {
 				assertEquals( "robin", objSearchReservationResponse.getReservationList().get(index).getFirstName());
 				assertEquals( "Smith", objSearchReservationResponse.getReservationList().get(index).getLastName());
 			}
-                
+
 			assertEquals( "XXXX-XXXX-XXXX-1234", objSearchReservationResponse.getReservationList().get(0).getCreditCardNumber());
 		}
 
@@ -136,7 +137,7 @@ public class KeyprWebServicesTest {
 		assertNotNull("SearchReservationResponse Instance must not be null " , objSearchReservationResponse );
 		assertNotNull( "SearchReservationRequest Instance must not be null ",  objSearchReservationRequest);
 
-		assertNotEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
+		assertThat( "SUCCESS" , not(objSearchReservationResponse.getStatus() ));
 		assertEquals( "FAILURE", objSearchReservationResponse.getStatus());
 
 		int numbeOfReservations = objSearchReservationResponse.getReservationList().size();
@@ -180,7 +181,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This method makes search reservation request to the web service.
-	 * 
+	 *
 	 * @param objSearchReservationRequest
 	 * @return
 	 */
@@ -269,7 +270,7 @@ public class KeyprWebServicesTest {
 				assertNotNull( "Total Amount Cannot be Null ", objGetFolioResponse.getReservationOrderList().get(index).getTotalAmount());
 				//assertNotNull( "Order Date Cannot be Null", objGetFolioResponse.getReservationOrderList().get(index).getOrderDate());
 				assertNotNull( "Order List Cannot be Null ", objGetFolioResponse.getReservationOrderList().get(index).getOrderDetailList() );
-				assertNotEquals( "OrderList Cannot be of Size Zero ", 0, objGetFolioResponse.getReservationOrderList().get(index).getOrderDetailList().size());
+				assertThat( "OrderList Cannot be of Size Zero ", 0, not(objGetFolioResponse.getReservationOrderList().get(index).getOrderDetailList().size()));
 
 			}
 		}
@@ -304,7 +305,7 @@ public class KeyprWebServicesTest {
 	}
 	/**
 	 * This method makes get folio request to the web service.
-	 * 
+	 *
 	 * @param objGetFolioRequest
 	 * @return
 	 */
@@ -400,7 +401,7 @@ public class KeyprWebServicesTest {
 	}
 	/**
 	 * This method makes update booking request to the web service.
-	 * 
+	 *
 	 * @param objUpdateBookingRequest
 	 * @return
 	 */
@@ -425,8 +426,8 @@ public class KeyprWebServicesTest {
 	}
 
 	/**
-	 * This Test case works to see if the property management system is shutdown or not. 
-	 * if server is down then this test case gives positive result otherwise it fails against junit test case. 
+	 * This Test case works to see if the property management system is shutdown or not.
+	 * if server is down then this test case gives positive result otherwise it fails against junit test case.
 	 */
 
 	//@Test
@@ -460,7 +461,7 @@ public class KeyprWebServicesTest {
 	/**
 	 * This method defines the junit test case for the chekin request call made to the
 	 * web service method.
-	 * 
+	 *
 	 */
 	//@Test
 	@Ignore
@@ -522,7 +523,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This method makes get availability  request to the web service.
-	 * 
+	 *
 	 * @param objCheckInRequest
 	 * @return
 	 */
@@ -548,7 +549,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This method defines the test case for get availability request for the web service.
-	 * 
+	 *
 	 */
 	//@Test
 	public void testGetAvailabilityRequest() {
@@ -632,7 +633,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This method makes guest check availability request to the web service.
-	 * 
+	 *
 	 * @param objGetAvailabilityRequest
 	 * @return
 	 */
@@ -659,7 +660,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This method makes guest checkout request to the web service.
-	 * 
+	 *
 	 * @param objCheckOutRequest
 	 * @return
 	 */
@@ -715,7 +716,7 @@ public class KeyprWebServicesTest {
 	 * This method test checkout process on the basis of confirmation number .
 	 * If the user checkout successfully then the result must be success with
 	 * the reservation details.
-	 * 
+	 *
 	 */
 	//@Test
 	//@Ignore
@@ -750,7 +751,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This method makes request to call the webservice for assign the room .
-	 * 
+	 *
 	 * @param assignRoomRequest
 	 * @return AssignRoomResponse
 	 */
@@ -773,7 +774,7 @@ public class KeyprWebServicesTest {
 
 	/**
 	 * This test case work to see if the property management system is shut down or not. if server is down then the test case gives positive response
-	 * otherwise it fails against junit test case. 
+	 * otherwise it fails against junit test case.
 	 */
 	//@Test
 	public void testAssignRoomRequestServerShutdown()
@@ -805,7 +806,7 @@ public class KeyprWebServicesTest {
 	}
 
 	/**
-	 * This method assign the room 
+	 * This method assign the room
 	 */
 	//@Test
 	public void testAssignRoomRequest(){
@@ -881,7 +882,7 @@ public class KeyprWebServicesTest {
 
 	}
 	/**
-	 * This test case works to see if the property management system is shutdown or not. 
+	 * This test case works to see if the property management system is shutdown or not.
 	 * if server is down then this test case give positive result otherwise it fails against junit test case.
 	 */
 	//@Test
