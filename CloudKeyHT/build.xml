@@ -29,19 +29,19 @@
             depends="build-all-java-app,deploy-micros-ows-simulator,deploy-webservice-client,deploy-keypr-ws"/>
 -->
     <target name="deploy-all-webapps"
-            depends="build-all-java-app,deploy-keypr-ws"/>
+            depends="build-all-java-app,deploy-keypr-ws,deploy-webservice-client"/>
 
 <!--    <echo message="Deploying Micrso OWS Simulator"></echo>
     <target name="deploy-micros-ows-simulator" description="deploy micros ows simulator on tomcat server">
         <ant antfile="${pms.simulator.ows.path}/ows-simulator-build.xml" inheritall="false" target="owsSimulatorDist"/>
     </target>-->
 
-<!--    <echo message="Deploying Micros Client"></echo>
+    <echo message="Deploying Micros Client"></echo>
     <target name="deploy-webservice-client"
             description="deploy keypr bridge webservice client - it is only for testing will be removed">
         <ant antfile="${cloudKey.keypr.client.path}/keypr-client-build.xml" inheritall="false"
              target="keyprClientDist"/>
-    </target>-->
+    </target>
 
     <echo message="Deploying KeypWeb Services"></echo>
     <target name="deploy-keypr-ws" description="deploy keypr bridge webservice">

@@ -1,11 +1,17 @@
 
-D:\axis2-1.6.2\bin>wsdl2java.bat -p com.micros.ows.reservation  -o D:\Dev2\keypr
-_bridge\MicrosOWSServices\Reservation -uri http://54.224.69.28:8080/ows_51/Reser
-vation.asmx?wsdl
+wsdl2java.bat -p com.micros.ows.reservation  -o D:\Dev2\keypr_bridge\MicrosOWSServices\Reservation -uri http://54.243.39.74:8080/ows_51/Reservation.asmx?wsdl
 
-D:\axis2-1.6.2\bin>wsdl2java.bat -p com.micros.ows.resvadvanced  -o D:\Dev2\keyp
-r_bridge\MicrosOWSServices\ResvAdvanced -uri http://54.224.69.28:8080/ows_51/Res
-vAdvanced.asmx?wsdl
+wsdl2java.bat -p com.micros.ows.resvadvanced  -o D:\Dev2\keypr_bridge\MicrosOWSServices\ResvAdvanced -uri http://54.243.39.74:8080/ows_51/ResvAdvanced.asmx?wsdl
+
+wsdl2java.bat -p com.micros.ows.information  -o D:\Dev2\keypr_bridge\MicrosOWSServices\Information -uri http://54.243.39.74:8080/ows_51/Information.asmx?wsdl
+
+wsdl2java.bat -p com.micros.ows.membership  -o D:\Dev2\keypr_bridge\MicrosOWSServices\Membership -uri http://54.243.39.74:8080/ows_51/Membership.asmx?wsdl
+
+wsdl2java.bat -p com.micros.ows.meetingroom  -o D:\Dev2\keypr_bridge\MicrosOWSServices\MeetingRoom -uri http://54.243.39.74:8080/ows_51/MeetingRoom.asmx?wsdl
+
+wsdl2java.bat -p com.micros.ows.name  -o D:\Dev2\keypr_bridge\MicrosOWSServices\Name -uri http://54.243.39.74:8080/ows_51/Name.asmx?wsdl
+
+
 
 
 
