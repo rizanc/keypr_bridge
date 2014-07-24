@@ -15,7 +15,6 @@ public class WebAppLogger extends Logger {
 	protected WebAppLogger(String name)
 	{
 		super(name);
-		
 	}
 	
 	/**

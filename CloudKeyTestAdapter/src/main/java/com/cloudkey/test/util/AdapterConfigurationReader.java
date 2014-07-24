@@ -25,7 +25,7 @@ public class AdapterConfigurationReader {
 		try {
 			prop = new Properties();
 
-			String popfileName = "adapterConfiguration.properties";
+			String popfileName = "adapter-configuration.properties";
 			java.net.URL url = AdapterConfigurationReader.class.getClassLoader().getResource(popfileName);
 
 			try {

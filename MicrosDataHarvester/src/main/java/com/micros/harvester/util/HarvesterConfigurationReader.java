@@ -24,15 +24,10 @@ public class HarvesterConfigurationReader {
 		try {
 
 			prop = new Properties();
-			InputStream input = null;
+            InputStream propFile = HarvesterConfigurationReader.class.getClassLoader().getResourceAsStream("dataharvester-configuration.properties");
 
-			String popfileName = "configuration.properties";
-
-			try {
-
-				input = new FileInputStream(popfileName);
-				prop.load(input);
-
+            try {
+				prop.load(propFile);
 			}
 			catch( IOException exc ){
 

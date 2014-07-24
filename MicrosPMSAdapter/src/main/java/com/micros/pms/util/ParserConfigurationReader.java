@@ -1,6 +1,7 @@
 package com.micros.pms.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -25,18 +26,11 @@ public class ParserConfigurationReader {
 			prop = new Properties();
 			ClassLoader loader = null;
 			loader = ParserConfigurationReader.class.getClassLoader();
+			String popfileName = "pms-adapter-configuration.properties";
+            InputStream propFile = loader.getResourceAsStream(popfileName);
 
-			if( loader== null ){
-
-				loader = ClassLoader.getSystemClassLoader();
-			}
-
-			String popfileName = "configuration.properties";
-			java.net.URL url = loader.getResource(popfileName);
-
-			try {
-
-				prop.load(url.openStream());
+            try {
+                prop.load(propFile);
 			}
 			catch( IOException exc ) {
 

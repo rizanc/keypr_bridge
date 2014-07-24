@@ -1,6 +1,5 @@
 package com.cloudkey.upload.utility;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -28,7 +27,7 @@ public class UploadConfigurationReader {
 			InputStream input;
 
 			try {
-				input = UploadConfigurationReader.class.getClassLoader().getResourceAsStream("uploadconfig.properties");
+				input = UploadConfigurationReader.class.getClassLoader().getResourceAsStream("upload-configuration.properties");
 				prop.load( input );
 			}
 			catch( IOException exc ){

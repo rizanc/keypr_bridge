@@ -22,7 +22,7 @@ public class BaseConfigurationReader {
 		try {
 			prop = new Properties();
 
-            String popfileName = "baseconfiguration.properties";
+            String popfileName = "base-configuration.properties";
 			InputStream propStream = BaseConfigurationReader.class.getClassLoader().getResourceAsStream(popfileName);
 
 			try {
