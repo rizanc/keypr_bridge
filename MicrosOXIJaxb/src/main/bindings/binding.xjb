@@ -2,6 +2,7 @@
 <jaxb:bindings version="2.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
                xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <!-- Specifies the package name for each xsd -->
     <jaxb:bindings schemaLocation="../xsd/allotment.fidelio.5.0.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.allotment"/>
@@ -27,12 +28,32 @@
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/profile.fidelio.3.0.xsd">
+        <!-- See MicrosIds#PhoneNumberType -->
+        <jaxb:bindings node="//xs:simpleType [@name='phoneNumberType']">
+            <jaxb:typesafeEnumClass map="false" />
+        </jaxb:bindings>
+
+        <!-- See MicrosIds#AddressType -->
+        <jaxb:bindings node="//xs:simpleType [@name='addressType']">
+            <jaxb:typesafeEnumClass map="false" />
+        </jaxb:bindings>
+
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile.version3"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/profile.fidelio.4.0.xsd">
+        <!-- See MicrosIds#PhoneNumberType -->
+        <jaxb:bindings node="//xs:simpleType [@name='phoneNumberType']">
+            <jaxb:typesafeEnumClass map="false" />
+        </jaxb:bindings>
+
+        <!-- See MicrosIds#AddressType -->
+        <jaxb:bindings node="//xs:simpleType [@name='addressType']">
+            <jaxb:typesafeEnumClass map="false" />
+        </jaxb:bindings>
+
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile"/>
         </jaxb:schemaBindings>
