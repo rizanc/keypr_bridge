@@ -42,5 +42,6 @@ dependencies {
     compile spring_core
     compile spring_expression
     compile spring_web
+    compile swagger
     testCompile junit
 }

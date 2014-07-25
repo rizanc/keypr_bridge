@@ -55,6 +55,7 @@ ext {
     spring_web = 'org.springframework:spring-web:4.0.0.RELEASE'
     stax = 'stax:stax:1.2.0'
     sun_httpserver = 'com.sun.net.httpserver:http:20070405'
+    swagger = 'com.wordnik:swagger-jersey2-jaxrs_2.10:1.3.7'
     wsdl4j = 'wsdl4j:wsdl4j:1.6.2'
     xmlbeans = 'org.apache.xmlbeans:xmlbeans:2.3.0'
     xmlpull = 'xmlpull:xmlpull:1.1.3.1'
