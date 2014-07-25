@@ -19,15 +19,11 @@ public class DataHarvesterService {
 
 		DataHarvesterLogger.logInfo( DataHarvesterService.class, " main ", " Enter main method " );
 
-		OWSDataCollector objOwsDataCollector = null;
-		OXIListener objOxiListener = null;
-		
-		objOwsDataCollector = new OWSDataCollector();
-
+		OWSDataCollector objOwsDataCollector = new OWSDataCollector();
 		//objOwsDataCollector.harvestRoomStatusData();
 		objOwsDataCollector.harvestRoomInventoryData();
-		
-		objOxiListener = new OXIListener();
+
+        OXIListener objOxiListener = new OXIListener();
 		objOxiListener.connectWithOXI();
 
 		DataHarvesterLogger.logInfo( DataHarvesterService.class, " main ", " Exit main method " );

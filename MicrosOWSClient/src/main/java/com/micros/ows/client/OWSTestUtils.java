@@ -2,13 +2,8 @@ package com.micros.ows.client;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.CheckInResponse;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
-import com.cloudkey.pms.response.HotelInformationResponse;
-import com.micros.pms.processor.OWSAvailabilityProcessor;
-import com.micros.pms.processor.OWSInformationProcessor;
-import com.micros.pms.processor.OWSReservationProcessor;
-import com.micros.pms.processor.OWSResvAdvancedProcessor;
+import com.cloudkey.pms.response.*;
+import com.micros.pms.processor.*;
 
 import java.util.Date;
 
@@ -25,6 +20,8 @@ public class OWSTestUtils {
     private static final String LAST_NAME = "Ellison";
     private static final String FIRST_NAME = "LARRY";
     private static final String HOTEL_CODE = "GSDH";
+    private static final String MEMBER_ID = "223123123123123212";
+    private static final String MEMBER_TYPE = "IB";
 
     public static void Availability() {
 
@@ -141,6 +138,47 @@ public class OWSTestUtils {
         request.setHotelCode(HOTEL_CODE);
 
         owsInformationProcessor.processHotelInformation(request);
+
+    }
+    public static void Membership() {
+
+        OWSMembershipProcessor owsMembershipProcessor = new OWSMembershipProcessor();
+
+        MemberPointsRequest request = new MemberPointsRequest();
+        request.setMembershipNumber(MEMBER_ID);
+        request.setMembershipType(MEMBER_TYPE);
+
+        owsMembershipProcessor.processFetchMemberPoints(request);
+
+    }
+
+    public static void NameLookupByMembership() {
+
+        OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
+
+        NameIdByMembershipRequest request = new NameIdByMembershipRequest();
+        request.setMembershipNumber("1166666666");
+        request.setMembershipType("OR");
+        request.setLastname("REWARDS");
+
+        owsNameProcessor.processNameLookupByMembership(request);
+
+    }
+
+    public static void GetCardList() {
+
+        OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
+
+/*        NameIdByMembershipRequest request = new NameIdByMembershipRequest();
+        request.setMembershipNumber("1166666666");
+        request.setMembershipType("OR");
+        request.setLastname("REWARDS");*/
+
+        GuestMembershipsRequest request = new GuestMembershipsRequest();
+
+        request.setNameId("220080");
+
+        owsNameProcessor.processGuestCardList(request);
 
     }
 }

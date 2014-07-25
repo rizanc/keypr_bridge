@@ -2397,7 +2397,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		if( objEDate.before(objSDate) ) {
 
 			objGetAvailabilityResponse = new GetAvailabilityResponse();
-			objGetAvailabilityResponse.setStatus( IMicrosConstants.RESPONSE_FAILURE );
+			objGetAvailabilityResponse.setStatus( IMicrosConstants.RESPONSE_FAIL);
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " Start Date " + objSDate );
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " checkAvailability ", " End Date " + objEDate );
@@ -3893,7 +3893,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 	public MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest )
 	{
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery "," Enter memberPointsQuery method " );
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " processFetchMemberPoints "," Enter processFetchMemberPoints method " );
 
 		com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
 		com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse objFetchMemberPointsResponse = null;
@@ -3901,7 +3901,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		MemberPointsResponse objMemberPointsResponse = null;
 
-		if( objMemberPointsRequest.getMembershipId().length() > 0) {
+		if( objMemberPointsRequest.getMembershipNumber().length() > 0) {
 
 			objFetchMemberPointsRequest = getFetchMemberPointsRequestObject( objMemberPointsRequest );
 
@@ -3909,7 +3909,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				
 				String endPointUrl = ParserConfigurationReader.getProperty( IMicrosConstants.MEMBERSHIP_URL);
 
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery ", " Membership Service Url " + endPointUrl );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " processFetchMemberPoints ", " Membership Service Url " + endPointUrl );
 
 				objMembershipServiceStub = new MembershipServiceStub(endPointUrl);
 
@@ -3917,18 +3917,18 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				objFetchMemberPointsResponse = objMembershipServiceStub.fetchMemberPoints(objFetchMemberPointsRequest, objE);
 				
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery ", " Response received from real OWS " );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " processFetchMemberPoints ", " Response received from real OWS " );
 
 				objMemberPointsResponse = getMemberPointsResponse( objFetchMemberPointsResponse );
 
 			}
 			catch(Exception exc) {
 
-				MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " memberPointsQuery ", exc );
+				MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " processFetchMemberPoints ", exc );
 
 			}
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " memberPointsQuery ", " Exit memberPointsQuery block");
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processFetchMemberPoints ", " Exit processFetchMemberPoints block");
 
 		return objMemberPointsResponse;
 	}
@@ -3977,7 +3977,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
 
 		objFetchMemberPointsRequest = new com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest();
-		objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipId());
+		objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipNumber());
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
 		return objFetchMemberPointsRequest;

@@ -14,6 +14,7 @@ import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.HarvesterConfigurationReader;
 import com.micros.harvester.util.OXIParserUtility;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -38,20 +39,14 @@ public class OXIListener implements HttpHandler {
 
 		DataHarvesterLogger.logInfo( OXIListener.class, " connectWithOXI ", " enter connectWithServer method " );
 
-		HttpServer oxiListener = null;
-		String listeningPort = null;
-		String listeningURL = null;
-
 		try {
 
-			listeningPort = HarvesterConfigurationReader.getProperty( IMicrosHarvester.OXI_LISTENING_PORT );
-			listeningURL = HarvesterConfigurationReader.getProperty( IMicrosHarvester.OXI_LISTENING_URL );
+			int listeningPortNum = Integer.parseInt(HarvesterConfigurationReader.getProperty( IMicrosHarvester.OXI_LISTENING_PORT ));
+			String listeningURL = HarvesterConfigurationReader.getProperty( IMicrosHarvester.OXI_LISTENING_URL );
 
-			int portNum = Integer.parseInt( listeningPort );
-
-			oxiListener =  HttpServer.create( new InetSocketAddress( portNum ), IMicrosHarvester.COUNT_ZERO );
-			oxiListener.createContext( listeningURL , this);
-			oxiListener.setExecutor( null);
+            HttpServer oxiListener =  HttpServer.create( new InetSocketAddress( listeningPortNum ), IMicrosHarvester.COUNT_ZERO );
+			oxiListener.createContext(listeningURL , this);
+			oxiListener.setExecutor(null);
 			oxiListener.start();
 		}
 		catch( Exception exc ) {
@@ -67,8 +62,8 @@ public class OXIListener implements HttpHandler {
 	 */
 	@Override
 	public void handle( HttpExchange exchange ) {
-
 		DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " enter handle method " );
+
 
 		try {
 

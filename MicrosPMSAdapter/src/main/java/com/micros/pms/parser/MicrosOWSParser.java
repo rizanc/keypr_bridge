@@ -1,13 +1,16 @@
 package com.micros.pms.parser;
 
+import com.cloudkey.commons.Membership;
+import com.micros.ows.membership.MembershipServiceStub;
+import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
-import com.micros.pms.processor.OWSAvailabilityProcessor;
-import com.micros.pms.processor.OWSInformationProcessor;
-import com.micros.pms.processor.OWSReservationProcessor;
-import com.micros.pms.processor.OWSResvAdvancedProcessor;
+import com.micros.pms.processor.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -19,7 +22,7 @@ public class MicrosOWSParser implements IParserInterface {
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
 
         GetFolioResponse response;
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
         response = new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
 
         return response;
@@ -29,7 +32,7 @@ public class MicrosOWSParser implements IParserInterface {
     public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) {
         ReleaseRoomResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Enter releaseRoom method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " releaseRoom ", " Enter releaseRoom method. ");
         response = new OWSReservationProcessor().processReleaseRoom(releaseRoomRequest);
 
         return response;
@@ -39,7 +42,7 @@ public class MicrosOWSParser implements IParserInterface {
     public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) {
         CheckInResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ", " Enter guestCheckIn method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckIn ", " Enter guestCheckIn method. ");
         response = new OWSResvAdvancedProcessor().processCheckIn(checkInRequest);
 
         return response;
@@ -49,7 +52,7 @@ public class MicrosOWSParser implements IParserInterface {
     public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) {
         AssignRoomResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " assignRoom ", " Enter assignRoom method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " assignRoom ", " Enter assignRoom method. ");
         response = new OWSReservationProcessor().processAssignRoom(assignRoomRequest);
 
         return response;
@@ -59,7 +62,7 @@ public class MicrosOWSParser implements IParserInterface {
     public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) {
         CheckOutResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckOut ", " Enter guestCheckOut method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckOut ", " Enter guestCheckOut method. ");
         response = new OWSResvAdvancedProcessor().processCheckOut(checkOutRequest);
 
         return response;
@@ -70,7 +73,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         UpdateBookingResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " updateBooking ", " Enter updateBooking method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " updateBooking ", " Enter updateBooking method. ");
         response = new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
 
         return response;
@@ -86,7 +89,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         GetAvailabilityResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " checkAvailability ", " Enter checkAvailability method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " checkAvailability ", " Enter checkAvailability method. ");
         response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
 
         return response;
@@ -97,7 +100,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         SearchReservationResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " Enter searchReservationData method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " searchReservationData ", " Enter searchReservationData method. ");
         response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
 
         return response;
@@ -111,19 +114,28 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) {
-        return null;
+
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getMembershipInformation ", " Enter getMembershipInformation method. ");
+        GuestMembershipResponse guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipsRequest);
+        return guestMembershipResponse;
     }
 
     @Override
     public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) {
-        return null;
+        NameIdByMembershipResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getNameIdInformation ", " Enter getNameIdInformation method. ");
+
+        response = new OWSNameProcessor().processNameLookupByMembership(nameIdByMembershipRequest);
+
+        return response;
     }
 
     @Override
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) {
         HotelInformationResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
         response = new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
 
         return response;
@@ -131,6 +143,68 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) {
-        return null;
+        MemberPointsResponse response = new MemberPointsResponse();
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Enter memberPointsQuery method. ");
+
+        // Get the name id for the member
+        NameIdByMembershipResponse nameIdMembershipResponse = new NameIdByMembershipResponse();
+        NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest();
+
+        String membershipLastName = memberPointsRequest.getMemberLastName();
+        String membershipType = memberPointsRequest.getMembershipType();
+        String membershipNumber = memberPointsRequest.getMembershipNumber();
+
+        if (membershipLastName.isEmpty() ||
+                membershipType.isEmpty() ||
+                membershipNumber.isEmpty()) {
+            response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+            response.setErrorMessage(IMicrosConstants.REQUIRED_FIELDS_EMPTY);
+            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Last/Member Type/Member Number are all required. ");
+            return response;
+        }
+
+        nameIdByMembershipRequest.setLastname(membershipLastName);
+        nameIdByMembershipRequest.setMembershipType(membershipType);
+        nameIdByMembershipRequest.setMembershipNumber(membershipNumber);
+
+        NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
+        if (nameIdByMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
+            response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+            response.setErrorMessage(nameIdByMembershipResponse.getErrorMessage());
+            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Last/Member Type/Member Number are all required. ");
+            return response;
+        }
+
+        String nameID = nameIdByMembershipResponse.getNameId();
+
+        // Get the membership request
+        GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest();
+        guestMembershipRequest.setNameId(nameID);
+        GuestMembershipResponse guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipRequest);
+        if (guestMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
+            response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+            response.setErrorMessage(guestMembershipResponse.getErrorMessage());
+            return response;
+        }
+
+        List<Membership> memberships = guestMembershipResponse.getMembershipList();
+        if (memberships != null) {
+
+            for (Membership membership : memberships) {
+                String mt = membership.getMembershipType();
+                if (membership.getMembershipType().equalsIgnoreCase(membershipType)) {
+                    response.setMembershipNumber(membership.getMembershipNumber());
+                    response.setMembershipType(membership.getMembershipType());
+                    response.setMembershipId(membership.getMembershipId());
+                    response.setEffectiveDate(membership.getEffectiveDate());
+                    response.setTotalPoints(Double.toString(membership.getCurrentPoints()));
+                    response.setExpireDate(membership.getExpirationDate());
+                    break;
+                }
+            }
+        }
+
+        response.setStatus(IMicrosConstants.RESPONSE_SUCCESS);
+        return response;
     }
 }
