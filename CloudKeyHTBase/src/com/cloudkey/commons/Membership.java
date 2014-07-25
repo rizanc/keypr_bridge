@@ -1,11 +1,14 @@
 package com.cloudkey.commons;
 
+import java.util.Date;
+
 /**
  * Class stores the information of membership.
  * 
  * @author 
  *
  */
+
 
 public class Membership {
 	
@@ -17,6 +20,11 @@ public class Membership {
 	private String pointsLabel;
 	private String membershipId;
 	private String memberName;
+    private Double currentPoints;
+    private Date effectiveDate;
+    private Date expirationDate;
+
+
 	
 	public String getMembershipType() {
 		
@@ -94,4 +102,27 @@ public class Membership {
 				+ ", memberName=" + memberName + "]";
 	}
 
+    public Double getCurrentPoints() {
+        return currentPoints;
+    }
+
+    public void setCurrentPoints(Double currentPoints) {
+        this.currentPoints = currentPoints;
+    }
+
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 }

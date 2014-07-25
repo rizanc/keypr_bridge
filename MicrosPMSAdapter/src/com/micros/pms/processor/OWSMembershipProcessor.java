@@ -104,7 +104,7 @@ public class OWSMembershipProcessor {
         MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
 
         objFetchMemberPointsRequest = new MembershipServiceStub.FetchMemberPointsRequest();
-        objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipId());
+        objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipNumber());
 
         MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
         return objFetchMemberPointsRequest;

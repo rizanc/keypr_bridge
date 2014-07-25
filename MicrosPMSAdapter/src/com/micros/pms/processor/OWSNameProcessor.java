@@ -61,8 +61,8 @@ public class OWSNameProcessor {
             }
 
             ArrayList<Membership> memberships = new ArrayList<Membership>();
-            if (objResponse.getGuestCardList() != null && objResponse.getGuestCardList().getNameMembership() != null){
-                for(NameServiceStub.NameMembership nameMembership: objResponse.getGuestCardList().getNameMembership()){
+            if (objResponse.getGuestCardList() != null && objResponse.getGuestCardList().getNameMembership() != null) {
+                for (NameServiceStub.NameMembership nameMembership : objResponse.getGuestCardList().getNameMembership()) {
 
                     Membership membership = new Membership();
                     memberships.add(membership);
@@ -73,13 +73,18 @@ public class OWSNameProcessor {
                     membership.setMembershipLevel(nameMembership.getMembershipLevel());
                     membership.setPointsLabel(nameMembership.getPointsLabel());
                     membership.setExternalId(nameMembership.getExternalId());
+                    membership.setCurrentPoints(nameMembership.getCurrentPoints());
+                    membership.setEffectiveDate(nameMembership.getEffectiveDate());
+                    membership.setExpirationDate(nameMembership.getExpirationDate());
+                    membership.setExternalId(nameMembership.getExternalId());
+                    membership.setOperaId(Long.toString(nameMembership.getOperaId()));
+
 
                 }
             }
-            if (!memberships.isEmpty()){
+            if (!memberships.isEmpty()) {
                 response.setMembershipList(memberships);
             }
-
 
 
             MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",

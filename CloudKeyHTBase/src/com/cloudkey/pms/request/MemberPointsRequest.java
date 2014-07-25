@@ -8,24 +8,25 @@ package com.cloudkey.pms.request;
 public class MemberPointsRequest {
 	
 	/* variable to store membership id */
-	private String membershipId;
+	private String membershipNumber;
     private String membershipType;
+    private String memberLastName;
 
 	/* getter and setter for data member */
-	public String getMembershipId() {
+	public String getMembershipNumber() {
 		
-		return membershipId;
+		return membershipNumber;
 	}
 
-	public void setMembershipId(String membershipId) {
+	public void setMembershipNumber(String membershipNumber) {
 		
-		this.membershipId = membershipId;
+		this.membershipNumber = membershipNumber;
 	}
 
 	@Override
 	public String toString() {
 		
-		return "MemberPointsRequest [membershipId=" + membershipId + "]";
+		return "MemberPointsRequest [membershipNumber=" + membershipNumber + "]";
 	}
 
     public String getMembershipType() {
@@ -34,5 +35,13 @@ public class MemberPointsRequest {
 
     public void setMembershipType(String membershipType) {
         this.membershipType = membershipType;
+    }
+
+    public String getMemberLastName() {
+        return memberLastName;
+    }
+
+    public void setMemberLastName(String memberLastName) {
+        this.memberLastName = memberLastName;
     }
 }

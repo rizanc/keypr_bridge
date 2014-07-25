@@ -62,7 +62,7 @@ public interface IMicrosConstants {
 
 
 	String RESPONSE_SUCCESS = "SUCCESS";
-	String RESPONSE_FAILURE = "FAILURE";
+	String RESPONSE_FAIL = "FAIL";
 
 	String MEETING_FEATURE = "PODIUM";
 
@@ -100,5 +100,7 @@ public interface IMicrosConstants {
 	String INFORMATION_URL = "ows.hotel.info.service.url";
 	String MEETINGROOM_URL = "ows.meeting.avail.service.url";
 	String MEMBERSHIP_URL = "ows.guest.member.service.url";
+
+    String REQUIRED_FIELDS_EMPTY = "One or more required fields are empty.";
 	
 }

@@ -43,7 +43,7 @@ public class OWSAvailabilityProcessor {
         if (objEDate.before(objSDate)) {
 
             objGetAvailabilityResponse = new GetAvailabilityResponse();
-            objGetAvailabilityResponse.setStatus(IMicrosConstants.RESPONSE_FAILURE);
+            objGetAvailabilityResponse.setStatus(IMicrosConstants.RESPONSE_FAIL);
 
             MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processAvailability ", " Start Date " + objSDate);
             MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processAvailability ", " End Date " + objEDate);
