@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- <bean id="adapter" class="com.cloudkey.test.parser.TestPMSMessageParser">
-    </bean> -->
-    <!--<bean id="adapter" class="com.micros.pms.parser.MicrosPMSMessageParser">-->
-    <bean id="adapter" class="com.micros.pms.parser.MicrosOWSParser">
-    </bean>
+<!-- <bean id="adapter" class="com.cloudkey.test.parser.TestPMSMessageParser">
+</bean> -->
+<!--<bean id="adapter" class="com.micros.pms.parser.MicrosPMSMessageParser">-->
+<bean id="adapter" class="com.micros.pms.parser.MicrosOWSParser">
+</bean>
 
 </beans>

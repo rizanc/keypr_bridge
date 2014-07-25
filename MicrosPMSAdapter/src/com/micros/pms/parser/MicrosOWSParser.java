@@ -4,10 +4,7 @@ import com.micros.pms.logger.MicrosPMSLogger;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
-import com.micros.pms.processor.OWSAvailabilityProcessor;
-import com.micros.pms.processor.OWSInformationProcessor;
-import com.micros.pms.processor.OWSReservationProcessor;
-import com.micros.pms.processor.OWSResvAdvancedProcessor;
+import com.micros.pms.processor.*;
 
 
 /**
@@ -19,7 +16,7 @@ public class MicrosOWSParser implements IParserInterface {
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
 
         GetFolioResponse response;
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
         response = new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
 
         return response;
@@ -29,7 +26,7 @@ public class MicrosOWSParser implements IParserInterface {
     public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) {
         ReleaseRoomResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " releaseRoom ", " Enter releaseRoom method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " releaseRoom ", " Enter releaseRoom method. ");
         response = new OWSReservationProcessor().processReleaseRoom(releaseRoomRequest);
 
         return response;
@@ -39,7 +36,7 @@ public class MicrosOWSParser implements IParserInterface {
     public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) {
         CheckInResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckIn ", " Enter guestCheckIn method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckIn ", " Enter guestCheckIn method. ");
         response = new OWSResvAdvancedProcessor().processCheckIn(checkInRequest);
 
         return response;
@@ -49,7 +46,7 @@ public class MicrosOWSParser implements IParserInterface {
     public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) {
         AssignRoomResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " assignRoom ", " Enter assignRoom method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " assignRoom ", " Enter assignRoom method. ");
         response = new OWSReservationProcessor().processAssignRoom(assignRoomRequest);
 
         return response;
@@ -59,7 +56,7 @@ public class MicrosOWSParser implements IParserInterface {
     public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) {
         CheckOutResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " guestCheckOut ", " Enter guestCheckOut method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckOut ", " Enter guestCheckOut method. ");
         response = new OWSResvAdvancedProcessor().processCheckOut(checkOutRequest);
 
         return response;
@@ -70,7 +67,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         UpdateBookingResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " updateBooking ", " Enter updateBooking method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " updateBooking ", " Enter updateBooking method. ");
         response = new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
 
         return response;
@@ -86,7 +83,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         GetAvailabilityResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " checkAvailability ", " Enter checkAvailability method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " checkAvailability ", " Enter checkAvailability method. ");
         response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
 
         return response;
@@ -97,7 +94,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         SearchReservationResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " searchReservationData ", " Enter searchReservationData method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " searchReservationData ", " Enter searchReservationData method. ");
         response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
 
         return response;
@@ -123,7 +120,7 @@ public class MicrosOWSParser implements IParserInterface {
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) {
         HotelInformationResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
         response = new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
 
         return response;
@@ -131,6 +128,11 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) {
-        return null;
+        MemberPointsResponse response;
+
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processFetchMemberPoints ", " Enter processFetchMemberPoints method. ");
+        response = new OWSMembershipProcessor().processFetchMemberPoints(memberPointsRequest);
+
+        return response;
     }
 }

@@ -2,17 +2,8 @@ package tests;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.GetAvailabilityResponse;
-<<<<<<< HEAD
-import com.cloudkey.pms.response.HotelInformationResponse;
-import com.micros.pms.processor.OWSAvailabilityProcessor;
-import com.micros.pms.processor.OWSInformationProcessor;
-=======
-import com.micros.pms.processor.OWSAvailabilityProcessor;
->>>>>>> b7c36a8c0bd2ba4bd4e759a17007f5d33af5a1fc
-import com.micros.pms.processor.OWSReservationProcessor;
-import com.micros.pms.processor.OWSResvAdvancedProcessor;
+import com.micros.pms.processor.*;
 
 import java.util.Date;
 
@@ -28,11 +19,9 @@ public class TestOWS {
     private static final String CREDIT_CARD_NO = "4111111111111111";
     private static final String LAST_NAME = "Ellison";
     private static final String FIRST_NAME = "LARRY";
-<<<<<<< HEAD
     private static final String HOTEL_CODE = "GSDH";
-=======
->>>>>>> b7c36a8c0bd2ba4bd4e759a17007f5d33af5a1fc
-
+    private static final String MEMBER_ID = "223123123123123212";
+    private static final String MEMBER_TYPE = "IB";
     public static void Availability() {
 
         OWSAvailabilityProcessor owsAvailabilityProcessor = new OWSAvailabilityProcessor();
@@ -139,7 +128,6 @@ public class TestOWS {
         owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
 
     }
-<<<<<<< HEAD
 
     public static void HotelInformation() {
 
@@ -151,6 +139,46 @@ public class TestOWS {
         owsInformationProcessor.processHotelInformation(request);
 
     }
-=======
->>>>>>> b7c36a8c0bd2ba4bd4e759a17007f5d33af5a1fc
+
+    public static void Membership() {
+
+        OWSMembershipProcessor owsMembershipProcessor = new OWSMembershipProcessor();
+
+        MemberPointsRequest request = new MemberPointsRequest();
+        request.setMembershipId(MEMBER_ID);
+        request.setMembershipType(MEMBER_TYPE);
+
+        owsMembershipProcessor.processFetchMemberPoints(request);
+
+    }
+
+    public static void NameLookupByMembership() {
+
+        OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
+
+        NameIdByMembershipRequest request = new NameIdByMembershipRequest();
+        request.setMembershipNumber("1166666666");
+        request.setMembershipType("OR");
+        request.setLastname("REWARDS");
+
+        owsNameProcessor.processNameLookupByMembership(request);
+
+    }
+
+    public static void GetCardList() {
+
+        OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
+
+/*        NameIdByMembershipRequest request = new NameIdByMembershipRequest();
+        request.setMembershipNumber("1166666666");
+        request.setMembershipType("OR");
+        request.setLastname("REWARDS");*/
+
+        GuestMembershipsRequest request = new GuestMembershipsRequest();
+
+        request.setNameId("220080");
+
+        owsNameProcessor.processGuestCardList(request);
+
+    }
 }

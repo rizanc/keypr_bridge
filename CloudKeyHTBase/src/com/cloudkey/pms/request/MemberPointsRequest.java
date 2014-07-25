@@ -9,6 +9,7 @@ public class MemberPointsRequest {
 	
 	/* variable to store membership id */
 	private String membershipId;
+    private String membershipType;
 
 	/* getter and setter for data member */
 	public String getMembershipId() {
@@ -27,4 +28,11 @@ public class MemberPointsRequest {
 		return "MemberPointsRequest [membershipId=" + membershipId + "]";
 	}
 
+    public String getMembershipType() {
+        return membershipType;
+    }
+
+    public void setMembershipType(String membershipType) {
+        this.membershipType = membershipType;
+    }
 }

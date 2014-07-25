@@ -3893,7 +3893,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 	public MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest )
 	{
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery "," Enter memberPointsQuery method " );
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " processFetchMemberPoints "," Enter processFetchMemberPoints method " );
 
 		com.micros.membership.MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
 		com.micros.membership.MembershipServiceStub.FetchMemberPointsResponse objFetchMemberPointsResponse = null;
@@ -3909,7 +3909,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 				
 				String endPointUrl = ParserConfigurationReader.getProperty( IMicrosConstants.MEMBERSHIP_URL);
 
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery ", " Membership Service Url " + endPointUrl );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " processFetchMemberPoints ", " Membership Service Url " + endPointUrl );
 
 				objMembershipServiceStub = new MembershipServiceStub(endPointUrl);
 
@@ -3917,18 +3917,18 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 				objFetchMemberPointsResponse = objMembershipServiceStub.fetchMemberPoints(objFetchMemberPointsRequest, objE);
 				
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " memberPointsQuery ", " Response received from real OWS " );
+				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " processFetchMemberPoints ", " Response received from real OWS " );
 
 				objMemberPointsResponse = getMemberPointsResponse( objFetchMemberPointsResponse );
 
 			}
 			catch(Exception exc) {
 
-				MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " memberPointsQuery ", exc );
+				MicrosPMSLogger.logError( MicrosPMSMessageParser.class, " processFetchMemberPoints ", exc );
 
 			}
 		}
-		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " memberPointsQuery ", " Exit memberPointsQuery block");
+		MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processFetchMemberPoints ", " Exit processFetchMemberPoints block");
 
 		return objMemberPointsResponse;
 	}
