@@ -14,20 +14,8 @@ import com.cloudkey.pms.request.ReleaseRoomRequest;
 import com.cloudkey.pms.request.SearchReservationRequest;
 import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
-import com.cloudkey.pms.response.AssignRoomResponse;
-import com.cloudkey.pms.response.CheckInResponse;
-import com.cloudkey.pms.response.CheckOutResponse;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
-import com.cloudkey.pms.response.GetFolioResponse;
-import com.cloudkey.pms.response.GuestMembershipResponse;
-import com.cloudkey.pms.response.HotelInformationResponse;
-import com.cloudkey.pms.response.MeetingRoomInformationResponse;
-import com.cloudkey.pms.response.MemberPointsResponse;
-import com.cloudkey.pms.response.NameIdBymembershipResponse;
-import com.cloudkey.pms.response.ReleaseRoomResponse;
-import com.cloudkey.pms.response.SearchReservationResponse;
-import com.cloudkey.pms.response.UpdateBookingResponse;
-import com.cloudkey.pms.response.UpdatePaymentResponse;
+import com.cloudkey.pms.response.*;
+import com.cloudkey.pms.response.NameIdByMembershipResponse;
 
 /**
  * This interface declare all the methods for the message parser.
@@ -146,7 +134,7 @@ public interface IParserInterface {
 	 * @return
 	 */
 	
-	public NameIdBymembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest);
+	public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest);
 	
 	/**
 	 * This method searches for Details of Hotel Information on the basis of hotel code. It returns

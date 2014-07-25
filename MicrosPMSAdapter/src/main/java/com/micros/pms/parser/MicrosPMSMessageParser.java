@@ -39,7 +39,7 @@ import com.cloudkey.pms.response.GuestMembershipResponse;
 import com.cloudkey.pms.response.HotelInformationResponse;
 import com.cloudkey.pms.response.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.MemberPointsResponse;
-import com.cloudkey.pms.response.NameIdBymembershipResponse;
+import com.cloudkey.pms.response.NameIdByMembershipResponse;
 import com.cloudkey.pms.response.ReleaseRoomResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;
@@ -113,10 +113,8 @@ import com.micros.reservation.ReservationServiceStub.ReservationStatusType;
 import com.micros.reservation.ReservationServiceStub.RoomFeature;
 import com.micros.reservation.ReservationServiceStub.RoomStay;
 import com.micros.reservation.ReservationServiceStub.RoomType;
-import org.apache.axis2.AxisFault;
 import com.micros.reservation.ReservationServiceStub.TimeSpan;
 import com.micros.reservation.ReservationServiceStub.TimeSpanChoice_type0;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * This class is used to process the web service request and return the responseO
@@ -4061,14 +4059,14 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		return objMemberPointsResponse;
 	}
 
-	public NameIdBymembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) {
+	public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdInformation "," Enter getNameIdInformation method " );
 
 		com.micros.name.NameServiceStub.FetchNameIdByMembershipRequest objFetchNameIdByMembershipRequest = null;
 		com.micros.name.NameServiceStub.FetchNameIdByMembershipResponse objFetchNameIdByMembershipResponse = null;
 
-		NameIdBymembershipResponse objResponse = null;
+		NameIdByMembershipResponse objResponse = null;
 
 		String xmlRequest = "" ;
 		String xmlResponse = "" ;
@@ -4144,15 +4142,15 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	}
 
 
-	private NameIdBymembershipResponse getNameIdResponse(FetchNameIdByMembershipResponse objFetchNameIdByMembershipResponse) {
+	private NameIdByMembershipResponse getNameIdResponse(FetchNameIdByMembershipResponse objFetchNameIdByMembershipResponse) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdResponse "," Enter getNameIdResponse method " );
 
-		NameIdBymembershipResponse objNameIdBymembershipResponse = new NameIdBymembershipResponse();
+		NameIdByMembershipResponse objNameIdByMembershipResponse = new NameIdByMembershipResponse();
 
 
-		//objNameIdBymembershipResponse.setResult(objFetchNameIdByMembershipResponse.getResult().getResultStatusFlag().getValue());
-		objNameIdBymembershipResponse.setStatus("SUCCESS");
+		//objNameIdByMembershipResponse.setResult(objFetchNameIdByMembershipResponse.getResult().getResultStatusFlag().getValue());
+		objNameIdByMembershipResponse.setStatus("SUCCESS");
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdResponse "," Result Status Set to the response " );
 
@@ -4166,7 +4164,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			long opid = objNameIdNameAddresses[i].getAddress().getOperaId();
 			String operaId = String.valueOf(opid);
-			objNameIdBymembershipResponse.setNameId(operaId);
+			objNameIdByMembershipResponse.setNameId(operaId);
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " profile id : ", profileId);
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " External id : ", externalId);
@@ -4174,7 +4172,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		}
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdResponse "," Exit getNameIdResponse method " );
-		return objNameIdBymembershipResponse;
+		return objNameIdByMembershipResponse;
 	}
 
 

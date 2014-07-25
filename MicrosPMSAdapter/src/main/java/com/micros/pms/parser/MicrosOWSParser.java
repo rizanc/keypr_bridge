@@ -115,7 +115,7 @@ public class MicrosOWSParser implements IParserInterface {
     }
 
     @Override
-    public NameIdBymembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) {
+    public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) {
         return null;
     }
 

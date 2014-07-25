@@ -5,7 +5,7 @@ import com.cloudkey.commons.Response;
 /*
  * This class hold information of name id.
  */
-public class NameIdBymembershipResponse extends Response {
+public class NameIdByMembershipResponse extends Response {
 
     private String nameId;
 
@@ -20,7 +20,7 @@ public class NameIdBymembershipResponse extends Response {
     }
     @Override
     public String toString() {
-        return "NameIdBymembershipResponse [nameId=" + nameId + ", status="
+        return "NameIdByMembershipResponse [nameId=" + nameId + ", status="
                 + status + ", errorMessage=" + errorMessage + "]";
     }
 

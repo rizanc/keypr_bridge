@@ -11,42 +11,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.cloudkey.pms.request.*;
+import com.cloudkey.pms.response.*;
 import com.wordnik.swagger.annotations.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cloudkey.pms.request.MemberPointsRequest;
-import com.cloudkey.pms.response.MemberPointsResponse;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.TimeOutError;
 import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.message.parser.IParserInterface;
-import com.cloudkey.pms.request.AssignRoomRequest;
-import com.cloudkey.pms.request.CheckInRequest;
-import com.cloudkey.pms.request.CheckOutRequest;
-import com.cloudkey.pms.request.GetAvailabilityRequest;
-import com.cloudkey.pms.request.GetFolioRequest;
-import com.cloudkey.pms.request.SearchReservationRequest;
-import com.cloudkey.pms.request.UpdateBookingRequest;
-import com.cloudkey.pms.request.UpdatePaymentRequest;
-import com.cloudkey.pms.response.AssignRoomResponse;
-import com.cloudkey.pms.response.CheckInResponse;
-import com.cloudkey.pms.response.CheckOutResponse;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
-import com.cloudkey.pms.response.GetFolioResponse;
-import com.cloudkey.pms.response.GuestMembershipResponse;
-import com.cloudkey.pms.response.HotelInformationResponse;
-import com.cloudkey.pms.response.MeetingRoomInformationResponse;
-import com.cloudkey.pms.response.NameIdBymembershipResponse;
-import com.cloudkey.pms.response.ReleaseRoomResponse;
-import com.cloudkey.pms.response.SearchReservationResponse;
-import com.cloudkey.pms.response.UpdateBookingResponse;
-import com.cloudkey.pms.response.UpdatePaymentResponse;
+import com.cloudkey.pms.response.NameIdByMembershipResponse;
 import com.cloudkey.util.BaseConfigurationReader;
 import com.keypr.rest.constants.IWebServiceConstants;
 import com.keypr.web.logger.WebAppLogger;
-import com.cloudkey.pms.request.HotelInformationRequest;
 
 
 /**
@@ -55,10 +34,9 @@ import com.cloudkey.pms.request.HotelInformationRequest;
  * It receives the parser response and send the response back to its caller in json form.
  *
  * @author vinayk2
- *
  */
 @Path("/Service")
-@Api(value = "/Service", description = "PMS services")
+@Api(value = "/Service", description = "Vendor-agnostic PMS interface")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class KeyprWebServices {
@@ -71,11 +49,12 @@ public class KeyprWebServices {
 	 * @return Response
 	 */
 	@SuppressWarnings( {"resource" } )
-	@Path("/searchReservation" )
+	@Path("/searchReservation")
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-    @ApiOperation("Fetches reservations which match the provided criteria")
+    @ApiOperation(
+            value = "Fetches reservations which match the provided criteria",
+            response = SearchReservationResponse.class
+    )
 	public Response searchReservation( SearchReservationRequest objSearchReservationRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " searchReservation ",  " Enter method searchReservation " );
@@ -190,9 +169,11 @@ public class KeyprWebServices {
 	@SuppressWarnings("resource")
 	@Path("/checkIn")
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-    @ApiOperation("Checks in an existing reservation")
+    @ApiOperation(
+            value = "Checks in an existing reservation",
+            notes = "Micros implementation only uses request.reservation.{confirmationNumber, creditCardNumber}",
+            response = CheckInResponse.class
+    )
     public Response checkIn( CheckInRequest objCheckInRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " checkIn ", " Enter method checkIn " );
@@ -326,7 +307,109 @@ public class KeyprWebServices {
 		return res;
 	}
 
-	/**
+    /**
+     * This method makes check out request on the basis of confirmation number.
+     * It returns the status and reservation details in json format to its caller.
+     *
+     * @param objCheckOutRequest
+     * @return Response
+     */
+    @SuppressWarnings( "resource" )
+    @Path( "/checkOut" )
+    @POST
+    @ApiOperation(
+            value = "Checks a guest out by their reservation confirmation number",
+            response = CheckOutResponse.class
+    )
+    public Response checkOut( CheckOutRequest objCheckOutRequest ) {
+
+        WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " Enter method checkOut " );
+
+		/* variable to store CheckOutResponse instance.*/
+        CheckOutResponse objCheckOutResponse = null;
+
+		/* variable to store application context. */
+        ApplicationContext appContext = null;
+
+		/* variable to store response. */
+        Response res = null;
+
+		/* variable to store message parser name. */
+        String parserName = null;
+
+		/* variable to store message parser. */
+        IParserInterface messageParser = null;
+
+        try {
+
+            // reads the name of message parser bean from configuration file.
+            parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
+
+            // creates an instance of application context using  information from beans configuration file.
+            appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
+
+            // retrieve the current bean and store its reference.
+            messageParser = ( IParserInterface ) appContext.getBean( parserName );
+
+            if( objCheckOutRequest.getConfirmationNumber() == null ) {
+
+                objCheckOutRequest.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
+            }
+
+            objCheckOutResponse = new CheckOutResponse();
+
+            /**
+             * To check the request contains the confirmation number.
+             *
+             */
+
+            if( objCheckOutRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING ) ) {
+
+                objCheckOutResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+
+                WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " Required Fields are missing " );
+
+                res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckOutResponse ).build();
+            }
+            else {
+
+                long requestTime = System.currentTimeMillis();
+                objCheckOutResponse = messageParser.guestCheckOut( objCheckOutRequest );
+
+
+                long latencyTime = System.currentTimeMillis() - requestTime;
+                WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " checkOut response latency period in milliseconds " + latencyTime );
+
+                if( objCheckOutResponse == null ) {
+
+                    TimeOutError objTimeOutError = new TimeOutError();
+                    objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+                    objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+                    WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " No Response From PMS for GuestCheckOut " );
+
+                    res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
+                }
+                else {
+
+                    res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckOutResponse ).build();
+                }
+            }
+
+        }
+
+        catch( Exception exc ) {
+
+            WebAppLogger.logError( KeyprWebServices.class, "checkOut", exc );
+        }
+
+        WebAppLogger.logInfo( KeyprWebServices.class, "checkOut", "Exit method checkOut" );
+
+        return res;
+
+    }
+
+    /**
 	 * This method makes assign Room request on the basis of provided input.
 	 * It returns the status and reservation details to its caller.
 	 *
@@ -336,9 +419,11 @@ public class KeyprWebServices {
 	@SuppressWarnings("resource")
 	@Path("/assignRoom")
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-    @ApiOperation("Assigns an available room of the given type to an existing reservation")
+    @ApiOperation(
+            value = "Assigns an available room of the given type to an existing reservation",
+            notes = "Micros implementation only uses request.roomTypeCode and request.reservation.confirmationNumber",
+            response = AssignRoomResponse.class
+    )
     public Response assignRoom( AssignRoomRequest objAssignRoomRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " assignRoom ", " Enter method assignRoom " );
@@ -477,114 +562,115 @@ public class KeyprWebServices {
 		return res;
 	}
 
+    /**
+     * This method make release room request on the basis of reservation Id.
+     * It returns the status of released rooms.
+     *
+     * @param objReleaseRoomRequest
+     * @return
+     */
+    @SuppressWarnings("resource")
+    @Path( "/releaseRoom" )
+    @POST
+    @ApiOperation(
+            value = "Unassigns the room assigned to a reservation",
+            response = ReleaseRoomResponse.class
+    )
+    public Response releaseRoom( com.cloudkey.pms.request.ReleaseRoomRequest objReleaseRoomRequest ) {
 
-	/**
-	 * This method makes check out request on the basis of confirmation number.
-	 * It returns the status and reservation details in json format to its caller.
-	 *
-	 * @param objCheckOutRequest
-	 * @return Response
-	 */
-	@SuppressWarnings( "resource" )
-	@Path( "/checkOut" )
-	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation("Checks a guest out by their reservation confirmation number")
-	public Response checkOut( CheckOutRequest objCheckOutRequest ) {
+        WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ",  " Enter method releaseRoom " );
 
-		WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " Enter method checkOut " );
+		/* Variable to store release Room Response instance. */
+        com.cloudkey.pms.response.ReleaseRoomResponse objReleaseRoomResponse = null;
 
-		/* variable to store CheckOutResponse instance.*/
-		CheckOutResponse objCheckOutResponse = null;
+		/* Variable to store application context. */
+        ApplicationContext appContext = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
-		/* variable to store response. */
-		Response res = null;
+		/* Variable to store response. */
+        Response response = null;
 
 		/* variable to store message parser name. */
-		String parserName = null;
+        String parserName = null;
 
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
+		/* Variable to store message parser. */
+        IParserInterface messageParser = null;
 
-		try {
+        try {
 
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
+            // read the name of message parser bean from the bean configuration file.
+            parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
 
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
+            // create an instance of application context using information from bean configuration file.
+            appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
 
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
+            messageParser = ( IParserInterface )appContext.getBean( parserName );
 
-			if( objCheckOutRequest.getConfirmationNumber() == null ) {
+            if( objReleaseRoomRequest.getReservationId() == null ) {
 
-				objCheckOutRequest.setConfirmationNumber( ICloudKeyConstants.EMPTY_STRING );
-			}
-
-			objCheckOutResponse = new CheckOutResponse();
-
-			/**
-			 * To check the request contains the confirmation number.
-			 *
-			 */
-
-			if( objCheckOutRequest.getConfirmationNumber().equals( ICloudKeyConstants.EMPTY_STRING ) ) {
-
-				objCheckOutResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
-
-				WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " Required Fields are missing " );
-
-				res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckOutResponse ).build();
-			}
-			else {
-
-				long requestTime = System.currentTimeMillis();
-				objCheckOutResponse = messageParser.guestCheckOut( objCheckOutRequest );
+                objReleaseRoomRequest.setReservationId( ICloudKeyConstants.EMPTY_STRING );
+            }
 
 
-				long latencyTime = System.currentTimeMillis() - requestTime;
-				WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " checkOut response latency period in milliseconds " + latencyTime );
+            objReleaseRoomResponse = new ReleaseRoomResponse();
 
-				if( objCheckOutResponse == null ) {
+            /**
+             * To check the request at least contains confirmation number with notes.
+             */
 
-					TimeOutError objTimeOutError = new TimeOutError();
-					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
-					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+            if( objReleaseRoomRequest.getReservationId().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) {
 
-					WebAppLogger.logInfo( KeyprWebServices.class, " checkOut ", " No Response From PMS for GuestCheckOut " );
+                objReleaseRoomResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
-				}
-				else {
+                WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " Required Fields are missing " );
 
-					res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objCheckOutResponse ).build();
-				}
-			}
+                response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objReleaseRoomResponse ).build();
 
-		}
+            }
+            else {
 
-		catch( Exception exc ) {
+                long requestTime = System.currentTimeMillis();
+                objReleaseRoomResponse = messageParser.releaseRoom( objReleaseRoomRequest );
 
-			WebAppLogger.logError( KeyprWebServices.class, "checkOut", exc );
-		}
 
-		WebAppLogger.logInfo( KeyprWebServices.class, "checkOut", "Exit method checkOut" );
+                long latencyTime = System.currentTimeMillis() - requestTime;
+                WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " releaseRoom response latency period in milliseconds " + latencyTime );
 
-		return res;
+                if( objReleaseRoomResponse == null ) {
 
-	}
+                    TimeOutError objTimeOutError = new TimeOutError();
+                    objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
+                    objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+                    WebAppLogger.logInfo( KeyprWebServices.class,  "  releaseRoom  ", " No Response from PMS for releaseRoom " );
+
+                    response = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
+
+                }
+                else {
+
+                    response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objReleaseRoomResponse ).build();
+                }
+
+            }
+
+        }
+        catch( Exception exc ) {
+
+            WebAppLogger.logError( KeyprWebServices.class, " releaseRoom ", exc );
+        }
+
+        WebAppLogger.logInfo( KeyprWebServices.class,  " releaseRoom ", " Exit method releaseRoom " );
+
+        return response;
+    }
 
 	@SuppressWarnings("resource")
 	@Path("/getAvailability")
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-    @ApiOperation("Fetches room availability for each room-type during the given date range")
+    @ApiOperation(
+            value = "Fetches room availability for each room-type during the given date range",
+            response = GetAvailabilityResponse.class
+    )
 	public Response getAvailability( GetAvailabilityRequest objAvailabilityRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, "getAvailability", "Enter method getAvailability" );
@@ -677,9 +763,11 @@ public class KeyprWebServices {
 	@SuppressWarnings( "resource" )
 	@Path( "/getFolio" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation(value = "Fetches the bill for a reservation by confirmation number. Includes room charge and all other charges incurred during stay")
+    @ApiOperation(
+            value = "Fetches the bill for a reservation",
+            notes = "Includes room charge and all other charges incurred during stay",
+            response = GetFolioResponse.class
+    )
 	public Response getFolio( GetFolioRequest objFolioRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " getFolio ", " Enter method getFolio " );
@@ -785,9 +873,10 @@ public class KeyprWebServices {
 	@SuppressWarnings( "resource" )
 	@Path( "/updatePayment" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation("Updates the payment records of a reservation")
+    @ApiOperation(
+            value = "Updates the payment records of a reservation",
+            response = UpdatePaymentResponse.class
+    )
 	public Response updatePayment( UpdatePaymentRequest objUpPaymentRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " updatePayment ", " Enter method updatePayment " );
@@ -887,9 +976,10 @@ public class KeyprWebServices {
 	@SuppressWarnings( "resource" )
 	@Path( "/updateBooking" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation("Updates the notes attached to a reservation")
+    @ApiOperation(
+            value = "Updates the notes attached to a reservation",
+            response = UpdateBookingResponse.class
+    )
 	public Response updateBooking( UpdateBookingRequest objUpBookingRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " updateBooking ", " Enter method updateBooking " );
@@ -995,107 +1085,6 @@ public class KeyprWebServices {
 	}
 
 	/**
-	 * This method make release room request on the basis of reservation Id.
-	 * It returns the status of released rooms.
-	 *
-	 * @param objReleaseRoomRequest
-	 * @return
-	 */
-	@SuppressWarnings("resource")
-	@Path( "/releaseRoom" )
-	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation("Releases the room assigned to a reservation")
-    public Response releaseRoom( com.cloudkey.pms.request.ReleaseRoomRequest objReleaseRoomRequest ) {
-
-		WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ",  " Enter method releaseRoom " );
-
-		/* Variable to store release Room Response instance. */
-		com.cloudkey.pms.response.ReleaseRoomResponse objReleaseRoomResponse = null;
-
-		/* Variable to store application context. */
-		ApplicationContext appContext = null;
-
-		/* Variable to store response. */
-		Response response = null;
-
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* Variable to store message parser. */
-		IParserInterface messageParser = null;
-
-		try {
-
-			// read the name of message parser bean from the bean configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// create an instance of application context using information from bean configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			messageParser = ( IParserInterface )appContext.getBean( parserName );
-
-			if( objReleaseRoomRequest.getReservationId() == null ) {
-
-				objReleaseRoomRequest.setReservationId( ICloudKeyConstants.EMPTY_STRING );
-			}
-
-
-			objReleaseRoomResponse = new ReleaseRoomResponse();
-
-			/**
-			 * To check the request at least contains confirmation number with notes.
-			 */
-
-			if( objReleaseRoomRequest.getReservationId().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING ) ) {
-
-				objReleaseRoomResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
-
-				WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " Required Fields are missing " );
-
-				response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objReleaseRoomResponse ).build();
-
-			}
-			else {
-
-				long requestTime = System.currentTimeMillis();
-				objReleaseRoomResponse = messageParser.releaseRoom( objReleaseRoomRequest );
-
-
-				long latencyTime = System.currentTimeMillis() - requestTime;
-				WebAppLogger.logInfo( KeyprWebServices.class, " releaseRoom ", " releaseRoom response latency period in milliseconds " + latencyTime );
-
-				if( objReleaseRoomResponse == null ) {
-
-					TimeOutError objTimeOutError = new TimeOutError();
-					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
-					objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
-
-					WebAppLogger.logInfo( KeyprWebServices.class,  "  releaseRoom  ", " No Response from PMS for releaseRoom " );
-
-					response = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
-
-				}
-				else {
-
-					response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objReleaseRoomResponse ).build();
-				}
-
-			}
-
-		}
-		catch( Exception exc ) {
-
-			WebAppLogger.logError( KeyprWebServices.class, " releaseRoom ", exc );
-		}
-
-		WebAppLogger.logInfo( KeyprWebServices.class,  " releaseRoom ", " Exit method releaseRoom " );
-
-		return response;
-	}
-
-	/**
 	 * This method makes hotel information request on the basis of hotel code.
 	 * It returns the status and details information about hotel.
 	 *
@@ -1105,9 +1094,10 @@ public class KeyprWebServices {
 	@SuppressWarnings( "resource" )
 	@Path( "/hotelInformation" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation("Fetches general information about a hotel")
+    @ApiOperation(
+            value = "Fetches general information about a hotel",
+            response = HotelInformationResponse.class
+    )
 	public Response hotelInformation( HotelInformationRequest objHotelInformationRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " hotelInformation ", " Enter method hotelInformation " );
@@ -1193,9 +1183,10 @@ public class KeyprWebServices {
 	@SuppressWarnings("resource")
 	@Path( "/memberPoints" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-    @ApiOperation("Fetches general information about a hotel")
+    @ApiOperation(
+            value = "Fetches member points details by membership number",
+            response = MemberPointsResponse.class
+    )
 	public Response memberPointsInformation( com.cloudkey.pms.request.MemberPointsRequest objMemberPointsRequest) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class, " memberPointsInformation ",  " Enter method memberPointsInformation " );
@@ -1281,9 +1272,11 @@ public class KeyprWebServices {
 	@SuppressWarnings("resource")
 	@Path( "/meetingRoom" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
-	public Response meetingRoomInformation( com.cloudkey.pms.request.MeetingRoomInformationRequest objMeInformationRequest ) {
+    @ApiOperation(
+            value = "Fetches a list of available meeting rooms which match some criteria",
+            response = MeetingRoomInformationResponse.class
+    )
+    public Response meetingRoomInformation( com.cloudkey.pms.request.MeetingRoomInformationRequest objMeInformationRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " meetingRoomInformation   ", "  Enter method meetingRoomInformation  " );
 
@@ -1361,14 +1354,16 @@ public class KeyprWebServices {
 	@SuppressWarnings("resource")
 	@Path( "/nameID" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
+    @ApiOperation(
+            value = "Fetches a membership's 'name id' by related criteria",
+            response = NameIdByMembershipResponse.class
+    )
 	public Response nameIdInformation( com.cloudkey.pms.request.NameIdByMembershipRequest objNameIdByMembershipRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " nameIdInformation   ", "  Enter method nameIdInformation  " );
 
 		/* Variable to store release Room Response instance. */
-		com.cloudkey.pms.response.NameIdBymembershipResponse objNameIdBymembershipResponse = null;
+		NameIdByMembershipResponse objNameIdByMembershipResponse = null;
 
 		/* Variable to store application context. */
 		ApplicationContext appContext = null;
@@ -1392,7 +1387,7 @@ public class KeyprWebServices {
 
 			messageParser = ( IParserInterface )appContext.getBean( parserName );
 
-			objNameIdBymembershipResponse = new NameIdBymembershipResponse();
+			objNameIdByMembershipResponse = new NameIdByMembershipResponse();
 
 			/**
 			 * To check the request at least contains confirmation number with notes.
@@ -1400,18 +1395,18 @@ public class KeyprWebServices {
 
 			if( (objNameIdByMembershipRequest.getMembershipType().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING )) &&(objNameIdByMembershipRequest.getMembershipNumber().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING )) && (objNameIdByMembershipRequest.getLastname().equalsIgnoreCase( ICloudKeyConstants.EMPTY_STRING )) ) {
 
-				objNameIdBymembershipResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
+				objNameIdByMembershipResponse.setStatus( ICloudKeyConstants.RES_FAILURE );
 
 				WebAppLogger.logInfo( KeyprWebServices.class, " nameIdInformation ", " Required Fields are missing " );
 
-				response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objNameIdBymembershipResponse ).build();
+				response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity(objNameIdByMembershipResponse).build();
 
 			}
 			else {
 
-				objNameIdBymembershipResponse = messageParser.getNameIdInformation(objNameIdByMembershipRequest);
+				objNameIdByMembershipResponse = messageParser.getNameIdInformation(objNameIdByMembershipRequest);
 
-				if( objNameIdBymembershipResponse == null ) {
+				if( objNameIdByMembershipResponse == null ) {
 
 					TimeOutError objTimeOutError = new TimeOutError();
 					objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE );
@@ -1422,7 +1417,7 @@ public class KeyprWebServices {
 				}
 				else {
 
-					response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( objNameIdBymembershipResponse ).build();
+					response = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity(objNameIdByMembershipResponse).build();
 				}
 
 			}
@@ -1442,8 +1437,10 @@ public class KeyprWebServices {
 	@SuppressWarnings("resource")
 	@Path( "/guestMembership" )
 	@POST
-	@Produces( MediaType.APPLICATION_JSON )
-	@Consumes( MediaType.APPLICATION_JSON )
+    @ApiOperation(
+            value = Fetches guest memberships related to a 'name id'",
+            response = GuestMembershipsResponse.class
+    )
 	public Response guestMembershipInformation( com.cloudkey.pms.request.GuestMembershipsRequest objgGuestMembershipsRequest ) {
 
 		WebAppLogger.logInfo( KeyprWebServices.class,  " guestMembershipInformation   ", "  Enter method guestMembershipInformation  " );
