@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="rate.fidelio.6.0" xmlns="rate.fidelio.6.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:packages="packages.fidelio.3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="packages.fidelio.3.0" schemaLocation="packages.fidelio.3.0.xsd"/>
+	<xs:element name="RateHeader" type = "RateHeader">
+		<xs:annotation>
+			<xs:documentation>RateHeader schema</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RateHeader">
+		<xs:sequence>
+			<xs:element name="hotelCode" type="xs:string"/>
+			<xs:element name="chainCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="rateClass" type="xs:string" minOccurs="0"/>
+			<xs:element name="RateCategory" type="RateCategory"/>
+			<xs:element name="rateCode" type="xs:string"/>
+			<xs:element name="startSell" type="xs:date"/>
+			<xs:element name="endSell" type="xs:date"/>
+			<xs:element name="advancedBookingDays" type="xs:int" minOccurs="0"/>
+			<xs:element name="advancedBookingDays2" type="xs:int" minOccurs="0"/>
+			<xs:element name="displayText" type="xs:string"/>
+			<xs:element name="folioText" type="xs:string" minOccurs="0"/>
+			<xs:element name="longInfo" type="xs:string" minOccurs="0"/>
+			<xs:element name="shortInfo" type="xs:string" minOccurs="0"/>
+			<xs:element name="weekendDays" type="xs:string" minOccurs="0"/>
+			<xs:element name="closedToArrivalDays" type="xs:string" minOccurs="0"/>
+			<xs:element name="minLos" type="xs:int" minOccurs="0"/>
+			<xs:element name="maxLos" type="xs:int" minOccurs="0"/>
+			<xs:element name="rhythm" type="xs:string" minOccurs="0"/>
+			<xs:element name="packages" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="marketCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="sourceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="commissionCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="commission" type="xs:float" minOccurs="0"/>
+			<xs:element name="foreignCurrencyDepartmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="departmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="weekendDepartmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="currencyFix" type="xs:string" minOccurs="0"/>
+			<xs:element name="confidential" type="xs:string" minOccurs="0"/>
+			<xs:element name="printRate" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="baseRateCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="baseAmount" type="fixed144" minOccurs="0"/>
+			<xs:element name="basePercent" type="xs:string" minOccurs="0"/>
+			<xs:element name="baseRounding" type="xs:string" minOccurs="0"/>
+			<xs:element name="rateTiered" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="rateBucket" type="xs:string" minOccurs="0"/>
+			<xs:element name="negotiated" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="dayUse" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="complimentary" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="houseUse" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="dayType" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="discount" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="packageTxnCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="RateDetails" type="RateDetails" minOccurs="0"/>
+			<xs:element name="gdsAllowed" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="RatePackages" type="RatePackages" minOccurs="0"/>
+			<xs:element name="minOccupancy" type="xs:int" minOccurs="0"/>
+			<xs:element name="maxOccupancy" type="xs:int" minOccurs="0"/>
+			<xs:element name="regionalAvailability" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="channelRestriction" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="channelRateUpdate" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="dailyRate" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="groupCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="rateLevel" type="xs:int" minOccurs="0"/>
+			<xs:element name="rod" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="rodBased" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="rodBaseFltPct" type="xs:string" minOccurs="0"/>
+			<xs:element name="rodBaseRounding" type="xs:string" minOccurs="0"/>
+			<xs:element name="rodBaseAmount" type="fixed144" minOccurs="0"/>
+			<xs:element name="bbar" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="bbarBased" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="bbarBaseFltPct" type="xs:string" minOccurs="0"/>
+			<xs:element name="bbarBaseRounding" type="xs:string" minOccurs="0"/>
+			<xs:element name="bbarBaseAmount" type="fixed144" minOccurs="0"/>
+			<xs:element name="dbaseRateCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="dbaseFltPct" type="xs:string" minOccurs="0"/>
+			<xs:element name="dbaseRounding" type="xs:string" minOccurs="0"/>
+			<xs:element name="dbaseAmount" type="fixed144" minOccurs="0"/>
+			<xs:element name="dbaseCompare" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="RateRoutingInstructions" type="RateRoutingInstructions" minOccurs="0"/>
+			<xs:element name="roomTypeList" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="yieldMarketList" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="mfnUpload" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="rateFloor" type="fixed144" minOccurs="0"/>
+			<xs:element name="membership" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="advBaseRateCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="advBaseRounding" type="xs:string" minOccurs="0"/>
+			<xs:element name="exchangePostingType" type="xs:string" minOccurs="0"/>
+			<xs:element name="bbarCompare" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="rateStatus" type="rateStatus" use="required"/>
+		<xs:attribute name="taxIncluded" type="taxIncluded" use="optional"/>
+		<xs:attribute name="yieldStatus" type="yieldStatus" use="required"/>
+		<xs:attribute name="sellSequence" type="xs:int" use="optional"/>
+		<xs:attribute name="rateMessageType" type="rateMessageType" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="fixed144">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="14"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rateStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ACTIVE"/>
+			<xs:enumeration value="INACTIVE"/>
+			<xs:enumeration value="UNLOCK"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="taxIncluded">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="YES"/>
+			<xs:enumeration value="NO"/>
+			<xs:enumeration value="MIXED"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="yieldStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE"/>
+			<xs:enumeration value="FULLY"/>
+			<xs:enumeration value="STAY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rateMessageType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HEADER"/>
+			<xs:enumeration value="HEADERWITHDETAIL"/>
+			<xs:enumeration value="DETAIL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="RateCategory">
+		<xs:sequence>
+			<xs:element name="catDescription" type="xs:string"/>
+			<xs:element name="category" type="xs:string"/>
+			<xs:element name="rateClass" type="xs:string" minOccurs="0"/>
+			<xs:element name="startDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="endDate" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="RateDetails">
+		<xs:sequence>
+			<xs:element name="RateDetail" type="RateDetail" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RateDetail">
+		<xs:sequence>
+			<xs:element name="rateCode" type="xs:string"/>
+			<xs:element name="startDate" type="xs:date"/>
+			<xs:element name="endDate" type="xs:date"/>
+			<xs:element name="roomTypeList" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="marketCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="sourceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="packages" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="rate1" type="fixed144" minOccurs="0"/>
+			<xs:element name="rate2" type="fixed144" minOccurs="0"/>
+			<xs:element name="rate3" type="fixed144" minOccurs="0"/>
+			<xs:element name="rate4" type="fixed144" minOccurs="0"/>
+			<xs:element name="rate5" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendRate1" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendRate2" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendRate3" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendRate4" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendRate5" type="fixed144" minOccurs="0"/>
+			<xs:element name="child" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendChild" type="fixed144" minOccurs="0"/>
+			<xs:element name="child1RateParentRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="child2RateParentRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="child3RateParentRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="child1RateOwnRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="child2RateOwnRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="child3RateOwnRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="child4RateOwnRoom" type="fixed144" minOccurs="0"/>
+			<xs:element name="crib" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendCrib" type="fixed144" minOccurs="0"/>
+			<xs:element name="extraBed" type="fixed144" minOccurs="0"/>
+			<xs:element name="weekendExtraBed" type="fixed144" minOccurs="0"/>
+			<xs:element name="stayAdjustment" type="fixed144" minOccurs="0"/>
+			<xs:element name="personAdjustment" type="fixed144" minOccurs="0"/>
+			<xs:element name="nightAdjustment" type="fixed144" minOccurs="0"/>
+			<xs:element name="RateDaysOfWeek" type="RateDaysOfWeek" minOccurs="0"/>
+			<xs:element name="tierMinLos" type="xs:int" minOccurs="0"/>
+			<xs:element name="tierMaxLos" type="xs:int" minOccurs="0"/>
+			<xs:element name="YieldAdjustments" type="YieldAdjustments" minOccurs="0"/>
+			<xs:element name="rateSetId" type="xs:int" minOccurs="0"/>
+			<xs:element name="externalRateSetId" type="xs:int" minOccurs="0"/>
+			<xs:element name="payingChildren" type="xs:int" minOccurs="0"/>
+			<xs:element name="freeChildren" type="xs:int" minOccurs="0"/>
+			<xs:element name="adultsThreshold" type="xs:int" minOccurs="0"/>
+			<xs:element name="childrenThreshold" type="xs:int" minOccurs="0"/>
+			<xs:element name="occupantsThreshold" type="xs:int" minOccurs="0"/>
+			<xs:element name="adultsThresholdCharge" type="fixed144" minOccurs="0"/>
+			<xs:element name="childrenThresholdCharge" type="fixed144" minOccurs="0"/>
+			<xs:element name="occupantsThresholdCharge" type="fixed144" minOccurs="0"/>
+			<xs:element name="advBaseFltPct" type="xs:string" minOccurs="0"/>
+			<xs:element name="advBaseAmount" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="RateDaysOfWeek">
+		<xs:sequence>
+			<xs:element name="monday" type="xs:boolean"/>
+			<xs:element name="tuesday" type="xs:boolean"/>
+			<xs:element name="wednesday" type="xs:boolean"/>
+			<xs:element name="thursday" type="xs:boolean"/>
+			<xs:element name="friday" type="xs:boolean"/>
+			<xs:element name="saturday" type="xs:boolean"/>
+			<xs:element name="sunday" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="YieldAdjustments">
+		<xs:sequence>
+			<xs:element name="Adjustment" type="Adjustment" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Adjustment">
+		<xs:sequence>
+			<xs:element name="adjustmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="AdjustmentAmount" type="AdjustmentAmount" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdjustmentAmount">
+		<xs:sequence>
+			<xs:element name="valueNum" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="currencyCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="RatePackages">
+		<xs:sequence>
+			<xs:element name="RatePackage" type="RatePackage" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatePackage">
+		<xs:sequence>
+			<xs:element ref="packages:Package" minOccurs="0"/>
+			<xs:element name="quantityIncluded" type="fixed144" minOccurs="0"/>
+			<xs:element name="packageGroup" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RateRoutingInstructions">
+		<xs:sequence>
+			<xs:element name="RateRoutingInstruction" type="RateRoutingInstruction" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RateRoutingInstruction">
+		<xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="profileType" type="xs:string" use="required"/>
+		<xs:attribute name="transactionCode" type="xs:string" use="optional"/>
+		<xs:attribute name="routingCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+</xs:schema>

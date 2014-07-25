@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="stay.fidelio.3.0" xmlns="stay.fidelio.3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:udf="udf.fidelio.2.0" xmlns:udfdefinition="udfdefinition.fidelio.2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="udf.fidelio.2.0" schemaLocation="udf.fidelio.2.0.xsd"/>
+	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="udfdefinition.fidelio.2.0.xsd"/>
+	<xs:element name="Stay" type = "Stay">
+		<xs:annotation>
+			<xs:documentation>Stay schema</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Stay">
+		<xs:sequence>
+			<xs:element name="HotelReference" type="HotelReference"/>
+			<xs:element name="resortBookNo" type="xs:string"/>
+			<xs:element name="pmsGuestId" type="xs:string" minOccurs="0"/>
+			<xs:element name="StayMemberships" type="StayMemberships" minOccurs="0"/>
+			<xs:element name="fnMemberNo" type="xs:string" minOccurs="0"/>
+			<xs:element name="freeNightsUsed" type="xs:int" minOccurs="0"/>
+			<xs:element name="cancellationDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="actualArrivalDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="actualDepartureDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="bookDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="bookedDepartureDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="bookedArrivalDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="shareNo" type="xs:int" minOccurs="0"/>
+			<xs:element name="compYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="adults" type="xs:int" minOccurs="0"/>
+			<xs:element name="children" type="xs:int" minOccurs="0"/>
+			<xs:element name="crsBookNo" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsRoomCategory" type="xs:string" minOccurs="0"/>
+			<xs:element name="roomNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsRateCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsRate" type="pmsRate" minOccurs="0"/>
+			<xs:element name="pmsCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="sourceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="marketCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsWholesalerId" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsGroupId" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsTaId" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsCompanyId" type="xs:string" minOccurs="0"/>
+			<xs:element name="channel" type="xs:string" minOccurs="0"/>
+			<xs:element name="paymentMethod" type="xs:string" minOccurs="0"/>
+			<xs:element name="rateCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="pmsInternalResvId" type="xs:string" minOccurs="0"/>
+			<xs:element name="allotmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="primarySharerFlag" type="xs:string" minOccurs="0"/>
+			<xs:element name="pointsYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="totalRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="roomRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="fbRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="pmsMiscId" type="xs:string" minOccurs="0"/>
+			<xs:element name="resInsertSource" type="xs:string" minOccurs="0"/>
+			<xs:element name="resInsertSourceType" type="xs:string" minOccurs="0"/>
+			<xs:element name="StayRevenues" type="StayRevenues" minOccurs="0"/>
+			<xs:element name="Awards" type="Awards" minOccurs="0"/>
+			<xs:element name="Udfs" type="Udfs" minOccurs="0"/>
+			<xs:element name="StayWindowRevenues" type="StayWindowRevenues" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="fixed144">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="14"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HotelReference">
+		<xs:sequence>
+			<xs:element name="chainCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="hotelCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StayMemberships">
+		<xs:sequence>
+			<xs:element name="StayMembership" type="StayMembership" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StayMembership">
+		<xs:sequence>
+			<xs:element name="membershipType" type="xs:string" minOccurs="0"/>
+			<xs:element name="membershipNumber" type="xs:string"/>
+			<xs:element name="basePoints" type="xs:int" minOccurs="0"/>
+			<xs:element name="baseRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="bonusPoints" type="xs:int" minOccurs="0"/>
+			<xs:element name="bonusRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="validYN" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="pmsRate">
+		<xs:sequence>
+			<xs:element name="valueNum" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="currencyCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="StayRevenues">
+		<xs:sequence>
+			<xs:element name="StayRevenue" type="StayRevenue" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StayRevenue">
+		<xs:sequence>
+			<xs:element name="revenueType" type="xs:string" minOccurs="0"/>
+			<xs:element name="Amount" type="Amount" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Amount">
+		<xs:sequence>
+			<xs:element name="valueNum" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="currencyCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Awards">
+		<xs:sequence>
+			<xs:element name="Award" type="Award" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Award">
+		<xs:sequence>
+			<xs:element name="cardType" type="xs:string"/>
+			<xs:element name="awardType" type="xs:string"/>
+			<xs:element name="awardMemberNumber" type="xs:string"/>
+			<xs:element name="quantity" type="xs:int"/>
+			<xs:element name="datum" type="xs:date"/>
+			<xs:element name="idNumber" type="xs:string"/>
+			<xs:element name="pmsProfileId" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Udfs">
+		<xs:sequence>
+			<xs:element ref="udf:Udf" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StayWindowRevenues">
+		<xs:sequence>
+			<xs:element name="StayWindowRevenue" type="StayWindowRevenue" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StayWindowRevenue">
+		<xs:sequence>
+			<xs:element name="folioWindow" type="xs:string" minOccurs="0"/>
+			<xs:element name="revenueType" type="xs:string" minOccurs="0"/>
+			<xs:element name="Amount" type="Amount" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,35 @@
+apply plugin: 'java'
+project.ext.generatedSources = "$buildDir/generated-sources"
+
+configurations {
+    generate
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs generatedSources
+        }
+    }
+}
+
+dependencies {
+    generate jaxb_xjc
+}
+
+task createGeneratedDir(dependsOn: processResources) << {
+    mkdir generatedSources
+}
+
+task jaxb(dependsOn: createGeneratedDir) << {
+    ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJC2Task', classpath: configurations.generate.asPath)
+
+    ant.xjc(destdir: generatedSources, binding: "$projectDir/src/main/bindings/binding.xjb") {
+        schema(dir: "$projectDir/src/main/xsd", includes: "*.xsd")
+        depends(dir: "$projectDir/src/main/bindings", includes: "*.xjb")
+        depends(dir: "$projectDir/src/main/xsd", includes: "*.xsd")
+        produces(dir: generatedSources, includes: "**/*.java")
+    }
+}
+
+compileJava.dependsOn jaxb

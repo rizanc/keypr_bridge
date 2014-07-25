@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.0" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <jaxb:bindings schemaLocation="../xsd/allotment.fidelio.5.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.allotment"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/hurdle.fidelio.3.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.hurdle"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/inventory.fidelio.2.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.inventory"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/packages.fidelio.3.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.packages"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/profile.fidelio.3.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile.version3"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/profile.fidelio.4.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/rate.fidelio.6.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.rate"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/relationship.fidelio.3.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.relationship"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/reservation.fidelio.4.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.reservation"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/result.fidelio.4.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.result"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/rtav.fidelio.4.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.rtav"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/stay.fidelio.3.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.stay"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/udf.fidelio.2.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.udf"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/udfdefinition.fidelio.2.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.udfdefinition"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

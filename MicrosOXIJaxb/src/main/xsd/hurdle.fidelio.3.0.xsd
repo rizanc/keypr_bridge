@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="hurdle.fidelio.3.0" xmlns="hurdle.fidelio.3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="HurdleData" type = "HurdleData">
+		<xs:annotation>
+			<xs:documentation>HurdleData schema</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="HurdleData">
+		<xs:sequence>
+			<xs:element name="HotelReference" type="HotelReference"/>
+			<xs:element name="TimeSpan" type="TimeSpan"/>
+			<xs:element name="yieldCategory" type="xs:string" minOccurs="0"/>
+			<xs:element name="hurdleAmount" type="xs:float" minOccurs="0"/>
+			<xs:element name="delta" type="xs:float" minOccurs="0"/>
+			<xs:element name="userOverride" type="xs:string" minOccurs="0"/>
+			<xs:element name="upsolds" type="xs:int" minOccurs="0"/>
+			<xs:element name="ceilings" type="xs:int" minOccurs="0"/>
+			<xs:element name="maxsolds" type="xs:int" minOccurs="0"/>
+			<xs:element name="roomType" type="xs:string" minOccurs="0"/>
+			<xs:element name="lengthOfStay" type="xs:int" minOccurs="0"/>
+			<xs:element name="currencyCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HotelReference">
+		<xs:sequence>
+			<xs:element name="chainCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="hotelCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeSpan">
+		<xs:sequence>
+			<xs:element name="startTime" type="xs:dateTime"/>
+			<xs:element name="numberOfTimeUnits" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="timeUnitType" type="timeUnitType" use="optional" default="DAY"/>
+	</xs:complexType>
+	<xs:simpleType name="timeUnitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="YEAR"/>
+			<xs:enumeration value="MONTH"/>
+			<xs:enumeration value="WEEK"/>
+			<xs:enumeration value="DAY"/>
+			<xs:enumeration value="HOUR"/>
+			<xs:enumeration value="MINUTE"/>
+			<xs:enumeration value="SECOND"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

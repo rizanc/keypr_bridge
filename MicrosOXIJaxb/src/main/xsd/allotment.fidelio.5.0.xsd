@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="allotment.fidelio.5.0" xmlns="allotment.fidelio.5.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:profile="profile.fidelio.3.0" xmlns:udf="udf.fidelio.2.0" xmlns:udfdefinition="udfdefinition.fidelio.2.0" xmlns:relationship="relationship.fidelio.3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="profile.fidelio.3.0" schemaLocation="profile.fidelio.3.0.xsd"/>
+	<xs:import namespace="udf.fidelio.2.0" schemaLocation="udf.fidelio.2.0.xsd"/>
+	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="udfdefinition.fidelio.2.0.xsd"/>
+	<xs:import namespace="relationship.fidelio.3.0" schemaLocation="relationship.fidelio.3.0.xsd"/>
+	<xs:element name="InventoryBlockNotification" type = "InventoryBlockNotification">
+		<xs:annotation>
+			<xs:documentation>InventoryBlockNotification schema</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="InventoryBlockNotification">
+		<xs:sequence>
+			<xs:element name="HotelReference" type="HotelReference" minOccurs="0"/>
+			<xs:element name="inventoryBlockName" type="xs:string" minOccurs="0"/>
+			<xs:element name="inventoryBlockGroupingCode" type="xs:string"/>
+			<xs:element name="preShoulderProcureBlockCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="postShoulderProcureBlockCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="inventoryBlockCodes" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="BlockTimeSpan" type="BlockTimeSpan" minOccurs="0"/>
+			<xs:element name="dropDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="AvailableDaysOfWeek" type="AvailableDaysOfWeek" minOccurs="0"/>
+			<xs:element name="ArrivalDaysOfWeek" type="ArrivalDaysOfWeek" minOccurs="0"/>
+			<xs:element name="RequiredDaysOfWeek" type="RequiredDaysOfWeek" minOccurs="0"/>
+			<xs:element name="numberRequiredNights" type="xs:int" minOccurs="0"/>
+			<xs:element name="BookingDateRange" type="BookingDateRange" minOccurs="0"/>
+			<xs:element name="validBookingMinOffset" type="xs:int" minOccurs="0"/>
+			<xs:element name="validBookingMaxOffset" type="xs:int" minOccurs="0"/>
+			<xs:element name="priceViewable" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="pricePrintable" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="BlockShoulders" type="BlockShoulders" minOccurs="0"/>
+			<xs:element name="ProductDescriptions" type="ProductDescriptions" minOccurs="0"/>
+			<xs:element name="Viewerships" type="Viewerships" minOccurs="0"/>
+			<xs:element name="AssociatedProfiles" type="AssociatedProfiles" minOccurs="0"/>
+			<xs:element name="InventoryBlocks" type="InventoryBlocks" minOccurs="0"/>
+			<xs:element name="ratePlanCodes" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="mfAllotmentId" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfMasterBlockCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfMarketCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfSourceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfChannelCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfBlockOriginatorCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfCutoffDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="mfCutoffDays" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfPackage" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="mfReservationType" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfShoulderBeginDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="mfShoulderEndDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="mfBookingStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfBookingId" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfGuaranteeType" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfCateringFlag" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfBookingMethod" type="xs:string" minOccurs="0"/>
+			<xs:element name="AllotmentNotes" type="AllotmentNotes" minOccurs="0"/>
+			<xs:element name="Rules" type="Rules" minOccurs="0"/>
+			<xs:element name="Udfs" type="Udfs" minOccurs="0"/>
+			<xs:element name="porterageIncluded" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="porteragePrice" type="fixed144" minOccurs="0"/>
+			<xs:element name="breakfastIncluded" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="breakfastPrice" type="fixed144" minOccurs="0"/>
+			<xs:element name="breakfastDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="cancelCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="cancelDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="cancelDestination" type="xs:string" minOccurs="0"/>
+			<xs:element name="commission" type="xs:string" minOccurs="0"/>
+			<xs:element name="exchangePostingType" type="xs:string" minOccurs="0"/>
+			<xs:element name="paymentMethod" type="xs:string" minOccurs="0"/>
+			<xs:element name="followupDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="decisionDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="tbdRates" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="arrivalTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="departureTime" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="Lead" type="Lead" minOccurs="0"/>
+			<xs:element name="Catering" type="Catering" minOccurs="0"/>
+			<xs:element name="Relationships" type="Relationships" minOccurs="0"/>
+			<xs:element name="fbAgendas" type="fbAgendas" minOccurs="0"/>
+			<xs:element name="commissionPercentage" type="xs:string" minOccurs="0"/>
+			<xs:element name="owner" type="xs:string" minOccurs="0"/>
+			<xs:element name="traceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfBEAction" type="xs:string" minOccurs="0"/>
+			<xs:element name="AllotmentRateCodes" type="AllotmentRateCodes" minOccurs="0"/>
+			<xs:element name="FitContract" type="FitContract" minOccurs="0"/>
+			<xs:element name="mfResortAllotmentId" type="xs:string" minOccurs="0"/>
+			<xs:element name="taRecordLocator" type="xs:string" minOccurs="0"/>
+			<xs:element name="roomingListDue" type="xs:date" minOccurs="0"/>
+			<xs:element name="AllotmentTraces" type="AllotmentTraces" minOccurs="0"/>
+			<xs:element name="tourCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="AlternateDates" type="AlternateDates" minOccurs="0"/>
+			<xs:element name="syncContract" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="allowAlternateDates" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="sfaAttachments" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="lostToProperty" type="xs:string" minOccurs="0"/>
+			<xs:element name="cancelPenalty" type="fixed144" minOccurs="0"/>
+			<xs:element name="ContractRates" type="ContractRates" minOccurs="0"/>
+			<xs:element name="blockAlias" type="xs:string" minOccurs="0"/>
+			<xs:element name="OwnerDetails" type="OwnerDetails" minOccurs="0"/>
+			<xs:element name="cateringStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="revenueCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="fbCommission1" type="fixed144" minOccurs="0"/>
+			<xs:element name="createDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="opportunityId" type="xs:string" minOccurs="0"/>
+			<xs:element name="agendaCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="masterResort" type="xs:string" minOccurs="0"/>
+			<xs:element name="masterResortAllotmentId" type="xs:string" minOccurs="0"/>
+			<xs:element name="masterAllotmentId" type="xs:string" minOccurs="0"/>
+			<xs:element name="AllotmentPackages" type="AllotmentPackages" minOccurs="0"/>
+			<xs:element name="fitContractMode" type="xs:string" minOccurs="0"/>
+			<xs:element name="distributedDate" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="inventoryBlockCodeType" type="inventoryBlockCodeType" use="optional" default="BLOCKCODE"/>
+		<xs:attribute name="validBookingOffsetTimeUnitType" type="validBookingOffsetTimeUnitType" use="optional"/>
+		<xs:attribute name="inventoryBlockNotificationType" type="inventoryBlockNotificationType" use="optional"/>
+		<xs:attribute name="inventoryBlockStatusType" type="inventoryBlockStatusType" use="optional"/>
+		<xs:attribute name="mfBlockType" type="mfBlockType" use="required"/>
+		<xs:attribute name="mfBlockMessageType" type="mfBlockMessageType" use="required"/>
+		<xs:attribute name="mfMasterBlock" type="xs:boolean" use="optional"/>
+		<xs:attribute name="mfBookingType" type="xs:string" use="optional"/>
+		<xs:attribute name="masterType" type="xs:string" use="optional"/>
+		<xs:attribute name="subAllotment" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="fixed144">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="14"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="inventoryBlockCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="BLOCKCODE"/>
+			<xs:enumeration value="GROUPBLOCKCODE"/>
+			<xs:enumeration value="LEAD"/>
+			<xs:enumeration value="WHOLESALEBLOCKCODE"/>
+			<xs:enumeration value="FIT_CONTRACT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="validBookingOffsetTimeUnitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="YEAR"/>
+			<xs:enumeration value="MONTH"/>
+			<xs:enumeration value="WEEK"/>
+			<xs:enumeration value="DAY"/>
+			<xs:enumeration value="HOUR"/>
+			<xs:enumeration value="MINUTE"/>
+			<xs:enumeration value="SECOND"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="inventoryBlockNotificationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="NEW"/>
+			<xs:enumeration value="DELTAMODIFICATION"/>
+			<xs:enumeration value="FULLOVERLAYMODIFICATION"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="inventoryBlockStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INITIAL"/>
+			<xs:enumeration value="ACTIVE"/>
+			<xs:enumeration value="DEACTIVATED"/>
+			<xs:enumeration value="RELEASE"/>
+			<xs:enumeration value="UNLOCK"/>
+			<xs:enumeration value="CANCEL"/>
+			<xs:enumeration value="PEL"/>
+			<xs:enumeration value="CFL"/>
+			<xs:enumeration value="LOCK"/>
+			<xs:enumeration value="UNLINK"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mfBlockType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ELASTIC"/>
+			<xs:enumeration value="NONELASTIC"/>
+			<xs:enumeration value="UNDEFINED"/>
+			<xs:enumeration value="FORCE"/>
+			<xs:enumeration value="SELLLIMIT"/>
+			<xs:enumeration value="SELLLIMITELASTIC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mfBlockMessageType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HEADER"/>
+			<xs:enumeration value="HEADERWITHDETAIL"/>
+			<xs:enumeration value="DETAIL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="HotelReference">
+		<xs:sequence>
+			<xs:element name="chainCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="hotelCode" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BlockTimeSpan">
+		<xs:sequence>
+			<xs:element name="startTime" type="xs:date"/>
+			<xs:element name="numberOfTimeUnits" type="xs:int"/>
+		</xs:sequence>
+		<xs:attribute name="timeUnitType" type="timeUnitType" use="optional" default="DAY"/>
+	</xs:complexType>
+	<xs:simpleType name="timeUnitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="YEAR"/>
+			<xs:enumeration value="MONTH"/>
+			<xs:enumeration value="WEEK"/>
+			<xs:enumeration value="DAY"/>
+			<xs:enumeration value="HOUR"/>
+			<xs:enumeration value="MINUTE"/>
+			<xs:enumeration value="SECOND"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AvailableDaysOfWeek">
+		<xs:sequence>
+			<xs:element name="monday" type="xs:boolean"/>
+			<xs:element name="tuesday" type="xs:boolean"/>
+			<xs:element name="wednesday" type="xs:boolean"/>
+			<xs:element name="thursday" type="xs:boolean"/>
+			<xs:element name="friday" type="xs:boolean"/>
+			<xs:element name="saturday" type="xs:boolean"/>
+			<xs:element name="sunday" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrivalDaysOfWeek">
+		<xs:sequence>
+			<xs:element name="monday" type="xs:boolean"/>
+			<xs:element name="tuesday" type="xs:boolean"/>
+			<xs:element name="wednesday" type="xs:boolean"/>
+			<xs:element name="thursday" type="xs:boolean"/>
+			<xs:element name="friday" type="xs:boolean"/>
+			<xs:element name="saturday" type="xs:boolean"/>
+			<xs:element name="sunday" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequiredDaysOfWeek">
+		<xs:sequence>
+			<xs:element name="monday" type="xs:boolean"/>
+			<xs:element name="tuesday" type="xs:boolean"/>
+			<xs:element name="wednesday" type="xs:boolean"/>
+			<xs:element name="thursday" type="xs:boolean"/>
+			<xs:element name="friday" type="xs:boolean"/>
+			<xs:element name="saturday" type="xs:boolean"/>
+			<xs:element name="sunday" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookingDateRange">
+		<xs:sequence>
+			<xs:element name="startTime" type="xs:date" minOccurs="0"/>
+			<xs:element name="numberOfTimeUnits" type="xs:int"/>
+		</xs:sequence>
+		<xs:attribute name="timeUnitType" type="timeUnitType" use="optional" default="DAY"/>
+	</xs:complexType>
+	<xs:complexType name="BlockShoulders">
+		<xs:sequence>
+			<xs:element name="BlockShoulder" type="BlockShoulder" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BlockShoulder">
+		<xs:sequence>
+			<xs:element name="shoulderRPH" type="xs:int" minOccurs="0"/>
+			<xs:element name="preShoulderSellLimit" type="xs:int" minOccurs="0"/>
+			<xs:element name="postShoulderSellLimit" type="xs:int" minOccurs="0"/>
+			<xs:element name="preShoulderStartDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="postShoulderStartDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="SellableProducts" type="SellableProducts" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="actionType" type="actionType" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="actionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="NEW"/>
+			<xs:enumeration value="CHANGE"/>
+			<xs:enumeration value="DELETE"/>
+			<xs:enumeration value="SYNC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SellableProducts">
+		<xs:sequence>
+			<xs:element name="SellableProduct" type="SellableProduct" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SellableProduct">
+		<xs:sequence>
+			<xs:element name="sellableProductRPH" type="xs:int" minOccurs="0"/>
+			<xs:element name="inventoryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="ProductDescriptions" type="ProductDescriptions" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="actionType" type="actionType" use="optional"/>
+		<xs:attribute name="inventoryCodeType" type="inventoryCodeType" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="inventoryCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="INVENTORYCODE"/>
+			<xs:enumeration value="INVENTORYGROUPINGCODE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProductDescriptions">
+		<xs:sequence>
+			<xs:element name="ProductDescription" type="ProductDescription" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProductDescription">
+		<xs:sequence>
+			<xs:element name="productDescriptionRPH" type="xs:int" minOccurs="0"/>
+			<xs:element name="shortDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="longDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="languageID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="actionType" type="actionType" use="optional"/>
+		<xs:attribute name="productDescriptionType" type="productDescriptionType" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="productDescriptionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="TRADITIONALGDS"/>
+			<xs:enumeration value="GENERALPUBLIC"/>
+			<xs:enumeration value="HOTEL"/>
+			<xs:enumeration value="RESERVATIONAGENT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Viewerships">
+		<xs:sequence>
+			<xs:element name="Viewership" type="Viewership" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Viewership">
+		<xs:sequence>
+			<xs:element name="viewershipRPH" type="xs:int" minOccurs="0"/>
+			<xs:element name="systemCodes" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="systemCodeInclusive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="Profiles" type="Profiles" minOccurs="0"/>
+			<xs:element name="profilesInclusive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="profileTypes" type="xs:string" minOccurs="0"/>
+			<xs:element name="profileTypesInclusive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="locationCodes" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="locationCodesInclusive" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="viewOnly" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="actionType" type="actionType" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Profiles">
+		<xs:sequence>
+			<xs:element ref="profile:Profile" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AssociatedProfiles">
+		<xs:sequence>
+			<xs:element ref="profile:Profile" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InventoryBlocks">
+		<xs:sequence>
+			<xs:element name="InventoryBlock" type="InventoryBlock" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InventoryBlock">
+		<xs:sequence>
+			<xs:element name="inventoryBlockRPH" type="xs:int" minOccurs="0"/>
+			<xs:element name="inventoryCode" type="xs:string"/>
+			<xs:element name="numberToBlock" type="xs:int"/>
+			<xs:element name="sellLimit" type="xs:int" minOccurs="0"/>
+			<xs:element name="procureBlockCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfInventoryDate" type="xs:date"/>
+			<xs:element name="mfNumberSold" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfRate1" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate2" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate3" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate4" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRateAddOn" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRateChild" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfProjectedOcc1" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfProjectedOcc2" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfProjectedOcc3" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfProjectedOcc4" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfCutoffDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="mfCutoffDays" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfContractedOcc1" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfContractedOcc2" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfContractedOcc3" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfContractedOcc4" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfPickedUpOcc1" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfPickedUpOcc2" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfPickedUpOcc3" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfPickedUpOcc4" type="xs:int" minOccurs="0"/>
+			<xs:element name="inventoryType" type="xs:string" minOccurs="0"/>
+			<xs:element name="elastic" type="xs:int" minOccurs="0"/>
+			<xs:element name="elasticSold" type="xs:int" minOccurs="0"/>
+			<xs:element name="RoomRevenueGroups" type="RoomRevenueGroups"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="actionType" type="actionType" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="RoomRevenueGroups">
+		<xs:sequence>
+			<xs:element name="RoomRevenueGroup" type="RoomRevenueGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RoomRevenueGroup">
+		<xs:sequence>
+			<xs:element name="mfAmountOcc1" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfAmountOcc2" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfAmountOcc3" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfAmountOcc4" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="revenueGroupCode" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="AllotmentNotes">
+		<xs:sequence>
+			<xs:element name="AllotmentNote" type="AllotmentNote" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AllotmentNote">
+		<xs:sequence>
+			<xs:element name="noteType" type="xs:string" minOccurs="0"/>
+			<xs:element name="noteDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="note" type="xs:string" minOccurs="0"/>
+			<xs:element name="noteTitle" type="xs:string" minOccurs="0"/>
+			<xs:element name="noteSourceId" type="xs:string" minOccurs="0"/>
+			<xs:element name="noteDestId" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Rules">
+		<xs:sequence>
+			<xs:element name="Rule" type="Rule" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Rule">
+		<xs:sequence>
+			<xs:element name="inventoryBlockGroupingCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="RuleAmount" type="RuleAmount" minOccurs="0"/>
+			<xs:element name="ruleDate" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="ruleType" type="ruleType" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="ruleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEPOSIT"/>
+			<xs:enumeration value="CANCEL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="RuleAmount">
+		<xs:sequence>
+			<xs:element name="amount" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="amountType" type="amountType" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="amountType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FLAT"/>
+			<xs:enumeration value="PERCENT"/>
+			<xs:enumeration value="NIGHT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Udfs">
+		<xs:sequence>
+			<xs:element ref="udf:Udf" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Lead">
+		<xs:sequence>
+			<xs:element name="responseDueBy" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="leadStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="leadOriginatorName" type="xs:string" minOccurs="0"/>
+			<xs:element name="leadSentDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="LeadContacts" type="LeadContacts" minOccurs="0"/>
+			<xs:element name="replyStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="turnDownReason" type="xs:string" minOccurs="0"/>
+			<xs:element name="replyDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="datePending" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="dateAccepted" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="dateTurnedDown" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="dateConfirmed" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="dateLost" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="attachmentURL" type="xs:string" minOccurs="0"/>
+			<xs:element name="allowChangeByProperty" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="LeadHistories" type="LeadHistories" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LeadContacts">
+		<xs:sequence>
+			<xs:element name="LeadContact" type="LeadContact" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LeadContact">
+		<xs:sequence>
+			<xs:element name="contactName" type="xs:string" minOccurs="0"/>
+			<xs:element name="communicationAddress" type="xs:string" minOccurs="0"/>
+			<xs:element name="communicationType" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LeadHistories">
+		<xs:sequence>
+			<xs:element name="LeadHistory" type="LeadHistory" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LeadHistory">
+		<xs:sequence>
+			<xs:element name="bookedResort" type="xs:string" minOccurs="0"/>
+			<xs:element name="allotmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="marketingRegion" type="xs:string" minOccurs="0"/>
+			<xs:element name="marketingCity" type="xs:string" minOccurs="0"/>
+			<xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="endDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="originalRoomNights" type="fixed144" minOccurs="0"/>
+			<xs:element name="contractRoomNights" type="fixed144" minOccurs="0"/>
+			<xs:element name="actualRoomNights" type="fixed144" minOccurs="0"/>
+			<xs:element name="actualRoomRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="actualAvgRate" type="fixed144" minOccurs="0"/>
+			<xs:element name="actualFbRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="actualOtherRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="hasEvents" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="lostToProperty" type="xs:string" minOccurs="0"/>
+			<xs:element name="lostToDestination" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Catering">
+		<xs:sequence>
+			<xs:element name="statusCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="attendees" type="xs:int" minOccurs="0"/>
+			<xs:element name="infoBoardName" type="xs:string" minOccurs="0"/>
+			<xs:element name="followupDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="decisionDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="functionType" type="xs:string" minOccurs="0"/>
+			<xs:element name="quotedCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="contractNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="contractFinalized" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="addPackages" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="distributed" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="taxAmount" type="fixed144" minOccurs="0"/>
+			<xs:element name="serviceCharge" type="fixed144" minOccurs="0"/>
+			<xs:element name="cancelCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="cancelDescription" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Relationships">
+		<xs:sequence>
+			<xs:element ref="relationship:Relationship" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fbAgendas">
+		<xs:sequence>
+			<xs:element name="fbAgenda" type="fbAgenda" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fbAgenda">
+		<xs:sequence>
+			<xs:element name="fbaName" type="xs:string" minOccurs="0"/>
+			<xs:element name="eventType" type="xs:string" minOccurs="0"/>
+			<xs:element name="fbaDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="fbaDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="eventQuantity" type="fixed144" minOccurs="0"/>
+			<xs:element name="attendees" type="xs:int" minOccurs="0"/>
+			<xs:element name="fbaBudget" type="fixed144" minOccurs="0"/>
+			<xs:element name="roomType" type="xs:string" minOccurs="0"/>
+			<xs:element name="roomSetup" type="xs:string" minOccurs="0"/>
+			<xs:element name="fbaComments" type="fbaComments" minOccurs="0"/>
+			<xs:element name="fbaResources" type="fbaResources" minOccurs="0"/>
+			<xs:element name="fbaRevenues" type="fbaRevenues" minOccurs="0"/>
+			<xs:element name="fbaEndDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="fbAgendaId" type="fbAgendaId" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="fbaComments">
+		<xs:sequence>
+			<xs:element name="AllotmentNote" type="AllotmentNote" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fbaResources">
+		<xs:sequence>
+			<xs:element name="fbaResource" type="fbaResource" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fbaResource">
+		<xs:sequence>
+			<xs:element name="resourceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="resourceName" type="xs:string" minOccurs="0"/>
+			<xs:element name="resourceQuantity" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="fbaRevenues">
+		<xs:sequence>
+			<xs:element name="fbaRevenue" type="fbaRevenue" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fbaRevenue">
+		<xs:sequence>
+			<xs:element name="revenueSeq" type="fixed144" minOccurs="0"/>
+			<xs:element name="revenueType" type="xs:string" minOccurs="0"/>
+			<xs:element name="revenueGroup" type="xs:string" minOccurs="0"/>
+			<xs:element name="budgetedRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="expectedRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="customRevenueYN" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="fbAgendaId">
+		<xs:sequence>
+			<xs:element name="fbaCentralId" type="xs:string" minOccurs="0"/>
+			<xs:element name="fbaResortId" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AllotmentRateCodes">
+		<xs:sequence>
+			<xs:element name="AllotmentRateCode" type="AllotmentRateCode" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AllotmentRateCode">
+		<xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="rateType" type="xs:string" use="required"/>
+		<xs:attribute name="rateCode" type="xs:string" use="required"/>
+		<xs:attribute name="rateBeginDate" type="xs:date" use="optional"/>
+		<xs:attribute name="rateEndDate" type="xs:date" use="optional"/>
+		<xs:attribute name="rateprimary" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="FitContract">
+		<xs:sequence>
+			<xs:element name="potRoomRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="potFbRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="potOtherRevenue" type="fixed144" minOccurs="0"/>
+			<xs:element name="commissionablePerc" type="fixed144" minOccurs="0"/>
+			<xs:element name="fitDiscountPerc" type="fixed144" minOccurs="0"/>
+			<xs:element name="bfstInclPrice" type="fixed144" minOccurs="0"/>
+			<xs:element name="servicePerc" type="fixed144" minOccurs="0"/>
+			<xs:element name="dblRmSupplementPrice" type="fixed144" minOccurs="0"/>
+			<xs:element name="taxIncludedPerc" type="fixed144" minOccurs="0"/>
+			<xs:element name="potRoomNights" type="xs:int" minOccurs="0"/>
+			<xs:element name="fitDiscountLevel" type="xs:int" minOccurs="0"/>
+			<xs:element name="commissionable" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="bfstIncl" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="serviceIncl" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="dblRmSupplement" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="taxIncluded" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="rateOverride" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="centralOwner" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AllotmentTraces">
+		<xs:sequence>
+			<xs:element name="AllotmentTrace" type="AllotmentTrace" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AllotmentTrace">
+		<xs:sequence>
+			<xs:element name="traceDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="traceText" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AlternateDates">
+		<xs:sequence>
+			<xs:element name="AlternateDate" type="AlternateDate" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AlternateDate">
+		<xs:sequence>
+			<xs:element name="alternateArrivalDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="alternateDepartureDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="inventoryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfRate1" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate2" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate3" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate4" type="fixed144" minOccurs="0"/>
+			<xs:element name="preferred" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContractRates">
+		<xs:sequence>
+			<xs:element name="ContractRate" type="ContractRate" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContractRate">
+		<xs:sequence>
+			<xs:element name="mfCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="inventoryCode" type="xs:string"/>
+			<xs:element name="mfRate1" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate2" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate3" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRate4" type="fixed144" minOccurs="0"/>
+			<xs:element name="mfRateAddOn" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="rateBeginDate" type="xs:date" use="optional"/>
+		<xs:attribute name="rateEndDate" type="xs:date" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="OwnerDetails">
+		<xs:sequence>
+			<xs:element name="OwnerDetail" type="OwnerDetail" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OwnerDetail">
+		<xs:sequence>
+			<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+			<xs:element name="lastName" type="xs:string" minOccurs="0"/>
+			<xs:element name="primaryEmail" type="xs:string" minOccurs="0"/>
+			<xs:element name="primaryPhone" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="ownerType" type="xs:string" use="required"/>
+		<xs:attribute name="mfPrimary" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="AllotmentPackages">
+		<xs:sequence>
+			<xs:element name="AllotmentPackage" type="AllotmentPackage" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AllotmentPackage">
+		<xs:sequence>
+			<xs:element name="mfPackage" type="xs:string"/>
+			<xs:element name="quantity" type="xs:int"/>
+			<xs:element name="TimeSpan" type="TimeSpan" minOccurs="0"/>
+			<xs:element name="ratePlanCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="quantityExcluded" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TimeSpan">
+		<xs:sequence>
+			<xs:element name="startTime" type="xs:date" minOccurs="0"/>
+			<xs:element name="numberOfTimeUnits" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="timeUnitType" type="timeUnitType" use="optional" default="DAY"/>
+	</xs:complexType>
+</xs:schema>
