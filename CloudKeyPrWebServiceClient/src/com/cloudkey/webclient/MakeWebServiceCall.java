@@ -661,7 +661,7 @@ public class MakeWebServiceCall extends HttpServlet {
 				String membershipId = request.getParameter("membership_id");
 
 				// set the membership id in the request parameters.
-				objMemberPointsRequest.setMembershipId(membershipId);
+				objMemberPointsRequest.setMembershipNumber(membershipId);
 
 				MessageLogger.logInfo( MakeWebServiceCall.class,  " doPost ",  " Membership Id is set on the Member Points object" );
 

@@ -173,6 +173,22 @@
             }
                 
            /**
+            * auto generated Axis2 call back method for cancelConsumedPoints method
+            * override this method for handling normal response from cancelConsumedPoints operation
+            */
+           public void receiveResultcancelConsumedPoints(
+                    com.micros.ows.membership.MembershipServiceStub.CancelConsumedPointsResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from cancelConsumedPoints operation
+           */
+            public void receiveErrorcancelConsumedPoints(java.lang.Exception e) {
+            }
+                
+           /**
             * auto generated Axis2 call back method for fetchProductAwards method
             * override this method for handling normal response from fetchProductAwards operation
             */
@@ -266,6 +282,22 @@
            * override this method for handling error response from fetchStatementRefs operation
            */
             public void receiveErrorfetchStatementRefs(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for issueTransactionAward method
+            * override this method for handling normal response from issueTransactionAward operation
+            */
+           public void receiveResultissueTransactionAward(
+                    com.micros.ows.membership.MembershipServiceStub.IssueTransactionAwardResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from issueTransactionAward operation
+           */
+            public void receiveErrorissueTransactionAward(java.lang.Exception e) {
             }
                 
            /**
@@ -474,6 +506,22 @@
            * override this method for handling error response from fetchMemberTierWizard operation
            */
             public void receiveErrorfetchMemberTierWizard(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchTransactionAwards method
+            * override this method for handling normal response from fetchTransactionAwards operation
+            */
+           public void receiveResultfetchTransactionAwards(
+                    com.micros.ows.membership.MembershipServiceStub.FetchTransactionAwardsResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchTransactionAwards operation
+           */
+            public void receiveErrorfetchTransactionAwards(java.lang.Exception e) {
             }
                 
 
