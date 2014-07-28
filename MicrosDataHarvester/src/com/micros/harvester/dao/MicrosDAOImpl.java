@@ -1098,6 +1098,38 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		return isStored;
 	}
+
+	@Override
+	public boolean persistRtavData( Rtav objRtav ) throws SQLException {
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRtavData ", " Enter persistRtavData method " );
+
+		boolean isStored = false;
+
+		Connection objConn = null;
+		String sqlQuery = null;
+
+		int rowUpdated = 0;
+		int lastInsetedId = 0;
+
+		try {
+		
+			/* Todo TBD: Persist Rtav data. */
+			isStored = true ;
+
+		}
+		catch( Exception exc ){
+
+			objConn.rollback();
+			DataHarvesterLogger.logError(MicrosDAOImpl.class, " persistRtavData ", exc );
+		}
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRtavData ", " Exit persistRtavData method " );
+
+		return isStored;
+	}
+
+
 	/**
 	 * This method will store reservation room allocation data in the database. It accept reservation identifier
 	 * of the reservation record recently added to the reservation upload table.

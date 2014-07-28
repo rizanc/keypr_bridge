@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.Rtav;
 import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.dao.IMicrosDAO;
 import com.micros.harvester.dao.MicrosDAOImpl;
@@ -103,13 +104,21 @@ public class OXIListener implements HttpHandler {
 			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " File Created " + xmlFile.getName() );
 
 			OXIParserUtility objDataUtility = new OXIParserUtility();
-
-			Reservation  objReservation = objDataUtility.populateReservation( xmlFile );
-
+			
+			objDataUtility.loadDoc( xmlFile );
+			
 			objMicrosDAO = new MicrosDAOImpl();
-			boolean isPersisted = objMicrosDAO.persistReservationData( objReservation );
-
-			DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Reservation Stored in DataBase  " + isPersisted );
+			boolean isPersisted = false ;
+			
+			if (objDataUtility.isReservation()){
+				Reservation  objReservation = objDataUtility.populateReservation( xmlFile );
+				isPersisted = objMicrosDAO.persistReservationData( objReservation );
+				DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Reservation Stored in DataBase  " + isPersisted );
+			} else if (objDataUtility.isRtav() ) {
+				Rtav objRtav = objDataUtility.populateRtav( );
+				isPersisted = objMicrosDAO.persistRtavData ( objRtav );
+				DataHarvesterLogger.logInfo( OXIListener.class, " handle ", " Rtav Stored in DataBase  " + isPersisted );
+			}
 
 			String response = " Status: SUCCESS code= 200 ok ";
 

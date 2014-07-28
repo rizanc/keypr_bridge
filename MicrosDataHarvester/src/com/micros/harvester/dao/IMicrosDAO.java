@@ -3,6 +3,7 @@ package com.micros.harvester.dao;
 import java.sql.SQLException;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.Rtav;
 import com.cloudkey.commons.RoomDetails;
 //import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
 import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
@@ -52,5 +53,15 @@ public interface IMicrosDAO {
 	 * @throws SQLException 
 	 */
 	boolean persistReservationData( Reservation objReservation ) throws SQLException;
+
+	/**
+	 * Store the Rtav data received from oxi in the database.
+	 * It response contains details about the status of database operation.
+	 * 
+	 * @param objRtav
+	 * @return
+	 * @throws SQLException 
+	 */
+	boolean persistRtavData( Rtav objRtav ) throws SQLException;
 
 }
