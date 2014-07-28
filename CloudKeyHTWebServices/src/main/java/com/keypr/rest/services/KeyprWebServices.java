@@ -1,31 +1,27 @@
 package com.keypr.rest.services;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.ReservationOrders;
+import com.cloudkey.commons.TimeOutError;
+import com.cloudkey.constant.ICloudKeyConstants;
+import com.cloudkey.message.parser.IParserInterface;
+import com.cloudkey.pms.request.*;
+import com.cloudkey.pms.response.*;
+import com.keypr.rest.constants.IWebServiceConstants;
+import com.keypr.web.logger.WebAppLogger;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.*;
-import com.wordnik.swagger.annotations.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationOrders;
-import com.cloudkey.commons.TimeOutError;
-import com.cloudkey.constant.ICloudKeyConstants;
-import com.cloudkey.message.parser.IParserInterface;
-import com.cloudkey.pms.response.NameIdByMembershipResponse;
-import com.cloudkey.util.BaseConfigurationReader;
-import com.keypr.rest.constants.IWebServiceConstants;
-import com.keypr.web.logger.WebAppLogger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -40,6 +36,9 @@ import com.keypr.web.logger.WebAppLogger;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class KeyprWebServices {
+
+    @Inject
+    IParserInterface messageParser;
 
 	/**
 	 * This method searches for reservation detail on the basis of provided input.
@@ -62,28 +61,10 @@ public class KeyprWebServices {
 		/* variable to store SearchReservationResponse instance.*/
 		SearchReservationResponse objSearchReservationResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
 			if( objSearchReservationRequest.getCreditCardNumber() == null ) {
 
@@ -181,28 +162,10 @@ public class KeyprWebServices {
 		/* variable to store CheckInResponse instance.*/
 		CheckInResponse objCheckInResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = (IParserInterface) appContext.getBean( parserName );
 
 			Reservation objReservation = objCheckInRequest.getReservation();
 
@@ -328,28 +291,10 @@ public class KeyprWebServices {
 		/* variable to store CheckOutResponse instance.*/
         CheckOutResponse objCheckOutResponse = null;
 
-		/* variable to store application context. */
-        ApplicationContext appContext = null;
-
 		/* variable to store response. */
         Response res = null;
 
-		/* variable to store message parser name. */
-        String parserName = null;
-
-		/* variable to store message parser. */
-        IParserInterface messageParser = null;
-
         try {
-
-            // reads the name of message parser bean from configuration file.
-            parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-            // creates an instance of application context using  information from beans configuration file.
-            appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-            // retrieve the current bean and store its reference.
-            messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
             if( objCheckOutRequest.getConfirmationNumber() == null ) {
 
@@ -431,28 +376,10 @@ public class KeyprWebServices {
 		/* variable to store AssignRoomResponse instance.*/
 		AssignRoomResponse objAssignRoomResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
 			Reservation objReservation = objAssignRoomRequest.getReservation();
 
@@ -583,27 +510,10 @@ public class KeyprWebServices {
 		/* Variable to store release Room Response instance. */
         com.cloudkey.pms.response.ReleaseRoomResponse objReleaseRoomResponse = null;
 
-		/* Variable to store application context. */
-        ApplicationContext appContext = null;
-
 		/* Variable to store response. */
         Response response = null;
 
-		/* variable to store message parser name. */
-        String parserName = null;
-
-		/* Variable to store message parser. */
-        IParserInterface messageParser = null;
-
         try {
-
-            // read the name of message parser bean from the bean configuration file.
-            parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-            // create an instance of application context using information from bean configuration file.
-            appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-            messageParser = ( IParserInterface )appContext.getBean( parserName );
 
             if( objReleaseRoomRequest.getReservationId() == null ) {
 
@@ -678,28 +588,10 @@ public class KeyprWebServices {
 		/* variable to store GetAvailabilityResponse instance.*/
 		GetAvailabilityResponse objAvailabilityResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
 			Date startDate = objAvailabilityRequest.getStartDate();
 			Date endDate = objAvailabilityRequest.getEndDate();
@@ -775,28 +667,10 @@ public class KeyprWebServices {
 		/* variable to store GetFolioResponse instance.*/
 		GetFolioResponse objGetFolioResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
 			if( objFolioRequest.getConfirmationNumber() == null ) {
 
@@ -884,31 +758,13 @@ public class KeyprWebServices {
 		/* variable to store UpdatePaymentResponse instance.*/
 		UpdatePaymentResponse objUpPaymentResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
-
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
 
 		/*Variable to hold confirmation number. */
 		String confirmationNumber = null;
 
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
 			if( objUpPaymentRequest.getConfirmationNumber() == null ) {
 
@@ -987,28 +843,10 @@ public class KeyprWebServices {
 		/* variable to store UpdateBookingResponse instance.*/
 		UpdateBookingResponse objUpBookingResponse = null;
 
-		/* variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* variable to store response. */
 		Response res = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
 
 			if( objUpBookingRequest.getConfirmationNumber() == null ) {
 
@@ -1105,29 +943,10 @@ public class KeyprWebServices {
 		//variable to store HotelInformation instance.
 		HotelInformationResponse objHotelInformationResponse = null;
 
-		//variable to store application context.
-		ApplicationContext appContext = null;
-
 		//variable to store response.
 		Response res = null;
 
-		// variable to store message parser name.
-		String parserName = null;
-
-		//variable to store message parser.
-		IParserInterface messageParser = null;
-
 		try {
-
-			// reads the name of message parser bean from configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// creates an instance of application context using  information from beans configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			// retrieve the current bean and store its reference.
-			messageParser = ( IParserInterface ) appContext.getBean( parserName );
-
 
 			String hotelCode = objHotelInformationRequest.getHotelCode();
 
@@ -1194,29 +1013,12 @@ public class KeyprWebServices {
 		//Variable to store member points Response instance.
 		//com.cloudkey.pms.response.MemberPointsResponse objMemberPointsResponse = null;
 
-		// Variable to store application context.
-		ApplicationContext appContext = null;
-
 		// Variable to store response.
 		Response response = null;
 
-		//variable to store message parser name.
-		String parserName = null;
-
-		// Variable to store message parser.
-		IParserInterface messageParser = null;
 		MemberPointsResponse objMemberPointsResponse = null;
 
-
 		try {
-
-			// read the name of message parser bean from the bean configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// create an instance of application context using information from bean configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			messageParser = ( IParserInterface )appContext.getBean( parserName );
 
 			objMemberPointsResponse = new MemberPointsResponse();
 
@@ -1236,8 +1038,6 @@ public class KeyprWebServices {
 
 			}
 			else {
-
-				objMemberPointsResponse = messageParser.memberPointsQuery( objMemberPointsRequest );
 
 				if( objMemberPointsResponse == null ) {
 
@@ -1283,27 +1083,10 @@ public class KeyprWebServices {
 		/* Variable to store release Room Response instance. */
 		com.cloudkey.pms.response.MeetingRoomInformationResponse objMeInformationResponse = null;
 
-		/* Variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* Variable to store response. */
 		Response response = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* Variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// read the name of message parser bean from the bean configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// create an instance of application context using information from bean configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			messageParser = ( IParserInterface )appContext.getBean( parserName );
 
 			objMeInformationResponse = new MeetingRoomInformationResponse();
 
@@ -1365,27 +1148,10 @@ public class KeyprWebServices {
 		/* Variable to store release Room Response instance. */
 		NameIdByMembershipResponse objNameIdByMembershipResponse = null;
 
-		/* Variable to store application context. */
-		ApplicationContext appContext = null;
-
 		/* Variable to store response. */
 		Response response = null;
 
-		/* variable to store message parser name. */
-		String parserName = null;
-
-		/* Variable to store message parser. */
-		IParserInterface messageParser = null;
-
 		try {
-
-			// read the name of message parser bean from the bean configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// create an instance of application context using information from bean configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			messageParser = ( IParserInterface )appContext.getBean( parserName );
 
 			objNameIdByMembershipResponse = new NameIdByMembershipResponse();
 
@@ -1451,34 +1217,14 @@ public class KeyprWebServices {
 		com.cloudkey.pms.response.GuestMembershipResponse objGuestMembershipResponse= null;
 
 		*/
-/* Variable to store application context. *//*
-
-		ApplicationContext appContext = null;
-
-		*/
 /* Variable to store response. *//*
 
 		Response response = null;
 
 		*/
-/* variable to store message parser name. *//*
-
-		String parserName = null;
-
-		*/
 /* Variable to store message parser. *//*
 
-		IParserInterface messageParser = null;
-
 		try {
-
-			// read the name of message parser bean from the bean configuration file.
-			parserName = BaseConfigurationReader.getProperty( ICloudKeyConstants.PARSER_BEAN );
-
-			// create an instance of application context using information from bean configuration file.
-			appContext = new ClassPathXmlApplicationContext( "META-INF/parser-beans.xml" );
-
-			messageParser = ( IParserInterface )appContext.getBean( parserName );
 
 			objGuestMembershipResponse = new GuestMembershipResponse();
 

@@ -22,6 +22,7 @@ dependencies {
     compile javax_ws_rs_api
     compile jackson_core
     compile jackson_databind
+    compile jackson_guava
     compile jersey_client
     compile jersey_common
     compile jersey_container_servlet
@@ -43,5 +44,10 @@ dependencies {
     compile spring_expression
     compile spring_web
     compile swagger
+    compile(jersey_spring) {
+        exclude module: 'org.springframework.spring-core'
+        exclude module: 'org.springframework.spring-web'
+        exclude module: 'org.springframework.spring-beans'
+    }
     testCompile junit
 }
