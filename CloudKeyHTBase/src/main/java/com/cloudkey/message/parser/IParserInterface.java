@@ -1,19 +1,6 @@
 package com.cloudkey.message.parser;
 
-import com.cloudkey.pms.request.AssignRoomRequest;
-import com.cloudkey.pms.request.CheckInRequest;
-import com.cloudkey.pms.request.CheckOutRequest;
-import com.cloudkey.pms.request.GetAvailabilityRequest;
-import com.cloudkey.pms.request.GetFolioRequest;
-import com.cloudkey.pms.request.GuestMembershipsRequest;
-import com.cloudkey.pms.request.HotelInformationRequest;
-import com.cloudkey.pms.request.MeetingRoomInformationRequest;
-import com.cloudkey.pms.request.MemberPointsRequest;
-import com.cloudkey.pms.request.NameIdByMembershipRequest;
-import com.cloudkey.pms.request.ReleaseRoomRequest;
-import com.cloudkey.pms.request.SearchReservationRequest;
-import com.cloudkey.pms.request.UpdateBookingRequest;
-import com.cloudkey.pms.request.UpdatePaymentRequest;
+import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
 import com.cloudkey.pms.response.NameIdByMembershipResponse;
 
@@ -84,9 +71,15 @@ public interface IParserInterface {
 	public UpdateBookingResponse updateBooking(UpdateBookingRequest upBookingRequest);
 
 	/**
+	 * @param request
+	 * @return UpdatePaymentResponse
+	 */
+	public MakePaymentResponse makePayment(MakePaymentRequest request);
+
+	/**
 	 * This method makes update Payment request of the guest to the property management system.
 	 * It uses guest confirmation number and payments details.It returns status as response.
-	 * 
+	 *
 	 * @param upPaymentReq
 	 * @return UpdatePaymentResponse
 	 */

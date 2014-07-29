@@ -8,6 +8,7 @@ import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
 import com.micros.pms.processor.*;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,12 @@ public class MicrosOWSParser implements IParserInterface {
         response = new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
 
         return response;
+    }
+
+    @Override
+    public MakePaymentResponse makePayment(MakePaymentRequest request) {
+        // TODO
+        throw new NotImplementedException("TODO");
     }
 
     @Override

@@ -1,9 +1,12 @@
-
-
 dependencies {
+    compile project(':CloudKeyHTIds')
+
     compile commons_logging
     compile commons_logging_api
     compile log4j
     compile mysql_connector_java
     compile genson
+    compile guava
+    compile javax_validation
+    compile jackson_databind
 }

@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.cloudkey.pms.request.*;
+import com.cloudkey.pms.response.*;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
 import org.apache.axis2.databinding.types.Time;
@@ -18,32 +20,6 @@ import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.message.parser.IParserInterface;
-import com.cloudkey.pms.request.CheckInRequest;
-import com.cloudkey.pms.request.CheckOutRequest;
-import com.cloudkey.pms.request.GetAvailabilityRequest;
-import com.cloudkey.pms.request.GetFolioRequest;
-import com.cloudkey.pms.request.GuestMembershipsRequest;
-import com.cloudkey.pms.request.HotelInformationRequest;
-import com.cloudkey.pms.request.MeetingRoomInformationRequest;
-import com.cloudkey.pms.request.MemberPointsRequest;
-import com.cloudkey.pms.request.NameIdByMembershipRequest;
-import com.cloudkey.pms.request.ReleaseRoomRequest;
-import com.cloudkey.pms.request.SearchReservationRequest;
-import com.cloudkey.pms.request.UpdateBookingRequest;
-import com.cloudkey.pms.request.UpdatePaymentRequest;
-import com.cloudkey.pms.response.CheckInResponse;
-import com.cloudkey.pms.response.CheckOutResponse;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
-import com.cloudkey.pms.response.GetFolioResponse;
-import com.cloudkey.pms.response.GuestMembershipResponse;
-import com.cloudkey.pms.response.HotelInformationResponse;
-import com.cloudkey.pms.response.MeetingRoomInformationResponse;
-import com.cloudkey.pms.response.MemberPointsResponse;
-import com.cloudkey.pms.response.NameIdByMembershipResponse;
-import com.cloudkey.pms.response.ReleaseRoomResponse;
-import com.cloudkey.pms.response.SearchReservationResponse;
-import com.cloudkey.pms.response.UpdateBookingResponse;
-import com.cloudkey.pms.response.UpdatePaymentResponse;
 import com.cloudkey.util.BaseConfigurationReader;
 import com.micros.adv.reservation.ResvAdvancedServiceStub;
 import com.micros.adv.reservation.ResvAdvancedServiceStub.BillHeader;
@@ -115,6 +91,7 @@ import com.micros.reservation.ReservationServiceStub.RoomStay;
 import com.micros.reservation.ReservationServiceStub.RoomType;
 import com.micros.reservation.ReservationServiceStub.TimeSpan;
 import com.micros.reservation.ReservationServiceStub.TimeSpanChoice_type0;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * This class is used to process the web service request and return the responseO
@@ -1863,7 +1840,13 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 	}
 
-	/**
+    @Override
+    public MakePaymentResponse makePayment(MakePaymentRequest request) {
+        // TODO
+        throw new NotImplementedException("MICROS implementation of MakePaymentResponse not implemented yet");
+    }
+
+    /**
 	 * 
 	 * 
 	 * @param objResponse

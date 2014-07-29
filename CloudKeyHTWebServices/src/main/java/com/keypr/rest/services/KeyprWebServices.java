@@ -737,6 +737,52 @@ public class KeyprWebServices {
 
 	}
 
+    @Path("/makePayment")
+    @POST
+    @ApiOperation(
+            value = "Makes a payment towards a reservation folio",
+            response = MakePaymentResponse.class
+    )
+    public Response makePayment(MakePaymentRequest request) {
+        WebAppLogger.logInfo(KeyprWebServices.class, " makePayment ", " Enter method makePayment ");
+
+        // TODO
+		/* variable to store response. */
+        Response res = null;
+
+        try {
+            long requestTime = System.currentTimeMillis();
+            MakePaymentResponse response = messageParser.makePayment(request);
+
+            long latencyTime = System.currentTimeMillis() - requestTime;
+            WebAppLogger.logInfo( KeyprWebServices.class, " makePayment ", " makePayment response latency period in milliseconds " + latencyTime );
+
+            if( response == null ) {
+
+                TimeOutError objTimeOutError = new TimeOutError();
+                objTimeOutError.setCode( ICloudKeyConstants.RES_STATUS_CODE);
+                objTimeOutError.setMessage( ICloudKeyConstants.RES_MESSAGE );
+
+                WebAppLogger.logInfo( KeyprWebServices.class, " makePayment ", " No Response from PMS for makePayment " );
+
+                res = Response.status( IWebServiceConstants.RESPONSE_STATUS_TIMEOUT ).entity( objTimeOutError ).build();
+            }
+            else {
+                res = Response.status( IWebServiceConstants.RESPONSE_STATUS ).entity( response ).build();
+            }
+        }
+        catch( Exception exc ) {
+
+            WebAppLogger.logError( KeyprWebServices.class, " makePayment ", exc );
+        }
+
+        WebAppLogger.logInfo( KeyprWebServices.class, " makePayment ", " Exit method makePayment " );
+
+        return res;
+
+    }
+
+
 	/**
 	 * This method makes guest update payment request on the basis of confirmation number.
 	 * It returns the status of payment update operation result.
