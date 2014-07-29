@@ -1,4 +1,4 @@
-package com.keypr.rest.constants;
+package com.keypr.webservices.rest.constants;
 
 /**
  * This interface stores constants to be used by the web service.

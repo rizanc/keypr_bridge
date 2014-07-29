@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':MicrosOWSServices:Availability')
+    compile project(':MicrosOWSServices:Information')
+    compile project(':MicrosOWSServices:MeetingRoom')
+    compile project(':MicrosOWSServices:Membership')
+    compile project(':MicrosOWSServices:Name')
+    compile project(':MicrosOWSServices:Reservation')
+    compile project(':MicrosOWSServices:ResvAdvanced')
+}

@@ -1,11 +1,8 @@
 package com.micros.http.connection;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.micros.pms.logger.MicrosPMSLogger;
+import com.micros.pms.util.AdapterUtility;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -17,8 +14,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
-import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.util.AdapterUtility;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to establish http connection between adapter and micros simulator.

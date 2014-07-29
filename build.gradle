@@ -17,4 +17,11 @@ subprojects {
     }
 
     apply from: "$rootDir/dependencies.gradle", to: dependencies
+
+    // javax.servlet is provided by org.eclipse.jetty.orbit:javax.servlet, which dropwizard includes
+    // Axis2 tries to use javax.servlet-api, which has classes on the same path, resulting in
+    // a package cert check failure.
+    configurations {
+        all*.exclude group: 'javax.servlet', module: 'servlet-api'
+    }
 }

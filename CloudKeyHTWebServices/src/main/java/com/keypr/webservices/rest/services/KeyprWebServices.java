@@ -1,4 +1,4 @@
-package com.keypr.rest.services;
+package com.keypr.webservices.rest.services;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
@@ -7,12 +7,12 @@ import com.cloudkey.constant.ICloudKeyConstants;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
-import com.keypr.rest.constants.IWebServiceConstants;
+import com.google.inject.Inject;
+import com.keypr.webservices.rest.constants.IWebServiceConstants;
 import com.keypr.web.logger.WebAppLogger;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

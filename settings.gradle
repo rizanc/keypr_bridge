@@ -4,7 +4,7 @@ include 'CloudKeyHTBase'
 include 'CloudKeyHTIds'
 include 'CloudKeyHTUploadService'
 include 'CloudKeyHTWebServices'
-include 'CloudKeyPrWebServiceClient'
+include 'CloudKeyHTIds'
 /*
    CloudKeyTestAdapter is out of date with CloudKeyHTBase and will not build.
 
@@ -12,6 +12,7 @@ include 'CloudKeyTestAdapter'
  */
 include 'MicrosDataHarvester'
 include 'MicrosOWSClient'
+include 'MicrosOWSServices'
 include 'MicrosOWSServices:Availability'
 include 'MicrosOWSServices:Information'
 include 'MicrosOWSServices:MeetingRoom'
@@ -21,7 +22,7 @@ include 'MicrosOWSServices:Reservation'
 include 'MicrosOWSServices:ResvAdvanced'
 include 'MicrosPMSAdapter'
 include 'MicrosOXIJaxb'
-include 'MicrosSimulator_OXI'
+//include 'MicrosSimulator_OXI'
 /*
     MicrosSimulatorPMS_OWS depends on outdated versions of the micros services, and is not used currently.
 
@@ -29,3 +30,5 @@ include 'MicrosSimulatorPMS_OWS'
  */
 include 'UploadServiceRest'
 include 'MicrosIds'
+include 'CloudKeyHTMessages'
+

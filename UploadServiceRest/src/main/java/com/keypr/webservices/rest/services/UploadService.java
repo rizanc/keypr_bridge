@@ -1,4 +1,4 @@
-package com.keypr.rest.services;
+package com.keypr.webservices.rest.services;
 
 import java.util.List;
 

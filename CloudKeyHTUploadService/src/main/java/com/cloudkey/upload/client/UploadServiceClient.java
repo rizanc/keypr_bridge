@@ -2,14 +2,11 @@ package com.cloudkey.upload.client;
 
 import java.util.List;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.json.simple.JSONObject;
 
 import com.cloudkey.commons.Reservation;
@@ -165,26 +162,26 @@ public class UploadServiceClient {
 
 		UploadServiceLogger.logInfo( UploadServiceClient.class,  "makeJSONRequest" , " enter method makeJSONRequest " ) ;
 
-		Response response = null ;
 		int statusCode = IUploadConstants.COUNT_ZERO ;
 
 		// create an instance of Web Service Client.
-		Client	webClient = ClientBuilder.newClient() ;
-		WebTarget target = webClient.target( url ) ;
+		Client webClient = Client.create();
 
 		UploadServiceLogger.logInfo( UploadServiceClient.class,  "makeJSONRequest" , " URL  " + url ) ;
 
-		Builder	invocationBuilder = target.request( MediaType.APPLICATION_JSON_TYPE ) ;
-
-		JSONObject jsonObject = new JSONObject() ;
+        JSONObject jsonObject = new JSONObject() ;
 
 		jsonObject.put( listKey, list ) ;
 		jsonObject.put( UploadConfigurationReader.getProperty( IUploadConstants.KEYPR_SIZE_KEY )  , size ) ;
 
 		UploadServiceLogger.logInfo( UploadServiceClient.class,  "makeJSONRequest" , " json object created " ) ;
 
-		response = invocationBuilder.post( Entity.entity( jsonObject , MediaType.APPLICATION_JSON_TYPE ), Response.class ) ;
-		statusCode = response.getStatus() ;
+        Response response = webClient.resource(url)
+                .accept(MediaType.APPLICATION_JSON_TYPE)
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .post(Response.class, jsonObject.toJSONString());
+
+        statusCode = response.getStatus();
 
 		UploadServiceLogger.logInfo( UploadServiceClient.class, "makeJSONRequest" , " Status Code  " + statusCode ) ;
 

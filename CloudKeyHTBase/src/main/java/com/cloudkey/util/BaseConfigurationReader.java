@@ -1,10 +1,11 @@
 package com.cloudkey.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import org.apache.log4j.Logger;
 
 /**
  * This class is used to read the value of key from the properties file.
@@ -16,7 +17,7 @@ public class BaseConfigurationReader {
 
 	/* Reference variable to store properties. */
 	private static Properties prop =  null;
-	private final static Logger LOGGER = Logger.getLogger(BaseConfigurationReader.class); 
+	private final static Logger LOGGER = LoggerFactory.getLogger(BaseConfigurationReader.class);
 
 	static {
 		try {

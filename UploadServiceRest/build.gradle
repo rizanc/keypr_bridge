@@ -3,6 +3,5 @@ dependencies {
     compile project(':CloudKeyHTBase')
 
     // External dependencies
-    compile jersey_container_servlet
-    compile jersey_media_json_jackson
+    compile dropwizard
 }

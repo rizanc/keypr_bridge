@@ -4,7 +4,6 @@ dependencies {
     // Local dependencies
 
     // External dependencies
-    compile servlet_api
     compile commons_logging
     compile commons_logging_api
     compile httpcomponents_httpcore
