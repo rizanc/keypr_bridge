@@ -4,6 +4,7 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
 import com.micros.pms.processor.*;
+import org.joda.time.LocalDate;
 
 import java.util.Date;
 
@@ -13,10 +14,11 @@ import java.util.Date;
 public class OWSTestUtils {
 
     private static final String CONFIRMATION_NO = "11900";
-    private static final Date START_DATE = new Date(2014, 10, 5);
-    private static final Date END_DATE = new Date(2014, 10, 11);
+    private static final LocalDate START_DATE = new LocalDate(2014, 10, 5);
+    private static final LocalDate END_DATE = new LocalDate(2014, 10, 11);
     private static final String ROOM_TYPE_DEFAULT = "SKN";
     private static final String CREDIT_CARD_NO = "4111111111111111";
+    private static final String EMAIL = "errory@lollison.com";
     private static final String LAST_NAME = "Ellison";
     private static final String FIRST_NAME = "LARRY";
     private static final String HOTEL_CODE = "GSDH";
@@ -27,9 +29,7 @@ public class OWSTestUtils {
 
         OWSAvailabilityProcessor owsAvailabilityProcessor = new OWSAvailabilityProcessor();
 
-        GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest();
-        getAvailabilityRequest.setStartDate(START_DATE);
-        getAvailabilityRequest.setEndDate(END_DATE);
+        GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE);
 
         GetAvailabilityResponse response =
                 owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
@@ -39,11 +39,7 @@ public class OWSTestUtils {
     public static void FutureBookingSummary() {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
-        SearchReservationRequest request = new SearchReservationRequest();
-        //request.setConfirmationNumber(CONFIRMATION_NO);
-        request.setLastName(LAST_NAME);
-        request.setFirstName(FIRST_NAME);
-        //request.setCreditCardNumber(CREDIT_CARD_NO);
+        SearchReservationRequest request = new SearchReservationRequest(CONFIRMATION_NO, EMAIL, FIRST_NAME, LAST_NAME, CREDIT_CARD_NO);
         owsReservationProcessor.processSearchReservationData(request);
 
 
@@ -123,8 +119,7 @@ public class OWSTestUtils {
 
         OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
 
-        GetFolioRequest request = new GetFolioRequest();
-        request.setConfirmationNumber(CONFIRMATION_NO);
+        GetFolioRequest request = new GetFolioRequest(CONFIRMATION_NO);
 
         owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
 
@@ -134,8 +129,7 @@ public class OWSTestUtils {
 
         OWSInformationProcessor owsInformationProcessor = new OWSInformationProcessor();
 
-        HotelInformationRequest request = new HotelInformationRequest();
-        request.setHotelCode(HOTEL_CODE);
+        HotelInformationRequest request = new HotelInformationRequest(HOTEL_CODE);
 
         owsInformationProcessor.processHotelInformation(request);
 
@@ -144,9 +138,7 @@ public class OWSTestUtils {
 
         OWSMembershipProcessor owsMembershipProcessor = new OWSMembershipProcessor();
 
-        MemberPointsRequest request = new MemberPointsRequest();
-        request.setMembershipNumber(MEMBER_ID);
-        request.setMembershipType(MEMBER_TYPE);
+        MemberPointsRequest request = new MemberPointsRequest(MEMBER_ID, MEMBER_TYPE, LAST_NAME);
 
         owsMembershipProcessor.processFetchMemberPoints(request);
 
@@ -156,10 +148,7 @@ public class OWSTestUtils {
 
         OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
 
-        NameIdByMembershipRequest request = new NameIdByMembershipRequest();
-        request.setMembershipNumber("1166666666");
-        request.setMembershipType("OR");
-        request.setLastname("REWARDS");
+        NameIdByMembershipRequest request = new NameIdByMembershipRequest("OR", "1166666666", "REWARDS");
 
         owsNameProcessor.processNameLookupByMembership(request);
 
@@ -174,9 +163,7 @@ public class OWSTestUtils {
         request.setMembershipType("OR");
         request.setLastname("REWARDS");*/
 
-        GuestMembershipsRequest request = new GuestMembershipsRequest();
-
-        request.setNameId("220080");
+        GuestMembershipsRequest request = new GuestMembershipsRequest("220080");
 
         owsNameProcessor.processGuestCardList(request);
 

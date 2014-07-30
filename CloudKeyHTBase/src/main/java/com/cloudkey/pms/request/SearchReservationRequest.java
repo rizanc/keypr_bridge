@@ -21,8 +21,15 @@ public class SearchReservationRequest {
 	/* variable to store credit card number of the guest. */
 	private String creditCardNumber ;
 
+    public SearchReservationRequest(String confirmationNumber, String emailId, String firstName, String lastName, String creditCardNumber) {
+        this.confirmationNumber = confirmationNumber;
+        this.emailId = emailId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.creditCardNumber = creditCardNumber;
+    }
 
-	/*
+/*
 	 * Getter and Setter for each data member.
 	 */
 	

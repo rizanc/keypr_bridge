@@ -1,6 +1,6 @@
 package com.cloudkey.pms.request;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
 
 /**
  * Class stores the room availability information. 
@@ -10,25 +10,23 @@ import java.util.Date;
  */
 public class GetAvailabilityRequest {
 	
-	/*To store date criteria */
-	private Date startDate;
-	private Date endDate;
-	
-	//Getter and Setters.
-	public Date getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-	
-	@Override
+	private LocalDate startDate;
+	private LocalDate endDate;
+
+    public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    @Override
 	public String toString() {
 		return "GetAvailabilityRequest [startDate=" + startDate + ", endDate="
 				+ endDate + "]";

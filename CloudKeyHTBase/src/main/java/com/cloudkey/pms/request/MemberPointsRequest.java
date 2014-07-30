@@ -12,7 +12,13 @@ public class MemberPointsRequest {
     private String membershipType;
     private String memberLastName;
 
-	/* getter and setter for data member */
+    public MemberPointsRequest(String membershipNumber, String membershipType, String memberLastName) {
+        this.membershipNumber = membershipNumber;
+        this.membershipType = membershipType;
+        this.memberLastName = memberLastName;
+    }
+
+    /* getter and setter for data member */
 	public String getMembershipNumber() {
 		
 		return membershipNumber;

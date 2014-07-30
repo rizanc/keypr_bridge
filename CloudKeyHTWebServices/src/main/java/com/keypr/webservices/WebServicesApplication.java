@@ -1,15 +1,6 @@
 package com.keypr.webservices;
 
 import com.hubspot.dropwizard.guice.GuiceBundle;
-import com.wordnik.swagger.config.ConfigFactory;
-import com.wordnik.swagger.config.ScannerFactory;
-import com.wordnik.swagger.config.SwaggerConfig;
-import com.wordnik.swagger.jaxrs.config.DefaultJaxrsScanner;
-import com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider;
-import com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON;
-import com.wordnik.swagger.jaxrs.listing.ResourceListingProvider;
-import com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader;
-import com.wordnik.swagger.reader.ClassReaders;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;

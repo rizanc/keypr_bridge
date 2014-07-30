@@ -9,7 +9,11 @@ public class GuestMembershipsRequest {
 	
 	private String nameId;
 
-	public String getNameId() { 
+    public GuestMembershipsRequest(String nameId) {
+        this.nameId = nameId;
+    }
+
+    public String getNameId() {
 		
 		return nameId;
 	}

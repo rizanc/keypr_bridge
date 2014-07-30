@@ -4,7 +4,10 @@ import java.util.Arrays;
 
 /**
  * Class to store information for update booking details in the hotel.
- * 
+ *
+ * The corresponding MICROS message can be used to modify most booking details,
+ * however this only supports notes thus far.
+ *
  * @author vinayk2
  * 
  */
@@ -12,6 +15,7 @@ public class UpdateBookingRequest {
 
 	/* variable to store confirmation number. */
 	private String confirmationNumber ;
+
 	/* variable to store notes made by the guest. */
 	private String[] notes ;
 

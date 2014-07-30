@@ -11,7 +11,11 @@ public class HotelInformationRequest {
 
 	private String hotelCode;
 
-	public String getHotelCode() {
+    public HotelInformationRequest(String hotelCode) {
+        this.hotelCode = hotelCode;
+    }
+
+    public String getHotelCode() {
 		
 		return hotelCode;
 	}

@@ -1,10 +1,7 @@
 package com.micros.pms.parser;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
@@ -92,6 +89,7 @@ import com.micros.reservation.ReservationServiceStub.RoomType;
 import com.micros.reservation.ReservationServiceStub.TimeSpan;
 import com.micros.reservation.ReservationServiceStub.TimeSpanChoice_type0;
 import org.apache.commons.lang3.NotImplementedException;
+import org.joda.time.LocalDate;
 
 /**
  * This class is used to process the web service request and return the responseO
@@ -2368,8 +2366,8 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		FetchCalendarResponse objResponse = null;
 		GetAvailabilityResponse objGetAvailabilityResponse = null;
 		/*To get the request parameters*/
-		Date objSDate = availabilityRequest.getStartDate();
-		Date objEDate = availabilityRequest.getEndDate();
+		LocalDate objSDate = availabilityRequest.getStartDate();
+		LocalDate objEDate = availabilityRequest.getEndDate();
 
 		String xmlResponse = "";
 
@@ -2377,7 +2375,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		int threadTime = 0;
 		int timeUnitCounter = 0;
 
-		if( objEDate.before(objSDate) ) {
+		if( objEDate.isBefore(objSDate) ) {
 
 			objGetAvailabilityResponse = new GetAvailabilityResponse();
 			objGetAvailabilityResponse.setStatus( IMicrosConstants.RESPONSE_FAIL);
@@ -2542,8 +2540,8 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		FetchCalendarRequest objFetchCalendarRequest = null;
 		/*To get the request parameters*/
-		Date objSDate = availabilityRequest.getStartDate();
-		Date objEDate = availabilityRequest.getEndDate();
+		LocalDate objSDate = availabilityRequest.getStartDate();
+		LocalDate objEDate = availabilityRequest.getEndDate();
 
 		/*To create the request for availability.*/
 		objFetchCalendarRequest = new FetchCalendarRequest();
@@ -2600,20 +2598,13 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		/*To set start and end date.*/
 		//objCalendar.setTime( objSDate );
-		objCalendar.setTimeInMillis(objSDate.getTime());
+		objTimeSpan.setStartDate( objSDate.toDateTimeAtStartOfDay().toGregorianCalendar() );
 
-		objTimeSpan.setStartDate( objCalendar );	
-
-		System.out.println("Start Date " + objSDate.getTime());
 		com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0 objType0 = new com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0();
 
-		objCalendar = Calendar.getInstance();
-		//objCalendar.setTime( objEDate );
-		objCalendar.setTimeInMillis( objEDate.getTime());
-		objType0.setEndDate( objCalendar );
+		objType0.setEndDate( objEDate.toDateTimeAtStartOfDay().toGregorianCalendar() );
 
-		System.out.println("End Date " + objEDate.getTime());
-		objTimeSpan.setTimeSpanChoice_type0(objType0); 
+		objTimeSpan.setTimeSpanChoice_type0(objType0);
 
 		/*To set time span in fetch calendar request.*/
 		objFetchCalendarRequest.setStayDateRange(objTimeSpan);

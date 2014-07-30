@@ -12,8 +12,14 @@ public class MeetingRoomInformationRequest {
 	private String meetingFeature;
 	private String searchCodeType;
 	private String numberOfAttendees;
-	
-	public String getMeetingFeature() {
+
+    public MeetingRoomInformationRequest(String meetingFeature, String searchCodeType, String numberOfAttendees) {
+        this.meetingFeature = meetingFeature;
+        this.searchCodeType = searchCodeType;
+        this.numberOfAttendees = numberOfAttendees;
+    }
+
+    public String getMeetingFeature() {
 		
 		return meetingFeature;
 	}

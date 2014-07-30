@@ -154,9 +154,6 @@ public class MicrosOWSParser implements IParserInterface {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Enter memberPointsQuery method. ");
 
         // Get the name id for the member
-        NameIdByMembershipResponse nameIdMembershipResponse = new NameIdByMembershipResponse();
-        NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest();
-
         String membershipLastName = memberPointsRequest.getMemberLastName();
         String membershipType = memberPointsRequest.getMembershipType();
         String membershipNumber = memberPointsRequest.getMembershipNumber();
@@ -170,9 +167,7 @@ public class MicrosOWSParser implements IParserInterface {
             return response;
         }
 
-        nameIdByMembershipRequest.setLastname(membershipLastName);
-        nameIdByMembershipRequest.setMembershipType(membershipType);
-        nameIdByMembershipRequest.setMembershipNumber(membershipNumber);
+        NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName);
 
         NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
         if (nameIdByMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
@@ -185,8 +180,7 @@ public class MicrosOWSParser implements IParserInterface {
         String nameID = nameIdByMembershipResponse.getNameId();
 
         // Get the membership request
-        GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest();
-        guestMembershipRequest.setNameId(nameID);
+        GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest(nameID);
         GuestMembershipResponse guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipRequest);
         if (guestMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
             response.setStatus(IMicrosConstants.RESPONSE_FAIL);

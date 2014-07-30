@@ -10,6 +10,7 @@ import com.micros.pms.parser.MicrosPMSMessageParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
+import org.joda.time.LocalDate;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -31,8 +32,8 @@ public class OWSAvailabilityProcessor {
         AvailabilityServiceStub.FetchCalendarResponse objResponse = null;
         GetAvailabilityResponse objGetAvailabilityResponse = null;
         /*To get the request parameters*/
-        Date objSDate = availabilityRequest.getStartDate();
-        Date objEDate = availabilityRequest.getEndDate();
+        LocalDate objSDate = availabilityRequest.getStartDate();
+        LocalDate objEDate = availabilityRequest.getEndDate();
 
         String xmlResponse = "";
 
@@ -40,7 +41,7 @@ public class OWSAvailabilityProcessor {
         int threadTime = 0;
         int timeUnitCounter = 0;
 
-        if (objEDate.before(objSDate)) {
+        if (objEDate.isBefore(objSDate)) {
 
             objGetAvailabilityResponse = new GetAvailabilityResponse();
             objGetAvailabilityResponse.setStatus(IMicrosConstants.RESPONSE_FAIL);
@@ -88,29 +89,21 @@ public class OWSAvailabilityProcessor {
 
         AvailabilityServiceStub.FetchCalendarRequest objFetchCalendarRequest = null;
         /*To get the request parameters*/
-        Date objSDate = availabilityRequest.getStartDate();
-        Date objEDate = availabilityRequest.getEndDate();
+        LocalDate objSDate = availabilityRequest.getStartDate();
+        LocalDate objEDate = availabilityRequest.getEndDate();
 
 		/*To create the request for availability.*/
         objFetchCalendarRequest = new AvailabilityServiceStub.FetchCalendarRequest();
 
-        Calendar objCalendar = Calendar.getInstance();
         AvailabilityServiceStub.TimeSpan objTimeSpan = new AvailabilityServiceStub.TimeSpan();
 
         objFetchCalendarRequest.setHotelReference(getDefaultHotelReference());
 
 		/*To set start and end date.*/
-        //objCalendar.setTime( objSDate );
-        objCalendar.setTimeInMillis(objSDate.getTime());
-        objTimeSpan.setStartDate(objCalendar);
-        System.out.println("Start Date " + objSDate.getTime());
+        objTimeSpan.setStartDate(objSDate.toDateTimeAtStartOfDay().toGregorianCalendar());
         AvailabilityServiceStub.TimeSpanChoice_type0 objType0 = new AvailabilityServiceStub.TimeSpanChoice_type0();
 
-        objCalendar = Calendar.getInstance();
-        //objCalendar.setTime( objEDate );
-        objCalendar.setTimeInMillis(objEDate.getTime());
-        objType0.setEndDate(objCalendar);
-        System.out.println("End Date " + objEDate.getTime());
+        objType0.setEndDate(objEDate.toDateTimeAtStartOfDay().toGregorianCalendar());
         objTimeSpan.setTimeSpanChoice_type0(objType0);
 
 		/*To set time span in fetch calendar request.*/

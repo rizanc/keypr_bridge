@@ -8,10 +8,16 @@ public class NameIdByMembershipRequest {
 	private String membershipType;
 	private String membershipNumber;
 	private String lastname;
-	
-	/*
-	 * generate getter and setter for data member.
-	 */
+
+    public NameIdByMembershipRequest(String membershipType, String membershipNumber, String lastname) {
+        this.membershipType = membershipType;
+        this.membershipNumber = membershipNumber;
+        this.lastname = lastname;
+    }
+
+    /*
+         * generate getter and setter for data member.
+         */
 	public String getMembershipType() {
 		
 		return membershipType;

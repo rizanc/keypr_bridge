@@ -12,9 +12,13 @@ public class GetFolioRequest {
 	/* variable to store confirmation number of the reservation. */
 	private String confirmationNumber ;
 
-	/*
-	 * Getter and Setter for data member.
-	 */
+    public GetFolioRequest(String confirmationNumber) {
+        this.confirmationNumber = confirmationNumber;
+    }
+
+    /*
+         * Getter and Setter for data member.
+         */
 	public String getConfirmationNumber() {
 		return confirmationNumber;
 	}
