@@ -8,10 +8,15 @@ import javax.validation.constraints.NotNull;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class CardNumber extends CardNumberReference {
+
     @NotNull
     private String cardNumber;
 
     public String getCardNumber() {
         return cardNumber;
+    }
+
+    public CardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 }

@@ -8,11 +8,9 @@ import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.parser.MicrosPMSMessageParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
-import com.micros.pms.util.TransIdGenerator;
 import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -58,40 +56,6 @@ public class OWSMembershipProcessor {
                     e.getMessage());
         }
         return response;
-    }
-
-    private MembershipServiceStub.OGHeaderE getMemberPointsRequestHeader() {
-
-        MembershipServiceStub.OGHeader objHeader = new MembershipServiceStub.OGHeader();
-
-        int transactionIdentifier = TransIdGenerator.getTransactionId();
-        String transId = String.valueOf( transactionIdentifier );
-
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", " Current transaction Id = " + transId );
-
-        objHeader.setTransactionID( transId );
-
-        Calendar objCalendar = Calendar.getInstance();
-        objHeader.setTimeStamp( objCalendar );
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", " Current TimeStamp :: " + objCalendar );
-
-        MembershipServiceStub.EndPoint objOrigin = new MembershipServiceStub.EndPoint();
-
-        objOrigin.setEntityID( IMicrosConstants.OWS_ORIGIN_ID);
-        objOrigin.setSystemType( IMicrosConstants.OWS_ORI_SYSTEM_TYPE );
-        objHeader.setOrigin(objOrigin);
-
-        MembershipServiceStub.EndPoint objDest = new MembershipServiceStub.EndPoint();
-        objDest.setEntityID( IMicrosConstants.OWS_DESTINATION_ID );
-        objDest.setSystemType( IMicrosConstants.OWS_ORI_DEST_TYPE );
-        objHeader.setDestination(objDest);
-
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", "  Authentication UserCredentials Set  " );
-
-        MembershipServiceStub.OGHeaderE objE= new MembershipServiceStub.OGHeaderE();
-        objE.setOGHeader( objHeader );
-
-        return objE;
     }
 
     /*

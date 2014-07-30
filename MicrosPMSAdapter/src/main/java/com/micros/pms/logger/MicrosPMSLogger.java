@@ -9,9 +9,7 @@ import org.apache.log4j.xml.DOMConfigurator;
  * exception messages on the console.
  * 
  * @author vinayk2
- *
  */
-
 public class MicrosPMSLogger extends Logger {
 
 	protected MicrosPMSLogger(String name)

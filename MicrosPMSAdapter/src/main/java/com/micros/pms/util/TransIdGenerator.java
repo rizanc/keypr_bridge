@@ -11,8 +11,10 @@ import com.micros.pms.logger.MicrosPMSLogger;
  * This class will generate unique transaction identifier to be for tracking the keypr request.
  * 
  * @author vinayk2
+ * @deprecated Use a UUID for transaction IDs instead
  *
  */
+@Deprecated
 public class TransIdGenerator {
 
 	/**

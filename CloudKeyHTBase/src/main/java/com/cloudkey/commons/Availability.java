@@ -7,41 +7,40 @@ import java.util.List;
 /**
  * Class stores the information about the room availability. It stores the room
  * type and the its availability status.
- * 
+ *
  * @author vinayk2
- * 
+ *
  */
 public class Availability {
-	
-	//Date for which availability is checked
+
+    /**
+     * Date for which availability is checked
+     */
 	private Date date;
-	//list of Room Types that are available
-	private List<RoomTypeInventory> roomTypeInventoryList; 
-	
-	//Getter Setters of member variables
+
+    /**
+     * List of Room Types that are available
+     */
+	private List<RoomTypeInventory> roomTypeInventoryList;
+
 	public Date getDate() {
-		
 		return date;
 	}
-	
+
 	public void setDate(Date date) {
-		
 		this.date = date;
 	}
-	
+
 	public List<RoomTypeInventory> getRoomTypeInventoryList() {
-		
 		return roomTypeInventoryList;
 	}
-	
+
 	public void setRoomTypeInventoryList( List<RoomTypeInventory> roomTypeInventoryList) {
-		
 		this.roomTypeInventoryList = roomTypeInventoryList;
 	}
-	
+
 	@Override
 	public String toString() {
-		
 		return "Availability [date=" + date + ", roomTypeInventoryList="
 				+ roomTypeInventoryList + "]";
 	}
