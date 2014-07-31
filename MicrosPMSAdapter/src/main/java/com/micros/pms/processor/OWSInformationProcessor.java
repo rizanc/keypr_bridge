@@ -1,8 +1,8 @@
 package com.micros.pms.processor;
 
 
-import com.cloudkey.pms.request.HotelInformationRequest;
-import com.cloudkey.pms.response.HotelInformationResponse;
+import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.micros.ows.information.InformationStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
@@ -349,7 +349,7 @@ public class OWSInformationProcessor {
         response.setStatus(hotelInformationResponse.getResult().getResultStatusFlag().toString());
         if (hotelInformationResponse.getResult().getResultStatusFlag() == InformationStub.ResultStatusFlag.FAIL){
             String errorMessage = getErrorMessage(hotelInformationResponse.getResult());
-            response.setErrorMessage(errorMessage);
+        response.setErrorMessage(errorMessage);
             MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "getHotelInformationResponseObject ",errorMessage);
             return response;
         }
@@ -377,11 +377,11 @@ public class OWSInformationProcessor {
                         addressLine += line;
                     }
                 }
-                response.setAddress(addressLine);
+            response.setAddress(addressLine);
 
                 if  (address.getCityName() != null)
                 {
-                    response.setCity(address.getCityName());
+                response.setCity(address.getCityName());
                 }
 
                 //TODO: Add State/Prov
@@ -392,12 +392,12 @@ public class OWSInformationProcessor {
 
                 if  (address.getPostalCode() != null)
                 {
-                    response.setPostalCode(address.getPostalCode());
+                response.setPostalCode(address.getPostalCode());
                 }
 
                 if  (address.getCountryCode() != null)
                 {
-                    response.setCountry(address.getCountryCode());
+                response.setCountry(address.getCountryCode());
                 }
             }
         }

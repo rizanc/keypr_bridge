@@ -1,12 +1,12 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.pms.request.GuestMembershipsRequest;
-import com.cloudkey.pms.request.MemberPointsRequest;
-import com.cloudkey.pms.request.NameIdByMembershipRequest;
-import com.cloudkey.pms.response.GuestMembershipResponse;
-import com.cloudkey.pms.response.MakePaymentResponse;
-import com.cloudkey.pms.response.MemberPointsResponse;
-import com.cloudkey.pms.response.NameIdByMembershipResponse;
+import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
+import com.cloudkey.pms.request.memberships.MemberPointsRequest;
+import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.reservations.MakePaymentResponse;
+import com.cloudkey.pms.response.memberships.MemberPointsResponse;
+import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -27,30 +27,36 @@ public class MembershipsResource extends AbstractResource {
 
     @GET
     @ApiOperation(
-            value = "Fetches guest membership details related to a 'name id'",
-            response = GuestMembershipResponse.class
+        value = "Fetches guest membership details related to a 'name id'",
+        response = GuestMembershipResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
     public GuestMembershipResponse guestMemberships(@QueryParam("nameId") String nameId) {
-        return messageParser.getMembershipInformation(new GuestMembershipsRequest(nameId));
+	    GuestMembershipsRequest request = new GuestMembershipsRequest(nameId);
+	    validate(request);
+
+	    return messageParser.getMembershipInformation(request);
     }
 
     @Path("/points")
     @GET
     @ApiOperation(
-            value = "Fetches member points details by membership number",
-            response = MakePaymentResponse.class
+        value = "Fetches member points details by membership number",
+        response = MakePaymentResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
     public MemberPointsResponse memberPoints(
             @QueryParam("membershipNumber") String membershipNumber,
             @QueryParam("membershipType") String membershipType,
             @QueryParam("memberLastName") String memberLastName) {
         MemberPointsRequest request = new MemberPointsRequest(membershipNumber, membershipType, memberLastName);
+		validate(request);
 
         return messageParser.memberPointsQuery(request);
     }
@@ -58,17 +64,19 @@ public class MembershipsResource extends AbstractResource {
     @Path("/search")
     @GET
     @ApiOperation(
-            value = "Finds a membership's 'name id' by related criteria",
-            response = NameIdByMembershipResponse.class
+        value = "Finds a membership's 'name id' by related criteria",
+        response = NameIdByMembershipResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
     public NameIdByMembershipResponse nameIdSearch(
             @QueryParam("membershipNumber") String membershipNumber,
             @QueryParam("membershipType") String membershipType,
             @QueryParam("memberLastName") String memberLastName) {
         NameIdByMembershipRequest request = new NameIdByMembershipRequest(membershipNumber, membershipType, memberLastName);
+	    validate(request);
 
         return messageParser.getNameIdInformation(request);
     }

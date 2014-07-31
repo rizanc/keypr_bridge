@@ -1,9 +1,9 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.pms.request.HotelInformationRequest;
-import com.cloudkey.pms.request.MeetingRoomInformationRequest;
-import com.cloudkey.pms.response.HotelInformationResponse;
-import com.cloudkey.pms.response.MeetingRoomInformationResponse;
+import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
+import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -24,14 +24,17 @@ public class HotelsResource extends AbstractResource {
 
     @GET
     @ApiOperation(
-            value = "Fetches general information about a hotel",
-            response = HotelInformationResponse.class
+        value = "Fetches general information about a hotel",
+        response = HotelInformationResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
-    public HotelInformationResponse updateBookingRequest(@QueryParam("hotelCode") String hotelCode) {
+    public HotelInformationResponse updateBookingRequest(
+	        @QueryParam("hotelCode") String hotelCode) {
         HotelInformationRequest request = new HotelInformationRequest(hotelCode);
+	    validate(request);
 
         return messageParser.hotelInformationQuery(request);
     }
@@ -39,17 +42,17 @@ public class HotelsResource extends AbstractResource {
     @Path("/meetingrooms")
     @GET
     @ApiOperation(
-            value = "Fetches a list of available meeting rooms which match some criteria",
-            response = MeetingRoomInformationResponse.class
+        value = "Fetches a list of available meeting rooms which match some criteria",
+        response = MeetingRoomInformationResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
     public MeetingRoomInformationResponse meetingRoomInformation(
-            @QueryParam("meetingFeature") String meetingFeature,
-            @QueryParam("searchCodeType") String searchCodeType,
             @QueryParam("numberOfAttendees") String numberOfAttendees) {
-        MeetingRoomInformationRequest request = new MeetingRoomInformationRequest(meetingFeature, searchCodeType, numberOfAttendees);
+        MeetingRoomInformationRequest request = new MeetingRoomInformationRequest(numberOfAttendees);
+        validate(request);
 
         return messageParser.getMeetingInformation(request);
     }

@@ -1,7 +1,7 @@
 package com.micros.pms.processor;
 
-import com.cloudkey.pms.request.MemberPointsRequest;
-import com.cloudkey.pms.response.MemberPointsResponse;
+import com.cloudkey.pms.request.memberships.MemberPointsRequest;
+import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.micros.ows.membership.MembershipServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;

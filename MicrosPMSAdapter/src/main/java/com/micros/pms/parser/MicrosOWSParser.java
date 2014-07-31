@@ -3,8 +3,24 @@ package com.micros.pms.parser;
 import com.cloudkey.commons.Membership;
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.IParserInterface;
-import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.*;
+import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
+import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
+import com.cloudkey.pms.request.memberships.MemberPointsRequest;
+import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
+import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
+import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
+import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.MemberPointsResponse;
+import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.cloudkey.pms.response.reservations.*;
+import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
+import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.processor.*;
@@ -101,7 +117,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " checkAvailability ", " Enter checkAvailability method. ");
         try {
-            response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -116,7 +132,7 @@ public class MicrosOWSParser implements IParserInterface {
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " searchReservationData ", " Enter searchReservationData method. ");
         try {
-            response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
+        response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -177,8 +193,8 @@ public class MicrosOWSParser implements IParserInterface {
         if (membershipLastName.isEmpty() ||
                 membershipType.isEmpty() ||
                 membershipNumber.isEmpty()) {
-            response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-            response.setErrorMessage(IMicrosConstants.REQUIRED_FIELDS_EMPTY);
+        response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+        response.setErrorMessage(IMicrosConstants.REQUIRED_FIELDS_EMPTY);
             MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Last/Member Type/Member Number are all required. ");
             return response;
         }
@@ -187,8 +203,8 @@ public class MicrosOWSParser implements IParserInterface {
 
         NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
         if (nameIdByMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
-            response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-            response.setErrorMessage(nameIdByMembershipResponse.getErrorMessage());
+        response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+        response.setErrorMessage(nameIdByMembershipResponse.getErrorMessage());
             MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Last/Member Type/Member Number are all required. ");
             return response;
         }
@@ -204,8 +220,8 @@ public class MicrosOWSParser implements IParserInterface {
             throw new PMSInterfaceException(e);
         }
         if (guestMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
-            response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-            response.setErrorMessage(guestMembershipResponse.getErrorMessage());
+        response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+        response.setErrorMessage(guestMembershipResponse.getErrorMessage());
             return response;
         }
 
@@ -215,12 +231,12 @@ public class MicrosOWSParser implements IParserInterface {
             for (Membership membership : memberships) {
                 String mt = membership.getMembershipType();
                 if (membership.getMembershipType().equalsIgnoreCase(membershipType)) {
-                    response.setMembershipNumber(membership.getMembershipNumber());
-                    response.setMembershipType(membership.getMembershipType());
-                    response.setMembershipId(membership.getMembershipId());
-                    response.setEffectiveDate(membership.getEffectiveDate());
-                    response.setTotalPoints(Double.toString(membership.getCurrentPoints()));
-                    response.setExpireDate(membership.getExpirationDate());
+                response.setMembershipNumber(membership.getMembershipNumber());
+                response.setMembershipType(membership.getMembershipType());
+                response.setMembershipId(membership.getMembershipId());
+                response.setEffectiveDate(membership.getEffectiveDate());
+                response.setTotalPoints(Double.toString(membership.getCurrentPoints()));
+                response.setExpireDate(membership.getExpirationDate());
                     break;
                 }
             }

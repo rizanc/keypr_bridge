@@ -1,12 +1,22 @@
 package com.micros.ows.client;
 
 import com.cloudkey.commons.Reservation;
-import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
+import com.cloudkey.pms.common.payment.CardNumber;
+import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
+import com.cloudkey.pms.request.memberships.MemberPointsRequest;
+import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
+import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
+import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.micros.pms.processor.*;
 import org.joda.time.LocalDate;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by crizan2 on 16/07/2014.
@@ -43,7 +53,7 @@ public class OWSTestUtils {
     public static void FutureBookingSummary() {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
-        SearchReservationRequest request = new SearchReservationRequest(CONFIRMATION_NO, EMAIL, FIRST_NAME, LAST_NAME, CREDIT_CARD_NO);
+        SearchReservationRequest request = new SearchReservationRequest(CONFIRMATION_NO, FIRST_NAME, LAST_NAME, CREDIT_CARD_NO);
         try {
             owsReservationProcessor.processSearchReservationData(request);
         } catch (RemoteException e) {
@@ -56,13 +66,8 @@ public class OWSTestUtils {
     public static void AssignRoom() {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
-        AssignRoomRequest request = new AssignRoomRequest();
+        AssignRoomRequest request = new AssignRoomRequest(CONFIRMATION_NO, ROOM_TYPE_DEFAULT);
 
-        Reservation reservation = new Reservation();
-        reservation.setConfirmationNumber(CONFIRMATION_NO);
-
-        request.setReservation(reservation);
-        request.setRoomTypeCode(ROOM_TYPE_DEFAULT);
         try {
             owsReservationProcessor.processAssignRoom(request);
         } catch (RemoteException e) {
@@ -75,11 +80,7 @@ public class OWSTestUtils {
     public static void ReleaseRoom() {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
-        ReleaseRoomRequest request = new ReleaseRoomRequest();
-
-        Reservation reservation = new Reservation();
-        reservation.setConfirmationNumber(CONFIRMATION_NO);
-        request.setReservationId(CONFIRMATION_NO);
+        ReleaseRoomRequest request = new ReleaseRoomRequest(CONFIRMATION_NO);
 
         try {
             owsReservationProcessor.processReleaseRoom(request);
@@ -92,13 +93,7 @@ public class OWSTestUtils {
     public static void CheckIn() {
 
         OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
-        CheckInRequest request = new CheckInRequest();
-
-        Reservation reservation = new Reservation();
-        reservation.setConfirmationNumber(CONFIRMATION_NO);
-        reservation.setCreditCardNumber(CREDIT_CARD_NO);
-
-        request.setReservation(reservation);
+        CheckInRequest request = new CheckInRequest(CONFIRMATION_NO, new CardNumber(CREDIT_CARD_NO));
 
         try {
             owsResvAdvancedProcessor.processCheckIn(request);
@@ -112,9 +107,7 @@ public class OWSTestUtils {
     public static void CheckOut() {
 
         OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
-        CheckOutRequest request = new CheckOutRequest();
-
-        request.setConfirmationNumber(CONFIRMATION_NO);
+        CheckOutRequest request = new CheckOutRequest(CONFIRMATION_NO);
 
         try {
             owsResvAdvancedProcessor.processCheckOut(request);
@@ -130,12 +123,9 @@ public class OWSTestUtils {
         //owsReservationProcessor.fetchBooking("938929");
         //owsReservationProcessor.fetchBooking("11900");
 
+        List<String> notes = Arrays.asList("Comment 1", "Comment 2", "Comment 3");
+        UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest(CONFIRMATION_NO, notes);
 
-        UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest();
-        updateBookingRequest.setConfirmationNumber(CONFIRMATION_NO);
-
-        String[] notes = new String[]{"Comment 1", "Comment 2", "Comment 3"};
-        updateBookingRequest.setNotes(notes);
         try {
             owsReservationProcessor.processUpdateBooking(updateBookingRequest);
         } catch (RemoteException e) {

@@ -4,13 +4,12 @@ import com.cloudkey.commons.OrderDetails;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.ReservationRoomAllocation;
-import com.cloudkey.pms.request.CheckInRequest;
-import com.cloudkey.pms.request.CheckOutRequest;
-import com.cloudkey.pms.request.GetFolioRequest;
-import com.cloudkey.pms.response.CheckInResponse;
-import com.cloudkey.pms.response.CheckOutResponse;
-import com.cloudkey.pms.response.GetFolioResponse;
-import com.micros.ows.reservation.ReservationServiceStub;
+import com.cloudkey.pms.request.reservations.CheckInRequest;
+import com.cloudkey.pms.request.reservations.CheckOutRequest;
+import com.cloudkey.pms.request.reservations.GetFolioRequest;
+import com.cloudkey.pms.response.reservations.CheckInResponse;
+import com.cloudkey.pms.response.reservations.CheckOutResponse;
+import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.micros.ows.resvadvanced.ResvAdvancedServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
@@ -189,17 +188,16 @@ public class OWSResvAdvancedProcessor {
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioRequestObject ", " Enter getFolioRequestObject method ");
 
 		/* To get the request parameters. */
-        String confirmationNumber = folioRequest.getConfirmationNumber();
         ResvAdvancedServiceStub.InvoiceRequest objInvoiceRequest = null;
 
-        if ((folioRequest != null) && (folioRequest.getConfirmationNumber().length() > 0)) {
+        if (folioRequest.getConfirmationNumber() != null) {
 
             objInvoiceRequest = new ResvAdvancedServiceStub.InvoiceRequest();
 
             ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = new ResvAdvancedServiceStub.ArrayOfUniqueID();
             ResvAdvancedServiceStub.UniqueID objUId = new ResvAdvancedServiceStub.UniqueID();
 
-            objUId.setString(confirmationNumber);
+            objUId.setString(folioRequest.getConfirmationNumber());
             //objUId.setSource(IMicrosConstants.CoN);
             objUId.setType(ResvAdvancedServiceStub.UniqueIDType.INTERNAL);
             objUniqueIDList.addUniqueID(objUId);
@@ -427,12 +425,7 @@ public class OWSResvAdvancedProcessor {
     private ResvAdvancedServiceStub.CheckInRequest getCheckInRequestObject(CheckInRequest checkInRequest) {
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInRequestObject ", " Enter in getCheckInRequestObject method");
 
-        String confirmationNumber = null;
-        String creditCardNumber = null;
-
-		/* To get the request parameters from the keypr client */
-        confirmationNumber = checkInRequest.getReservation().getConfirmationNumber();
-        creditCardNumber = checkInRequest.getReservation().getCreditCardNumber();
+        /* To get the request parameters from the keypr client */
 
 		/* To set request into the xsd classes. */
         ResvAdvancedServiceStub.CheckInRequest objCheckInRequest = new ResvAdvancedServiceStub.CheckInRequest();
@@ -440,18 +433,16 @@ public class OWSResvAdvancedProcessor {
 		/* To set the card number into checkinRequest. */
         ResvAdvancedServiceStub.CreditCard objCreditCard = new ResvAdvancedServiceStub.CreditCard();
 
-        if (creditCardNumber.length() > IMicrosConstants.COUNT_ZERO) {
+        if (checkInRequest.getCreditCardNumber() != null) {
 
             final ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new ResvAdvancedServiceStub.CreditCardChoice_type0();
 
-            objCardChoice_type0.setCardNumber(creditCardNumber);
+            objCardChoice_type0.setCardNumber(checkInRequest.getCreditCardNumber().getCardNumber());
             objCreditCard.setCreditCardChoice_type0(objCardChoice_type0);
 
             objCreditCard.setExpirationDate(new Date(1, 1, 2015));
 
         }
-
-
 
 		/*To set credit card into credit card info.*/
         //ResvAdvancedServiceStub.CreditCardInfo objCreditCardInfo = new ResvAdvancedServiceStub.CreditCardInfo();
@@ -468,7 +459,7 @@ public class OWSResvAdvancedProcessor {
 
         ResvAdvancedServiceStub.UniqueID objUniqueID = new ResvAdvancedServiceStub.UniqueID();
         objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
-        objUniqueID.setString(confirmationNumber);
+        objUniqueID.setString(checkInRequest.getConfirmationNumber());
         objUniqueID.setType(ResvAdvancedServiceStub.UniqueIDType.EXTERNAL);
 
         objUniqueIDList.addUniqueID(objUniqueID);

@@ -1,6 +1,8 @@
 package com.keypr.webservices;
 
 import com.hubspot.dropwizard.guice.GuiceBundle;
+import com.sun.jersey.api.container.filter.LoggingFilter;
+import com.sun.jersey.api.core.ResourceConfig;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -39,10 +41,14 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
     }
 
     @Override
-    public void run(WebServicesConfiguration configuration, Environment environment) throws Exception {
+    public void run(WebServicesConfiguration config, Environment environment) throws Exception {
         environment.servlets().addFilter("CORS", CrossOriginFilter.class)
             .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        swaggerDropwizard.onRun(configuration, environment);
+	    // Make request and response objects available to logger
+        environment.jersey().property(ResourceConfig.PROPERTY_CONTAINER_REQUEST_FILTERS, LoggingFilter.class.getName());
+        environment.jersey().property(ResourceConfig.PROPERTY_CONTAINER_RESPONSE_FILTERS, LoggingFilter.class.getName());
+
+        swaggerDropwizard.onRun(config, environment);
     }
 }

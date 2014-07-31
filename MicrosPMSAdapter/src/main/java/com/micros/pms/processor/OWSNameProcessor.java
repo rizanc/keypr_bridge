@@ -1,10 +1,10 @@
 package com.micros.pms.processor;
 
 import com.cloudkey.commons.Membership;
-import com.cloudkey.pms.request.GuestMembershipsRequest;
-import com.cloudkey.pms.request.NameIdByMembershipRequest;
-import com.cloudkey.pms.response.GuestMembershipResponse;
-import com.cloudkey.pms.response.NameIdByMembershipResponse;
+import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
+import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.micros.ows.name.NameServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
@@ -54,7 +54,7 @@ public class OWSNameProcessor {
         response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objResponse.getResult().getResultStatusFlag() == NameServiceStub.ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
-            response.setErrorMessage(errorMessage);
+        response.setErrorMessage(errorMessage);
             MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ", errorMessage);
             return response;
         }
@@ -82,7 +82,7 @@ public class OWSNameProcessor {
             }
         }
         if (!memberships.isEmpty()) {
-            response.setMembershipList(memberships);
+        response.setMembershipList(memberships);
         }
 
 
@@ -129,7 +129,7 @@ public class OWSNameProcessor {
         response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objResponse.getResult().getResultStatusFlag() == NameServiceStub.ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
-            response.setErrorMessage(errorMessage);
+        response.setErrorMessage(errorMessage);
             MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ", errorMessage);
             return response;
         }
@@ -140,7 +140,7 @@ public class OWSNameProcessor {
             if (profile.getProfileIDs() != null && profile.getProfileIDs().getUniqueID() != null) {
                 for (com.micros.ows.name.NameServiceStub.UniqueID uniqueID : profile.getProfileIDs().getUniqueID()) {
                     if (uniqueID.getType() == NameServiceStub.UniqueIDType.INTERNAL) {
-                        response.setNameId(uniqueID.getString());
+                    response.setNameId(uniqueID.getString());
                         break;
                     }
                 }

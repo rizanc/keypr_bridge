@@ -1,8 +1,24 @@
 package com.cloudkey.message.parser;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
-import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.*;
+import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
+import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
+import com.cloudkey.pms.request.memberships.MemberPointsRequest;
+import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
+import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
+import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
+import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.MemberPointsResponse;
+import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.cloudkey.pms.response.reservations.*;
+import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
+import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
 
 /**
  * This interface declare all the methods for the message parser.
@@ -28,7 +44,6 @@ public interface IParserInterface {
      * @return ReleaseRoomResponse
      */
     public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException;
-
 
     /**
      * This method makes check in request for the guest to the property management system.

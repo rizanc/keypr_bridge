@@ -3,8 +3,22 @@ package com.micros.pms.parser;
 import java.rmi.RemoteException;
 import java.util.*;
 
-import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.*;
+import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
+import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
+import com.cloudkey.pms.request.memberships.MemberPointsRequest;
+import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
+import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
+import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.MemberPointsResponse;
+import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.cloudkey.pms.response.reservations.*;
+import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
 import org.apache.axis2.databinding.types.Time;
@@ -1260,13 +1274,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getCheckInRequestObject ", " Enter in getCheckInRequestObject method" );
 
-		String confirmationNumber = null;
-		String creditCardNumber = null;
-
 		/* To get the request parameters from the keypr client */
-		confirmationNumber = checkInRequest.getReservation().getConfirmationNumber();
-		creditCardNumber = checkInRequest.getReservation().getCreditCardNumber();
-
 
 		/* To set request into the xsd classes. */
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest objCheckInRequest = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest();
@@ -1274,11 +1282,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		/* To set the card number into checkinRequest. */
 		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCard objCreditCard = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCard();
 
-		if( creditCardNumber.length() > IMicrosConstants.COUNT_ZERO ) {
+		if( checkInRequest.getCreditCardNumber() != null ) {
 
 			final com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
 
-			objCardChoice_type0.setCardNumber( AdapterUtility.getCreditCardNumber(creditCardNumber) );
+			objCardChoice_type0.setCardNumber( AdapterUtility.getCreditCardNumber(checkInRequest.getCreditCardNumber().getCardNumber()) );
 			objCreditCard.setCreditCardChoice_type0( objCardChoice_type0 );
 
 		}
@@ -1298,7 +1306,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
 
 		objUniqueID.setSource( IMicrosConstants.OWS_RESV_NAMEID );
-		objUniqueID.setString( confirmationNumber);
+		objUniqueID.setString(checkInRequest.getConfirmationNumber());
 		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 
 		objUniqueIDList.addUniqueID( objUniqueID );
@@ -2714,13 +2722,13 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	}
 
 	@Override
-	public com.cloudkey.pms.response.AssignRoomResponse assignRoom( com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
+	public com.cloudkey.pms.response.roomassignments.AssignRoomResponse assignRoom( com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest ) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class," assignRoom "," Enter assignRoom method " );
 
 		AssignRoomRequest objAssignRoomRequest = null;
 		AssignRoomResponse objResponse = null;
-		com.cloudkey.pms.response.AssignRoomResponse objRoomResponse = null;
+		com.cloudkey.pms.response.roomassignments.AssignRoomResponse objRoomResponse = null;
 
 		com.micros.reservation.ReservationServiceStub objReservationServiceStub = null;
 
@@ -2793,15 +2801,13 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * 
 	 * @return AssignRoomAdvRequest
 	 */
-	private AssignRoomRequest getAssignRoomRequestObject( com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest ) {
+	private AssignRoomRequest getAssignRoomRequestObject( com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest ) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomRequestObject ", " Enter getAssignRoomRequestObject method " );
 
-		String roomTypeCode = assignRoomRequest.getRoomTypeCode();
-		String confirmationNumber =  assignRoomRequest.getReservation().getConfirmationNumber();
 		FetchRoomStatusResponse objFetchRoomStatusResponse = null;
 
-		objFetchRoomStatusResponse =  callFetchRoomStatus(roomTypeCode);
+		objFetchRoomStatusResponse = callFetchRoomStatus(assignRoomRequest.getRoomTypeCode());
 
 		AssignRoomRequest objAssignRoomRequest = new AssignRoomRequest();
 
@@ -2818,7 +2824,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			/*To set the confirmation number.*/
 			com.micros.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.reservation.ReservationServiceStub.UniqueID();
 			objUniqueID.setSource( IMicrosConstants.VALUE_SOURCE_ID );
-			objUniqueID.setString( confirmationNumber );
+			objUniqueID.setString(assignRoomRequest.getConfirmationNumber());
 			objUniqueID.setType( com.micros.reservation.ReservationServiceStub.UniqueIDType.INTERNAL );
 			objAssignRoomRequest.setResvNameId( objUniqueID );
 
@@ -2842,11 +2848,11 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 	 * @param objResponse
 	 * @return
 	 */
-	private com.cloudkey.pms.response.AssignRoomResponse getAssignRoomResponseObject( AssignRoomResponse objResponse ) {
+	private com.cloudkey.pms.response.roomassignments.AssignRoomResponse getAssignRoomResponseObject( AssignRoomResponse objResponse ) {
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAssignRoomResponseObject ", " Enter getAssignRoomResponseObject method " );	
 
-		com.cloudkey.pms.response.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.AssignRoomResponse();
+		com.cloudkey.pms.response.roomassignments.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.roomassignments.AssignRoomResponse();
 		/*To populate the response into assign Room Response class.*/
 		objAssignRoomResponse.setAssignRoomNumber( objResponse.getRoomNoAssigned() );
 		objAssignRoomResponse.setStatus( objResponse.getResult().getResultStatusFlag().toString() );

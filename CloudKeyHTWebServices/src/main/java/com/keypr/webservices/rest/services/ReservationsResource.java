@@ -1,17 +1,15 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.message.parser.IParserInterface;
-import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.*;
+import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.response.reservations.*;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 
 /**
  * REST service to the reservation methods of {@link IParserInterface}.
@@ -25,26 +23,26 @@ public class ReservationsResource extends AbstractResource {
     @Path("/search")
     @GET
     @ApiOperation(
-            value = "Fetches reservations which match the provided criteria",
-            response = SearchReservationResponse.class
+        value = "Fetches reservations which match the provided criteria",
+        response = SearchReservationResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
     public SearchReservationResponse searchReservation(
             @QueryParam("confirmationNumber") String confirmationNumber,
-            @QueryParam("emailId") String emailId,
             @QueryParam("firstName") String firstName,
             @QueryParam("lastName") String lastName,
             @QueryParam("creditCardNumber") String creditCardNumber
             ) {
         SearchReservationRequest request = new SearchReservationRequest(
                 confirmationNumber,
-                emailId,
                 firstName,
                 lastName,
                 creditCardNumber
         );
+        validate(request);
 
         return messageParser.searchReservationData(request);
     }
@@ -52,42 +50,45 @@ public class ReservationsResource extends AbstractResource {
     @Path("/checkin")
     @POST
     @ApiOperation(
-            value = "Checks in an existing reservation",
-            notes = "Micros implementation only uses request.reservation.{confirmationNumber, creditCardNumber}",
-            response = CheckInResponse.class
+        value = "Checks in an existing reservation",
+        response = CheckInResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
-    public CheckInResponse checkIn(CheckInRequest request) {
+    public CheckInResponse checkIn(@Valid CheckInRequest request) {
         return messageParser.guestCheckIn(request);
     }
 
     @Path("/checkout")
     @POST
     @ApiOperation(
-            value = "Checks out an existing reservation",
-            response = CheckOutResponse.class
+        value = "Checks out an existing reservation",
+        response = CheckOutResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
-    public CheckOutResponse checkOut(CheckOutRequest request) {
+    public CheckOutResponse checkOut(@Valid CheckOutRequest request) {
         return messageParser.guestCheckOut(request);
     }
 
     @Path("/folio")
     @GET
     @ApiOperation(
-            value = "Fetches the bill for a reservation",
+        value = "Fetches the bill for a reservation",
             notes = "Includes room charge and all other charges incurred during stay",
-            response = GetFolioResponse.class
+        response = GetFolioResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
     public GetFolioResponse getFolio(@QueryParam("confirmationNumber") String confirmationNumber) {
         GetFolioRequest request = new GetFolioRequest(confirmationNumber);
+        validate(request);
 
         return messageParser.retrieveFolioInfo(request);
     }
@@ -95,26 +96,28 @@ public class ReservationsResource extends AbstractResource {
     @Path("/folio/pay")
     @POST
     @ApiOperation(
-            value = "Makes a payment towards a reservation folio",
-            response = MakePaymentResponse.class
+        value = "Not Implemented. Makes a payment towards a reservation folio",
+        response = MakePaymentResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
-    public MakePaymentResponse makePayment(MakePaymentRequest request) {
+    public MakePaymentResponse makePayment(@Valid MakePaymentRequest request) {
         return messageParser.makePayment(request);
     }
 
     @Path("/notes")
     @POST
     @ApiOperation(
-            value = "Adds staff-viewable notes to a reservation",
-            response = UpdateBookingResponse.class
+        value = "Adds staff-viewable notes to a reservation",
+        response = UpdateBookingResponse.class
     )
     @ApiResponses({
-            @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
+        @ApiResponse(code = 422, message = "Request was not valid")
     })
-    public UpdateBookingResponse updateBookingRequest(UpdateBookingRequest request) {
+    public UpdateBookingResponse updateBookingRequest(@Valid UpdateBookingRequest request) {
         return messageParser.updateBooking(request);
     }
 
@@ -123,7 +126,7 @@ public class ReservationsResource extends AbstractResource {
 //    @Path("/folio/pay")
 //    @PUT
 //    @ApiOperation("Updates the payment records of a reservation")
-//    public UpdatePaymentResponse makePayment(UpdatePaymentRequest request) {
+//    public UpdatePaymentResponse makePayment(@Valid UpdatePaymentRequest request) {
 //        return messageParser.updatePayment(request);
 //    }
 }

@@ -1,0 +1,31 @@
+package com.cloudkey.pms.request.roomassignments;
+
+import com.google.common.base.Objects;
+import org.hibernate.validator.constraints.NotBlank;
+
+// TODO: There is no endpoint or micros method for this request.
+/**
+ * This class hold the information of room inventory request made by the guest.
+ * 
+ * @author vinayk2
+ *
+ */
+public class RoomInventoryRequest {
+	@NotBlank
+	private String roomType;
+
+	public RoomInventoryRequest(String roomType) {
+		this.roomType = roomType;
+	}
+
+	public String getRoomType() {
+		return roomType;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("roomType", roomType)
+			.toString();
+	}
+}

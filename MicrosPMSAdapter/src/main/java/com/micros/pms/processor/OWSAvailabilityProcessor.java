@@ -1,8 +1,8 @@
 package com.micros.pms.processor;
 
 import com.cloudkey.commons.Availability;
-import com.cloudkey.pms.request.GetAvailabilityRequest;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
+import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
+import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.micros.ows.availability.AvailabilityServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;

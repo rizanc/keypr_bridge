@@ -1,0 +1,66 @@
+#database:
+#
+#  # the name of your JDBC driver
+#  driverClass: com.mysql.jdbc.Driver
+#
+#  # the username
+#  user: root
+#
+#  # the password
+#  password:
+#
+#  # the JDBC URL
+#  url: jdbc:mysql://localhost:3306/
+
+logging:
+
+  level: INFO
+
+  loggers:
+    io.dropwizard: INFO
+    com.sun.jersey.api.container.filter.LoggingFilter: INFO
+
+  appenders:
+    - type: file
+      # The file to which current statements will be logged.
+      currentLogFilename: ./logs/main.log
+
+      # When the log file rotates, the archived log will be renamed to this and gzipped. The
+      # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
+      # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
+      archivedLogFilenamePattern: ./logs/main-%d.log.gz
+
+      # The number of archived files to keep.
+      archivedFileCount: 5
+
+      # The timezone used to format dates.
+      timeZone: UTC
+
+    - type: console
+
+server:
+#  type: simple
+#
+#  connector:
+#    type: http
+#
+#    port: 8080
+
+  requestLog:
+    # The timezone used to format dates.
+    timeZone: UTC
+
+    appenders:
+          - type: file
+            # The file to which current statements will be logged.
+            currentLogFilename: ./logs/requests.log
+
+            # When the log file rotates, the archived log will be renamed to this and gzipped. The
+            # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
+            # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
+            archivedLogFilenamePattern: ./logs/requests-%d.log.gz
+
+            # The number of archived files to keep.
+            archivedFileCount: 5
+
+          - type: console

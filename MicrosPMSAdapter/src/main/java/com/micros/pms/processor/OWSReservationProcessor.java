@@ -2,14 +2,14 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
-import com.cloudkey.pms.request.AssignRoomRequest;
-import com.cloudkey.pms.request.ReleaseRoomRequest;
-import com.cloudkey.pms.request.SearchReservationRequest;
-import com.cloudkey.pms.request.UpdateBookingRequest;
-import com.cloudkey.pms.response.AssignRoomResponse;
-import com.cloudkey.pms.response.ReleaseRoomResponse;
-import com.cloudkey.pms.response.SearchReservationResponse;
-import com.cloudkey.pms.response.UpdateBookingResponse;
+import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
+import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.request.reservations.SearchReservationRequest;
+import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
+import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
+import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.cloudkey.pms.response.reservations.SearchReservationResponse;
+import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.parser.MicrosPMSMessageParser;
@@ -222,9 +222,7 @@ public class OWSReservationProcessor {
 
         roomStay.setHotelReference(objHotelReference);
 
-        if (updateBookingRequest != null &&
-                updateBookingRequest.getNotes() != null &&
-                updateBookingRequest.getNotes().length > 0) {
+        if (updateBookingRequest.getNotes() != null && !updateBookingRequest.getNotes().isEmpty()) {
             // Update Comments
             ReservationServiceStub.ArrayOfReservationComment comments = new ReservationServiceStub.ArrayOfReservationComment();
             roomStay.setComments(comments);
@@ -348,12 +346,12 @@ public class OWSReservationProcessor {
     }
 
 
-    private ReservationServiceStub.AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest) throws RemoteException {
+    private ReservationServiceStub.AssignRoomRequest getAssignRoomRequestObject(AssignRoomRequest assignRoomRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getAssignRoomRequestObject ", " Enter getAssignRoomRequestObject method ");
 
         String roomTypeCode = assignRoomRequest.getRoomTypeCode();
-        String confirmationNumber = assignRoomRequest.getReservation().getConfirmationNumber();
+        String confirmationNumber = assignRoomRequest.getConfirmationNumber();
 
         ReservationServiceStub.AssignRoomRequest objAssignRoomRequest = null;
 
