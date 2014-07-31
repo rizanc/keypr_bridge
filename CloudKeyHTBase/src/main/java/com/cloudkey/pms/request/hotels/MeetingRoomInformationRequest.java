@@ -1,6 +1,9 @@
 package com.cloudkey.pms.request.hotels;
 
 import com.google.common.base.Objects;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * This class represents the details to be provided for searching meeting room availability
@@ -10,18 +13,22 @@ import com.google.common.base.Objects;
  *
  */
 public class MeetingRoomInformationRequest {
-	
-	private String numberOfAttendees;
 
-    public MeetingRoomInformationRequest(String numberOfAttendees) {
-        this.numberOfAttendees = numberOfAttendees;
-    }
+	@NotNull
+	@ApiModelProperty(required = true)
+	private Integer numberOfAttendees;
 
-    public String getNumberOfAttendees() {
-        return numberOfAttendees;
-    }
+	protected MeetingRoomInformationRequest() { /* For serialization */ }
 
-    @Override
+	public MeetingRoomInformationRequest(Integer numberOfAttendees) {
+		this.numberOfAttendees = numberOfAttendees;
+	}
+
+	public Integer getNumberOfAttendees() {
+		return numberOfAttendees;
+	}
+
+	@Override
     public String toString() {
         return Objects.toStringHelper(this)
                 .add("numberOfAttendees", numberOfAttendees)

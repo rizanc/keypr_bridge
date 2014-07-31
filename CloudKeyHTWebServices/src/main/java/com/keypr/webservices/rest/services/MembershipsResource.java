@@ -32,7 +32,7 @@ public class MembershipsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public GuestMembershipResponse guestMemberships(@QueryParam("nameId") String nameId) {
 	    GuestMembershipsRequest request = new GuestMembershipsRequest(nameId);
@@ -49,7 +49,7 @@ public class MembershipsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public MemberPointsResponse memberPoints(
             @QueryParam("membershipNumber") String membershipNumber,
@@ -69,7 +69,7 @@ public class MembershipsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public NameIdByMembershipResponse nameIdSearch(
             @QueryParam("membershipNumber") String membershipNumber,

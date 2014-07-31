@@ -1,6 +1,7 @@
 package com.cloudkey.pms.request.hotels;
 
 import com.google.common.base.Objects;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -10,9 +11,12 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class HotelInformationRequest {
     @NotBlank
+    @ApiModelProperty(required = true)
 	private String hotelCode;
 
-    public HotelInformationRequest(String hotelCode) {
+	protected HotelInformationRequest() { /* For serialization */ }
+
+	public HotelInformationRequest(String hotelCode) {
         this.hotelCode = hotelCode;
     }
 

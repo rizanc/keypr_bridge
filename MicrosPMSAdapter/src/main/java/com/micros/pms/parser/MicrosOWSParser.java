@@ -107,7 +107,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public UpdatePaymentResponse updatePayment(UpdatePaymentRequest updatePaymentRequest) throws PMSInterfaceException {
-        return null;
+	    throw new NotImplementedException("TODO");
     }
 
     @Override
@@ -143,7 +143,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) throws PMSInterfaceException  {
-        return null;
+	    throw new NotImplementedException("Not yet implemented");
     }
 
     @Override

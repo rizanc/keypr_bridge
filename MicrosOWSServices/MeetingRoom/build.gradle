@@ -1,6 +1,8 @@
 dependencies {
     compile axis2_adb
     compile axis2_kernel
+    compile axis2_transport_http
+    compile axis2_transport_local
     compile axiom_api
     compile axiom_dom
     compile axiom_impl

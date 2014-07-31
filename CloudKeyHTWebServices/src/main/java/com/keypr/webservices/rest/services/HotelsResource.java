@@ -29,7 +29,7 @@ public class HotelsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public HotelInformationResponse updateBookingRequest(
 	        @QueryParam("hotelCode") String hotelCode) {
@@ -47,14 +47,15 @@ public class HotelsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public MeetingRoomInformationResponse meetingRoomInformation(
-            @QueryParam("numberOfAttendees") String numberOfAttendees) {
+            @QueryParam("numberOfAttendees") Integer numberOfAttendees) {
         MeetingRoomInformationRequest request = new MeetingRoomInformationRequest(numberOfAttendees);
         validate(request);
 
-        return messageParser.getMeetingInformation(request);
+	    MeetingRoomInformationResponse meetingInformation = messageParser.getMeetingInformation(request);
+	    return meetingInformation;
     }
 
 }

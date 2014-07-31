@@ -6,4 +6,5 @@ dependencies {
     compile dropwizard_jackson
     compile dropwizard_logging
     compile dropwizard_jersey
+    compile dropwizard_swagger
 }

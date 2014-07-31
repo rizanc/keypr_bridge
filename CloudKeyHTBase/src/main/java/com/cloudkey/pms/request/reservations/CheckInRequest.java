@@ -2,6 +2,7 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.common.payment.CardNumber;
 import com.google.common.base.Objects;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -13,25 +14,28 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class CheckInRequest {
     @NotBlank
+    @ApiModelProperty(required = true)
     private String confirmationNumber;
 
     // TODO: This probably needs to be expanded to at least card holder name and exp date
-    private CardNumber creditCardNumber;
+    private String creditCardNumber;
 
-    public CheckInRequest(String confirmationNumber, CardNumber creditCardNumber) {
-        this.confirmationNumber = confirmationNumber;
-        this.creditCardNumber = creditCardNumber;
-    }
+	protected CheckInRequest() { /* For serialization */ }
 
-    public String getConfirmationNumber() {
-        return confirmationNumber;
-    }
+	public CheckInRequest(String confirmationNumber, String creditCardNumber) {
+		this.confirmationNumber = confirmationNumber;
+		this.creditCardNumber = creditCardNumber;
+	}
 
-    public CardNumber getCreditCardNumber() {
-        return creditCardNumber;
-    }
+	public String getConfirmationNumber() {
+		return confirmationNumber;
+	}
 
-    @Override
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+
+	@Override
     public String toString() {
         return Objects.toStringHelper(this)
                 .add("confirmationNumber", confirmationNumber)

@@ -31,7 +31,7 @@ public class RoomAssignmentsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public AssignRoomResponse assignRoom(@Valid AssignRoomRequest request) {
         return messageParser.assignRoom(request);
@@ -44,7 +44,7 @@ public class RoomAssignmentsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public ReleaseRoomResponse releaseRoom(@Valid ReleaseRoomRequest request) {
         return messageParser.releaseRoom(request);
@@ -57,7 +57,7 @@ public class RoomAssignmentsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public GetAvailabilityResponse getAvailability(
             @QueryParam("startDate") LocalDateParam startDate,

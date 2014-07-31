@@ -1,5 +1,7 @@
 package com.cloudkey.pms.common.payment;
 
+import com.google.common.base.Objects;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -74,4 +76,19 @@ public class CreditCardInfo {
     public boolean isChipAndPin() {
         return isChipAndPin;
     }
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("cardHolderName", cardHolderName)
+			.add("cardNumberReference", cardNumberReference)
+			.add("cardType", cardType)
+			.add("expirationDate", expirationDate)
+			.add("effectiveDate", effectiveDate)
+			.add("cardCode", cardCode)
+			.add("seriesCode", seriesCode)
+			.add("otherCardType", otherCardType)
+			.add("isChipAndPin", isChipAndPin)
+			.toString();
+	}
 }

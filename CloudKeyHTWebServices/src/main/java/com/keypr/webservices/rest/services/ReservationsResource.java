@@ -28,7 +28,7 @@ public class ReservationsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public SearchReservationResponse searchReservation(
             @QueryParam("confirmationNumber") String confirmationNumber,
@@ -55,7 +55,7 @@ public class ReservationsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public CheckInResponse checkIn(@Valid CheckInRequest request) {
         return messageParser.guestCheckIn(request);
@@ -69,7 +69,7 @@ public class ReservationsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public CheckOutResponse checkOut(@Valid CheckOutRequest request) {
         return messageParser.guestCheckOut(request);
@@ -84,7 +84,7 @@ public class ReservationsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public GetFolioResponse getFolio(@QueryParam("confirmationNumber") String confirmationNumber) {
         GetFolioRequest request = new GetFolioRequest(confirmationNumber);
@@ -101,7 +101,7 @@ public class ReservationsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public MakePaymentResponse makePayment(@Valid MakePaymentRequest request) {
         return messageParser.makePayment(request);
@@ -115,7 +115,7 @@ public class ReservationsResource extends AbstractResource {
     )
     @ApiResponses({
         @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request was not valid")
+        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
     })
     public UpdateBookingResponse updateBookingRequest(@Valid UpdateBookingRequest request) {
         return messageParser.updateBooking(request);

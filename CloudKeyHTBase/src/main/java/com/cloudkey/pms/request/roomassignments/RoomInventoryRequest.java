@@ -1,6 +1,7 @@
 package com.cloudkey.pms.request.roomassignments;
 
 import com.google.common.base.Objects;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 // TODO: There is no endpoint or micros method for this request.
@@ -12,7 +13,10 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class RoomInventoryRequest {
 	@NotBlank
+	@ApiModelProperty(required = true)
 	private String roomType;
+
+	protected RoomInventoryRequest() { /* For serialization */ }
 
 	public RoomInventoryRequest(String roomType) {
 		this.roomType = roomType;

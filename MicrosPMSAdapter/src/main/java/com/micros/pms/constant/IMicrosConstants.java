@@ -54,7 +54,7 @@ public interface IMicrosConstants {
 	String RESPONSE_NAME_ID = "<com.micros.name.NameServiceStub_-FetchNameIdByMembershipResponse>" ;   
 	String RESPONSE_MEETING_ROOM = "</com.micros.meeting.MeetingRoomServiceStub_-MeetingAvailabilityResponse> ";
 
-	String MEETING_HOTEL_CODE = "hotel.code";
+	String MEETING_HOTEL_CODE = "meeting.hotel.code";
 
 
 	String ENG_LANG = "E";

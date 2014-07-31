@@ -437,7 +437,7 @@ public class OWSResvAdvancedProcessor {
 
             final ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new ResvAdvancedServiceStub.CreditCardChoice_type0();
 
-            objCardChoice_type0.setCardNumber(checkInRequest.getCreditCardNumber().getCardNumber());
+            objCardChoice_type0.setCardNumber(checkInRequest.getCreditCardNumber());
             objCreditCard.setCreditCardChoice_type0(objCardChoice_type0);
 
             objCreditCard.setExpirationDate(new Date(1, 1, 2015));

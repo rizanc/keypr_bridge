@@ -1286,7 +1286,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			final com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
 
-			objCardChoice_type0.setCardNumber( AdapterUtility.getCreditCardNumber(checkInRequest.getCreditCardNumber().getCardNumber()) );
+			objCardChoice_type0.setCardNumber( AdapterUtility.getCreditCardNumber(checkInRequest.getCreditCardNumber()) );
 			objCreditCard.setCreditCardChoice_type0( objCardChoice_type0 );
 
 		}
@@ -3019,38 +3019,33 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		MeetingRoomInformationResponse objResponse = null;
 
+		objAvailabilityRequest = getMeetingRoomInformationRequestObject( arg0 );
 
-		if( arg0.getNumberOfAttendees().length() > 0) {
+		objMeetingAvailabilityRequestE = new com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequestE();
 
-			objAvailabilityRequest = getMeetingRoomInformationRequestObject( arg0 );
+		objMeetingAvailabilityRequestE.setMeetingAvailabilityRequest(objAvailabilityRequest);
 
-			objMeetingAvailabilityRequestE = new com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequestE();
+		try {
 
-			objMeetingAvailabilityRequestE.setMeetingAvailabilityRequest(objAvailabilityRequest);
+			String endPointUrl = ParserConfigurationReader.getProperty( IMicrosConstants.MEETINGROOM_URL);
 
-			try {
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation ", " getMeetingInformation Service Url " + endPointUrl );
 
-				String endPointUrl = ParserConfigurationReader.getProperty( IMicrosConstants.MEETINGROOM_URL);
+			objMeetingRoomServiceStub = new com.micros.meeting.MeetingRoomServiceStub(endPointUrl);
 
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation ", " getMeetingInformation Service Url " + endPointUrl );
+			com.micros.meeting.MeetingRoomServiceStub.OGHeaderE objOGE = getMeetingRoomInformationRequestHeader();
 
-				objMeetingRoomServiceStub = new com.micros.meeting.MeetingRoomServiceStub(endPointUrl);
+			objMeetingAvailabilityResponseE = objMeetingRoomServiceStub.meetingAvailability(objMeetingAvailabilityRequestE, objOGE);
 
-				com.micros.meeting.MeetingRoomServiceStub.OGHeaderE objOGE = getMeetingRoomInformationRequestHeader();
+			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation ", " Response received from real OWS " );
 
-				objMeetingAvailabilityResponseE = objMeetingRoomServiceStub.meetingAvailability(objMeetingAvailabilityRequestE, objOGE);
-				
-				MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingInformation ", " Response received from real OWS " );
+			objAvailabilityResponse = objMeetingAvailabilityResponseE.getMeetingAvailabilityResponse();
 
-				objAvailabilityResponse = objMeetingAvailabilityResponseE.getMeetingAvailabilityResponse();
+			objResponse = getMeetinRoomInformationResponse( objAvailabilityResponse );
+		}
+		catch( Exception exe){
 
-				objResponse = getMeetinRoomInformationResponse( objAvailabilityResponse );
-			}
-			catch( Exception exe){
-
-				MicrosPMSLogger.logError(MicrosPMSMessageParser.class, " getMeetingInformation ", exe );
-
-			}
+			MicrosPMSLogger.logError(MicrosPMSMessageParser.class, " getMeetingInformation ", exe );
 
 		}
 
@@ -3246,9 +3241,8 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 		objAvailabilityRequest.setSummaryOnly( true );
 		objAvailabilityRequest.setAlternateInventory( true );
 
-		int numberOfAttendees = Integer.parseInt(objRequest.getNumberOfAttendees() );
-		objAvailabilityRequest.setNumberOfAttendees( numberOfAttendees );
-		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Number Of Attendees :: " + numberOfAttendees );
+		objAvailabilityRequest.setNumberOfAttendees(objRequest.getNumberOfAttendees());
+		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Number Of Attendees :: " + (int) objRequest.getNumberOfAttendees());
 
 		com.micros.meeting.MeetingRoomServiceStub.HotelReference objHotelReference = new com.micros.meeting.MeetingRoomServiceStub.HotelReference();//hotelCode
 		objHotelReference.setHotelCode( hotelCode );

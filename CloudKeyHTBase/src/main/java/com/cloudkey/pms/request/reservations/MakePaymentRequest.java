@@ -6,6 +6,7 @@ import com.google.common.base.Objects;
 import com.keypr.pms.micros.oxi.ids.ReservationId;
 import com.keypr.pms.micros.oxi.ids.StationId;
 import com.keypr.pms.micros.oxi.ids.UserId;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -21,18 +22,21 @@ public class MakePaymentRequest {
      * The {@link ReservationId} of the reservation to which payment was applied
      */
     @NotNull
+    @ApiModelProperty(required = true)
     private ReservationId reservationId;
 
     /**
      * The amount to charge or charged (USD)
      */
     @NotNull
+    @ApiModelProperty(required = true)
     private Double chargeAmount;
 
     /**
      * A reference to the credit card used to make the payment
      */
     @NotNull
+    @ApiModelProperty(required = true)
     private CreditCardInfo creditCardInfo;
 
     /**
@@ -74,6 +78,8 @@ public class MakePaymentRequest {
      * The number of the folio view to make the payment on
      */
     private Integer folioViewNo;
+
+	protected MakePaymentRequest() { /* For serialization */ }
 
 	public MakePaymentRequest(ReservationId reservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, Date postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
 		this.reservationId = reservationId;

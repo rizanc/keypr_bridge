@@ -1,5 +1,6 @@
 package com.cloudkey.pms.request.roomassignments;
 
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
@@ -13,12 +14,16 @@ import javax.validation.constraints.NotNull;
 public class GetAvailabilityRequest {
 
     @NotNull
-	private LocalDate startDate;
+    @ApiModelProperty(required = true)
+    private LocalDate startDate;
 
     @NotNull
-	private LocalDate endDate;
+    @ApiModelProperty(required = true)
+    private LocalDate endDate;
 
-    public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate) {
+	protected GetAvailabilityRequest() { /* For serialization */ }
+
+	public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

@@ -3,6 +3,7 @@ package com.cloudkey.pms.request.reservations;
 import com.cloudkey.commons.Payments;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,10 +18,14 @@ import java.util.List;
 public class UpdatePaymentRequest {
 
     @NotBlank
+    @ApiModelProperty(required = true)
     private String confirmationNumber;
 
     @NotEmpty
+    @ApiModelProperty(required = true)
     private List<Payments> payments = Lists.newArrayList();
+
+	protected UpdatePaymentRequest() { /* For serialization */ }
 
 	public UpdatePaymentRequest(String confirmationNumber, List<Payments> payments) {
 		this.confirmationNumber = confirmationNumber;

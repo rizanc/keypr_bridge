@@ -93,7 +93,7 @@ public class OWSTestUtils {
     public static void CheckIn() {
 
         OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
-        CheckInRequest request = new CheckInRequest(CONFIRMATION_NO, new CardNumber(CREDIT_CARD_NO));
+        CheckInRequest request = new CheckInRequest(CONFIRMATION_NO, CREDIT_CARD_NO);
 
         try {
             owsResvAdvancedProcessor.processCheckIn(request);

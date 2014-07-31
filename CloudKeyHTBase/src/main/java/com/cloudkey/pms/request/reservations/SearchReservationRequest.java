@@ -20,6 +20,8 @@ public class SearchReservationRequest {
 
     private String creditCardNumber;
 
+	protected SearchReservationRequest() { /* For serialization */ }
+
     public SearchReservationRequest(String confirmationNumber, String firstName, String lastName, String creditCardNumber) {
         this.confirmationNumber = confirmationNumber;
         this.firstName = firstName;

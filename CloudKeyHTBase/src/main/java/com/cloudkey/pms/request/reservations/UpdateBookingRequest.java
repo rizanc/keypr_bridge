@@ -2,6 +2,7 @@ package com.cloudkey.pms.request.reservations;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,12 +19,16 @@ import java.util.List;
 public class UpdateBookingRequest {
 
     @NotBlank
+    @ApiModelProperty(required = true)
     private String confirmationNumber;
 
     @NotEmpty
+    @ApiModelProperty(required = true)
     private List<String> notes = Lists.newArrayList();
 
-    public UpdateBookingRequest(String confirmationNumber, List<String> notes) {
+	protected UpdateBookingRequest() { /* For serialization */ }
+
+	public UpdateBookingRequest(String confirmationNumber, List<String> notes) {
         this.confirmationNumber = confirmationNumber;
         this.notes.addAll(notes);
     }

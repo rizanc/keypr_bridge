@@ -1,6 +1,7 @@
 package com.cloudkey.pms.request.memberships;
 
 import com.google.common.base.Objects;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -11,7 +12,10 @@ import org.hibernate.validator.constraints.NotBlank;
 public class GuestMembershipsRequest {
 
 	@NotBlank
+	@ApiModelProperty(required = true)
 	private String nameId;
+
+	protected GuestMembershipsRequest() { /* For serialization */ }
 
 	public GuestMembershipsRequest(String nameId) {
 		this.nameId = nameId;
