@@ -2,6 +2,7 @@ package com.micros.harvester.communicator;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -24,7 +25,6 @@ import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.DataUtility;
 import com.micros.harvester.util.HarvesterConfigurationReader;
-import com.micros.harvester.util.TransIdGenerator;
 import com.micros.pms.transport.MicrosMessageTransport;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -272,8 +272,7 @@ public class OWSDataCollector {
 
 			// prepares the header of soap message.
 			objOGHeader = new com.micros.availability.AvailabilityServiceStub.OGHeader();
-			int currentTransactionId  = TransIdGenerator.getTransactionId();
-			objOGHeader.setTransactionID( String.valueOf(currentTransactionId) );
+			objOGHeader.setTransactionID(UUID.randomUUID().toString() );
 			objOGHeader.setTimeStamp( DataUtility.getCalender());
 
 			//prepares origin and destination of the message

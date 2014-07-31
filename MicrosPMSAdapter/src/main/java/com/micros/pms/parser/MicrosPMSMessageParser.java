@@ -62,7 +62,6 @@ import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.transport.MicrosMessageTransport;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
-import com.micros.pms.util.TransIdGenerator;
 import com.micros.reservation.ReservationServiceStub;
 import com.micros.reservation.ReservationServiceStub.AssignRoomRequest;
 import com.micros.reservation.ReservationServiceStub.AssignRoomResponse;
@@ -131,7 +130,8 @@ public class MicrosPMSMessageParser implements IParserInterface {
 			com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader objHeader = new com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader();
 
 			/* To set the confirmation number as transactionID. */
-			objHeader.setTransactionID( String.valueOf(TransIdGenerator.getTransactionId() ));
+
+            objHeader.setTransactionID( UUID.randomUUID().toString());
 			objHeader.setTimeStamp( AdapterUtility.getCalender() );
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint objEndPoint = new com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint();
@@ -212,7 +212,8 @@ public class MicrosPMSMessageParser implements IParserInterface {
 			com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader objHeader = new com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader();
 
 			/* To set the confirmation number as transactionID. */
-			objHeader.setTransactionID(String.valueOf(TransIdGenerator.getTransactionId() ) );
+
+            objHeader.setTransactionID(UUID.randomUUID().toString() );
 			objHeader.setTimeStamp( AdapterUtility.getCalender() );
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint objEndPoint = new com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint();
@@ -1537,8 +1538,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader objHeader = new com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader();
 
-			int transactionIdentifier = TransIdGenerator.getTransactionId();
-			String transId = String.valueOf( transactionIdentifier );
+			String transId = UUID.randomUUID().toString();
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " retrieveFolioInfo ", " Current transaction Id = " + transId );
 
@@ -1803,7 +1803,8 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 			objHeader.setDestination(objEndPoint);
 
 			/* To set the confirmation number as transactionID. */
-			objHeader.setTransactionID(String.valueOf(TransIdGenerator.getTransactionId() ));
+
+            objHeader.setTransactionID(UUID.randomUUID().toString());
 			objHeader.setTimeStamp(AdapterUtility.getCalender());
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " updateBooking ", "  Authentication UserCredentials Set  " );
@@ -2548,8 +2549,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		com.micros.availability.AvailabilityServiceStub.OGHeader objHeader = new com.micros.availability.AvailabilityServiceStub.OGHeader();
 
-		int transactionIdentifier = TransIdGenerator.getTransactionId();
-		String transId = String.valueOf( transactionIdentifier );
+        String transId = UUID.randomUUID().toString();
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getAvailabiltyRequestObject ", " Current transaction Id = " + transId );
 
@@ -2734,8 +2734,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			com.micros.reservation.ReservationServiceStub.OGHeader objHeader = new com.micros.reservation.ReservationServiceStub.OGHeader();
 
-			int transactionIdentifier = TransIdGenerator.getTransactionId();
-			String transId = String.valueOf( transactionIdentifier );
+			String transId = UUID.randomUUID().toString();
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " assignRoom ", " Current transaction Id = " + transId );
 
@@ -2879,8 +2878,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 			com.micros.reservation.ReservationServiceStub.OGHeader objHeader = new com.micros.reservation.ReservationServiceStub.OGHeader();
 
-			int transactionIdentifier = TransIdGenerator.getTransactionId();
-			String transId = String.valueOf( transactionIdentifier );
+			String transId = UUID.randomUUID().toString();
 
 			MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " releaseRoom ", " Current transaction Id = " + transId );
 
@@ -3196,8 +3194,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		com.micros.meeting.MeetingRoomServiceStub.OGHeader objHeader = new com.micros.meeting.MeetingRoomServiceStub.OGHeader();
 
-		int transactionIdentifier = TransIdGenerator.getTransactionId();
-		String transId = String.valueOf( transactionIdentifier );
+		String transId = UUID.randomUUID().toString();
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMeetingRoomInformationRequestObject ", " Current transaction Id = " + transId );
 
@@ -3532,8 +3529,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		com.micros.information.InformationStub.OGHeader objHeader = new com.micros.information.InformationStub.OGHeader();
 
-		int transactionIdentifier = TransIdGenerator.getTransactionId();
-		String transId = String.valueOf( transactionIdentifier );
+		String transId = UUID.randomUUID().toString();
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationRequestHeader ", " Current transaction Id = " + transId );
 
@@ -3911,8 +3907,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		com.micros.membership.MembershipServiceStub.OGHeader objHeader = new com.micros.membership.MembershipServiceStub.OGHeader();
 
-		int transactionIdentifier = TransIdGenerator.getTransactionId();
-		String transId = String.valueOf( transactionIdentifier );
+		String transId = UUID.randomUUID().toString();
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject ", " Current transaction Id = " + transId );
 
@@ -4160,8 +4155,7 @@ MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class,
 
 		com.micros.name.NameServiceStub.OGHeader objHeader = new com.micros.name.NameServiceStub.OGHeader();
 
-		int transactionIdentifier = TransIdGenerator.getTransactionId();
-		String transId = String.valueOf( transactionIdentifier );
+		String transId = UUID.randomUUID().toString();
 
 		MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getNameIdRequestObject ", " Current transaction Id = " + transId );
 
