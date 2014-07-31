@@ -10,10 +10,9 @@ import com.micros.pms.parser.MicrosPMSMessageParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.apache.axis2.databinding.types.NormalizedString;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.UUID;
 
 /**
  * Created by crizan2 on 16/07/2014.
@@ -22,7 +21,7 @@ public class OWSInformationProcessor {
 
     final static String URL_INFORMATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Information.asmx";
 
-    public HotelInformationResponse processHotelInformation(HotelInformationRequest hotelInformationRequest) {
+    public HotelInformationResponse processHotelInformation(HotelInformationRequest hotelInformationRequest) throws RemoteException {
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processHotelInformation ", " Enter processHotelInformation method. ");
 
         InformationStub informationStub = getInformationServiceStub();
@@ -38,23 +37,15 @@ public class OWSInformationProcessor {
 
         InformationStub.OGHeaderE ogh = getHeaderE();
 
-        try {
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            InformationStub.HotelInformationResponseE respE = informationStub.queryHotelInformation(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
+                AdapterUtility.convertToStreamXML(reqE));
+        InformationStub.HotelInformationResponseE respE = informationStub.queryHotelInformation(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getHotelInformationResponseObject(respE.getHotelInformationResponse());
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processHotelInformation ",
-                    e.getMessage());
-        }
+        response = getHotelInformationResponseObject(respE.getHotelInformationResponse());
+        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
     }

@@ -22,8 +22,7 @@ public class OWSMembershipProcessor {
     final static String URL_MEMBERSHIP = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Membership.asmx";
 
     //TODO: Get Samples
-    public MemberPointsResponse processFetchMemberPoints(MemberPointsRequest objMemberPointsRequest)
-    {
+    public MemberPointsResponse processFetchMemberPoints(MemberPointsRequest objMemberPointsRequest) throws RemoteException {
         MicrosPMSLogger.logInfo( OWSInformationProcessor.class, " processFetchMemberPoints "," Enter processFetchMemberPoints method " );
 
         MembershipServiceStub membershipServiceStub =  getMembershipServiceStub();
@@ -36,25 +35,17 @@ public class OWSMembershipProcessor {
 
         MembershipServiceStub.OGHeaderE ogh = getHeaderE();
 
+        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
+                AdapterUtility.convertToStreamXML(objRequest));
+        MembershipServiceStub.FetchMemberPointsResponse respE =
+                membershipServiceStub.fetchMemberPoints(objRequest, ogh);
+        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
+                AdapterUtility.convertToStreamXML(respE));
 
-        try {
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                    AdapterUtility.convertToStreamXML(objRequest));
-            MembershipServiceStub.FetchMemberPointsResponse respE =
-                    membershipServiceStub.fetchMemberPoints(objRequest, ogh);
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                    AdapterUtility.convertToStreamXML(respE));
+        response = getMemberPointsResponse(respE);
+        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
+                AdapterUtility.convertToStreamXML(response));
 
-            response = getMemberPointsResponse(respE);
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processFetchMemberPoints ",
-                    e.getMessage());
-        }
         return response;
     }
 

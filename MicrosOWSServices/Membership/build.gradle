@@ -3,4 +3,5 @@ dependencies {
     compile axis2_kernel
     compile axiom_api
     compile axiom_dom
+    compile axiom_impl
 }

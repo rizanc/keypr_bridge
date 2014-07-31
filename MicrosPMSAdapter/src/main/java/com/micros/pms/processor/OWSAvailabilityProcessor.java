@@ -23,7 +23,7 @@ public class OWSAvailabilityProcessor {
     final static String URL_AVAILABILITY = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Availability.asmx";
 
 
-    public GetAvailabilityResponse processAvailability(GetAvailabilityRequest availabilityRequest) {
+    public GetAvailabilityResponse processAvailability(GetAvailabilityRequest availabilityRequest) throws RemoteException {
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processAvailability ", " Enter checkAvailability method. ");
 
         AvailabilityServiceStub astub = getAvailabilityServiceStub();
@@ -62,23 +62,16 @@ public class OWSAvailabilityProcessor {
 
             AvailabilityServiceStub.OGHeaderE ogh = getHeaderE();
 
-            try {
-                MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                        AdapterUtility.convertToStreamXML(reqE));
-                AvailabilityServiceStub.FetchCalendarResponseE respE = astub.fetchCalendar(reqE, ogh);
-                MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                        AdapterUtility.convertToStreamXML(respE));
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
+                    AdapterUtility.convertToStreamXML(reqE));
+            AvailabilityServiceStub.FetchCalendarResponseE respE = astub.fetchCalendar(reqE, ogh);
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
+                    AdapterUtility.convertToStreamXML(respE));
 
-                objGetAvailabilityResponse = getAvailabilityResponseObject(respE.getFetchCalendarResponse());
-                MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                        AdapterUtility.convertToStreamXML(objGetAvailabilityResponse));
+            objGetAvailabilityResponse = getAvailabilityResponseObject(respE.getFetchCalendarResponse());
+            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
+                    AdapterUtility.convertToStreamXML(objGetAvailabilityResponse));
 
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-                MicrosPMSLogger.logError(OWSReservationProcessor.class, "processAvailability ",
-                        e.getMessage());
-            }
         }
         return objGetAvailabilityResponse;
     }

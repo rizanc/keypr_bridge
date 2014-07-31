@@ -32,7 +32,7 @@ public class OWSResvAdvancedProcessor {
 
     final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
 
-    public GetFolioResponse processRetrieveFolioInfo(GetFolioRequest folioRequest) {
+    public GetFolioResponse processRetrieveFolioInfo(GetFolioRequest folioRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processRetrieveFolioInfo ", " Enter in processRetrieveFolioInfo method.");
 
@@ -50,24 +50,15 @@ public class OWSResvAdvancedProcessor {
 
         GetFolioResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ResvAdvancedServiceStub.InvoiceResponseE respE = rstub.invoice(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ResvAdvancedServiceStub.InvoiceResponseE respE = rstub.invoice(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getFolioResponseObject(respE.getInvoiceResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
-                    e.getMessage());
-        }
-
+        response = getFolioResponseObject(respE.getInvoiceResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
+                AdapterUtility.convertToStreamXML(response));
 
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processRetrieveFolioInfo ", " Exit processRetrieveFolioInfo method ");
 
@@ -230,7 +221,7 @@ public class OWSResvAdvancedProcessor {
     }
 
 
-    public CheckOutResponse processCheckOut(CheckOutRequest request) {
+    public CheckOutResponse processCheckOut(CheckOutRequest request) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ", " Enter in processCheckOut method. ");
 
         ResvAdvancedServiceStub.CheckOutResponse objResponse = null;
@@ -247,23 +238,15 @@ public class OWSResvAdvancedProcessor {
 
         CheckOutResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ResvAdvancedServiceStub.CheckOutResponseE respE = rstub.checkOut(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ResvAdvancedServiceStub.CheckOutResponseE respE = rstub.checkOut(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getCheckOutResponseObject(respE.getCheckOutResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processCheckOut ",
-                    e.getMessage());
-        }
+        response = getCheckOutResponseObject(respE.getCheckOutResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
 
@@ -374,7 +357,7 @@ public class OWSResvAdvancedProcessor {
         return objCheckOutResponse;
     }
 
-    public String getNextAvailableRoom(String roomType) {
+    public String getNextAvailableRoom(String roomType) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ", " Enter in processSearchReservationData method. ");
 
         ResvAdvancedServiceStub.FetchRoomStatusRequest objResponse = null;
@@ -390,33 +373,27 @@ public class OWSResvAdvancedProcessor {
         reqE.setFetchRoomStatusRequest(req);
 
         String nextAvailableRoom = null;
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ResvAdvancedServiceStub.FetchRoomStatusResponseE respE = rstub.fetchRoomStatus(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                    AdapterUtility.convertToStreamXML(respE));
 
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                    AdapterUtility.convertToStreamXML(respE.getFetchRoomStatusResponse()));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ResvAdvancedServiceStub.FetchRoomStatusResponseE respE = rstub.fetchRoomStatus(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            if (respE.getFetchRoomStatusResponse().getResult().getResultStatusFlag() == ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS) {
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+                AdapterUtility.convertToStreamXML(respE.getFetchRoomStatusResponse()));
 
-                nextAvailableRoom = respE.getFetchRoomStatusResponse().
-                        getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
-            }
+        if (respE.getFetchRoomStatusResponse().getResult().getResultStatusFlag() == ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS) {
 
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                    e.getMessage());
+            nextAvailableRoom = respE.getFetchRoomStatusResponse().
+                    getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
         }
 
         return nextAvailableRoom;
 
     }
 
-    public CheckInResponse processCheckIn(CheckInRequest request) {
+    public CheckInResponse processCheckIn(CheckInRequest request) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ", " Enter in processSearchReservationData method. ");
 
         ResvAdvancedServiceStub.CheckInResponse objResponse = null;
@@ -433,23 +410,15 @@ public class OWSResvAdvancedProcessor {
 
         CheckInResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ResvAdvancedServiceStub.CheckInResponseE respE = rstub.checkIn(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ResvAdvancedServiceStub.CheckInResponseE respE = rstub.checkIn(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getCheckInResponseObject(respE.getCheckInResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processCheckIn ",
-                    e.getMessage());
-        }
+        response = getCheckInResponseObject(respE.getCheckInResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
 

@@ -2,11 +2,11 @@ package com.micros.ows.client;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.pms.request.*;
-import com.cloudkey.pms.response.*;
+import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.micros.pms.processor.*;
 import org.joda.time.LocalDate;
 
-import java.util.Date;
+import java.rmi.RemoteException;
 
 /**
  * Created by crizan2 on 16/07/2014.
@@ -31,8 +31,12 @@ public class OWSTestUtils {
 
         GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE);
 
-        GetAvailabilityResponse response =
-                owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
+        try {
+            GetAvailabilityResponse response =
+                    owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -40,7 +44,11 @@ public class OWSTestUtils {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
         SearchReservationRequest request = new SearchReservationRequest(CONFIRMATION_NO, EMAIL, FIRST_NAME, LAST_NAME, CREDIT_CARD_NO);
-        owsReservationProcessor.processSearchReservationData(request);
+        try {
+            owsReservationProcessor.processSearchReservationData(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -55,7 +63,11 @@ public class OWSTestUtils {
 
         request.setReservation(reservation);
         request.setRoomTypeCode(ROOM_TYPE_DEFAULT);
-        owsReservationProcessor.processAssignRoom(request);
+        try {
+            owsReservationProcessor.processAssignRoom(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -69,7 +81,11 @@ public class OWSTestUtils {
         reservation.setConfirmationNumber(CONFIRMATION_NO);
         request.setReservationId(CONFIRMATION_NO);
 
-        owsReservationProcessor.processReleaseRoom(request);
+        try {
+            owsReservationProcessor.processReleaseRoom(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -84,7 +100,11 @@ public class OWSTestUtils {
 
         request.setReservation(reservation);
 
-        owsResvAdvancedProcessor.processCheckIn(request);
+        try {
+            owsResvAdvancedProcessor.processCheckIn(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -96,7 +116,11 @@ public class OWSTestUtils {
 
         request.setConfirmationNumber(CONFIRMATION_NO);
 
-        owsResvAdvancedProcessor.processCheckOut(request);
+        try {
+            owsResvAdvancedProcessor.processCheckOut(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -112,7 +136,11 @@ public class OWSTestUtils {
 
         String[] notes = new String[]{"Comment 1", "Comment 2", "Comment 3"};
         updateBookingRequest.setNotes(notes);
-        owsReservationProcessor.processUpdateBooking(updateBookingRequest);
+        try {
+            owsReservationProcessor.processUpdateBooking(updateBookingRequest);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void Folio() {
@@ -121,7 +149,11 @@ public class OWSTestUtils {
 
         GetFolioRequest request = new GetFolioRequest(CONFIRMATION_NO);
 
-        owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
+        try {
+            owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -131,7 +163,11 @@ public class OWSTestUtils {
 
         HotelInformationRequest request = new HotelInformationRequest(HOTEL_CODE);
 
-        owsInformationProcessor.processHotelInformation(request);
+        try {
+            owsInformationProcessor.processHotelInformation(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
     public static void Membership() {
@@ -140,7 +176,11 @@ public class OWSTestUtils {
 
         MemberPointsRequest request = new MemberPointsRequest(MEMBER_ID, MEMBER_TYPE, LAST_NAME);
 
-        owsMembershipProcessor.processFetchMemberPoints(request);
+        try {
+            owsMembershipProcessor.processFetchMemberPoints(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -150,7 +190,11 @@ public class OWSTestUtils {
 
         NameIdByMembershipRequest request = new NameIdByMembershipRequest("OR", "1166666666", "REWARDS");
 
-        owsNameProcessor.processNameLookupByMembership(request);
+        try {
+            owsNameProcessor.processNameLookupByMembership(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -165,7 +209,11 @@ public class OWSTestUtils {
 
         GuestMembershipsRequest request = new GuestMembershipsRequest("220080");
 
-        owsNameProcessor.processGuestCardList(request);
+        try {
+            owsNameProcessor.processGuestCardList(request);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 }

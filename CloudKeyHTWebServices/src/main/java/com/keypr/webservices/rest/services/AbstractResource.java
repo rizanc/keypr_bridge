@@ -2,10 +2,8 @@ package com.keypr.webservices.rest.services;
 
 import com.cloudkey.message.parser.IParserInterface;
 import com.google.inject.Inject;
-import com.wordnik.swagger.annotations.Api;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 

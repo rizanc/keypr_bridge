@@ -30,7 +30,7 @@ public class OWSReservationProcessor {
     final static String URL_RESERVATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Reservation.asmx";
 
 
-    public ReservationServiceStub.FetchBookingResponse fetchBooking(String confirmation) {
+    public ReservationServiceStub.FetchBookingResponse fetchBooking(String confirmation) throws RemoteException {
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " fetchBooking ", " Enter in fetchBooking method ");
 
         ReservationServiceStub.FetchBookingRequest request = new ReservationServiceStub.FetchBookingRequest();
@@ -53,25 +53,18 @@ public class OWSReservationProcessor {
 
         ReservationServiceStub.FetchBookingResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "fetchBooking ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ReservationServiceStub.FetchBookingResponseE respE = rstub.fetchBooking(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "fetchBooking ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "fetchBooking ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ReservationServiceStub.FetchBookingResponseE respE = rstub.fetchBooking(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "fetchBooking ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = respE.getFetchBookingResponse();
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "fetchBooking ",
-                    e.getMessage());
-        }
+        response = respE.getFetchBookingResponse();
 
         return response;
     }
 
-    public AssignRoomResponse processAssignRoom(AssignRoomRequest request) {
+    public AssignRoomResponse processAssignRoom(AssignRoomRequest request) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ", " Enter in processSearchReservationData method. ");
 
         ReservationServiceStub.AssignRoomResponse objResponse = null;
@@ -89,30 +82,22 @@ public class OWSReservationProcessor {
 
         AssignRoomResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ReservationServiceStub.AssignRoomResponseE respE = rstub.assignRoom(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ReservationServiceStub.AssignRoomResponseE respE = rstub.assignRoom(reqE, ogh);
 
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getAssignRoomResponseObject(respE.getAssignRoomResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processAssignRoom ",
-                    e.getMessage());
-        }
+        response = getAssignRoomResponseObject(respE.getAssignRoomResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAssignRoom ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
 
     }
 
-    public ReleaseRoomResponse processReleaseRoom(ReleaseRoomRequest request) {
+    public ReleaseRoomResponse processReleaseRoom(ReleaseRoomRequest request) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ", " Enter in processReleaseRoom method. ");
 
         ReservationServiceStub.ReleaseRoomResponse objResponse = null;
@@ -130,28 +115,21 @@ public class OWSReservationProcessor {
 
         ReleaseRoomResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ReservationServiceStub.ReleaseRoomResponseE respE = rstub.releaseRoom(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ReservationServiceStub.ReleaseRoomResponseE respE = rstub.releaseRoom(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getReleaseRoomResponseObject(respE.getReleaseRoomResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ",
-                    AdapterUtility.convertToStreamXML(response));
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processReleaseRoom ",
-                    e.getMessage());
-        }
+        response = getReleaseRoomResponseObject(respE.getReleaseRoomResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processReleaseRoom ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
 
     }
 
-    public UpdateBookingResponse processUpdateBooking(UpdateBookingRequest updateBookingRequest) {
+    public UpdateBookingResponse processUpdateBooking(UpdateBookingRequest updateBookingRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processUpdateBooking ", " Enter in processUpdateBooking method ");
 
@@ -170,22 +148,15 @@ public class OWSReservationProcessor {
 
         UpdateBookingResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ReservationServiceStub.ModifyBookingResponseE respE = rstub.modifyBooking(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ReservationServiceStub.ModifyBookingResponseE respE = rstub.modifyBooking(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getUpdateBookingResponseObject(respE.getModifyBookingResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
-                    AdapterUtility.convertToStreamXML(response));
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processUpdateBooking ",
-                    e.getMessage());
-        }
+        response = getUpdateBookingResponseObject(respE.getModifyBookingResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processUpdateBooking ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
 
@@ -377,7 +348,7 @@ public class OWSReservationProcessor {
     }
 
 
-    private ReservationServiceStub.AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest) {
+    private ReservationServiceStub.AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.AssignRoomRequest assignRoomRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getAssignRoomRequestObject ", " Enter getAssignRoomRequestObject method ");
 
@@ -420,7 +391,7 @@ public class OWSReservationProcessor {
         return objHotelReference;
     }
 
-    public SearchReservationResponse processSearchReservationData(SearchReservationRequest searchReservationRequest) {
+    public SearchReservationResponse processSearchReservationData(SearchReservationRequest searchReservationRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ", " Enter in processSearchReservationData method. ");
 
@@ -439,23 +410,15 @@ public class OWSReservationProcessor {
 
         SearchReservationResponse response = null;
 
-        try {
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ReservationServiceStub.FutureBookingSummaryResponseE respE = rstub.futureBookingSummary(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ",
+                AdapterUtility.convertToStreamXML(reqE));
+        ReservationServiceStub.FutureBookingSummaryResponseE respE = rstub.futureBookingSummary(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            response = getFutureBookingResponseObject(respE.getFutureBookingSummaryResponse());
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "processSearchReservationData ",
-                    e.getMessage());
-        }
+        response = getFutureBookingResponseObject(respE.getFutureBookingSummaryResponse());
+        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processSearchReservationData ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
     }

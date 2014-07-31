@@ -23,7 +23,7 @@ public class OWSNameProcessor {
 
     final static String URL_NAME = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Name.asmx";
 
-    public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) {
+    public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, " processGuestCardList ", " Enter processGuestCardList method ");
         GuestMembershipResponse response = new GuestMembershipResponse();
@@ -44,64 +44,55 @@ public class OWSNameProcessor {
 
         NameServiceStub.OGHeaderE ogh = getHeaderE();
 
-        try {
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            NameServiceStub.FetchGuestCardListResponseE respE = nameServiceStub.fetchGuestCardList(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
+                AdapterUtility.convertToStreamXML(reqE));
+        NameServiceStub.FetchGuestCardListResponseE respE = nameServiceStub.fetchGuestCardList(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            NameServiceStub.FetchGuestCardListResponse objResponse = respE.getFetchGuestCardListResponse();
-            response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-            if (objResponse.getResult().getResultStatusFlag() == NameServiceStub.ResultStatusFlag.FAIL) {
-                String errorMessage = getErrorMessage(objResponse.getResult());
-                response.setErrorMessage(errorMessage);
-                MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ", errorMessage);
-                return response;
-            }
-
-            ArrayList<Membership> memberships = new ArrayList<Membership>();
-            if (objResponse.getGuestCardList() != null && objResponse.getGuestCardList().getNameMembership() != null) {
-                for (NameServiceStub.NameMembership nameMembership : objResponse.getGuestCardList().getNameMembership()) {
-
-                    Membership membership = new Membership();
-                    memberships.add(membership);
-
-                    membership.setMembershipNumber(nameMembership.getMembershipNumber());
-                    membership.setMembershipType(nameMembership.getMembershipType());
-                    membership.setMemberName(nameMembership.getMemberName());
-                    membership.setMembershipLevel(nameMembership.getMembershipLevel());
-                    membership.setPointsLabel(nameMembership.getPointsLabel());
-                    membership.setExternalId(nameMembership.getExternalId());
-                    membership.setCurrentPoints(nameMembership.getCurrentPoints());
-                    membership.setEffectiveDate(nameMembership.getEffectiveDate());
-                    membership.setExpirationDate(nameMembership.getExpirationDate());
-                    membership.setExternalId(nameMembership.getExternalId());
-                    membership.setOperaId(Long.toString(nameMembership.getOperaId()));
-
-
-                }
-            }
-            if (!memberships.isEmpty()) {
-                response.setMembershipList(memberships);
-            }
-
-
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSNameProcessor.class, "processNameLookup ",
-                    e.getMessage());
+        NameServiceStub.FetchGuestCardListResponse objResponse = respE.getFetchGuestCardListResponse();
+        response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
+        if (objResponse.getResult().getResultStatusFlag() == NameServiceStub.ResultStatusFlag.FAIL) {
+            String errorMessage = getErrorMessage(objResponse.getResult());
+            response.setErrorMessage(errorMessage);
+            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ", errorMessage);
+            return response;
         }
 
+        ArrayList<Membership> memberships = new ArrayList<Membership>();
+        if (objResponse.getGuestCardList() != null && objResponse.getGuestCardList().getNameMembership() != null) {
+            for (NameServiceStub.NameMembership nameMembership : objResponse.getGuestCardList().getNameMembership()) {
+
+                Membership membership = new Membership();
+                memberships.add(membership);
+
+                membership.setMembershipNumber(nameMembership.getMembershipNumber());
+                membership.setMembershipType(nameMembership.getMembershipType());
+                membership.setMemberName(nameMembership.getMemberName());
+                membership.setMembershipLevel(nameMembership.getMembershipLevel());
+                membership.setPointsLabel(nameMembership.getPointsLabel());
+                membership.setExternalId(nameMembership.getExternalId());
+                membership.setCurrentPoints(nameMembership.getCurrentPoints());
+                membership.setEffectiveDate(nameMembership.getEffectiveDate());
+                membership.setExpirationDate(nameMembership.getExpirationDate());
+                membership.setExternalId(nameMembership.getExternalId());
+                membership.setOperaId(Long.toString(nameMembership.getOperaId()));
+
+
+            }
+        }
+        if (!memberships.isEmpty()) {
+            response.setMembershipList(memberships);
+        }
+
+
+        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
     }
 
-    public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) {
+    public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
 
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, " processNameLookupByMembership ", " Enter processNameLookupByMembership method ");
         NameIdByMembershipResponse response = new NameIdByMembershipResponse();
@@ -128,45 +119,36 @@ public class OWSNameProcessor {
 
         NameServiceStub.OGHeaderE ogh = getHeaderE();
 
-        try {
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            NameServiceStub.NameLookupResponseE respE = nameServiceStub.nameLookup(reqE, ogh);
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                    AdapterUtility.convertToStreamXML(respE));
+        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
+                AdapterUtility.convertToStreamXML(reqE));
+        NameServiceStub.NameLookupResponseE respE = nameServiceStub.nameLookup(reqE, ogh);
+        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
+                AdapterUtility.convertToStreamXML(respE));
 
-            NameServiceStub.NameLookupResponse objResponse = respE.getNameLookupResponse();
-            response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-            if (objResponse.getResult().getResultStatusFlag() == NameServiceStub.ResultStatusFlag.FAIL) {
-                String errorMessage = getErrorMessage(objResponse.getResult());
-                response.setErrorMessage(errorMessage);
-                MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ", errorMessage);
-                return response;
-            }
+        NameServiceStub.NameLookupResponse objResponse = respE.getNameLookupResponse();
+        response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
+        if (objResponse.getResult().getResultStatusFlag() == NameServiceStub.ResultStatusFlag.FAIL) {
+            String errorMessage = getErrorMessage(objResponse.getResult());
+            response.setErrorMessage(errorMessage);
+            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ", errorMessage);
+            return response;
+        }
 
-            NameServiceStub.ArrayOfProfile profiles = objResponse.getProfiles();
-            if (profiles.getProfile().length > 0) {
-                NameServiceStub.Profile profile = profiles.getProfile()[0];
-                if (profile.getProfileIDs() != null && profile.getProfileIDs().getUniqueID() != null) {
-                    for (com.micros.ows.name.NameServiceStub.UniqueID uniqueID : profile.getProfileIDs().getUniqueID()) {
-                        if (uniqueID.getType() == NameServiceStub.UniqueIDType.INTERNAL) {
-                            response.setNameId(uniqueID.getString());
-                            break;
-                        }
+        NameServiceStub.ArrayOfProfile profiles = objResponse.getProfiles();
+        if (profiles.getProfile().length > 0) {
+            NameServiceStub.Profile profile = profiles.getProfile()[0];
+            if (profile.getProfileIDs() != null && profile.getProfileIDs().getUniqueID() != null) {
+                for (com.micros.ows.name.NameServiceStub.UniqueID uniqueID : profile.getProfileIDs().getUniqueID()) {
+                    if (uniqueID.getType() == NameServiceStub.UniqueIDType.INTERNAL) {
+                        response.setNameId(uniqueID.getString());
+                        break;
                     }
                 }
             }
-
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                    AdapterUtility.convertToStreamXML(response));
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            MicrosPMSLogger.logError(OWSNameProcessor.class, "processNameLookup ",
-                    e.getMessage());
         }
 
+        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
+                AdapterUtility.convertToStreamXML(response));
 
         return response;
     }

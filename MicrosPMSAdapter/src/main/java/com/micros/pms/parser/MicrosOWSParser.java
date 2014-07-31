@@ -1,155 +1,171 @@
 package com.micros.pms.parser;
 
 import com.cloudkey.commons.Membership;
-import com.micros.ows.membership.MembershipServiceStub;
-import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
+import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.*;
 import com.cloudkey.pms.response.*;
+import com.micros.pms.constant.IMicrosConstants;
+import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.processor.*;
 import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.ArrayList;
+import java.rmi.RemoteException;
 import java.util.List;
-
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
-
 public class MicrosOWSParser implements IParserInterface {
     @Override
-    public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) {
-
-        GetFolioResponse response;
+    public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
-        response = new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
 
-        return response;
+        try {
+            return new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) {
-        ReleaseRoomResponse response;
-
+    public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " releaseRoom ", " Enter releaseRoom method. ");
-        response = new OWSReservationProcessor().processReleaseRoom(releaseRoomRequest);
 
-        return response;
+        try {
+            return new OWSReservationProcessor().processReleaseRoom(releaseRoomRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) {
-        CheckInResponse response;
-
+    public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckIn ", " Enter guestCheckIn method. ");
-        response = new OWSResvAdvancedProcessor().processCheckIn(checkInRequest);
 
-        return response;
+        try {
+            return new OWSResvAdvancedProcessor().processCheckIn(checkInRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) {
-        AssignRoomResponse response;
-
+    public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " assignRoom ", " Enter assignRoom method. ");
-        response = new OWSReservationProcessor().processAssignRoom(assignRoomRequest);
 
-        return response;
+        try {
+            return new OWSReservationProcessor().processAssignRoom(assignRoomRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) {
-        CheckOutResponse response;
-
+    public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckOut ", " Enter guestCheckOut method. ");
-        response = new OWSResvAdvancedProcessor().processCheckOut(checkOutRequest);
 
-        return response;
+        try {
+            return new OWSResvAdvancedProcessor().processCheckOut(checkOutRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) {
-
-        UpdateBookingResponse response;
-
+    public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " updateBooking ", " Enter updateBooking method. ");
-        response = new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
 
-        return response;
+        try {
+            return new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public MakePaymentResponse makePayment(MakePaymentRequest request) {
+    public MakePaymentResponse makePayment(MakePaymentRequest request) throws PMSInterfaceException {
         // TODO
         throw new NotImplementedException("TODO");
     }
 
     @Override
-    public UpdatePaymentResponse updatePayment(UpdatePaymentRequest updatePaymentRequest) {
+    public UpdatePaymentResponse updatePayment(UpdatePaymentRequest updatePaymentRequest) throws PMSInterfaceException {
         return null;
     }
 
     @Override
-    public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) {
+    public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
 
         GetAvailabilityResponse response;
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " checkAvailability ", " Enter checkAvailability method. ");
-        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+        try {
+            response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
 
         return response;
     }
 
     @Override
-    public SearchReservationResponse searchReservationData(SearchReservationRequest searchReservationRequest) {
+    public SearchReservationResponse searchReservationData(SearchReservationRequest searchReservationRequest) throws PMSInterfaceException {
 
         SearchReservationResponse response;
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " searchReservationData ", " Enter searchReservationData method. ");
-        response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
+        try {
+            response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
 
         return response;
 
     }
 
     @Override
-    public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) {
+    public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) throws PMSInterfaceException  {
         return null;
     }
 
     @Override
-    public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) {
+    public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) throws PMSInterfaceException {
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getMembershipInformation ", " Enter getMembershipInformation method. ");
-        GuestMembershipResponse guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipsRequest);
-        return guestMembershipResponse;
+        try {
+            return new OWSNameProcessor().processGuestCardList(guestMembershipsRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) {
-        NameIdByMembershipResponse response;
+    public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) throws PMSInterfaceException {
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getNameIdInformation ", " Enter getNameIdInformation method. ");
 
-        response = new OWSNameProcessor().processNameLookupByMembership(nameIdByMembershipRequest);
-
-        return response;
+        try {
+            return new OWSNameProcessor().processNameLookupByMembership(nameIdByMembershipRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) {
-        HotelInformationResponse response;
-
+    public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) throws PMSInterfaceException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
-        response = new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
 
-        return response;
+        try {
+            return new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
     }
 
     @Override
-    public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) {
+    public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
         MemberPointsResponse response = new MemberPointsResponse();
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Enter memberPointsQuery method. ");
 
@@ -181,7 +197,12 @@ public class MicrosOWSParser implements IParserInterface {
 
         // Get the membership request
         GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest(nameID);
-        GuestMembershipResponse guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipRequest);
+        GuestMembershipResponse guestMembershipResponse = null;
+        try {
+            guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipRequest);
+        } catch (RemoteException e) {
+            throw new PMSInterfaceException(e);
+        }
         if (guestMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
             response.setStatus(IMicrosConstants.RESPONSE_FAIL);
             response.setErrorMessage(guestMembershipResponse.getErrorMessage());
