@@ -485,29 +485,54 @@ public class OWSReservationProcessor {
         String firstName = searchReservationRequest.getFirstName();
         String lastName = searchReservationRequest.getLastName();
 
+        String memebershipNumber = searchReservationRequest.getMembershipNumber();
+        String membershipType = searchReservationRequest.getMembershipType();
+        String hotelCode = searchReservationRequest.getHotelCode();
+
+        String extRefLegNumber = searchReservationRequest.getExtRefLegNumber();
+        String extReferenceNumber = searchReservationRequest.getExtReferenceNumber();
+        String extReferenceType = searchReservationRequest.getExtReferenceType();
+
         /**
          * Creates an instance of FutureBookingSummaryRequest and populates the
          * data members.
          */
         ReservationServiceStub.FutureBookingSummaryRequest objFutureBookingSummaryRequest = new ReservationServiceStub.FutureBookingSummaryRequest();
         ReservationServiceStub.FetchBookingFilters objBookingFilters = new ReservationServiceStub.FetchBookingFilters();
-        objBookingFilters.setHotelReference(getDefaultHotelReference());
+        objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
+
+        if (hotelCode != null) {
+            objBookingFilters.setHotelReference(getDefaultHotelReference());
+            objBookingFilters.getHotelReference().setHotelCode(hotelCode);
+        }
+
+        if (extReferenceNumber != null && extReferenceType != null) {
+            if (extRefLegNumber == null) {
+                extRefLegNumber = "1";
+            }
+            ReservationServiceStub.ExternalReference ext = new ReservationServiceStub.ExternalReference();
+            ext.setLegNumber(Integer.parseInt(extReferenceNumber));
+            ext.setReferenceNumber(extReferenceNumber);
+            ext.setReferenceType(extReferenceType);
+            objBookingFilters.setExternalSystemNumber(ext);
+        }
 
 		/* Sets confirmation number to the request */
         if (confirmationNumber != null) {
-
             com.micros.ows.reservation.ReservationServiceStub.UniqueID objUniqueID = new com.micros.ows.reservation.ReservationServiceStub.UniqueID();
-
-            objUniqueID.setType(ReservationServiceStub.UniqueIDType.EXTERNAL);
+            objUniqueID.setType(ReservationServiceStub.UniqueIDType.INTERNAL);
             objUniqueID.setString(confirmationNumber);
             objUniqueID.setSource("CONFIRMATION_NO");
-
             objBookingFilters.setConfirmationNumber(objUniqueID);
-
-            objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
         }
 
-		/* Set the credit card number . */
+        if (membershipType != null && memebershipNumber != null) {
+            ReservationServiceStub.Membership membership = new ReservationServiceStub.Membership();
+            membership.setMembershipNumber(memebershipNumber);
+            membership.setMembershipType(membershipType);
+            objBookingFilters.setMembership(membership);
+        }
+        /* Set the credit card number . */
         if (creditCardNumber != null) {
 
             final ReservationServiceStub.FutureBookingSummaryRequestChoice_type1 objFuChoice_type01 = new ReservationServiceStub.FutureBookingSummaryRequestChoice_type1();
@@ -621,10 +646,12 @@ public class OWSReservationProcessor {
                         objUniqueID.getSource() != null &&
                         objUniqueID.getSource().equalsIgnoreCase("RESVID")) {
 
-                    objReservation.setConfirmationNumber(objUniqueID.getString());
                     objReservation.setPmsId(objUniqueID.getString());
 
                     MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getFutureBookingResponseObject ", " Confirmation Number is set.");
+                } else if (objUniqueID.getType().toString().equalsIgnoreCase("INTERNAL") &&
+                        objUniqueID.getSource() == null ) {
+                    objReservation.setConfirmationNumber(objUniqueID.getString());
                 } else {
 
                     MicrosPMSLogger.logInfo(OWSReservationProcessor.class, " getFutureBookingResponseObject ", " Confirmation Number is not set.");
