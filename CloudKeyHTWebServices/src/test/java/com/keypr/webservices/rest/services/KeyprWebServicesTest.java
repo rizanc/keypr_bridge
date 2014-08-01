@@ -3,7 +3,9 @@
 //import com.cloudkey.commons.Reservation;
 //import com.cloudkey.commons.TimeOutError;
 //import com.cloudkey.pms.request.*;
+//import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 //import com.cloudkey.pms.response.*;
+//import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 //import com.keypr.webservices.rest.constants.IWebServiceConstants;
 //import com.keypr.web.logger.WebAppLogger;
 //import org.junit.Ignore;
@@ -43,9 +45,8 @@
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
 //
-//		objSearchReservationRequest = new SearchReservationRequest();
 //		// For a given confirmation number, we will have only one reservation response
-//		objSearchReservationRequest.setConfirmationNumber("2");
+//		objSearchReservationRequest = new SearchReservationRequest("2", null, null, null);
 //
 //		objSearchReservationResponse = makeSearchReservationRequest(objSearchReservationRequest);
 //
@@ -87,10 +88,7 @@
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
 //
-//		objSearchReservationRequest = new SearchReservationRequest();
-//		objSearchReservationRequest.setFirstName( "robin" );
-//		objSearchReservationRequest.setLastName( "Smith" );
-//		objSearchReservationRequest.setCreditCardNumber( "1234-1234-1234-1234");
+//		objSearchReservationRequest = new SearchReservationRequest(null, "robin", "Smith", "1234-1234-1234-1234");
 //
 //		objSearchReservationResponse = makeSearchReservationRequest(objSearchReservationRequest);
 //
@@ -130,7 +128,7 @@
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
 //
-//		objSearchReservationRequest = new SearchReservationRequest();
+//		objSearchReservationRequest = new SearchReservationRequest(null, null, null, null);
 //
 //		objSearchReservationResponse = makeSearchReservationRequest(objSearchReservationRequest);
 //
@@ -160,8 +158,7 @@
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		TimeOutError objTimeOutError = null;
 //
-//		objSearchReservationRequest = new SearchReservationRequest();
-//		objSearchReservationRequest.setConfirmationNumber( "200");
+//		objSearchReservationRequest = new SearchReservationRequest("200", null, null, null);
 //
 //		Entity<SearchReservationRequest> entity = Entity.json(objSearchReservationRequest);
 //

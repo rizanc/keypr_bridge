@@ -43,7 +43,8 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
 
     @Override
     public void run(WebServicesConfiguration config, Environment environment) throws Exception {
-
+	    // Setup a CrossOrigin filter, to allow cross-origin requests.
+	    // Swagger cannot call the API without this
 	    FilterRegistration.Dynamic filter = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 	    filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 	    filter.setInitParameter("allowedOrigins", "*");
