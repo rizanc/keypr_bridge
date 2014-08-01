@@ -7,21 +7,21 @@ package com.micros.ows.constants;
  */
 public interface IMicrosOWSConstants {
 
-	String CHECKIN_REQUEST = "com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckInRequest";
-	String CHECKOUT_REQUEST = "com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckOutRequest";
+	String CHECKIN_REQUEST = "com.micros.ows.resvadvanced.ResvAdvancedServiceStub_-CheckInRequest";
+	String CHECKOUT_REQUEST = "com.micros.ows.resvadvanced.ResvAdvancedServiceStub_-CheckOutRequest";
 	
-	String GETFOLIO_REQUEST = "com.micros.adv.reservation.ResvAdvancedServiceStub_-Invoice";
+	String GETFOLIO_REQUEST = "com.micros.ows.resvadvanced.ResvAdvancedServiceStub_-Invoice";
 	String ASSIGN_ROOM_REQUEST = "com.micros.reservation.ReservationServiceStub_-AssignRoomRequest";
 	
-	String FETCH_ROOM_STATUS_REQUEST ="com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusRequest";
+	String FETCH_ROOM_STATUS_REQUEST ="com.micros.ows.resvadvanced.ResvAdvancedServiceStub_-FetchRoomStatusRequest";
 	String FUTURE_BOOKING_SUMMARY_REQUEST = "com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryRequest";
 	
 	String MODIFY_BOOKING_REQUEST = "com.micros.reservation.ReservationServiceStub_-ModifyBookingRequest";
-	String FETCH_CALENDAR_REQUEST = "com.micros.availability.AvailabilityServiceStub_-FetchCalendarRequest";
+	String FETCH_CALENDAR_REQUEST = "com.micros.ows.availability.AvailabilityServiceStub_-FetchCalendarRequest";
 	
 	String RELEASE_ROOM_REQUEST = "com.micros.reservation.ReservationServiceStub_-ReleaseRoomRequest";
 
-	String HOTEL_INFORMATION_REQUEST = "com.micros.information.InformationServiceStub_-HotelInformationRequest";
+	String HOTEL_INFORMATION_REQUEST = "com.micros.ows.information.InformationStub_-HotelInformationRequest";
 	
 	String MEETING_ROOM_REQUEST = "com.micros.meeting.MeetingRoomServiceStub_-MeetingAvailabilityRequest";
 	

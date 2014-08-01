@@ -1,25 +1,13 @@
 package com.micros.harvester.communicator;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
-/*import com.micros.adv.reservation.ResvAdvancedServiceStub;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.Authentication_type0;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.EndPoint;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusRequest;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeader;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.OGHeaderE;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.UserCredentials_type0;*/
-import com.micros.availability.AvailabilityServiceStub;
-import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
-import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
-import com.micros.availability.AvailabilityServiceStub.TimeSpan;
+import com.cloudkey.pms.micros.og.core.EndPoint;
+import com.cloudkey.pms.micros.og.core.OGHeader;
+import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
+import com.cloudkey.pms.micros.og.hotelcommon.TimeSpanChoice_type0;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
+import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
 import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
@@ -28,6 +16,14 @@ import com.micros.harvester.util.HarvesterConfigurationReader;
 import com.micros.pms.transport.MicrosMessageTransport;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class will make request to the property management system to
@@ -252,11 +248,11 @@ public class OWSDataCollector {
 		boolean isProcced = false;
 
 		MicrosMessageTransport objMicrosMessageTransport = null;
-		FetchCalendarRequest  objFetchCalendarRequest = null;
+		FetchCalendarRequest objFetchCalendarRequest = null;
 		MicrosDAOImpl objMicrosDAOImpl = null;
 
 		AvailabilityServiceStub objAvailabilityServiceStub = null;
-		com.micros.availability.AvailabilityServiceStub.OGHeader objOGHeader = null;
+		OGHeader objOGHeader = null;
 
 		try {
 
@@ -271,16 +267,16 @@ public class OWSDataCollector {
 			objFetchCalendarRequest.setRestrictedMode( false );
 
 			// prepares the header of soap message.
-			objOGHeader = new com.micros.availability.AvailabilityServiceStub.OGHeader();
+			objOGHeader = new OGHeader();
 			objOGHeader.setTransactionID(UUID.randomUUID().toString() );
 			objOGHeader.setTimeStamp( DataUtility.getCalender());
 
 			//prepares origin and destination of the message
-			com.micros.availability.AvailabilityServiceStub.EndPoint originEndPoint = new com.micros.availability.AvailabilityServiceStub.EndPoint();
+			EndPoint originEndPoint = new EndPoint();
 			originEndPoint.setEntityID( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORIGIN_ID) );
 			originEndPoint.setSystemType( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
 
-			com.micros.availability.AvailabilityServiceStub.EndPoint destEndPoint = new com.micros.availability.AvailabilityServiceStub.EndPoint();
+			EndPoint destEndPoint = new EndPoint();
 			destEndPoint.setEntityID( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_DESTINATION_ID) );
 			destEndPoint.setSystemType( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
 
@@ -289,9 +285,9 @@ public class OWSDataCollector {
 			objOGHeader.setDestination(destEndPoint);
 
 			// prepares FetchCalendar request
-			com.micros.availability.AvailabilityServiceStub.HotelReference objHotelReference = null;
+			HotelReference objHotelReference = null;
 
-			objHotelReference = new com.micros.availability.AvailabilityServiceStub.HotelReference();
+			objHotelReference = new HotelReference();
 			objHotelReference.setHotelCode( HarvesterConfigurationReader.getProperty(IMicrosHarvester.HOTEL_CODE));
 			objHotelReference.setChainCode( HarvesterConfigurationReader.getProperty( IMicrosHarvester.CHAIN_CODE) );
 
@@ -306,7 +302,7 @@ public class OWSDataCollector {
 			updatedCal.setTime(updatedDate);
 
 			objTimeSpan.setStartDate( currentCalendar );
-			com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0  objTimeSpanAvail = new com.micros.availability.AvailabilityServiceStub.TimeSpanChoice_type0();
+			TimeSpanChoice_type0 objTimeSpanAvail = new TimeSpanChoice_type0();
 			objTimeSpanAvail.setEndDate( updatedCal );
 			objTimeSpan.setTimeSpanChoice_type0(objTimeSpanAvail);
 			objFetchCalendarRequest.setStayDateRange(objTimeSpan);
@@ -323,8 +319,7 @@ public class OWSDataCollector {
 			XStream xstream = null;
 			xstream = new XStream( new DomDriver());
 
-			FetchCalendarResponse objFuture = new FetchCalendarResponse();
-			objFuture =(FetchCalendarResponse)xstream.fromXML( pmsResponse );
+			FetchCalendarResponse objFuture = (FetchCalendarResponse) xstream.fromXML( pmsResponse );
 
 			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Xml Response Received " + pmsResponse );
 

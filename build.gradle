@@ -12,10 +12,6 @@ subprojects {
         mavenCentral()
     }
 
-    ext {
-        micros_services = fileTree(dir: "$rootDir/micros_services", include: '*.jar')
-    }
-
     apply from: "$rootDir/dependencies.gradle", to: dependencies
 
     // javax.servlet is provided by org.eclipse.jetty.orbit:javax.servlet, which dropwizard includes

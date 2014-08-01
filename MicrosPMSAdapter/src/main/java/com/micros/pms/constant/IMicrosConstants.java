@@ -29,30 +29,9 @@ public interface IMicrosConstants {
 
     String OWS_URL_ROOT = "com.micros.ows.url";
 
-	String RESPOSNE_CHECK_IN = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckInResponse> ";
-	String RESPONSE_CHECK_OUT = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-CheckOutResponse>";
-
-	String RESPONSE_FUTURE_BOOKING = "<com.micros.reservation.ReservationServiceStub_-FutureBookingSummaryResponse> ";
-	String RESPONSE_FETCH_ROOM_STATUS_RESPONSE = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-FetchRoomStatusResponse>";
-
-	String RESPONSE_FETCH_CALENDAR = "<com.micros.availability.AvailabilityServiceStub_-FetchCalendarResponse> ";
-	String RESPONSE_INVOICE = "<com.micros.adv.reservation.ResvAdvancedServiceStub_-InvoiceResponse>";
-
-	String RESPONSE_MODIFY_BOOKING = "<com.micros.reservation.ReservationServiceStub_-ModifyBookingResponse>";
-	String RESPONSE_RELEASE_ROOM = "<com.micros.reservation.ReservationServiceStub_-ReleaseRoomResponse>";
-
-
-	String RESPONSE_GUEST_MEMBERSHIP = "<com.micros.membership.MembershipServiceStub_-FetchMembershipsResponse>";
-
 	String RESPONSE_SERVER_NOT_FOUND = "The requested resource is not available" ;
 
 	String EXCEPTION_MESSAGE = "Property Mangaement System is Down! ";
-
-	String RESPONSE_HOTEL_INFORMATION = "com.micros.information.InformationServiceStub_-HotelInformationResponse ";
-	String RESPONSE_MEMBER_POINTS = "<com.micros.membership.MembershipServiceStub_-FetchMemberPointsResponse>";
-
-	String RESPONSE_NAME_ID = "<com.micros.name.NameServiceStub_-FetchNameIdByMembershipResponse>" ;   
-	String RESPONSE_MEETING_ROOM = "</com.micros.meeting.MeetingRoomServiceStub_-MeetingAvailabilityResponse> ";
 
 	String MEETING_HOTEL_CODE = "meeting.hotel.code";
 

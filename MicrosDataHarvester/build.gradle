@@ -12,4 +12,5 @@ dependencies {
     compile jaxb_api
     compile jaxb_impl
     compile jaxb_xjc
+    compile xstream
 }

@@ -5,6 +5,6 @@ dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
     compile project(':MicrosPMSAdapter')
-    compile micros_services
+    compile project(':MicrosOWSServices')
     compile junit
 }

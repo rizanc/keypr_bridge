@@ -11,5 +11,4 @@ dependencies {
     compile axis2_kernel
     compile commons_lang
     compile xstream
-    compile micros_services
 }

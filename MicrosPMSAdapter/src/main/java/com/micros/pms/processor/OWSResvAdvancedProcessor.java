@@ -4,18 +4,24 @@ import com.cloudkey.commons.OrderDetails;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.ReservationRoomAllocation;
-import com.cloudkey.pms.request.reservations.CheckInRequest;
-import com.cloudkey.pms.request.reservations.CheckOutRequest;
+import com.cloudkey.pms.micros.og.common.*;
+import com.cloudkey.pms.micros.og.core.*;
+import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.og.name.NameCreditCard;
+import com.cloudkey.pms.micros.og.name.NameCreditCardList;
+import com.cloudkey.pms.micros.og.name.Profile;
+import com.cloudkey.pms.micros.og.reservation.BillHeader;
+import com.cloudkey.pms.micros.og.reservation.BillItem;
+import com.cloudkey.pms.micros.og.reservation.advanced.*;
+import com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponse;
+import com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse;
+import com.cloudkey.pms.micros.og.reservation.advanced.PostChargeResponse;
+import com.cloudkey.pms.micros.services.ResvAdvancedServiceStub;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
-import com.cloudkey.pms.request.reservations.PostChargeRequest;
-import com.cloudkey.pms.response.PostChargeResponse;
-import com.cloudkey.pms.response.reservations.CheckInResponse;
-import com.cloudkey.pms.response.reservations.CheckOutResponse;
-import com.cloudkey.pms.response.reservations.GetFolioResponse;
-import com.micros.ows.resvadvanced.ResvAdvancedServiceStub;
+import com.cloudkey.pms.response.reservations.*;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.parser.MicrosPMSMessageParser;
+import com.micros.pms.parser.MicrosOWSParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
@@ -33,35 +39,30 @@ public class OWSResvAdvancedProcessor {
 
     final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
 
-    public PostChargeResponse postCharge(PostChargeRequest postChargeRequest) {
+    public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest postChargeRequest) {
 
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " postCharge ", " Enter in postCharge method.");
 
-        ResvAdvancedServiceStub.PostChargeResponse objResponse = null;
+        PostChargeResponse objResponse = null;
 
-        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
-        ResvAdvancedServiceStub.PostChargeRequest req = getPostChargeRequestObject(postChargeRequest);
+        PostChargeRequest req = getPostChargeRequestObject(postChargeRequest);
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
 
-        ResvAdvancedServiceStub.PostChargeRequestE reqE = new
-                ResvAdvancedServiceStub.PostChargeRequestE();
-        reqE.setPostChargeRequest(req);
-
-        PostChargeResponse response = null;
+	    com.cloudkey.pms.response.reservations.PostChargeResponse response = null;
 
         try {
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
-                    AdapterUtility.convertToStreamXML(reqE));
-            ResvAdvancedServiceStub.PostChargeResponseE respE = rstub.postCharge(reqE, ogh);
+                    AdapterUtility.convertToStreamXML(req));
+            PostChargeResponse resp = rstub.postCharge(req, ogh);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
-                    AdapterUtility.convertToStreamXML(respE));
+                    AdapterUtility.convertToStreamXML(resp));
 
-            response = getPostChargeResponseObject(respE.getPostChargeResponse());
+            response = getPostChargeResponseObject(resp);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
                     AdapterUtility.convertToStreamXML(response));
-
 
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -69,16 +70,15 @@ public class OWSResvAdvancedProcessor {
                     e.getMessage());
         }
 
-
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " postCharge ", " Exit postCharge method ");
 
         return response;
     }
 
-    private ResvAdvancedServiceStub.PostChargeRequest getPostChargeRequestObject(PostChargeRequest postChargeRequest) {
-        ResvAdvancedServiceStub.PostChargeRequest objPostChargeRequest = new ResvAdvancedServiceStub.PostChargeRequest();
+    private PostChargeRequest getPostChargeRequestObject(com.cloudkey.pms.request.reservations.PostChargeRequest postChargeRequest) {
+        PostChargeRequest objPostChargeRequest = new PostChargeRequest();
 
-        ResvAdvancedServiceStub.Posting posting = new ResvAdvancedServiceStub.Posting();
+        Posting posting = new Posting();
         objPostChargeRequest.setPosting(posting);
 
         posting.setCharge(postChargeRequest.getChargeAmount());
@@ -89,16 +89,16 @@ public class OWSResvAdvancedProcessor {
         posting.setStationID(postChargeRequest.getStationId());
         posting.setUserID(postChargeRequest.getUserId());
 
-        ResvAdvancedServiceStub.ReservationRequestBase reservationRequestBase = new ResvAdvancedServiceStub.ReservationRequestBase();
+        ReservationRequestBase reservationRequestBase = new ReservationRequestBase();
         reservationRequestBase.setHotelReference(getDefaultHotelReference());
         posting.setReservationRequestBase(reservationRequestBase);
 
-        ResvAdvancedServiceStub.ArrayOfUniqueID reservationIDs = new ResvAdvancedServiceStub.ArrayOfUniqueID();
-        ResvAdvancedServiceStub.UniqueID uid = new ResvAdvancedServiceStub.UniqueID();
+        UniqueIDList reservationIDs = new UniqueIDList();
+        UniqueID uid = new UniqueID();
         reservationIDs.addUniqueID(uid);
 
         // TODO: Clarify INTERNAL/EXTERNAL
-        uid.setType(ResvAdvancedServiceStub.UniqueIDType.INTERNAL);
+        uid.setType(UniqueIDType.INTERNAL);
         uid.setString(postChargeRequest.getReservationId());
         reservationRequestBase.setReservationID(reservationIDs);
 
@@ -107,12 +107,12 @@ public class OWSResvAdvancedProcessor {
         return objPostChargeRequest;
     }
 
-    private PostChargeResponse getPostChargeResponseObject(ResvAdvancedServiceStub.PostChargeResponse postChargeResponse) {
+    private com.cloudkey.pms.response.reservations.PostChargeResponse getPostChargeResponseObject(PostChargeResponse postChargeResponse) {
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getPostChargeResponseObject ", " Enter in getPostChargeResponseObject method ");
 
-        PostChargeResponse objFolioResponse = new PostChargeResponse();
+	    com.cloudkey.pms.response.reservations.PostChargeResponse objFolioResponse = new com.cloudkey.pms.response.reservations.PostChargeResponse();
         objFolioResponse.setStatus(postChargeResponse.getResult().getResultStatusFlag().toString());
-        if (postChargeResponse.getResult().getResultStatusFlag() == ResvAdvancedServiceStub.ResultStatusFlag.FAIL) {
+        if (postChargeResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String message = getErrorMessage(postChargeResponse.getResult());
             objFolioResponse.setErrorMessage(message);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getPostChargeResponseObject ", " Get Folio Failed:" + message);
@@ -121,42 +121,38 @@ public class OWSResvAdvancedProcessor {
         return objFolioResponse;
     }
 
-    public GetFolioResponse processRetrieveFolioInfo(GetFolioRequest folioRequest) throws RemoteException {
+    public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest folioRequest) throws RemoteException {
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processRetrieveFolioInfo ", " Enter in processRetrieveFolioInfo method.");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processRetrieveFolioInfo ", " Enter in processRetrieveFolioInfo method.");
 
-        ResvAdvancedServiceStub.InvoiceResponse objResponse = null;
+        InvoiceResponse objResponse = null;
 
-        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
-        ResvAdvancedServiceStub.InvoiceRequest req = getFolioRequestObject(folioRequest);
+        InvoiceRequest req = getFolioRequestObject(folioRequest);
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
-
-        ResvAdvancedServiceStub.InvoiceRequestE reqE = new
-                ResvAdvancedServiceStub.InvoiceRequestE();
-        reqE.setInvoiceRequest(req);
 
         GetFolioResponse response = null;
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
-                AdapterUtility.convertToStreamXML(reqE));
-        ResvAdvancedServiceStub.InvoiceResponseE respE = rstub.invoice(reqE, ogh);
+                AdapterUtility.convertToStreamXML(req));
+        InvoiceResponse resp = rstub.invoice(req, ogh);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
-                AdapterUtility.convertToStreamXML(respE));
+                AdapterUtility.convertToStreamXML(resp));
 
-        response = getFolioResponseObject(respE.getInvoiceResponse());
+        response = getFolioResponseObject(resp);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
                 AdapterUtility.convertToStreamXML(response));
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " processRetrieveFolioInfo ", " Exit processRetrieveFolioInfo method ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processRetrieveFolioInfo ", " Exit processRetrieveFolioInfo method ");
 
         return response;
     }
 
-    private GetFolioResponse getFolioResponseObject(ResvAdvancedServiceStub.InvoiceResponse objResponse) {
+    private GetFolioResponse getFolioResponseObject(InvoiceResponse objResponse) {
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioResponseObject ", " Enter in getFolioResponseObject method ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Enter in getFolioResponseObject method ");
 
         GetFolioResponse objFolioResponse = new GetFolioResponse();
         objFolioResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
@@ -182,12 +178,12 @@ public class OWSResvAdvancedProcessor {
 
         // set confirmation number.
 
-        ResvAdvancedServiceStub.BillHeader[] arrBillHeader = objResponse.getInvoice();
+        BillHeader[] arrBillHeader = objResponse.getInvoice();
 
         if (arrBillHeader != null) {
-            for (ResvAdvancedServiceStub.BillHeader objBillHeader : arrBillHeader) { // Traversing Bill Header
+            for (BillHeader objBillHeader : arrBillHeader) { // Traversing Bill Header
 
-                MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioResponseObject ", " Enter to traverse Bill Header ");
+                MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Enter to traverse Bill Header ");
 
                 addressType = objBillHeader.getAddress().getAddressType();
                 countryCode = objBillHeader.getAddress().getCountryCode();
@@ -218,12 +214,12 @@ public class OWSResvAdvancedProcessor {
                     objDetails = new ArrayList<OrderDetails>();
                 }
 
-                ResvAdvancedServiceStub.BillItem[] arrBillItem = objBillHeader.getBillItems();
+                BillItem[] arrBillItem = objBillHeader.getBillItems();
 
                 if (arrBillItem != null) {
                     for (int i = IMicrosConstants.COUNT_ZERO; i < arrBillItem.length; i++) { // Traversing bill Items.
 
-                        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioResponseObject ", " Enter to traverse Bill Items ");
+                        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Enter to traverse Bill Items ");
                         OrderDetails objOrderDetails = new OrderDetails();
 
                         unitPrice = arrBillItem[i].getAmount().get_double();
@@ -233,7 +229,7 @@ public class OWSResvAdvancedProcessor {
                         objOrderDetails.setItemDescription(description);
                         objDetails.add(objOrderDetails);
 
-                        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioResponseObject ", " Exit to traverse Bill Items ");
+                        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Exit to traverse Bill Items ");
 
                     } // End bill items traversing loop.
                 }
@@ -252,47 +248,47 @@ public class OWSResvAdvancedProcessor {
                 //************************************
                 // set confirmation number.
 /*
-                ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = objBillHeader.getProfileIDs();
-                ResvAdvancedServiceStub.UniqueID arrUniqueID[] = objUniqueIDList.getUniqueID();
-                for (ResvAdvancedServiceStub.UniqueID uniqueID : arrUniqueID) {
+                UniqueIDList objUniqueIDList = objBillHeader.getProfileIDs();
+                UniqueID arrUniqueID[] = objUniqueIDList.getUniqueID();
+                for (UniqueID uniqueID : arrUniqueID) {
 
                     String confirmationNumber = uniqueID.getString();
                     objReservation.setConfirmationNumber(confirmationNumber);
                     objReservation.setPmsId(confirmationNumber);
                 }
 */
-                MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioResponseObject ", " Exit to traverse Bill Header ");
+                MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Exit to traverse Bill Header ");
 
             } // End Bill Header loop.
         }
 
         objFolioResponse.setReservation(objReservation);
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioResponseObject ", " Exit  getFolioResponseObject method ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Exit  getFolioResponseObject method ");
 
         return objFolioResponse;
     }
 
-    private ResvAdvancedServiceStub.InvoiceRequest getFolioRequestObject(GetFolioRequest folioRequest) {
+    private InvoiceRequest getFolioRequestObject(GetFolioRequest folioRequest) {
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioRequestObject ", " Enter getFolioRequestObject method ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioRequestObject ", " Enter getFolioRequestObject method ");
 
 		/* To get the request parameters. */
-        ResvAdvancedServiceStub.InvoiceRequest objInvoiceRequest = null;
+        InvoiceRequest objInvoiceRequest = null;
 
         if (folioRequest.getConfirmationNumber() != null) {
 
-            objInvoiceRequest = new ResvAdvancedServiceStub.InvoiceRequest();
+            objInvoiceRequest = new InvoiceRequest();
 
-            ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = new ResvAdvancedServiceStub.ArrayOfUniqueID();
-            ResvAdvancedServiceStub.UniqueID objUId = new ResvAdvancedServiceStub.UniqueID();
+            UniqueIDList objUniqueIDList = new UniqueIDList();
+            UniqueID objUId = new UniqueID();
 
             objUId.setString(folioRequest.getConfirmationNumber());
             //objUId.setSource(IMicrosConstants.CoN);
-            objUId.setType(ResvAdvancedServiceStub.UniqueIDType.INTERNAL);
+            objUId.setType(UniqueIDType.INTERNAL);
             objUniqueIDList.addUniqueID(objUId);
 
-            ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = new ResvAdvancedServiceStub.ReservationRequestBase();
+            ReservationRequestBase objRequestBase = new ReservationRequestBase();
 
             objRequestBase.setReservationID(objUniqueIDList);
             objRequestBase.setHotelReference(getDefaultHotelReference());
@@ -302,37 +298,32 @@ public class OWSResvAdvancedProcessor {
 
         }
 
-        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getFolioRequestObject ", "  Exit getFolioRequestObject method ");
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioRequestObject ", "  Exit getFolioRequestObject method ");
 
         return objInvoiceRequest;
 
     }
 
-
-    public CheckOutResponse processCheckOut(CheckOutRequest request) throws RemoteException {
+    public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ", " Enter in processCheckOut method. ");
 
-        ResvAdvancedServiceStub.CheckOutResponse objResponse = null;
+        CheckOutResponse objResponse = null;
 
-        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
-        ResvAdvancedServiceStub.CheckOutRequest req = getCheckOutRequestObject(request);
+        CheckOutRequest req = getCheckOutRequestObject(request);
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
 
-        ResvAdvancedServiceStub.CheckOutRequestE reqE = new
-                ResvAdvancedServiceStub.CheckOutRequestE();
-        reqE.setCheckOutRequest(req);
-
-        CheckOutResponse response = null;
+	    com.cloudkey.pms.response.reservations.CheckOutResponse response = null;
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
-                AdapterUtility.convertToStreamXML(reqE));
-        ResvAdvancedServiceStub.CheckOutResponseE respE = rstub.checkOut(reqE, ogh);
+                AdapterUtility.convertToStreamXML(req));
+        CheckOutResponse resp = rstub.checkOut(req, ogh);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
-                AdapterUtility.convertToStreamXML(respE));
+                AdapterUtility.convertToStreamXML(resp));
 
-        response = getCheckOutResponseObject(respE.getCheckOutResponse());
+        response = getCheckOutResponseObject(resp);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
                 AdapterUtility.convertToStreamXML(response));
 
@@ -340,26 +331,25 @@ public class OWSResvAdvancedProcessor {
 
     }
 
-    private ResvAdvancedServiceStub.CheckOutRequest getCheckOutRequestObject(CheckOutRequest checkOutRequest) {
+    private CheckOutRequest getCheckOutRequestObject(com.cloudkey.pms.request.reservations.CheckOutRequest checkOutRequest) {
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutRequestObject ", " Enter getCheckOutRequestObject method.");
 
         String confirmationNumber = checkOutRequest.getConfirmationNumber();
 
-        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
-        ResvAdvancedServiceStub.CheckOutRequest objCheckOutRequest = new ResvAdvancedServiceStub.CheckOutRequest();
+        OGHeaderE ogh = getHeaderE();
+        CheckOutRequest objCheckOutRequest = new CheckOutRequest();
 
 		/*To set the confirmation number and hotel code into reservation request base*/
 
-        ResvAdvancedServiceStub.ReservationRequestBase objReservationRequestBase = new ResvAdvancedServiceStub.ReservationRequestBase();
+        ReservationRequestBase objReservationRequestBase = new ReservationRequestBase();
         objCheckOutRequest.setReservationRequest(objReservationRequestBase);
 
-        ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = new ResvAdvancedServiceStub.ArrayOfUniqueID();
-        ResvAdvancedServiceStub.UniqueID objUniqueID = new ResvAdvancedServiceStub.UniqueID();
+        UniqueIDList objUniqueIDList = new UniqueIDList();
+        UniqueID objUniqueID = new UniqueID();
         objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
         objUniqueID.setString(confirmationNumber);
-        objUniqueID.setType(ResvAdvancedServiceStub.UniqueIDType.EXTERNAL);
+        objUniqueID.setType(UniqueIDType.EXTERNAL);
         objUniqueIDList.addUniqueID(objUniqueID);
-
 
         objReservationRequestBase.setReservationID(objUniqueIDList);
         objReservationRequestBase.setHotelReference(getDefaultHotelReference());
@@ -369,11 +359,11 @@ public class OWSResvAdvancedProcessor {
         return objCheckOutRequest;
     }
 
-    private CheckOutResponse getCheckOutResponseObject(ResvAdvancedServiceStub.CheckOutResponse checkOutResponse) {
+    private com.cloudkey.pms.response.reservations.CheckOutResponse getCheckOutResponseObject(CheckOutResponse checkOutResponse) {
 
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", " Enter getCheckOutResponseObject method ");
 
-        CheckOutResponse objCheckOutResponse = new CheckOutResponse();
+	    com.cloudkey.pms.response.reservations.CheckOutResponse objCheckOutResponse = new com.cloudkey.pms.response.reservations.CheckOutResponse();
         Reservation objReservation = new Reservation();
 
         String confirmationNumber = null;
@@ -386,7 +376,7 @@ public class OWSResvAdvancedProcessor {
         status = checkOutResponse.getResult().getResultStatusFlag().toString();
         objCheckOutResponse.setStatus(status);
 
-        if (checkOutResponse.getResult().getResultStatusFlag() != ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS) {
+        if (checkOutResponse.getResult().getResultStatusFlag() != ResultStatusFlag.SUCCESS) {
             String message = getErrorMessage(checkOutResponse.getResult());
             objCheckOutResponse.setErrorMessage(message);
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "Could not check out:" + message);
@@ -395,12 +385,12 @@ public class OWSResvAdvancedProcessor {
 
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "  Status Set ");
 
-        ResvAdvancedServiceStub.CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
-        ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = objCheckOutComplete.getReservationID();
-        ResvAdvancedServiceStub.UniqueID[] arrUniqueIDs = objUniqueIDList.getUniqueID();
+        CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
+        UniqueIDList objUniqueIDList = objCheckOutComplete.getReservationID();
+        UniqueID[] arrUniqueIDs = objUniqueIDList.getUniqueID();
 
 		/*To set the confirmation number.*/
-        for (ResvAdvancedServiceStub.UniqueID objUniqueID : arrUniqueIDs) {
+        for (UniqueID objUniqueID : arrUniqueIDs) {
 
             confirmationNumber = objUniqueID.getString();
             objReservation.setConfirmationNumber(confirmationNumber);
@@ -409,9 +399,9 @@ public class OWSResvAdvancedProcessor {
             MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "  confirmation Number is  Set ");
         }
 
-        ResvAdvancedServiceStub.Profile objProfile = checkOutResponse.getProfile();
+        Profile objProfile = checkOutResponse.getProfile();
 
-        ResvAdvancedServiceStub.PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
+        PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
 
         objStringBuffer = new StringBuffer();
 
@@ -448,32 +438,28 @@ public class OWSResvAdvancedProcessor {
     public String getNextAvailableRoom(String roomType) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ", " Enter in processSearchReservationData method. ");
 
-        ResvAdvancedServiceStub.FetchRoomStatusRequest objResponse = null;
+        FetchRoomStatusRequest objResponse = null;
 
-        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
-        ResvAdvancedServiceStub.FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
+        FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
-
-        ResvAdvancedServiceStub.FetchRoomStatusRequestE reqE = new
-                ResvAdvancedServiceStub.FetchRoomStatusRequestE();
-        reqE.setFetchRoomStatusRequest(req);
 
         String nextAvailableRoom = null;
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                AdapterUtility.convertToStreamXML(reqE));
-        ResvAdvancedServiceStub.FetchRoomStatusResponseE respE = rstub.fetchRoomStatus(reqE, ogh);
+                AdapterUtility.convertToStreamXML(req));
+        FetchRoomStatusResponse resp = rstub.fetchRoomStatus(req, ogh);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                AdapterUtility.convertToStreamXML(respE));
+                AdapterUtility.convertToStreamXML(resp));
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
-                AdapterUtility.convertToStreamXML(respE.getFetchRoomStatusResponse()));
+                AdapterUtility.convertToStreamXML(resp));
 
-        if (respE.getFetchRoomStatusResponse().getResult().getResultStatusFlag() == ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS) {
+        if (resp.getResult().getResultStatusFlag() == ResultStatusFlag.SUCCESS) {
 
-            nextAvailableRoom = respE.getFetchRoomStatusResponse().
+            nextAvailableRoom = resp.
                     getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
         }
 
@@ -481,30 +467,26 @@ public class OWSResvAdvancedProcessor {
 
     }
 
-    public CheckInResponse processCheckIn(CheckInRequest request) throws RemoteException {
+    public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ", " Enter in processSearchReservationData method. ");
 
-        ResvAdvancedServiceStub.CheckInResponse objResponse = null;
+        CheckInResponse objResponse = null;
 
-        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
-        ResvAdvancedServiceStub.CheckInRequest req = getCheckInRequestObject(request);
+        CheckInRequest req = getCheckInRequestObject(request);
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
 
-        ResvAdvancedServiceStub.CheckInRequestE reqE = new
-                ResvAdvancedServiceStub.CheckInRequestE();
-        reqE.setCheckInRequest(req);
-
-        CheckInResponse response = null;
+	    com.cloudkey.pms.response.reservations.CheckInResponse response = null;
 
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
-                AdapterUtility.convertToStreamXML(reqE));
-        ResvAdvancedServiceStub.CheckInResponseE respE = rstub.checkIn(reqE, ogh);
+                AdapterUtility.convertToStreamXML(req));
+        CheckInResponse resp = rstub.checkIn(req, ogh);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
-                AdapterUtility.convertToStreamXML(respE));
+                AdapterUtility.convertToStreamXML(resp));
 
-        response = getCheckInResponseObject(respE.getCheckInResponse());
+        response = getCheckInResponseObject(resp);
         MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
                 AdapterUtility.convertToStreamXML(response));
 
@@ -512,20 +494,20 @@ public class OWSResvAdvancedProcessor {
 
     }
 
-    private ResvAdvancedServiceStub.CheckInRequest getCheckInRequestObject(CheckInRequest checkInRequest) {
+    private CheckInRequest getCheckInRequestObject(com.cloudkey.pms.request.reservations.CheckInRequest checkInRequest) {
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInRequestObject ", " Enter in getCheckInRequestObject method");
 
         /* To get the request parameters from the keypr client */
 
 		/* To set request into the xsd classes. */
-        ResvAdvancedServiceStub.CheckInRequest objCheckInRequest = new ResvAdvancedServiceStub.CheckInRequest();
+        CheckInRequest objCheckInRequest = new CheckInRequest();
 
 		/* To set the card number into checkinRequest. */
-        ResvAdvancedServiceStub.CreditCard objCreditCard = new ResvAdvancedServiceStub.CreditCard();
+        CreditCard objCreditCard = new CreditCard();
 
         if (checkInRequest.getCreditCardNumber() != null) {
 
-            final ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new ResvAdvancedServiceStub.CreditCardChoice_type0();
+            final CreditCardChoice_type0 objCardChoice_type0 = new CreditCardChoice_type0();
 
             objCardChoice_type0.setCardNumber(checkInRequest.getCreditCardNumber());
             objCreditCard.setCreditCardChoice_type0(objCardChoice_type0);
@@ -535,22 +517,22 @@ public class OWSResvAdvancedProcessor {
         }
 
 		/*To set credit card into credit card info.*/
-        //ResvAdvancedServiceStub.CreditCardInfo objCreditCardInfo = new ResvAdvancedServiceStub.CreditCardInfo();
+        //CreditCardInfo objCreditCardInfo = new CreditCardInfo();
 
-        //ResvAdvancedServiceStub.CreditCardInfoChoice_type0 type0 = new ResvAdvancedServiceStub.CreditCardInfoChoice_type0();
+        //CreditCardInfoChoice_type0 type0 = new CreditCardInfoChoice_type0();
         //objCreditCardInfo.setCreditCardInfoChoice_type0(type0);
 
         //type0.setCreditCard(objCreditCard);
 
 		/*To set the confirmation number and hotel code into reservation request base*/
-        ResvAdvancedServiceStub.ReservationRequestBase objReservationRequestBase = new ResvAdvancedServiceStub.ReservationRequestBase();
+        ReservationRequestBase objReservationRequestBase = new ReservationRequestBase();
 
-        ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = new ResvAdvancedServiceStub.ArrayOfUniqueID();
+        UniqueIDList objUniqueIDList = new UniqueIDList();
 
-        ResvAdvancedServiceStub.UniqueID objUniqueID = new ResvAdvancedServiceStub.UniqueID();
+        UniqueID objUniqueID = new UniqueID();
         objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
         objUniqueID.setString(checkInRequest.getConfirmationNumber());
-        objUniqueID.setType(ResvAdvancedServiceStub.UniqueIDType.EXTERNAL);
+        objUniqueID.setType(UniqueIDType.EXTERNAL);
 
         objUniqueIDList.addUniqueID(objUniqueID);
 
@@ -571,12 +553,12 @@ public class OWSResvAdvancedProcessor {
 
     }
 
-    private CheckInResponse getCheckInResponseObject(ResvAdvancedServiceStub.CheckInResponse objResponse) {
+    private com.cloudkey.pms.response.reservations.CheckInResponse getCheckInResponseObject(CheckInResponse objResponse) {
 
         MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " Enter in getCheckInResponseObject method.");
 
 		/* Populate response into Reservation instance */
-        CheckInResponse objCheckInResponse = new CheckInResponse();
+	    com.cloudkey.pms.response.reservations.CheckInResponse objCheckInResponse = new com.cloudkey.pms.response.reservations.CheckInResponse();
 
         Reservation objReservation = new Reservation();
         objCheckInResponse.setReservation(objReservation);
@@ -602,13 +584,13 @@ public class OWSResvAdvancedProcessor {
             return objCheckInResponse;
         }
 
-        ResvAdvancedServiceStub.CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
+        CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
 
-        ResvAdvancedServiceStub.ArrayOfUniqueID objUniqueIDList = objCheckInComplete.getReservationID();
-        ResvAdvancedServiceStub.UniqueID[] arrUniqueIDs = objUniqueIDList.getUniqueID();
+        UniqueIDList objUniqueIDList = objCheckInComplete.getReservationID();
+        UniqueID[] arrUniqueIDs = objUniqueIDList.getUniqueID();
 
-        for (ResvAdvancedServiceStub.UniqueID objUniqueID : arrUniqueIDs) {
-            if (objUniqueID.getType() == ResvAdvancedServiceStub.UniqueIDType.EXTERNAL) {
+        for (UniqueID objUniqueID : arrUniqueIDs) {
+            if (objUniqueID.getType() == UniqueIDType.EXTERNAL) {
                 confirmationNumber = objUniqueID.getString();
                 objReservation.setConfirmationNumber(confirmationNumber);
                 objReservation.setPmsId(confirmationNumber);
@@ -622,39 +604,37 @@ public class OWSResvAdvancedProcessor {
 
         com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
 
-        ResvAdvancedServiceStub.Room objRoom = objCheckInComplete.getRoom();
+        Room objRoom = objCheckInComplete.getRoom();
 
         roomNumber = objRoom.getRoomNumber();
-        ResvAdvancedServiceStub.RoomType obRoomType = objRoom.getRoomType();
+        RoomType obRoomType = objRoom.getRoomType();
 
         roomTypeCode = obRoomType.getRoomTypeCode();
         feature = obRoomType.getFeature();
 
         String roomDescription = "";
         if (objRoom.getRoomDescription() != null &&
-                objRoom.getRoomDescription().getParagraphChoice_type0() != null) {
-            ResvAdvancedServiceStub.ParagraphChoice_type0[] paragraphs = objRoom.getRoomDescription().getParagraphChoice_type0();
+                objRoom.getRoomDescription().getParagraphChoice() != null) {
+	        ParagraphChoice[] paragraphs = objRoom.getRoomDescription().getParagraphChoice();
 
-
-            for (ResvAdvancedServiceStub.ParagraphChoice_type0 paragraph : paragraphs) {
+	        for (ParagraphChoice paragraph : paragraphs) {
 
                 if (paragraph.isTextSpecified()) {
-                    ResvAdvancedServiceStub.Text text = paragraph.getText();
+                    Text text = paragraph.getText();
                     roomDescription += text.toString();
-                    ;
                 }
             }
         }
 
         // To set the more than 1 feature.
-        ResvAdvancedServiceStub.ArrayOfRoomFeature objFeatureList = obRoomType.getRoomFeatures();
+        RoomFeatureList objFeatureList = obRoomType.getRoomFeatures();
 
         if (objFeatureList != null) {
-            ResvAdvancedServiceStub.RoomFeature[] arrRoomFeatures = objFeatureList.getFeatures();
+            RoomFeature[] arrRoomFeatures = objFeatureList.getFeatures();
             objStringBuffer = new StringBuffer();
 
             if (arrRoomFeatures != null) {
-                for (ResvAdvancedServiceStub.RoomFeature objRoomFeature : arrRoomFeatures) {
+                for (RoomFeature objRoomFeature : arrRoomFeatures) {
                     feature = objRoomFeature.getFeature();
                     objStringBuffer.append(feature + ";");
                 }
@@ -668,24 +648,22 @@ public class OWSResvAdvancedProcessor {
         objRoomType.setDescription(roomDescription);
         objRoomType.setFeatures(feature);
 
-
         //TODO: Room number shouldn't be int. Should be string to accomodated hotels
         // with room numbers that contain dashes/characters etc...
         objReservationRoomAllocation.setRoomNo(Integer.parseInt(roomNumber));
         objReservationRoomAllocation.setRoomType(objRoomType);
         //		objReservationRoomAllocation.setRoomRateList( objRoomRateList );
 
-
         // Note :  checkin response has only 1 profile information.
 
-        ResvAdvancedServiceStub.Profile objProfile = objResponse.getProfile();
-        ResvAdvancedServiceStub.ArrayOfNameCreditCard objCardList = objProfile.getCreditCards();
+        Profile objProfile = objResponse.getProfile();
+        NameCreditCardList objCardList = objProfile.getCreditCards();
 
         if (objCardList != null) {
-            ResvAdvancedServiceStub.NameCreditCard[] arrNameCreditCard = objCardList.getNameCreditCard();
+            NameCreditCard[] arrNameCreditCard = objCardList.getNameCreditCard();
             //TODO: Check if credit cards are wanted.
             if (arrNameCreditCard != null) {
-                for (ResvAdvancedServiceStub.NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
+                for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
 
                     MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject  ", " Iterating NameCreditCard  Array.");
 
@@ -696,7 +674,7 @@ public class OWSResvAdvancedProcessor {
             }
         }
 
-        ResvAdvancedServiceStub.PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
+        PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
 
         objStringBuffer = new StringBuffer();
 
@@ -732,7 +710,7 @@ public class OWSResvAdvancedProcessor {
         return objCheckInResponse;
     }
 
-    private String getErrorMessage(ResvAdvancedServiceStub.ResultStatus resultStatus) {
+    private String getErrorMessage(ResultStatus resultStatus) {
 
         String message = "";
         if (resultStatus.getText() != null &&
@@ -744,19 +722,19 @@ public class OWSResvAdvancedProcessor {
         return message;
     }
 
-    private ResvAdvancedServiceStub.FetchRoomStatusRequest getRoomStatusRequest(String roomType) {
+    private FetchRoomStatusRequest getRoomStatusRequest(String roomType) {
 
-        ResvAdvancedServiceStub.FetchRoomStatusRequest request = new ResvAdvancedServiceStub.FetchRoomStatusRequest();
+        FetchRoomStatusRequest request = new FetchRoomStatusRequest();
         request.setRoomType(roomType);
 
-        ResvAdvancedServiceStub.HotelReference objHotelReference = getDefaultHotelReference();
+        HotelReference objHotelReference = getDefaultHotelReference();
         request.setHotelReference(objHotelReference);
 
         return request;
     }
 
-    private ResvAdvancedServiceStub.HotelReference getDefaultHotelReference() {
-        ResvAdvancedServiceStub.HotelReference objHotelReference = new ResvAdvancedServiceStub.HotelReference();
+    private HotelReference getDefaultHotelReference() {
+        HotelReference objHotelReference = new HotelReference();
         String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
         String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
         objHotelReference.setHotelCode(hotelCode);
@@ -765,16 +743,16 @@ public class OWSResvAdvancedProcessor {
         return objHotelReference;
     }
 
-    private ResvAdvancedServiceStub.OGHeaderE getHeaderE() {
+    private OGHeaderE getHeaderE() {
 
         String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
         // Sets Transaction Identifier
-        ResvAdvancedServiceStub.OGHeader ogHeader = new ResvAdvancedServiceStub.OGHeader();
+        OGHeader ogHeader = new OGHeader();
 
         ogHeader.setTransactionID(transactionId);
 
         // creates origin end point of header.
-        ResvAdvancedServiceStub.EndPoint origin = new ResvAdvancedServiceStub.EndPoint();
+        EndPoint origin = new EndPoint();
 
         String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
         origin.setEntityID(entityId);
@@ -783,7 +761,7 @@ public class OWSResvAdvancedProcessor {
         origin.setSystemType(systemType);
 
         // creates destination end point of header.
-        ResvAdvancedServiceStub.EndPoint destination = new ResvAdvancedServiceStub.EndPoint();
+        EndPoint destination = new EndPoint();
         String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
 
         destination.setEntityID(destEntityId);
@@ -802,17 +780,17 @@ public class OWSResvAdvancedProcessor {
 
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
 
-            ResvAdvancedServiceStub.OGHeaderAuthentication auth = new ResvAdvancedServiceStub.OGHeaderAuthentication();
+            Authentication_type0 auth = new Authentication_type0();
             ogHeader.setAuthentication(auth);
 
-            ResvAdvancedServiceStub.OGHeaderAuthenticationUserCredentials cred = new ResvAdvancedServiceStub.OGHeaderAuthenticationUserCredentials();
+            UserCredentials_type0 cred = new UserCredentials_type0();
             auth.setUserCredentials(cred);
 
             cred.setUserName(username);
             cred.setUserPassword(password);
         }
 
-        ResvAdvancedServiceStub.OGHeaderE ogHeaderE = new ResvAdvancedServiceStub.OGHeaderE();
+        OGHeaderE ogHeaderE = new OGHeaderE();
         ogHeaderE.setOGHeader(ogHeader);
         return ogHeaderE;
     }

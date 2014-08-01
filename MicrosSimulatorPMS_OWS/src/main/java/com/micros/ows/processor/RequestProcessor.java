@@ -16,46 +16,47 @@ import org.apache.axis2.databinding.types.Language;
 import org.apache.axis2.databinding.types.NormalizedString;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 
-import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInRequest;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInResponse;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutRequest;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusRequest;
-import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
-import com.micros.availability.AvailabilityServiceStub;
-import com.micros.availability.AvailabilityServiceStub.Calendar;
-import com.micros.availability.AvailabilityServiceStub.CalendarDailyDetail;
-import com.micros.availability.AvailabilityServiceStub.FetchCalendarRequest;
-import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
-import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
-import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
-import com.micros.information.InformationServiceStub;
-import com.micros.information.InformationServiceStub.Address;
-import com.micros.information.InformationServiceStub.AddressList;
-import com.micros.information.InformationServiceStub.AttractionInfo;
-import com.micros.information.InformationServiceStub.AttractionInfoList;
-import com.micros.information.InformationServiceStub.Attraction_type0;
-import com.micros.information.InformationServiceStub.AttractionsType;
-import com.micros.information.InformationServiceStub.ContactEmailList;
-import com.micros.information.InformationServiceStub.Cuisine_type0;
-import com.micros.information.InformationServiceStub.Cuisines_type0;
-import com.micros.information.InformationServiceStub.DescriptiveText;
-import com.micros.information.InformationServiceStub.Email;
-import com.micros.information.InformationServiceStub.ExtendedHotelInfo;
-import com.micros.information.InformationServiceStub.FacilityInfoType;
-import com.micros.information.InformationServiceStub.GuestRoom_type0;
-import com.micros.information.InformationServiceStub.GuestRooms_type0;
-import com.micros.information.InformationServiceStub.HotelContact;
-import com.micros.information.InformationServiceStub.HotelInfo;
-import com.micros.information.InformationServiceStub.HotelInfoList;
-import com.micros.information.InformationServiceStub.HotelInfoType;
-import com.micros.information.InformationServiceStub.HotelInformation_type0;
-import com.micros.information.InformationServiceStub.HotelReference;
-import com.micros.information.InformationServiceStub.Phone;
-import com.micros.information.InformationServiceStub.PhoneData_type0;
-import com.micros.information.InformationServiceStub.PhoneList;
-import com.micros.information.InformationServiceStub.Restaurant_type0;
-import com.micros.information.InformationServiceStub.RestaurantsType;
-import com.micros.information.InformationServiceStub.TextList;
+import com.micros.ows.resvadvanced.ResvAdvancedServiceStub;
+import com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckInRequest;
+import com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckInResponse;
+import com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckOutRequest;
+import com.micros.ows.resvadvanced.ResvAdvancedServiceStub.FetchRoomStatusRequest;
+import com.micros.ows.resvadvanced.ResvAdvancedServiceStub.FetchRoomStatusResponse;
+import com.micros.ows.availability.AvailabilityServiceStub;
+import com.micros.ows.availability.AvailabilityServiceStub.Calendar;
+import com.micros.ows.availability.AvailabilityServiceStub.CalendarDailyDetail;
+import com.micros.ows.availability.AvailabilityServiceStub.FetchCalendarRequest;
+import com.micros.ows.availability.AvailabilityServiceStub.FetchCalendarResponse;
+import com.micros.ows.availability.AvailabilityServiceStub.RoomTypeInventory;
+import com.micros.ows.availability.AvailabilityServiceStub.RoomTypeInventoryList;
+import com.micros.ows.information.InformationStub;
+import com.micros.ows.information.InformationStub.Address;
+import com.micros.ows.information.InformationStub.AddressList;
+import com.micros.ows.information.InformationStub.AttractionInfo;
+import com.micros.ows.information.InformationStub.AttractionInfoList;
+import com.micros.ows.information.InformationStub.Attraction_type0;
+import com.micros.ows.information.InformationStub.AttractionsType;
+import com.micros.ows.information.InformationStub.ContactEmailList;
+import com.micros.ows.information.InformationStub.Cuisine_type0;
+import com.micros.ows.information.InformationStub.Cuisines_type0;
+import com.micros.ows.information.InformationStub.DescriptiveText;
+import com.micros.ows.information.InformationStub.Email;
+import com.micros.ows.information.InformationStub.ExtendedHotelInfo;
+import com.micros.ows.information.InformationStub.FacilityInfoType;
+import com.micros.ows.information.InformationStub.GuestRoom_type0;
+import com.micros.ows.information.InformationStub.GuestRooms_type0;
+import com.micros.ows.information.InformationStub.HotelContact;
+import com.micros.ows.information.InformationStub.HotelInfo;
+import com.micros.ows.information.InformationStub.HotelInfoList;
+import com.micros.ows.information.InformationStub.HotelInfoType;
+import com.micros.ows.information.InformationStub.HotelInformation_type0;
+import com.micros.ows.information.InformationStub.HotelReference;
+import com.micros.ows.information.InformationStub.Phone;
+import com.micros.ows.information.InformationStub.PhoneData_type0;
+import com.micros.ows.information.InformationStub.PhoneList;
+import com.micros.ows.information.InformationStub.Restaurant_type0;
+import com.micros.ows.information.InformationStub.RestaurantsType;
+import com.micros.ows.information.InformationStub.TextList;
 import com.micros.meeting.MeetingRoomServiceStub.AvailableProperty;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingAvailabilityRequest;
 import com.micros.meeting.MeetingRoomServiceStub.MeetingMultiPropertyAvailabilityRequest;
@@ -749,16 +750,16 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " enter getXMLHotelInformationResponse request block " );
 
-		com.micros.information.InformationServiceStub.HotelInformationResponse objHotelInformationResponse = null;
+		com.micros.ows.information.InformationStub.HotelInformationResponse objHotelInformationResponse = null;
 
 		String hotelInformationResponse = null;
 
 		try {
 
-			objHotelInformationResponse = new com.micros.information.InformationServiceStub.HotelInformationResponse();
+			objHotelInformationResponse = new com.micros.ows.information.InformationStub.HotelInformationResponse();
 
-			com.micros.information.InformationServiceStub.GDSResultStatus objResultStatus = new com.micros.information.InformationServiceStub.GDSResultStatus();
-			objResultStatus.setResultStatusFlag( InformationServiceStub.ResultStatusFlag.SUCCESS );
+			com.micros.ows.information.InformationStub.GDSResultStatus objResultStatus = new com.micros.ows.information.InformationStub.GDSResultStatus();
+			objResultStatus.setResultStatusFlag( InformationStub.ResultStatusFlag.SUCCESS );
 			objHotelInformationResponse.setResult( objResultStatus );
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " Result status set " );
@@ -834,10 +835,10 @@ public class RequestProcessor extends HttpServlet {
 
 			objRestaurant_type02.setRestaurantName(" Terrace Garden ");
 
-			com.micros.information.InformationServiceStub.Paragraph[] objParagraph = new com.micros.information.InformationServiceStub.Paragraph[1];
-			com.micros.information.InformationServiceStub.Paragraph objParagraph2 =new com.micros.information.InformationServiceStub.Paragraph();
-			com.micros.information.InformationServiceStub.ParagraphChoice objChoice = new com.micros.information.InformationServiceStub.ParagraphChoice();
-			com.micros.information.InformationServiceStub.Text objText = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Paragraph[] objParagraph = new com.micros.ows.information.InformationStub.Paragraph[1];
+			com.micros.ows.information.InformationStub.Paragraph objParagraph2 =new com.micros.ows.information.InformationStub.Paragraph();
+			com.micros.ows.information.InformationStub.ParagraphChoice objChoice = new com.micros.ows.information.InformationStub.ParagraphChoice();
+			com.micros.ows.information.InformationStub.Text objText = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objString = new NormalizedString();
 			objString.setValue(" Full-service dining and outdoor terrace with view of the Puget Sound serving Northwest cuisine ");
@@ -861,10 +862,10 @@ public class RequestProcessor extends HttpServlet {
 			Restaurant_type0 objRestaurant_type022 = new Restaurant_type0();
 			objRestaurant_type022.setRestaurantName(" Elephant and Castle Pub ");
 
-			com.micros.information.InformationServiceStub.Paragraph[] objParagraph1 = new com.micros.information.InformationServiceStub.Paragraph[1];
-			com.micros.information.InformationServiceStub.Paragraph objParagraph21 =new com.micros.information.InformationServiceStub.Paragraph();
-			com.micros.information.InformationServiceStub.ParagraphChoice objChoice1 = new com.micros.information.InformationServiceStub.ParagraphChoice();
-			com.micros.information.InformationServiceStub.Text objText1 = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Paragraph[] objParagraph1 = new com.micros.ows.information.InformationStub.Paragraph[1];
+			com.micros.ows.information.InformationStub.Paragraph objParagraph21 =new com.micros.ows.information.InformationStub.Paragraph();
+			com.micros.ows.information.InformationStub.ParagraphChoice objChoice1 = new com.micros.ows.information.InformationStub.ParagraphChoice();
+			com.micros.ows.information.InformationStub.Text objText1 = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objString1 = new NormalizedString();
 			objString1.setValue(" fireplace or patio seating, authentic English cuisine this is s a test to see how long fireplace or patio seating ");
@@ -900,8 +901,8 @@ public class RequestProcessor extends HttpServlet {
 			DescriptiveText objDescriptiveText = new DescriptiveText();
 			TextList objTextList = new TextList();
 
-			com.micros.information.InformationServiceStub.Text[] objText2 = new com.micros.information.InformationServiceStub.Text[1];
-			com.micros.information.InformationServiceStub.Text objText3 = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Text[] objText2 = new com.micros.ows.information.InformationStub.Text[1];
+			com.micros.ows.information.InformationStub.Text objText3 = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objNormalizedString =new NormalizedString();
 			objNormalizedString.setValue(" K - King Room 2 beds ");
@@ -919,8 +920,8 @@ public class RequestProcessor extends HttpServlet {
 			DescriptiveText objDescriptiveText1 = new DescriptiveText();
 			TextList objTextList1 = new TextList();
 
-			com.micros.information.InformationServiceStub.Text[] objText11 = new com.micros.information.InformationServiceStub.Text[1];
-			com.micros.information.InformationServiceStub.Text objText44 = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Text[] objText11 = new com.micros.ows.information.InformationStub.Text[1];
+			com.micros.ows.information.InformationStub.Text objText44 = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objNormalizedString1 =new NormalizedString();
 			objNormalizedString1.setValue(" MLSK - Mid Level King Room  2  beds ");
@@ -948,8 +949,8 @@ public class RequestProcessor extends HttpServlet {
 			AttractionInfo objAttractionInfo2 =new AttractionInfo();
 
 			TextList objList =new TextList();
-			com.micros.information.InformationServiceStub.Text[] objText4 = new com.micros.information.InformationServiceStub.Text[1];
-			com.micros.information.InformationServiceStub.Text objText5 = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Text[] objText4 = new com.micros.ows.information.InformationStub.Text[1];
+			com.micros.ows.information.InformationStub.Text objText5 = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objNormalizedString2 = new NormalizedString();
 			objNormalizedString2.setValue(" Naples ");
@@ -980,8 +981,8 @@ public class RequestProcessor extends HttpServlet {
 			objHotelInfo2.setHotelInfoType(HotelInfoType.CHECKININFO);
 
 			TextList objTList = new TextList();
-			com.micros.information.InformationServiceStub.Text[] myText = new com.micros.information.InformationServiceStub.Text[1];
-			com.micros.information.InformationServiceStub.Text myT = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Text[] myText = new com.micros.ows.information.InformationStub.Text[1];
+			com.micros.ows.information.InformationStub.Text myT = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objNormalizedString3 = new NormalizedString();
 			objNormalizedString3.setValue("8:00");
@@ -997,8 +998,8 @@ public class RequestProcessor extends HttpServlet {
 			objHotelInfo4.setHotelInfoType(HotelInfoType.CHECKOUTINFO);
 			TextList objTList1 = new TextList();
 
-			com.micros.information.InformationServiceStub.Text[] myText1 = new com.micros.information.InformationServiceStub.Text[1];
-			com.micros.information.InformationServiceStub.Text myT1 = new com.micros.information.InformationServiceStub.Text();
+			com.micros.ows.information.InformationStub.Text[] myText1 = new com.micros.ows.information.InformationStub.Text[1];
+			com.micros.ows.information.InformationStub.Text myT1 = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objNormalizedString4 = new NormalizedString();
 			objNormalizedString4.setValue("15:00");
@@ -1055,7 +1056,7 @@ public class RequestProcessor extends HttpServlet {
 		FetchCalendarResponse objFetchCalendarResponse = new FetchCalendarResponse();
 
 		/*To set the status on the fetch calendar response.*/
-		com.micros.availability.AvailabilityServiceStub.GDSResultStatus  objGResultStatus = new  com.micros.availability.AvailabilityServiceStub.GDSResultStatus();
+		com.micros.ows.availability.AvailabilityServiceStub.GDSResultStatus  objGResultStatus = new  com.micros.ows.availability.AvailabilityServiceStub.GDSResultStatus();
 
 		objGResultStatus.setResultStatusFlag( AvailabilityServiceStub.ResultStatusFlag.SUCCESS );
 		objFetchCalendarResponse.setResult( objGResultStatus );
@@ -1066,7 +1067,7 @@ public class RequestProcessor extends HttpServlet {
 		//Detail of first calendar day.
 		CalendarDailyDetail objCalendarDailyDetail = new CalendarDailyDetail();
 		RoomTypeInventoryList objRoomTypeInventoryList = new RoomTypeInventoryList();
-		RoomTypeInventory[] objRoomTypeInventoryArray = new com.micros.availability.AvailabilityServiceStub.RoomTypeInventory[2];
+		RoomTypeInventory[] objRoomTypeInventoryArray = new com.micros.ows.availability.AvailabilityServiceStub.RoomTypeInventory[2];
 
 		//first details of first calendar day
 		RoomTypeInventory objRoomTypeInventory = new RoomTypeInventory();
@@ -1100,7 +1101,7 @@ public class RequestProcessor extends HttpServlet {
 		objCalendarDailyDetail.setOccupancy( objRoomTypeInventoryList );
 
 		/*To get the start and end date from request parameters.*/
-		com.micros.availability.AvailabilityServiceStub.TimeSpan objTimeSpan =  objFetchCalendarRequest.getStayDateRange();
+		com.micros.ows.availability.AvailabilityServiceStub.TimeSpan objTimeSpan =  objFetchCalendarRequest.getStayDateRange();
 
 		java.util.Calendar objCalendar2 = objTimeSpan.getStartDate();
 		java.util.Calendar objCalendar3 = objTimeSpan.getTimeSpanChoice_type0().getEndDate();
@@ -1128,7 +1129,7 @@ public class RequestProcessor extends HttpServlet {
 
 		objRoomTypeInventoryList = new RoomTypeInventoryList();
 
-		objRoomTypeInventoryArray = new com.micros.availability.AvailabilityServiceStub.RoomTypeInventory[1];
+		objRoomTypeInventoryArray = new com.micros.ows.availability.AvailabilityServiceStub.RoomTypeInventory[1];
 
 		objRoomTypeInventory = new RoomTypeInventory();
 		objRoomTypeInventory.setRoomTypeCode( "LUX" );
@@ -1791,9 +1792,9 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " doPost FetchRoomStatusRequest block ", " FetchRoomStatusResponse Object created " );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[] objRoomStatu =new com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[2] ;
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus[] objRoomStatu =new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus[2] ;
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus objRoomStatus = new 	com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus objRoomStatus = new 	com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus();
 
 		objRoomStatus.setRoomStatus( "IP" );
 		objRoomStatus.setFrontOfficeStatus( "VAC" );
@@ -1806,7 +1807,7 @@ public class RequestProcessor extends HttpServlet {
 		objRoomStatu[0]= objRoomStatus;
 
 		// adding second room status details
-		objRoomStatus = new 	com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus();
+		objRoomStatus = new 	com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus();
 
 		objRoomStatus.setRoomStatus( "IP" );
 		objRoomStatus.setFrontOfficeStatus( "VAC" );
@@ -1875,62 +1876,62 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLFolioResponse ", " Enter getXMLFolioResponse method " );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse objInvoiceResponse  = null;
-		com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest	objReuest = null;
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.InvoiceResponse objInvoiceResponse  = null;
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.InvoiceRequest	objReuest = null;
 		double subTotal = 0;
 
 		/* Covert xml into object. */
-		objReuest = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest() ;	
-		objReuest = ( com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceRequest)OWSUtility.covertToStreamObject( xmlRequestValue );
+		objReuest = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.InvoiceRequest() ;
+		objReuest = ( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.InvoiceRequest)OWSUtility.covertToStreamObject( xmlRequestValue );
 
-		objInvoiceResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.InvoiceResponse();
+		objInvoiceResponse = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.InvoiceResponse();
 
 		/*To set the result status.*/
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus objResultStatus = new com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus();
-		objResultStatus.setResultStatusFlag( com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatus objResultStatus = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatus();
+		objResultStatus.setResultStatusFlag( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
 
 		/*To set the bill header with all values in bill header list.*/
-		com.micros.adv.reservation.ResvAdvancedServiceStub.BillHeader objBillHeader = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillHeader();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.NameAddress objNameAddress = new  com.micros.adv.reservation.ResvAdvancedServiceStub.NameAddress();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.BillHeader objBillHeader = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.BillHeader();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameAddress objNameAddress = new  com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameAddress();
 
 		objNameAddress.setAddressType( "2640 Golden Gate Parkway" );
 		objNameAddress.setCountryCode( "IN" );
 		objBillHeader.setAddress( objNameAddress );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.NativeName objNativeName = new com.micros.adv.reservation.ResvAdvancedServiceStub.NativeName();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NativeName objNativeName = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NativeName();
 
 		objNativeName.setFirstName( "tammy" );
 		objNativeName.setLastName( "konopik" );;
 		objBillHeader.setName( objNativeName );
 
 		/* Sets confirmation number and its type.*/
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDList();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objBase =objReuest.getReservationRequest();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] objIds = objBase.getReservationID().getUniqueID();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ReservationRequestBase objBase =objReuest.getReservationRequest();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID[] objIds = objBase.getReservationID().getUniqueID();
 		confirmationNumber =  objIds[0].getString();			
 
 		objIds = objUniqueIDList.getUniqueID();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID objUniqueID = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID();
 		objUniqueID.setString( confirmationNumber );
-		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
+		objUniqueID.setType( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 		objUniqueID.setSource( "PMS_ID" );
 
 		objUniqueIDList.addUniqueID( objUniqueID );
 
 		objBillHeader.setProfileIDs( objUniqueIDList );
 
-		objUniqueID = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		objUniqueID = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID();
 		objUniqueID.setString( "2323" );
 		objUniqueID.setSource( "OPERA" );
-		objUniqueID.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.INTERNAL );
+		objUniqueID.setType( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDType.INTERNAL );
 
 		objBillHeader.setBillNumber( objUniqueID );
 
 		/*set bill items into bill header.*/
-		com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem objBillItem = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem ();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.Amount objAmount = new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.BillItem objBillItem = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.BillItem ();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Amount objAmount = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Amount();
 		objAmount.set_double( 40 );
 		objBillItem.setAmount( objAmount );
 		objBillItem.setVatCode( objUniqueID );
@@ -1940,8 +1941,8 @@ public class RequestProcessor extends HttpServlet {
 		subTotal = objAmount.get_double() + subTotal;
 
 		objBillHeader.addBillItems( objBillItem );
-		objBillItem = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem ();
-		objAmount =  new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objBillItem = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.BillItem ();
+		objAmount =  new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Amount();
 
 		objAmount.set_double( 100 );
 		objBillItem.setAmount( objAmount );
@@ -1952,8 +1953,8 @@ public class RequestProcessor extends HttpServlet {
 		objBillHeader.addBillItems( objBillItem );
 		subTotal = objAmount.get_double() + subTotal;
 
-		objBillItem = new com.micros.adv.reservation.ResvAdvancedServiceStub.BillItem ();
-		objAmount =  new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objBillItem = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.BillItem ();
+		objAmount =  new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Amount();
 
 		objAmount.set_double( 130 );
 		objBillItem.setAmount( objAmount );
@@ -1966,15 +1967,15 @@ public class RequestProcessor extends HttpServlet {
 		subTotal = objAmount.get_double() + subTotal;
 
 		/*set the surcharge and total amount in credit card surcharge list.*/
-		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardSurcharge objCardSurcharge = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardSurcharge();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CreditCardSurcharge objCardSurcharge = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CreditCardSurcharge();
 
-		objAmount = new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Amount();
 
 		objAmount.set_double( 10 );		
 		objCardSurcharge.setSurchargeAmount( objAmount  );
 		subTotal = objAmount.get_double() + subTotal;
 
-		objAmount = new com.micros.adv.reservation.ResvAdvancedServiceStub.Amount();
+		objAmount = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Amount();
 		objAmount.set_double( subTotal );		
 		objCardSurcharge.setTotalBillAmount( objAmount );
 		objBillHeader.addCreditCardSurcharges( objCardSurcharge );
@@ -2001,36 +2002,36 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckOutResponse ", " Enter getXMLCheckOutResponse method" );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse objCheckOutResponse  = null;
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckOutResponse objCheckOutResponse  = null;
 		CheckOutRequest	objCheckOutRequest = null;
 
 		/* Covert xml into object. */
 		objCheckOutRequest = new CheckOutRequest() ;	
 		objCheckOutRequest =( CheckOutRequest ) OWSUtility.covertToStreamObject( xmlRequestValue );
 
-		objCheckOutResponse = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutResponse();
+		objCheckOutResponse = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckOutResponse();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus objResultStatus = new com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus();
-		objResultStatus.setResultStatusFlag( com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatus objResultStatus = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatus();
+		objResultStatus.setResultStatusFlag( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
 
 		/* Retrieve confirmation number from check out request instance. */
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = objCheckOutRequest.getReservationRequest();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] objIds = objRequestBase.getReservationID().getUniqueID();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = objCheckOutRequest.getReservationRequest();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID[] objIds = objRequestBase.getReservationID().getUniqueID();
 		confirmationNumber =  objIds[0].getString();
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckOutResponse ", " confirmation number is " + confirmationNumber );
 
 		/* Sets confirmation number and its type. */
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDList();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID();
 
 		objUId.setString( confirmationNumber );
-		objUId.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
+		objUId.setType( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 
 		objUniqueIDList.addUniqueID( objUId );
 
 		/* Sets the unique identifier list with the reservation identifier. */
-		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutComplete objCheckOutComplete = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckOutComplete();	
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckOutComplete objCheckOutComplete = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckOutComplete();
 		objCheckOutComplete.setReservationID( objUniqueIDList );
 
 		/*	List<InvoiceNumber> objInvoiceNumbers = objCheckOutComplete.getInvoiceNumber();
@@ -2039,13 +2040,13 @@ public class RequestProcessor extends HttpServlet {
 		objInvoiceNumbers.add( objInvoiceNumber );*/
 
 		/*To set the full name.*/
-		com.micros.adv.reservation.ResvAdvancedServiceStub.Profile objProfile = new com.micros.adv.reservation.ResvAdvancedServiceStub.Profile();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Profile objProfile = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Profile();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0 objChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ProfileChoice_type0 objChoice_type0 = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ProfileChoice_type0();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.Customer objCustomer = new com.micros.adv.reservation.ResvAdvancedServiceStub.Customer();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Customer objCustomer = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Customer();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = new com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.PersonName objPersonName = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.PersonName();
 
 		objPersonName.setFirstName( "Frank" );
 		objPersonName.setLastName( "Peter" );
@@ -2091,20 +2092,20 @@ public class RequestProcessor extends HttpServlet {
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckInResponse ", " check in response object created " );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInComplete objCheckInComplete = new com.micros.adv.reservation.ResvAdvancedServiceStub.CheckInComplete();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckInComplete objCheckInComplete = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CheckInComplete();
 
 		/* Retrieve confirmation number from check in request instance. */
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = objCheckInRequest.getReservationRequest();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID[] objIds = objRequestBase.getReservationID().getUniqueID();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ReservationRequestBase objRequestBase = objCheckInRequest.getReservationRequest();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID[] objIds = objRequestBase.getReservationID().getUniqueID();
 		confirmationNumber =  objIds[0].getString();
 
 		OWSMessageLogger.logInfo( RequestProcessor.class, " getXMLCheckInResponse ", " confirmation number is " + confirmationNumber );
 
 		/* Sets confirmation number and its type. */
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDList();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueID();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDList objUniqueIDList = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDList();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID objUId = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueID();
 		objUId.setString( confirmationNumber );
-		objUId.setType( com.micros.adv.reservation.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
+		objUId.setType( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.UniqueIDType.EXTERNAL );
 
 		objUniqueIDList.addUniqueID( objUId );
 
@@ -2112,11 +2113,11 @@ public class RequestProcessor extends HttpServlet {
 		objCheckInComplete.setReservationID( objUniqueIDList );
 
 		/* set credit card number. */
-		com.micros.adv.reservation.ResvAdvancedServiceStub.Profile objProfile = new com.micros.adv.reservation.ResvAdvancedServiceStub.Profile();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Profile objProfile = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Profile();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCardList objCardList = new com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCardList();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard objCard = new  com.micros.adv.reservation.ResvAdvancedServiceStub.NameCreditCard();
-		com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.CreditCardChoice_type0();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCardList objCardList = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCardList();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCard objCard = new  com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCard();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CreditCardChoice_type0();
 
 		/* Retrieve credit card number from check in request instance. */
 		creditCardNumber = objCheckInRequest.getCreditCardInfo().getCreditCard().getCreditCardChoice_type0().getCardNumber();
@@ -2132,11 +2133,11 @@ public class RequestProcessor extends HttpServlet {
 		objCardList.addNameCreditCard( objCard );
 		objProfile.setCreditCards( objCardList );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0 objChoice_type0 = new com.micros.adv.reservation.ResvAdvancedServiceStub.ProfileChoice_type0();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ProfileChoice_type0 objChoice_type0 = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ProfileChoice_type0();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.Customer objCustomer = new com.micros.adv.reservation.ResvAdvancedServiceStub.Customer();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Customer objCustomer = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Customer();
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName objPersonName = new com.micros.adv.reservation.ResvAdvancedServiceStub.PersonName();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.PersonName objPersonName = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.PersonName();
 
 		objPersonName.setFirstName( "John" );
 		objPersonName.setLastName( "Peter" );
@@ -2147,10 +2148,10 @@ public class RequestProcessor extends HttpServlet {
 		objProfile.setProfileChoice_type0( objChoice_type0 );
 		objCheckInResponse.setProfile( objProfile );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.Room objRoom = new com.micros.adv.reservation.ResvAdvancedServiceStub.Room();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Room objRoom = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Room();
 		objRoom.setRoomNumber( "783" );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomType objRoomType = new com.micros.adv.reservation.ResvAdvancedServiceStub.RoomType();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomType objRoomType = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomType();
 		objRoomType.setRoomTypeCode( "POQB" );
 		objRoomType.setFeature( "KING - SIZE" );
 
@@ -2160,10 +2161,10 @@ public class RequestProcessor extends HttpServlet {
 		/* Sets the check in response with the instance of check in complete. */
 		objCheckInResponse.setCheckInComplete( objCheckInComplete );
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus objRStatus =new com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatus();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatus objRStatus =new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatus();
 
 		/* Set the status to the check in response. */
-		objRStatus.setResultStatusFlag( com.micros.adv.reservation.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
+		objRStatus.setResultStatusFlag( com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ResultStatusFlag.SUCCESS );
 		objCheckInResponse.setResult( objRStatus );
 
 		/* Covert response into xml format. */

@@ -1,11 +1,20 @@
 package com.micros.pms.processor;
 
+import com.cloudkey.pms.micros.og.common.Membership;
+import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.common.UniqueID;
+import com.cloudkey.pms.micros.og.core.*;
+import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.og.membership.AwardPointsInfo;
+import com.cloudkey.pms.micros.og.membership.StayPointsInfo;
+import com.cloudkey.pms.micros.ows.membership.FetchMemberPointsRequest;
+import com.cloudkey.pms.micros.ows.membership.FetchMemberPointsResponse;
+import com.cloudkey.pms.micros.services.MembershipServiceStub;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
-import com.micros.ows.membership.MembershipServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.parser.MicrosPMSMessageParser;
+import com.micros.pms.parser.MicrosOWSParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
@@ -27,22 +36,22 @@ public class OWSMembershipProcessor {
 
         MembershipServiceStub membershipServiceStub =  getMembershipServiceStub();
 
-        MembershipServiceStub.FetchMemberPointsRequest objRequest;
+        FetchMemberPointsRequest objRequest;
 
         MemberPointsResponse response = null;
 
         objRequest = getFetchMemberPointsRequestObject(objMemberPointsRequest);
 
-        MembershipServiceStub.OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
         MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
                 AdapterUtility.convertToStreamXML(objRequest));
-        MembershipServiceStub.FetchMemberPointsResponse respE =
+        FetchMemberPointsResponse resp =
                 membershipServiceStub.fetchMemberPoints(objRequest, ogh);
         MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                AdapterUtility.convertToStreamXML(respE));
+                AdapterUtility.convertToStreamXML(resp));
 
-        response = getMemberPointsResponse(respE);
+        response = getMemberPointsResponse(resp);
         MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
                 AdapterUtility.convertToStreamXML(response));
 
@@ -52,34 +61,34 @@ public class OWSMembershipProcessor {
     /*
      * this method is used to set request for member points.
      */
-    private MembershipServiceStub.FetchMemberPointsRequest getFetchMemberPointsRequestObject(MemberPointsRequest objMemberPointsRequest) {
+    private FetchMemberPointsRequest getFetchMemberPointsRequestObject(MemberPointsRequest objMemberPointsRequest) {
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Enter getFetchMemberPointsRequestObject method " );
+        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getFetchMemberPointsRequestObject "," Enter getFetchMemberPointsRequestObject method " );
 
-        MembershipServiceStub.FetchMemberPointsRequest objFetchMemberPointsRequest = null;
+        FetchMemberPointsRequest objFetchMemberPointsRequest = null;
 
-        objFetchMemberPointsRequest = new MembershipServiceStub.FetchMemberPointsRequest();
+        objFetchMemberPointsRequest = new FetchMemberPointsRequest();
         objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipNumber());
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
+        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
         return objFetchMemberPointsRequest;
     }
 
     /*
      * This method is used to set response for Member points.
      */
-    private MemberPointsResponse getMemberPointsResponse(MembershipServiceStub.FetchMemberPointsResponse objFetchMemberPointsResponse) {
+    private MemberPointsResponse getMemberPointsResponse(FetchMemberPointsResponse objFetchMemberPointsResponse) {
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Enter getMemberPointsResponse method " );
+        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getMemberPointsResponse "," Enter getMemberPointsResponse method " );
 
         MemberPointsResponse objMemberPointsResponse = new MemberPointsResponse();
 
         //objMemberPointsResponse.setResult(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
         objMemberPointsResponse.setStatus(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Result Status Set to the response " );
+        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getMemberPointsResponse "," Result Status Set to the response " );
 
-        MembershipServiceStub.Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
+        Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
 
         String membername = objMembership.getMemberName();
         String membershipId = objMembership.getMembershipid().getString();
@@ -94,7 +103,7 @@ public class OWSMembershipProcessor {
         Boolean objBoolean = objMembership.getInactive();
         String inactive = String.valueOf(objBoolean);
 
-        MembershipServiceStub.UniqueID[] objId =  objMembership.getResvNameId().getUniqueID();
+        UniqueID[] objId =  objMembership.getResvNameId().getUniqueID();
 
         int uniqueIdLength = objId.length;
         String revId = " ";
@@ -105,34 +114,13 @@ public class OWSMembershipProcessor {
             revId.concat(rev).concat(" ");
         }
 
-        MembershipServiceStub.AwardPointsInfo[] objAwardPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo();
+        AwardPointsInfo objAwardPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo();
+	    StayPointsInfo objStayPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo();
 
-        int awardpointsInfoLength = objAwardPointsInfo.length;
-        double bonusPoint = 0.0;
-        double totalPoint = 0.0;
-
-        for( int awardPointsIndex = 0; awardPointsIndex < awardpointsInfoLength; awardPointsIndex++ ) {
-
-            bonusPoint = objAwardPointsInfo[awardPointsIndex].getBonusPoints();
-            totalPoint = objAwardPointsInfo[awardPointsIndex].getTotalPoints();
-
-        }
-        MembershipServiceStub.StayPointsInfo[] objStayPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo();
-
-        int stayPointsInfoLength = objStayPointsInfo.length;
-        int totalNight = 0;
-        int totalStay = 0;
-
-        for( int stayPointIndex = 0; stayPointIndex < stayPointsInfoLength; stayPointIndex++ ) {
-
-            totalNight = objStayPointsInfo[stayPointIndex].getGuestTotalNights();
-            totalStay = objStayPointsInfo[stayPointIndex].getGuestTotalStays();
-        }
-
-        String totalPoints = String.valueOf(totalPoint);
-        String bonusPoints = String.valueOf(bonusPoint);
-        String guestTotalNight = String.valueOf(totalNight);
-        String guestTotalStay = String.valueOf(totalStay);
+	    String totalPoints = String.valueOf(objAwardPointsInfo.getTotalPoints());
+        String bonusPoints = String.valueOf(objAwardPointsInfo.getBonusPoints());
+        String guestTotalNight = String.valueOf(objStayPointsInfo.getGuestTotalNights());
+        String guestTotalStay = String.valueOf(objStayPointsInfo.getGuestTotalStays());
 
         objMemberPointsResponse.setMemberName(membername);
         objMemberPointsResponse.setMembershipId(membershipId);
@@ -151,10 +139,9 @@ public class OWSMembershipProcessor {
 
         objMemberPointsResponse.setGuestTotalStay(guestTotalStay);
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getMemberPointsResponse "," Exit getMemberPointsResponse method " );
+        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getMemberPointsResponse "," Exit getMemberPointsResponse method " );
         return objMemberPointsResponse;
     }
-
 
     private MembershipServiceStub getMembershipServiceStub() {
 
@@ -173,8 +160,8 @@ public class OWSMembershipProcessor {
         return rstub;
     }
 
-    private MembershipServiceStub.HotelReference getDefaultHotelReference() {
-        MembershipServiceStub.HotelReference objHotelReference = new MembershipServiceStub.HotelReference();
+    private HotelReference getDefaultHotelReference() {
+        HotelReference objHotelReference = new HotelReference();
         String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
         String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
         objHotelReference.setHotelCode(hotelCode);
@@ -183,16 +170,16 @@ public class OWSMembershipProcessor {
         return objHotelReference;
     }
 
-    private MembershipServiceStub.OGHeaderE getHeaderE() {
+    private OGHeaderE getHeaderE() {
 
         String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
         // Sets Transaction Identifier
-        MembershipServiceStub.OGHeader ogHeader = new MembershipServiceStub.OGHeader();
+        OGHeader ogHeader = new OGHeader();
 
         ogHeader.setTransactionID(transactionId);
 
         // creates origin end point of header.
-        MembershipServiceStub.EndPoint origin = new MembershipServiceStub.EndPoint();
+        EndPoint origin = new EndPoint();
 
         String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
         origin.setEntityID(entityId);
@@ -201,7 +188,7 @@ public class OWSMembershipProcessor {
         origin.setSystemType(systemType);
 
         // creates destination end point of header.
-        MembershipServiceStub.EndPoint destination = new MembershipServiceStub.EndPoint();
+        EndPoint destination = new EndPoint();
         String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
 
         destination.setEntityID(destEntityId);
@@ -220,23 +207,22 @@ public class OWSMembershipProcessor {
 
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
 
-            MembershipServiceStub.OGHeaderAuthentication auth = new MembershipServiceStub.OGHeaderAuthentication();
+            Authentication_type0 auth = new Authentication_type0();
             ogHeader.setAuthentication(auth);
 
-            MembershipServiceStub.OGHeaderAuthenticationUserCredentials cred = new MembershipServiceStub.OGHeaderAuthenticationUserCredentials();
+            UserCredentials_type0 cred = new UserCredentials_type0();
             auth.setUserCredentials(cred);
 
             cred.setUserName(username);
             cred.setUserPassword(password);
         }
 
-        MembershipServiceStub.OGHeaderE ogHeaderE = new MembershipServiceStub.OGHeaderE();
+        OGHeaderE ogHeaderE = new OGHeaderE();
         ogHeaderE.setOGHeader(ogHeader);
         return ogHeaderE;
     }
 
-
-    private String getErrorMessage(MembershipServiceStub.ResultStatus resultStatus) {
+    private String getErrorMessage(ResultStatus resultStatus) {
 
         String message = "";
         if (resultStatus.getText() != null &&

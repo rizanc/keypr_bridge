@@ -1,6 +1,9 @@
 package com.micros.pms.processor;
 
-import com.micros.ows.meetingroom.MeetingRoomServiceStub;
+import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.core.*;
+import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.services.MeetingRoomServiceStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.util.AdapterUtility;
@@ -32,8 +35,8 @@ public class OWSMeetingRoomProcessor {
         return rstub;
     }
 
-    private MeetingRoomServiceStub.HotelReference getDefaultHotelReference() {
-        MeetingRoomServiceStub.HotelReference objHotelReference = new MeetingRoomServiceStub.HotelReference();
+    private HotelReference getDefaultHotelReference() {
+        HotelReference objHotelReference = new HotelReference();
         String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
         String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
         objHotelReference.setHotelCode(hotelCode);
@@ -42,16 +45,16 @@ public class OWSMeetingRoomProcessor {
         return objHotelReference;
     }
 
-    private MeetingRoomServiceStub.OGHeaderE getHeaderE() {
+    private OGHeaderE getHeaderE() {
 
         String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
         // Sets Transaction Identifier
-        MeetingRoomServiceStub.OGHeader ogHeader = new MeetingRoomServiceStub.OGHeader();
+        OGHeader ogHeader = new OGHeader();
 
         ogHeader.setTransactionID(transactionId);
 
         // creates origin end point of header.
-        MeetingRoomServiceStub.EndPoint origin = new MeetingRoomServiceStub.EndPoint();
+        EndPoint origin = new EndPoint();
 
         String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
         origin.setEntityID(entityId);
@@ -60,7 +63,7 @@ public class OWSMeetingRoomProcessor {
         origin.setSystemType(systemType);
 
         // creates destination end point of header.
-        MeetingRoomServiceStub.EndPoint destination = new MeetingRoomServiceStub.EndPoint();
+        EndPoint destination = new EndPoint();
         String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
 
         destination.setEntityID(destEntityId);
@@ -79,23 +82,22 @@ public class OWSMeetingRoomProcessor {
 
         if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
 
-            MeetingRoomServiceStub.OGHeaderAuthentication auth = new MeetingRoomServiceStub.OGHeaderAuthentication();
+            Authentication_type0 auth = new Authentication_type0();
             ogHeader.setAuthentication(auth);
 
-            MeetingRoomServiceStub.OGHeaderAuthenticationUserCredentials cred = new MeetingRoomServiceStub.OGHeaderAuthenticationUserCredentials();
+            UserCredentials_type0 cred = new UserCredentials_type0();
             auth.setUserCredentials(cred);
 
             cred.setUserName(username);
             cred.setUserPassword(password);
         }
 
-        MeetingRoomServiceStub.OGHeaderE ogHeaderE = new MeetingRoomServiceStub.OGHeaderE();
+        OGHeaderE ogHeaderE = new OGHeaderE();
         ogHeaderE.setOGHeader(ogHeader);
         return ogHeaderE;
     }
 
-
-    private String getErrorMessage(MeetingRoomServiceStub.ResultStatus resultStatus) {
+    private String getErrorMessage(ResultStatus resultStatus) {
 
         String message = "";
         if (resultStatus.getText() != null &&

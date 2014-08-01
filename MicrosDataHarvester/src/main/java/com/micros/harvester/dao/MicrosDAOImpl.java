@@ -1,47 +1,41 @@
 package com.micros.harvester.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
-import java.util.List;
-
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomDetails;
-import com.cloudkey.commons.RoomRate;
-import com.cloudkey.commons.RoomType;
+import com.micros.harvester.logger.DataHarvesterLogger;
+
 import com.cloudkey.dao.DataBaseHandler;
-//import com.micros.adv.reservation.ResvAdvancedServiceStub.FetchRoomStatusResponse;
-import com.micros.availability.AvailabilityServiceStub.Calendar;
-import com.micros.availability.AvailabilityServiceStub.CalendarDailyDetail;
-import com.micros.availability.AvailabilityServiceStub.FetchCalendarResponse;
-import com.micros.availability.AvailabilityServiceStub.RoomTypeInventory;
-import com.micros.availability.AvailabilityServiceStub.RoomTypeInventoryList;
+import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
+import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.logger.DataHarvesterLogger;
+import com.cloudkey.commons.RoomRate;
+import com.cloudkey.commons.RoomType;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This class handles the database related operations for the data harvester service.
  * It connects with the database and stores data collected from the property management
  * system to the database.
- * 
- * @author vinayk2
  *
+ * @author vinayk2
  */
 public class MicrosDAOImpl implements IMicrosDAO {
 
 	/**
 	 * This method reads the database configurations from properties file.
 	 * It connects with database and returns connection .
-	 * 
+	 *
 	 * @return  connection
 	 */
 	public static Connection getConnection() {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " getConnection ", " Enter getConnection method " );
+		DataHarvesterLogger.logInfo(MicrosDAOImpl.class, " getConnection ", " Enter getConnection method ");
 
 		/* Reference variables to store connection related operation data. */
 		Connection conn = null;
@@ -86,7 +80,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String status = objReFlag.getValue();
 		 *//*
 
-		com.micros.adv.reservation.ResvAdvancedServiceStub.RoomStatus[] objRoomStatusArray = objFetchRoomStatusResponse.getRoomStatus();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus[] objRoomStatusArray = objFetchRoomStatusResponse.getRoomStatus();
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Number of RoomStatus is " + objRoomStatusArray.length);
 
@@ -223,7 +217,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	/**
 	 * This method will compare the contents of record received from the property management system as room status
 	 * response with the content existing record of the room_details table of keypr_upload_db database.
-	 * 
+	 *
 	 * @param objRoomDetails
 	 * @return
 	 */
@@ -375,7 +369,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	/**
 	 * This method will store the room status record received from the property management system
 	 * in the room_details_upload table of keypr_upload_db database.
-	 * 
+	 *
 	 * @param objRoomDetails
 	 * @return
 	 */
@@ -443,7 +437,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 * This method compare the content of record received from property management system with
 	 * the records existing in the room_details table of keypr_upload_db. If record exists then
 	 * it returns true otherwise it will return false.
-	 * 
+	 *
 	 * @param objRoomDetail
 	 * @return
 	 */
@@ -531,7 +525,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		String sqlQuery = null;
 
-		Calendar objCalendar = objFetchCalendarResponse.getCalendar();
+		com.cloudkey.pms.micros.og.availability.Calendar objCalendar = objFetchCalendarResponse.getCalendar();
 		CalendarDailyDetail objCalendarDailyDetailArry[] = objCalendar.getCalendarDay();
 		int calendarArrayLength = objCalendarDailyDetailArry.length;
 
@@ -545,7 +539,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			Date currentCalendarDay = objCalendarDailyDetail.getDate();
 
 			RoomTypeInventoryList objRoomInventoryList = objCalendarDailyDetail.getOccupancy();
-			RoomTypeInventory objRoomTypeInventoryArray[] = objRoomInventoryList.getRoomTypeInventory();
+			com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory[] objRoomTypeInventoryArray = objRoomInventoryList.getRoomTypeInventory();
 
 			int lengthRoomInventory = objRoomTypeInventoryArray.length;
 
@@ -562,7 +556,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record Already present in room inventory " );
 					isDuplicated = compareInventoryRecord (objRInventory);
 
-					if ( isDuplicated ) { 
+					if ( isDuplicated ) {
 
 						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Duplicate Record for in room inventory " );
 
@@ -683,7 +677,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 * This method compares the content of room inventory record with the room inventory record of same type
 	 * present in the room upload table. If new data is present in the recent fetched record then it sent
 	 * true otherwise it returns false;
-	 * 
+	 *
 	 * @return
 	 */
 	private boolean compareInventoryRecord( com.cloudkey.commons.RoomTypeInventory objRInventory ) {
@@ -743,7 +737,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Result set has row " );
 				}
 				else {
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Result set is empty " );		
+					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Result set is empty " );
 				}
 			}
 			else {
@@ -779,7 +773,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	/**
 	 * This method will persist the room inventory information in the room inventory upload table of
 	 * keypr bride database.
-	 * 
+	 *
 	 * @param objRoomInventory
 	 * @return
 	 */
@@ -848,8 +842,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	/**
 	 * This method check for the existence of incoming inventory record from property management system with
 	 * the records present in the room upload table of keypr database. Existence is checked on the basis
-	 * of room type code. 
-	 * 
+	 * of room type code.
+	 *
 	 * @param objRoomInventory
 	 * @return
 	 */
@@ -930,7 +924,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	/**
 	 * This method accepts room inventory detail information , fetched from room type inventory list.
 	 * Pull the data from fetched instance and set the retrieved data in an instance of RoomTypeInventory Class.
-	 * 
+	 *
 	 * @param objRoomTypeInventory
 	 * @return
 	 */
@@ -998,7 +992,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String affiliateId = objReservation.getAffilateId();
 		String message = objReservation.getMessage();
 
-		String reservationAction = objReservation.getReservationAction(); 
+		String reservationAction = objReservation.getReservationAction();
 
 		try {
 			objConn = MicrosDAOImpl.getConnection();
@@ -1044,9 +1038,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			if( rowUpdated != IMicrosHarvester.ROWS_UPDATED ) {
 
-				ResultSet keys = objPreparedStatement.getGeneratedKeys(); 
+				ResultSet keys = objPreparedStatement.getGeneratedKeys();
 
-				keys.next();  
+				keys.next();
 				lastInsetedId = keys.getInt( IMicrosHarvester.COUNT_ONE );
 
 				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Reservation record saved in database " );
@@ -1101,10 +1095,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	/**
 	 * This method will store reservation room allocation data in the database. It accept reservation identifier
 	 * of the reservation record recently added to the reservation upload table.
-	 * 
+	 *
 	 * @param reservationId
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	private int persistRecordInReservationRoomAllocation( int reservationId , ReservationRoomAllocation objRoomAllocation ,Connection objConn) throws SQLException {
 
@@ -1142,9 +1136,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			if( rowUpdated != IMicrosHarvester.ROWS_UPDATED ) {
 
-				ResultSet keys = objPreparedStatement.getGeneratedKeys(); 
+				ResultSet keys = objPreparedStatement.getGeneratedKeys();
 
-				keys.next();  
+				keys.next();
 				recordId = keys.getInt( IMicrosHarvester.COUNT_ONE);
 
 				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " ReservationRoomAllocatin record saved in datbase " );
@@ -1171,11 +1165,11 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 	/**
 	 * This method stores the details of room rates associated with the given reservation room allocation to the database.
-	 * 
+	 *
 	 * @param roomAllocationId
 	 * @param roomRateList
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	private boolean persistRecordInReservationRoomRates( int roomAllocationId, List<RoomRate> roomRateList, Connection objConn ) throws SQLException {
 
