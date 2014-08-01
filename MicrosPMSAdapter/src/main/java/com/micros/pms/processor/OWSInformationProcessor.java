@@ -1,6 +1,8 @@
 package com.micros.pms.processor;
 
 
+import com.cloudkey.commons.Restaurants;
+import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.micros.ows.information.InformationStub;
@@ -12,6 +14,8 @@ import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -64,7 +68,7 @@ public class OWSInformationProcessor {
 
     private HotelInformationResponse _getHotelInformationResponseObject(InformationStub.HotelInformationResponse objHotelInformationResponse) {
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Enter getHotelInformationResponseObject method " );
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Enter getHotelInformationResponseObject method ");
 
         HotelInformationResponse objHotelInformationResponse2 = null;
 
@@ -91,10 +95,10 @@ public class OWSInformationProcessor {
         //objHotelInformationResponse2.setResult(result);
         objHotelInformationResponse2.setHotelName(hotelName);
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject "," ResultStatus Set to the response " );
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " ResultStatus Set to the response ");
 
         InformationStub.HotelInformationResponseHotelInformation objHotelInformationResponseHotelInformation = objHotelInformationResponse.getHotelInformation();
-        InformationStub.HotelContact objContact =  objHotelInformationResponseHotelInformation.getHotelContactInformation();
+        InformationStub.HotelContact objContact = objHotelInformationResponseHotelInformation.getHotelContactInformation();
 
         //populate  contactEmail details
         InformationStub.ArrayOfEmail objArrayOfEmail = objContact.getContactEmails();
@@ -103,16 +107,16 @@ public class OWSInformationProcessor {
         int emailLength = emailObj.length;
         String emails = "";
 
-        for( int emailIndex = 0; emailIndex < emailLength; emailIndex++) {
+        for (int emailIndex = 0; emailIndex < emailLength; emailIndex++) {
 
             InformationStub.Email mail = emailObj[emailIndex];
             contactEmail = mail.toString();
-            emails.concat(" ").concat( contactEmail );
+            emails.concat(" ").concat(contactEmail);
         }
         objHotelInformationResponse2.setContactEmails(emails);
 
 		/* populate  contact phone list */
-       InformationStub.Phone[] phoneObj = objContact.getContactPhones().getPhone();
+        InformationStub.Phone[] phoneObj = objContact.getContactPhones().getPhone();
 
         int phoneLength = phoneObj.length;
         String phoneNumbers = " ";
@@ -148,7 +152,7 @@ public class OWSInformationProcessor {
 
         int addressLength = objAddress.length;
 
-        for( int addressIndex = 0 ; addressIndex < addressLength; addressIndex++ ) {
+        for (int addressIndex = 0; addressIndex < addressLength; addressIndex++) {
 
             InformationStub.Address objAdd = objAddress[addressIndex];
 
@@ -162,10 +166,10 @@ public class OWSInformationProcessor {
         objHotelInformationResponse2.setCountry(countryCode);
         objHotelInformationResponse2.setPostalCode(postalCode);
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Hotel Contact added to the Hotel Information property " );
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Hotel Contact added to the Hotel Information property ");
 
         //TODO: Fix
-		/*populate attraction details for note */
+        /*populate attraction details for note */
 /*        InformationStub.Attraction_type0[] objAttraction_type0 = objHotelInformationResponseHotelInformation.getHotelExtendedInformation().getFacilityInfo().getAttractions().getAttraction();
         int attractionTypeLength = objAttraction_type0.length;
 
@@ -232,10 +236,10 @@ public class OWSInformationProcessor {
         objHotelInformationResponse2.setCheckInTime(checkinTime);
         objHotelInformationResponse2.setCheckOutTime(checkoutTime);
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " CHECKININFO AND CHECKOUTINFO added to the sucessfully " );
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " CHECKININFO AND CHECKOUTINFO added to the sucessfully ");
 
         //TODO: FIx
-		/*  populate details information of restaurants type */
+        /*  populate details information of restaurants type */
 /*
         InformationStub.RestaurantsTypeRestaurant[] objRestaurantsTypeRestaurant = objHotelInformationResponseHotelInformation.getHotelExtendedInformation().getFacilityInfo().getRestaurants().getRestaurant();
         List<com.cloudkey.commons.Restaurants> restaurantList = objHotelInformationResponse2.getRestaurantsList();
@@ -336,8 +340,8 @@ public class OWSInformationProcessor {
         objHotelInformationResponse2.setRoomTypeList(roomList);
 */
 
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " ROOMLIST added to the sucessfully " );
-        MicrosPMSLogger.logInfo( MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Exit getHotelInformationResponseObject method " );
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " ROOMLIST added to the sucessfully ");
+        MicrosPMSLogger.logInfo(MicrosPMSMessageParser.class, " getHotelInformationResponseObject ", " Exit getHotelInformationResponseObject method ");
 
         return objHotelInformationResponse2;
     }
@@ -347,10 +351,10 @@ public class OWSInformationProcessor {
         HotelInformationResponse response = new HotelInformationResponse();
 
         response.setStatus(hotelInformationResponse.getResult().getResultStatusFlag().toString());
-        if (hotelInformationResponse.getResult().getResultStatusFlag() == InformationStub.ResultStatusFlag.FAIL){
+        if (hotelInformationResponse.getResult().getResultStatusFlag() == InformationStub.ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(hotelInformationResponse.getResult());
-        response.setErrorMessage(errorMessage);
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "getHotelInformationResponseObject ",errorMessage);
+            response.setErrorMessage(errorMessage);
+            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "getHotelInformationResponseObject ", errorMessage);
             return response;
         }
 
@@ -359,19 +363,124 @@ public class OWSInformationProcessor {
         InformationStub.HotelContact hotelContactInformation = hotelInformation.getHotelContactInformation();
         InformationStub.ExtendedHotelInfo hotelExtendedInformation = hotelInformation.getHotelExtendedInformation();
 
+        if (hotelExtendedInformation != null &&
+                hotelExtendedInformation.getFacilityInfo() != null &&
+                hotelExtendedInformation.getFacilityInfo().getGuestRooms() != null) {
+            InformationStub.FacilityInfoTypeGuestRooms guestRooms = hotelExtendedInformation.getFacilityInfo().getGuestRooms();
+
+            ArrayList<RoomType> rooms = new ArrayList<>();
+            response.setRoomTypeList(rooms);
+
+            InformationStub.FacilityInfoTypeGuestRoomsGuestRoom[] roomList = guestRooms.getGuestRoom();
+            if (roomList != null && roomList.length > 0) {
+
+                for (InformationStub.FacilityInfoTypeGuestRoomsGuestRoom room_item : roomList) {
+                    RoomType roomType = new RoomType();
+                    rooms.add(roomType);
+
+                    roomType.setCode(room_item.getCode());
+
+                    //TODO: Test with real data
+                    if (room_item.getAmenityInfo() != null &&
+                            room_item.getAmenityInfo().getAmenities() != null &&
+                            room_item.getAmenityInfo().getAmenities().getAmenity() != null &&
+                            room_item.getAmenityInfo().getAmenities().getAmenity().length > 0){
+                        InformationStub.ArrayOfAmenity amenities = room_item.getAmenityInfo().getAmenities();
+                        String features = "";
+                        for (InformationStub.Amenity amenity : amenities.getAmenity())
+                        {
+                            if (!features.equals(""))
+                            {
+                                features += " '";
+                            }
+
+                            features += amenity.getAmenityCode();
+                        }
+                        roomType.setFeatures(features);
+                    }
+
+                    InformationStub.DescriptiveText descriptiveText = room_item.getRoomDescription();
+                    if (descriptiveText != null &&
+                            descriptiveText.getDescriptiveTextChoice_type0() != null) {
+
+                        InformationStub.ArrayOfTextElement text = descriptiveText.getDescriptiveTextChoice_type0().getText();
+                        if (text != null && text.getTextElement() != null && text.getTextElement().length > 0) {
+                            roomType.setDescription(text.getTextElement()[0].toString());
+                        }
+                    }
+                }
+            }
+        }
+        if (hotelExtendedInformation != null &&
+                hotelExtendedInformation.getFacilityInfo() != null &&
+                hotelExtendedInformation.getFacilityInfo().getRestaurants() != null) {
+
+            InformationStub.ArrayOfRestaurantsTypeRestaurant restaurants = hotelExtendedInformation.getFacilityInfo().getRestaurants();
+
+            List<Restaurants> restaurant_list = new ArrayList<Restaurants>();
+            response.setRestaurantsList(restaurant_list);
+
+            for (com.micros.ows.information.InformationStub.RestaurantsTypeRestaurant restaurant : restaurants.getRestaurant()) {
+
+                Restaurants restaurant_item = new Restaurants();
+                restaurant_list.add(restaurant_item);
+                restaurant_item.setName(restaurant.getRestaurantName());
+
+                InformationStub.ArrayOfRestaurantsTypeRestaurantCuisine cuisines = restaurant.getCuisines();
+                if (cuisines != null) {
+                    String cuisine_all = "";
+                    for (InformationStub.RestaurantsTypeRestaurantCuisine cuisine : cuisines.getCuisine()) {
+                        if (!cuisine_all.equals("")) {
+                            cuisine_all += "|";
+                        }
+                        cuisine_all += cuisine.getDescription();
+                    }
+                    restaurant_item.setCuisine(cuisine_all);
+                }
+
+                InformationStub.Paragraph[] description = restaurant.getRestaurantDescription();
+                if (description != null && description.length > 0) {
+                    InformationStub.Paragraph paragraph = description[0];
+                    if (paragraph != null) {
+                        InformationStub.ParagraphChoice_type0[] pchoice = paragraph.getParagraphChoice_type0();
+                        if (pchoice != null && pchoice.length > 0) {
+                            InformationStub.ParagraphChoice_type0 p1 = pchoice[0];
+                            restaurant_item.setDescription(p1.getText().toString());
+                        }
+                    }
+                }
+            }
+        }
+
         response.setHotelName(hotelInformation1.getString());
+        InformationStub.ArrayOfPhone phones = hotelContactInformation.getContactPhones();
+        if (phones != null && phones.getPhone() != null) {
+            for (InformationStub.Phone phone : phones.getPhone()) {
+                if (phone.getPhoneChoice_type0() != null &&
+                        phone.getPhoneChoice_type0().getPhoneNumber() != null) {
+                    response.setContactPhones(phone.getPhoneChoice_type0().getPhoneNumber());
+                    break;
+                }
+            }
+        }
+
+        InformationStub.ArrayOfEmail emails = hotelContactInformation.getContactEmails();
+        if (emails != null && emails.getContactEmail() != null) {
+            for (InformationStub.Email email : emails.getContactEmail()) {
+                response.setContactEmails(email.getString());
+                break;
+            }
+        }
+
         InformationStub.ArrayOfAddress addresses = hotelContactInformation.getAddresses();
-        if (addresses != null && addresses.getAddress() != null && addresses.getAddress().length > 0)
-        {
+        if (addresses != null && addresses.getAddress() != null && addresses.getAddress().length > 0) {
             String addressLine = "";
             InformationStub.Address address = addresses.getAddress()[0];
-            if (address != null){
+            if (address != null) {
 
-                if (address.getAddressLine() != null)
-                {
-                    for(String line:address.getAddressLine()){
-                        if (!addressLine.isEmpty())
-                        {
+                if (address.getAddressLine() != null) {
+                    for (String line : address.getAddressLine()) {
+                        if (!addressLine.isEmpty()) {
                             addressLine += "</br>";
                         }
                         addressLine += line;
@@ -379,47 +488,21 @@ public class OWSInformationProcessor {
                 }
             response.setAddress(addressLine);
 
-                if  (address.getCityName() != null)
-                {
-                response.setCity(address.getCityName());
+                if (address.getCityName() != null) {
+                    response.setCity(address.getCityName());
                 }
 
                 //TODO: Add State/Prov
-                if  (address.getStateProv() != null)
-                {
+                if (address.getStateProv() != null) {
                     //response.setState
                 }
 
-                if  (address.getPostalCode() != null)
-                {
-                response.setPostalCode(address.getPostalCode());
+                if (address.getPostalCode() != null) {
+                    response.setPostalCode(address.getPostalCode());
                 }
 
-                if  (address.getCountryCode() != null)
-                {
-                response.setCountry(address.getCountryCode());
-                }
-            }
-        }
-
-        if (hotelContactInformation.getContactEmails() != null)
-        {
-            String emails = "";
-            for (InformationStub.Email email:hotelContactInformation.getContactEmails().getContactEmail()){
-                if (!emails.isEmpty()){
-                    emails += ":";
-                    emails += email.getString();
-                }
-            }
-        }
-
-        if (hotelContactInformation.getContactPhones() != null){
-            String contactPhones = "";
-            for (InformationStub.Phone phone:hotelContactInformation.getContactPhones().getPhone())
-            {
-                if (!contactPhones.isEmpty()){
-                    contactPhones += ":";
-                    contactPhones += phone.getPhoneChoice_type0().getPhoneNumber();
+                if (address.getCountryCode() != null) {
+                    response.setCountry(address.getCountryCode());
                 }
             }
         }

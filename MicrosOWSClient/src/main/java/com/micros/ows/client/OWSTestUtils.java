@@ -53,7 +53,18 @@ public class OWSTestUtils {
     public static void FutureBookingSummary() {
 
         OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
-        SearchReservationRequest request = new SearchReservationRequest(CONFIRMATION_NO, FIRST_NAME, LAST_NAME, CREDIT_CARD_NO);
+        SearchReservationRequest request = new SearchReservationRequest(
+	        CONFIRMATION_NO,
+	        FIRST_NAME,
+	        LAST_NAME,
+	        CREDIT_CARD_NO,
+	        null,
+	        null,
+	        null,
+	        null,
+	        null,
+	        null
+        );
         try {
             owsReservationProcessor.processSearchReservationData(request);
         } catch (RemoteException e) {

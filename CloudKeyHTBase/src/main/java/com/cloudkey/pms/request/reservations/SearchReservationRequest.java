@@ -20,23 +20,47 @@ public class SearchReservationRequest {
 
     private String creditCardNumber;
 
+	private String membershipNumber;
+
+	private String membershipType;
+
+	private String hotelCode;
+
+	private String extRefLegNumber;
+
+	private String extReferenceNumber;
+
+	private String extReferenceType;
+
 	protected SearchReservationRequest() { /* For serialization */ }
 
-    public SearchReservationRequest(String confirmationNumber, String firstName, String lastName, String creditCardNumber) {
-        this.confirmationNumber = confirmationNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.creditCardNumber = creditCardNumber;
-    }
+	public SearchReservationRequest(String confirmationNumber, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String hotelCode, String extRefLegNumber, String extReferenceNumber, String extReferenceType) {
+		this.confirmationNumber = confirmationNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.creditCardNumber = creditCardNumber;
+		this.membershipNumber = membershipNumber;
+		this.membershipType = membershipType;
+		this.hotelCode = hotelCode;
+		this.extRefLegNumber = extRefLegNumber;
+		this.extReferenceNumber = extReferenceNumber;
+		this.extReferenceType = extReferenceType;
+	}
 
-    @AssertTrue(message = "At least one criteria must be specified")
+	@AssertTrue(message = "At least one criteria must be specified")
     private boolean isValid() {
-        // At least one criteria must be specified
-        return !(confirmationNumber == null
-                && firstName == null
-                && lastName == null
-                && creditCardNumber == null);
-    }
+		// At least one criteria must be specified
+		return (confirmationNumber != null
+			|| firstName != null
+			|| lastName != null
+			|| creditCardNumber != null
+			|| membershipNumber != null
+			|| membershipType != null
+			|| hotelCode != null
+			|| extRefLegNumber != null
+			|| extReferenceNumber != null
+			|| extReferenceType != null);
+	}
 
     public String getConfirmationNumber() {
         return confirmationNumber;
@@ -54,13 +78,44 @@ public class SearchReservationRequest {
         return creditCardNumber;
     }
 
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("confirmationNumber", confirmationNumber)
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("creditCardNumber", creditCardNumber)
-                .toString();
-    }
+	public String getMembershipNumber() {
+		return membershipNumber;
+	}
+
+	public String getMembershipType() {
+		return membershipType;
+	}
+
+	public String getHotelCode() {
+		return hotelCode;
+	}
+
+	public String getExtRefLegNumber() {
+		return extRefLegNumber;
+	}
+
+	public String getExtReferenceNumber() {
+		return extReferenceNumber;
+	}
+
+	public String getExtReferenceType() {
+		return extReferenceType;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("confirmationNumber", confirmationNumber)
+			.add("firstName", firstName)
+			.add("lastName", lastName)
+			.add("creditCardNumber", creditCardNumber)
+			.add("membershipNumber", membershipNumber)
+			.add("membershipType", membershipType)
+			.add("hotelCode", hotelCode)
+			.add("extRefLegNumber", extRefLegNumber)
+			.add("extReferenceNumber", extReferenceNumber)
+			.add("extReferenceType", extReferenceType)
+			.toString();
+	}
 }
+

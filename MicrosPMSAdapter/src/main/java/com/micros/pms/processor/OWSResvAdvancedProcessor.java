@@ -7,6 +7,8 @@ import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.pms.request.reservations.CheckInRequest;
 import com.cloudkey.pms.request.reservations.CheckOutRequest;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
+import com.cloudkey.pms.request.reservations.PostChargeRequest;
+import com.cloudkey.pms.response.PostChargeResponse;
 import com.cloudkey.pms.response.reservations.CheckInResponse;
 import com.cloudkey.pms.response.reservations.CheckOutResponse;
 import com.cloudkey.pms.response.reservations.GetFolioResponse;
@@ -30,6 +32,94 @@ import java.util.UUID;
 public class OWSResvAdvancedProcessor {
 
     final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
+
+    public PostChargeResponse postCharge(PostChargeRequest postChargeRequest) {
+
+        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " postCharge ", " Enter in postCharge method.");
+
+        ResvAdvancedServiceStub.PostChargeResponse objResponse = null;
+
+        ResvAdvancedServiceStub.OGHeaderE ogh = getHeaderE();
+
+        ResvAdvancedServiceStub.PostChargeRequest req = getPostChargeRequestObject(postChargeRequest);
+
+        ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
+
+        ResvAdvancedServiceStub.PostChargeRequestE reqE = new
+                ResvAdvancedServiceStub.PostChargeRequestE();
+        reqE.setPostChargeRequest(req);
+
+        PostChargeResponse response = null;
+
+        try {
+            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
+                    AdapterUtility.convertToStreamXML(reqE));
+            ResvAdvancedServiceStub.PostChargeResponseE respE = rstub.postCharge(reqE, ogh);
+            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
+                    AdapterUtility.convertToStreamXML(respE));
+
+            response = getPostChargeResponseObject(respE.getPostChargeResponse());
+            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
+                    AdapterUtility.convertToStreamXML(response));
+
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            MicrosPMSLogger.logError(OWSResvAdvancedProcessor.class, "postCharge ",
+                    e.getMessage());
+        }
+
+
+        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " postCharge ", " Exit postCharge method ");
+
+        return response;
+    }
+
+    private ResvAdvancedServiceStub.PostChargeRequest getPostChargeRequestObject(PostChargeRequest postChargeRequest) {
+        ResvAdvancedServiceStub.PostChargeRequest objPostChargeRequest = new ResvAdvancedServiceStub.PostChargeRequest();
+
+        ResvAdvancedServiceStub.Posting posting = new ResvAdvancedServiceStub.Posting();
+        objPostChargeRequest.setPosting(posting);
+
+        posting.setCharge(postChargeRequest.getChargeAmount());
+        posting.setFolioViewNo(postChargeRequest.getFolioViewNo());
+        posting.setLongInfo(postChargeRequest.getLongInfo());
+        posting.setShortInfo(postChargeRequest.getShortInfo());
+        posting.setPostDate(postChargeRequest.getPostDate());
+        posting.setStationID(postChargeRequest.getStationId());
+        posting.setUserID(postChargeRequest.getUserId());
+
+        ResvAdvancedServiceStub.ReservationRequestBase reservationRequestBase = new ResvAdvancedServiceStub.ReservationRequestBase();
+        reservationRequestBase.setHotelReference(getDefaultHotelReference());
+        posting.setReservationRequestBase(reservationRequestBase);
+
+        ResvAdvancedServiceStub.ArrayOfUniqueID reservationIDs = new ResvAdvancedServiceStub.ArrayOfUniqueID();
+        ResvAdvancedServiceStub.UniqueID uid = new ResvAdvancedServiceStub.UniqueID();
+        reservationIDs.addUniqueID(uid);
+
+        // TODO: Clarify INTERNAL/EXTERNAL
+        uid.setType(ResvAdvancedServiceStub.UniqueIDType.INTERNAL);
+        uid.setString(postChargeRequest.getReservationId());
+        reservationRequestBase.setReservationID(reservationIDs);
+
+        objPostChargeRequest.setAccount(postChargeRequest.getAccount());
+        objPostChargeRequest.setAccount(postChargeRequest.getArticle());
+        return objPostChargeRequest;
+    }
+
+    private PostChargeResponse getPostChargeResponseObject(ResvAdvancedServiceStub.PostChargeResponse postChargeResponse) {
+        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getPostChargeResponseObject ", " Enter in getPostChargeResponseObject method ");
+
+        PostChargeResponse objFolioResponse = new PostChargeResponse();
+        objFolioResponse.setStatus(postChargeResponse.getResult().getResultStatusFlag().toString());
+        if (postChargeResponse.getResult().getResultStatusFlag() == ResvAdvancedServiceStub.ResultStatusFlag.FAIL) {
+            String message = getErrorMessage(postChargeResponse.getResult());
+            objFolioResponse.setErrorMessage(message);
+            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getPostChargeResponseObject ", " Get Folio Failed:" + message);
+        }
+
+        return objFolioResponse;
+    }
 
     public GetFolioResponse processRetrieveFolioInfo(GetFolioRequest folioRequest) throws RemoteException {
 
