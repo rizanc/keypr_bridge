@@ -3,6 +3,7 @@ package com.cloudkey.pms.request.roomassignments;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.joda.time.LocalDate;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,6 +28,11 @@ public class GetAvailabilityRequest {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+	@AssertTrue(message = "Start date must be before end date")
+	private boolean isValid() {
+		return startDate != null && endDate != null && startDate.isBefore(endDate);
+	}
 
     public LocalDate getStartDate() {
         return startDate;
