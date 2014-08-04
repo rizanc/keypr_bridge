@@ -1,10 +1,8 @@
 package com.micros.pms.processor;
 
 import com.cloudkey.pms.micros.og.common.Membership;
-import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.common.UniqueID;
-import com.cloudkey.pms.micros.og.core.*;
-import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.membership.AwardPointsInfo;
 import com.cloudkey.pms.micros.og.membership.StayPointsInfo;
 import com.cloudkey.pms.micros.ows.membership.FetchMemberPointsRequest;
@@ -12,28 +10,28 @@ import com.cloudkey.pms.micros.ows.membership.FetchMemberPointsResponse;
 import com.cloudkey.pms.micros.services.MembershipServiceStub;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
-import com.google.common.collect.Iterables;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.parser.MicrosOWSParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSMembershipProcessor extends AbstractOWSProcessor {
 
-    final static String URL_MEMBERSHIP = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Membership.asmx";
+	final static Logger log = LoggerFactory.getLogger(OWSMembershipProcessor.class);
+
+	final static String URL_MEMBERSHIP = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Membership.asmx";
 
     //TODO: Get Samples
     public MemberPointsResponse processFetchMemberPoints(MemberPointsRequest objMemberPointsRequest) throws RemoteException {
-        MicrosPMSLogger.logInfo( OWSInformationProcessor.class, " processFetchMemberPoints "," Enter processFetchMemberPoints method " );
+        log.debug("processFetchMemberPoints"," Enter processFetchMemberPoints method " );
 
         MembershipServiceStub membershipServiceStub =  getMembershipServiceStub();
 
@@ -45,16 +43,16 @@ public class OWSMembershipProcessor extends AbstractOWSProcessor {
 
         OGHeaderE ogh = getHeaderE();
 
-        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                AdapterUtility.convertToStreamXML(objRequest));
+        log.debug("processFetchMemberPoints",
+	        AdapterUtility.convertToStreamXML(objRequest));
         FetchMemberPointsResponse resp =
                 membershipServiceStub.fetchMemberPoints(objRequest, ogh);
-        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                AdapterUtility.convertToStreamXML(resp));
+        log.debug("processFetchMemberPoints",
+	        AdapterUtility.convertToStreamXML(resp));
 
         response = getMemberPointsResponse(resp);
-        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processFetchMemberPoints ",
-                AdapterUtility.convertToStreamXML(response));
+        log.debug("processFetchMemberPoints",
+	        AdapterUtility.convertToStreamXML(response));
 
         return response;
     }
@@ -64,14 +62,14 @@ public class OWSMembershipProcessor extends AbstractOWSProcessor {
      */
     private FetchMemberPointsRequest getFetchMemberPointsRequestObject(MemberPointsRequest objMemberPointsRequest) {
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getFetchMemberPointsRequestObject "," Enter getFetchMemberPointsRequestObject method " );
+        log.debug("getFetchMemberPointsRequestObject"," Enter getFetchMemberPointsRequestObject method " );
 
         FetchMemberPointsRequest objFetchMemberPointsRequest = null;
 
         objFetchMemberPointsRequest = new FetchMemberPointsRequest();
         objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipNumber());
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFetchMemberPointsRequestObject ", " Exit getFetchMemberPointsRequestObject method ");
+        log.debug("getFetchMemberPointsRequestObject", "Exit getFetchMemberPointsRequestObject method ");
         return objFetchMemberPointsRequest;
     }
 
@@ -80,14 +78,14 @@ public class OWSMembershipProcessor extends AbstractOWSProcessor {
      */
     private MemberPointsResponse getMemberPointsResponse(FetchMemberPointsResponse objFetchMemberPointsResponse) {
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getMemberPointsResponse "," Enter getMemberPointsResponse method " );
+        log.debug("getMemberPointsResponse"," Enter getMemberPointsResponse method " );
 
         MemberPointsResponse objMemberPointsResponse = new MemberPointsResponse();
 
         //objMemberPointsResponse.setResult(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
         objMemberPointsResponse.setStatus(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getMemberPointsResponse "," Result Status Set to the response " );
+        log.debug("getMemberPointsResponse"," Result Status Set to the response " );
 
         Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
 
@@ -158,7 +156,7 @@ public class OWSMembershipProcessor extends AbstractOWSProcessor {
 
         objMemberPointsResponse.setGuestTotalStay(guestTotalStay);
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getMemberPointsResponse "," Exit getMemberPointsResponse method " );
+        log.debug("getMemberPointsResponse"," Exit getMemberPointsResponse method " );
         return objMemberPointsResponse;
     }
 
@@ -172,8 +170,7 @@ public class OWSMembershipProcessor extends AbstractOWSProcessor {
 
         } catch (AxisFault axisFault) {
             axisFault.printStackTrace();
-            MicrosPMSLogger.logError(OWSMembershipProcessor.class, "getMembershipServiceStub ",
-                    axisFault.getMessage());
+            log.error("getMembershipServiceStub", axisFault);
         }
 
         return rstub;

@@ -3,31 +3,31 @@ package com.micros.pms.processor;
 import com.cloudkey.commons.Restaurants;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.micros.og.common.*;
-import com.cloudkey.pms.micros.og.core.*;
+import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.information.*;
 import com.cloudkey.pms.micros.services.InformationStub;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.parser.MicrosOWSParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSInformationProcessor extends AbstractOWSProcessor {
+	final static Logger log = LoggerFactory.getLogger(OWSInformationProcessor.class);
 
     final static String URL_INFORMATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Information.asmx";
 
     public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processHotelInformation ", " Enter processHotelInformation method. ");
+        log.debug("processHotelInformation", "Enter processHotelInformation method. ");
 
         InformationStub informationStub = getInformationStub();
 
@@ -37,11 +37,11 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
         OGHeaderE ogh = getHeaderE();
 
-        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                AdapterUtility.convertToStreamXML(req));
+        log.debug("processHotelInformation",
+	        AdapterUtility.convertToStreamXML(req));
         HotelInformationResponseE responseE = informationStub.queryHotelInformation(requestE, ogh);
-        MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                AdapterUtility.convertToStreamXML(responseE));
+        log.debug("processHotelInformation",
+	        AdapterUtility.convertToStreamXML(responseE));
 
 	    return getHotelInformationResponseObject(responseE.getHotelInformationResponse());
     }
@@ -60,7 +60,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
     private com.cloudkey.pms.response.hotels.HotelInformationResponse _getHotelInformationResponseObject(HotelInformationResponse objHotelInformationResponse) {
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " Enter getHotelInformationResponseObject method ");
+        log.debug("getHotelInformationResponseObject", "Enter getHotelInformationResponseObject method ");
 
 	    com.cloudkey.pms.response.hotels.HotelInformationResponse objHotelInformationResponse2 = null;
 
@@ -87,7 +87,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
         //objHotelInformationResponse2.setResult(result);
         objHotelInformationResponse2.setHotelName(hotelName);
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " ResultStatus Set to the response ");
+        log.debug("getHotelInformationResponseObject", "ResultStatus Set to the response ");
 
 	    HotelInformationResponseHotelInformation hotelInformation = objHotelInformationResponse.getHotelInformation();
 	    HotelContact objContact = hotelInformation.getHotelContactInformation();
@@ -158,7 +158,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
         objHotelInformationResponse2.setCountry(countryCode);
         objHotelInformationResponse2.setPostalCode(postalCode);
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " Hotel Contact added to the Hotel Information property ");
+        log.debug("getHotelInformationResponseObject", "Hotel Contact added to the Hotel Information property ");
 
         //TODO: Fix
         /*populate attraction details for note */
@@ -184,7 +184,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
         objHotelInformationResponse2.setNotes(notes);
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getHotelInformationResponseObject ", " NOTES added to the sucessfully " );*/
+        log.debug("getHotelInformationResponseObject", "NOTES added to the sucessfully " );*/
 
 		/* populate check in and checkout info details.*/
         //TODO: Fix
@@ -228,7 +228,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
         objHotelInformationResponse2.setCheckInTime(checkinTime);
         objHotelInformationResponse2.setCheckOutTime(checkoutTime);
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " CHECKININFO AND CHECKOUTINFO added to the sucessfully ");
+        log.debug("getHotelInformationResponseObject", "CHECKININFO AND CHECKOUTINFO added to the sucessfully ");
 
         //TODO: FIx
         /*  populate details information of restaurants type */
@@ -292,7 +292,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
         objHotelInformationResponse2.setRestaurantsList(restaurantList);
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getHotelInformationResponseObject ", " RESTAURANTLIST added to the sucessfully " );
+        log.debug("getHotelInformationResponseObject", "RESTAURANTLIST added to the sucessfully " );
 */
 
 		/* populate guestRoom information */
@@ -332,8 +332,8 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
         objHotelInformationResponse2.setRoomTypeList(roomList);
 */
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " ROOMLIST added to the sucessfully ");
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " Exit getHotelInformationResponseObject method ");
+        log.debug("getHotelInformationResponseObject", "ROOMLIST added to the sucessfully ");
+        log.debug("getHotelInformationResponseObject", "Exit getHotelInformationResponseObject method ");
 
         return objHotelInformationResponse2;
     }
@@ -346,7 +346,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
         if (hotelInformationResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(hotelInformationResponse.getResult());
             response.setErrorMessage(errorMessage);
-            MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "getHotelInformationResponseObject ", errorMessage);
+            log.debug("getHotelInformationResponseObject", errorMessage);
             return response;
         }
 
@@ -514,8 +514,7 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
         } catch (AxisFault axisFault) {
             axisFault.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "getInformationStub ",
-                    axisFault.getMessage());
+            log.error("getInformationStub ", axisFault);
         }
         return rstub;
     }

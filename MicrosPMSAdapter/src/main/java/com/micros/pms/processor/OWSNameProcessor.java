@@ -1,12 +1,10 @@
 package com.micros.pms.processor;
 
 import com.cloudkey.commons.Membership;
-import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
-import com.cloudkey.pms.micros.og.core.*;
-import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.ows.name.*;
 import com.cloudkey.pms.micros.services.NameServiceStub;
@@ -15,24 +13,25 @@ import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSNameProcessor extends AbstractOWSProcessor {
+	final static Logger log = LoggerFactory.getLogger(OWSNameProcessor.class);
 
     final static String URL_NAME = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Name.asmx";
 
     public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, " processGuestCardList ", " Enter processGuestCardList method ");
+        log.debug("processGuestCardList", "Enter processGuestCardList method ");
 
 	    NameServiceStub nameServiceStub = getNameServiceStub();
 
@@ -47,11 +46,11 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
 
 	    OGHeaderE ogh = getHeaderE();
 
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
-                AdapterUtility.convertToStreamXML(requestE));
+        log.debug("processGuestCardList",
+	        AdapterUtility.convertToStreamXML(requestE));
         FetchGuestCardListResponseE responseE = nameServiceStub.fetchGuestCardList(requestE, ogh);
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
-                AdapterUtility.convertToStreamXML(responseE));
+        log.debug("processGuestCardList",
+	        AdapterUtility.convertToStreamXML(responseE));
 
         FetchGuestCardListResponse objResponse = responseE.getFetchGuestCardListResponse();
 
@@ -61,7 +60,7 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
         if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
         response.setErrorMessage(errorMessage);
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ", errorMessage);
+            log.debug("processGuestCardList", errorMessage);
             return response;
         }
 
@@ -95,7 +94,7 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
     }
 
     public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, " processNameLookupByMembership ", " Enter processNameLookupByMembership method ");
+        log.debug("processNameLookupByMembership", "Enter processNameLookupByMembership method ");
 
 
         NameServiceStub nameServiceStub = getNameServiceStub();
@@ -120,11 +119,11 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
 	    NameLookupRequestE requestE = new NameLookupRequestE();
 	    requestE.setNameLookupRequest(objRequest);
 
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                AdapterUtility.convertToStreamXML(requestE));
+        log.debug("processNameLookupByMembership",
+	        AdapterUtility.convertToStreamXML(requestE));
         NameLookupResponseE resp = nameServiceStub.nameLookup(requestE, ogh);
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                AdapterUtility.convertToStreamXML(resp));
+        log.debug("processNameLookupByMembership",
+	        AdapterUtility.convertToStreamXML(resp));
 
         NameLookupResponse objResponse = resp.getNameLookupResponse();
 
@@ -133,7 +132,7 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
         if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
         response.setErrorMessage(errorMessage);
-            MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ", errorMessage);
+            log.debug("processNameLookupByMembership", errorMessage);
             return response;
         }
 
@@ -150,8 +149,8 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
             }
         }
 
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                AdapterUtility.convertToStreamXML(response));
+        log.debug("processNameLookupByMembership",
+	        AdapterUtility.convertToStreamXML(response));
 
         return response;
     }
@@ -166,8 +165,7 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
 
         } catch (AxisFault axisFault) {
             axisFault.printStackTrace();
-            MicrosPMSLogger.logError(OWSNameProcessor.class, "getNameServiceStub ",
-                    axisFault.getMessage());
+            log.error("getNameServiceStub ", axisFault);
         }
         return rstub;
     }

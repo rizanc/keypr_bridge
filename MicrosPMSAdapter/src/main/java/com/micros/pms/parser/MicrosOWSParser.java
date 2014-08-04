@@ -21,21 +21,26 @@ import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.micros.http.connection.HttpClientRequest;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.processor.*;
 import org.apache.commons.lang3.NotImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.List;
 
 /**
- * Created by crizan2 on 16/07/2014.
+ *
+ * @author crizan2
  */
 public class MicrosOWSParser implements IParserInterface {
-    @Override
+	final static Logger log = LoggerFactory.getLogger(MicrosOWSParser.class);
+
+	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " retrieveFolioInfo ", " Enter retrieveFolioInfo method. ");
+        log.debug("retrieveFolioInfo", "Enter method.");
 
         try {
             return new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
@@ -46,7 +51,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " releaseRoom ", " Enter releaseRoom method. ");
+        log.debug("releaseRoom", "Enter method.");
 
         try {
             return new OWSReservationProcessor().processReleaseRoom(releaseRoomRequest);
@@ -57,7 +62,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckIn ", " Enter guestCheckIn method. ");
+        log.debug("guestCheckIn", "Enter method.");
 
         try {
             return new OWSResvAdvancedProcessor().processCheckIn(checkInRequest);
@@ -68,7 +73,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " assignRoom ", " Enter assignRoom method. ");
+        log.debug("assignRoom", "Enter method.");
 
         try {
             return new OWSReservationProcessor().processAssignRoom(assignRoomRequest);
@@ -79,7 +84,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " guestCheckOut ", " Enter guestCheckOut method. ");
+        log.debug("guestCheckOut", "Enter method.");
 
         try {
             return new OWSResvAdvancedProcessor().processCheckOut(checkOutRequest);
@@ -90,7 +95,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " updateBooking ", " Enter updateBooking method. ");
+        log.debug("updateBooking", "Enter method.");
 
         try {
             return new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
@@ -101,23 +106,27 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public MakePaymentResponse makePayment(MakePaymentRequest request) throws PMSInterfaceException {
-        // TODO
+	    log.debug("makePayment", "Enter method.");
+
+	    // TODO
         throw new NotImplementedException("TODO");
     }
 
     @Override
     public UpdatePaymentResponse updatePayment(UpdatePaymentRequest updatePaymentRequest) throws PMSInterfaceException {
+	    log.debug("updatePayment", "Enter method.");
+
 	    throw new NotImplementedException("TODO");
     }
 
     @Override
     public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
+	    log.debug("checkAvailability", "Enter method.");
 
         GetAvailabilityResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " checkAvailability ", " Enter checkAvailability method. ");
         try {
-        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+	        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -127,10 +136,10 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public SearchReservationResponse searchReservationData(SearchReservationRequest searchReservationRequest) throws PMSInterfaceException {
+	    log.debug("searchReservationData", "Enter method.");
 
         SearchReservationResponse response;
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " searchReservationData ", " Enter searchReservationData method. ");
         try {
         response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
         } catch (RemoteException e) {
@@ -143,13 +152,15 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) throws PMSInterfaceException  {
+	    log.debug("getMeetingInformation", "Enter method.");
+
 	    throw new NotImplementedException("Not yet implemented");
     }
 
     @Override
     public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) throws PMSInterfaceException {
+	    log.debug("getMembershipInformation", "Enter method.");
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getMembershipInformation ", " Enter getMembershipInformation method. ");
         try {
             return new OWSNameProcessor().processGuestCardList(guestMembershipsRequest);
         } catch (RemoteException e) {
@@ -159,8 +170,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) throws PMSInterfaceException {
-
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getNameIdInformation ", " Enter getNameIdInformation method. ");
+        log.debug("getNameIdInformation", "Enter method.");
 
         try {
             return new OWSNameProcessor().processNameLookupByMembership(nameIdByMembershipRequest);
@@ -171,7 +181,7 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) throws PMSInterfaceException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " hotelInformationQuery ", " Enter hotelInformationQuery method. ");
+        log.debug("hotelInformationQuery", "Enter method.");
 
         try {
             return new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
@@ -182,8 +192,8 @@ public class MicrosOWSParser implements IParserInterface {
 
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
-        MemberPointsResponse response = new MemberPointsResponse();
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Enter memberPointsQuery method. ");
+	    log.debug("memberPointsQuery", "Enter method.");
+	    MemberPointsResponse response = new MemberPointsResponse();
 
         // Get the name id for the member
         String membershipLastName = memberPointsRequest.getMemberLastName();
@@ -193,12 +203,12 @@ public class MicrosOWSParser implements IParserInterface {
         NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName);
 
         NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
-        if (nameIdByMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
-        response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-        response.setErrorMessage(nameIdByMembershipResponse.getErrorMessage());
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Last/Member Type/Member Number are all required. ");
-            return response;
-        }
+	    if (nameIdByMembershipResponse.getStatus().equals(IMicrosConstants.RESPONSE_FAIL)) {
+		    response.setStatus(IMicrosConstants.RESPONSE_FAIL);
+		    response.setErrorMessage(nameIdByMembershipResponse.getErrorMessage());
+		    log.debug("memberPointsQuery", "Failure response", response.getErrorMessage());
+		    return response;
+	    }
 
         String nameID = nameIdByMembershipResponse.getNameId();
 
@@ -210,7 +220,7 @@ public class MicrosOWSParser implements IParserInterface {
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
-        if (guestMembershipResponse.getStatus() == IMicrosConstants.RESPONSE_FAIL) {
+        if (guestMembershipResponse.getStatus().equals(IMicrosConstants.RESPONSE_FAIL)) {
         response.setStatus(IMicrosConstants.RESPONSE_FAIL);
         response.setErrorMessage(guestMembershipResponse.getErrorMessage());
             return response;

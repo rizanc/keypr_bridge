@@ -1,7 +1,5 @@
 package com.micros.http.connection;
 
-
-import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.util.AdapterUtility;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,8 +11,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,22 +27,19 @@ import java.util.List;
 
 public class HttpClientRequest {
 
-	private InputStream inputStream = null;
-	private String response = null;
+	final static Logger log = LoggerFactory.getLogger(HttpClientRequest.class);
 
 	/**
-	 * 
-	 * @author niveditat
-	 * @method name : getHttpGetResponse
-	 * @description : Method to obtain response using HttpGet request.
+	 *
 	 * @param url
+	 * @param xmlString
 	 * @return
-	 * @return : InputStream Type
 	 */
 	public String getHttpPostResponse( String url, String xmlString ) {
+		log.debug("getHttpPostResponse", "Enter getHttpPostResponse method");
 
-		MicrosPMSLogger.logInfo( HttpClientRequest.class, " getHttpPostResponse " , " Enter getHttpPostResponse method " );
-	
+		String response = null;
+
 		try {
 
 			/* Set up HTTP post. */
@@ -61,27 +57,21 @@ public class HttpClientRequest {
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			long latency = System.currentTimeMillis()- requestTime;
 			
-			MicrosPMSLogger.logInfo( HttpClientRequest.class, " getHttpPostResponse " , " PMS Latency at MessageReceiver End in milliseconds " + latency );
+			log.debug("getHttpPostResponse", "PMS Latency at MessageReceiver End in milliseconds " + latency);
 			
 			HttpEntity httpEntity = httpResponse.getEntity();
 
 			/* Read content & Log. */
-			inputStream = httpEntity.getContent();
+			InputStream inputStream = httpEntity.getContent();
 				
 			/* get response from inputStream. */
-			response = AdapterUtility.getStringFromResponse( inputStream );
-			
-		}  catch (IOException ioe) {
-			
-			MicrosPMSLogger.logError(HttpClientRequest.class, " getHttpPostResponse " , ioe );
-			
-		}
-		catch (Exception exc) {
-			
-			MicrosPMSLogger.logError(HttpClientRequest.class, " getHttpPostResponse " , exc );	
+			response = AdapterUtility.getStringFromResponse(inputStream);
+		} catch (Exception exc) {
+			// TODO: We shouldn't be catching all exceptions here.
+			log.error("getHttpPostResponse", exc);
 		}
 
-		MicrosPMSLogger.logInfo(HttpClientRequest.class, "getHttpPostResponse " , " Exit getHttpPostResponse method. " + response );	
+		log.debug("getHttpPostResponse", "Exit getHttpPostResponse method ", response);
 		
 		return response;
 	}

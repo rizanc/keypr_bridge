@@ -5,43 +5,41 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.pms.micros.og.common.*;
-import com.cloudkey.pms.micros.og.core.*;
+import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
-import com.cloudkey.pms.micros.og.name.NameCreditCard;
 import com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard;
+import com.cloudkey.pms.micros.og.name.NameCreditCard;
 import com.cloudkey.pms.micros.og.name.Profile;
 import com.cloudkey.pms.micros.og.reservation.BillHeader;
 import com.cloudkey.pms.micros.og.reservation.BillItem;
 import com.cloudkey.pms.micros.og.reservation.advanced.*;
-import com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponse;
-import com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse;
-import com.cloudkey.pms.micros.og.reservation.advanced.PostChargeResponse;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceStub;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
-import com.cloudkey.pms.response.reservations.*;
+import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.parser.MicrosOWSParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by crizan2 on 17/07/2014.
  */
 public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
-    final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
+	final static Logger log = LoggerFactory.getLogger(OWSResvAdvancedProcessor.class);
+
+	final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
 
     public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest postChargeRequest) {
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " postCharge ", " Enter in postCharge method.");
+        log.debug("postCharge", "Enter in postCharge method.");
 
         PostChargeResponse objResponse = null;
 
@@ -56,23 +54,22 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 	    com.cloudkey.pms.response.reservations.PostChargeResponse response = null;
 
         try {
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
+            log.debug("postCharge",
                     AdapterUtility.convertToStreamXML(requestE));
             PostChargeResponseE responseE = rstub.postCharge(requestE, ogh);
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
+            log.debug("postCharge",
                     AdapterUtility.convertToStreamXML(responseE));
 
             response = getPostChargeResponseObject(responseE.getPostChargeResponse());
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, "postCharge ",
+            log.debug("postCharge",
                     AdapterUtility.convertToStreamXML(response));
 
         } catch (RemoteException e) {
             e.printStackTrace();
-            MicrosPMSLogger.logError(OWSResvAdvancedProcessor.class, "postCharge ",
-                    e.getMessage());
+            log.error("postCharge ", e.getMessage());
         }
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " postCharge ", " Exit postCharge method ");
+        log.debug("postCharge", "Exit postCharge method ");
 
         return response;
     }
@@ -110,14 +107,14 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
     }
 
     private com.cloudkey.pms.response.reservations.PostChargeResponse getPostChargeResponseObject(PostChargeResponse postChargeResponse) {
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getPostChargeResponseObject ", " Enter in getPostChargeResponseObject method ");
+        log.debug("getPostChargeResponseObject", "Enter method");
 
 	    com.cloudkey.pms.response.reservations.PostChargeResponse objFolioResponse = new com.cloudkey.pms.response.reservations.PostChargeResponse();
         objFolioResponse.setStatus(postChargeResponse.getResult().getResultStatusFlag().toString());
         if (postChargeResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String message = getErrorMessage(postChargeResponse.getResult());
             objFolioResponse.setErrorMessage(message);
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getPostChargeResponseObject ", " Get Folio Failed:" + message);
+            log.debug("getPostChargeResponseObject", "Get Folio Failed:" + message);
         }
 
         return objFolioResponse;
@@ -125,7 +122,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
     public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest folioRequest) throws RemoteException {
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processRetrieveFolioInfo ", " Enter in processRetrieveFolioInfo method.");
+        log.debug("processRetrieveFolioInfo", "Enter in processRetrieveFolioInfo method.");
 
         InvoiceResponse objResponse = null;
 
@@ -139,31 +136,31 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
         GetFolioResponse response = null;
 
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
+        log.debug("processRetrieveFolioInfo",
                 AdapterUtility.convertToStreamXML(requestE));
         InvoiceResponseE responseE = rstub.invoice(requestE, ogh);
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
+        log.debug("processRetrieveFolioInfo",
                 AdapterUtility.convertToStreamXML(responseE));
 
         response = getFolioResponseObject(responseE.getInvoiceResponse());
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processRetrieveFolioInfo ",
+        log.debug("processRetrieveFolioInfo",
                 AdapterUtility.convertToStreamXML(response));
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processRetrieveFolioInfo ", " Exit processRetrieveFolioInfo method ");
+        log.debug("processRetrieveFolioInfo", "Exit processRetrieveFolioInfo method ");
 
         return response;
     }
 
     private GetFolioResponse getFolioResponseObject(InvoiceResponse objResponse) {
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Enter in getFolioResponseObject method ");
+        log.debug("getFolioResponseObject", "Enter method");
 
         GetFolioResponse objFolioResponse = new GetFolioResponse();
         objFolioResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objFolioResponse.getStatus().equalsIgnoreCase("FAIL")) {
             String message = getErrorMessage(objResponse.getResult());
             objFolioResponse.setErrorMessage(message);
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getFolioResponseObject ", " Get Folio Failed:" + message);
+            log.debug("getFolioResponseObject", "Get Folio Failed:" + message);
             return objFolioResponse;
         }
 
@@ -187,7 +184,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         if (arrBillHeader != null) {
             for (BillHeader objBillHeader : arrBillHeader) { // Traversing Bill Header
 
-                MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Enter to traverse Bill Header ");
+                log.debug("getFolioResponseObject", "Enter to traverse Bill Header ");
 
                 addressType = objBillHeader.getAddress().getAddressType();
                 countryCode = objBillHeader.getAddress().getCountryCode();
@@ -223,7 +220,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
                 if (arrBillItem != null) {
                     for (int i = IMicrosConstants.COUNT_ZERO; i < arrBillItem.length; i++) { // Traversing bill Items.
 
-                        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Enter to traverse Bill Items ");
+                        log.debug("getFolioResponseObject", "Enter to traverse Bill Items ");
                         OrderDetails objOrderDetails = new OrderDetails();
 
                         unitPrice = arrBillItem[i].getAmount().get_double();
@@ -233,7 +230,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
                         objOrderDetails.setItemDescription(description);
                         objDetails.add(objOrderDetails);
 
-                        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Exit to traverse Bill Items ");
+                        log.debug("getFolioResponseObject", "Exit to traverse Bill Items ");
 
                     } // End bill items traversing loop.
                 }
@@ -261,21 +258,21 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
                     objReservation.setPmsId(confirmationNumber);
                 }
 */
-                MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Exit to traverse Bill Header ");
+                log.debug("getFolioResponseObject", "Exit to traverse Bill Header ");
 
             } // End Bill Header loop.
         }
 
         objFolioResponse.setReservation(objReservation);
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioResponseObject ", " Exit  getFolioResponseObject method ");
+        log.debug("getFolioResponseObject", "Exit  getFolioResponseObject method ");
 
         return objFolioResponse;
     }
 
     private InvoiceRequest getFolioRequestObject(GetFolioRequest folioRequest) {
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioRequestObject ", " Enter getFolioRequestObject method ");
+        log.debug("getFolioRequestObject", "Enter getFolioRequestObject method ");
 
 		/* To get the request parameters. */
         InvoiceRequest objInvoiceRequest = null;
@@ -302,14 +299,14 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
         }
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFolioRequestObject ", "  Exit getFolioRequestObject method ");
+        log.debug("getFolioRequestObject", "Exit getFolioRequestObject method ");
 
         return objInvoiceRequest;
 
     }
 
     public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) throws RemoteException {
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ", " Enter in processCheckOut method. ");
+        log.debug("processCheckOut", "Enter in processCheckOut method. ");
 
         CheckOutResponse objResponse = null;
 
@@ -323,14 +320,14 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
 	    com.cloudkey.pms.response.reservations.CheckOutResponse response = null;
 
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
+        log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(requestE));
         CheckOutResponseE resp = rstub.checkOut(requestE, ogh);
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
+        log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(resp));
 
         response = getCheckOutResponseObject(resp.getCheckOutResponse());
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckOut ",
+        log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(response));
 
         return response;
@@ -338,7 +335,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
     }
 
     private CheckOutRequest getCheckOutRequestObject(com.cloudkey.pms.request.reservations.CheckOutRequest checkOutRequest) {
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutRequestObject ", " Enter getCheckOutRequestObject method.");
+        log.debug("getCheckOutRequestObject", "Enter getCheckOutRequestObject method.");
 
         String confirmationNumber = checkOutRequest.getConfirmationNumber();
 
@@ -360,14 +357,14 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         objReservationRequestBase.setReservationID(objArrayOfUniqueID);
         objReservationRequestBase.setHotelReference(getDefaultHotelReference());
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutRequestObject ", " Exit getCheckOutRequestObject method ");
+        log.debug("getCheckOutRequestObject", "Exit getCheckOutRequestObject method ");
 
         return objCheckOutRequest;
     }
 
     private com.cloudkey.pms.response.reservations.CheckOutResponse getCheckOutResponseObject(CheckOutResponse checkOutResponse) {
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", " Enter getCheckOutResponseObject method ");
+        log.debug("getCheckOutResponseObject", "Enter getCheckOutResponseObject method ");
 
 	    com.cloudkey.pms.response.reservations.CheckOutResponse objCheckOutResponse = new com.cloudkey.pms.response.reservations.CheckOutResponse();
         Reservation objReservation = new Reservation();
@@ -385,11 +382,11 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         if (checkOutResponse.getResult().getResultStatusFlag() != ResultStatusFlag.SUCCESS) {
             String message = getErrorMessage(checkOutResponse.getResult());
             objCheckOutResponse.setErrorMessage(message);
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "Could not check out:" + message);
+            log.debug("getCheckOutResponseObject", "Could not check out:" + message);
             return objCheckOutResponse;
         }
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "  Status Set ");
+        log.debug("getCheckOutResponseObject", "Status Set ");
 
         CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
         ArrayOfUniqueID objArrayOfUniqueID = objCheckOutComplete.getReservationID();
@@ -402,7 +399,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
             objReservation.setConfirmationNumber(confirmationNumber);
             objReservation.setPmsId(confirmationNumber);
 
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", "  confirmation Number is  Set ");
+            log.debug("getCheckOutResponseObject", "confirmation Number is  Set ");
         }
 
         Profile objProfile = checkOutResponse.getProfile();
@@ -429,20 +426,20 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
             }
             objReservation.setFullName(objStringBuffer.toString());
 
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject  ", " Full Name is set.");
+            log.debug("getCheckOutResponseObject", "Full Name is set.");
 
             objStringBuffer.setLength(IMicrosConstants.COUNT_ZERO);
         }
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", " Exit Profile.");
+        log.debug("getCheckOutResponseObject", "Exit Profile.");
         objCheckOutResponse.setReservation(objReservation);
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckOutResponseObject ", " Exit getCheckOutResponseObject method");
+        log.debug("getCheckOutResponseObject", "Exit getCheckOutResponseObject method");
 
         return objCheckOutResponse;
     }
 
     public String getNextAvailableRoom(String roomType) throws RemoteException {
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ", " Enter in processSearchReservationData method. ");
+        log.debug("processFetchRoomStatus", "Enter in processSearchReservationData method. ");
 
         FetchRoomStatusRequest objResponse = null;
 
@@ -456,11 +453,11 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
         String nextAvailableRoom = null;
 
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+        log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(requestE));
         FetchRoomStatusResponseE responseE = rstub.fetchRoomStatus(requestE, ogh);
 
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+        log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(responseE));
 
 	    FetchRoomStatusResponse response = responseE.getFetchRoomStatusResponse();
@@ -469,13 +466,13 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 		    nextAvailableRoom = response.getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
 	    }
 
-	    MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ", nextAvailableRoom);
+	    log.debug("processFetchRoomStatus", nextAvailableRoom);
 
         return nextAvailableRoom;
     }
 
     public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ", " Enter in processSearchReservationData method. ");
+        log.debug("processCheckIn", "Enter in processSearchReservationData method. ");
 
         OGHeaderE ogh = getHeaderE();
 
@@ -486,21 +483,21 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
 
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
+        log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(requestE));
         CheckInResponseE responseE = rstub.checkIn(requestE, ogh);
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processCheckIn ",
+        log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(responseE));
 
 	    com.cloudkey.pms.response.reservations.CheckInResponse response = getCheckInResponseObject(responseE.getCheckInResponse());
-        MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processFetchRoomStatus ",
+        log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(response));
 
         return response;
     }
 
     private CheckInRequest getCheckInRequestObject(com.cloudkey.pms.request.reservations.CheckInRequest checkInRequest) {
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInRequestObject ", " Enter in getCheckInRequestObject method");
+        log.debug("getCheckInRequestObject", "Enter in getCheckInRequestObject method");
 
         /* To get the request parameters from the keypr client */
 
@@ -552,7 +549,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         objCheckInRequest.setReservationRequest(objReservationRequestBase);
         //objCheckInRequest.setCreditCardInfo( objCreditCardInfo );
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInRequestObject ", " Exit getCheckInRequestObject method.");
+        log.debug("getCheckInRequestObject", "Exit getCheckInRequestObject method.");
 
         return objCheckInRequest;
 
@@ -560,7 +557,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
     private com.cloudkey.pms.response.reservations.CheckInResponse getCheckInResponseObject(CheckInResponse objResponse) {
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " Enter in getCheckInResponseObject method.");
+        log.debug("getCheckInResponseObject", "Enter in getCheckInResponseObject method.");
 
 		/* Populate response into Reservation instance */
 	    com.cloudkey.pms.response.reservations.CheckInResponse objCheckInResponse = new com.cloudkey.pms.response.reservations.CheckInResponse();
@@ -585,7 +582,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         if (status.equalsIgnoreCase("FAIL")) {
             String message = getErrorMessage(objResponse.getResult());
             objCheckInResponse.setErrorMessage(message);
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " CheckIn Failed:" + message);
+            log.debug("getCheckInResponseObject", "CheckIn Failed:" + message);
             return objCheckInResponse;
         }
 
@@ -670,11 +667,11 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
             if (arrNameCreditCard != null) {
                 for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
 
-                    MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject  ", " Iterating NameCreditCard  Array.");
+                    log.debug("getCheckInResponseObject", "Iterating NameCreditCard  Array.");
 
                     objReservation.setCreditCardNumber(objNameCreditCard.getCreditCardChoice_type0().getCardNumber());
 
-                    MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject  ", " Credit Card Number is set.");
+                    log.debug("getCheckInResponseObject", "Credit Card Number is set.");
                 } // End loop for name credit card.
             }
         }
@@ -702,15 +699,15 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
             objReservation.setFullName(objStringBuffer.toString());
 
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject  ", " Full Name is set.");
+            log.debug("getCheckInResponseObject", "Full Name is set.");
 
             objStringBuffer.setLength(IMicrosConstants.COUNT_ZERO);
         }
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " Exit Profile.");
+        log.debug("getCheckInResponseObject", "Exit Profile.");
         objCheckInResponse.setReservation(objReservation);
 
-        MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getCheckInResponseObject ", " Enter in getCheckInResponseObject method.");
+        log.debug("getCheckInResponseObject", "Enter in getCheckInResponseObject method.");
 
         return objCheckInResponse;
     }
@@ -736,8 +733,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
         } catch (AxisFault axisFault) {
             axisFault.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "getReservationServiceStub ",
-                    axisFault.getMessage());
+            log.error("getReservationServiceStub ", axisFault);
         }
         return rstub;
     }

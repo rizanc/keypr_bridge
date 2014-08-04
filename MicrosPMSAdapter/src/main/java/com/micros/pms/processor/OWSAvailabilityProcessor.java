@@ -2,10 +2,11 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Availability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
-import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
-import com.cloudkey.pms.micros.og.core.*;
-import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.og.core.OGHeaderE;
+import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
+import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
+import com.cloudkey.pms.micros.og.hotelcommon.TimeSpanChoice_type0;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
@@ -14,25 +15,27 @@ import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
-import com.micros.pms.parser.MicrosOWSParser;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by crizan2 on 16/07/2014.
+ * @author crizan2
  */
 public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
+	final static Logger log = LoggerFactory.getLogger(OWSAvailabilityProcessor.class);
 
     final static String URL_AVAILABILITY = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Availability.asmx";
 
     public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest availabilityRequest) throws RemoteException {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Enter checkAvailability method. ");
+        log.debug("processAvailability", "Enter checkAvailability method.");
 
         AvailabilityServiceStub astub = getAvailabilityServiceStub();
 
@@ -42,26 +45,25 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
         LocalDate objSDate = availabilityRequest.getStartDate();
         LocalDate objEDate = availabilityRequest.getEndDate();
 
-	    MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Start Date " + objSDate);
-	    MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " End Date " + objEDate);
+	    log.debug("processAvailability", "Start Date", objSDate);
+	    log.debug("processAvailability", "End Date", objEDate);
 
 	    if (objEDate.isBefore(objSDate)) {
             objGetAvailabilityResponse = new GetAvailabilityResponse();
             objGetAvailabilityResponse.setStatus(IMicrosConstants.RESPONSE_FAIL);
         } else {
-	        FetchCalendarRequest req = getAvailabiltyRequestObject(availabilityRequest);
+	        FetchCalendarRequest req = getAvailabilityRequestObject(availabilityRequest);
 	        FetchCalendarRequestE requestE = new FetchCalendarRequestE();
 		    requestE.setFetchCalendarRequest(req);
 
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Convert request into xml form ");
+            log.debug("processAvailability", "Convert request into xml form");
 
             OGHeaderE ogh = getHeaderE();
 
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                    AdapterUtility.convertToStreamXML(req));
+            log.debug("processAvailability", AdapterUtility.convertToStreamXML(req));
+
             FetchCalendarResponseE responseE = astub.fetchCalendar(requestE, ogh);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                    AdapterUtility.convertToStreamXML(responseE));
+            log.debug("processAvailability", AdapterUtility.convertToStreamXML(responseE));
 
             objGetAvailabilityResponse = getAvailabilityResponseObject(responseE.getFetchCalendarResponse());
         }
@@ -69,23 +71,22 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 	    return objGetAvailabilityResponse;
     }
 
-    private FetchCalendarRequest getAvailabiltyRequestObject(GetAvailabilityRequest availabilityRequest) {
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabiltyRequestObject ", " Enter getAvailabiltyRequestObject method. ");
+    private FetchCalendarRequest getAvailabilityRequestObject(GetAvailabilityRequest availabilityRequest) {
+        log.debug("getAvailabilityRequestObject", "Enter getAvailabilityRequestObject method.");
 
-        FetchCalendarRequest objFetchCalendarRequest = null;
         /*To get the request parameters*/
         LocalDate objSDate = availabilityRequest.getStartDate();
         LocalDate objEDate = availabilityRequest.getEndDate();
 
 		/*To create the request for availability.*/
-        objFetchCalendarRequest = new FetchCalendarRequest();
-
-        TimeSpan objTimeSpan = new TimeSpan();
+	    FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
 
         objFetchCalendarRequest.setHotelReference(getDefaultHotelReference());
 
 		/*To set start and end date.*/
-        objTimeSpan.setStartDate(objSDate.toDateTimeAtStartOfDay().toGregorianCalendar());
+	    TimeSpan objTimeSpan = new TimeSpan();
+
+	    objTimeSpan.setStartDate(objSDate.toDateTimeAtStartOfDay().toGregorianCalendar());
         TimeSpanChoice_type0 objType0 = new TimeSpanChoice_type0();
 
         objType0.setEndDate(objEDate.toDateTimeAtStartOfDay().toGregorianCalendar());
@@ -94,14 +95,14 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 		/*To set time span in fetch calendar request.*/
         objFetchCalendarRequest.setStayDateRange(objTimeSpan);
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabiltyRequestObject ", " Exit getAvailabiltyRequestObject method. ");
+        log.debug("getAvailabilityRequestObject", "Exit getAvailabilityRequestObject method. ");
 
         return objFetchCalendarRequest;
     }
 
     private GetAvailabilityResponse getAvailabilityResponseObject(FetchCalendarResponse objResponse) {
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabilityResponseObject ", " Enter getAvailabilityResponseObject method.");
+        log.debug("getAvailabilityResponseObject", "Enter getAvailabilityResponseObject method.");
 
         GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
 
@@ -109,7 +110,7 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
         if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String message = getErrorMessage(objResponse.getResult());
             objAvailabilityResponse.setErrorMessage(message);
-            MicrosPMSLogger.logInfo(OWSResvAdvancedProcessor.class, " getAvailabilityResponseObject ", " Availability Failed:" + message);
+            log.debug("getAvailabilityResponseObject", "Availability Failed:" + message);
             return objAvailabilityResponse;
         }
 
@@ -120,7 +121,7 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 
         for (CalendarDailyDetail objCalendarDailyDetail : arrCalendarDailyDetail) { // To traverse calendar daily detail.
 
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabilityResponseObject ", " Enter for traversing calendar details.");
+            log.debug("getAvailabilityResponseObject", "Enter for traversing calendar details.");
 
 			/*To set the date in response.*/
             Availability objAvailability = new Availability();
@@ -133,7 +134,7 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 
             for (RoomTypeInventory objRTypeInventory : arrRoomTypeInventories) { // To traverse room type inventory.
 
-                MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabilityResponseObject ", " Traversing room type inventory. ");
+                log.debug("getAvailabilityResponseObject", "Traversing room type inventory. ");
 
                 com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();
 
@@ -150,7 +151,7 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 				/*To add roomtype inventory in inventory list.*/
                 objLInventories.add(objRoomTypeInventory);
 
-                MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabilityResponseObject ", " Exit loop for room type inventory. ");
+                log.debug("getAvailabilityResponseObject", "Exit loop for room type inventory. ");
 
             }// End room type inventory loop.
             objAvailability.setRoomTypeInventoryList(objLInventories);
@@ -158,12 +159,12 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 			/*To add availability object into list.*/
             objLiAvailabilities.add(objAvailability);
 
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabilityResponseObject ", " Exit traversing calendar details. ");
+            log.debug("getAvailabilityResponseObject", "Exit traversing calendar details. ");
         } // End loop for calendar details.
 
         objAvailabilityResponse.setAvailList(objLiAvailabilities);
 
-        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabilityResponseObject ", " Exit getAvailabilityResponseObject method. ");
+        log.debug("getAvailabilityResponseObject", "Exit getAvailabilityResponseObject method. ");
 
         return objAvailabilityResponse;
     }
@@ -178,8 +179,7 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 
         } catch (AxisFault axisFault) {
             axisFault.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "getReservationServiceStub ",
-                    axisFault.getMessage());
+            log.error("getReservationServiceStub", axisFault);
         }
         return rstub;
     }

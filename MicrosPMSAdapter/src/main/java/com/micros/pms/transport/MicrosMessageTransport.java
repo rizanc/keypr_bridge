@@ -3,7 +3,8 @@ package com.micros.pms.transport;
 import com.cloudkey.message.transport.IMessageTransport;
 import com.micros.http.connection.HttpClientRequest;
 import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.logger.MicrosPMSLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -14,12 +15,11 @@ import com.micros.pms.logger.MicrosPMSLogger;
  * 
  */
 public class MicrosMessageTransport implements IMessageTransport {
+	final static Logger log = LoggerFactory.getLogger(MicrosMessageTransport.class);
 
 	@Override
 	public String handlePMSRequest(String xmlRequest) {
-
-		
-		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest " , " Enter in handlePMSRequest method." );
+		log.debug("handlePMSRequest", "Enter in handlePMSRequest method." );
 
 		String response = null;
 		
@@ -27,16 +27,16 @@ public class MicrosMessageTransport implements IMessageTransport {
 
 		try {
 			
-			MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Request made to the MicrosOWS. Waiting for response... " );
+			log.debug("handlePMSRequest", "Request made to the MicrosOWS. Waiting for response... " );
 			response = objClientRequest.getHttpPostResponse( IMicrosConstants.PMS_SERVER_URL, xmlRequest );
 
 		} catch ( Exception exc ) {
 
-			MicrosPMSLogger.logError(MicrosMessageTransport.class, " handlePMSRequest " , exc);
+			log.error(" handlePMSRequest ", exc);
 		}
 
-		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Response received from PMS " + response );
-		MicrosPMSLogger.logInfo( MicrosMessageTransport.class , " handlePMSRequest ", " Exit  handlePMSRequest method " );
+		log.debug("handlePMSRequest", "Response received from PMS " + response );
+		log.debug("handlePMSRequest", "Exit  handlePMSRequest method " );
 		
 		return response;
 	}
