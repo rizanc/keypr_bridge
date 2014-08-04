@@ -190,15 +190,6 @@ public class MicrosOWSParser implements IParserInterface {
         String membershipType = memberPointsRequest.getMembershipType();
         String membershipNumber = memberPointsRequest.getMembershipNumber();
 
-        if (membershipLastName.isEmpty() ||
-                membershipType.isEmpty() ||
-                membershipNumber.isEmpty()) {
-        response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-        response.setErrorMessage(IMicrosConstants.REQUIRED_FIELDS_EMPTY);
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " memberPointsQuery ", " Last/Member Type/Member Number are all required. ");
-            return response;
-        }
-
         NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName);
 
         NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
