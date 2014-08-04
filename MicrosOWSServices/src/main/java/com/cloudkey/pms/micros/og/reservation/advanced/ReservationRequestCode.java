@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ReservationRequestCode
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -227,10 +227,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRequestType is null");
-                                      }
-                                    
                                             if (localRequestCode != null){
                                         
                                                 writeAttribute("",
@@ -238,10 +234,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRequestCode), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRequestCode is null");
                                       }
                                     
                                             if (localRequestSource != null){
@@ -266,7 +258,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -521,7 +513,7 @@
                             if (!"ReservationRequestCode".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ReservationRequestCode)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (ReservationRequestCode)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -553,8 +545,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute RequestType is missing");
-                           
                     }
                     handledAttributes.add("RequestType");
                     
@@ -571,8 +561,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute RequestCode is missing");
-                           
                     }
                     handledAttributes.add("RequestCode");
                     

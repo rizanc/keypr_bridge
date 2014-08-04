@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/og/4.3/ResvAdvanced/",
                 "DCCCheckRequest",
-                "ns6");
+                "ns3");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase localReservationRequest ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReservationRequestTracker = false ;
+
+                           public boolean isReservationRequestSpecified(){
+                               return localReservationRequestTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param ReservationRequest
                                */
                                public void setReservationRequest(com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase param){
-                            
+                            localReservationRequestTracker = param != null;
+                                   
                                             this.localReservationRequest=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfo localCreditCardInfo ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCreditCardInfoTracker = false ;
+
+                           public boolean isCreditCardInfoSpecified(){
+                               return localCreditCardInfoTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +101,8 @@
                                * @param param CreditCardInfo
                                */
                                public void setCreditCardInfo(com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfo param){
-                            
+                            localCreditCardInfoTracker = param != null;
+                                   
                                             this.localCreditCardInfo=param;
                                     
 
@@ -303,19 +327,19 @@
 
                                             
                                       }
-                                    
+                                     if (localReservationRequestTracker){
                                             if (localReservationRequest==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ReservationRequest cannot be null!!");
                                             }
                                            localReservationRequest.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationRequest"),
                                                xmlWriter);
-                                        
+                                        } if (localCreditCardInfoTracker){
                                             if (localCreditCardInfo==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CreditCardInfo cannot be null!!");
                                             }
                                            localCreditCardInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","CreditCardInfo"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -323,7 +347,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -500,7 +524,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localReservationRequestTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReservationRequest"));
                             
@@ -509,7 +533,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ReservationRequest cannot be null!!");
                                     }
                                     elementList.add(localReservationRequest);
-                                
+                                } if (localCreditCardInfoTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "CreditCardInfo"));
                             
@@ -518,7 +542,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("CreditCardInfo cannot be null!!");
                                     }
                                     elementList.add(localCreditCardInfo);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","KioskCall"));
                             
@@ -592,7 +616,7 @@
                             if (!"DCCCheckRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (DCCCheckRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (DCCCheckRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -689,11 +713,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -705,11 +728,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

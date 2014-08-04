@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PropertyStatusCode
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -232,7 +232,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -482,7 +482,7 @@
                             if (!"PropertyStatusCode".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PropertyStatusCode)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (PropertyStatusCode)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

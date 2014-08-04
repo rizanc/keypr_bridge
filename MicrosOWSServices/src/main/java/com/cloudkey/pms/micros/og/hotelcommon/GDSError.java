@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GDSError
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -191,10 +191,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localErrorCode is null");
-                                      }
-                                    
                                             if (localElementId != null){
                                         
                                                 writeAttribute("",
@@ -202,10 +198,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localElementId), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localElementId is null");
                                       }
                                     
 
@@ -228,7 +220,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -533,8 +525,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute errorCode is missing");
-                           
                     }
                     handledAttributes.add("errorCode");
                     
@@ -551,8 +541,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute elementId is missing");
-                           
                     }
                     handledAttributes.add("elementId");
                        

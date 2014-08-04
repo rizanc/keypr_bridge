@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FutureBookingSummaryRequestChoice_type1
                 Namespace URI = http://webservices.micros.com/ows/5.1/Reservation.wsdl
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -28,56 +28,12 @@
              */
             private void clearAllSettingTrackers() {
             
-                   localCreditCardNumberTracker = false;
-                
                    localVaultedCardIDTracker = false;
+                
+                   localCreditCardNumberTracker = false;
                 
             }
         
-
-                        /**
-                        * field for CreditCardNumber
-                        */
-
-                        
-                                    protected java.lang.String localCreditCardNumber ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCreditCardNumberTracker = false ;
-
-                           public boolean isCreditCardNumberSpecified(){
-                               return localCreditCardNumberTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getCreditCardNumber(){
-                               return localCreditCardNumber;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CreditCardNumber
-                               */
-                               public void setCreditCardNumber(java.lang.String param){
-                            
-                                clearAllSettingTrackers();
-                            localCreditCardNumberTracker = param != null;
-                                   
-                                            this.localCreditCardNumber=param;
-                                    
-
-                               }
-                            
 
                         /**
                         * field for VaultedCardID
@@ -118,6 +74,50 @@
                             localVaultedCardIDTracker = param != null;
                                    
                                             this.localVaultedCardID=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for CreditCardNumber
+                        */
+
+                        
+                                    protected java.lang.String localCreditCardNumber ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCreditCardNumberTracker = false ;
+
+                           public boolean isCreditCardNumberSpecified(){
+                               return localCreditCardNumberTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getCreditCardNumber(){
+                               return localCreditCardNumber;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param CreditCardNumber
+                               */
+                               public void setCreditCardNumber(java.lang.String param){
+                            
+                                clearAllSettingTrackers();
+                            localCreditCardNumberTracker = param != null;
+                                   
+                                            this.localCreditCardNumber=param;
                                     
 
                                }
@@ -176,25 +176,7 @@
 
                
                    }
-                if (localCreditCardNumberTracker){
-                                    namespace = "http://webservices.micros.com/ows/5.1/Reservation.wsdl";
-                                    writeStartElement(null, namespace, "CreditCardNumber", xmlWriter);
-                             
-
-                                          if (localCreditCardNumber==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("CreditCardNumber cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localCreditCardNumber);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localVaultedCardIDTracker){
+                if (localVaultedCardIDTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Reservation.wsdl";
                                     writeStartElement(null, namespace, "vaultedCardID", xmlWriter);
                              
@@ -212,13 +194,31 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
+                             } if (localCreditCardNumberTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Reservation.wsdl";
+                                    writeStartElement(null, namespace, "CreditCardNumber", xmlWriter);
+                             
+
+                                          if (localCreditCardNumber==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("CreditCardNumber cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localCreditCardNumber);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
                              }
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -395,16 +395,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localCreditCardNumberTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                                                                      "CreditCardNumber"));
-                                 
-                                        if (localCreditCardNumber != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCreditCardNumber));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("CreditCardNumber cannot be null!!");
-                                        }
-                                    } if (localVaultedCardIDTracker){
+                 if (localVaultedCardIDTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "vaultedCardID"));
                                  
@@ -412,6 +403,15 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localVaultedCardID));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("vaultedCardID cannot be null!!");
+                                        }
+                                    } if (localCreditCardNumberTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
+                                                                      "CreditCardNumber"));
+                                 
+                                        if (localCreditCardNumber != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCreditCardNumber));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("CreditCardNumber cannot be null!!");
                                         }
                                     }
 
@@ -460,25 +460,6 @@
                 
 
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CreditCardNumber").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CreditCardNumber" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setCreditCardNumber(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","vaultedCardID").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -490,6 +471,25 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setVaultedCardID(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CreditCardNumber").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CreditCardNumber" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setCreditCardNumber(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();

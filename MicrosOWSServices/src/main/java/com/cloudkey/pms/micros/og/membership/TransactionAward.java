@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = TransactionAward
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localMembershipType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipTypeTracker = false ;
+
+                           public boolean isMembershipTypeSpecified(){
+                               return localMembershipTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param MembershipType
                                */
                                public void setMembershipType(java.lang.String param){
-                            
+                            localMembershipTypeTracker = param != null;
+                                   
                                             this.localMembershipType=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localAwardType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAwardTypeTracker = false ;
+
+                           public boolean isAwardTypeSpecified(){
+                               return localAwardTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param AwardType
                                */
                                public void setAwardType(java.lang.String param){
-                            
+                            localAwardTypeTracker = param != null;
+                                   
                                             this.localAwardType=param;
                                     
 
@@ -1222,7 +1246,7 @@
 
                
                    }
-               
+                if (localMembershipTypeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "MembershipType", xmlWriter);
                              
@@ -1240,7 +1264,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localAwardTypeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "AwardType", xmlWriter);
                              
@@ -1258,7 +1282,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localHotelReferenceTracker){
+                             } if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
@@ -1628,7 +1652,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1805,7 +1829,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localMembershipTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "MembershipType"));
                                  
@@ -1814,7 +1838,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MembershipType cannot be null!!");
                                         }
-                                    
+                                    } if (localAwardTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "AwardType"));
                                  
@@ -1823,7 +1847,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("AwardType cannot be null!!");
                                         }
-                                     if (localHotelReferenceTracker){
+                                    } if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "HotelReference"));
                             
@@ -2110,11 +2134,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -2135,11 +2158,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

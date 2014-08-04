@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RateQueryType
                 Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localTimeSpan ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTimeSpanTracker = false ;
+
+                           public boolean isTimeSpanSpecified(){
+                               return localTimeSpanTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param TimeSpan
                                */
                                public void setTimeSpan(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localTimeSpanTracker = param != null;
+                                   
                                             this.localTimeSpan=param;
                                     
 
@@ -184,10 +196,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localHotelCode is null");
-                                      }
-                                    
                                             if (localRateCode != null){
                                         
                                                 writeAttribute("",
@@ -196,17 +204,13 @@
 
                                             
                                       }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRateCode is null");
-                                      }
-                                    
+                                     if (localTimeSpanTracker){
                                             if (localTimeSpan==null){
                                                  throw new org.apache.axis2.databinding.ADBException("TimeSpan cannot be null!!");
                                             }
                                            localTimeSpan.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","TimeSpan"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -214,7 +218,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -391,7 +395,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localTimeSpanTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "TimeSpan"));
                             
@@ -400,7 +404,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("TimeSpan cannot be null!!");
                                     }
                                     elementList.add(localTimeSpan);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","hotelCode"));
                             
@@ -496,8 +500,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute hotelCode is missing");
-                           
                     }
                     handledAttributes.add("hotelCode");
                     
@@ -514,8 +516,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute rateCode is missing");
-                           
                     }
                     handledAttributes.add("rateCode");
                     
@@ -533,11 +533,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

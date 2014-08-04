@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = NameMembership
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -149,93 +149,93 @@
                             
 
                         /**
-                        * field for Central_setup_yn
+                        * field for Central
                         * This was an Attribute!
                         */
 
                         
-                                    protected boolean localCentral_setup_yn ;
+                                    protected boolean localCentral ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return boolean
                            */
-                           public  boolean getCentral_setup_yn(){
-                               return localCentral_setup_yn;
+                           public  boolean getCentral(){
+                               return localCentral;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Central_setup_yn
+                               * @param param Central
                                */
-                               public void setCentral_setup_yn(boolean param){
+                               public void setCentral(boolean param){
                             
-                                            this.localCentral_setup_yn=param;
+                                            this.localCentral=param;
                                     
 
                                }
                             
 
                         /**
-                        * field for Membership_class
+                        * field for MembershipClass
                         * This was an Attribute!
                         */
 
                         
-                                    protected java.lang.String localMembership_class ;
+                                    protected java.lang.String localMembershipClass ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getMembership_class(){
-                               return localMembership_class;
+                           public  java.lang.String getMembershipClass(){
+                               return localMembershipClass;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Membership_class
+                               * @param param MembershipClass
                                */
-                               public void setMembership_class(java.lang.String param){
+                               public void setMembershipClass(java.lang.String param){
                             
-                                            this.localMembership_class=param;
+                                            this.localMembershipClass=param;
                                     
 
                                }
                             
 
                         /**
-                        * field for Points_label
+                        * field for PointsLabel
                         * This was an Attribute!
                         */
 
                         
-                                    protected java.lang.String localPoints_label ;
+                                    protected java.lang.String localPointsLabel ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getPoints_label(){
-                               return localPoints_label;
+                           public  java.lang.String getPointsLabel(){
+                               return localPointsLabel;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Points_label
+                               * @param param PointsLabel
                                */
-                               public void setPoints_label(java.lang.String param){
+                               public void setPointsLabel(java.lang.String param){
                             
-                                            this.localPoints_label=param;
+                                            this.localPointsLabel=param;
                                     
 
                                }
@@ -583,26 +583,26 @@
                                                    if (true) {
                                                
                                                 writeAttribute("",
-                                                         "central_setup_yn",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCentral_setup_yn), xmlWriter);
+                                                         "central",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCentral), xmlWriter);
 
                                             
                                       }
                                     
-                                            if (localMembership_class != null){
+                                            if (localMembershipClass != null){
                                         
                                                 writeAttribute("",
-                                                         "membership_class",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembership_class), xmlWriter);
+                                                         "membershipClass",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipClass), xmlWriter);
 
                                             
                                       }
                                     
-                                            if (localPoints_label != null){
+                                            if (localPointsLabel != null){
                                         
                                                 writeAttribute("",
-                                                         "points_label",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPoints_label), xmlWriter);
+                                                         "pointsLabel",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPointsLabel), xmlWriter);
 
                                             
                                       }
@@ -696,7 +696,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localMembershipNumberTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "membershipNumber", xmlWriter);
                              
@@ -714,7 +714,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localMembershipLevelTracker){
+                             } if (localMembershipLevelTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "membershipLevel", xmlWriter);
                              
@@ -923,7 +923,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1112,7 +1112,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("membershipType cannot be null!!");
                                         }
-                                    }
+                                    } if (localMembershipNumberTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "membershipNumber"));
                                  
@@ -1121,7 +1121,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("membershipNumber cannot be null!!");
                                         }
-                                     if (localMembershipLevelTracker){
+                                    } if (localMembershipLevelTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "membershipLevel"));
                                  
@@ -1260,19 +1260,19 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPreferred));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","central_setup_yn"));
+                            new javax.xml.namespace.QName("","central"));
                             
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCentral_setup_yn));
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCentral));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","membership_class"));
+                            new javax.xml.namespace.QName("","membershipClass"));
                             
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembership_class));
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipClass));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","points_label"));
+                            new javax.xml.namespace.QName("","pointsLabel"));
                             
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPoints_label));
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPointsLabel));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","status"));
@@ -1367,7 +1367,7 @@
                             if (!"NameMembership".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (NameMembership)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (NameMembership)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1452,53 +1452,53 @@
                     }
                     handledAttributes.add("preferred");
                     
-                    // handle attribute "central_setup_yn"
-                    java.lang.String tempAttribCentral_setup_yn =
+                    // handle attribute "central"
+                    java.lang.String tempAttribCentral =
                         
-                                reader.getAttributeValue(null,"central_setup_yn");
+                                reader.getAttributeValue(null,"central");
                             
-                   if (tempAttribCentral_setup_yn!=null){
-                         java.lang.String content = tempAttribCentral_setup_yn;
+                   if (tempAttribCentral!=null){
+                         java.lang.String content = tempAttribCentral;
                         
-                                                 object.setCentral_setup_yn(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribCentral_setup_yn));
+                                                 object.setCentral(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribCentral));
                                             
                     } else {
                        
                     }
-                    handledAttributes.add("central_setup_yn");
+                    handledAttributes.add("central");
                     
-                    // handle attribute "membership_class"
-                    java.lang.String tempAttribMembership_class =
+                    // handle attribute "membershipClass"
+                    java.lang.String tempAttribMembershipClass =
                         
-                                reader.getAttributeValue(null,"membership_class");
+                                reader.getAttributeValue(null,"membershipClass");
                             
-                   if (tempAttribMembership_class!=null){
-                         java.lang.String content = tempAttribMembership_class;
+                   if (tempAttribMembershipClass!=null){
+                         java.lang.String content = tempAttribMembershipClass;
                         
-                                                 object.setMembership_class(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribMembership_class));
+                                                 object.setMembershipClass(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribMembershipClass));
                                             
                     } else {
                        
                     }
-                    handledAttributes.add("membership_class");
+                    handledAttributes.add("membershipClass");
                     
-                    // handle attribute "points_label"
-                    java.lang.String tempAttribPoints_label =
+                    // handle attribute "pointsLabel"
+                    java.lang.String tempAttribPointsLabel =
                         
-                                reader.getAttributeValue(null,"points_label");
+                                reader.getAttributeValue(null,"pointsLabel");
                             
-                   if (tempAttribPoints_label!=null){
-                         java.lang.String content = tempAttribPoints_label;
+                   if (tempAttribPointsLabel!=null){
+                         java.lang.String content = tempAttribPointsLabel;
                         
-                                                 object.setPoints_label(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribPoints_label));
+                                                 object.setPointsLabel(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribPointsLabel));
                                             
                     } else {
                        
                     }
-                    handledAttributes.add("points_label");
+                    handledAttributes.add("pointsLabel");
                     
                     // handle attribute "status"
                     java.lang.String tempAttribStatus =
@@ -1809,7 +1809,7 @@
                                     
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","ResvNameId").equals(reader.getName())){
                                 
-                                                object.setResvNameId(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setResvNameId(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1886,7 +1886,7 @@
                                     
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","awardPointsToExpires").equals(reader.getName())){
                                 
-                                                object.setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.AwardPointsToExpireList.Factory.parse(reader));
+                                                object.setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire.Factory.parse(reader));
                                               
                                         reader.next();
                                     

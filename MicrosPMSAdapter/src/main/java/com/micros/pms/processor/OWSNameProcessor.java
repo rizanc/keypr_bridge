@@ -8,10 +8,7 @@ import com.cloudkey.pms.micros.og.common.UniqueIDType;
 import com.cloudkey.pms.micros.og.core.*;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
 import com.cloudkey.pms.micros.og.name.*;
-import com.cloudkey.pms.micros.ows.name.FetchGuestCardListRequest;
-import com.cloudkey.pms.micros.ows.name.FetchGuestCardListResponse;
-import com.cloudkey.pms.micros.ows.name.NameLookupRequest;
-import com.cloudkey.pms.micros.ows.name.NameLookupResponse;
+import com.cloudkey.pms.micros.ows.name.*;
 import com.cloudkey.pms.micros.services.NameServiceStub;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
@@ -30,36 +27,37 @@ import java.util.UUID;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSNameProcessor {
+public class OWSNameProcessor extends AbstractOWSProcessor {
 
     final static String URL_NAME = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Name.asmx";
 
     public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
-
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, " processGuestCardList ", " Enter processGuestCardList method ");
-        GuestMembershipResponse response = new GuestMembershipResponse();
 
-        String nameID = guestMembershipsRequest.getNameId();
+	    NameServiceStub nameServiceStub = getNameServiceStub();
 
-        NameServiceStub nameServiceStub = getNameServiceStub();
-
-        FetchGuestCardListRequest objRequest = new FetchGuestCardListRequest();
+        FetchGuestCardListRequest request = new FetchGuestCardListRequest();
 
         UniqueID uniqueID = new UniqueID();
         uniqueID.setType(UniqueIDType.INTERNAL);
-        uniqueID.setString(nameID);
-        objRequest.setNameID(uniqueID);
+        uniqueID.setString(guestMembershipsRequest.getNameId());
+        request.setNameID(uniqueID);
 
-        OGHeaderE ogh = getHeaderE();
+	    FetchGuestCardListRequestE requestE = new FetchGuestCardListRequestE();
+
+	    OGHeaderE ogh = getHeaderE();
 
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
-                AdapterUtility.convertToStreamXML(objRequest));
-        FetchGuestCardListResponse resp = nameServiceStub.fetchGuestCardList(objRequest, ogh);
+                AdapterUtility.convertToStreamXML(requestE));
+        FetchGuestCardListResponseE responseE = nameServiceStub.fetchGuestCardList(requestE, ogh);
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processGuestCardList ",
-                AdapterUtility.convertToStreamXML(resp));
+                AdapterUtility.convertToStreamXML(responseE));
 
-        FetchGuestCardListResponse objResponse = resp;
-        response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
+        FetchGuestCardListResponse objResponse = responseE.getFetchGuestCardListResponse();
+
+	    GuestMembershipResponse response = new GuestMembershipResponse();
+
+	    response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
         response.setErrorMessage(errorMessage);
@@ -78,7 +76,7 @@ public class OWSNameProcessor {
                 membership.setMembershipType(nameMembership.getMembershipType());
                 membership.setMemberName(nameMembership.getMemberName());
                 membership.setMembershipLevel(nameMembership.getMembershipLevel());
-                membership.setPointsLabel(nameMembership.getPoints_label());
+                membership.setPointsLabel(nameMembership.getPointsLabel());
                 membership.setExternalId(nameMembership.getExternalId());
                 membership.setCurrentPoints(nameMembership.getCurrentPoints());
                 membership.setEffectiveDate(nameMembership.getEffectiveDate());
@@ -88,20 +86,17 @@ public class OWSNameProcessor {
 
             }
         }
-        if (!memberships.isEmpty()) {
-        response.setMembershipList(memberships);
-        }
 
-        MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                AdapterUtility.convertToStreamXML(response));
+        if (!memberships.isEmpty()) {
+	        response.setMembershipList(memberships);
+        }
 
         return response;
     }
 
     public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
-
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, " processNameLookupByMembership ", " Enter processNameLookupByMembership method ");
-        NameIdByMembershipResponse response = new NameIdByMembershipResponse();
+
 
         NameServiceStub nameServiceStub = getNameServiceStub();
 
@@ -110,11 +105,11 @@ public class OWSNameProcessor {
         NameLookupInput nameLookupInput = new NameLookupInput();
         objRequest.setNameLookupCriteria(nameLookupInput);
 
-	    NameLookupAll nameLookup = new NameLookupAll();
-	    nameLookupInput.setNameLookup(nameLookup);
+	    NameLookupInputChoice_type0 nameLookupInputChoice = new NameLookupInputChoice_type0();
+	    nameLookupInput.setNameLookupInputChoice_type0(nameLookupInputChoice);
 
         NameLookupCriteriaMembership nameLookupCriteriaMembership = new NameLookupCriteriaMembership();
-	    nameLookupInput.setMembership(nameLookupCriteriaMembership);
+	    nameLookupInputChoice.setMembership(nameLookupCriteriaMembership);
 
         nameLookupCriteriaMembership.setMembershipNumber(nameIdByMembershipRequest.getMembershipNumber());
         nameLookupCriteriaMembership.setMembershipType(nameIdByMembershipRequest.getMembershipType());
@@ -122,14 +117,19 @@ public class OWSNameProcessor {
 
         OGHeaderE ogh = getHeaderE();
 
+	    NameLookupRequestE requestE = new NameLookupRequestE();
+	    requestE.setNameLookupRequest(objRequest);
+
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
-                AdapterUtility.convertToStreamXML(objRequest));
-        NameLookupResponse resp = nameServiceStub.nameLookup(objRequest, ogh);
+                AdapterUtility.convertToStreamXML(requestE));
+        NameLookupResponseE resp = nameServiceStub.nameLookup(requestE, ogh);
         MicrosPMSLogger.logInfo(OWSNameProcessor.class, "processNameLookupByMembership ",
                 AdapterUtility.convertToStreamXML(resp));
 
-        NameLookupResponse objResponse = resp;
-        response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
+        NameLookupResponse objResponse = resp.getNameLookupResponse();
+
+	    NameIdByMembershipResponse response = new NameIdByMembershipResponse();
+	    response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
         if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
             String errorMessage = getErrorMessage(objResponse.getResult());
         response.setErrorMessage(errorMessage);
@@ -137,7 +137,7 @@ public class OWSNameProcessor {
             return response;
         }
 
-        ProfileList profiles = objResponse.getProfiles();
+        ArrayOfProfile profiles = objResponse.getProfiles();
         if (profiles.getProfile().length > 0) {
             Profile profile = profiles.getProfile()[0];
             if (profile.getProfileIDs() != null && profile.getProfileIDs().getUniqueID() != null) {
@@ -170,80 +170,6 @@ public class OWSNameProcessor {
                     axisFault.getMessage());
         }
         return rstub;
-    }
-
-    private HotelReference getDefaultHotelReference() {
-        HotelReference objHotelReference = new HotelReference();
-        String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
-        String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
-        objHotelReference.setHotelCode(hotelCode);
-        objHotelReference.setString("");
-        objHotelReference.setChainCode(chainCode);
-        return objHotelReference;
-    }
-
-    private OGHeaderE getHeaderE() {
-
-        String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
-        // Sets Transaction Identifier
-        OGHeader ogHeader = new OGHeader();
-
-        ogHeader.setTransactionID(transactionId);
-
-        // creates origin end point of header.
-        EndPoint origin = new EndPoint();
-
-        String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
-        origin.setEntityID(entityId);
-
-        String systemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_SYSTEM_TYPE);
-        origin.setSystemType(systemType);
-
-        // creates destination end point of header.
-        EndPoint destination = new EndPoint();
-        String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
-
-        destination.setEntityID(destEntityId);
-        String destSystemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_DEST_TYPE);
-        destination.setSystemType(destSystemType);
-
-        // sets time stamp
-        ogHeader.setTimeStamp(AdapterUtility.getCalender());
-
-        // prepares OGHeader
-        ogHeader.setOrigin(origin);
-        ogHeader.setDestination(destination);
-
-        String username = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_NAME);
-        String password = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_PASS);
-
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
-
-            Authentication_type0 auth = new Authentication_type0();
-            ogHeader.setAuthentication(auth);
-
-            UserCredentials_type0 cred = new UserCredentials_type0();
-            auth.setUserCredentials(cred);
-
-            cred.setUserName(username);
-            cred.setUserPassword(password);
-        }
-
-        OGHeaderE ogHeaderE = new OGHeaderE();
-        ogHeaderE.setOGHeader(ogHeader);
-        return ogHeaderE;
-    }
-
-    private String getErrorMessage(ResultStatus resultStatus) {
-
-        String message = "";
-        if (resultStatus.getText() != null &&
-                resultStatus.getText().getTextElement() != null &&
-                resultStatus.getText().getTextElement().length > 0) {
-            message = resultStatus.getText().getTextElement()[0].toString();
-        }
-
-        return message;
     }
 
 }

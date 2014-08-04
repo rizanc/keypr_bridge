@@ -17,12 +17,11 @@
         
         public  class EmailConfirmationRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                "EmailConfirmationRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = EmailConfirmationRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Reservation.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localConfirmationNumber ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localConfirmationNumberTracker = false ;
+
+                           public boolean isConfirmationNumberSpecified(){
+                               return localConfirmationNumberTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param ConfirmationNumber
                                */
                                public void setConfirmationNumber(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localConfirmationNumberTracker = param != null;
+                                   
                                             this.localConfirmationNumber=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected java.lang.String localEmailAddress ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEmailAddressTracker = false ;
+
+                           public boolean isEmailAddressSpecified(){
+                               return localEmailAddressTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param EmailAddress
                                */
                                public void setEmailAddress(java.lang.String param){
-                            
+                            localEmailAddressTracker = param != null;
+                                   
                                             this.localEmailAddress=param;
                                     
 
@@ -142,8 +165,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -185,13 +208,13 @@
 
                
                    }
-               
+                if (localConfirmationNumberTracker){
                                             if (localConfirmationNumber==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ConfirmationNumber cannot be null!!");
                                             }
                                            localConfirmationNumber.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","ConfirmationNumber"),
                                                xmlWriter);
-                                        
+                                        } if (localEmailAddressTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Reservation.wsdl";
                                     writeStartElement(null, namespace, "EmailAddress", xmlWriter);
                              
@@ -209,7 +232,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localOptionalEmailTracker){
+                             } if (localOptionalEmailTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Reservation.wsdl";
                                     writeStartElement(null, namespace, "OptionalEmail", xmlWriter);
                              
@@ -235,7 +258,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -412,7 +435,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localConfirmationNumberTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "ConfirmationNumber"));
                             
@@ -421,7 +444,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ConfirmationNumber cannot be null!!");
                                     }
                                     elementList.add(localConfirmationNumber);
-                                
+                                } if (localEmailAddressTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "EmailAddress"));
                                  
@@ -430,7 +453,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("EmailAddress cannot be null!!");
                                         }
-                                     if (localOptionalEmailTracker){
+                                    } if (localOptionalEmailTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "OptionalEmail"));
                                  
@@ -526,11 +549,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -551,11 +573,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

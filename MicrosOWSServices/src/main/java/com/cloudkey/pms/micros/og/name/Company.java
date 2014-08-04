@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Company
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localCompanyName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCompanyNameTracker = false ;
+
+                           public boolean isCompanyNameSpecified(){
+                               return localCompanyNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param CompanyName
                                */
                                public void setCompanyName(java.lang.String param){
-                            
+                            localCompanyNameTracker = param != null;
+                                   
                                             this.localCompanyName=param;
                                     
 
@@ -59,14 +71,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.CompanyType_type1 localCompanyType ;
+                                    protected com.cloudkey.pms.micros.og.name.CompanyCompanyType localCompanyType ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.CompanyType_type1
+                           * @return com.cloudkey.pms.micros.og.name.CompanyCompanyType
                            */
-                           public  com.cloudkey.pms.micros.og.name.CompanyType_type1 getCompanyType(){
+                           public  com.cloudkey.pms.micros.og.name.CompanyCompanyType getCompanyType(){
                                return localCompanyType;
                            }
 
@@ -76,7 +88,7 @@
                                * Auto generated setter method
                                * @param param CompanyType
                                */
-                               public void setCompanyType(com.cloudkey.pms.micros.og.name.CompanyType_type1 param){
+                               public void setCompanyType(com.cloudkey.pms.micros.og.name.CompanyCompanyType param){
                             
                                             this.localCompanyType=param;
                                     
@@ -224,7 +236,7 @@
 
                                             
                                       }
-                                    
+                                     if (localCompanyNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Name/";
                                     writeStartElement(null, namespace, "CompanyName", xmlWriter);
                              
@@ -242,7 +254,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                                             if (localCompanyType==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CompanyType cannot be null!!");
                                             }
@@ -274,7 +286,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -451,7 +463,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localCompanyNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "CompanyName"));
                                  
@@ -460,7 +472,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CompanyName cannot be null!!");
                                         }
-                                    
+                                    }
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "CompanyType"));
                             
@@ -537,7 +549,7 @@
                             if (!"Company".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Company)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Company)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -595,17 +607,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","CompanyType").equals(reader.getName())){
                                 
-                                                object.setCompanyType(com.cloudkey.pms.micros.og.name.CompanyType_type1.Factory.parse(reader));
+                                                object.setCompanyType(com.cloudkey.pms.micros.og.name.CompanyCompanyType.Factory.parse(reader));
                                               
                                         reader.next();
                                     

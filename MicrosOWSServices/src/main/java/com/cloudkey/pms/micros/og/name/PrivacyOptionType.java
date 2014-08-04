@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PrivacyOptionType
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -30,14 +30,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.OptionType_type0 localOptionType ;
+                                    protected com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionType localOptionType ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.OptionType_type0
+                           * @return com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionType
                            */
-                           public  com.cloudkey.pms.micros.og.name.OptionType_type0 getOptionType(){
+                           public  com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionType getOptionType(){
                                return localOptionType;
                            }
 
@@ -47,7 +47,7 @@
                                * Auto generated setter method
                                * @param param OptionType
                                */
-                               public void setOptionType(com.cloudkey.pms.micros.og.name.OptionType_type0 param){
+                               public void setOptionType(com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionType param){
                             
                                             this.localOptionType=param;
                                     
@@ -61,14 +61,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.OptionValue_type0 localOptionValue ;
+                                    protected com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionValue localOptionValue ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.OptionValue_type0
+                           * @return com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionValue
                            */
-                           public  com.cloudkey.pms.micros.og.name.OptionValue_type0 getOptionValue(){
+                           public  com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionValue getOptionValue(){
                                return localOptionValue;
                            }
 
@@ -78,7 +78,7 @@
                                * Auto generated setter method
                                * @param param OptionValue
                                */
-                               public void setOptionValue(com.cloudkey.pms.micros.og.name.OptionValue_type0 param){
+                               public void setOptionValue(com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionValue param){
                             
                                             this.localOptionValue=param;
                                     
@@ -174,7 +174,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -415,7 +415,7 @@
                             if (!"PrivacyOptionType".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PrivacyOptionType)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (PrivacyOptionType)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -443,7 +443,7 @@
                          java.lang.String content = tempAttribOptionType;
                         
                                                   object.setOptionType(
-                                                        com.cloudkey.pms.micros.og.name.OptionType_type0.Factory.fromString(reader,tempAttribOptionType));
+                                                        com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionType.Factory.fromString(reader,tempAttribOptionType));
                                             
                     } else {
                        
@@ -461,7 +461,7 @@
                          java.lang.String content = tempAttribOptionValue;
                         
                                                   object.setOptionValue(
-                                                        com.cloudkey.pms.micros.og.name.OptionValue_type0.Factory.fromString(reader,tempAttribOptionValue));
+                                                        com.cloudkey.pms.micros.og.name.PrivacyOptionTypeOptionValue.Factory.fromString(reader,tempAttribOptionValue));
                                             
                     } else {
                        

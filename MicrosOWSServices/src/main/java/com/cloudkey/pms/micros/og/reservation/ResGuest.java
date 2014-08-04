@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ResGuest
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns5
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.ProfileList localProfiles ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfProfile localProfiles ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.ProfileList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfProfile
                            */
-                           public  com.cloudkey.pms.micros.og.name.ProfileList getProfiles(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfProfile getProfiles(){
                                return localProfiles;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param Profiles
                                */
-                               public void setProfiles(com.cloudkey.pms.micros.og.name.ProfileList param){
+                               public void setProfiles(com.cloudkey.pms.micros.og.name.ArrayOfProfile param){
                             localProfilesTracker = param != null;
                                    
                                             this.localProfiles=param;
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList localSpecialRequests ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest localSpecialRequests ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList getSpecialRequests(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest getSpecialRequests(){
                                return localSpecialRequests;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param SpecialRequests
                                */
-                               public void setSpecialRequests(com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList param){
+                               public void setSpecialRequests(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest param){
                             localSpecialRequestsTracker = param != null;
                                    
                                             this.localSpecialRequests=param;
@@ -113,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList localComments ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment localComments ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList getComments(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment getComments(){
                                return localComments;
                            }
 
@@ -141,7 +141,7 @@
                                * Auto generated setter method
                                * @param param Comments
                                */
-                               public void setComments(com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList param){
+                               public void setComments(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment param){
                             localCommentsTracker = param != null;
                                    
                                             this.localComments=param;
@@ -628,7 +628,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1056,7 +1056,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Profiles").equals(reader.getName())){
                                 
-                                                object.setProfiles(com.cloudkey.pms.micros.og.name.ProfileList.Factory.parse(reader));
+                                                object.setProfiles(com.cloudkey.pms.micros.og.name.ArrayOfProfile.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1071,7 +1071,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","SpecialRequests").equals(reader.getName())){
                                 
-                                                object.setSpecialRequests(com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList.Factory.parse(reader));
+                                                object.setSpecialRequests(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1086,7 +1086,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Comments").equals(reader.getName())){
                                 
-                                                object.setComments(com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList.Factory.parse(reader));
+                                                object.setComments(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = CalendarDailyDetail
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -71,14 +71,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventoryList localOccupancy ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory localOccupancy ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localOccupancyTracker = false ;
+
+                           public boolean isOccupancySpecified(){
+                               return localOccupancyTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventoryList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventoryList getOccupancy(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory getOccupancy(){
                                return localOccupancy;
                            }
 
@@ -88,8 +99,9 @@
                                * Auto generated setter method
                                * @param param Occupancy
                                */
-                               public void setOccupancy(com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventoryList param){
-                            
+                               public void setOccupancy(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory param){
+                            localOccupancyTracker = param != null;
+                                   
                                             this.localOccupancy=param;
                                     
 
@@ -200,13 +212,13 @@
                                             }
                                            localRates.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","Rates"),
                                                xmlWriter);
-                                        }
+                                        } if (localOccupancyTracker){
                                             if (localOccupancy==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Occupancy cannot be null!!");
                                             }
                                            localOccupancy.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","Occupancy"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -214,7 +226,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -400,7 +412,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Rates cannot be null!!");
                                     }
                                     elementList.add(localRates);
-                                }
+                                } if (localOccupancyTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "Occupancy"));
                             
@@ -409,7 +421,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Occupancy cannot be null!!");
                                     }
                                     elementList.add(localOccupancy);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","Date"));
                             
@@ -526,17 +538,16 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","Occupancy").equals(reader.getName())){
                                 
-                                                object.setOccupancy(com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventoryList.Factory.parse(reader));
+                                                object.setOccupancy(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

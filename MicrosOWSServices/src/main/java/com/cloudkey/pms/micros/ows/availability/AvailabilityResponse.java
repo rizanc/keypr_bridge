@@ -17,12 +17,11 @@
         
         public  class AvailabilityResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "AvailabilityResponse",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = AvailabilityResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -102,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.AvailResponseSegmentList localAvailResponseSegments ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfAvailResponseSegment localAvailResponseSegments ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -118,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.AvailResponseSegmentList
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfAvailResponseSegment
                            */
-                           public  com.cloudkey.pms.micros.og.availability.AvailResponseSegmentList getAvailResponseSegments(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfAvailResponseSegment getAvailResponseSegments(){
                                return localAvailResponseSegments;
                            }
 
@@ -130,7 +141,7 @@
                                * Auto generated setter method
                                * @param param AvailResponseSegments
                                */
-                               public void setAvailResponseSegments(com.cloudkey.pms.micros.og.availability.AvailResponseSegmentList param){
+                               public void setAvailResponseSegments(com.cloudkey.pms.micros.og.availability.ArrayOfAvailResponseSegment param){
                             localAvailResponseSegmentsTracker = param != null;
                                    
                                             this.localAvailResponseSegments=param;
@@ -216,8 +227,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -281,13 +292,13 @@
 
                                             
                                       }
-                                    
+                                     if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","Result"),
                                                xmlWriter);
-                                         if (localAlternateDatesTracker){
+                                        } if (localAlternateDatesTracker){
                                             if (localAlternateDates==null){
                                                  throw new org.apache.axis2.databinding.ADBException("AlternateDates cannot be null!!");
                                             }
@@ -307,7 +318,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -484,7 +495,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "Result"));
                             
@@ -493,7 +504,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                 if (localAlternateDatesTracker){
+                                } if (localAlternateDatesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "AlternateDates"));
                             
@@ -642,11 +653,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -667,7 +677,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","AvailResponseSegments").equals(reader.getName())){
                                 
-                                                object.setAvailResponseSegments(com.cloudkey.pms.micros.og.availability.AvailResponseSegmentList.Factory.parse(reader));
+                                                object.setAvailResponseSegments(com.cloudkey.pms.micros.og.availability.ArrayOfAvailResponseSegment.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = KeyWord
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -210,7 +210,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -459,7 +459,7 @@
                             if (!"KeyWord".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (KeyWord)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (KeyWord)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

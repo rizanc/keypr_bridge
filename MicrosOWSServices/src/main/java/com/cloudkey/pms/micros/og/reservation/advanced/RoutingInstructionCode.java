@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RoutingInstructionCode
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localInstructionCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localInstructionCodeTracker = false ;
+
+                           public boolean isInstructionCodeSpecified(){
+                               return localInstructionCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param InstructionCode
                                */
                                public void setInstructionCode(java.lang.String param){
-                            
+                            localInstructionCodeTracker = param != null;
+                                   
                                             this.localInstructionCode=param;
                                     
 
@@ -236,7 +248,7 @@
 
                                             
                                       }
-                                    
+                                     if (localInstructionCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "InstructionCode", xmlWriter);
                              
@@ -254,7 +266,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localTCGroupTracker){
+                             } if (localTCGroupTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "TCGroup", xmlWriter);
                              
@@ -298,7 +310,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -475,7 +487,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localInstructionCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "InstructionCode"));
                                  
@@ -484,7 +496,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("InstructionCode cannot be null!!");
                                         }
-                                     if (localTCGroupTracker){
+                                    } if (localTCGroupTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "TCGroup"));
                                  
@@ -561,7 +573,7 @@
                             if (!"RoutingInstructionCode".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (RoutingInstructionCode)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (RoutingInstructionCode)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -619,11 +631,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

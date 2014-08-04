@@ -17,12 +17,11 @@
         
         public  class FetchUpgradeAwardsRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Membership.wsdl",
-                "FetchUpgradeAwardsRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchUpgradeAwardsRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Membership.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected java.lang.String localMembershipType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipTypeTracker = false ;
+
+                           public boolean isMembershipTypeSpecified(){
+                               return localMembershipTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param MembershipType
                                */
                                public void setMembershipType(java.lang.String param){
-                            
+                            localMembershipTypeTracker = param != null;
+                                   
                                             this.localMembershipType=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected java.lang.String localMembershipLevel ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipLevelTracker = false ;
+
+                           public boolean isMembershipLevelSpecified(){
+                               return localMembershipLevelTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param MembershipLevel
                                */
                                public void setMembershipLevel(java.lang.String param){
-                            
+                            localMembershipLevelTracker = param != null;
+                                   
                                             this.localMembershipLevel=param;
                                     
 
@@ -92,6 +115,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localStayDateRange ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localStayDateRangeTracker = false ;
+
+                           public boolean isStayDateRangeSpecified(){
+                               return localStayDateRangeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +142,8 @@
                                * @param param StayDateRange
                                */
                                public void setStayDateRange(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localStayDateRangeTracker = param != null;
+                                   
                                             this.localStayDateRange=param;
                                     
 
@@ -160,8 +195,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -203,7 +238,7 @@
 
                
                    }
-               
+                if (localMembershipTypeTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Membership.wsdl";
                                     writeStartElement(null, namespace, "MembershipType", xmlWriter);
                              
@@ -221,7 +256,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localMembershipLevelTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Membership.wsdl";
                                     writeStartElement(null, namespace, "MembershipLevel", xmlWriter);
                              
@@ -239,13 +274,13 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localStayDateRangeTracker){
                                             if (localStayDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                             }
                                            localStayDateRange.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","StayDateRange"),
                                                xmlWriter);
-                                        
+                                        }
                                     namespace = "http://webservices.micros.com/ows/5.1/Membership.wsdl";
                                     writeStartElement(null, namespace, "NumberOfRooms", xmlWriter);
                              
@@ -266,7 +301,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Membership.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -443,7 +478,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localMembershipTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
                                                                       "MembershipType"));
                                  
@@ -452,7 +487,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MembershipType cannot be null!!");
                                         }
-                                    
+                                    } if (localMembershipLevelTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
                                                                       "MembershipLevel"));
                                  
@@ -461,7 +496,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MembershipLevel cannot be null!!");
                                         }
-                                    
+                                    } if (localStayDateRangeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
                                                                       "StayDateRange"));
                             
@@ -470,7 +505,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                     }
                                     elementList.add(localStayDateRange);
-                                
+                                }
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
                                                                       "NumberOfRooms"));
                                  
@@ -572,11 +607,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -597,11 +631,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -613,11 +646,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

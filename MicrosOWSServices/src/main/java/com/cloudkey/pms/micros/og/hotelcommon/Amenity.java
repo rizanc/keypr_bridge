@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Amenity
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -141,14 +141,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AmenityType_type0 localAmenityType ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType localAmenityType ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AmenityType_type0
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AmenityType_type0 getAmenityType(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType getAmenityType(){
                                return localAmenityType;
                            }
 
@@ -158,7 +158,7 @@
                                * Auto generated setter method
                                * @param param AmenityType
                                */
-                               public void setAmenityType(com.cloudkey.pms.micros.og.hotelcommon.AmenityType_type0 param){
+                               public void setAmenityType(com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType param){
                             
                                             this.localAmenityType=param;
                                     
@@ -203,14 +203,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AvailabilityFlag_type0 localAvailabilityFlag ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag localAvailabilityFlag ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AvailabilityFlag_type0
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AvailabilityFlag_type0 getAvailabilityFlag(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag getAvailabilityFlag(){
                                return localAvailabilityFlag;
                            }
 
@@ -220,7 +220,7 @@
                                * Auto generated setter method
                                * @param param AvailabilityFlag
                                */
-                               public void setAvailabilityFlag(com.cloudkey.pms.micros.og.hotelcommon.AvailabilityFlag_type0 param){
+                               public void setAvailabilityFlag(com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag param){
                             
                                             this.localAvailabilityFlag=param;
                                     
@@ -327,10 +327,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localAmenityCode is null");
-                                      }
-                                    
                                     
                                     if (localAmenityType != null){
                                         writeAttribute("",
@@ -397,7 +393,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -676,7 +672,7 @@
                             if (!"Amenity".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Amenity)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Amenity)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -708,8 +704,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute amenityCode is missing");
-                           
                     }
                     handledAttributes.add("amenityCode");
                     
@@ -722,7 +716,7 @@
                          java.lang.String content = tempAttribAmenityType;
                         
                                                   object.setAmenityType(
-                                                        com.cloudkey.pms.micros.og.hotelcommon.AmenityType_type0.Factory.fromString(reader,tempAttribAmenityType));
+                                                        com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType.Factory.fromString(reader,tempAttribAmenityType));
                                             
                     } else {
                        
@@ -754,7 +748,7 @@
                          java.lang.String content = tempAttribAvailabilityFlag;
                         
                                                   object.setAvailabilityFlag(
-                                                        com.cloudkey.pms.micros.og.hotelcommon.AvailabilityFlag_type0.Factory.fromString(reader,tempAttribAvailabilityFlag));
+                                                        com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag.Factory.fromString(reader,tempAttribAvailabilityFlag));
                                             
                     } else {
                        

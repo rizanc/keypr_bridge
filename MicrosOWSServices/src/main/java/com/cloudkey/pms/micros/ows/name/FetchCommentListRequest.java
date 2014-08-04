@@ -17,12 +17,11 @@
         
         public  class FetchCommentListRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "FetchCommentListRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchCommentListRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localNameID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNameIDTracker = false ;
+
+                           public boolean isNameIDSpecified(){
+                               return localNameIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,8 +58,135 @@
                                * @param param NameID
                                */
                                public void setNameID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localNameIDTracker = param != null;
+                                   
                                             this.localNameID=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Resort
+                        */
+
+                        
+                                    protected java.lang.String localResort ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResortTracker = false ;
+
+                           public boolean isResortSpecified(){
+                               return localResortTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getResort(){
+                               return localResort;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Resort
+                               */
+                               public void setResort(java.lang.String param){
+                            localResortTracker = param != null;
+                                   
+                                            this.localResort=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ActionType
+                        */
+
+                        
+                                    protected java.lang.String localActionType ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localActionTypeTracker = false ;
+
+                           public boolean isActionTypeSpecified(){
+                               return localActionTypeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getActionType(){
+                               return localActionType;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ActionType
+                               */
+                               public void setActionType(java.lang.String param){
+                            localActionTypeTracker = param != null;
+                                   
+                                            this.localActionType=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for DueDate
+                        */
+
+                        
+                                    protected java.util.Date localDueDate ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDueDateTracker = false ;
+
+                           public boolean isDueDateSpecified(){
+                               return localDueDateTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.util.Date
+                           */
+                           public  java.util.Date getDueDate(){
+                               return localDueDate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param DueDate
+                               */
+                               public void setDueDate(java.util.Date param){
+                            localDueDateTracker = param != null;
+                                   
+                                            this.localDueDate=param;
                                     
 
                                }
@@ -70,8 +207,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -113,13 +250,67 @@
 
                
                    }
-               
+                if (localNameIDTracker){
                                             if (localNameID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                             }
                                            localNameID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","NameID"),
                                                xmlWriter);
+                                        } if (localResortTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
+                                    writeStartElement(null, namespace, "Resort", xmlWriter);
+                             
+
+                                          if (localResort==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("Resort cannot be null!!");
+                                                  
+                                          }else{
+
                                         
+                                                   xmlWriter.writeCharacters(localResort);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localActionTypeTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
+                                    writeStartElement(null, namespace, "ActionType", xmlWriter);
+                             
+
+                                          if (localActionType==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("ActionType cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localActionType);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localDueDateTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
+                                    writeStartElement(null, namespace, "DueDate", xmlWriter);
+                             
+
+                                          if (localDueDate==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("DueDate cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDueDate));
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -127,7 +318,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -304,7 +495,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localNameIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "NameID"));
                             
@@ -313,7 +504,34 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                     }
                                     elementList.add(localNameID);
-                                
+                                } if (localResortTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
+                                                                      "Resort"));
+                                 
+                                        if (localResort != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localResort));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("Resort cannot be null!!");
+                                        }
+                                    } if (localActionTypeTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
+                                                                      "ActionType"));
+                                 
+                                        if (localActionType != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localActionType));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("ActionType cannot be null!!");
+                                        }
+                                    } if (localDueDateTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
+                                                                      "DueDate"));
+                                 
+                                        if (localDueDate != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDueDate));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("DueDate cannot be null!!");
+                                        }
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -400,11 +618,82 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Resort").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Resort" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setResort(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","ActionType").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ActionType" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setActionType(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","DueDate").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"DueDate" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setDueDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

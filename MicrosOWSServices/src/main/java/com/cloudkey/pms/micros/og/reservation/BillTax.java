@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = BillTax
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns5
                 */
             
 
@@ -226,7 +226,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns7";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -480,7 +480,7 @@
                             if (!"BillTax".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BillTax)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (BillTax)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

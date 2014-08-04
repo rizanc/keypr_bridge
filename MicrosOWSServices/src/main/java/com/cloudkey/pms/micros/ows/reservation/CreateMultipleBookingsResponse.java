@@ -21,78 +21,39 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                 "CreateMultipleBookingsResponse",
-                "ns7");
+                "ns3");
 
             
 
                         /**
-                        * field for Booking
-                        * This was an Array!
+                        * field for CreateMultipleBookingsResponse
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.BookingResult[] localBooking ;
+                                    protected com.cloudkey.pms.micros.ows.reservation.ArrayOfBookingResult localCreateMultipleBookingsResponse ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.BookingResult[]
+                           * @return com.cloudkey.pms.micros.ows.reservation.ArrayOfBookingResult
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.BookingResult[] getBooking(){
-                               return localBooking;
+                           public  com.cloudkey.pms.micros.ows.reservation.ArrayOfBookingResult getCreateMultipleBookingsResponse(){
+                               return localCreateMultipleBookingsResponse;
                            }
 
                            
                         
-
-
-                               
-                              /**
-                               * validate the array for Booking
+                            /**
+                               * Auto generated setter method
+                               * @param param CreateMultipleBookingsResponse
                                */
-                              protected void validateBooking(com.cloudkey.pms.micros.og.reservation.BookingResult[] param){
-                             
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
-                              }
-
-
-                             /**
-                              * Auto generated setter method
-                              * @param param Booking
-                              */
-                              public void setBooking(com.cloudkey.pms.micros.og.reservation.BookingResult[] param){
-                              
-                                   validateBooking(param);
-
-                               
-                                      this.localBooking=param;
-                              }
-
-                               
-                             
-                             /**
-                             * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.reservation.BookingResult
-                             */
-                             public void addBooking(com.cloudkey.pms.micros.og.reservation.BookingResult param){
-                                   if (localBooking == null){
-                                   localBooking = new com.cloudkey.pms.micros.og.reservation.BookingResult[]{};
-                                   }
-
+                               public void setCreateMultipleBookingsResponse(com.cloudkey.pms.micros.ows.reservation.ArrayOfBookingResult param){
                             
+                                            this.localCreateMultipleBookingsResponse=param;
+                                    
 
-                               java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localBooking);
-                               list.add(param);
-                               this.localBooking =
-                             (com.cloudkey.pms.micros.og.reservation.BookingResult[])list.toArray(
-                            new com.cloudkey.pms.micros.og.reservation.BookingResult[list.size()]);
-
-                             }
-                             
+                               }
+                            
 
      
      
@@ -126,59 +87,19 @@
             throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException{
             
                 
-
-
-                java.lang.String prefix = null;
-                java.lang.String namespace = null;
+                //We can safely assume an element has only one type associated with it
                 
-
-                    prefix = parentQName.getPrefix();
-                    namespace = parentQName.getNamespaceURI();
-                    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
-                
-                  if (serializeType){
-               
-
-                   java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://webservices.micros.com/ows/5.1/Reservation.wsdl");
-                   if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           namespacePrefix+":CreateMultipleBookingsResponse",
-                           xmlWriter);
-                   } else {
-                       writeAttribute("xsi","http://www.w3.org/2001/XMLSchema-instance","type",
-                           "CreateMultipleBookingsResponse",
-                           xmlWriter);
-                   }
-
-               
-                   }
-               
-                                       if (localBooking!=null){
-                                            for (int i = 0;i < localBooking.length;i++){
-                                                if (localBooking[i] != null){
-                                                 localBooking[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Booking"),
-                                                           xmlWriter);
-                                                } else {
-                                                   
-                                                           throw new org.apache.axis2.databinding.ADBException("Booking cannot be null!!");
-                                                    
-                                                }
-
-                                            }
-                                     } else {
-                                        
-                                               throw new org.apache.axis2.databinding.ADBException("Booking cannot be null!!");
-                                        
-                                    }
-                                 
-                    xmlWriter.writeEndElement();
-               
+                                 if (localCreateMultipleBookingsResponse==null){
+                                   throw new org.apache.axis2.databinding.ADBException("CreateMultipleBookingsResponse cannot be null!");
+                                 }
+                                 localCreateMultipleBookingsResponse.serialize(MY_QNAME,xmlWriter);
+                            
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -352,35 +273,9 @@
 
 
         
-                 java.util.ArrayList elementList = new java.util.ArrayList();
-                 java.util.ArrayList attribList = new java.util.ArrayList();
-
                 
-                             if (localBooking!=null) {
-                                 for (int i = 0;i < localBooking.length;i++){
-
-                                    if (localBooking[i] != null){
-                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                                                                          "Booking"));
-                                         elementList.add(localBooking[i]);
-                                    } else {
-                                        
-                                               throw new org.apache.axis2.databinding.ADBException("Booking cannot be null !!");
-                                            
-                                    }
-
-                                 }
-                             } else {
-                                 
-                                        throw new org.apache.axis2.databinding.ADBException("Booking cannot be null!!");
-                                    
-                             }
-
-                        
-
-                return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
-            
-            
+                //We can safely assume an element has only one type associated with it
+                return localCreateMultipleBookingsResponse.getPullParser(MY_QNAME);
 
         }
 
@@ -415,32 +310,6 @@
                     reader.next();
 
                 
-                if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","type")!=null){
-                  java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                        "type");
-                  if (fullTypeName!=null){
-                    java.lang.String nsPrefix = null;
-                    if (fullTypeName.indexOf(":") > -1){
-                        nsPrefix = fullTypeName.substring(0,fullTypeName.indexOf(":"));
-                    }
-                    nsPrefix = nsPrefix==null?"":nsPrefix;
-
-                    java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":")+1);
-                    
-                            if (!"CreateMultipleBookingsResponse".equals(type)){
-                                //find namespace for the prefix
-                                java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (CreateMultipleBookingsResponse)com.cloudkey.pms.micros.ows.reservation.ExtensionMapper.getTypeObject(
-                                     nsUri,type,reader);
-                              }
-                        
-
-                  }
-                
-
-                }
-
-                
 
                 
                 // Note all attributes that were handled. Used to differ normal attributes
@@ -448,66 +317,26 @@
                 java.util.Vector handledAttributes = new java.util.Vector();
                 
 
+                   
+                while(!reader.isEndElement()) {
+                    if (reader.isStartElement() ){
                 
-                    
-                    reader.next();
-                
-                        java.util.ArrayList list1 = new java.util.ArrayList();
-                    
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CreateMultipleBookingsResponse").equals(reader.getName())){
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Booking").equals(reader.getName())){
-                                
-                                    
-                                    
-                                    // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.og.reservation.BookingResult.Factory.parse(reader));
-                                                                
-                                                        //loop until we find a start element that is not part of this array
-                                                        boolean loopDone1 = false;
-                                                        while(!loopDone1){
-                                                            // We should be at the end element, but make sure
-                                                            while (!reader.isEndElement())
-                                                                reader.next();
-                                                            // Step out of this element
-                                                            reader.next();
-                                                            // Step to next element event.
-                                                            while (!reader.isStartElement() && !reader.isEndElement())
-                                                                reader.next();
-                                                            if (reader.isEndElement()){
-                                                                //two continuous end elements means we are exiting the xml structure
-                                                                loopDone1 = true;
-                                                            } else {
-                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Booking").equals(reader.getName())){
-                                                                    list1.add(com.cloudkey.pms.micros.og.reservation.BookingResult.Factory.parse(reader));
-                                                                        
-                                                                }else{
-                                                                    loopDone1 = true;
-                                                                }
-                                                            }
-                                                        }
-                                                        // call the converter utility  to convert and set the array
-                                                        
-                                                        object.setBooking((com.cloudkey.pms.micros.og.reservation.BookingResult[])
-                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.reservation.BookingResult.class,
-                                                                list1));
-                                                            
+                                                object.setCreateMultipleBookingsResponse(com.cloudkey.pms.micros.ows.reservation.ArrayOfBookingResult.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
-                            while (!reader.isStartElement() && !reader.isEndElement())
+                             else{
+                                        // A start element we are not expecting indicates an invalid parameter was passed
+                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                             }
+                          
+                             } else {
                                 reader.next();
-                            
-                                if (reader.isStartElement())
-                                // A start element we are not expecting indicates a trailing invalid property
-                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                            
+                             }  
+                           }  // end of while loop
+                        
 
 
 

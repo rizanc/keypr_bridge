@@ -1,14 +1,14 @@
 #!/bin/bash
 
-WSDLS='
-http://webservices.micros.com/ows/5.1/Availability.wsdl
-http://webservices.micros.com/ows/5.1/Information.wsdl
-http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl
-http://webservices.micros.com/ows/5.1/Membership.wsdl
-http://webservices.micros.com/ows/5.1/Name.wsdl
-http://webservices.micros.com/ows/5.1/Reservation.wsdl
-http://webservices.micros.com/ows/5.1/ResvAdvanced.wsdl
-'
+WSDLS="
+http://operademo3.microsdc.us:4300/ows_ws_51/Availability.asmx?wsdl
+http://operademo3.microsdc.us:4300/ows_ws_51/Information.asmx?wsdl
+http://operademo3.microsdc.us:4300/ows_ws_51/MeetingRoom.asmx?wsdl
+http://operademo3.microsdc.us:4300/ows_ws_51/Membership.asmx?wsdl
+http://operademo3.microsdc.us:4300/ows_ws_51/Name.asmx?wsdl
+http://operademo3.microsdc.us:4300/ows_ws_51/Reservation.asmx?wsdl
+http://operademo3.microsdc.us:4300/ows_ws_51/ResvAdvanced.asmx?wsdl
+"
 
 NAMESPACE_PACKAGES="http://webservices.micros.com/og/4.3/Activity/=com.cloudkey.pms.micros.og.activity
 http://webservices.micros.com/og/4.3/AmandaInfo/=com.cloudkey.pms.micros.og.amandainfo
@@ -41,6 +41,7 @@ http://webservices.micros.com/ows/5.1/Security.wsdl=com.cloudkey.pms.micros.ows.
 http://webservices.micros.com/ows/5.1/StayHistory.wsdl=com.cloudkey.pms.micros.ows.stayhistory
 http://webservices.micros.com/ows/5.1/UnitOwners.wsdl=com.cloudkey.pms.micros.ows.unitowners"
 
+# replace the space between lines with , for use in -ns2p switch.
 NSP=$(echo ${NAMESPACE_PACKAGES} | tr " " ",")
 
 set $WSDLS;

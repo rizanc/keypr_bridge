@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RegionalAvailableProperty
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.availability.PropertyStatusCode localPropertyStatus ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPropertyStatusTracker = false ;
+
+                           public boolean isPropertyStatusSpecified(){
+                               return localPropertyStatusTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param PropertyStatus
                                */
                                public void setPropertyStatus(com.cloudkey.pms.micros.og.availability.PropertyStatusCode param){
-                            
+                            localPropertyStatusTracker = param != null;
+                                   
                                             this.localPropertyStatus=param;
                                     
 
@@ -89,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.MinMaxRate_type0 localMinMaxRate ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate localMinMaxRate ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -105,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.MinMaxRate_type0
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate
                            */
-                           public  com.cloudkey.pms.micros.og.availability.MinMaxRate_type0 getMinMaxRate(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate getMinMaxRate(){
                                return localMinMaxRate;
                            }
 
@@ -117,55 +141,10 @@
                                * Auto generated setter method
                                * @param param MinMaxRate
                                */
-                               public void setMinMaxRate(com.cloudkey.pms.micros.og.availability.MinMaxRate_type0 param){
+                               public void setMinMaxRate(com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate param){
                             localMinMaxRateTracker = param != null;
                                    
                                             this.localMinMaxRate=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IsNegotiatedRateAvailable
-                        */
-
-                        
-                                    protected boolean localIsNegotiatedRateAvailable ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localIsNegotiatedRateAvailableTracker = false ;
-
-                           public boolean isIsNegotiatedRateAvailableSpecified(){
-                               return localIsNegotiatedRateAvailableTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIsNegotiatedRateAvailable(){
-                               return localIsNegotiatedRateAvailable;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IsNegotiatedRateAvailable
-                               */
-                               public void setIsNegotiatedRateAvailable(boolean param){
-                            
-                                       // setting primitive attribute tracker to true
-                                       localIsNegotiatedRateAvailableTracker =
-                                       true;
-                                   
-                                            this.localIsNegotiatedRateAvailable=param;
                                     
 
                                }
@@ -295,6 +274,51 @@
                             localHotelExtendedInformationTracker = param != null;
                                    
                                             this.localHotelExtendedInformation=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IsNegotiatedRateAvailable
+                        */
+
+                        
+                                    protected boolean localIsNegotiatedRateAvailable ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localIsNegotiatedRateAvailableTracker = false ;
+
+                           public boolean isIsNegotiatedRateAvailableSpecified(){
+                               return localIsNegotiatedRateAvailableTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIsNegotiatedRateAvailable(){
+                               return localIsNegotiatedRateAvailable;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IsNegotiatedRateAvailable
+                               */
+                               public void setIsNegotiatedRateAvailable(boolean param){
+                            
+                                       // setting primitive attribute tracker to true
+                                       localIsNegotiatedRateAvailableTracker =
+                                       true;
+                                   
+                                            this.localIsNegotiatedRateAvailable=param;
                                     
 
                                }
@@ -442,38 +466,25 @@
 
                
                    }
-               
+                if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localPropertyStatusTracker){
                                             if (localPropertyStatus==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PropertyStatus cannot be null!!");
                                             }
                                            localPropertyStatus.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","PropertyStatus"),
                                                xmlWriter);
-                                         if (localMinMaxRateTracker){
+                                        } if (localMinMaxRateTracker){
                                             if (localMinMaxRate==null){
                                                  throw new org.apache.axis2.databinding.ADBException("MinMaxRate cannot be null!!");
                                             }
                                            localMinMaxRate.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","MinMaxRate"),
                                                xmlWriter);
-                                        } if (localIsNegotiatedRateAvailableTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Availability/";
-                                    writeStartElement(null, namespace, "isNegotiatedRateAvailable", xmlWriter);
-                             
-                                               if (false) {
-                                           
-                                                         throw new org.apache.axis2.databinding.ADBException("isNegotiatedRateAvailable cannot be null!!");
-                                                      
-                                               } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsNegotiatedRateAvailable));
-                                               }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localNumberToSellTracker){
+                                        } if (localNumberToSellTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Availability/";
                                     writeStartElement(null, namespace, "NumberToSell", xmlWriter);
                              
@@ -498,7 +509,20 @@
                                             }
                                            localHotelExtendedInformation.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","HotelExtendedInformation"),
                                                xmlWriter);
-                                        } if (localMinimumRateTracker){
+                                        } if (localIsNegotiatedRateAvailableTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/Availability/";
+                                    writeStartElement(null, namespace, "isNegotiatedRateAvailable", xmlWriter);
+                             
+                                               if (false) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("isNegotiatedRateAvailable cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsNegotiatedRateAvailable));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localMinimumRateTracker){
                                             if (localMinimumRate==null){
                                                  throw new org.apache.axis2.databinding.ADBException("MinimumRate cannot be null!!");
                                             }
@@ -518,7 +542,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -695,7 +719,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "HotelReference"));
                             
@@ -704,7 +728,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localPropertyStatusTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "PropertyStatus"));
                             
@@ -713,7 +737,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PropertyStatus cannot be null!!");
                                     }
                                     elementList.add(localPropertyStatus);
-                                 if (localMinMaxRateTracker){
+                                } if (localMinMaxRateTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "MinMaxRate"));
                             
@@ -722,13 +746,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("MinMaxRate cannot be null!!");
                                     }
                                     elementList.add(localMinMaxRate);
-                                } if (localIsNegotiatedRateAvailableTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
-                                                                      "isNegotiatedRateAvailable"));
-                                 
-                                elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsNegotiatedRateAvailable));
-                            } if (localNumberToSellTracker){
+                                } if (localNumberToSellTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "NumberToSell"));
                                  
@@ -752,7 +770,13 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelExtendedInformation cannot be null!!");
                                     }
                                     elementList.add(localHotelExtendedInformation);
-                                } if (localMinimumRateTracker){
+                                } if (localIsNegotiatedRateAvailableTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
+                                                                      "isNegotiatedRateAvailable"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsNegotiatedRateAvailable));
+                            } if (localMinimumRateTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "MinimumRate"));
                             
@@ -857,33 +881,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","PropertyStatus").equals(reader.getName())){
                                 
                                                 object.setPropertyStatus(com.cloudkey.pms.micros.og.availability.PropertyStatusCode.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","MinMaxRate").equals(reader.getName())){
-                                
-                                                object.setMinMaxRate(com.cloudkey.pms.micros.og.availability.MinMaxRate_type0.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -896,18 +903,9 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","isNegotiatedRateAvailable").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","MinMaxRate").equals(reader.getName())){
                                 
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"isNegotiatedRateAvailable" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setIsNegotiatedRateAvailable(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+                                                object.setMinMaxRate(com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -964,6 +962,30 @@
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","HotelExtendedInformation").equals(reader.getName())){
                                 
                                                 object.setHotelExtendedInformation(com.cloudkey.pms.micros.og.hotelcommon.ExtendedHotelInfo.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","isNegotiatedRateAvailable").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"isNegotiatedRateAvailable" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setIsNegotiatedRateAvailable(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
                                               
                                         reader.next();
                                     

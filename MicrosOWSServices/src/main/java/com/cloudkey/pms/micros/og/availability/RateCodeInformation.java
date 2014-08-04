@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RateCodeInformation
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -56,37 +56,6 @@
                             
 
                         /**
-                        * field for RatePlanIndicator
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localRatePlanIndicator ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getRatePlanIndicator(){
-                               return localRatePlanIndicator;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param RatePlanIndicator
-                               */
-                               public void setRatePlanIndicator(java.lang.String param){
-                            
-                                            this.localRatePlanIndicator=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for CorporateCode
                         * This was an Attribute!
                         */
@@ -112,6 +81,37 @@
                                public void setCorporateCode(java.lang.String param){
                             
                                             this.localCorporateCode=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for RatePlanIndicator
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localRatePlanIndicator ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getRatePlanIndicator(){
+                               return localRatePlanIndicator;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param RatePlanIndicator
+                               */
+                               public void setRatePlanIndicator(java.lang.String param){
+                            
+                                            this.localRatePlanIndicator=param;
                                     
 
                                }
@@ -216,20 +216,20 @@
                                             
                                       }
                                     
-                                            if (localRatePlanIndicator != null){
-                                        
-                                                writeAttribute("",
-                                                         "ratePlanIndicator",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanIndicator), xmlWriter);
-
-                                            
-                                      }
-                                    
                                             if (localCorporateCode != null){
                                         
                                                 writeAttribute("",
                                                          "corporateCode",
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCorporateCode), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localRatePlanIndicator != null){
+                                        
+                                                writeAttribute("",
+                                                         "ratePlanIndicator",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanIndicator), xmlWriter);
 
                                             
                                       }
@@ -241,6 +241,10 @@
                                            localRatePlanStatusCode.toString(), xmlWriter);
                                     }
                                     
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRatePlanStatusCode is null");
+                                      }
+                                    
                     xmlWriter.writeEndElement();
                
 
@@ -248,7 +252,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -432,14 +436,14 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanCode));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","ratePlanIndicator"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanIndicator));
-                                
-                            attribList.add(
                             new javax.xml.namespace.QName("","corporateCode"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCorporateCode));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","ratePlanIndicator"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanIndicator));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","ratePlanStatusCode"));
@@ -534,22 +538,6 @@
                     }
                     handledAttributes.add("ratePlanCode");
                     
-                    // handle attribute "ratePlanIndicator"
-                    java.lang.String tempAttribRatePlanIndicator =
-                        
-                                reader.getAttributeValue(null,"ratePlanIndicator");
-                            
-                   if (tempAttribRatePlanIndicator!=null){
-                         java.lang.String content = tempAttribRatePlanIndicator;
-                        
-                                                 object.setRatePlanIndicator(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRatePlanIndicator));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("ratePlanIndicator");
-                    
                     // handle attribute "corporateCode"
                     java.lang.String tempAttribCorporateCode =
                         
@@ -566,6 +554,22 @@
                     }
                     handledAttributes.add("corporateCode");
                     
+                    // handle attribute "ratePlanIndicator"
+                    java.lang.String tempAttribRatePlanIndicator =
+                        
+                                reader.getAttributeValue(null,"ratePlanIndicator");
+                            
+                   if (tempAttribRatePlanIndicator!=null){
+                         java.lang.String content = tempAttribRatePlanIndicator;
+                        
+                                                 object.setRatePlanIndicator(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRatePlanIndicator));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("ratePlanIndicator");
+                    
                     // handle attribute "ratePlanStatusCode"
                     java.lang.String tempAttribRatePlanStatusCode =
                         
@@ -579,6 +583,8 @@
                                             
                     } else {
                        
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute ratePlanStatusCode is missing");
+                           
                     }
                     handledAttributes.add("ratePlanStatusCode");
                     

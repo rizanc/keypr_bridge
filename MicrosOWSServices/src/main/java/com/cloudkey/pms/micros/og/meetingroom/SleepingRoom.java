@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = SleepingRoom
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -213,6 +213,37 @@
                             
 
                         /**
+                        * field for ActionType
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.meetingroom.SleepingRoomActionType localActionType ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.meetingroom.SleepingRoomActionType
+                           */
+                           public  com.cloudkey.pms.micros.og.meetingroom.SleepingRoomActionType getActionType(){
+                               return localActionType;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ActionType
+                               */
+                               public void setActionType(com.cloudkey.pms.micros.og.meetingroom.SleepingRoomActionType param){
+                            
+                                            this.localActionType=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for Occupancy1
                         * This was an Attribute!
                         */
@@ -336,37 +367,6 @@
                                }
                             
 
-                        /**
-                        * field for ActionType
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.meetingroom.ActionType_type0 localActionType ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.ActionType_type0
-                           */
-                           public  com.cloudkey.pms.micros.og.meetingroom.ActionType_type0 getActionType(){
-                               return localActionType;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ActionType
-                               */
-                               public void setActionType(com.cloudkey.pms.micros.og.meetingroom.ActionType_type0 param){
-                            
-                                            this.localActionType=param;
-                                    
-
-                               }
-                            
-
      
      
         /**
@@ -435,10 +435,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRoomType is null");
-                                      }
-                                    
                                                    if (localQuantity!=java.lang.Integer.MIN_VALUE) {
                                                
                                                 writeAttribute("",
@@ -447,6 +443,13 @@
 
                                             
                                       }
+                                    
+                                    
+                                    if (localActionType != null){
+                                        writeAttribute("",
+                                           "actionType",
+                                           localActionType.toString(), xmlWriter);
+                                    }
                                     
                                                    if (localOccupancy1!=java.lang.Integer.MIN_VALUE) {
                                                
@@ -483,13 +486,6 @@
 
                                             
                                       }
-                                    
-                                    
-                                    if (localActionType != null){
-                                        writeAttribute("",
-                                           "actionType",
-                                           localActionType.toString(), xmlWriter);
-                                    }
                                      if (localRoomDatesTracker){
                                             if (localRoomDates==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RoomDates cannot be null!!");
@@ -516,7 +512,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -732,6 +728,11 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localQuantity));
                                 
                             attribList.add(
+                            new javax.xml.namespace.QName("","actionType"));
+                            
+                                      attribList.add(localActionType.toString());
+                                
+                            attribList.add(
                             new javax.xml.namespace.QName("","occupancy1"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOccupancy1));
@@ -750,11 +751,6 @@
                             new javax.xml.namespace.QName("","occupancy4"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOccupancy4));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","actionType"));
-                            
-                                      attribList.add(localActionType.toString());
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -809,7 +805,7 @@
                             if (!"SleepingRoom".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (SleepingRoom)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (SleepingRoom)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -841,8 +837,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute roomType is missing");
-                           
                     }
                     handledAttributes.add("roomType");
                     
@@ -863,6 +857,22 @@
                                        
                     }
                     handledAttributes.add("quantity");
+                    
+                    // handle attribute "actionType"
+                    java.lang.String tempAttribActionType =
+                        
+                                reader.getAttributeValue(null,"actionType");
+                            
+                   if (tempAttribActionType!=null){
+                         java.lang.String content = tempAttribActionType;
+                        
+                                                  object.setActionType(
+                                                        com.cloudkey.pms.micros.og.meetingroom.SleepingRoomActionType.Factory.fromString(reader,tempAttribActionType));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("actionType");
                     
                     // handle attribute "occupancy1"
                     java.lang.String tempAttribOccupancy1 =
@@ -935,22 +945,6 @@
                                        
                     }
                     handledAttributes.add("occupancy4");
-                    
-                    // handle attribute "actionType"
-                    java.lang.String tempAttribActionType =
-                        
-                                reader.getAttributeValue(null,"actionType");
-                            
-                   if (tempAttribActionType!=null){
-                         java.lang.String content = tempAttribActionType;
-                        
-                                                  object.setActionType(
-                                                        com.cloudkey.pms.micros.og.meetingroom.ActionType_type0.Factory.fromString(reader,tempAttribActionType));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("actionType");
                     
                     
                     reader.next();

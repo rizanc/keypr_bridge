@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = LovQueryQualifierType
                 Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -160,10 +160,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localQualifierType is null");
-                                      }
-                                    
 
                                           if (localString==null){
                                               // write the nil attribute
@@ -184,7 +180,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -484,8 +480,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute qualifierType is missing");
-                           
                     }
                     handledAttributes.add("qualifierType");
                        

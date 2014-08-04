@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = AttractionInfo
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -161,48 +161,11 @@
                                             
                                       }
                                     
-                                            if (localText==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Text cannot be null!!");
+                                            if (localDescriptiveTextChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("DescriptiveTextChoice_type0 cannot be null!!");
                                             }
-                                           localText.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text"),
-                                               xmlWriter);
+                                           localDescriptiveTextChoice_type0.serialize(null,xmlWriter);
                                         
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "Image", xmlWriter);
-                             
-
-                                          if (localImage==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Image cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localImage);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "Url", xmlWriter);
-                             
-
-                                          if (localUrl==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Url cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUrl));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
                     xmlWriter.writeEndElement();
                
 
@@ -210,7 +173,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -392,32 +355,14 @@
                     attribList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","AttractionInfo"));
                 
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Text"));
+                                                                      "DescriptiveTextChoice_type0"));
                             
                             
-                                    if (localText==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Text cannot be null!!");
+                                    if (localDescriptiveTextChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("DescriptiveTextChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localText);
+                                    elementList.add(localDescriptiveTextChoice_type0);
                                 
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Image"));
-                                 
-                                        if (localImage != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localImage));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Image cannot be null!!");
-                                        }
-                                    
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Url"));
-                                 
-                                        if (localUrl != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUrl));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Url cannot be null!!");
-                                        }
-                                    
                             attribList.add(
                             new javax.xml.namespace.QName("","attractionInfoType"));
                             
@@ -540,57 +485,12 @@
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text").equals(reader.getName())){
+                                    if (reader.isStartElement() ){
                                 
-                                                object.setText(com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
+                                                object.setDescriptiveTextChoice_type0(com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
                                 
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Image").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Image" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setImage(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Url").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Url" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setUrl(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToAnyURI(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
                              } else {
                                 reader.next();
                              }  

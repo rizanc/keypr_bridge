@@ -20,184 +20,16 @@
         /* This type was generated from the piece of schema that had
                 name = GuestRequests
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
-
-                        /**
-                        * field for Comments
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList localComments ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCommentsTracker = false ;
-
-                           public boolean isCommentsSpecified(){
-                               return localCommentsTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList getComments(){
-                               return localComments;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Comments
-                               */
-                               public void setComments(com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList param){
-                            localCommentsTracker = param != null;
-                                   
-                                            this.localComments=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Specials
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList localSpecials ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localSpecialsTracker = false ;
-
-                           public boolean isSpecialsSpecified(){
-                               return localSpecialsTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList getSpecials(){
-                               return localSpecials;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Specials
-                               */
-                               public void setSpecials(com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList param){
-                            localSpecialsTracker = param != null;
-                                   
-                                            this.localSpecials=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Traces
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.ReservationTracesList localTraces ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localTracesTracker = false ;
-
-                           public boolean isTracesSpecified(){
-                               return localTracesTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.ReservationTracesList
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.ReservationTracesList getTraces(){
-                               return localTraces;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Traces
-                               */
-                               public void setTraces(com.cloudkey.pms.micros.og.hotelcommon.ReservationTracesList param){
-                            localTracesTracker = param != null;
-                                   
-                                            this.localTraces=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Features
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList localFeatures ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localFeaturesTracker = false ;
-
-                           public boolean isFeaturesSpecified(){
-                               return localFeaturesTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList getFeatures(){
-                               return localFeatures;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Features
-                               */
-                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList param){
-                            localFeaturesTracker = param != null;
-                                   
-                                            this.localFeatures=param;
-                                    
-
-                               }
-                            
 
                         /**
                         * field for Alerts
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.ReservationAlertList localAlerts ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationAlert localAlerts ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -213,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.ReservationAlertList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationAlert
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.ReservationAlertList getAlerts(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationAlert getAlerts(){
                                return localAlerts;
                            }
 
@@ -225,10 +57,178 @@
                                * Auto generated setter method
                                * @param param Alerts
                                */
-                               public void setAlerts(com.cloudkey.pms.micros.og.hotelcommon.ReservationAlertList param){
+                               public void setAlerts(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationAlert param){
                             localAlertsTracker = param != null;
                                    
                                             this.localAlerts=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Comments
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment localComments ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCommentsTracker = false ;
+
+                           public boolean isCommentsSpecified(){
+                               return localCommentsTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment getComments(){
+                               return localComments;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Comments
+                               */
+                               public void setComments(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment param){
+                            localCommentsTracker = param != null;
+                                   
+                                            this.localComments=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Specials
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest localSpecials ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localSpecialsTracker = false ;
+
+                           public boolean isSpecialsSpecified(){
+                               return localSpecialsTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest getSpecials(){
+                               return localSpecials;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Specials
+                               */
+                               public void setSpecials(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest param){
+                            localSpecialsTracker = param != null;
+                                   
+                                            this.localSpecials=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Traces
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationTrace localTraces ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTracesTracker = false ;
+
+                           public boolean isTracesSpecified(){
+                               return localTracesTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationTrace
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationTrace getTraces(){
+                               return localTraces;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Traces
+                               */
+                               public void setTraces(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationTrace param){
+                            localTracesTracker = param != null;
+                                   
+                                            this.localTraces=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Features
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature localFeatures ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localFeaturesTracker = false ;
+
+                           public boolean isFeaturesSpecified(){
+                               return localFeaturesTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature getFeatures(){
+                               return localFeatures;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Features
+                               */
+                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature param){
+                            localFeaturesTracker = param != null;
+                                   
+                                            this.localFeatures=param;
                                     
 
                                }
@@ -292,7 +292,13 @@
 
                
                    }
-                if (localCommentsTracker){
+                if (localAlertsTracker){
+                                            if (localAlerts==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("Alerts cannot be null!!");
+                                            }
+                                           localAlerts.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Alerts"),
+                                               xmlWriter);
+                                        } if (localCommentsTracker){
                                             if (localComments==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Comments cannot be null!!");
                                             }
@@ -316,12 +322,6 @@
                                             }
                                            localFeatures.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Features"),
                                                xmlWriter);
-                                        } if (localAlertsTracker){
-                                            if (localAlerts==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Alerts cannot be null!!");
-                                            }
-                                           localAlerts.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Alerts"),
-                                               xmlWriter);
                                         }
                     xmlWriter.writeEndElement();
                
@@ -330,7 +330,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -507,7 +507,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localCommentsTracker){
+                 if (localAlertsTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
+                                                                      "Alerts"));
+                            
+                            
+                                    if (localAlerts==null){
+                                         throw new org.apache.axis2.databinding.ADBException("Alerts cannot be null!!");
+                                    }
+                                    elementList.add(localAlerts);
+                                } if (localCommentsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Comments"));
                             
@@ -543,15 +552,6 @@
                                          throw new org.apache.axis2.databinding.ADBException("Features cannot be null!!");
                                     }
                                     elementList.add(localFeatures);
-                                } if (localAlertsTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "Alerts"));
-                            
-                            
-                                    if (localAlerts==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Alerts cannot be null!!");
-                                    }
-                                    elementList.add(localAlerts);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -631,9 +631,24 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Alerts").equals(reader.getName())){
+                                
+                                                object.setAlerts(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationAlert.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Comments").equals(reader.getName())){
                                 
-                                                object.setComments(com.cloudkey.pms.micros.og.hotelcommon.ReservationCommentList.Factory.parse(reader));
+                                                object.setComments(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationComment.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -648,7 +663,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Specials").equals(reader.getName())){
                                 
-                                                object.setSpecials(com.cloudkey.pms.micros.og.hotelcommon.SpecialRequestList.Factory.parse(reader));
+                                                object.setSpecials(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfSpecialRequest.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -663,7 +678,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Traces").equals(reader.getName())){
                                 
-                                                object.setTraces(com.cloudkey.pms.micros.og.hotelcommon.ReservationTracesList.Factory.parse(reader));
+                                                object.setTraces(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfReservationTrace.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -678,22 +693,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Features").equals(reader.getName())){
                                 
-                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Alerts").equals(reader.getName())){
-                                
-                                                object.setAlerts(com.cloudkey.pms.micros.og.hotelcommon.ReservationAlertList.Factory.parse(reader));
+                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GuestProfile
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -73,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.PersonName localPersonName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPersonNameTracker = false ;
+
+                           public boolean isPersonNameSpecified(){
+                               return localPersonNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -89,7 +100,8 @@
                                * @param param PersonName
                                */
                                public void setPersonName(com.cloudkey.pms.micros.og.common.PersonName param){
-                            
+                            localPersonNameTracker = param != null;
+                                   
                                             this.localPersonName=param;
                                     
 
@@ -101,7 +113,7 @@
                         */
 
                         
-                                    protected java.util.Date localBirthDate ;
+                                    protected java.util.Calendar localBirthDate ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -117,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return java.util.Date
+                           * @return java.util.Calendar
                            */
-                           public  java.util.Date getBirthDate(){
+                           public  java.util.Calendar getBirthDate(){
                                return localBirthDate;
                            }
 
@@ -129,7 +141,7 @@
                                * Auto generated setter method
                                * @param param BirthDate
                                */
-                               public void setBirthDate(java.util.Date param){
+                               public void setBirthDate(java.util.Calendar param){
                             localBirthDateTracker = param != null;
                                    
                                             this.localBirthDate=param;
@@ -496,13 +508,13 @@
                                             }
                                            localNameID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","NameID"),
                                                xmlWriter);
-                                        }
+                                        } if (localPersonNameTracker){
                                             if (localPersonName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                             }
                                            localPersonName.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PersonName"),
                                                xmlWriter);
-                                         if (localBirthDateTracker){
+                                        } if (localBirthDateTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "BirthDate", xmlWriter);
                              
@@ -606,7 +618,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -792,7 +804,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                     }
                                     elementList.add(localNameID);
-                                }
+                                } if (localPersonNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "PersonName"));
                             
@@ -801,7 +813,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                     }
                                     elementList.add(localPersonName);
-                                 if (localBirthDateTracker){
+                                } if (localBirthDateTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "BirthDate"));
                                  
@@ -975,11 +987,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -994,7 +1005,7 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setBirthDate(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(content));
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(content));
                                               
                                         reader.next();
                                     

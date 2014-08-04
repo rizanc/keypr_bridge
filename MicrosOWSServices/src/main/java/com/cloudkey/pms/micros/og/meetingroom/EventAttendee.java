@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = EventAttendee
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.name.Profile localProfile ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProfileTracker = false ;
+
+                           public boolean isProfileSpecified(){
+                               return localProfileTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Profile
                                */
                                public void setProfile(com.cloudkey.pms.micros.og.name.Profile param){
-                            
+                            localProfileTracker = param != null;
+                                   
                                             this.localProfile=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID[] localEventID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEventIDTracker = false ;
+
+                           public boolean isEventIDSpecified(){
+                               return localEventIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -81,10 +104,6 @@
                                */
                               protected void validateEventID(com.cloudkey.pms.micros.og.common.UniqueID[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -96,7 +115,8 @@
                               
                                    validateEventID(param);
 
-                               
+                               localEventIDTracker = param != null;
+                                      
                                       this.localEventID=param;
                               }
 
@@ -111,6 +131,9 @@
                                    localEventID = new com.cloudkey.pms.micros.og.common.UniqueID[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localEventIDTracker = true;
                             
 
                                java.util.List list =
@@ -129,14 +152,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.ActionType_type0E localActionType ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.EventAttendeeActionType localActionType ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.ActionType_type0E
+                           * @return com.cloudkey.pms.micros.og.meetingroom.EventAttendeeActionType
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.ActionType_type0E getActionType(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.EventAttendeeActionType getActionType(){
                                return localActionType;
                            }
 
@@ -146,7 +169,7 @@
                                * Auto generated setter method
                                * @param param ActionType
                                */
-                               public void setActionType(com.cloudkey.pms.micros.og.meetingroom.ActionType_type0E param){
+                               public void setActionType(com.cloudkey.pms.micros.og.meetingroom.EventAttendeeActionType param){
                             
                                             this.localActionType=param;
                                     
@@ -223,13 +246,13 @@
                                       else {
                                           throw new org.apache.axis2.databinding.ADBException("required attribute localActionType is null");
                                       }
-                                    
+                                     if (localProfileTracker){
                                             if (localProfile==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Profile cannot be null!!");
                                             }
                                            localProfile.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","Profile"),
                                                xmlWriter);
-                                        
+                                        } if (localEventIDTracker){
                                        if (localEventID!=null){
                                             for (int i = 0;i < localEventID.length;i++){
                                                 if (localEventID[i] != null){
@@ -237,7 +260,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("EventID cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -247,7 +270,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("EventID cannot be null!!");
                                         
                                     }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -255,7 +278,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -432,7 +455,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localProfileTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "Profile"));
                             
@@ -441,7 +464,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Profile cannot be null!!");
                                     }
                                     elementList.add(localProfile);
-                                
+                                } if (localEventIDTracker){
                              if (localEventID!=null) {
                                  for (int i = 0;i < localEventID.length;i++){
 
@@ -451,7 +474,7 @@
                                          elementList.add(localEventID[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("EventID cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -462,7 +485,7 @@
                                     
                              }
 
-                        
+                        }
                             attribList.add(
                             new javax.xml.namespace.QName("","ActionType"));
                             
@@ -521,7 +544,7 @@
                             if (!"EventAttendee".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (EventAttendee)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (EventAttendee)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -549,7 +572,7 @@
                          java.lang.String content = tempAttribActionType;
                         
                                                   object.setActionType(
-                                                        com.cloudkey.pms.micros.og.meetingroom.ActionType_type0E.Factory.fromString(reader,tempAttribActionType));
+                                                        com.cloudkey.pms.micros.og.meetingroom.EventAttendeeActionType.Factory.fromString(reader,tempAttribActionType));
                                             
                     } else {
                        
@@ -574,11 +597,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -621,11 +643,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

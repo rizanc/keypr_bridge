@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Area
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
 
@@ -61,14 +61,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AreaType_type0 localAreaType ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.AreaAreaType localAreaType ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AreaType_type0
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.AreaAreaType
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AreaType_type0 getAreaType(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.AreaAreaType getAreaType(){
                                return localAreaType;
                            }
 
@@ -78,7 +78,7 @@
                                * Auto generated setter method
                                * @param param AreaType
                                */
-                               public void setAreaType(com.cloudkey.pms.micros.og.hotelcommon.AreaType_type0 param){
+                               public void setAreaType(com.cloudkey.pms.micros.og.hotelcommon.AreaAreaType param){
                             
                                             this.localAreaType=param;
                                     
@@ -176,7 +176,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -417,7 +417,7 @@
                             if (!"Area".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Area)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (Area)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -463,7 +463,7 @@
                          java.lang.String content = tempAttribAreaType;
                         
                                                   object.setAreaType(
-                                                        com.cloudkey.pms.micros.og.hotelcommon.AreaType_type0.Factory.fromString(reader,tempAttribAreaType));
+                                                        com.cloudkey.pms.micros.og.hotelcommon.AreaAreaType.Factory.fromString(reader,tempAttribAreaType));
                                             
                     } else {
                        

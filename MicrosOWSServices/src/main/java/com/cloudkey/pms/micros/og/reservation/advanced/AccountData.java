@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = AccountData
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localUserName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localUserNameTracker = false ;
+
+                           public boolean isUserNameSpecified(){
+                               return localUserNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param UserName
                                */
                                public void setUserName(java.lang.String param){
-                            
+                            localUserNameTracker = param != null;
+                                   
                                             this.localUserName=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localPassword ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPasswordTracker = false ;
+
+                           public boolean isPasswordSpecified(){
+                               return localPasswordTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param Password
                                */
                                public void setPassword(java.lang.String param){
-                            
+                            localPasswordTracker = param != null;
+                                   
                                             this.localPassword=param;
                                     
 
@@ -91,6 +115,17 @@
                         
                                     protected java.lang.String localSignature ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localSignatureTracker = false ;
+
+                           public boolean isSignatureSpecified(){
+                               return localSignatureTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -107,7 +142,8 @@
                                * @param param Signature
                                */
                                public void setSignature(java.lang.String param){
-                            
+                            localSignatureTracker = param != null;
+                                   
                                             this.localSignature=param;
                                     
 
@@ -121,6 +157,17 @@
                         
                                     protected java.lang.String localEnvironment ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEnvironmentTracker = false ;
+
+                           public boolean isEnvironmentSpecified(){
+                               return localEnvironmentTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -137,7 +184,8 @@
                                * @param param Environment
                                */
                                public void setEnvironment(java.lang.String param){
-                            
+                            localEnvironmentTracker = param != null;
+                                   
                                             this.localEnvironment=param;
                                     
 
@@ -202,7 +250,7 @@
 
                
                    }
-               
+                if (localUserNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "UserName", xmlWriter);
                              
@@ -220,7 +268,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localPasswordTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Password", xmlWriter);
                              
@@ -238,7 +286,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localSignatureTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Signature", xmlWriter);
                              
@@ -256,7 +304,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localEnvironmentTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Environment", xmlWriter);
                              
@@ -274,7 +322,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -282,7 +330,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -459,7 +507,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localUserNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "UserName"));
                                  
@@ -468,7 +516,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("UserName cannot be null!!");
                                         }
-                                    
+                                    } if (localPasswordTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Password"));
                                  
@@ -477,7 +525,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Password cannot be null!!");
                                         }
-                                    
+                                    } if (localSignatureTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Signature"));
                                  
@@ -486,7 +534,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Signature cannot be null!!");
                                         }
-                                    
+                                    } if (localEnvironmentTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Environment"));
                                  
@@ -495,7 +543,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Environment cannot be null!!");
                                         }
-                                    
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -549,7 +597,7 @@
                             if (!"AccountData".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (AccountData)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (AccountData)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -591,11 +639,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -616,11 +663,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -641,11 +687,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -666,11 +711,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

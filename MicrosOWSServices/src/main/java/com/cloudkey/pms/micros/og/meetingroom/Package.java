@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Package
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localPackageID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPackageIDTracker = false ;
+
+                           public boolean isPackageIDSpecified(){
+                               return localPackageIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param PackageID
                                */
                                public void setPackageID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localPackageIDTracker = param != null;
+                                   
                                             this.localPackageID=param;
                                     
 
@@ -102,7 +114,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.Events_type0[] localEvents ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.PackageEvents[] localEvents ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -118,9 +130,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.Events_type0[]
+                           * @return com.cloudkey.pms.micros.og.meetingroom.PackageEvents[]
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.Events_type0[] getEvents(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.PackageEvents[] getEvents(){
                                return localEvents;
                            }
 
@@ -132,7 +144,7 @@
                               /**
                                * validate the array for Events
                                */
-                              protected void validateEvents(com.cloudkey.pms.micros.og.meetingroom.Events_type0[] param){
+                              protected void validateEvents(com.cloudkey.pms.micros.og.meetingroom.PackageEvents[] param){
                              
                               }
 
@@ -141,7 +153,7 @@
                               * Auto generated setter method
                               * @param param Events
                               */
-                              public void setEvents(com.cloudkey.pms.micros.og.meetingroom.Events_type0[] param){
+                              public void setEvents(com.cloudkey.pms.micros.og.meetingroom.PackageEvents[] param){
                               
                                    validateEvents(param);
 
@@ -154,11 +166,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.meetingroom.Events_type0
+                             * @param param com.cloudkey.pms.micros.og.meetingroom.PackageEvents
                              */
-                             public void addEvents(com.cloudkey.pms.micros.og.meetingroom.Events_type0 param){
+                             public void addEvents(com.cloudkey.pms.micros.og.meetingroom.PackageEvents param){
                                    if (localEvents == null){
-                                   localEvents = new com.cloudkey.pms.micros.og.meetingroom.Events_type0[]{};
+                                   localEvents = new com.cloudkey.pms.micros.og.meetingroom.PackageEvents[]{};
                                    }
 
                             
@@ -170,8 +182,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localEvents);
                                list.add(param);
                                this.localEvents =
-                             (com.cloudkey.pms.micros.og.meetingroom.Events_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.meetingroom.Events_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.meetingroom.PackageEvents[])list.toArray(
+                            new com.cloudkey.pms.micros.og.meetingroom.PackageEvents[list.size()]);
 
                              }
                              
@@ -480,13 +492,13 @@
 
                                             
                                       }
-                                    
+                                     if (localPackageIDTracker){
                                             if (localPackageID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PackageID cannot be null!!");
                                             }
                                            localPackageID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","PackageID"),
                                                xmlWriter);
-                                         if (localDescriptionTracker){
+                                        } if (localDescriptionTracker){
                                             if (localDescription==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Description cannot be null!!");
                                             }
@@ -542,7 +554,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -719,7 +731,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPackageIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "PackageID"));
                             
@@ -728,7 +740,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PackageID cannot be null!!");
                                     }
                                     elementList.add(localPackageID);
-                                 if (localDescriptionTracker){
+                                } if (localDescriptionTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "Description"));
                             
@@ -857,7 +869,7 @@
                             if (!"Package".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Package)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (Package)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -946,11 +958,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -974,7 +985,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.Events_type0.Factory.parse(reader));
+                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.PackageEvents.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone3 = false;
@@ -992,7 +1003,7 @@
                                                                 loopDone3 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","Events").equals(reader.getName())){
-                                                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.Events_type0.Factory.parse(reader));
+                                                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.PackageEvents.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone3 = true;
@@ -1001,9 +1012,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setEvents((com.cloudkey.pms.micros.og.meetingroom.Events_type0[])
+                                                        object.setEvents((com.cloudkey.pms.micros.og.meetingroom.PackageEvents[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.meetingroom.Events_type0.class,
+                                                                com.cloudkey.pms.micros.og.meetingroom.PackageEvents.class,
                                                                 list3));
                                                             
                               }  // End of if for expected property start element

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = AmenityInfo
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.Amenities_type0 localAmenities ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAmenity localAmenities ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.Amenities_type0
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAmenity
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.Amenities_type0 getAmenities(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAmenity getAmenities(){
                                return localAmenities;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param Amenities
                                */
-                               public void setAmenities(com.cloudkey.pms.micros.og.hotelcommon.Amenities_type0 param){
+                               public void setAmenities(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAmenity param){
                             localAmenitiesTracker = param != null;
                                    
                                             this.localAmenities=param;
@@ -138,7 +138,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -378,7 +378,7 @@
                             if (!"AmenityInfo".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (AmenityInfo)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (AmenityInfo)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -405,7 +405,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Amenities").equals(reader.getName())){
                                 
-                                                object.setAmenities(com.cloudkey.pms.micros.og.hotelcommon.Amenities_type0.Factory.parse(reader));
+                                                object.setAmenities(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAmenity.Factory.parse(reader));
                                               
                                         reader.next();
                                     

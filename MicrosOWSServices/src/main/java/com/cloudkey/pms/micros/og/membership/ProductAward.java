@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ProductAward
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localMembershipType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipTypeTracker = false ;
+
+                           public boolean isMembershipTypeSpecified(){
+                               return localMembershipTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param MembershipType
                                */
                                public void setMembershipType(java.lang.String param){
-                            
+                            localMembershipTypeTracker = param != null;
+                                   
                                             this.localMembershipType=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localAwardType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAwardTypeTracker = false ;
+
+                           public boolean isAwardTypeSpecified(){
+                               return localAwardTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param AwardType
                                */
                                public void setAwardType(java.lang.String param){
-                            
+                            localAwardTypeTracker = param != null;
+                                   
                                             this.localAwardType=param;
                                     
 
@@ -91,6 +115,17 @@
                         
                                     protected java.lang.String localResort ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResortTracker = false ;
+
+                           public boolean isResortSpecified(){
+                               return localResortTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -107,7 +142,8 @@
                                * @param param Resort
                                */
                                public void setResort(java.lang.String param){
-                            
+                            localResortTracker = param != null;
+                                   
                                             this.localResort=param;
                                     
 
@@ -121,6 +157,17 @@
                         
                                     protected java.lang.String localProduct ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProductTracker = false ;
+
+                           public boolean isProductSpecified(){
+                               return localProductTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -137,7 +184,8 @@
                                * @param param Product
                                */
                                public void setProduct(java.lang.String param){
-                            
+                            localProductTracker = param != null;
+                                   
                                             this.localProduct=param;
                                     
 
@@ -151,6 +199,17 @@
                         
                                     protected java.lang.String localShortDescription ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localShortDescriptionTracker = false ;
+
+                           public boolean isShortDescriptionSpecified(){
+                               return localShortDescriptionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -167,7 +226,8 @@
                                * @param param ShortDescription
                                */
                                public void setShortDescription(java.lang.String param){
-                            
+                            localShortDescriptionTracker = param != null;
+                                   
                                             this.localShortDescription=param;
                                     
 
@@ -175,30 +235,30 @@
                             
 
                         /**
-                        * field for PointsRequired
+                        * field for Points_required
                         */
 
                         
-                                    protected double localPointsRequired ;
+                                    protected double localPoints_required ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return double
                            */
-                           public  double getPointsRequired(){
-                               return localPointsRequired;
+                           public  double getPoints_required(){
+                               return localPoints_required;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param PointsRequired
+                               * @param param Points_required
                                */
-                               public void setPointsRequired(double param){
+                               public void setPoints_required(double param){
                             
-                                            this.localPointsRequired=param;
+                                            this.localPoints_required=param;
                                     
 
                                }
@@ -565,7 +625,7 @@
 
                
                    }
-               
+                if (localMembershipTypeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "membershipType", xmlWriter);
                              
@@ -583,7 +643,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localAwardTypeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "awardType", xmlWriter);
                              
@@ -601,7 +661,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localResortTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "resort", xmlWriter);
                              
@@ -619,7 +679,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localProductTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "product", xmlWriter);
                              
@@ -637,7 +697,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localShortDescriptionTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "shortDescription", xmlWriter);
                              
@@ -655,16 +715,16 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
-                                    writeStartElement(null, namespace, "pointsRequired", xmlWriter);
+                                    writeStartElement(null, namespace, "points_required", xmlWriter);
                              
-                                               if (java.lang.Double.isNaN(localPointsRequired)) {
+                                               if (java.lang.Double.isNaN(localPoints_required)) {
                                            
-                                                         throw new org.apache.axis2.databinding.ADBException("pointsRequired cannot be null!!");
+                                                         throw new org.apache.axis2.databinding.ADBException("points_required cannot be null!!");
                                                       
                                                } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPointsRequired));
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPoints_required));
                                                }
                                     
                                    xmlWriter.writeEndElement();
@@ -785,7 +845,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -962,7 +1022,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localMembershipTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "membershipType"));
                                  
@@ -971,7 +1031,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("membershipType cannot be null!!");
                                         }
-                                    
+                                    } if (localAwardTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "awardType"));
                                  
@@ -980,7 +1040,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("awardType cannot be null!!");
                                         }
-                                    
+                                    } if (localResortTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "resort"));
                                  
@@ -989,7 +1049,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("resort cannot be null!!");
                                         }
-                                    
+                                    } if (localProductTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "product"));
                                  
@@ -998,7 +1058,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("product cannot be null!!");
                                         }
-                                    
+                                    } if (localShortDescriptionTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "shortDescription"));
                                  
@@ -1007,12 +1067,12 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("shortDescription cannot be null!!");
                                         }
-                                    
+                                    }
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "pointsRequired"));
+                                                                      "points_required"));
                                  
                                 elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPointsRequired));
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPoints_required));
                              if (localBeginDateTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "beginDate"));
@@ -1159,11 +1219,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1184,11 +1243,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1209,11 +1267,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1234,11 +1291,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1259,25 +1315,24 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","pointsRequired").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","points_required").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"pointsRequired" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"points_required" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setPointsRequired(
+                                              object.setPoints_required(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
                                               
                                         reader.next();

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Alert
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns5
                 */
             
 
@@ -73,6 +73,17 @@
                         
                                     protected java.lang.String localCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCodeTracker = false ;
+
+                           public boolean isCodeSpecified(){
+                               return localCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -89,7 +100,8 @@
                                * @param param Code
                                */
                                public void setCode(java.lang.String param){
-                            
+                            localCodeTracker = param != null;
+                                   
                                             this.localCode=param;
                                     
 
@@ -103,6 +115,17 @@
                         
                                     protected java.lang.String localArea ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAreaTracker = false ;
+
+                           public boolean isAreaSpecified(){
+                               return localAreaTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -119,7 +142,8 @@
                                * @param param Area
                                */
                                public void setArea(java.lang.String param){
-                            
+                            localAreaTracker = param != null;
+                                   
                                             this.localArea=param;
                                     
 
@@ -322,7 +346,7 @@
                                             }
                                            localAlertId.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","AlertId"),
                                                xmlWriter);
-                                        }
+                                        } if (localCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "Code", xmlWriter);
                              
@@ -340,7 +364,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localAreaTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "Area", xmlWriter);
                              
@@ -358,7 +382,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localDescriptionTracker){
+                             } if (localDescriptionTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "Description", xmlWriter);
                              
@@ -410,7 +434,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -596,7 +620,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("AlertId cannot be null!!");
                                     }
                                     elementList.add(localAlertId);
-                                }
+                                } if (localCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "Code"));
                                  
@@ -605,7 +629,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Code cannot be null!!");
                                         }
-                                    
+                                    } if (localAreaTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "Area"));
                                  
@@ -614,7 +638,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Area cannot be null!!");
                                         }
-                                     if (localDescriptionTracker){
+                                    } if (localDescriptionTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "Description"));
                                  
@@ -746,11 +770,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -771,11 +794,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

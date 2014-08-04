@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PackageCharge
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localPackageCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPackageCodeTracker = false ;
+
+                           public boolean isPackageCodeSpecified(){
+                               return localPackageCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param PackageCode
                                */
                                public void setPackageCode(java.lang.String param){
-                            
+                            localPackageCodeTracker = param != null;
+                                   
                                             this.localPackageCode=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localValidDates ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localValidDatesTracker = false ;
+
+                           public boolean isValidDatesSpecified(){
+                               return localValidDatesTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param ValidDates
                                */
                                public void setValidDates(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localValidDatesTracker = param != null;
+                                   
                                             this.localValidDates=param;
                                     
 
@@ -133,17 +157,6 @@
                         
                                     protected int localQuantity ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localQuantityTracker = false ;
-
-                           public boolean isQuantitySpecified(){
-                               return localQuantityTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -161,10 +174,6 @@
                                */
                                public void setQuantity(int param){
                             
-                                       // setting primitive attribute tracker to true
-                                       localQuantityTracker =
-                                       param != java.lang.Integer.MIN_VALUE;
-                                   
                                             this.localQuantity=param;
                                     
 
@@ -355,7 +364,7 @@
 
                
                    }
-               
+                if (localPackageCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "PackageCode", xmlWriter);
                              
@@ -373,19 +382,19 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localValidDatesTracker){
                                             if (localValidDates==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ValidDates cannot be null!!");
                                             }
                                            localValidDates.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ValidDates"),
                                                xmlWriter);
-                                         if (localUnitAmountTracker){
+                                        } if (localUnitAmountTracker){
                                             if (localUnitAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("UnitAmount cannot be null!!");
                                             }
                                            localUnitAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","UnitAmount"),
                                                xmlWriter);
-                                        } if (localQuantityTracker){
+                                        }
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "Quantity", xmlWriter);
                              
@@ -398,7 +407,7 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localTaxTracker){
+                              if (localTaxTracker){
                                             if (localTax==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Tax cannot be null!!");
                                             }
@@ -436,7 +445,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -613,7 +622,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPackageCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "PackageCode"));
                                  
@@ -622,7 +631,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("PackageCode cannot be null!!");
                                         }
-                                    
+                                    } if (localValidDatesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ValidDates"));
                             
@@ -631,7 +640,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ValidDates cannot be null!!");
                                     }
                                     elementList.add(localValidDates);
-                                 if (localUnitAmountTracker){
+                                } if (localUnitAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "UnitAmount"));
                             
@@ -640,13 +649,13 @@
                                          throw new org.apache.axis2.databinding.ADBException("UnitAmount cannot be null!!");
                                     }
                                     elementList.add(localUnitAmount);
-                                } if (localQuantityTracker){
+                                }
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Quantity"));
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localQuantity));
-                            } if (localTaxTracker){
+                             if (localTaxTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Tax"));
                             
@@ -769,11 +778,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -785,11 +793,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -825,12 +832,11 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                    else {
-                                        
-                                               object.setQuantity(java.lang.Integer.MIN_VALUE);
-                                           
-                                    }
-                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

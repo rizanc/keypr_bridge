@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FavoriteGuest
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -115,6 +115,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.PersonName localPersonName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPersonNameTracker = false ;
+
+                           public boolean isPersonNameSpecified(){
+                               return localPersonNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -131,7 +142,8 @@
                                * @param param PersonName
                                */
                                public void setPersonName(com.cloudkey.pms.micros.og.common.PersonName param){
-                            
+                            localPersonNameTracker = param != null;
+                                   
                                             this.localPersonName=param;
                                     
 
@@ -290,13 +302,13 @@
                                             }
                                            localGuestNameID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","GuestNameID"),
                                                xmlWriter);
-                                        }
+                                        } if (localPersonNameTracker){
                                             if (localPersonName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                             }
                                            localPersonName.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","PersonName"),
                                                xmlWriter);
-                                         if (localEmailAddressTracker){
+                                        } if (localEmailAddressTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "EmailAddress", xmlWriter);
                              
@@ -322,7 +334,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -517,7 +529,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("GuestNameID cannot be null!!");
                                     }
                                     elementList.add(localGuestNameID);
-                                }
+                                } if (localPersonNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "PersonName"));
                             
@@ -526,7 +538,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                     }
                                     elementList.add(localPersonName);
-                                 if (localEmailAddressTracker){
+                                } if (localEmailAddressTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "EmailAddress"));
                                  
@@ -673,11 +685,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

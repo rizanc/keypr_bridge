@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Room
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localRoomNumber ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRoomNumberTracker = false ;
+
+                           public boolean isRoomNumberSpecified(){
+                               return localRoomNumberTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param RoomNumber
                                */
                                public void setRoomNumber(java.lang.String param){
-                            
+                            localRoomNumberTracker = param != null;
+                                   
                                             this.localRoomNumber=param;
                                     
 
@@ -196,7 +208,7 @@
 
                
                    }
-               
+                if (localRoomNumberTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "RoomNumber", xmlWriter);
                              
@@ -214,7 +226,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localRoomDescriptionTracker){
+                             } if (localRoomDescriptionTracker){
                                             if (localRoomDescription==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RoomDescription cannot be null!!");
                                             }
@@ -234,7 +246,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -411,7 +423,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localRoomNumberTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "RoomNumber"));
                                  
@@ -420,7 +432,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("RoomNumber cannot be null!!");
                                         }
-                                     if (localRoomDescriptionTracker){
+                                    } if (localRoomDescriptionTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "RoomDescription"));
                             
@@ -492,7 +504,7 @@
                             if (!"Room".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Room)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Room)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -534,11 +546,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

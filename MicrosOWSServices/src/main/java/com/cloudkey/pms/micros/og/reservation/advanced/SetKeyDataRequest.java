@@ -17,12 +17,11 @@
         
         public  class SetKeyDataRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                "SetKeyDataRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = SetKeyDataRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.KeyTrack localKeyTrack ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localKeyTrackTracker = false ;
+
+                           public boolean isKeyTrackSpecified(){
+                               return localKeyTrackTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param KeyTrack
                                */
                                public void setKeyTrack(com.cloudkey.pms.micros.og.common.KeyTrack param){
-                            
+                            localKeyTrackTracker = param != null;
+                                   
                                             this.localKeyTrack=param;
                                     
 
@@ -90,14 +113,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueIDList localReservationID ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUniqueID localReservationID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReservationIDTracker = false ;
+
+                           public boolean isReservationIDSpecified(){
+                               return localReservationIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUniqueID
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueIDList getReservationID(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID getReservationID(){
                                return localReservationID;
                            }
 
@@ -107,8 +141,9 @@
                                * Auto generated setter method
                                * @param param ReservationID
                                */
-                               public void setReservationID(com.cloudkey.pms.micros.og.common.UniqueIDList param){
-                            
+                               public void setReservationID(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID param){
+                            localReservationIDTracker = param != null;
+                                   
                                             this.localReservationID=param;
                                     
 
@@ -130,8 +165,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -173,25 +208,25 @@
 
                
                    }
-               
+                if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localKeyTrackTracker){
                                             if (localKeyTrack==null){
                                                  throw new org.apache.axis2.databinding.ADBException("KeyTrack cannot be null!!");
                                             }
                                            localKeyTrack.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","KeyTrack"),
                                                xmlWriter);
-                                        
+                                        } if (localReservationIDTracker){
                                             if (localReservationID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ReservationID cannot be null!!");
                                             }
                                            localReservationID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationID"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -199,7 +234,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -376,7 +411,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "HotelReference"));
                             
@@ -385,7 +420,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localKeyTrackTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "KeyTrack"));
                             
@@ -394,7 +429,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("KeyTrack cannot be null!!");
                                     }
                                     elementList.add(localKeyTrack);
-                                
+                                } if (localReservationIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReservationID"));
                             
@@ -403,7 +438,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ReservationID cannot be null!!");
                                     }
                                     elementList.add(localReservationID);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -457,7 +492,7 @@
                             if (!"SetKeyDataRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (SetKeyDataRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (SetKeyDataRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -490,11 +525,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -506,27 +540,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationID").equals(reader.getName())){
                                 
-                                                object.setReservationID(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setReservationID(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = AvailRequestSegment
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -113,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.RatePlanCandidateList localRatePlanCandidates ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfRatePlanCandidate localRatePlanCandidates ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RatePlanCandidateList
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfRatePlanCandidate
                            */
-                           public  com.cloudkey.pms.micros.og.availability.RatePlanCandidateList getRatePlanCandidates(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfRatePlanCandidate getRatePlanCandidates(){
                                return localRatePlanCandidates;
                            }
 
@@ -141,7 +141,7 @@
                                * Auto generated setter method
                                * @param param RatePlanCandidates
                                */
-                               public void setRatePlanCandidates(com.cloudkey.pms.micros.og.availability.RatePlanCandidateList param){
+                               public void setRatePlanCandidates(com.cloudkey.pms.micros.og.availability.ArrayOfRatePlanCandidate param){
                             localRatePlanCandidatesTracker = param != null;
                                    
                                             this.localRatePlanCandidates=param;
@@ -155,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.RoomStayCandidateList localRoomStayCandidates ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfRoomStayCandidate localRoomStayCandidates ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -171,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RoomStayCandidateList
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfRoomStayCandidate
                            */
-                           public  com.cloudkey.pms.micros.og.availability.RoomStayCandidateList getRoomStayCandidates(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfRoomStayCandidate getRoomStayCandidates(){
                                return localRoomStayCandidates;
                            }
 
@@ -183,7 +183,7 @@
                                * Auto generated setter method
                                * @param param RoomStayCandidates
                                */
-                               public void setRoomStayCandidates(com.cloudkey.pms.micros.og.availability.RoomStayCandidateList param){
+                               public void setRoomStayCandidates(com.cloudkey.pms.micros.og.availability.ArrayOfRoomStayCandidate param){
                             localRoomStayCandidatesTracker = param != null;
                                    
                                             this.localRoomStayCandidates=param;
@@ -197,7 +197,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.HotelSearchCriteria localHotelSearchCriteria ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfHotelSearchCriterion localHotelSearchCriteria ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -213,9 +213,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.HotelSearchCriteria
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfHotelSearchCriterion
                            */
-                           public  com.cloudkey.pms.micros.og.availability.HotelSearchCriteria getHotelSearchCriteria(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfHotelSearchCriterion getHotelSearchCriteria(){
                                return localHotelSearchCriteria;
                            }
 
@@ -225,7 +225,7 @@
                                * Auto generated setter method
                                * @param param HotelSearchCriteria
                                */
-                               public void setHotelSearchCriteria(com.cloudkey.pms.micros.og.availability.HotelSearchCriteria param){
+                               public void setHotelSearchCriteria(com.cloudkey.pms.micros.og.availability.ArrayOfHotelSearchCriterion param){
                             localHotelSearchCriteriaTracker = param != null;
                                    
                                             this.localHotelSearchCriteria=param;
@@ -239,7 +239,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.ChildAgeList localChildAges ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfChildAge localChildAges ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -255,9 +255,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.ChildAgeList
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfChildAge
                            */
-                           public  com.cloudkey.pms.micros.og.availability.ChildAgeList getChildAges(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfChildAge getChildAges(){
                                return localChildAges;
                            }
 
@@ -267,7 +267,7 @@
                                * Auto generated setter method
                                * @param param ChildAges
                                */
-                               public void setChildAges(com.cloudkey.pms.micros.og.availability.ChildAgeList param){
+                               public void setChildAges(com.cloudkey.pms.micros.og.availability.ArrayOfChildAge param){
                             localChildAgesTracker = param != null;
                                    
                                             this.localChildAges=param;
@@ -277,54 +277,11 @@
                             
 
                         /**
-                        * field for GdsTotalPrice
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.availability.GdsTotalPriceList localGdsTotalPrice ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localGdsTotalPriceTracker = false ;
-
-                           public boolean isGdsTotalPriceSpecified(){
-                               return localGdsTotalPriceTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.GdsTotalPriceList
-                           */
-                           public  com.cloudkey.pms.micros.og.availability.GdsTotalPriceList getGdsTotalPrice(){
-                               return localGdsTotalPrice;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param GdsTotalPrice
-                               */
-                               public void setGdsTotalPrice(com.cloudkey.pms.micros.og.availability.GdsTotalPriceList param){
-                            localGdsTotalPriceTracker = param != null;
-                                   
-                                            this.localGdsTotalPrice=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for AlternateDates
-                        * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.AlternateDateList[] localAlternateDates ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfAlternateDate localAlternateDates ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -340,67 +297,68 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.AlternateDateList[]
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfAlternateDate
                            */
-                           public  com.cloudkey.pms.micros.og.availability.AlternateDateList[] getAlternateDates(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfAlternateDate getAlternateDates(){
                                return localAlternateDates;
                            }
 
                            
                         
-
-
-                               
-                              /**
-                               * validate the array for AlternateDates
+                            /**
+                               * Auto generated setter method
+                               * @param param AlternateDates
                                */
-                              protected void validateAlternateDates(com.cloudkey.pms.micros.og.availability.AlternateDateList[] param){
-                             
-                              if ((param != null) && (param.length > 5)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
-                              }
+                               public void setAlternateDates(com.cloudkey.pms.micros.og.availability.ArrayOfAlternateDate param){
+                            localAlternateDatesTracker = param != null;
+                                   
+                                            this.localAlternateDates=param;
+                                    
 
-
-                             /**
-                              * Auto generated setter method
-                              * @param param AlternateDates
-                              */
-                              public void setAlternateDates(com.cloudkey.pms.micros.og.availability.AlternateDateList[] param){
-                              
-                                   validateAlternateDates(param);
-
-                               localAlternateDatesTracker = param != null;
-                                      
-                                      this.localAlternateDates=param;
-                              }
-
-                               
-                             
-                             /**
-                             * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.availability.AlternateDateList
-                             */
-                             public void addAlternateDates(com.cloudkey.pms.micros.og.availability.AlternateDateList param){
-                                   if (localAlternateDates == null){
-                                   localAlternateDates = new com.cloudkey.pms.micros.og.availability.AlternateDateList[]{};
-                                   }
-
-                            
-                                 //update the setting tracker
-                                localAlternateDatesTracker = true;
+                               }
                             
 
-                               java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localAlternateDates);
-                               list.add(param);
-                               this.localAlternateDates =
-                             (com.cloudkey.pms.micros.og.availability.AlternateDateList[])list.toArray(
-                            new com.cloudkey.pms.micros.og.availability.AlternateDateList[list.size()]);
+                        /**
+                        * field for GdsTotalPrice
+                        */
 
-                             }
-                             
+                        
+                                    protected com.cloudkey.pms.micros.og.availability.GdsTotalPrice localGdsTotalPrice ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localGdsTotalPriceTracker = false ;
+
+                           public boolean isGdsTotalPriceSpecified(){
+                               return localGdsTotalPriceTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.availability.GdsTotalPrice
+                           */
+                           public  com.cloudkey.pms.micros.og.availability.GdsTotalPrice getGdsTotalPrice(){
+                               return localGdsTotalPrice;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param GdsTotalPrice
+                               */
+                               public void setGdsTotalPrice(com.cloudkey.pms.micros.og.availability.GdsTotalPrice param){
+                            localGdsTotalPriceTracker = param != null;
+                                   
+                                            this.localGdsTotalPrice=param;
+                                    
+
+                               }
+                            
 
                         /**
                         * field for PointsDateRange
@@ -726,37 +684,6 @@
                             
 
                         /**
-                        * field for NumberOfAdults
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected int localNumberOfAdults ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return int
-                           */
-                           public  int getNumberOfAdults(){
-                               return localNumberOfAdults;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param NumberOfAdults
-                               */
-                               public void setNumberOfAdults(int param){
-                            
-                                            this.localNumberOfAdults=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for NumberOfChildren
                         * This was an Attribute!
                         */
@@ -912,6 +839,37 @@
                             
 
                         /**
+                        * field for MembershipIdSpecified
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localMembershipIdSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getMembershipIdSpecified(){
+                               return localMembershipIdSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param MembershipIdSpecified
+                               */
+                               public void setMembershipIdSpecified(boolean param){
+                            
+                                            this.localMembershipIdSpecified=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for MembershipType
                         * This was an Attribute!
                         */
@@ -1036,37 +994,6 @@
                             
 
                         /**
-                        * field for CheckCateringPkgRate
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localCheckCateringPkgRate ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getCheckCateringPkgRate(){
-                               return localCheckCateringPkgRate;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CheckCateringPkgRate
-                               */
-                               public void setCheckCateringPkgRate(boolean param){
-                            
-                                            this.localCheckCateringPkgRate=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for DisplaySet
                         * This was an Attribute!
                         */
@@ -1098,93 +1025,31 @@
                             
 
                         /**
-                        * field for ReturnPseudoRooom
+                        * field for CheckCateringPkgRate
                         * This was an Attribute!
                         */
 
                         
-                                    protected boolean localReturnPseudoRooom ;
+                                    protected boolean localCheckCateringPkgRate ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return boolean
                            */
-                           public  boolean getReturnPseudoRooom(){
-                               return localReturnPseudoRooom;
+                           public  boolean getCheckCateringPkgRate(){
+                               return localCheckCateringPkgRate;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param ReturnPseudoRooom
+                               * @param param CheckCateringPkgRate
                                */
-                               public void setReturnPseudoRooom(boolean param){
+                               public void setCheckCateringPkgRate(boolean param){
                             
-                                            this.localReturnPseudoRooom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for ReturnOnlyReqRate
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localReturnOnlyReqRate ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getReturnOnlyReqRate(){
-                               return localReturnOnlyReqRate;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ReturnOnlyReqRate
-                               */
-                               public void setReturnOnlyReqRate(boolean param){
-                            
-                                            this.localReturnOnlyReqRate=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for MembershipNumber
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localMembershipNumber ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getMembershipNumber(){
-                               return localMembershipNumber;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param MembershipNumber
-                               */
-                               public void setMembershipNumber(java.lang.String param){
-                            
-                                            this.localMembershipNumber=param;
+                                            this.localCheckCateringPkgRate=param;
                                     
 
                                }
@@ -1247,6 +1112,99 @@
                                public void setReturnFeatures(boolean param){
                             
                                             this.localReturnFeatures=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ReturnPseudoRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localReturnPseudoRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getReturnPseudoRoom(){
+                               return localReturnPseudoRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ReturnPseudoRoom
+                               */
+                               public void setReturnPseudoRoom(boolean param){
+                            
+                                            this.localReturnPseudoRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ReturnOnlyReqRate
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localReturnOnlyReqRate ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getReturnOnlyReqRate(){
+                               return localReturnOnlyReqRate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ReturnOnlyReqRate
+                               */
+                               public void setReturnOnlyReqRate(boolean param){
+                            
+                                            this.localReturnOnlyReqRate=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for MembershipNumber
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localMembershipNumber ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getMembershipNumber(){
+                               return localMembershipNumber;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param MembershipNumber
+                               */
+                               public void setMembershipNumber(java.lang.String param){
+                            
+                                            this.localMembershipNumber=param;
                                     
 
                                }
@@ -1389,15 +1347,6 @@
                                             
                                       }
                                     
-                                                   if (localNumberOfAdults!=java.lang.Integer.MIN_VALUE) {
-                                               
-                                                writeAttribute("",
-                                                         "numberOfAdults",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfAdults), xmlWriter);
-
-                                            
-                                      }
-                                    
                                                    if (localNumberOfChildren!=java.lang.Integer.MIN_VALUE) {
                                                
                                                 writeAttribute("",
@@ -1443,6 +1392,19 @@
                                             
                                       }
                                     
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "membershipIdSpecified",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipIdSpecified), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localMembershipIdSpecified is null");
+                                      }
+                                    
                                             if (localMembershipType != null){
                                         
                                                 writeAttribute("",
@@ -1479,15 +1441,6 @@
                                             
                                       }
                                     
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "checkCateringPkgRate",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCheckCateringPkgRate), xmlWriter);
-
-                                            
-                                      }
-                                    
                                             if (localDisplaySet != null){
                                         
                                                 writeAttribute("",
@@ -1500,26 +1453,8 @@
                                                    if (true) {
                                                
                                                 writeAttribute("",
-                                                         "returnPseudoRooom",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnPseudoRooom), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "returnOnlyReqRate",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnOnlyReqRate), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localMembershipNumber != null){
-                                        
-                                                writeAttribute("",
-                                                         "membershipNumber",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipNumber), xmlWriter);
+                                                         "checkCateringPkgRate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCheckCateringPkgRate), xmlWriter);
 
                                             
                                       }
@@ -1538,6 +1473,33 @@
                                                 writeAttribute("",
                                                          "returnFeatures",
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnFeatures), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "returnPseudoRoom",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnPseudoRoom), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "returnOnlyReqRate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnOnlyReqRate), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localMembershipNumber != null){
+                                        
+                                                writeAttribute("",
+                                                         "membershipNumber",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipNumber), xmlWriter);
 
                                             
                                       }
@@ -1586,31 +1548,19 @@
                                             }
                                            localChildAges.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","ChildAges"),
                                                xmlWriter);
+                                        } if (localAlternateDatesTracker){
+                                            if (localAlternateDates==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("AlternateDates cannot be null!!");
+                                            }
+                                           localAlternateDates.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","AlternateDates"),
+                                               xmlWriter);
                                         } if (localGdsTotalPriceTracker){
                                             if (localGdsTotalPrice==null){
                                                  throw new org.apache.axis2.databinding.ADBException("GdsTotalPrice cannot be null!!");
                                             }
                                            localGdsTotalPrice.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","GdsTotalPrice"),
                                                xmlWriter);
-                                        } if (localAlternateDatesTracker){
-                                       if (localAlternateDates!=null){
-                                            for (int i = 0;i < localAlternateDates.length;i++){
-                                                if (localAlternateDates[i] != null){
-                                                 localAlternateDates[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","AlternateDates"),
-                                                           xmlWriter);
-                                                } else {
-                                                   
-                                                        // we don't have to do any thing since minOccures is zero
-                                                    
-                                                }
-
-                                            }
-                                     } else {
-                                        
-                                               throw new org.apache.axis2.databinding.ADBException("AlternateDates cannot be null!!");
-                                        
-                                    }
-                                 } if (localPointsDateRangeTracker){
+                                        } if (localPointsDateRangeTracker){
                                             if (localPointsDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PointsDateRange cannot be null!!");
                                             }
@@ -1642,7 +1592,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1873,6 +1823,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("ChildAges cannot be null!!");
                                     }
                                     elementList.add(localChildAges);
+                                } if (localAlternateDatesTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
+                                                                      "AlternateDates"));
+                            
+                            
+                                    if (localAlternateDates==null){
+                                         throw new org.apache.axis2.databinding.ADBException("AlternateDates cannot be null!!");
+                                    }
+                                    elementList.add(localAlternateDates);
                                 } if (localGdsTotalPriceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "GdsTotalPrice"));
@@ -1882,28 +1841,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("GdsTotalPrice cannot be null!!");
                                     }
                                     elementList.add(localGdsTotalPrice);
-                                } if (localAlternateDatesTracker){
-                             if (localAlternateDates!=null) {
-                                 for (int i = 0;i < localAlternateDates.length;i++){
-
-                                    if (localAlternateDates[i] != null){
-                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
-                                                                          "AlternateDates"));
-                                         elementList.add(localAlternateDates[i]);
-                                    } else {
-                                        
-                                                // nothing to do
-                                            
-                                    }
-
-                                 }
-                             } else {
-                                 
-                                        throw new org.apache.axis2.databinding.ADBException("AlternateDates cannot be null!!");
-                                    
-                             }
-
-                        } if (localPointsDateRangeTracker){
+                                } if (localPointsDateRangeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "PointsDateRange"));
                             
@@ -1966,11 +1904,6 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTotalNumberOfGuests));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","numberOfAdults"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfAdults));
-                                
-                            attribList.add(
                             new javax.xml.namespace.QName("","numberOfChildren"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfChildren));
@@ -1996,6 +1929,11 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipId));
                                 
                             attribList.add(
+                            new javax.xml.namespace.QName("","membershipIdSpecified"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipIdSpecified));
+                                
+                            attribList.add(
                             new javax.xml.namespace.QName("","membershipType"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipType));
@@ -2016,29 +1954,14 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPointsAbove));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","checkCateringPkgRate"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCheckCateringPkgRate));
-                                
-                            attribList.add(
                             new javax.xml.namespace.QName("","displaySet"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDisplaySet));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","returnPseudoRooom"));
+                            new javax.xml.namespace.QName("","checkCateringPkgRate"));
                             
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnPseudoRooom));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","returnOnlyReqRate"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnOnlyReqRate));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","membershipNumber"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipNumber));
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCheckCateringPkgRate));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","returnAmenities"));
@@ -2049,6 +1972,21 @@
                             new javax.xml.namespace.QName("","returnFeatures"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnFeatures));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","returnPseudoRoom"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnPseudoRoom));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","returnOnlyReqRate"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReturnOnlyReqRate));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","membershipNumber"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipNumber));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","yieldMarketCode"));
@@ -2215,24 +2153,6 @@
                     }
                     handledAttributes.add("totalNumberOfGuests");
                     
-                    // handle attribute "numberOfAdults"
-                    java.lang.String tempAttribNumberOfAdults =
-                        
-                                reader.getAttributeValue(null,"numberOfAdults");
-                            
-                   if (tempAttribNumberOfAdults!=null){
-                         java.lang.String content = tempAttribNumberOfAdults;
-                        
-                                                 object.setNumberOfAdults(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(tempAttribNumberOfAdults));
-                                            
-                    } else {
-                       
-                                           object.setNumberOfAdults(java.lang.Integer.MIN_VALUE);
-                                       
-                    }
-                    handledAttributes.add("numberOfAdults");
-                    
                     // handle attribute "numberOfChildren"
                     java.lang.String tempAttribNumberOfChildren =
                         
@@ -2323,6 +2243,24 @@
                     }
                     handledAttributes.add("membershipId");
                     
+                    // handle attribute "membershipIdSpecified"
+                    java.lang.String tempAttribMembershipIdSpecified =
+                        
+                                reader.getAttributeValue(null,"membershipIdSpecified");
+                            
+                   if (tempAttribMembershipIdSpecified!=null){
+                         java.lang.String content = tempAttribMembershipIdSpecified;
+                        
+                                                 object.setMembershipIdSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribMembershipIdSpecified));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute membershipIdSpecified is missing");
+                           
+                    }
+                    handledAttributes.add("membershipIdSpecified");
+                    
                     // handle attribute "membershipType"
                     java.lang.String tempAttribMembershipType =
                         
@@ -2391,22 +2329,6 @@
                     }
                     handledAttributes.add("pointsAbove");
                     
-                    // handle attribute "checkCateringPkgRate"
-                    java.lang.String tempAttribCheckCateringPkgRate =
-                        
-                                reader.getAttributeValue(null,"checkCateringPkgRate");
-                            
-                   if (tempAttribCheckCateringPkgRate!=null){
-                         java.lang.String content = tempAttribCheckCateringPkgRate;
-                        
-                                                 object.setCheckCateringPkgRate(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribCheckCateringPkgRate));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("checkCateringPkgRate");
-                    
                     // handle attribute "displaySet"
                     java.lang.String tempAttribDisplaySet =
                         
@@ -2423,53 +2345,21 @@
                     }
                     handledAttributes.add("displaySet");
                     
-                    // handle attribute "returnPseudoRooom"
-                    java.lang.String tempAttribReturnPseudoRooom =
+                    // handle attribute "checkCateringPkgRate"
+                    java.lang.String tempAttribCheckCateringPkgRate =
                         
-                                reader.getAttributeValue(null,"returnPseudoRooom");
+                                reader.getAttributeValue(null,"checkCateringPkgRate");
                             
-                   if (tempAttribReturnPseudoRooom!=null){
-                         java.lang.String content = tempAttribReturnPseudoRooom;
+                   if (tempAttribCheckCateringPkgRate!=null){
+                         java.lang.String content = tempAttribCheckCateringPkgRate;
                         
-                                                 object.setReturnPseudoRooom(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribReturnPseudoRooom));
+                                                 object.setCheckCateringPkgRate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribCheckCateringPkgRate));
                                             
                     } else {
                        
                     }
-                    handledAttributes.add("returnPseudoRooom");
-                    
-                    // handle attribute "returnOnlyReqRate"
-                    java.lang.String tempAttribReturnOnlyReqRate =
-                        
-                                reader.getAttributeValue(null,"returnOnlyReqRate");
-                            
-                   if (tempAttribReturnOnlyReqRate!=null){
-                         java.lang.String content = tempAttribReturnOnlyReqRate;
-                        
-                                                 object.setReturnOnlyReqRate(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribReturnOnlyReqRate));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("returnOnlyReqRate");
-                    
-                    // handle attribute "membershipNumber"
-                    java.lang.String tempAttribMembershipNumber =
-                        
-                                reader.getAttributeValue(null,"membershipNumber");
-                            
-                   if (tempAttribMembershipNumber!=null){
-                         java.lang.String content = tempAttribMembershipNumber;
-                        
-                                                 object.setMembershipNumber(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribMembershipNumber));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("membershipNumber");
+                    handledAttributes.add("checkCateringPkgRate");
                     
                     // handle attribute "returnAmenities"
                     java.lang.String tempAttribReturnAmenities =
@@ -2503,6 +2393,54 @@
                     }
                     handledAttributes.add("returnFeatures");
                     
+                    // handle attribute "returnPseudoRoom"
+                    java.lang.String tempAttribReturnPseudoRoom =
+                        
+                                reader.getAttributeValue(null,"returnPseudoRoom");
+                            
+                   if (tempAttribReturnPseudoRoom!=null){
+                         java.lang.String content = tempAttribReturnPseudoRoom;
+                        
+                                                 object.setReturnPseudoRoom(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribReturnPseudoRoom));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("returnPseudoRoom");
+                    
+                    // handle attribute "returnOnlyReqRate"
+                    java.lang.String tempAttribReturnOnlyReqRate =
+                        
+                                reader.getAttributeValue(null,"returnOnlyReqRate");
+                            
+                   if (tempAttribReturnOnlyReqRate!=null){
+                         java.lang.String content = tempAttribReturnOnlyReqRate;
+                        
+                                                 object.setReturnOnlyReqRate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribReturnOnlyReqRate));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("returnOnlyReqRate");
+                    
+                    // handle attribute "membershipNumber"
+                    java.lang.String tempAttribMembershipNumber =
+                        
+                                reader.getAttributeValue(null,"membershipNumber");
+                            
+                   if (tempAttribMembershipNumber!=null){
+                         java.lang.String content = tempAttribMembershipNumber;
+                        
+                                                 object.setMembershipNumber(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribMembershipNumber));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("membershipNumber");
+                    
                     // handle attribute "yieldMarketCode"
                     java.lang.String tempAttribYieldMarketCode =
                         
@@ -2522,8 +2460,6 @@
                     
                     reader.next();
                 
-                        java.util.ArrayList list8 = new java.util.ArrayList();
-                    
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -2559,7 +2495,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RatePlanCandidates").equals(reader.getName())){
                                 
-                                                object.setRatePlanCandidates(com.cloudkey.pms.micros.og.availability.RatePlanCandidateList.Factory.parse(reader));
+                                                object.setRatePlanCandidates(com.cloudkey.pms.micros.og.availability.ArrayOfRatePlanCandidate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2574,7 +2510,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RoomStayCandidates").equals(reader.getName())){
                                 
-                                                object.setRoomStayCandidates(com.cloudkey.pms.micros.og.availability.RoomStayCandidateList.Factory.parse(reader));
+                                                object.setRoomStayCandidates(com.cloudkey.pms.micros.og.availability.ArrayOfRoomStayCandidate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2589,7 +2525,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","HotelSearchCriteria").equals(reader.getName())){
                                 
-                                                object.setHotelSearchCriteria(com.cloudkey.pms.micros.og.availability.HotelSearchCriteria.Factory.parse(reader));
+                                                object.setHotelSearchCriteria(com.cloudkey.pms.micros.og.availability.ArrayOfHotelSearchCriterion.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2604,22 +2540,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","ChildAges").equals(reader.getName())){
                                 
-                                                object.setChildAges(com.cloudkey.pms.micros.og.availability.ChildAgeList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","GdsTotalPrice").equals(reader.getName())){
-                                
-                                                object.setGdsTotalPrice(com.cloudkey.pms.micros.og.availability.GdsTotalPriceList.Factory.parse(reader));
+                                                object.setChildAges(com.cloudkey.pms.micros.og.availability.ArrayOfChildAge.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2634,41 +2555,25 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","AlternateDates").equals(reader.getName())){
                                 
+                                                object.setAlternateDates(com.cloudkey.pms.micros.og.availability.ArrayOfAlternateDate.Factory.parse(reader));
+                                              
+                                        reader.next();
                                     
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
                                     
-                                    // Process the array and step past its final element's end.
-                                    list8.add(com.cloudkey.pms.micros.og.availability.AlternateDateList.Factory.parse(reader));
-                                                                
-                                                        //loop until we find a start element that is not part of this array
-                                                        boolean loopDone8 = false;
-                                                        while(!loopDone8){
-                                                            // We should be at the end element, but make sure
-                                                            while (!reader.isEndElement())
-                                                                reader.next();
-                                                            // Step out of this element
-                                                            reader.next();
-                                                            // Step to next element event.
-                                                            while (!reader.isStartElement() && !reader.isEndElement())
-                                                                reader.next();
-                                                            if (reader.isEndElement()){
-                                                                //two continuous end elements means we are exiting the xml structure
-                                                                loopDone8 = true;
-                                                            } else {
-                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","AlternateDates").equals(reader.getName())){
-                                                                    list8.add(com.cloudkey.pms.micros.og.availability.AlternateDateList.Factory.parse(reader));
-                                                                        
-                                                                }else{
-                                                                    loopDone8 = true;
-                                                                }
-                                                            }
-                                                        }
-                                                        // call the converter utility  to convert and set the array
-                                                        
-                                                        object.setAlternateDates((com.cloudkey.pms.micros.og.availability.AlternateDateList[])
-                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.availability.AlternateDateList.class,
-                                                                list8));
-                                                            
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","GdsTotalPrice").equals(reader.getName())){
+                                
+                                                object.setGdsTotalPrice(com.cloudkey.pms.micros.og.availability.GdsTotalPrice.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
                               }  // End of if for expected property start element
                                 
                                     else {

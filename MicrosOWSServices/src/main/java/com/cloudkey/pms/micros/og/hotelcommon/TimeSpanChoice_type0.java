@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = TimeSpanChoice_type0
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -28,56 +28,12 @@
              */
             private void clearAllSettingTrackers() {
             
-                   localEndDateTracker = false;
-                
                    localDurationTracker = false;
+                
+                   localEndDateTracker = false;
                 
             }
         
-
-                        /**
-                        * field for EndDate
-                        */
-
-                        
-                                    protected java.util.Calendar localEndDate ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localEndDateTracker = false ;
-
-                           public boolean isEndDateSpecified(){
-                               return localEndDateTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.util.Calendar
-                           */
-                           public  java.util.Calendar getEndDate(){
-                               return localEndDate;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param EndDate
-                               */
-                               public void setEndDate(java.util.Calendar param){
-                            
-                                clearAllSettingTrackers();
-                            localEndDateTracker = param != null;
-                                   
-                                            this.localEndDate=param;
-                                    
-
-                               }
-                            
 
                         /**
                         * field for Duration
@@ -118,6 +74,50 @@
                             localDurationTracker = param != null;
                                    
                                             this.localDuration=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for EndDate
+                        */
+
+                        
+                                    protected java.util.Calendar localEndDate ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEndDateTracker = false ;
+
+                           public boolean isEndDateSpecified(){
+                               return localEndDateTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.util.Calendar
+                           */
+                           public  java.util.Calendar getEndDate(){
+                               return localEndDate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param EndDate
+                               */
+                               public void setEndDate(java.util.Calendar param){
+                            
+                                clearAllSettingTrackers();
+                            localEndDateTracker = param != null;
+                                   
+                                            this.localEndDate=param;
                                     
 
                                }
@@ -176,25 +176,7 @@
 
                
                    }
-                if (localEndDateTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
-                                    writeStartElement(null, namespace, "EndDate", xmlWriter);
-                             
-
-                                          if (localEndDate==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("EndDate cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEndDate));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localDurationTracker){
+                if (localDurationTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "Duration", xmlWriter);
                              
@@ -212,13 +194,31 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
+                             } if (localEndDateTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
+                                    writeStartElement(null, namespace, "EndDate", xmlWriter);
+                             
+
+                                          if (localEndDate==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("EndDate cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEndDate));
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
                              }
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -395,16 +395,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localEndDateTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "EndDate"));
-                                 
-                                        if (localEndDate != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEndDate));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("EndDate cannot be null!!");
-                                        }
-                                    } if (localDurationTracker){
+                 if (localDurationTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Duration"));
                                  
@@ -412,6 +403,15 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDuration));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Duration cannot be null!!");
+                                        }
+                                    } if (localEndDateTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
+                                                                      "EndDate"));
+                                 
+                                        if (localEndDate != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEndDate));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("EndDate cannot be null!!");
                                         }
                                     }
 
@@ -460,25 +460,6 @@
                 
 
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","EndDate").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"EndDate" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setEndDate(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Duration").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -491,6 +472,25 @@
                                     
                                               object.setDuration(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToDuration(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","EndDate").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"EndDate" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setEndDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(content));
                                               
                                         reader.next();
                                     

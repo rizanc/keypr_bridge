@@ -17,12 +17,11 @@
         
         public  class AwardsSchedulesRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "AwardsSchedulesRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = AwardsSchedulesRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected java.lang.String localPropertyCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPropertyCodeTracker = false ;
+
+                           public boolean isPropertyCodeSpecified(){
+                               return localPropertyCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param PropertyCode
                                */
                                public void setPropertyCode(java.lang.String param){
-                            
+                            localPropertyCodeTracker = param != null;
+                                   
                                             this.localPropertyCode=param;
                                     
 
@@ -92,6 +103,17 @@
                         
                                     protected java.lang.String localMembershipLevel ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipLevelTracker = false ;
+
+                           public boolean isMembershipLevelSpecified(){
+                               return localMembershipLevelTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +130,8 @@
                                * @param param MembershipLevel
                                */
                                public void setMembershipLevel(java.lang.String param){
-                            
+                            localMembershipLevelTracker = param != null;
+                                   
                                             this.localMembershipLevel=param;
                                     
 
@@ -122,6 +145,17 @@
                         
                                     protected java.lang.String localMembershipType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipTypeTracker = false ;
+
+                           public boolean isMembershipTypeSpecified(){
+                               return localMembershipTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -138,7 +172,8 @@
                                * @param param MembershipType
                                */
                                public void setMembershipType(java.lang.String param){
-                            
+                            localMembershipTypeTracker = param != null;
+                                   
                                             this.localMembershipType=param;
                                     
 
@@ -160,8 +195,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -203,7 +238,7 @@
 
                
                    }
-               
+                if (localPropertyCodeTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Information.wsdl";
                                     writeStartElement(null, namespace, "PropertyCode", xmlWriter);
                              
@@ -221,13 +256,13 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                                             if (localAwardType==null){
                                                  throw new org.apache.axis2.databinding.ADBException("AwardType cannot be null!!");
                                             }
                                            localAwardType.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","AwardType"),
                                                xmlWriter);
-                                        
+                                         if (localMembershipLevelTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Information.wsdl";
                                     writeStartElement(null, namespace, "MembershipLevel", xmlWriter);
                              
@@ -245,7 +280,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localMembershipTypeTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Information.wsdl";
                                     writeStartElement(null, namespace, "MembershipType", xmlWriter);
                              
@@ -263,7 +298,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -271,7 +306,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -448,7 +483,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPropertyCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "PropertyCode"));
                                  
@@ -457,7 +492,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("PropertyCode cannot be null!!");
                                         }
-                                    
+                                    }
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "AwardType"));
                             
@@ -466,7 +501,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("AwardType cannot be null!!");
                                     }
                                     elementList.add(localAwardType);
-                                
+                                 if (localMembershipLevelTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "MembershipLevel"));
                                  
@@ -475,7 +510,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MembershipLevel cannot be null!!");
                                         }
-                                    
+                                    } if (localMembershipTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "MembershipType"));
                                  
@@ -484,7 +519,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MembershipType cannot be null!!");
                                         }
-                                    
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -580,11 +615,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -621,11 +655,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -646,11 +679,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

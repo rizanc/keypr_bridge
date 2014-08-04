@@ -45,11 +45,43 @@
 
         
            /**
+            * auto generated Axis2 call back method for fetchStatement method
+            * override this method for handling normal response from fetchStatement operation
+            */
+           public void receiveResultfetchStatement(
+                    com.cloudkey.pms.micros.ows.membership.FetchStatementResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchStatement operation
+           */
+            public void receiveErrorfetchStatement(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for deletePromoSubscription method
+            * override this method for handling normal response from deletePromoSubscription operation
+            */
+           public void receiveResultdeletePromoSubscription(
+                    com.cloudkey.pms.micros.ows.membership.DeletePromoSubscriptionResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from deletePromoSubscription operation
+           */
+            public void receiveErrordeletePromoSubscription(java.lang.Exception e) {
+            }
+                
+           /**
             * auto generated Axis2 call back method for issueECertificate method
             * override this method for handling normal response from issueECertificate operation
             */
            public void receiveResultissueECertificate(
-                    com.cloudkey.pms.micros.ows.membership.IssueECertificateResponse result
+                    com.cloudkey.pms.micros.ows.membership.IssueECertificateResponseE result
                         ) {
            }
 
@@ -61,115 +93,19 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchBenefits method
-            * override this method for handling normal response from fetchBenefits operation
+            * auto generated Axis2 call back method for updateEnrollmentCode method
+            * override this method for handling normal response from updateEnrollmentCode operation
             */
-           public void receiveResultfetchBenefits(
-                    com.cloudkey.pms.micros.og.membership.FetchBenefitsResponse result
+           public void receiveResultupdateEnrollmentCode(
+                    com.cloudkey.pms.micros.ows.membership.UpdateEnrollmentCodeResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchBenefits operation
+           * override this method for handling error response from updateEnrollmentCode operation
            */
-            public void receiveErrorfetchBenefits(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchMembershipTransactions method
-            * override this method for handling normal response from fetchMembershipTransactions operation
-            */
-           public void receiveResultfetchMembershipTransactions(
-                    com.cloudkey.pms.micros.ows.membership.FetchMembershipTransactionsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchMembershipTransactions operation
-           */
-            public void receiveErrorfetchMembershipTransactions(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchMemberPoints method
-            * override this method for handling normal response from fetchMemberPoints operation
-            */
-           public void receiveResultfetchMemberPoints(
-                    com.cloudkey.pms.micros.ows.membership.FetchMemberPointsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchMemberPoints operation
-           */
-            public void receiveErrorfetchMemberPoints(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchPointsExchange method
-            * override this method for handling normal response from fetchPointsExchange operation
-            */
-           public void receiveResultfetchPointsExchange(
-                    com.cloudkey.pms.micros.ows.membership.FetchPointsExchangeResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchPointsExchange operation
-           */
-            public void receiveErrorfetchPointsExchange(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for addBenefit method
-            * override this method for handling normal response from addBenefit operation
-            */
-           public void receiveResultaddBenefit(
-                    com.cloudkey.pms.micros.og.membership.AddBenefitResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from addBenefit operation
-           */
-            public void receiveErroraddBenefit(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for consumePoints method
-            * override this method for handling normal response from consumePoints operation
-            */
-           public void receiveResultconsumePoints(
-                    com.cloudkey.pms.micros.ows.membership.ConsumePointsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from consumePoints operation
-           */
-            public void receiveErrorconsumePoints(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchTransactionAwards method
-            * override this method for handling normal response from fetchTransactionAwards operation
-            */
-           public void receiveResultfetchTransactionAwards(
-                    com.cloudkey.pms.micros.ows.membership.FetchTransactionAwardsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchTransactionAwards operation
-           */
-            public void receiveErrorfetchTransactionAwards(java.lang.Exception e) {
+            public void receiveErrorupdateEnrollmentCode(java.lang.Exception e) {
             }
                 
            /**
@@ -177,7 +113,7 @@
             * override this method for handling normal response from fetchRateAwards operation
             */
            public void receiveResultfetchRateAwards(
-                    com.cloudkey.pms.micros.ows.membership.FetchRateAwardsResponse result
+                    com.cloudkey.pms.micros.ows.membership.FetchRateAwardsResponseE result
                         ) {
            }
 
@@ -189,19 +125,19 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for deletePromoSubscription method
-            * override this method for handling normal response from deletePromoSubscription operation
+            * auto generated Axis2 call back method for fetchAvailableECertificates method
+            * override this method for handling normal response from fetchAvailableECertificates operation
             */
-           public void receiveResultdeletePromoSubscription(
-                    com.cloudkey.pms.micros.ows.membership.DeletePromoSubscriptionResponse result
+           public void receiveResultfetchAvailableECertificates(
+                    com.cloudkey.pms.micros.ows.membership.FetchAvailableECertificatesResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from deletePromoSubscription operation
+           * override this method for handling error response from fetchAvailableECertificates operation
            */
-            public void receiveErrordeletePromoSubscription(java.lang.Exception e) {
+            public void receiveErrorfetchAvailableECertificates(java.lang.Exception e) {
             }
                 
            /**
@@ -221,6 +157,22 @@
             }
                 
            /**
+            * auto generated Axis2 call back method for consumePoints method
+            * override this method for handling normal response from consumePoints operation
+            */
+           public void receiveResultconsumePoints(
+                    com.cloudkey.pms.micros.ows.membership.ConsumePointsResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from consumePoints operation
+           */
+            public void receiveErrorconsumePoints(java.lang.Exception e) {
+            }
+                
+           /**
             * auto generated Axis2 call back method for cancelConsumedPoints method
             * override this method for handling normal response from cancelConsumedPoints operation
             */
@@ -237,59 +189,11 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchEnrollmentCode method
-            * override this method for handling normal response from fetchEnrollmentCode operation
-            */
-           public void receiveResultfetchEnrollmentCode(
-                    com.cloudkey.pms.micros.ows.membership.FetchEnrollmentCodeResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchEnrollmentCode operation
-           */
-            public void receiveErrorfetchEnrollmentCode(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchAvailableECertificates method
-            * override this method for handling normal response from fetchAvailableECertificates operation
-            */
-           public void receiveResultfetchAvailableECertificates(
-                    com.cloudkey.pms.micros.ows.membership.FetchAvailableECertificatesResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchAvailableECertificates operation
-           */
-            public void receiveErrorfetchAvailableECertificates(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for favoriteGuest method
-            * override this method for handling normal response from favoriteGuest operation
-            */
-           public void receiveResultfavoriteGuest(
-                    com.cloudkey.pms.micros.ows.membership.FavoriteGuestResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from favoriteGuest operation
-           */
-            public void receiveErrorfavoriteGuest(java.lang.Exception e) {
-            }
-                
-           /**
             * auto generated Axis2 call back method for fetchProductAwards method
             * override this method for handling normal response from fetchProductAwards operation
             */
            public void receiveResultfetchProductAwards(
-                    com.cloudkey.pms.micros.ows.membership.FetchProductAwardsResponse result
+                    com.cloudkey.pms.micros.ows.membership.FetchProductAwardsResponseE result
                         ) {
            }
 
@@ -298,38 +202,6 @@
            * override this method for handling error response from fetchProductAwards operation
            */
             public void receiveErrorfetchProductAwards(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for consumePointsOthers method
-            * override this method for handling normal response from consumePointsOthers operation
-            */
-           public void receiveResultconsumePointsOthers(
-                    com.cloudkey.pms.micros.ows.membership.ConsumePointsOthersResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from consumePointsOthers operation
-           */
-            public void receiveErrorconsumePointsOthers(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for transferPoints method
-            * override this method for handling normal response from transferPoints operation
-            */
-           public void receiveResulttransferPoints(
-                    com.cloudkey.pms.micros.ows.membership.TransferPointsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from transferPoints operation
-           */
-            public void receiveErrortransferPoints(java.lang.Exception e) {
             }
                 
            /**
@@ -349,99 +221,67 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchStatement method
-            * override this method for handling normal response from fetchStatement operation
+            * auto generated Axis2 call back method for fetchPointsExchange method
+            * override this method for handling normal response from fetchPointsExchange operation
             */
-           public void receiveResultfetchStatement(
-                    com.cloudkey.pms.micros.ows.membership.FetchStatementResponse result
+           public void receiveResultfetchPointsExchange(
+                    com.cloudkey.pms.micros.ows.membership.FetchPointsExchangeResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchStatement operation
+           * override this method for handling error response from fetchPointsExchange operation
            */
-            public void receiveErrorfetchStatement(java.lang.Exception e) {
+            public void receiveErrorfetchPointsExchange(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for consumeECertificate method
-            * override this method for handling normal response from consumeECertificate operation
+            * auto generated Axis2 call back method for fetchMemberPoints method
+            * override this method for handling normal response from fetchMemberPoints operation
             */
-           public void receiveResultconsumeECertificate(
-                    com.cloudkey.pms.micros.ows.membership.ConsumeECertificateResponse result
+           public void receiveResultfetchMemberPoints(
+                    com.cloudkey.pms.micros.ows.membership.FetchMemberPointsResponse result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from consumeECertificate operation
+           * override this method for handling error response from fetchMemberPoints operation
            */
-            public void receiveErrorconsumeECertificate(java.lang.Exception e) {
+            public void receiveErrorfetchMemberPoints(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchPromoSubscriptions method
-            * override this method for handling normal response from fetchPromoSubscriptions operation
+            * auto generated Axis2 call back method for fetchECertificates method
+            * override this method for handling normal response from fetchECertificates operation
             */
-           public void receiveResultfetchPromoSubscriptions(
-                    com.cloudkey.pms.micros.ows.membership.FetchPromoSubscriptionsResponse result
+           public void receiveResultfetchECertificates(
+                    com.cloudkey.pms.micros.ows.membership.FetchECertificatesResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchPromoSubscriptions operation
+           * override this method for handling error response from fetchECertificates operation
            */
-            public void receiveErrorfetchPromoSubscriptions(java.lang.Exception e) {
+            public void receiveErrorfetchECertificates(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchMemberships method
-            * override this method for handling normal response from fetchMemberships operation
+            * auto generated Axis2 call back method for fetchStatementRefs method
+            * override this method for handling normal response from fetchStatementRefs operation
             */
-           public void receiveResultfetchMemberships(
-                    com.cloudkey.pms.micros.ows.membership.FetchMembershipsResponse result
+           public void receiveResultfetchStatementRefs(
+                    com.cloudkey.pms.micros.ows.membership.FetchStatementRefsResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchMemberships operation
+           * override this method for handling error response from fetchStatementRefs operation
            */
-            public void receiveErrorfetchMemberships(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for addPromoSubscription method
-            * override this method for handling normal response from addPromoSubscription operation
-            */
-           public void receiveResultaddPromoSubscription(
-                    com.cloudkey.pms.micros.ows.membership.AddPromoSubscriptionResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from addPromoSubscription operation
-           */
-            public void receiveErroraddPromoSubscription(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchMemberTierWizard method
-            * override this method for handling normal response from fetchMemberTierWizard operation
-            */
-           public void receiveResultfetchMemberTierWizard(
-                    com.cloudkey.pms.micros.og.membership.FetchMemberTierWizardResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchMemberTierWizard operation
-           */
-            public void receiveErrorfetchMemberTierWizard(java.lang.Exception e) {
+            public void receiveErrorfetchStatementRefs(java.lang.Exception e) {
             }
                 
            /**
@@ -461,19 +301,19 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchNextCardNumber method
-            * override this method for handling normal response from fetchNextCardNumber operation
+            * auto generated Axis2 call back method for fetchEnrollmentCode method
+            * override this method for handling normal response from fetchEnrollmentCode operation
             */
-           public void receiveResultfetchNextCardNumber(
-                    com.cloudkey.pms.micros.ows.membership.FetchNextCardNumberResponse result
+           public void receiveResultfetchEnrollmentCode(
+                    com.cloudkey.pms.micros.ows.membership.FetchEnrollmentCodeResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchNextCardNumber operation
+           * override this method for handling error response from fetchEnrollmentCode operation
            */
-            public void receiveErrorfetchNextCardNumber(java.lang.Exception e) {
+            public void receiveErrorfetchEnrollmentCode(java.lang.Exception e) {
             }
                 
            /**
@@ -481,7 +321,7 @@
             * override this method for handling normal response from fetchUpgradeAwards operation
             */
            public void receiveResultfetchUpgradeAwards(
-                    com.cloudkey.pms.micros.ows.membership.FetchUpgradeAwardsResponse result
+                    com.cloudkey.pms.micros.ows.membership.FetchUpgradeAwardsResponseE result
                         ) {
            }
 
@@ -493,51 +333,195 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for updateEnrollmentCode method
-            * override this method for handling normal response from updateEnrollmentCode operation
+            * auto generated Axis2 call back method for favoriteGuest method
+            * override this method for handling normal response from favoriteGuest operation
             */
-           public void receiveResultupdateEnrollmentCode(
-                    com.cloudkey.pms.micros.ows.membership.UpdateEnrollmentCodeResponse result
+           public void receiveResultfavoriteGuest(
+                    com.cloudkey.pms.micros.ows.membership.FavoriteGuestResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from updateEnrollmentCode operation
+           * override this method for handling error response from favoriteGuest operation
            */
-            public void receiveErrorupdateEnrollmentCode(java.lang.Exception e) {
+            public void receiveErrorfavoriteGuest(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchECertificates method
-            * override this method for handling normal response from fetchECertificates operation
+            * auto generated Axis2 call back method for fetchPromoSubscriptions method
+            * override this method for handling normal response from fetchPromoSubscriptions operation
             */
-           public void receiveResultfetchECertificates(
-                    com.cloudkey.pms.micros.ows.membership.FetchECertificatesResponse result
+           public void receiveResultfetchPromoSubscriptions(
+                    com.cloudkey.pms.micros.ows.membership.FetchPromoSubscriptionsResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchECertificates operation
+           * override this method for handling error response from fetchPromoSubscriptions operation
            */
-            public void receiveErrorfetchECertificates(java.lang.Exception e) {
+            public void receiveErrorfetchPromoSubscriptions(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchStatementRefs method
-            * override this method for handling normal response from fetchStatementRefs operation
+            * auto generated Axis2 call back method for transferPoints method
+            * override this method for handling normal response from transferPoints operation
             */
-           public void receiveResultfetchStatementRefs(
-                    com.cloudkey.pms.micros.ows.membership.FetchStatementRefsResponse result
+           public void receiveResulttransferPoints(
+                    com.cloudkey.pms.micros.ows.membership.TransferPointsResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchStatementRefs operation
+           * override this method for handling error response from transferPoints operation
            */
-            public void receiveErrorfetchStatementRefs(java.lang.Exception e) {
+            public void receiveErrortransferPoints(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for consumeECertificate method
+            * override this method for handling normal response from consumeECertificate operation
+            */
+           public void receiveResultconsumeECertificate(
+                    com.cloudkey.pms.micros.ows.membership.ConsumeECertificateResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from consumeECertificate operation
+           */
+            public void receiveErrorconsumeECertificate(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for addBenefit method
+            * override this method for handling normal response from addBenefit operation
+            */
+           public void receiveResultaddBenefit(
+                    com.cloudkey.pms.micros.og.membership.AddBenefitResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from addBenefit operation
+           */
+            public void receiveErroraddBenefit(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchBenefits method
+            * override this method for handling normal response from fetchBenefits operation
+            */
+           public void receiveResultfetchBenefits(
+                    com.cloudkey.pms.micros.og.membership.FetchBenefitsResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchBenefits operation
+           */
+            public void receiveErrorfetchBenefits(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for consumePointsOthers method
+            * override this method for handling normal response from consumePointsOthers operation
+            */
+           public void receiveResultconsumePointsOthers(
+                    com.cloudkey.pms.micros.ows.membership.ConsumePointsOthersResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from consumePointsOthers operation
+           */
+            public void receiveErrorconsumePointsOthers(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchMembershipTransactions method
+            * override this method for handling normal response from fetchMembershipTransactions operation
+            */
+           public void receiveResultfetchMembershipTransactions(
+                    com.cloudkey.pms.micros.ows.membership.FetchMembershipTransactionsResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchMembershipTransactions operation
+           */
+            public void receiveErrorfetchMembershipTransactions(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchNextCardNumber method
+            * override this method for handling normal response from fetchNextCardNumber operation
+            */
+           public void receiveResultfetchNextCardNumber(
+                    com.cloudkey.pms.micros.ows.membership.FetchNextCardNumberResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchNextCardNumber operation
+           */
+            public void receiveErrorfetchNextCardNumber(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for addPromoSubscription method
+            * override this method for handling normal response from addPromoSubscription operation
+            */
+           public void receiveResultaddPromoSubscription(
+                    com.cloudkey.pms.micros.ows.membership.AddPromoSubscriptionResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from addPromoSubscription operation
+           */
+            public void receiveErroraddPromoSubscription(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchMemberTierWizard method
+            * override this method for handling normal response from fetchMemberTierWizard operation
+            */
+           public void receiveResultfetchMemberTierWizard(
+                    com.cloudkey.pms.micros.og.membership.FetchMemberTierWizardResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchMemberTierWizard operation
+           */
+            public void receiveErrorfetchMemberTierWizard(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchTransactionAwards method
+            * override this method for handling normal response from fetchTransactionAwards operation
+            */
+           public void receiveResultfetchTransactionAwards(
+                    com.cloudkey.pms.micros.ows.membership.FetchTransactionAwardsResponse result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchTransactionAwards operation
+           */
+            public void receiveErrorfetchTransactionAwards(java.lang.Exception e) {
             }
                 
 

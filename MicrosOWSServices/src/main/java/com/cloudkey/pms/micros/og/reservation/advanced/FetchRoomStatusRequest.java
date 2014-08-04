@@ -8,21 +8,22 @@
 
             
                 package com.cloudkey.pms.micros.og.reservation.advanced;
-            
 
-            /**
+
+import org.apache.axis2.databinding.ADBBean;
+
+/**
             *  FetchRoomStatusRequest bean class
             */
             @SuppressWarnings({"unchecked","unused"})
         
-        public  class FetchRoomStatusRequest
-        implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                "FetchRoomStatusRequest",
-                "ns6");
-
+        public  class FetchRoomStatusRequest extends FetchRoomStatusRequestE
+	implements ADBBean{
+        /* This type was generated from the piece of schema that had
+                name = FetchRoomStatusRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +33,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +60,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -144,7 +157,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList localFeatures ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature localFeatures ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -160,9 +173,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList getFeatures(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature getFeatures(){
                                return localFeatures;
                            }
 
@@ -172,7 +185,7 @@
                                * Auto generated setter method
                                * @param param Features
                                */
-                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList param){
+                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature param){
                             localFeaturesTracker = param != null;
                                    
                                             this.localFeatures=param;
@@ -244,37 +257,6 @@
                             
 
                         /**
-                        * field for EndRoomNumber
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localEndRoomNumber ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getEndRoomNumber(){
-                               return localEndRoomNumber;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param EndRoomNumber
-                               */
-                               public void setEndRoomNumber(java.lang.String param){
-                            
-                                            this.localEndRoomNumber=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for FloorNumber
                         * This was an Attribute!
                         */
@@ -306,31 +288,279 @@
                             
 
                         /**
-                        * field for SmokingPreference
+                        * field for IncludeDirtyRoom
                         * This was an Attribute!
                         */
 
                         
-                                    protected java.lang.String localSmokingPreference ;
+                                    protected boolean localIncludeDirtyRoom ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return boolean
                            */
-                           public  java.lang.String getSmokingPreference(){
-                               return localSmokingPreference;
+                           public  boolean getIncludeDirtyRoom(){
+                               return localIncludeDirtyRoom;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param SmokingPreference
+                               * @param param IncludeDirtyRoom
                                */
-                               public void setSmokingPreference(java.lang.String param){
+                               public void setIncludeDirtyRoom(boolean param){
                             
-                                            this.localSmokingPreference=param;
+                                            this.localIncludeDirtyRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludeCleanRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeCleanRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeCleanRoom(){
+                               return localIncludeCleanRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeCleanRoom
+                               */
+                               public void setIncludeCleanRoom(boolean param){
+                            
+                                            this.localIncludeCleanRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludeInspectedRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeInspectedRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeInspectedRoom(){
+                               return localIncludeInspectedRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeInspectedRoom
+                               */
+                               public void setIncludeInspectedRoom(boolean param){
+                            
+                                            this.localIncludeInspectedRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludeOOORoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeOOORoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeOOORoom(){
+                               return localIncludeOOORoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeOOORoom
+                               */
+                               public void setIncludeOOORoom(boolean param){
+                            
+                                            this.localIncludeOOORoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludeOOSRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeOOSRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeOOSRoom(){
+                               return localIncludeOOSRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeOOSRoom
+                               */
+                               public void setIncludeOOSRoom(boolean param){
+                            
+                                            this.localIncludeOOSRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludePickUpRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludePickUpRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludePickUpRoom(){
+                               return localIncludePickUpRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludePickUpRoom
+                               */
+                               public void setIncludePickUpRoom(boolean param){
+                            
+                                            this.localIncludePickUpRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludePseudoRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludePseudoRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludePseudoRoom(){
+                               return localIncludePseudoRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludePseudoRoom
+                               */
+                               public void setIncludePseudoRoom(boolean param){
+                            
+                                            this.localIncludePseudoRoom=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludeOccupied
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeOccupied ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeOccupied(){
+                               return localIncludeOccupied;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeOccupied
+                               */
+                               public void setIncludeOccupied(boolean param){
+                            
+                                            this.localIncludeOccupied=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IncludeVacant
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeVacant ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeVacant(){
+                               return localIncludeVacant;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeVacant
+                               */
+                               public void setIncludeVacant(boolean param){
+                            
+                                            this.localIncludeVacant=param;
                                     
 
                                }
@@ -368,350 +598,31 @@
                             
 
                         /**
-                        * field for ReservationStatus
+                        * field for SmokingPreference
                         * This was an Attribute!
                         */
 
                         
-                                    protected java.lang.String localReservationStatus ;
+                                    protected java.lang.String localSmokingPreference ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getReservationStatus(){
-                               return localReservationStatus;
+                           public  java.lang.String getSmokingPreference(){
+                               return localSmokingPreference;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param ReservationStatus
+                               * @param param SmokingPreference
                                */
-                               public void setReservationStatus(java.lang.String param){
+                               public void setSmokingPreference(java.lang.String param){
                             
-                                            this.localReservationStatus=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for HouseKeepingSection
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localHouseKeepingSection ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getHouseKeepingSection(){
-                               return localHouseKeepingSection;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param HouseKeepingSection
-                               */
-                               public void setHouseKeepingSection(java.lang.String param){
-                            
-                                            this.localHouseKeepingSection=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeDirtyRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeDirtyRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeDirtyRoom(){
-                               return localIncludeDirtyRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeDirtyRoom
-                               */
-                               public void setIncludeDirtyRoom(boolean param){
-                            
-                                            this.localIncludeDirtyRoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeCleanRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeCleanRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeCleanRoom(){
-                               return localIncludeCleanRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeCleanRoom
-                               */
-                               public void setIncludeCleanRoom(boolean param){
-                            
-                                            this.localIncludeCleanRoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeInspectedRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeInspectedRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeInspectedRoom(){
-                               return localIncludeInspectedRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeInspectedRoom
-                               */
-                               public void setIncludeInspectedRoom(boolean param){
-                            
-                                            this.localIncludeInspectedRoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeOOORoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeOOORoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeOOORoom(){
-                               return localIncludeOOORoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeOOORoom
-                               */
-                               public void setIncludeOOORoom(boolean param){
-                            
-                                            this.localIncludeOOORoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeOOSRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeOOSRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeOOSRoom(){
-                               return localIncludeOOSRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeOOSRoom
-                               */
-                               public void setIncludeOOSRoom(boolean param){
-                            
-                                            this.localIncludeOOSRoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludePickUpRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludePickUpRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludePickUpRoom(){
-                               return localIncludePickUpRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludePickUpRoom
-                               */
-                               public void setIncludePickUpRoom(boolean param){
-                            
-                                            this.localIncludePickUpRoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludePseudoRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludePseudoRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludePseudoRoom(){
-                               return localIncludePseudoRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludePseudoRoom
-                               */
-                               public void setIncludePseudoRoom(boolean param){
-                            
-                                            this.localIncludePseudoRoom=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeOccupied
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeOccupied =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeOccupied(){
-                               return localIncludeOccupied;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeOccupied
-                               */
-                               public void setIncludeOccupied(boolean param){
-                            
-                                            this.localIncludeOccupied=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for IncludeVacant
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localIncludeVacant =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getIncludeVacant(){
-                               return localIncludeVacant;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IncludeVacant
-                               */
-                               public void setIncludeVacant(boolean param){
-                            
-                                            this.localIncludeVacant=param;
+                                            this.localSmokingPreference=param;
                                     
 
                                }
@@ -723,8 +634,7 @@
                         */
 
                         
-                                    protected boolean localIncludeDueOut =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
+                                    protected boolean localIncludeDueOut ;
                                 
 
                            /**
@@ -750,13 +660,43 @@
                             
 
                         /**
+                        * field for IncludeDueOutSpecified
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeDueOutSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeDueOutSpecified(){
+                               return localIncludeDueOutSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeDueOutSpecified
+                               */
+                               public void setIncludeDueOutSpecified(boolean param){
+                            
+                                            this.localIncludeDueOutSpecified=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for IncludeCheckedOut
                         * This was an Attribute!
                         */
 
                         
-                                    protected boolean localIncludeCheckedOut =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+                                    protected boolean localIncludeCheckedOut ;
                                 
 
                            /**
@@ -782,13 +722,43 @@
                             
 
                         /**
+                        * field for IncludeCheckedOutSpecified
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeCheckedOutSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeCheckedOutSpecified(){
+                               return localIncludeCheckedOutSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeCheckedOutSpecified
+                               */
+                               public void setIncludeCheckedOutSpecified(boolean param){
+                            
+                                            this.localIncludeCheckedOutSpecified=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for IncludeRoomCondition
                         * This was an Attribute!
                         */
 
                         
-                                    protected boolean localIncludeRoomCondition =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+                                    protected boolean localIncludeRoomCondition ;
                                 
 
                            /**
@@ -814,13 +784,43 @@
                             
 
                         /**
+                        * field for IncludeRoomConditionSpecified
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeRoomConditionSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeRoomConditionSpecified(){
+                               return localIncludeRoomConditionSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeRoomConditionSpecified
+                               */
+                               public void setIncludeRoomConditionSpecified(boolean param){
+                            
+                                            this.localIncludeRoomConditionSpecified=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for IncludeConnectingRoom
                         * This was an Attribute!
                         */
 
                         
-                                    protected boolean localIncludeConnectingRoom =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+                                    protected boolean localIncludeConnectingRoom ;
                                 
 
                            /**
@@ -845,6 +845,37 @@
                                }
                             
 
+                        /**
+                        * field for IncludeConnectingRoomSpecified
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localIncludeConnectingRoomSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getIncludeConnectingRoomSpecified(){
+                               return localIncludeConnectingRoomSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IncludeConnectingRoomSpecified
+                               */
+                               public void setIncludeConnectingRoomSpecified(boolean param){
+                            
+                                            this.localIncludeConnectingRoomSpecified=param;
+                                    
+
+                               }
+                            
+
      
      
         /**
@@ -860,8 +891,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -922,56 +953,11 @@
                                             
                                       }
                                     
-                                            if (localEndRoomNumber != null){
-                                        
-                                                writeAttribute("",
-                                                         "EndRoomNumber",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEndRoomNumber), xmlWriter);
-
-                                            
-                                      }
-                                    
                                             if (localFloorNumber != null){
                                         
                                                 writeAttribute("",
                                                          "FloorNumber",
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFloorNumber), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localSmokingPreference != null){
-                                        
-                                                writeAttribute("",
-                                                         "SmokingPreference",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSmokingPreference), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localRoomClass != null){
-                                        
-                                                writeAttribute("",
-                                                         "RoomClass",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localReservationStatus != null){
-                                        
-                                                writeAttribute("",
-                                                         "ReservationStatus",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReservationStatus), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localHouseKeepingSection != null){
-                                        
-                                                writeAttribute("",
-                                                         "HouseKeepingSection",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localHouseKeepingSection), xmlWriter);
 
                                             
                                       }
@@ -1057,6 +1043,24 @@
                                             
                                       }
                                     
+                                            if (localRoomClass != null){
+                                        
+                                                writeAttribute("",
+                                                         "RoomClass",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localSmokingPreference != null){
+                                        
+                                                writeAttribute("",
+                                                         "SmokingPreference",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSmokingPreference), xmlWriter);
+
+                                            
+                                      }
+                                    
                                                    if (true) {
                                                
                                                 writeAttribute("",
@@ -1064,6 +1068,19 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeDueOut), xmlWriter);
 
                                             
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "IncludeDueOutSpecified",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeDueOutSpecified), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localIncludeDueOutSpecified is null");
                                       }
                                     
                                                    if (true) {
@@ -1078,10 +1095,36 @@
                                                    if (true) {
                                                
                                                 writeAttribute("",
+                                                         "IncludeCheckedOutSpecified",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeCheckedOutSpecified), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localIncludeCheckedOutSpecified is null");
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
                                                          "IncludeRoomCondition",
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeRoomCondition), xmlWriter);
 
                                             
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "IncludeRoomConditionSpecified",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeRoomConditionSpecified), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localIncludeRoomConditionSpecified is null");
                                       }
                                     
                                                    if (true) {
@@ -1093,12 +1136,25 @@
                                             
                                       }
                                     
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "IncludeConnectingRoomSpecified",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeConnectingRoomSpecified), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localIncludeConnectingRoomSpecified is null");
+                                      }
+                                     if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","HotelReference"),
                                                xmlWriter);
-                                         if (localStartDateTracker){
+                                        } if (localStartDateTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "StartDate", xmlWriter);
                              
@@ -1148,7 +1204,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1325,7 +1381,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "HotelReference"));
                             
@@ -1334,7 +1390,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                 if (localStartDateTracker){
+                                } if (localStartDateTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "StartDate"));
                                  
@@ -1373,34 +1429,9 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomNumber));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","EndRoomNumber"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEndRoomNumber));
-                                
-                            attribList.add(
                             new javax.xml.namespace.QName("","FloorNumber"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFloorNumber));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","SmokingPreference"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSmokingPreference));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","RoomClass"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","ReservationStatus"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReservationStatus));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","HouseKeepingSection"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localHouseKeepingSection));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","IncludeDirtyRoom"));
@@ -1448,9 +1479,24 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeVacant));
                                 
                             attribList.add(
+                            new javax.xml.namespace.QName("","RoomClass"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","SmokingPreference"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSmokingPreference));
+                                
+                            attribList.add(
                             new javax.xml.namespace.QName("","IncludeDueOut"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeDueOut));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","IncludeDueOutSpecified"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeDueOutSpecified));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","IncludeCheckedOut"));
@@ -1458,14 +1504,29 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeCheckedOut));
                                 
                             attribList.add(
+                            new javax.xml.namespace.QName("","IncludeCheckedOutSpecified"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeCheckedOutSpecified));
+                                
+                            attribList.add(
                             new javax.xml.namespace.QName("","IncludeRoomCondition"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeRoomCondition));
                                 
                             attribList.add(
+                            new javax.xml.namespace.QName("","IncludeRoomConditionSpecified"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeRoomConditionSpecified));
+                                
+                            attribList.add(
                             new javax.xml.namespace.QName("","IncludeConnectingRoom"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeConnectingRoom));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","IncludeConnectingRoomSpecified"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIncludeConnectingRoomSpecified));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -1520,7 +1581,7 @@
                             if (!"FetchRoomStatusRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (FetchRoomStatusRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (FetchRoomStatusRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1571,22 +1632,6 @@
                     }
                     handledAttributes.add("RoomNumber");
                     
-                    // handle attribute "EndRoomNumber"
-                    java.lang.String tempAttribEndRoomNumber =
-                        
-                                reader.getAttributeValue(null,"EndRoomNumber");
-                            
-                   if (tempAttribEndRoomNumber!=null){
-                         java.lang.String content = tempAttribEndRoomNumber;
-                        
-                                                 object.setEndRoomNumber(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribEndRoomNumber));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("EndRoomNumber");
-                    
                     // handle attribute "FloorNumber"
                     java.lang.String tempAttribFloorNumber =
                         
@@ -1602,70 +1647,6 @@
                        
                     }
                     handledAttributes.add("FloorNumber");
-                    
-                    // handle attribute "SmokingPreference"
-                    java.lang.String tempAttribSmokingPreference =
-                        
-                                reader.getAttributeValue(null,"SmokingPreference");
-                            
-                   if (tempAttribSmokingPreference!=null){
-                         java.lang.String content = tempAttribSmokingPreference;
-                        
-                                                 object.setSmokingPreference(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribSmokingPreference));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("SmokingPreference");
-                    
-                    // handle attribute "RoomClass"
-                    java.lang.String tempAttribRoomClass =
-                        
-                                reader.getAttributeValue(null,"RoomClass");
-                            
-                   if (tempAttribRoomClass!=null){
-                         java.lang.String content = tempAttribRoomClass;
-                        
-                                                 object.setRoomClass(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomClass));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("RoomClass");
-                    
-                    // handle attribute "ReservationStatus"
-                    java.lang.String tempAttribReservationStatus =
-                        
-                                reader.getAttributeValue(null,"ReservationStatus");
-                            
-                   if (tempAttribReservationStatus!=null){
-                         java.lang.String content = tempAttribReservationStatus;
-                        
-                                                 object.setReservationStatus(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribReservationStatus));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("ReservationStatus");
-                    
-                    // handle attribute "HouseKeepingSection"
-                    java.lang.String tempAttribHouseKeepingSection =
-                        
-                                reader.getAttributeValue(null,"HouseKeepingSection");
-                            
-                   if (tempAttribHouseKeepingSection!=null){
-                         java.lang.String content = tempAttribHouseKeepingSection;
-                        
-                                                 object.setHouseKeepingSection(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribHouseKeepingSection));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("HouseKeepingSection");
                     
                     // handle attribute "IncludeDirtyRoom"
                     java.lang.String tempAttribIncludeDirtyRoom =
@@ -1811,6 +1792,38 @@
                     }
                     handledAttributes.add("IncludeVacant");
                     
+                    // handle attribute "RoomClass"
+                    java.lang.String tempAttribRoomClass =
+                        
+                                reader.getAttributeValue(null,"RoomClass");
+                            
+                   if (tempAttribRoomClass!=null){
+                         java.lang.String content = tempAttribRoomClass;
+                        
+                                                 object.setRoomClass(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomClass));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("RoomClass");
+                    
+                    // handle attribute "SmokingPreference"
+                    java.lang.String tempAttribSmokingPreference =
+                        
+                                reader.getAttributeValue(null,"SmokingPreference");
+                            
+                   if (tempAttribSmokingPreference!=null){
+                         java.lang.String content = tempAttribSmokingPreference;
+                        
+                                                 object.setSmokingPreference(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribSmokingPreference));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("SmokingPreference");
+                    
                     // handle attribute "IncludeDueOut"
                     java.lang.String tempAttribIncludeDueOut =
                         
@@ -1826,6 +1839,24 @@
                        
                     }
                     handledAttributes.add("IncludeDueOut");
+                    
+                    // handle attribute "IncludeDueOutSpecified"
+                    java.lang.String tempAttribIncludeDueOutSpecified =
+                        
+                                reader.getAttributeValue(null,"IncludeDueOutSpecified");
+                            
+                   if (tempAttribIncludeDueOutSpecified!=null){
+                         java.lang.String content = tempAttribIncludeDueOutSpecified;
+                        
+                                                 object.setIncludeDueOutSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribIncludeDueOutSpecified));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute IncludeDueOutSpecified is missing");
+                           
+                    }
+                    handledAttributes.add("IncludeDueOutSpecified");
                     
                     // handle attribute "IncludeCheckedOut"
                     java.lang.String tempAttribIncludeCheckedOut =
@@ -1843,6 +1874,24 @@
                     }
                     handledAttributes.add("IncludeCheckedOut");
                     
+                    // handle attribute "IncludeCheckedOutSpecified"
+                    java.lang.String tempAttribIncludeCheckedOutSpecified =
+                        
+                                reader.getAttributeValue(null,"IncludeCheckedOutSpecified");
+                            
+                   if (tempAttribIncludeCheckedOutSpecified!=null){
+                         java.lang.String content = tempAttribIncludeCheckedOutSpecified;
+                        
+                                                 object.setIncludeCheckedOutSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribIncludeCheckedOutSpecified));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute IncludeCheckedOutSpecified is missing");
+                           
+                    }
+                    handledAttributes.add("IncludeCheckedOutSpecified");
+                    
                     // handle attribute "IncludeRoomCondition"
                     java.lang.String tempAttribIncludeRoomCondition =
                         
@@ -1858,6 +1907,24 @@
                        
                     }
                     handledAttributes.add("IncludeRoomCondition");
+                    
+                    // handle attribute "IncludeRoomConditionSpecified"
+                    java.lang.String tempAttribIncludeRoomConditionSpecified =
+                        
+                                reader.getAttributeValue(null,"IncludeRoomConditionSpecified");
+                            
+                   if (tempAttribIncludeRoomConditionSpecified!=null){
+                         java.lang.String content = tempAttribIncludeRoomConditionSpecified;
+                        
+                                                 object.setIncludeRoomConditionSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribIncludeRoomConditionSpecified));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute IncludeRoomConditionSpecified is missing");
+                           
+                    }
+                    handledAttributes.add("IncludeRoomConditionSpecified");
                     
                     // handle attribute "IncludeConnectingRoom"
                     java.lang.String tempAttribIncludeConnectingRoom =
@@ -1875,6 +1942,24 @@
                     }
                     handledAttributes.add("IncludeConnectingRoom");
                     
+                    // handle attribute "IncludeConnectingRoomSpecified"
+                    java.lang.String tempAttribIncludeConnectingRoomSpecified =
+                        
+                                reader.getAttributeValue(null,"IncludeConnectingRoomSpecified");
+                            
+                   if (tempAttribIncludeConnectingRoomSpecified!=null){
+                         java.lang.String content = tempAttribIncludeConnectingRoomSpecified;
+                        
+                                                 object.setIncludeConnectingRoomSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribIncludeConnectingRoomSpecified));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute IncludeConnectingRoomSpecified is missing");
+                           
+                    }
+                    handledAttributes.add("IncludeConnectingRoomSpecified");
+                    
                     
                     reader.next();
                 
@@ -1889,11 +1974,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1947,7 +2031,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","Features").equals(reader.getName())){
                                 
-                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader));
+                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature.Factory.parse(reader));
                                               
                                         reader.next();
                                     

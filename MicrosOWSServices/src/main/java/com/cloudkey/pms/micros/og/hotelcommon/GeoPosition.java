@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GeoPosition
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.VectorDistance localRadius ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRadiusTracker = false ;
+
+                           public boolean isRadiusSpecified(){
+                               return localRadiusTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Radius
                                */
                                public void setRadius(com.cloudkey.pms.micros.og.hotelcommon.VectorDistance param){
-                            
+                            localRadiusTracker = param != null;
+                                   
                                             this.localRadius=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GeoCode localPosition ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPositionTracker = false ;
+
+                           public boolean isPositionSpecified(){
+                               return localPositionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param Position
                                */
                                public void setPosition(com.cloudkey.pms.micros.og.hotelcommon.GeoCode param){
-                            
+                            localPositionTracker = param != null;
+                                   
                                             this.localPosition=param;
                                     
 
@@ -142,19 +166,19 @@
 
                
                    }
-               
+                if (localRadiusTracker){
                                             if (localRadius==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Radius cannot be null!!");
                                             }
                                            localRadius.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Radius"),
                                                xmlWriter);
-                                        
+                                        } if (localPositionTracker){
                                             if (localPosition==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Position cannot be null!!");
                                             }
                                            localPosition.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Position"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -162,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -339,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localRadiusTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Radius"));
                             
@@ -348,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Radius cannot be null!!");
                                     }
                                     elementList.add(localRadius);
-                                
+                                } if (localPositionTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Position"));
                             
@@ -357,7 +381,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Position cannot be null!!");
                                     }
                                     elementList.add(localPosition);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -411,7 +435,7 @@
                             if (!"GeoPosition".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (GeoPosition)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (GeoPosition)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -444,11 +468,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -460,11 +483,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

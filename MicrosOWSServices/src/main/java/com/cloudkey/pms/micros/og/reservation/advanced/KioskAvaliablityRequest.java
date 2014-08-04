@@ -17,12 +17,11 @@
         
         public  class KioskAvaliablityRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                "KioskAvaliablityRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = KioskAvaliablityRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -163,8 +174,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -245,13 +256,13 @@
                                       else {
                                           throw new org.apache.axis2.databinding.ADBException("required attribute localChildren is null");
                                       }
-                                    
+                                     if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","HotelReference"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -259,7 +270,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -436,7 +447,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "HotelReference"));
                             
@@ -445,7 +456,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","Nights"));
                             
@@ -514,7 +525,7 @@
                             if (!"KioskAvaliablityRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (KioskAvaliablityRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (KioskAvaliablityRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -601,11 +612,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

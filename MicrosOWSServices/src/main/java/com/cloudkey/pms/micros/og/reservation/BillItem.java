@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = BillItem
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns5
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localAccount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAccountTracker = false ;
+
+                           public boolean isAccountSpecified(){
+                               return localAccountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Account
                                */
                                public void setAccount(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localAccountTracker = param != null;
+                                   
                                             this.localAccount=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localAmount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAmountTracker = false ;
+
+                           public boolean isAmountSpecified(){
+                               return localAmountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param Amount
                                */
                                public void setAmount(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localAmountTracker = param != null;
+                                   
                                             this.localAmount=param;
                                     
 
@@ -163,132 +187,6 @@
                             localRevenueGroupTracker = param != null;
                                    
                                             this.localRevenueGroup=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Supplement
-                        */
-
-                        
-                                    protected java.lang.String localSupplement ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localSupplementTracker = false ;
-
-                           public boolean isSupplementSpecified(){
-                               return localSupplementTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getSupplement(){
-                               return localSupplement;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Supplement
-                               */
-                               public void setSupplement(java.lang.String param){
-                            localSupplementTracker = param != null;
-                                   
-                                            this.localSupplement=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Reference
-                        */
-
-                        
-                                    protected java.lang.String localReference ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localReferenceTracker = false ;
-
-                           public boolean isReferenceSpecified(){
-                               return localReferenceTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getReference(){
-                               return localReference;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Reference
-                               */
-                               public void setReference(java.lang.String param){
-                            localReferenceTracker = param != null;
-                                   
-                                            this.localReference=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for OriginalRoom
-                        */
-
-                        
-                                    protected java.lang.String localOriginalRoom ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localOriginalRoomTracker = false ;
-
-                           public boolean isOriginalRoomSpecified(){
-                               return localOriginalRoomTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getOriginalRoom(){
-                               return localOriginalRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param OriginalRoom
-                               */
-                               public void setOriginalRoom(java.lang.String param){
-                            localOriginalRoomTracker = param != null;
-                                   
-                                            this.localOriginalRoom=param;
                                     
 
                                }
@@ -449,6 +347,99 @@
                                }
                             
 
+                        /**
+                        * field for Supplement
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localSupplement ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getSupplement(){
+                               return localSupplement;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Supplement
+                               */
+                               public void setSupplement(java.lang.String param){
+                            
+                                            this.localSupplement=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Reference
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localReference ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getReference(){
+                               return localReference;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Reference
+                               */
+                               public void setReference(java.lang.String param){
+                            
+                                            this.localReference=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for OriginalRoom
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localOriginalRoom ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getOriginalRoom(){
+                               return localOriginalRoom;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param OriginalRoom
+                               */
+                               public void setOriginalRoom(java.lang.String param){
+                            
+                                            this.localOriginalRoom=param;
+                                    
+
+                               }
+                            
+
      
      
         /**
@@ -557,18 +548,45 @@
                                             
                                       }
                                     
+                                            if (localSupplement != null){
+                                        
+                                                writeAttribute("",
+                                                         "Supplement",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSupplement), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localReference != null){
+                                        
+                                                writeAttribute("",
+                                                         "Reference",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReference), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localOriginalRoom != null){
+                                        
+                                                writeAttribute("",
+                                                         "OriginalRoom",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOriginalRoom), xmlWriter);
+
+                                            
+                                      }
+                                     if (localAccountTracker){
                                             if (localAccount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Account cannot be null!!");
                                             }
                                            localAccount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Account"),
                                                xmlWriter);
-                                        
+                                        } if (localAmountTracker){
                                             if (localAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Amount cannot be null!!");
                                             }
                                            localAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Amount"),
                                                xmlWriter);
-                                         if (localVatCodeTracker){
+                                        } if (localVatCodeTracker){
                                             if (localVatCode==null){
                                                  throw new org.apache.axis2.databinding.ADBException("VatCode cannot be null!!");
                                             }
@@ -592,60 +610,6 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localSupplementTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Reservation/";
-                                    writeStartElement(null, namespace, "Supplement", xmlWriter);
-                             
-
-                                          if (localSupplement==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Supplement cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localSupplement);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localReferenceTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Reservation/";
-                                    writeStartElement(null, namespace, "Reference", xmlWriter);
-                             
-
-                                          if (localReference==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Reference cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localReference);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localOriginalRoomTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Reservation/";
-                                    writeStartElement(null, namespace, "OriginalRoom", xmlWriter);
-                             
-
-                                          if (localOriginalRoom==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("OriginalRoom cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localOriginalRoom);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
                              }
                     xmlWriter.writeEndElement();
                
@@ -654,7 +618,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns7";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -831,7 +795,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localAccountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "Account"));
                             
@@ -840,7 +804,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Account cannot be null!!");
                                     }
                                     elementList.add(localAccount);
-                                
+                                } if (localAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "Amount"));
                             
@@ -849,7 +813,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Amount cannot be null!!");
                                     }
                                     elementList.add(localAmount);
-                                 if (localVatCodeTracker){
+                                } if (localVatCodeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "VatCode"));
                             
@@ -866,33 +830,6 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRevenueGroup));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("RevenueGroup cannot be null!!");
-                                        }
-                                    } if (localSupplementTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
-                                                                      "Supplement"));
-                                 
-                                        if (localSupplement != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSupplement));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Supplement cannot be null!!");
-                                        }
-                                    } if (localReferenceTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
-                                                                      "Reference"));
-                                 
-                                        if (localReference != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReference));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Reference cannot be null!!");
-                                        }
-                                    } if (localOriginalRoomTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
-                                                                      "OriginalRoom"));
-                                 
-                                        if (localOriginalRoom != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOriginalRoom));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("OriginalRoom cannot be null!!");
                                         }
                                     }
                             attribList.add(
@@ -919,6 +856,21 @@
                             new javax.xml.namespace.QName("","TransactionNo"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTransactionNo));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","Supplement"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSupplement));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","Reference"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReference));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","OriginalRoom"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOriginalRoom));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -973,7 +925,7 @@
                             if (!"BillItem".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BillItem)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (BillItem)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1074,6 +1026,54 @@
                     }
                     handledAttributes.add("TransactionNo");
                     
+                    // handle attribute "Supplement"
+                    java.lang.String tempAttribSupplement =
+                        
+                                reader.getAttributeValue(null,"Supplement");
+                            
+                   if (tempAttribSupplement!=null){
+                         java.lang.String content = tempAttribSupplement;
+                        
+                                                 object.setSupplement(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribSupplement));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("Supplement");
+                    
+                    // handle attribute "Reference"
+                    java.lang.String tempAttribReference =
+                        
+                                reader.getAttributeValue(null,"Reference");
+                            
+                   if (tempAttribReference!=null){
+                         java.lang.String content = tempAttribReference;
+                        
+                                                 object.setReference(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribReference));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("Reference");
+                    
+                    // handle attribute "OriginalRoom"
+                    java.lang.String tempAttribOriginalRoom =
+                        
+                                reader.getAttributeValue(null,"OriginalRoom");
+                            
+                   if (tempAttribOriginalRoom!=null){
+                         java.lang.String content = tempAttribOriginalRoom;
+                        
+                                                 object.setOriginalRoom(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribOriginalRoom));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("OriginalRoom");
+                    
                     
                     reader.next();
                 
@@ -1088,11 +1088,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1104,11 +1103,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1138,78 +1136,6 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setRevenueGroup(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Supplement").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Supplement" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setSupplement(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Reference").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Reference" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setReference(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","OriginalRoom").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"OriginalRoom" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setOriginalRoom(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();

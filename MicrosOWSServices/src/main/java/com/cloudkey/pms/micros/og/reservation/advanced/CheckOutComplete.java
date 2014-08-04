@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = CheckOutComplete
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -29,14 +29,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueIDList localReservationID ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUniqueID localReservationID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReservationIDTracker = false ;
+
+                           public boolean isReservationIDSpecified(){
+                               return localReservationIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUniqueID
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueIDList getReservationID(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID getReservationID(){
                                return localReservationID;
                            }
 
@@ -46,8 +57,9 @@
                                * Auto generated setter method
                                * @param param ReservationID
                                */
-                               public void setReservationID(com.cloudkey.pms.micros.og.common.UniqueIDList param){
-                            
+                               public void setReservationID(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID param){
+                            localReservationIDTracker = param != null;
+                                   
                                             this.localReservationID=param;
                                     
 
@@ -60,7 +72,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[] localInvoiceNumber ;
+                                    protected com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[] localInvoiceNumber ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -76,9 +88,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[]
+                           * @return com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[]
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[] getInvoiceNumber(){
+                           public  com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[] getInvoiceNumber(){
                                return localInvoiceNumber;
                            }
 
@@ -90,12 +102,8 @@
                               /**
                                * validate the array for InvoiceNumber
                                */
-                              protected void validateInvoiceNumber(com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[] param){
+                              protected void validateInvoiceNumber(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[] param){
                              
-                              if ((param != null) && (param.length > 8)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -103,7 +111,7 @@
                               * Auto generated setter method
                               * @param param InvoiceNumber
                               */
-                              public void setInvoiceNumber(com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[] param){
+                              public void setInvoiceNumber(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[] param){
                               
                                    validateInvoiceNumber(param);
 
@@ -116,11 +124,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0
+                             * @param param com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber
                              */
-                             public void addInvoiceNumber(com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0 param){
+                             public void addInvoiceNumber(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber param){
                                    if (localInvoiceNumber == null){
-                                   localInvoiceNumber = new com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[]{};
+                                   localInvoiceNumber = new com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[]{};
                                    }
 
                             
@@ -132,8 +140,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localInvoiceNumber);
                                list.add(param);
                                this.localInvoiceNumber =
-                             (com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[])list.toArray(
+                            new com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[list.size()]);
 
                              }
                              
@@ -176,10 +184,6 @@
                                */
                               protected void validateGuestBill(java.lang.String[] param){
                              
-                              if ((param != null) && (param.length > 8)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -440,13 +444,13 @@
 
                                             
                                       }
-                                    
+                                     if (localReservationIDTracker){
                                             if (localReservationID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ReservationID cannot be null!!");
                                             }
                                            localReservationID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationID"),
                                                xmlWriter);
-                                         if (localInvoiceNumberTracker){
+                                        } if (localInvoiceNumberTracker){
                                        if (localInvoiceNumber!=null){
                                             for (int i = 0;i < localInvoiceNumber.length;i++){
                                                 if (localInvoiceNumber[i] != null){
@@ -517,7 +521,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -694,7 +698,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localReservationIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReservationID"));
                             
@@ -703,7 +707,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ReservationID cannot be null!!");
                                     }
                                     elementList.add(localReservationID);
-                                 if (localInvoiceNumberTracker){
+                                } if (localInvoiceNumberTracker){
                              if (localInvoiceNumber!=null) {
                                  for (int i = 0;i < localInvoiceNumber.length;i++){
 
@@ -832,7 +836,7 @@
                             if (!"CheckOutComplete".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (CheckOutComplete)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (CheckOutComplete)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -897,17 +901,16 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationID").equals(reader.getName())){
                                 
-                                                object.setReservationID(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setReservationID(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -916,7 +919,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list2.add(com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0.Factory.parse(reader));
+                                    list2.add(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone2 = false;
@@ -934,7 +937,7 @@
                                                                 loopDone2 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","InvoiceNumber").equals(reader.getName())){
-                                                                    list2.add(com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0.Factory.parse(reader));
+                                                                    list2.add(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone2 = true;
@@ -943,9 +946,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setInvoiceNumber((com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0[])
+                                                        object.setInvoiceNumber((com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.reservation.advanced.InvoiceNumber_type0.class,
+                                                                com.cloudkey.pms.micros.og.reservation.advanced.CheckOutCompleteInvoiceNumber.class,
                                                                 list2));
                                                             
                               }  // End of if for expected property start element

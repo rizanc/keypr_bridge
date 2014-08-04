@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = URLData
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localLogoURL ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLogoURLTracker = false ;
+
+                           public boolean isLogoURLSpecified(){
+                               return localLogoURLTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param LogoURL
                                */
                                public void setLogoURL(java.lang.String param){
-                            
+                            localLogoURLTracker = param != null;
+                                   
                                             this.localLogoURL=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localReturnURL ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReturnURLTracker = false ;
+
+                           public boolean isReturnURLSpecified(){
+                               return localReturnURLTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param ReturnURL
                                */
                                public void setReturnURL(java.lang.String param){
-                            
+                            localReturnURLTracker = param != null;
+                                   
                                             this.localReturnURL=param;
                                     
 
@@ -91,6 +115,17 @@
                         
                                     protected java.lang.String localCancelURL ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCancelURLTracker = false ;
+
+                           public boolean isCancelURLSpecified(){
+                               return localCancelURLTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -107,7 +142,8 @@
                                * @param param CancelURL
                                */
                                public void setCancelURL(java.lang.String param){
-                            
+                            localCancelURLTracker = param != null;
+                                   
                                             this.localCancelURL=param;
                                     
 
@@ -121,6 +157,17 @@
                         
                                     protected java.lang.String localProviderHostURL ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProviderHostURLTracker = false ;
+
+                           public boolean isProviderHostURLSpecified(){
+                               return localProviderHostURLTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -137,7 +184,8 @@
                                * @param param ProviderHostURL
                                */
                                public void setProviderHostURL(java.lang.String param){
-                            
+                            localProviderHostURLTracker = param != null;
+                                   
                                             this.localProviderHostURL=param;
                                     
 
@@ -202,7 +250,7 @@
 
                
                    }
-               
+                if (localLogoURLTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "LogoURL", xmlWriter);
                              
@@ -220,7 +268,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localReturnURLTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "ReturnURL", xmlWriter);
                              
@@ -238,7 +286,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localCancelURLTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "CancelURL", xmlWriter);
                              
@@ -256,7 +304,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localProviderHostURLTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "ProviderHostURL", xmlWriter);
                              
@@ -274,7 +322,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -282,7 +330,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -459,7 +507,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localLogoURLTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "LogoURL"));
                                  
@@ -468,7 +516,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("LogoURL cannot be null!!");
                                         }
-                                    
+                                    } if (localReturnURLTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReturnURL"));
                                  
@@ -477,7 +525,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ReturnURL cannot be null!!");
                                         }
-                                    
+                                    } if (localCancelURLTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "CancelURL"));
                                  
@@ -486,7 +534,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CancelURL cannot be null!!");
                                         }
-                                    
+                                    } if (localProviderHostURLTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ProviderHostURL"));
                                  
@@ -495,7 +543,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ProviderHostURL cannot be null!!");
                                         }
-                                    
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -549,7 +597,7 @@
                             if (!"URLData".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (URLData)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (URLData)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -591,11 +639,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -616,11 +663,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -641,11 +687,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -666,11 +711,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

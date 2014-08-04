@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = StatementReference
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -216,10 +216,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localStatementId is null");
-                                      }
-                                    
                                             if (localStatementDate != null){
                                         
                                                 writeAttribute("",
@@ -262,7 +258,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -545,8 +541,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute statementId is missing");
-                           
                     }
                     handledAttributes.add("statementId");
                     

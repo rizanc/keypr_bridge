@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Award
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns6
                 */
             
 
@@ -256,7 +256,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns6";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }

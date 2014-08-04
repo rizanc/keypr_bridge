@@ -17,12 +17,11 @@
         
         public  class FetchCalendarResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "FetchCalendarResponse",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchCalendarResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -60,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.Calendar localCalendar ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail localCalendar ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -76,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.Calendar
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail
                            */
-                           public  com.cloudkey.pms.micros.og.availability.Calendar getCalendar(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail getCalendar(){
                                return localCalendar;
                            }
 
@@ -88,7 +99,7 @@
                                * Auto generated setter method
                                * @param param Calendar
                                */
-                               public void setCalendar(com.cloudkey.pms.micros.og.availability.Calendar param){
+                               public void setCalendar(com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail param){
                             localCalendarTracker = param != null;
                                    
                                             this.localCalendar=param;
@@ -112,8 +123,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -155,13 +166,13 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","Result"),
                                                xmlWriter);
-                                         if (localCalendarTracker){
+                                        } if (localCalendarTracker){
                                             if (localCalendar==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Calendar cannot be null!!");
                                             }
@@ -175,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -352,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "Result"));
                             
@@ -361,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                 if (localCalendarTracker){
+                                } if (localCalendarTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "Calendar"));
                             
@@ -457,17 +468,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","Calendar").equals(reader.getName())){
                                 
-                                                object.setCalendar(com.cloudkey.pms.micros.og.availability.Calendar.Factory.parse(reader));
+                                                object.setCalendar(com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail.Factory.parse(reader));
                                               
                                         reader.next();
                                     

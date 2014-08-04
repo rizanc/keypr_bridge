@@ -17,12 +17,11 @@
         
         public  class FutureBookingSummaryRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                "FutureBookingSummaryRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = FutureBookingSummaryRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Reservation.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -30,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.ows.reservation.QueryDateRange_type0 localQueryDateRange ;
+                                    protected com.cloudkey.pms.micros.ows.reservation.FutureBookingSummaryRequestQueryDateRange localQueryDateRange ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -46,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.ows.reservation.QueryDateRange_type0
+                           * @return com.cloudkey.pms.micros.ows.reservation.FutureBookingSummaryRequestQueryDateRange
                            */
-                           public  com.cloudkey.pms.micros.ows.reservation.QueryDateRange_type0 getQueryDateRange(){
+                           public  com.cloudkey.pms.micros.ows.reservation.FutureBookingSummaryRequestQueryDateRange getQueryDateRange(){
                                return localQueryDateRange;
                            }
 
@@ -58,7 +57,7 @@
                                * Auto generated setter method
                                * @param param QueryDateRange
                                */
-                               public void setQueryDateRange(com.cloudkey.pms.micros.ows.reservation.QueryDateRange_type0 param){
+                               public void setQueryDateRange(com.cloudkey.pms.micros.ows.reservation.FutureBookingSummaryRequestQueryDateRange param){
                             localQueryDateRangeTracker = param != null;
                                    
                                             this.localQueryDateRange=param;
@@ -158,6 +157,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.FetchBookingFilters localAdditionalFilters ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAdditionalFiltersTracker = false ;
+
+                           public boolean isAdditionalFiltersSpecified(){
+                               return localAdditionalFiltersTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -174,7 +184,8 @@
                                * @param param AdditionalFilters
                                */
                                public void setAdditionalFilters(com.cloudkey.pms.micros.og.reservation.FetchBookingFilters param){
-                            
+                            localAdditionalFiltersTracker = param != null;
+                                   
                                             this.localAdditionalFilters=param;
                                     
 
@@ -188,6 +199,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.EncryptedSwipe localEncryptedCreditCardSwipe ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEncryptedCreditCardSwipeTracker = false ;
+
+                           public boolean isEncryptedCreditCardSwipeSpecified(){
+                               return localEncryptedCreditCardSwipeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -204,7 +226,8 @@
                                * @param param EncryptedCreditCardSwipe
                                */
                                public void setEncryptedCreditCardSwipe(com.cloudkey.pms.micros.og.common.EncryptedSwipe param){
-                            
+                            localEncryptedCreditCardSwipeTracker = param != null;
+                                   
                                             this.localEncryptedCreditCardSwipe=param;
                                     
 
@@ -272,6 +295,51 @@
                             
 
                         /**
+                        * field for NumberOfReservationsToBeFetched
+                        */
+
+                        
+                                    protected int localNumberOfReservationsToBeFetched ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNumberOfReservationsToBeFetchedTracker = false ;
+
+                           public boolean isNumberOfReservationsToBeFetchedSpecified(){
+                               return localNumberOfReservationsToBeFetchedTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return int
+                           */
+                           public  int getNumberOfReservationsToBeFetched(){
+                               return localNumberOfReservationsToBeFetched;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param NumberOfReservationsToBeFetched
+                               */
+                               public void setNumberOfReservationsToBeFetched(int param){
+                            
+                                       // setting primitive attribute tracker to true
+                                       localNumberOfReservationsToBeFetchedTracker =
+                                       param != java.lang.Integer.MIN_VALUE;
+                                   
+                                            this.localNumberOfReservationsToBeFetched=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for CanHandleVaultedCreditCard
                         * This was an Attribute!
                         */
@@ -302,37 +370,6 @@
                                }
                             
 
-                        /**
-                        * field for NumberOfReservationsToBeFetched
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected int localNumberOfReservationsToBeFetched ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return int
-                           */
-                           public  int getNumberOfReservationsToBeFetched(){
-                               return localNumberOfReservationsToBeFetched;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param NumberOfReservationsToBeFetched
-                               */
-                               public void setNumberOfReservationsToBeFetched(int param){
-                            
-                                            this.localNumberOfReservationsToBeFetched=param;
-                                    
-
-                               }
-                            
-
      
      
         /**
@@ -348,8 +385,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -400,15 +437,6 @@
 
                                             
                                       }
-                                    
-                                                   if (localNumberOfReservationsToBeFetched!=java.lang.Integer.MIN_VALUE) {
-                                               
-                                                writeAttribute("",
-                                                         "numberOfReservationsToBeFetched",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfReservationsToBeFetched), xmlWriter);
-
-                                            
-                                      }
                                      if (localQueryDateRangeTracker){
                                             if (localQueryDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("QueryDateRange cannot be null!!");
@@ -451,19 +479,19 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localAdditionalFiltersTracker){
                                             if (localAdditionalFilters==null){
                                                  throw new org.apache.axis2.databinding.ADBException("AdditionalFilters cannot be null!!");
                                             }
                                            localAdditionalFilters.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","AdditionalFilters"),
                                                xmlWriter);
-                                        
+                                        } if (localEncryptedCreditCardSwipeTracker){
                                             if (localEncryptedCreditCardSwipe==null){
                                                  throw new org.apache.axis2.databinding.ADBException("EncryptedCreditCardSwipe cannot be null!!");
                                             }
                                            localEncryptedCreditCardSwipe.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","EncryptedCreditCardSwipe"),
                                                xmlWriter);
-                                        
+                                        }
                                             if (localFutureBookingSummaryRequestChoice_type0==null){
                                                  throw new org.apache.axis2.databinding.ADBException("FutureBookingSummaryRequestChoice_type0 cannot be null!!");
                                             }
@@ -473,7 +501,20 @@
                                                  throw new org.apache.axis2.databinding.ADBException("FutureBookingSummaryRequestChoice_type1 cannot be null!!");
                                             }
                                            localFutureBookingSummaryRequestChoice_type1.serialize(null,xmlWriter);
-                                        
+                                         if (localNumberOfReservationsToBeFetchedTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Reservation.wsdl";
+                                    writeStartElement(null, namespace, "numberOfReservationsToBeFetched", xmlWriter);
+                             
+                                               if (localNumberOfReservationsToBeFetched==java.lang.Integer.MIN_VALUE) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("numberOfReservationsToBeFetched cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfReservationsToBeFetched));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -481,7 +522,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -685,7 +726,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("FirstName cannot be null!!");
                                         }
-                                    }
+                                    } if (localAdditionalFiltersTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "AdditionalFilters"));
                             
@@ -694,7 +735,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("AdditionalFilters cannot be null!!");
                                     }
                                     elementList.add(localAdditionalFilters);
-                                
+                                } if (localEncryptedCreditCardSwipeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "EncryptedCreditCardSwipe"));
                             
@@ -703,7 +744,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("EncryptedCreditCardSwipe cannot be null!!");
                                     }
                                     elementList.add(localEncryptedCreditCardSwipe);
-                                
+                                }
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "FutureBookingSummaryRequestChoice_type0"));
                             
@@ -721,16 +762,17 @@
                                          throw new org.apache.axis2.databinding.ADBException("FutureBookingSummaryRequestChoice_type1 cannot be null!!");
                                     }
                                     elementList.add(localFutureBookingSummaryRequestChoice_type1);
-                                
+                                 if (localNumberOfReservationsToBeFetchedTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
+                                                                      "numberOfReservationsToBeFetched"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfReservationsToBeFetched));
+                            }
                             attribList.add(
                             new javax.xml.namespace.QName("","canHandleVaultedCreditCard"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCanHandleVaultedCreditCard));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","numberOfReservationsToBeFetched"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumberOfReservationsToBeFetched));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -820,24 +862,6 @@
                     }
                     handledAttributes.add("canHandleVaultedCreditCard");
                     
-                    // handle attribute "numberOfReservationsToBeFetched"
-                    java.lang.String tempAttribNumberOfReservationsToBeFetched =
-                        
-                                reader.getAttributeValue(null,"numberOfReservationsToBeFetched");
-                            
-                   if (tempAttribNumberOfReservationsToBeFetched!=null){
-                         java.lang.String content = tempAttribNumberOfReservationsToBeFetched;
-                        
-                                                 object.setNumberOfReservationsToBeFetched(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(tempAttribNumberOfReservationsToBeFetched));
-                                            
-                    } else {
-                       
-                                           object.setNumberOfReservationsToBeFetched(java.lang.Integer.MIN_VALUE);
-                                       
-                    }
-                    handledAttributes.add("numberOfReservationsToBeFetched");
-                    
                     
                     reader.next();
                 
@@ -846,7 +870,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","QueryDateRange").equals(reader.getName())){
                                 
-                                                object.setQueryDateRange(com.cloudkey.pms.micros.ows.reservation.QueryDateRange_type0.Factory.parse(reader));
+                                                object.setQueryDateRange(com.cloudkey.pms.micros.ows.reservation.FutureBookingSummaryRequestQueryDateRange.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -915,11 +939,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -931,11 +954,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -953,6 +975,32 @@
                                                 object.setFutureBookingSummaryRequestChoice_type1(com.cloudkey.pms.micros.ows.reservation.FutureBookingSummaryRequestChoice_type1.Factory.parse(reader));
                                             
                               }  // End of if for expected property start element
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","numberOfReservationsToBeFetched").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"numberOfReservationsToBeFetched" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setNumberOfReservationsToBeFetched(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                               object.setNumberOfReservationsToBeFetched(java.lang.Integer.MIN_VALUE);
+                                           
+                                    }
                                   
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();

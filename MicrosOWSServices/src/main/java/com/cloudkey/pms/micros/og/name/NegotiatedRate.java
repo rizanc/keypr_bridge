@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = NegotiatedRate
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -482,10 +482,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRateCode is null");
-                                      }
-                                    
                                             if (localCommissionCode != null){
                                         
                                                 writeAttribute("",
@@ -574,7 +570,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -865,7 +861,7 @@
                             if (!"NegotiatedRate".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (NegotiatedRate)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (NegotiatedRate)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -931,8 +927,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute rateCode is missing");
-                           
                     }
                     handledAttributes.add("rateCode");
                     

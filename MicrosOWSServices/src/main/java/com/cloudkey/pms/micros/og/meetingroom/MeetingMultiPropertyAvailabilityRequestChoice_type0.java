@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = MeetingMultiPropertyAvailabilityRequestChoice_type0
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -28,14 +28,58 @@
              */
             private void clearAllSettingTrackers() {
             
-                   localRegionalSearchCodeTracker = false;
-                
                    localHotelReferencesTracker = false;
+                
+                   localRegionalSearchCodeTracker = false;
                 
                    localGeographicSearchTracker = false;
                 
             }
         
+
+                        /**
+                        * field for HotelReferences
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.meetingroom.ArrayOfHotelReference localHotelReferences ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferencesTracker = false ;
+
+                           public boolean isHotelReferencesSpecified(){
+                               return localHotelReferencesTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.meetingroom.ArrayOfHotelReference
+                           */
+                           public  com.cloudkey.pms.micros.og.meetingroom.ArrayOfHotelReference getHotelReferences(){
+                               return localHotelReferences;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param HotelReferences
+                               */
+                               public void setHotelReferences(com.cloudkey.pms.micros.og.meetingroom.ArrayOfHotelReference param){
+                            
+                                clearAllSettingTrackers();
+                            localHotelReferencesTracker = param != null;
+                                   
+                                            this.localHotelReferences=param;
+                                    
+
+                               }
+                            
 
                         /**
                         * field for RegionalSearchCode
@@ -76,50 +120,6 @@
                             localRegionalSearchCodeTracker = param != null;
                                    
                                             this.localRegionalSearchCode=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for HotelReferences
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList localHotelReferences ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localHotelReferencesTracker = false ;
-
-                           public boolean isHotelReferencesSpecified(){
-                               return localHotelReferencesTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList getHotelReferences(){
-                               return localHotelReferences;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param HotelReferences
-                               */
-                               public void setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList param){
-                            
-                                clearAllSettingTrackers();
-                            localHotelReferencesTracker = param != null;
-                                   
-                                            this.localHotelReferences=param;
                                     
 
                                }
@@ -222,17 +222,17 @@
 
                
                    }
-                if (localRegionalSearchCodeTracker){
-                                            if (localRegionalSearchCode==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("RegionalSearchCode cannot be null!!");
-                                            }
-                                           localRegionalSearchCode.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","RegionalSearchCode"),
-                                               xmlWriter);
-                                        } if (localHotelReferencesTracker){
+                if (localHotelReferencesTracker){
                                             if (localHotelReferences==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
                                             }
                                            localHotelReferences.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","HotelReferences"),
+                                               xmlWriter);
+                                        } if (localRegionalSearchCodeTracker){
+                                            if (localRegionalSearchCode==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("RegionalSearchCode cannot be null!!");
+                                            }
+                                           localRegionalSearchCode.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","RegionalSearchCode"),
                                                xmlWriter);
                                         } if (localGeographicSearchTracker){
                                             if (localGeographicSearch==null){
@@ -246,7 +246,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -423,16 +423,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localRegionalSearchCodeTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
-                                                                      "RegionalSearchCode"));
-                            
-                            
-                                    if (localRegionalSearchCode==null){
-                                         throw new org.apache.axis2.databinding.ADBException("RegionalSearchCode cannot be null!!");
-                                    }
-                                    elementList.add(localRegionalSearchCode);
-                                } if (localHotelReferencesTracker){
+                 if (localHotelReferencesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "HotelReferences"));
                             
@@ -441,6 +432,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
                                     }
                                     elementList.add(localHotelReferences);
+                                } if (localRegionalSearchCodeTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
+                                                                      "RegionalSearchCode"));
+                            
+                            
+                                    if (localRegionalSearchCode==null){
+                                         throw new org.apache.axis2.databinding.ADBException("RegionalSearchCode cannot be null!!");
+                                    }
+                                    elementList.add(localRegionalSearchCode);
                                 } if (localGeographicSearchTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "GeographicSearch"));
@@ -497,9 +497,9 @@
                 
 
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","RegionalSearchCode").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","HotelReferences").equals(reader.getName())){
                                 
-                                                object.setRegionalSearchCode(com.cloudkey.pms.micros.og.availability.RegionalSearchCode.Factory.parse(reader));
+                                                object.setHotelReferences(com.cloudkey.pms.micros.og.meetingroom.ArrayOfHotelReference.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -507,9 +507,9 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","HotelReferences").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","RegionalSearchCode").equals(reader.getName())){
                                 
-                                                object.setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList.Factory.parse(reader));
+                                                object.setRegionalSearchCode(com.cloudkey.pms.micros.og.availability.RegionalSearchCode.Factory.parse(reader));
                                               
                                         reader.next();
                                     

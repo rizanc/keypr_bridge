@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Charge
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localDescription ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDescriptionTracker = false ;
+
+                           public boolean isDescriptionSpecified(){
+                               return localDescriptionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Description
                                */
                                public void setDescription(java.lang.String param){
-                            
+                            localDescriptionTracker = param != null;
+                                   
                                             this.localDescription=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localAmount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAmountTracker = false ;
+
+                           public boolean isAmountSpecified(){
+                               return localAmountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,38 +100,9 @@
                                * @param param Amount
                                */
                                public void setAmount(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localAmountTracker = param != null;
+                                   
                                             this.localAmount=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Code
-                        */
-
-                        
-                                    protected java.lang.String localCode ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getCode(){
-                               return localCode;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Code
-                               */
-                               public void setCode(java.lang.String param){
-                            
-                                            this.localCode=param;
                                     
 
                                }
@@ -121,6 +115,17 @@
                         
                                     protected java.lang.String localCodeType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCodeTypeTracker = false ;
+
+                           public boolean isCodeTypeSpecified(){
+                               return localCodeTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -137,8 +142,51 @@
                                * @param param CodeType
                                */
                                public void setCodeType(java.lang.String param){
-                            
+                            localCodeTypeTracker = param != null;
+                                   
                                             this.localCodeType=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Code
+                        */
+
+                        
+                                    protected java.lang.String localCode ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCodeTracker = false ;
+
+                           public boolean isCodeSpecified(){
+                               return localCodeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getCode(){
+                               return localCode;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Code
+                               */
+                               public void setCode(java.lang.String param){
+                            localCodeTracker = param != null;
+                                   
+                                            this.localCode=param;
                                     
 
                                }
@@ -202,7 +250,7 @@
 
                
                    }
-               
+                if (localDescriptionTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "Description", xmlWriter);
                              
@@ -220,31 +268,13 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localAmountTracker){
                                             if (localAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Amount cannot be null!!");
                                             }
                                            localAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Amount"),
                                                xmlWriter);
-                                        
-                                    namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
-                                    writeStartElement(null, namespace, "Code", xmlWriter);
-                             
-
-                                          if (localCode==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Code cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localCode);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
+                                        } if (localCodeTypeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "CodeType", xmlWriter);
                              
@@ -262,7 +292,25 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
+                             } if (localCodeTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
+                                    writeStartElement(null, namespace, "Code", xmlWriter);
                              
+
+                                          if (localCode==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("Code cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localCode);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -270,7 +318,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -447,7 +495,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localDescriptionTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Description"));
                                  
@@ -456,7 +504,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Description cannot be null!!");
                                         }
-                                    
+                                    } if (localAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Amount"));
                             
@@ -465,16 +513,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Amount cannot be null!!");
                                     }
                                     elementList.add(localAmount);
-                                
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "Code"));
-                                 
-                                        if (localCode != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCode));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Code cannot be null!!");
-                                        }
-                                    
+                                } if (localCodeTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "CodeType"));
                                  
@@ -483,7 +522,16 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CodeType cannot be null!!");
                                         }
-                                    
+                                    } if (localCodeTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
+                                                                      "Code"));
+                                 
+                                        if (localCode != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCode));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("Code cannot be null!!");
+                                        }
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -537,7 +585,7 @@
                             if (!"Charge".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Charge)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Charge)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -558,10 +606,10 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Description").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -579,8 +627,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Amount").equals(reader.getName())){
                                 
                                                 object.setAmount(com.cloudkey.pms.micros.og.common.Amount.Factory.parse(reader));
@@ -589,27 +642,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Code").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Code" +"  cannot be null");
+                                    else {
+                                        
                                     }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setCode(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
                                 
-                                        else
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","CodeType").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -627,16 +666,41 @@
                                     
                               }  // End of if for expected property start element
                                 
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
-                             } else {
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Code").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Code" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setCode(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

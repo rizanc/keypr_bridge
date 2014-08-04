@@ -17,12 +17,11 @@
         
         public  class AvailabilityRequest extends com.cloudkey.pms.micros.og.availability.AvailRequestSegmentList
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "AvailabilityRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = AvailabilityRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -71,8 +70,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -98,8 +97,6 @@
                     namespace = parentQName.getNamespaceURI();
                     writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
                 
-                  if (serializeType){
-               
 
                    java.lang.String namespacePrefix = registerPrefix(xmlWriter,"http://webservices.micros.com/ows/5.1/Availability.wsdl");
                    if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)){
@@ -113,8 +110,6 @@
                    }
 
                
-                   }
-               
                                                    if (true) {
                                                
                                                 writeAttribute("",
@@ -127,7 +122,7 @@
                                       else {
                                           throw new org.apache.axis2.databinding.ADBException("required attribute localSummaryOnly is null");
                                       }
-                                    
+                                     if (localAvailRequestSegmentTracker){
                                        if (localAvailRequestSegment!=null){
                                             for (int i = 0;i < localAvailRequestSegment.length;i++){
                                                 if (localAvailRequestSegment[i] != null){
@@ -135,7 +130,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("AvailRequestSegment cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -145,7 +140,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("AvailRequestSegment cannot be null!!");
                                         
                                     }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -153,7 +148,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -333,7 +328,7 @@
                 
                     attribList.add(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema-instance","type"));
                     attribList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","AvailabilityRequest"));
-                
+                 if (localAvailRequestSegmentTracker){
                              if (localAvailRequestSegment!=null) {
                                  for (int i = 0;i < localAvailRequestSegment.length;i++){
 
@@ -343,7 +338,7 @@
                                          elementList.add(localAvailRequestSegment[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("AvailRequestSegment cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -354,7 +349,7 @@
                                     
                              }
 
-                        
+                        }
                             attribList.add(
                             new javax.xml.namespace.QName("","summaryOnly"));
                             

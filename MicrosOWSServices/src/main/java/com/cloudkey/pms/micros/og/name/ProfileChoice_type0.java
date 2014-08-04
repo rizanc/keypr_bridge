@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ProfileChoice_type0
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -28,56 +28,12 @@
              */
             private void clearAllSettingTrackers() {
             
-                   localCustomerTracker = false;
-                
                    localCompanyTracker = false;
+                
+                   localCustomerTracker = false;
                 
             }
         
-
-                        /**
-                        * field for Customer
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.name.Customer localCustomer ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCustomerTracker = false ;
-
-                           public boolean isCustomerSpecified(){
-                               return localCustomerTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.Customer
-                           */
-                           public  com.cloudkey.pms.micros.og.name.Customer getCustomer(){
-                               return localCustomer;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Customer
-                               */
-                               public void setCustomer(com.cloudkey.pms.micros.og.name.Customer param){
-                            
-                                clearAllSettingTrackers();
-                            localCustomerTracker = param != null;
-                                   
-                                            this.localCustomer=param;
-                                    
-
-                               }
-                            
 
                         /**
                         * field for Company
@@ -118,6 +74,50 @@
                             localCompanyTracker = param != null;
                                    
                                             this.localCompany=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Customer
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.name.Customer localCustomer ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCustomerTracker = false ;
+
+                           public boolean isCustomerSpecified(){
+                               return localCustomerTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.name.Customer
+                           */
+                           public  com.cloudkey.pms.micros.og.name.Customer getCustomer(){
+                               return localCustomer;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Customer
+                               */
+                               public void setCustomer(com.cloudkey.pms.micros.og.name.Customer param){
+                            
+                                clearAllSettingTrackers();
+                            localCustomerTracker = param != null;
+                                   
+                                            this.localCustomer=param;
                                     
 
                                }
@@ -176,17 +176,17 @@
 
                
                    }
-                if (localCustomerTracker){
-                                            if (localCustomer==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
-                                            }
-                                           localCustomer.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Customer"),
-                                               xmlWriter);
-                                        } if (localCompanyTracker){
+                if (localCompanyTracker){
                                             if (localCompany==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Company cannot be null!!");
                                             }
                                            localCompany.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Company"),
+                                               xmlWriter);
+                                        } if (localCustomerTracker){
+                                            if (localCustomer==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
+                                            }
+                                           localCustomer.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Customer"),
                                                xmlWriter);
                                         }
 
@@ -194,7 +194,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -371,16 +371,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localCustomerTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "Customer"));
-                            
-                            
-                                    if (localCustomer==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
-                                    }
-                                    elementList.add(localCustomer);
-                                } if (localCompanyTracker){
+                 if (localCompanyTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "Company"));
                             
@@ -389,6 +380,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("Company cannot be null!!");
                                     }
                                     elementList.add(localCompany);
+                                } if (localCustomerTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
+                                                                      "Customer"));
+                            
+                            
+                                    if (localCustomer==null){
+                                         throw new org.apache.axis2.databinding.ADBException("Customer cannot be null!!");
+                                    }
+                                    elementList.add(localCustomer);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -436,9 +436,9 @@
                 
 
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Customer").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Company").equals(reader.getName())){
                                 
-                                                object.setCustomer(com.cloudkey.pms.micros.og.name.Customer.Factory.parse(reader));
+                                                object.setCompany(com.cloudkey.pms.micros.og.name.Company.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -446,9 +446,9 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Company").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Customer").equals(reader.getName())){
                                 
-                                                object.setCompany(com.cloudkey.pms.micros.og.name.Company.Factory.parse(reader));
+                                                object.setCustomer(com.cloudkey.pms.micros.og.name.Customer.Factory.parse(reader));
                                               
                                         reader.next();
                                     

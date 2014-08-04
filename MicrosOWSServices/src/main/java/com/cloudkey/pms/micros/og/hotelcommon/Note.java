@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Note
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.DescriptiveText localNoteText ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNoteTextTracker = false ;
+
+                           public boolean isNoteTextSpecified(){
+                               return localNoteTextTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param NoteText
                                */
                                public void setNoteText(com.cloudkey.pms.micros.og.common.DescriptiveText param){
-                            
+                            localNoteTextTracker = param != null;
+                                   
                                             this.localNoteText=param;
                                     
 
@@ -226,10 +238,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localNoteTitle is null");
-                                      }
-                                    
                                                    if (true) {
                                                
                                                 writeAttribute("",
@@ -242,13 +250,13 @@
                                       else {
                                           throw new org.apache.axis2.databinding.ADBException("required attribute localInternalNote is null");
                                       }
-                                    
+                                     if (localNoteTextTracker){
                                             if (localNoteText==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NoteText cannot be null!!");
                                             }
                                            localNoteText.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","NoteText"),
                                                xmlWriter);
-                                         if (localNoteIDTracker){
+                                        } if (localNoteIDTracker){
                                             if (localNoteID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NoteID cannot be null!!");
                                             }
@@ -262,7 +270,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -439,7 +447,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localNoteTextTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "NoteText"));
                             
@@ -448,7 +456,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("NoteText cannot be null!!");
                                     }
                                     elementList.add(localNoteText);
-                                 if (localNoteIDTracker){
+                                } if (localNoteIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "NoteID"));
                             
@@ -521,7 +529,7 @@
                             if (!"Note".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Note)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (Note)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -553,8 +561,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute noteTitle is missing");
-                           
                     }
                     handledAttributes.add("noteTitle");
                     
@@ -590,11 +596,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

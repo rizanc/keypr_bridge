@@ -17,12 +17,11 @@
         
         public  class InsertPayRoutingRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                "InsertPayRoutingRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = InsertPayRoutingRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase localReservationRequest ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReservationRequestTracker = false ;
+
+                           public boolean isReservationRequestSpecified(){
+                               return localReservationRequestTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param ReservationRequest
                                */
                                public void setReservationRequest(com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase param){
-                            
+                            localReservationRequestTracker = param != null;
+                                   
                                             this.localReservationRequest=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.PayRouting localPayRoutings ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPayRoutingsTracker = false ;
+
+                           public boolean isPayRoutingsSpecified(){
+                               return localPayRoutingsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param PayRoutings
                                */
                                public void setPayRoutings(com.cloudkey.pms.micros.og.reservation.advanced.PayRouting param){
-                            
+                            localPayRoutingsTracker = param != null;
+                                   
                                             this.localPayRoutings=param;
                                     
 
@@ -100,8 +123,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -143,19 +166,19 @@
 
                
                    }
-               
+                if (localReservationRequestTracker){
                                             if (localReservationRequest==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ReservationRequest cannot be null!!");
                                             }
                                            localReservationRequest.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationRequest"),
                                                xmlWriter);
-                                        
+                                        } if (localPayRoutingsTracker){
                                             if (localPayRoutings==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PayRoutings cannot be null!!");
                                             }
                                            localPayRoutings.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","PayRoutings"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localReservationRequestTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReservationRequest"));
                             
@@ -349,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ReservationRequest cannot be null!!");
                                     }
                                     elementList.add(localReservationRequest);
-                                
+                                } if (localPayRoutingsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "PayRoutings"));
                             
@@ -358,7 +381,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PayRoutings cannot be null!!");
                                     }
                                     elementList.add(localPayRoutings);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -412,7 +435,7 @@
                             if (!"InsertPayRoutingRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (InsertPayRoutingRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (InsertPayRoutingRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -445,11 +468,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -461,11 +483,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

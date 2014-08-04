@@ -17,12 +17,11 @@
         
         public  class PackageItemsRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "PackageItemsRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = PackageItemsRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localTimeSpan ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTimeSpanTracker = false ;
+
+                           public boolean isTimeSpanSpecified(){
+                               return localTimeSpanTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param TimeSpan
                                */
                                public void setTimeSpan(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localTimeSpanTracker = param != null;
+                                   
                                             this.localTimeSpan=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localResort ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResortTracker = false ;
+
+                           public boolean isResortSpecified(){
+                               return localResortTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param Resort
                                */
                                public void setResort(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localResortTracker = param != null;
+                                   
                                             this.localResort=param;
                                     
 
@@ -100,8 +123,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -143,19 +166,19 @@
 
                
                    }
-               
+                if (localTimeSpanTracker){
                                             if (localTimeSpan==null){
                                                  throw new org.apache.axis2.databinding.ADBException("TimeSpan cannot be null!!");
                                             }
                                            localTimeSpan.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","TimeSpan"),
                                                xmlWriter);
-                                        
+                                        } if (localResortTracker){
                                             if (localResort==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Resort cannot be null!!");
                                             }
                                            localResort.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","Resort"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localTimeSpanTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "TimeSpan"));
                             
@@ -349,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("TimeSpan cannot be null!!");
                                     }
                                     elementList.add(localTimeSpan);
-                                
+                                } if (localResortTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "Resort"));
                             
@@ -358,7 +381,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Resort cannot be null!!");
                                     }
                                     elementList.add(localResort);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -445,11 +468,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -461,11 +483,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

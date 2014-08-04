@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GuestCountList
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GuestCount[] localGuestCount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localGuestCountTracker = false ;
+
+                           public boolean isGuestCountSpecified(){
+                               return localGuestCountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -51,10 +62,6 @@
                                */
                               protected void validateGuestCount(com.cloudkey.pms.micros.og.hotelcommon.GuestCount[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -66,7 +73,8 @@
                               
                                    validateGuestCount(param);
 
-                               
+                               localGuestCountTracker = param != null;
+                                      
                                       this.localGuestCount=param;
                               }
 
@@ -81,6 +89,9 @@
                                    localGuestCount = new com.cloudkey.pms.micros.og.hotelcommon.GuestCount[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localGuestCountTracker = true;
                             
 
                                java.util.List list =
@@ -191,7 +202,7 @@
 
                                             
                                       }
-                                    
+                                     if (localGuestCountTracker){
                                        if (localGuestCount!=null){
                                             for (int i = 0;i < localGuestCount.length;i++){
                                                 if (localGuestCount[i] != null){
@@ -199,7 +210,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("GuestCount cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -209,7 +220,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("GuestCount cannot be null!!");
                                         
                                     }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -217,7 +228,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -394,7 +405,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localGuestCountTracker){
                              if (localGuestCount!=null) {
                                  for (int i = 0;i < localGuestCount.length;i++){
 
@@ -404,7 +415,7 @@
                                          elementList.add(localGuestCount[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("GuestCount cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -415,7 +426,7 @@
                                     
                              }
 
-                        
+                        }
                             attribList.add(
                             new javax.xml.namespace.QName("","isPerRoom"));
                             
@@ -556,11 +567,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

@@ -17,12 +17,11 @@
         
         public  class UpdateGuestCardRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "UpdateGuestCardRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = UpdateGuestCardRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.name.NameMembership localNameMembership ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNameMembershipTracker = false ;
+
+                           public boolean isNameMembershipSpecified(){
+                               return localNameMembershipTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param NameMembership
                                */
                                public void setNameMembership(com.cloudkey.pms.micros.og.name.NameMembership param){
-                            
+                            localNameMembershipTracker = param != null;
+                                   
                                             this.localNameMembership=param;
                                     
 
@@ -115,8 +126,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -158,13 +169,13 @@
 
                
                    }
-               
+                if (localNameMembershipTracker){
                                             if (localNameMembership==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameMembership cannot be null!!");
                                             }
                                            localNameMembership.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","NameMembership"),
                                                xmlWriter);
-                                         if (localReActivateMembershipTracker){
+                                        } if (localReActivateMembershipTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
                                     writeStartElement(null, namespace, "ReActivateMembership", xmlWriter);
                              
@@ -185,7 +196,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -362,7 +373,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localNameMembershipTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "NameMembership"));
                             
@@ -371,7 +382,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameMembership cannot be null!!");
                                     }
                                     elementList.add(localNameMembership);
-                                 if (localReActivateMembershipTracker){
+                                } if (localReActivateMembershipTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "ReActivateMembership"));
                                  
@@ -464,11 +475,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

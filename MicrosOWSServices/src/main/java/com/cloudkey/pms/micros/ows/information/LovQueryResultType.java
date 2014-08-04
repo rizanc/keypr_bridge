@@ -20,36 +20,36 @@
         /* This type was generated from the piece of schema that had
                 name = LovQueryResultType
                 Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
                         /**
-                        * field for LovQueryResultTypeSequence
+                        * field for LovValue
                         * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[] localLovQueryResultTypeSequence ;
+                                    protected com.cloudkey.pms.micros.ows.information.LovValueType[] localLovValue ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localLovQueryResultTypeSequenceTracker = false ;
+                           protected boolean localLovValueTracker = false ;
 
-                           public boolean isLovQueryResultTypeSequenceSpecified(){
-                               return localLovQueryResultTypeSequenceTracker;
+                           public boolean isLovValueSpecified(){
+                               return localLovValueTracker;
                            }
 
                            
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[]
+                           * @return com.cloudkey.pms.micros.ows.information.LovValueType[]
                            */
-                           public  com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[] getLovQueryResultTypeSequence(){
-                               return localLovQueryResultTypeSequence;
+                           public  com.cloudkey.pms.micros.ows.information.LovValueType[] getLovValue(){
+                               return localLovValue;
                            }
 
                            
@@ -58,48 +58,48 @@
 
                                
                               /**
-                               * validate the array for LovQueryResultTypeSequence
+                               * validate the array for LovValue
                                */
-                              protected void validateLovQueryResultTypeSequence(com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[] param){
+                              protected void validateLovValue(com.cloudkey.pms.micros.ows.information.LovValueType[] param){
                              
                               }
 
 
                              /**
                               * Auto generated setter method
-                              * @param param LovQueryResultTypeSequence
+                              * @param param LovValue
                               */
-                              public void setLovQueryResultTypeSequence(com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[] param){
+                              public void setLovValue(com.cloudkey.pms.micros.ows.information.LovValueType[] param){
                               
-                                   validateLovQueryResultTypeSequence(param);
+                                   validateLovValue(param);
 
-                               localLovQueryResultTypeSequenceTracker = param != null;
+                               localLovValueTracker = param != null;
                                       
-                                      this.localLovQueryResultTypeSequence=param;
+                                      this.localLovValue=param;
                               }
 
                                
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence
+                             * @param param com.cloudkey.pms.micros.ows.information.LovValueType
                              */
-                             public void addLovQueryResultTypeSequence(com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence param){
-                                   if (localLovQueryResultTypeSequence == null){
-                                   localLovQueryResultTypeSequence = new com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[]{};
+                             public void addLovValue(com.cloudkey.pms.micros.ows.information.LovValueType param){
+                                   if (localLovValue == null){
+                                   localLovValue = new com.cloudkey.pms.micros.ows.information.LovValueType[]{};
                                    }
 
                             
                                  //update the setting tracker
-                                localLovQueryResultTypeSequenceTracker = true;
+                                localLovValueTracker = true;
                             
 
                                java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localLovQueryResultTypeSequence);
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localLovValue);
                                list.add(param);
-                               this.localLovQueryResultTypeSequence =
-                             (com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[])list.toArray(
-                            new com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[list.size()]);
+                               this.localLovValue =
+                             (com.cloudkey.pms.micros.ows.information.LovValueType[])list.toArray(
+                            new com.cloudkey.pms.micros.ows.information.LovValueType[list.size()]);
 
                              }
                              
@@ -562,12 +562,12 @@
 
                                             
                                       }
-                                     if (localLovQueryResultTypeSequenceTracker){
-                                     
-                                      if (localLovQueryResultTypeSequence!=null){
-                                            for (int i = 0;i < localLovQueryResultTypeSequence.length;i++){
-                                                if (localLovQueryResultTypeSequence[i] != null){
-                                                 localLovQueryResultTypeSequence[i].serialize(null,xmlWriter);
+                                     if (localLovValueTracker){
+                                       if (localLovValue!=null){
+                                            for (int i = 0;i < localLovValue.length;i++){
+                                                if (localLovValue[i] != null){
+                                                 localLovValue[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovValue"),
+                                                           xmlWriter);
                                                 } else {
                                                    
                                                         // we don't have to do any thing since minOccures is zero
@@ -576,8 +576,10 @@
 
                                             }
                                      } else {
-                                        throw new org.apache.axis2.databinding.ADBException("LovQueryResultTypeSequence cannot be null!!");
-                                     }
+                                        
+                                               throw new org.apache.axis2.databinding.ADBException("LovValue cannot be null!!");
+                                        
+                                    }
                                  }
                     xmlWriter.writeEndElement();
                
@@ -586,7 +588,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -763,14 +765,14 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localLovQueryResultTypeSequenceTracker){
-                             if (localLovQueryResultTypeSequence!=null) {
-                                 for (int i = 0;i < localLovQueryResultTypeSequence.length;i++){
+                 if (localLovValueTracker){
+                             if (localLovValue!=null) {
+                                 for (int i = 0;i < localLovValue.length;i++){
 
-                                    if (localLovQueryResultTypeSequence[i] != null){
+                                    if (localLovValue[i] != null){
                                          elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
-                                                                          "LovQueryResultTypeSequence"));
-                                         elementList.add(localLovQueryResultTypeSequence[i]);
+                                                                          "LovValue"));
+                                         elementList.add(localLovValue[i]);
                                     } else {
                                         
                                                 // nothing to do
@@ -780,7 +782,7 @@
                                  }
                              } else {
                                  
-                                        throw new org.apache.axis2.databinding.ADBException("LovQueryResultTypeSequence cannot be null!!");
+                                        throw new org.apache.axis2.databinding.ADBException("LovValue cannot be null!!");
                                     
                              }
 
@@ -1075,19 +1077,21 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                        
-                                         try{
-                                    
-                                    if (reader.isStartElement() ){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovValue").equals(reader.getName())){
                                 
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence.Factory.parse(reader));
+                                    list1.add(com.cloudkey.pms.micros.ows.information.LovValueType.Factory.parse(reader));
+                                                                
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
                                                         while(!loopDone1){
-
+                                                            // We should be at the end element, but make sure
+                                                            while (!reader.isEndElement())
+                                                                reader.next();
+                                                            // Step out of this element
+                                                            reader.next();
                                                             // Step to next element event.
                                                             while (!reader.isStartElement() && !reader.isEndElement())
                                                                 reader.next();
@@ -1095,25 +1099,27 @@
                                                                 //two continuous end elements means we are exiting the xml structure
                                                                 loopDone1 = true;
                                                             } else {
-                                                                list1.add(com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence.Factory.parse(reader));
+                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovValue").equals(reader.getName())){
+                                                                    list1.add(com.cloudkey.pms.micros.ows.information.LovValueType.Factory.parse(reader));
+                                                                        
+                                                                }else{
+                                                                    loopDone1 = true;
+                                                                }
                                                             }
                                                         }
                                                         // call the converter utility  to convert and set the array
-                                                        object.setLovQueryResultTypeSequence((com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence[])
+                                                        
+                                                        object.setLovValue((com.cloudkey.pms.micros.ows.information.LovValueType[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.ows.information.LovQueryResultTypeSequence.class,
+                                                                com.cloudkey.pms.micros.ows.information.LovValueType.class,
                                                                 list1));
-
-                                                 
+                                                            
                               }  // End of if for expected property start element
                                 
                                     else {
                                         
                                     }
-                                
-                                
-                                 } catch (java.lang.Exception e) {}
-                              
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

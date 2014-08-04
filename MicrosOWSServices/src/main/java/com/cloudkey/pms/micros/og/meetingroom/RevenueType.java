@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RevenueType
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.Charge[] localBaseRate ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localBaseRateTracker = false ;
+
+                           public boolean isBaseRateSpecified(){
+                               return localBaseRateTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -51,10 +62,6 @@
                                */
                               protected void validateBaseRate(com.cloudkey.pms.micros.og.hotelcommon.Charge[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -66,7 +73,8 @@
                               
                                    validateBaseRate(param);
 
-                               
+                               localBaseRateTracker = param != null;
+                                      
                                       this.localBaseRate=param;
                               }
 
@@ -81,6 +89,9 @@
                                    localBaseRate = new com.cloudkey.pms.micros.og.hotelcommon.Charge[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localBaseRateTracker = true;
                             
 
                                java.util.List list =
@@ -378,10 +389,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRevenueCode is null");
-                                      }
-                                    
                                             if (localRevenueName != null){
                                         
                                                 writeAttribute("",
@@ -399,7 +406,7 @@
 
                                             
                                       }
-                                    
+                                     if (localBaseRateTracker){
                                        if (localBaseRate!=null){
                                             for (int i = 0;i < localBaseRate.length;i++){
                                                 if (localBaseRate[i] != null){
@@ -407,7 +414,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("BaseRate cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -417,7 +424,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("BaseRate cannot be null!!");
                                         
                                     }
-                                  if (localTaxesAndFeesTracker){
+                                 } if (localTaxesAndFeesTracker){
                                        if (localTaxesAndFees!=null){
                                             for (int i = 0;i < localTaxesAndFees.length;i++){
                                                 if (localTaxesAndFees[i] != null){
@@ -443,7 +450,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -620,7 +627,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localBaseRateTracker){
                              if (localBaseRate!=null) {
                                  for (int i = 0;i < localBaseRate.length;i++){
 
@@ -630,7 +637,7 @@
                                          elementList.add(localBaseRate[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("BaseRate cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -641,7 +648,7 @@
                                     
                              }
 
-                         if (localTaxesAndFeesTracker){
+                        } if (localTaxesAndFeesTracker){
                              if (localTaxesAndFees!=null) {
                                  for (int i = 0;i < localTaxesAndFees.length;i++){
 
@@ -736,7 +743,7 @@
                             if (!"RevenueType".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (RevenueType)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (RevenueType)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -786,8 +793,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute revenueCode is missing");
-                           
                     }
                     handledAttributes.add("revenueCode");
                     
@@ -872,11 +877,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

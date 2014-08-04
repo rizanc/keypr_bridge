@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Profile
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueIDList localProfileIDs ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUniqueID localProfileIDs ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUniqueID
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueIDList getProfileIDs(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID getProfileIDs(){
                                return localProfileIDs;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param ProfileIDs
                                */
-                               public void setProfileIDs(com.cloudkey.pms.micros.og.common.UniqueIDList param){
+                               public void setProfileIDs(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID param){
                             localProfileIDsTracker = param != null;
                                    
                                             this.localProfileIDs=param;
@@ -101,7 +101,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.NameCreditCardList localCreditCards ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard localCreditCards ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -117,9 +117,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameCreditCardList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard
                            */
-                           public  com.cloudkey.pms.micros.og.name.NameCreditCardList getCreditCards(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard getCreditCards(){
                                return localCreditCards;
                            }
 
@@ -129,7 +129,7 @@
                                * Auto generated setter method
                                * @param param CreditCards
                                */
-                               public void setCreditCards(com.cloudkey.pms.micros.og.name.NameCreditCardList param){
+                               public void setCreditCards(com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard param){
                             localCreditCardsTracker = param != null;
                                    
                                             this.localCreditCards=param;
@@ -143,7 +143,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.NameAddressList localAddresses ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfNameAddress localAddresses ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -159,9 +159,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameAddressList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfNameAddress
                            */
-                           public  com.cloudkey.pms.micros.og.name.NameAddressList getAddresses(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfNameAddress getAddresses(){
                                return localAddresses;
                            }
 
@@ -171,7 +171,7 @@
                                * Auto generated setter method
                                * @param param Addresses
                                */
-                               public void setAddresses(com.cloudkey.pms.micros.og.name.NameAddressList param){
+                               public void setAddresses(com.cloudkey.pms.micros.og.name.ArrayOfNameAddress param){
                             localAddressesTracker = param != null;
                                    
                                             this.localAddresses=param;
@@ -227,7 +227,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.NamePhoneList localPhones ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfNamePhone localPhones ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -243,9 +243,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NamePhoneList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfNamePhone
                            */
-                           public  com.cloudkey.pms.micros.og.name.NamePhoneList getPhones(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfNamePhone getPhones(){
                                return localPhones;
                            }
 
@@ -255,52 +255,10 @@
                                * Auto generated setter method
                                * @param param Phones
                                */
-                               public void setPhones(com.cloudkey.pms.micros.og.name.NamePhoneList param){
+                               public void setPhones(com.cloudkey.pms.micros.og.name.ArrayOfNamePhone param){
                             localPhonesTracker = param != null;
                                    
                                             this.localPhones=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for EMails
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.name.NameEmailList localEMails ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localEMailsTracker = false ;
-
-                           public boolean isEMailsSpecified(){
-                               return localEMailsTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameEmailList
-                           */
-                           public  com.cloudkey.pms.micros.og.name.NameEmailList getEMails(){
-                               return localEMails;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param EMails
-                               */
-                               public void setEMails(com.cloudkey.pms.micros.og.name.NameEmailList param){
-                            localEMailsTracker = param != null;
-                                   
-                                            this.localEMails=param;
                                     
 
                                }
@@ -311,7 +269,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.PreferenceList localPreferences ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfPreference localPreferences ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -327,9 +285,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.PreferenceList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfPreference
                            */
-                           public  com.cloudkey.pms.micros.og.name.PreferenceList getPreferences(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfPreference getPreferences(){
                                return localPreferences;
                            }
 
@@ -339,10 +297,52 @@
                                * Auto generated setter method
                                * @param param Preferences
                                */
-                               public void setPreferences(com.cloudkey.pms.micros.og.name.PreferenceList param){
+                               public void setPreferences(com.cloudkey.pms.micros.og.name.ArrayOfPreference param){
                             localPreferencesTracker = param != null;
                                    
                                             this.localPreferences=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for EMails
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfNameEmail localEMails ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEMailsTracker = false ;
+
+                           public boolean isEMailsSpecified(){
+                               return localEMailsTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfNameEmail
+                           */
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfNameEmail getEMails(){
+                               return localEMails;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param EMails
+                               */
+                               public void setEMails(com.cloudkey.pms.micros.og.name.ArrayOfNameEmail param){
+                            localEMailsTracker = param != null;
+                                   
+                                            this.localEMails=param;
                                     
 
                                }
@@ -353,7 +353,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.NameMembershipList localMemberships ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfNameMembership localMemberships ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -369,9 +369,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameMembershipList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfNameMembership
                            */
-                           public  com.cloudkey.pms.micros.og.name.NameMembershipList getMemberships(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfNameMembership getMemberships(){
                                return localMemberships;
                            }
 
@@ -381,7 +381,7 @@
                                * Auto generated setter method
                                * @param param Memberships
                                */
-                               public void setMemberships(com.cloudkey.pms.micros.og.name.NameMembershipList param){
+                               public void setMemberships(com.cloudkey.pms.micros.og.name.ArrayOfNameMembership param){
                             localMembershipsTracker = param != null;
                                    
                                             this.localMemberships=param;
@@ -395,7 +395,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.NegotiatedRateList localNegotiatedRates ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfNegotiatedRate localNegotiatedRates ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -411,9 +411,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NegotiatedRateList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfNegotiatedRate
                            */
-                           public  com.cloudkey.pms.micros.og.name.NegotiatedRateList getNegotiatedRates(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfNegotiatedRate getNegotiatedRates(){
                                return localNegotiatedRates;
                            }
 
@@ -423,7 +423,7 @@
                                * Auto generated setter method
                                * @param param NegotiatedRates
                                */
-                               public void setNegotiatedRates(com.cloudkey.pms.micros.og.name.NegotiatedRateList param){
+                               public void setNegotiatedRates(com.cloudkey.pms.micros.og.name.ArrayOfNegotiatedRate param){
                             localNegotiatedRatesTracker = param != null;
                                    
                                             this.localNegotiatedRates=param;
@@ -437,7 +437,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.CommentList localComments ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfComment localComments ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -453,9 +453,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.CommentList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfComment
                            */
-                           public  com.cloudkey.pms.micros.og.name.CommentList getComments(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfComment getComments(){
                                return localComments;
                            }
 
@@ -465,7 +465,7 @@
                                * Auto generated setter method
                                * @param param Comments
                                */
-                               public void setComments(com.cloudkey.pms.micros.og.name.CommentList param){
+                               public void setComments(com.cloudkey.pms.micros.og.name.ArrayOfComment param){
                             localCommentsTracker = param != null;
                                    
                                             this.localComments=param;
@@ -479,7 +479,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UserDefinedValueList localUserDefinedValues ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue localUserDefinedValues ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -495,9 +495,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UserDefinedValueList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue
                            */
-                           public  com.cloudkey.pms.micros.og.common.UserDefinedValueList getUserDefinedValues(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue getUserDefinedValues(){
                                return localUserDefinedValues;
                            }
 
@@ -507,7 +507,7 @@
                                * Auto generated setter method
                                * @param param UserDefinedValues
                                */
-                               public void setUserDefinedValues(com.cloudkey.pms.micros.og.common.UserDefinedValueList param){
+                               public void setUserDefinedValues(com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue param){
                             localUserDefinedValuesTracker = param != null;
                                    
                                             this.localUserDefinedValues=param;
@@ -521,7 +521,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.PrivacyList localPrivacy ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType localPrivacy ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -537,9 +537,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.PrivacyList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType
                            */
-                           public  com.cloudkey.pms.micros.og.name.PrivacyList getPrivacy(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType getPrivacy(){
                                return localPrivacy;
                            }
 
@@ -549,7 +549,7 @@
                                * Auto generated setter method
                                * @param param Privacy
                                */
-                               public void setPrivacy(com.cloudkey.pms.micros.og.name.PrivacyList param){
+                               public void setPrivacy(com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType param){
                             localPrivacyTracker = param != null;
                                    
                                             this.localPrivacy=param;
@@ -563,7 +563,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.UserGroup_type0 localUserGroup ;
+                                    protected com.cloudkey.pms.micros.og.name.ProfileUserGroup localUserGroup ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -579,9 +579,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.UserGroup_type0
+                           * @return com.cloudkey.pms.micros.og.name.ProfileUserGroup
                            */
-                           public  com.cloudkey.pms.micros.og.name.UserGroup_type0 getUserGroup(){
+                           public  com.cloudkey.pms.micros.og.name.ProfileUserGroup getUserGroup(){
                                return localUserGroup;
                            }
 
@@ -591,7 +591,7 @@
                                * Auto generated setter method
                                * @param param UserGroup
                                */
-                               public void setUserGroup(com.cloudkey.pms.micros.og.name.UserGroup_type0 param){
+                               public void setUserGroup(com.cloudkey.pms.micros.og.name.ProfileUserGroup param){
                             localUserGroupTracker = param != null;
                                    
                                             this.localUserGroup=param;
@@ -689,7 +689,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.KeyWordList localKeyWord ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfKeyWord localKeyWord ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -705,9 +705,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.KeyWordList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfKeyWord
                            */
-                           public  com.cloudkey.pms.micros.og.name.KeyWordList getKeyWord(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfKeyWord getKeyWord(){
                                return localKeyWord;
                            }
 
@@ -717,7 +717,7 @@
                                * Auto generated setter method
                                * @param param KeyWord
                                */
-                               public void setKeyWord(com.cloudkey.pms.micros.og.name.KeyWordList param){
+                               public void setKeyWord(com.cloudkey.pms.micros.og.name.ArrayOfKeyWord param){
                             localKeyWordTracker = param != null;
                                    
                                             this.localKeyWord=param;
@@ -731,7 +731,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList localFeatures ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature localFeatures ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -747,9 +747,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList getFeatures(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature getFeatures(){
                                return localFeatures;
                            }
 
@@ -759,7 +759,7 @@
                                * Auto generated setter method
                                * @param param Features
                                */
-                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList param){
+                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature param){
                             localFeaturesTracker = param != null;
                                    
                                             this.localFeatures=param;
@@ -1202,37 +1202,6 @@
                                }
                             
 
-                        /**
-                        * field for ProtectedBy
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localProtectedBy ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getProtectedBy(){
-                               return localProtectedBy;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ProtectedBy
-                               */
-                               public void setProtectedBy(java.lang.String param){
-                            
-                                            this.localProtectedBy=param;
-                                    
-
-                               }
-                            
-
      
      
         /**
@@ -1417,15 +1386,6 @@
 
                                             
                                       }
-                                    
-                                            if (localProtectedBy != null){
-                                        
-                                                writeAttribute("",
-                                                         "protectedBy",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localProtectedBy), xmlWriter);
-
-                                            
-                                      }
                                      if (localProfileIDsTracker){
                                             if (localProfileIDs==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ProfileIDs cannot be null!!");
@@ -1461,17 +1421,17 @@
                                             }
                                            localPhones.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Phones"),
                                                xmlWriter);
-                                        } if (localEMailsTracker){
-                                            if (localEMails==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("EMails cannot be null!!");
-                                            }
-                                           localEMails.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","EMails"),
-                                               xmlWriter);
                                         } if (localPreferencesTracker){
                                             if (localPreferences==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Preferences cannot be null!!");
                                             }
                                            localPreferences.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Preferences"),
+                                               xmlWriter);
+                                        } if (localEMailsTracker){
+                                            if (localEMails==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("EMails cannot be null!!");
+                                            }
+                                           localEMails.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","EMails"),
                                                xmlWriter);
                                         } if (localMembershipsTracker){
                                             if (localMemberships==null){
@@ -1541,7 +1501,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1772,15 +1732,6 @@
                                          throw new org.apache.axis2.databinding.ADBException("Phones cannot be null!!");
                                     }
                                     elementList.add(localPhones);
-                                } if (localEMailsTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "EMails"));
-                            
-                            
-                                    if (localEMails==null){
-                                         throw new org.apache.axis2.databinding.ADBException("EMails cannot be null!!");
-                                    }
-                                    elementList.add(localEMails);
                                 } if (localPreferencesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "Preferences"));
@@ -1790,6 +1741,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("Preferences cannot be null!!");
                                     }
                                     elementList.add(localPreferences);
+                                } if (localEMailsTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
+                                                                      "EMails"));
+                            
+                            
+                                    if (localEMails==null){
+                                         throw new org.apache.axis2.databinding.ADBException("EMails cannot be null!!");
+                                    }
+                                    elementList.add(localEMails);
                                 } if (localMembershipsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "Memberships"));
@@ -1951,11 +1911,6 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCustomerValue));
                                 
-                            attribList.add(
-                            new javax.xml.namespace.QName("","protectedBy"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localProtectedBy));
-                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -2009,7 +1964,7 @@
                             if (!"Profile".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Profile)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Profile)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -2252,22 +2207,6 @@
                     }
                     handledAttributes.add("customerValue");
                     
-                    // handle attribute "protectedBy"
-                    java.lang.String tempAttribProtectedBy =
-                        
-                                reader.getAttributeValue(null,"protectedBy");
-                            
-                   if (tempAttribProtectedBy!=null){
-                         java.lang.String content = tempAttribProtectedBy;
-                        
-                                                 object.setProtectedBy(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribProtectedBy));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("protectedBy");
-                    
                     
                     reader.next();
                 
@@ -2276,7 +2215,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","ProfileIDs").equals(reader.getName())){
                                 
-                                                object.setProfileIDs(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setProfileIDs(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2300,7 +2239,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","CreditCards").equals(reader.getName())){
                                 
-                                                object.setCreditCards(com.cloudkey.pms.micros.og.name.NameCreditCardList.Factory.parse(reader));
+                                                object.setCreditCards(com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2315,7 +2254,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Addresses").equals(reader.getName())){
                                 
-                                                object.setAddresses(com.cloudkey.pms.micros.og.name.NameAddressList.Factory.parse(reader));
+                                                object.setAddresses(com.cloudkey.pms.micros.og.name.ArrayOfNameAddress.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2345,22 +2284,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Phones").equals(reader.getName())){
                                 
-                                                object.setPhones(com.cloudkey.pms.micros.og.name.NamePhoneList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","EMails").equals(reader.getName())){
-                                
-                                                object.setEMails(com.cloudkey.pms.micros.og.name.NameEmailList.Factory.parse(reader));
+                                                object.setPhones(com.cloudkey.pms.micros.og.name.ArrayOfNamePhone.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2375,7 +2299,22 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Preferences").equals(reader.getName())){
                                 
-                                                object.setPreferences(com.cloudkey.pms.micros.og.name.PreferenceList.Factory.parse(reader));
+                                                object.setPreferences(com.cloudkey.pms.micros.og.name.ArrayOfPreference.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","EMails").equals(reader.getName())){
+                                
+                                                object.setEMails(com.cloudkey.pms.micros.og.name.ArrayOfNameEmail.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2390,7 +2329,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Memberships").equals(reader.getName())){
                                 
-                                                object.setMemberships(com.cloudkey.pms.micros.og.name.NameMembershipList.Factory.parse(reader));
+                                                object.setMemberships(com.cloudkey.pms.micros.og.name.ArrayOfNameMembership.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2405,7 +2344,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","NegotiatedRates").equals(reader.getName())){
                                 
-                                                object.setNegotiatedRates(com.cloudkey.pms.micros.og.name.NegotiatedRateList.Factory.parse(reader));
+                                                object.setNegotiatedRates(com.cloudkey.pms.micros.og.name.ArrayOfNegotiatedRate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2420,7 +2359,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Comments").equals(reader.getName())){
                                 
-                                                object.setComments(com.cloudkey.pms.micros.og.name.CommentList.Factory.parse(reader));
+                                                object.setComments(com.cloudkey.pms.micros.og.name.ArrayOfComment.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2435,7 +2374,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","UserDefinedValues").equals(reader.getName())){
                                 
-                                                object.setUserDefinedValues(com.cloudkey.pms.micros.og.common.UserDefinedValueList.Factory.parse(reader));
+                                                object.setUserDefinedValues(com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2450,7 +2389,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Privacy").equals(reader.getName())){
                                 
-                                                object.setPrivacy(com.cloudkey.pms.micros.og.name.PrivacyList.Factory.parse(reader));
+                                                object.setPrivacy(com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2465,7 +2404,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","UserGroup").equals(reader.getName())){
                                 
-                                                object.setUserGroup(com.cloudkey.pms.micros.og.name.UserGroup_type0.Factory.parse(reader));
+                                                object.setUserGroup(com.cloudkey.pms.micros.og.name.ProfileUserGroup.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2510,7 +2449,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","KeyWord").equals(reader.getName())){
                                 
-                                                object.setKeyWord(com.cloudkey.pms.micros.og.name.KeyWordList.Factory.parse(reader));
+                                                object.setKeyWord(com.cloudkey.pms.micros.og.name.ArrayOfKeyWord.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2525,7 +2464,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Features").equals(reader.getName())){
                                 
-                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader));
+                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature.Factory.parse(reader));
                                               
                                         reader.next();
                                     

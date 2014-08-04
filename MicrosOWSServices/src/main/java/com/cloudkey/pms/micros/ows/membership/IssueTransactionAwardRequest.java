@@ -21,39 +21,9 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Membership.wsdl",
                 "IssueTransactionAwardRequest",
-                "ns6");
+                "ns3");
 
             
-
-                        /**
-                        * field for MembershipID
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.common.UniqueID localMembershipID ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueID
-                           */
-                           public  com.cloudkey.pms.micros.og.common.UniqueID getMembershipID(){
-                               return localMembershipID;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param MembershipID
-                               */
-                               public void setMembershipID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
-                                            this.localMembershipID=param;
-                                    
-
-                               }
-                            
 
                         /**
                         * field for IssueTransactionAwardDetails
@@ -62,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.membership.IssueTransactionAwardDetails localIssueTransactionAwardDetails ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localIssueTransactionAwardDetailsTracker = false ;
+
+                           public boolean isIssueTransactionAwardDetailsSpecified(){
+                               return localIssueTransactionAwardDetailsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,8 +59,51 @@
                                * @param param IssueTransactionAwardDetails
                                */
                                public void setIssueTransactionAwardDetails(com.cloudkey.pms.micros.og.membership.IssueTransactionAwardDetails param){
-                            
+                            localIssueTransactionAwardDetailsTracker = param != null;
+                                   
                                             this.localIssueTransactionAwardDetails=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for MembershipID
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.common.UniqueID localMembershipID ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipIDTracker = false ;
+
+                           public boolean isMembershipIDSpecified(){
+                               return localMembershipIDTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.common.UniqueID
+                           */
+                           public  com.cloudkey.pms.micros.og.common.UniqueID getMembershipID(){
+                               return localMembershipID;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param MembershipID
+                               */
+                               public void setMembershipID(com.cloudkey.pms.micros.og.common.UniqueID param){
+                            localMembershipIDTracker = param != null;
+                                   
+                                            this.localMembershipID=param;
                                     
 
                                }
@@ -143,19 +167,19 @@
 
                
                    }
-               
-                                            if (localMembershipID==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("MembershipID cannot be null!!");
-                                            }
-                                           localMembershipID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","MembershipID"),
-                                               xmlWriter);
-                                        
+                if (localIssueTransactionAwardDetailsTracker){
                                             if (localIssueTransactionAwardDetails==null){
                                                  throw new org.apache.axis2.databinding.ADBException("IssueTransactionAwardDetails cannot be null!!");
                                             }
                                            localIssueTransactionAwardDetails.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","IssueTransactionAwardDetails"),
                                                xmlWriter);
-                                        
+                                        } if (localMembershipIDTracker){
+                                            if (localMembershipID==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("MembershipID cannot be null!!");
+                                            }
+                                           localMembershipID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","MembershipID"),
+                                               xmlWriter);
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +187,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Membership.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,16 +364,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
-                                                                      "MembershipID"));
-                            
-                            
-                                    if (localMembershipID==null){
-                                         throw new org.apache.axis2.databinding.ADBException("MembershipID cannot be null!!");
-                                    }
-                                    elementList.add(localMembershipID);
-                                
+                 if (localIssueTransactionAwardDetailsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
                                                                       "IssueTransactionAwardDetails"));
                             
@@ -358,7 +373,16 @@
                                          throw new org.apache.axis2.databinding.ADBException("IssueTransactionAwardDetails cannot be null!!");
                                     }
                                     elementList.add(localIssueTransactionAwardDetails);
-                                
+                                } if (localMembershipIDTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
+                                                                      "MembershipID"));
+                            
+                            
+                                    if (localMembershipID==null){
+                                         throw new org.apache.axis2.databinding.ADBException("MembershipID cannot be null!!");
+                                    }
+                                    elementList.add(localMembershipID);
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -437,22 +461,6 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","MembershipID").equals(reader.getName())){
-                                
-                                                object.setMembershipID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","IssueTransactionAwardDetails").equals(reader.getName())){
                                 
                                                 object.setIssueTransactionAwardDetails(com.cloudkey.pms.micros.og.membership.IssueTransactionAwardDetails.Factory.parse(reader));
@@ -461,11 +469,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","MembershipID").equals(reader.getName())){
+                                
+                                                object.setMembershipID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

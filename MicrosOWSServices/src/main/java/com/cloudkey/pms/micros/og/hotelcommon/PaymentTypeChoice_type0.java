@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PaymentTypeChoice_type0
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -30,9 +30,9 @@
             
                    localPaymentCardTracker = false;
                 
-                   localPaymentVoucherTracker = false;
-                
                    localOtherPaymentTracker = false;
+                
+                   localPaymentVoucherTracker = false;
                 
             }
         
@@ -82,50 +82,6 @@
                             
 
                         /**
-                        * field for PaymentVoucher
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.Voucher localPaymentVoucher ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPaymentVoucherTracker = false ;
-
-                           public boolean isPaymentVoucherSpecified(){
-                               return localPaymentVoucherTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.Voucher
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.Voucher getPaymentVoucher(){
-                               return localPaymentVoucher;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PaymentVoucher
-                               */
-                               public void setPaymentVoucher(com.cloudkey.pms.micros.og.hotelcommon.Voucher param){
-                            
-                                clearAllSettingTrackers();
-                            localPaymentVoucherTracker = param != null;
-                                   
-                                            this.localPaymentVoucher=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for OtherPayment
                         */
 
@@ -164,6 +120,50 @@
                             localOtherPaymentTracker = param != null;
                                    
                                             this.localOtherPayment=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for PaymentVoucher
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.Voucher localPaymentVoucher ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPaymentVoucherTracker = false ;
+
+                           public boolean isPaymentVoucherSpecified(){
+                               return localPaymentVoucherTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.Voucher
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.Voucher getPaymentVoucher(){
+                               return localPaymentVoucher;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param PaymentVoucher
+                               */
+                               public void setPaymentVoucher(com.cloudkey.pms.micros.og.hotelcommon.Voucher param){
+                            
+                                clearAllSettingTrackers();
+                            localPaymentVoucherTracker = param != null;
+                                   
+                                            this.localPaymentVoucher=param;
                                     
 
                                }
@@ -228,17 +228,17 @@
                                             }
                                            localPaymentCard.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentCard"),
                                                xmlWriter);
-                                        } if (localPaymentVoucherTracker){
-                                            if (localPaymentVoucher==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("PaymentVoucher cannot be null!!");
-                                            }
-                                           localPaymentVoucher.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentVoucher"),
-                                               xmlWriter);
                                         } if (localOtherPaymentTracker){
                                             if (localOtherPayment==null){
                                                  throw new org.apache.axis2.databinding.ADBException("OtherPayment cannot be null!!");
                                             }
                                            localOtherPayment.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","OtherPayment"),
+                                               xmlWriter);
+                                        } if (localPaymentVoucherTracker){
+                                            if (localPaymentVoucher==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("PaymentVoucher cannot be null!!");
+                                            }
+                                           localPaymentVoucher.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentVoucher"),
                                                xmlWriter);
                                         }
 
@@ -246,7 +246,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -432,15 +432,6 @@
                                          throw new org.apache.axis2.databinding.ADBException("PaymentCard cannot be null!!");
                                     }
                                     elementList.add(localPaymentCard);
-                                } if (localPaymentVoucherTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "PaymentVoucher"));
-                            
-                            
-                                    if (localPaymentVoucher==null){
-                                         throw new org.apache.axis2.databinding.ADBException("PaymentVoucher cannot be null!!");
-                                    }
-                                    elementList.add(localPaymentVoucher);
                                 } if (localOtherPaymentTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "OtherPayment"));
@@ -450,6 +441,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("OtherPayment cannot be null!!");
                                     }
                                     elementList.add(localOtherPayment);
+                                } if (localPaymentVoucherTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
+                                                                      "PaymentVoucher"));
+                            
+                            
+                                    if (localPaymentVoucher==null){
+                                         throw new org.apache.axis2.databinding.ADBException("PaymentVoucher cannot be null!!");
+                                    }
+                                    elementList.add(localPaymentVoucher);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -507,9 +507,9 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentVoucher").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","OtherPayment").equals(reader.getName())){
                                 
-                                                object.setPaymentVoucher(com.cloudkey.pms.micros.og.hotelcommon.Voucher.Factory.parse(reader));
+                                                object.setOtherPayment(com.cloudkey.pms.micros.og.hotelcommon.OtherPaymentType.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -517,9 +517,9 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","OtherPayment").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentVoucher").equals(reader.getName())){
                                 
-                                                object.setOtherPayment(com.cloudkey.pms.micros.og.hotelcommon.OtherPaymentType.Factory.parse(reader));
+                                                object.setPaymentVoucher(com.cloudkey.pms.micros.og.hotelcommon.Voucher.Factory.parse(reader));
                                               
                                         reader.next();
                                     

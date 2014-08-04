@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = AvailableProperty
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -102,7 +114,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[] localFunctionSpace ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[] localFunctionSpace ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -118,9 +130,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[]
+                           * @return com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[]
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[] getFunctionSpace(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[] getFunctionSpace(){
                                return localFunctionSpace;
                            }
 
@@ -132,7 +144,7 @@
                               /**
                                * validate the array for FunctionSpace
                                */
-                              protected void validateFunctionSpace(com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[] param){
+                              protected void validateFunctionSpace(com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[] param){
                              
                               }
 
@@ -141,7 +153,7 @@
                               * Auto generated setter method
                               * @param param FunctionSpace
                               */
-                              public void setFunctionSpace(com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[] param){
+                              public void setFunctionSpace(com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[] param){
                               
                                    validateFunctionSpace(param);
 
@@ -154,11 +166,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0
+                             * @param param com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace
                              */
-                             public void addFunctionSpace(com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0 param){
+                             public void addFunctionSpace(com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace param){
                                    if (localFunctionSpace == null){
-                                   localFunctionSpace = new com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[]{};
+                                   localFunctionSpace = new com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[]{};
                                    }
 
                             
@@ -170,8 +182,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localFunctionSpace);
                                list.add(param);
                                this.localFunctionSpace =
-                             (com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[])list.toArray(
+                            new com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[list.size()]);
 
                              }
                              
@@ -400,13 +412,13 @@
 
                                             
                                       }
-                                    
+                                     if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","HotelReference"),
                                                xmlWriter);
-                                         if (localPropertyStatusTracker){
+                                        } if (localPropertyStatusTracker){
                                             if (localPropertyStatus==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PropertyStatus cannot be null!!");
                                             }
@@ -468,7 +480,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -645,7 +657,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "HotelReference"));
                             
@@ -654,7 +666,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                 if (localPropertyStatusTracker){
+                                } if (localPropertyStatusTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "PropertyStatus"));
                             
@@ -770,7 +782,7 @@
                             if (!"AvailableProperty".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (AvailableProperty)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (AvailableProperty)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -821,11 +833,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -849,7 +860,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0.Factory.parse(reader));
+                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone3 = false;
@@ -867,7 +878,7 @@
                                                                 loopDone3 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","FunctionSpace").equals(reader.getName())){
-                                                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0.Factory.parse(reader));
+                                                                    list3.add(com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone3 = true;
@@ -876,9 +887,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setFunctionSpace((com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0[])
+                                                        object.setFunctionSpace((com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.meetingroom.FunctionSpace_type0.class,
+                                                                com.cloudkey.pms.micros.og.meetingroom.AvailablePropertyFunctionSpace.class,
                                                                 list3));
                                                             
                               }  // End of if for expected property start element

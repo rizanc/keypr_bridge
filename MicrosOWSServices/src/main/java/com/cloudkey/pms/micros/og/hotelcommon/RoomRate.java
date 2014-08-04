@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RoomRate
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RateList localRates ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRate localRates ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RateList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRate
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RateList getRates(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRate getRates(){
                                return localRates;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param Rates
                                */
-                               public void setRates(com.cloudkey.pms.micros.og.hotelcommon.RateList param){
+                               public void setRates(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRate param){
                             localRatesTracker = param != null;
                                    
                                             this.localRates=param;
@@ -151,48 +151,6 @@
                             
 
                         /**
-                        * field for GDSTotalPricing
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing localGDSTotalPricing ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localGDSTotalPricingTracker = false ;
-
-                           public boolean isGDSTotalPricingSpecified(){
-                               return localGDSTotalPricingTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing getGDSTotalPricing(){
-                               return localGDSTotalPricing;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param GDSTotalPricing
-                               */
-                               public void setGDSTotalPricing(com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing param){
-                            localGDSTotalPricingTracker = param != null;
-                                   
-                                            this.localGDSTotalPricing=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for TotalPoints
                         */
 
@@ -238,11 +196,53 @@
                             
 
                         /**
+                        * field for GdsTotalPricing
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing localGdsTotalPricing ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localGdsTotalPricingTracker = false ;
+
+                           public boolean isGdsTotalPricingSpecified(){
+                               return localGdsTotalPricingTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing getGdsTotalPricing(){
+                               return localGdsTotalPricing;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param GdsTotalPricing
+                               */
+                               public void setGdsTotalPricing(com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing param){
+                            localGdsTotalPricingTracker = param != null;
+                                   
+                                            this.localGdsTotalPricing=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for Packages
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PackageElementList localPackages ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement localPackages ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -258,9 +258,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PackageElementList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PackageElementList getPackages(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement getPackages(){
                                return localPackages;
                            }
 
@@ -270,7 +270,7 @@
                                * Auto generated setter method
                                * @param param Packages
                                */
-                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList param){
+                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement param){
                             localPackagesTracker = param != null;
                                    
                                             this.localPackages=param;
@@ -595,10 +595,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRoomTypeCode is null");
-                                      }
-                                    
                                             if (localRatePlanCode != null){
                                         
                                                 writeAttribute("",
@@ -679,12 +675,6 @@
                                             }
                                            localTotal.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Total"),
                                                xmlWriter);
-                                        } if (localGDSTotalPricingTracker){
-                                            if (localGDSTotalPricing==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("GDSTotalPricing cannot be null!!");
-                                            }
-                                           localGDSTotalPricing.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GDSTotalPricing"),
-                                               xmlWriter);
                                         } if (localTotalPointsTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "TotalPoints", xmlWriter);
@@ -698,7 +688,13 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localPackagesTracker){
+                             } if (localGdsTotalPricingTracker){
+                                            if (localGdsTotalPricing==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("GdsTotalPricing cannot be null!!");
+                                            }
+                                           localGdsTotalPricing.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GdsTotalPricing"),
+                                               xmlWriter);
+                                        } if (localPackagesTracker){
                                             if (localPackages==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Packages cannot be null!!");
                                             }
@@ -712,7 +708,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -916,22 +912,22 @@
                                          throw new org.apache.axis2.databinding.ADBException("Total cannot be null!!");
                                     }
                                     elementList.add(localTotal);
-                                } if (localGDSTotalPricingTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "GDSTotalPricing"));
-                            
-                            
-                                    if (localGDSTotalPricing==null){
-                                         throw new org.apache.axis2.databinding.ADBException("GDSTotalPricing cannot be null!!");
-                                    }
-                                    elementList.add(localGDSTotalPricing);
                                 } if (localTotalPointsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "TotalPoints"));
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTotalPoints));
-                            } if (localPackagesTracker){
+                            } if (localGdsTotalPricingTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
+                                                                      "GdsTotalPricing"));
+                            
+                            
+                                    if (localGdsTotalPricing==null){
+                                         throw new org.apache.axis2.databinding.ADBException("GdsTotalPricing cannot be null!!");
+                                    }
+                                    elementList.add(localGdsTotalPricing);
+                                } if (localPackagesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Packages"));
                             
@@ -1066,8 +1062,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute roomTypeCode is missing");
-                           
                     }
                     handledAttributes.add("roomTypeCode");
                     
@@ -1191,7 +1185,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Rates").equals(reader.getName())){
                                 
-                                                object.setRates(com.cloudkey.pms.micros.og.hotelcommon.RateList.Factory.parse(reader));
+                                                object.setRates(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1234,21 +1228,6 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GDSTotalPricing").equals(reader.getName())){
-                                
-                                                object.setGDSTotalPricing(com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","TotalPoints").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -1275,9 +1254,24 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GdsTotalPricing").equals(reader.getName())){
+                                
+                                                object.setGdsTotalPricing(com.cloudkey.pms.micros.og.hotelcommon.GdsTotalPricing.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Packages").equals(reader.getName())){
                                 
-                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList.Factory.parse(reader));
+                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     

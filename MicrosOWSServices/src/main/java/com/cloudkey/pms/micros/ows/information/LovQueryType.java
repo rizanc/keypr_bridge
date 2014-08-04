@@ -20,36 +20,36 @@
         /* This type was generated from the piece of schema that had
                 name = LovQueryType
                 Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
                         /**
-                        * field for LovQueryTypeSequence
+                        * field for LovQueryQualifier
                         * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[] localLovQueryTypeSequence ;
+                                    protected com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[] localLovQueryQualifier ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
                            *   in the serialized XML
                            */
-                           protected boolean localLovQueryTypeSequenceTracker = false ;
+                           protected boolean localLovQueryQualifierTracker = false ;
 
-                           public boolean isLovQueryTypeSequenceSpecified(){
-                               return localLovQueryTypeSequenceTracker;
+                           public boolean isLovQueryQualifierSpecified(){
+                               return localLovQueryQualifierTracker;
                            }
 
                            
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[]
+                           * @return com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[]
                            */
-                           public  com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[] getLovQueryTypeSequence(){
-                               return localLovQueryTypeSequence;
+                           public  com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[] getLovQueryQualifier(){
+                               return localLovQueryQualifier;
                            }
 
                            
@@ -58,48 +58,48 @@
 
                                
                               /**
-                               * validate the array for LovQueryTypeSequence
+                               * validate the array for LovQueryQualifier
                                */
-                              protected void validateLovQueryTypeSequence(com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[] param){
+                              protected void validateLovQueryQualifier(com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[] param){
                              
                               }
 
 
                              /**
                               * Auto generated setter method
-                              * @param param LovQueryTypeSequence
+                              * @param param LovQueryQualifier
                               */
-                              public void setLovQueryTypeSequence(com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[] param){
+                              public void setLovQueryQualifier(com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[] param){
                               
-                                   validateLovQueryTypeSequence(param);
+                                   validateLovQueryQualifier(param);
 
-                               localLovQueryTypeSequenceTracker = param != null;
+                               localLovQueryQualifierTracker = param != null;
                                       
-                                      this.localLovQueryTypeSequence=param;
+                                      this.localLovQueryQualifier=param;
                               }
 
                                
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence
+                             * @param param com.cloudkey.pms.micros.ows.information.LovQueryQualifierType
                              */
-                             public void addLovQueryTypeSequence(com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence param){
-                                   if (localLovQueryTypeSequence == null){
-                                   localLovQueryTypeSequence = new com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[]{};
+                             public void addLovQueryQualifier(com.cloudkey.pms.micros.ows.information.LovQueryQualifierType param){
+                                   if (localLovQueryQualifier == null){
+                                   localLovQueryQualifier = new com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[]{};
                                    }
 
                             
                                  //update the setting tracker
-                                localLovQueryTypeSequenceTracker = true;
+                                localLovQueryQualifierTracker = true;
                             
 
                                java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localLovQueryTypeSequence);
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localLovQueryQualifier);
                                list.add(param);
-                               this.localLovQueryTypeSequence =
-                             (com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[])list.toArray(
-                            new com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[list.size()]);
+                               this.localLovQueryQualifier =
+                             (com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[])list.toArray(
+                            new com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[list.size()]);
 
                              }
                              
@@ -162,12 +162,12 @@
 
                
                    }
-                if (localLovQueryTypeSequenceTracker){
-                                     
-                                      if (localLovQueryTypeSequence!=null){
-                                            for (int i = 0;i < localLovQueryTypeSequence.length;i++){
-                                                if (localLovQueryTypeSequence[i] != null){
-                                                 localLovQueryTypeSequence[i].serialize(null,xmlWriter);
+                if (localLovQueryQualifierTracker){
+                                       if (localLovQueryQualifier!=null){
+                                            for (int i = 0;i < localLovQueryQualifier.length;i++){
+                                                if (localLovQueryQualifier[i] != null){
+                                                 localLovQueryQualifier[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQueryQualifier"),
+                                                           xmlWriter);
                                                 } else {
                                                    
                                                         // we don't have to do any thing since minOccures is zero
@@ -176,8 +176,10 @@
 
                                             }
                                      } else {
-                                        throw new org.apache.axis2.databinding.ADBException("LovQueryTypeSequence cannot be null!!");
-                                     }
+                                        
+                                               throw new org.apache.axis2.databinding.ADBException("LovQueryQualifier cannot be null!!");
+                                        
+                                    }
                                  }
                     xmlWriter.writeEndElement();
                
@@ -186,7 +188,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -363,14 +365,14 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localLovQueryTypeSequenceTracker){
-                             if (localLovQueryTypeSequence!=null) {
-                                 for (int i = 0;i < localLovQueryTypeSequence.length;i++){
+                 if (localLovQueryQualifierTracker){
+                             if (localLovQueryQualifier!=null) {
+                                 for (int i = 0;i < localLovQueryQualifier.length;i++){
 
-                                    if (localLovQueryTypeSequence[i] != null){
+                                    if (localLovQueryQualifier[i] != null){
                                          elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
-                                                                          "LovQueryTypeSequence"));
-                                         elementList.add(localLovQueryTypeSequence[i]);
+                                                                          "LovQueryQualifier"));
+                                         elementList.add(localLovQueryQualifier[i]);
                                     } else {
                                         
                                                 // nothing to do
@@ -380,7 +382,7 @@
                                  }
                              } else {
                                  
-                                        throw new org.apache.axis2.databinding.ADBException("LovQueryTypeSequence cannot be null!!");
+                                        throw new org.apache.axis2.databinding.ADBException("LovQueryQualifier cannot be null!!");
                                     
                              }
 
@@ -465,19 +467,21 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                        
-                                         try{
-                                    
-                                    if (reader.isStartElement() ){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQueryQualifier").equals(reader.getName())){
                                 
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence.Factory.parse(reader));
+                                    list1.add(com.cloudkey.pms.micros.ows.information.LovQueryQualifierType.Factory.parse(reader));
+                                                                
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
                                                         while(!loopDone1){
-
+                                                            // We should be at the end element, but make sure
+                                                            while (!reader.isEndElement())
+                                                                reader.next();
+                                                            // Step out of this element
+                                                            reader.next();
                                                             // Step to next element event.
                                                             while (!reader.isStartElement() && !reader.isEndElement())
                                                                 reader.next();
@@ -485,25 +489,27 @@
                                                                 //two continuous end elements means we are exiting the xml structure
                                                                 loopDone1 = true;
                                                             } else {
-                                                                list1.add(com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence.Factory.parse(reader));
+                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQueryQualifier").equals(reader.getName())){
+                                                                    list1.add(com.cloudkey.pms.micros.ows.information.LovQueryQualifierType.Factory.parse(reader));
+                                                                        
+                                                                }else{
+                                                                    loopDone1 = true;
+                                                                }
                                                             }
                                                         }
                                                         // call the converter utility  to convert and set the array
-                                                        object.setLovQueryTypeSequence((com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence[])
+                                                        
+                                                        object.setLovQueryQualifier((com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.ows.information.LovQueryTypeSequence.class,
+                                                                com.cloudkey.pms.micros.ows.information.LovQueryQualifierType.class,
                                                                 list1));
-
-                                                 
+                                                            
                               }  // End of if for expected property start element
                                 
                                     else {
                                         
                                     }
-                                
-                                
-                                 } catch (java.lang.Exception e) {}
-                              
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

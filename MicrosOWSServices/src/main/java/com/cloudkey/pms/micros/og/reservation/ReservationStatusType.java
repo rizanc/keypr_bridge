@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/og/4.3/Reservation/",
                 "ReservationStatusType",
-                "ns6");
+                "ns5");
 
             
 
@@ -70,9 +70,6 @@
                                     public static final java.lang.String _WAITLISTED =
                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString("WAITLISTED");
                                 
-                                    public static final java.lang.String _CHECKEDIN =
-                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("CHECKEDIN");
-                                
                                     public static final java.lang.String _PRECHECKEDIN =
                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString("PRECHECKEDIN");
                                 
@@ -102,9 +99,6 @@
                             
                                 public static final ReservationStatusType WAITLISTED =
                                     new ReservationStatusType(_WAITLISTED,true);
-                            
-                                public static final ReservationStatusType CHECKEDIN =
-                                    new ReservationStatusType(_CHECKEDIN,true);
                             
                                 public static final ReservationStatusType PRECHECKEDIN =
                                     new ReservationStatusType(_PRECHECKEDIN,true);
@@ -196,7 +190,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }

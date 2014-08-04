@@ -17,12 +17,11 @@
         
         public  class GuestMessagesRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                "GuestMessagesRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = GuestMessagesRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase localReservationRequest ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReservationRequestTracker = false ;
+
+                           public boolean isReservationRequestSpecified(){
+                               return localReservationRequestTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param ReservationRequest
                                */
                                public void setReservationRequest(com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase param){
-                            
+                            localReservationRequestTracker = param != null;
+                                   
                                             this.localReservationRequest=param;
                                     
 
@@ -147,7 +158,7 @@
                         */
 
                         
-                                    protected org.apache.axiom.om.OMElement localActionType ;
+                                    protected java.lang.String localActionType ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -163,9 +174,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return org.apache.axiom.om.OMElement
+                           * @return java.lang.String
                            */
-                           public  org.apache.axiom.om.OMElement getActionType(){
+                           public  java.lang.String getActionType(){
                                return localActionType;
                            }
 
@@ -175,7 +186,7 @@
                                * Auto generated setter method
                                * @param param ActionType
                                */
-                               public void setActionType(org.apache.axiom.om.OMElement param){
+                               public void setActionType(java.lang.String param){
                             localActionTypeTracker = param != null;
                                    
                                             this.localActionType=param;
@@ -230,8 +241,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -282,13 +293,13 @@
 
                                             
                                       }
-                                    
+                                     if (localReservationRequestTracker){
                                             if (localReservationRequest==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ReservationRequest cannot be null!!");
                                             }
                                            localReservationRequest.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReservationRequest"),
                                                xmlWriter);
-                                         if (localReturnAllMessagesTracker){
+                                        } if (localReturnAllMessagesTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "ReturnAllMessages", xmlWriter);
                              
@@ -319,7 +330,8 @@
                                                   
                                           }else{
 
-                                        localActionType.serialize(xmlWriter);
+                                        
+                                                   xmlWriter.writeCharacters(localActionType);
                                             
                                           }
                                     
@@ -332,7 +344,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -509,7 +521,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localReservationRequestTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReservationRequest"));
                             
@@ -518,7 +530,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ReservationRequest cannot be null!!");
                                     }
                                     elementList.add(localReservationRequest);
-                                 if (localReturnAllMessagesTracker){
+                                } if (localReturnAllMessagesTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ReturnAllMessages"));
                                  
@@ -601,7 +613,7 @@
                             if (!"GuestMessagesRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (GuestMessagesRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (GuestMessagesRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -650,11 +662,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -697,7 +708,7 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                   if (reader.isStartElement()){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ActionType").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
@@ -707,11 +718,8 @@
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                                org.apache.axiom.om.OMFactory fac = org.apache.axiom.om.OMAbstractFactory.getOMFactory();
-                                                org.apache.axiom.om.OMNamespace omNs = fac.createOMNamespace("http://webservices.micros.com/og/4.3/ResvAdvanced/", "");
-                                                org.apache.axiom.om.OMElement _valueActionType = fac.createOMElement("ActionType", omNs);
-                                                _valueActionType.addChild(fac.createOMText(_valueActionType, content));
-                                                object.setActionType(_valueActionType);
+                                              object.setActionType(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     

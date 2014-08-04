@@ -17,12 +17,11 @@
         
         public  class RegionalAvailabilityRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "RegionalAvailabilityRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = RegionalAvailabilityRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -62,6 +61,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localStayDateRange ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localStayDateRangeTracker = false ;
+
+                           public boolean isStayDateRangeSpecified(){
+                               return localStayDateRangeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +88,8 @@
                                * @param param StayDateRange
                                */
                                public void setStayDateRange(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localStayDateRangeTracker = param != null;
+                                   
                                             this.localStayDateRange=param;
                                     
 
@@ -217,8 +228,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -265,13 +276,13 @@
                                                  throw new org.apache.axis2.databinding.ADBException("RegionalAvailabilityRequestChoice_type0 cannot be null!!");
                                             }
                                            localRegionalAvailabilityRequestChoice_type0.serialize(null,xmlWriter);
-                                        
+                                         if (localStayDateRangeTracker){
                                             if (localStayDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                             }
                                            localStayDateRange.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","StayDateRange"),
                                                xmlWriter);
-                                         if (localNumberOfRoomsTracker){
+                                        } if (localNumberOfRoomsTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
                                     writeStartElement(null, namespace, "NumberOfRooms", xmlWriter);
                              
@@ -311,7 +322,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -497,7 +508,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("RegionalAvailabilityRequestChoice_type0 cannot be null!!");
                                     }
                                     elementList.add(localRegionalAvailabilityRequestChoice_type0);
-                                
+                                 if (localStayDateRangeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "StayDateRange"));
                             
@@ -506,7 +517,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                     }
                                     elementList.add(localStayDateRange);
-                                 if (localNumberOfRoomsTracker){
+                                } if (localNumberOfRoomsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "NumberOfRooms"));
                                  
@@ -623,11 +634,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

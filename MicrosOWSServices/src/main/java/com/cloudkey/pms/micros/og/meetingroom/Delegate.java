@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Delegate
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localProfileID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProfileIDTracker = false ;
+
+                           public boolean isProfileIDSpecified(){
+                               return localProfileIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param ProfileID
                                */
                                public void setProfileID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localProfileIDTracker = param != null;
+                                   
                                             this.localProfileID=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localLastName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLastNameTracker = false ;
+
+                           public boolean isLastNameSpecified(){
+                               return localLastNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param LastName
                                */
                                public void setLastName(java.lang.String param){
-                            
+                            localLastNameTracker = param != null;
+                                   
                                             this.localLastName=param;
                                     
 
@@ -212,11 +236,10 @@
 
                         /**
                         * field for EventAttendeeStatus
-                        * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[] localEventAttendeeStatus ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.ArrayOfAttendeeStatus localEventAttendeeStatus ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -232,63 +255,26 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[]
+                           * @return com.cloudkey.pms.micros.og.meetingroom.ArrayOfAttendeeStatus
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[] getEventAttendeeStatus(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.ArrayOfAttendeeStatus getEventAttendeeStatus(){
                                return localEventAttendeeStatus;
                            }
 
                            
                         
-
-
-                               
-                              /**
-                               * validate the array for EventAttendeeStatus
+                            /**
+                               * Auto generated setter method
+                               * @param param EventAttendeeStatus
                                */
-                              protected void validateEventAttendeeStatus(com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[] param){
-                             
-                              }
+                               public void setEventAttendeeStatus(com.cloudkey.pms.micros.og.meetingroom.ArrayOfAttendeeStatus param){
+                            localEventAttendeeStatusTracker = param != null;
+                                   
+                                            this.localEventAttendeeStatus=param;
+                                    
 
-
-                             /**
-                              * Auto generated setter method
-                              * @param param EventAttendeeStatus
-                              */
-                              public void setEventAttendeeStatus(com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[] param){
-                              
-                                   validateEventAttendeeStatus(param);
-
-                               localEventAttendeeStatusTracker = param != null;
-                                      
-                                      this.localEventAttendeeStatus=param;
-                              }
-
-                               
-                             
-                             /**
-                             * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus
-                             */
-                             public void addEventAttendeeStatus(com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus param){
-                                   if (localEventAttendeeStatus == null){
-                                   localEventAttendeeStatus = new com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[]{};
-                                   }
-
+                               }
                             
-                                 //update the setting tracker
-                                localEventAttendeeStatusTracker = true;
-                            
-
-                               java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localEventAttendeeStatus);
-                               list.add(param);
-                               this.localEventAttendeeStatus =
-                             (com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[])list.toArray(
-                            new com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[list.size()]);
-
-                             }
-                             
 
      
      
@@ -348,13 +334,13 @@
 
                
                    }
-               
+                if (localProfileIDTracker){
                                             if (localProfileID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ProfileID cannot be null!!");
                                             }
                                            localProfileID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","ProfileID"),
                                                xmlWriter);
-                                        
+                                        } if (localLastNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/MeetingRoom/";
                                     writeStartElement(null, namespace, "LastName", xmlWriter);
                              
@@ -372,7 +358,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localFirstNameTracker){
+                             } if (localFirstNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/MeetingRoom/";
                                     writeStartElement(null, namespace, "FirstName", xmlWriter);
                              
@@ -427,24 +413,12 @@
                                     
                                    xmlWriter.writeEndElement();
                              } if (localEventAttendeeStatusTracker){
-                                       if (localEventAttendeeStatus!=null){
-                                            for (int i = 0;i < localEventAttendeeStatus.length;i++){
-                                                if (localEventAttendeeStatus[i] != null){
-                                                 localEventAttendeeStatus[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventAttendeeStatus"),
-                                                           xmlWriter);
-                                                } else {
-                                                   
-                                                        // we don't have to do any thing since minOccures is zero
-                                                    
-                                                }
-
+                                            if (localEventAttendeeStatus==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("EventAttendeeStatus cannot be null!!");
                                             }
-                                     } else {
-                                        
-                                               throw new org.apache.axis2.databinding.ADBException("EventAttendeeStatus cannot be null!!");
-                                        
-                                    }
-                                 }
+                                           localEventAttendeeStatus.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventAttendeeStatus"),
+                                               xmlWriter);
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -452,7 +426,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -629,7 +603,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localProfileIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "ProfileID"));
                             
@@ -638,7 +612,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ProfileID cannot be null!!");
                                     }
                                     elementList.add(localProfileID);
-                                
+                                } if (localLastNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "LastName"));
                                  
@@ -647,7 +621,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("LastName cannot be null!!");
                                         }
-                                     if (localFirstNameTracker){
+                                    } if (localFirstNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "FirstName"));
                                  
@@ -675,27 +649,15 @@
                                            throw new org.apache.axis2.databinding.ADBException("VipCode cannot be null!!");
                                         }
                                     } if (localEventAttendeeStatusTracker){
-                             if (localEventAttendeeStatus!=null) {
-                                 for (int i = 0;i < localEventAttendeeStatus.length;i++){
-
-                                    if (localEventAttendeeStatus[i] != null){
-                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
-                                                                          "EventAttendeeStatus"));
-                                         elementList.add(localEventAttendeeStatus[i]);
-                                    } else {
-                                        
-                                                // nothing to do
-                                            
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
+                                                                      "EventAttendeeStatus"));
+                            
+                            
+                                    if (localEventAttendeeStatus==null){
+                                         throw new org.apache.axis2.databinding.ADBException("EventAttendeeStatus cannot be null!!");
                                     }
-
-                                 }
-                             } else {
-                                 
-                                        throw new org.apache.axis2.databinding.ADBException("EventAttendeeStatus cannot be null!!");
-                                    
-                             }
-
-                        }
+                                    elementList.add(localEventAttendeeStatus);
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -749,7 +711,7 @@
                             if (!"Delegate".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Delegate)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (Delegate)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -771,8 +733,6 @@
                     
                     reader.next();
                 
-                        java.util.ArrayList list6 = new java.util.ArrayList();
-                    
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -784,11 +744,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -809,11 +768,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -891,41 +849,10 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventAttendeeStatus").equals(reader.getName())){
                                 
+                                                object.setEventAttendeeStatus(com.cloudkey.pms.micros.og.meetingroom.ArrayOfAttendeeStatus.Factory.parse(reader));
+                                              
+                                        reader.next();
                                     
-                                    
-                                    // Process the array and step past its final element's end.
-                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus.Factory.parse(reader));
-                                                                
-                                                        //loop until we find a start element that is not part of this array
-                                                        boolean loopDone6 = false;
-                                                        while(!loopDone6){
-                                                            // We should be at the end element, but make sure
-                                                            while (!reader.isEndElement())
-                                                                reader.next();
-                                                            // Step out of this element
-                                                            reader.next();
-                                                            // Step to next element event.
-                                                            while (!reader.isStartElement() && !reader.isEndElement())
-                                                                reader.next();
-                                                            if (reader.isEndElement()){
-                                                                //two continuous end elements means we are exiting the xml structure
-                                                                loopDone6 = true;
-                                                            } else {
-                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventAttendeeStatus").equals(reader.getName())){
-                                                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus.Factory.parse(reader));
-                                                                        
-                                                                }else{
-                                                                    loopDone6 = true;
-                                                                }
-                                                            }
-                                                        }
-                                                        // call the converter utility  to convert and set the array
-                                                        
-                                                        object.setEventAttendeeStatus((com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus[])
-                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.meetingroom.AttendeeStatus.class,
-                                                                list6));
-                                                            
                               }  // End of if for expected property start element
                                 
                                     else {

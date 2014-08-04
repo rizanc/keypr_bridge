@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PackageGroupElement
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -282,10 +282,6 @@
 
                                             
                                       }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localGroupCode is null");
-                                      }
                                      if (localDescriptionTracker){
                                        if (localDescription!=null){
                                             for (int i = 0;i < localDescription.length;i++){
@@ -330,7 +326,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -640,8 +636,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute groupCode is missing");
-                           
                     }
                     handledAttributes.add("groupCode");
                     

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = BillHeader
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns5
                 */
             
 
@@ -73,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.name.NativeName localName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNameTracker = false ;
+
+                           public boolean isNameSpecified(){
+                               return localNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -89,7 +100,8 @@
                                * @param param Name
                                */
                                public void setName(com.cloudkey.pms.micros.og.name.NativeName param){
-                            
+                            localNameTracker = param != null;
+                                   
                                             this.localName=param;
                                     
 
@@ -101,14 +113,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueIDList localProfileIDs ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUniqueID localProfileIDs ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProfileIDsTracker = false ;
+
+                           public boolean isProfileIDsSpecified(){
+                               return localProfileIDsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUniqueID
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueIDList getProfileIDs(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID getProfileIDs(){
                                return localProfileIDs;
                            }
 
@@ -118,8 +141,9 @@
                                * Auto generated setter method
                                * @param param ProfileIDs
                                */
-                               public void setProfileIDs(com.cloudkey.pms.micros.og.common.UniqueIDList param){
-                            
+                               public void setProfileIDs(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID param){
+                            localProfileIDsTracker = param != null;
+                                   
                                             this.localProfileIDs=param;
                                     
 
@@ -554,19 +578,19 @@
                                             }
                                            localAddress.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Address"),
                                                xmlWriter);
-                                        }
+                                        } if (localNameTracker){
                                             if (localName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
                                             }
                                            localName.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Name"),
                                                xmlWriter);
-                                        
+                                        } if (localProfileIDsTracker){
                                             if (localProfileIDs==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ProfileIDs cannot be null!!");
                                             }
                                            localProfileIDs.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ProfileIDs"),
                                                xmlWriter);
-                                         if (localBillNumberTracker){
+                                        } if (localBillNumberTracker){
                                             if (localBillNumber==null){
                                                  throw new org.apache.axis2.databinding.ADBException("BillNumber cannot be null!!");
                                             }
@@ -640,7 +664,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns7";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -826,7 +850,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Address cannot be null!!");
                                     }
                                     elementList.add(localAddress);
-                                }
+                                } if (localNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "Name"));
                             
@@ -835,7 +859,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
                                     }
                                     elementList.add(localName);
-                                
+                                } if (localProfileIDsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "ProfileIDs"));
                             
@@ -844,7 +868,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ProfileIDs cannot be null!!");
                                     }
                                     elementList.add(localProfileIDs);
-                                 if (localBillNumberTracker){
+                                } if (localBillNumberTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "BillNumber"));
                             
@@ -984,7 +1008,7 @@
                             if (!"BillHeader".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BillHeader)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (BillHeader)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1056,27 +1080,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ProfileIDs").equals(reader.getName())){
                                 
-                                                object.setProfileIDs(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setProfileIDs(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

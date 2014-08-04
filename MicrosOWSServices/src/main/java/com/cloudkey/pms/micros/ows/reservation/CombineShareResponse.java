@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                 "CombineShareResponse",
-                "ns7");
+                "ns3");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -60,7 +72,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.ShareReservationList localShareReservations ;
+                                    protected com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation localShareReservations ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -76,9 +88,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.ShareReservationList
+                           * @return com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.ShareReservationList getShareReservations(){
+                           public  com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation getShareReservations(){
                                return localShareReservations;
                            }
 
@@ -88,7 +100,7 @@
                                * Auto generated setter method
                                * @param param ShareReservations
                                */
-                               public void setShareReservations(com.cloudkey.pms.micros.og.reservation.ShareReservationList param){
+                               public void setShareReservations(com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation param){
                             localShareReservationsTracker = param != null;
                                    
                                             this.localShareReservations=param;
@@ -155,13 +167,13 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Result"),
                                                xmlWriter);
-                                         if (localShareReservationsTracker){
+                                        } if (localShareReservationsTracker){
                                             if (localShareReservations==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ShareReservations cannot be null!!");
                                             }
@@ -175,7 +187,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -352,7 +364,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "Result"));
                             
@@ -361,7 +373,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                 if (localShareReservationsTracker){
+                                } if (localShareReservationsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "ShareReservations"));
                             
@@ -457,17 +469,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","ShareReservations").equals(reader.getName())){
                                 
-                                                object.setShareReservations(com.cloudkey.pms.micros.og.reservation.ShareReservationList.Factory.parse(reader));
+                                                object.setShareReservations(com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation.Factory.parse(reader));
                                               
                                         reader.next();
                                     

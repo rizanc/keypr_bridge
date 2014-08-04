@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = CreditCardSurcharge
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns5
                 */
             
 
@@ -73,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localSurchargeAmount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localSurchargeAmountTracker = false ;
+
+                           public boolean isSurchargeAmountSpecified(){
+                               return localSurchargeAmountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -89,7 +100,8 @@
                                * @param param SurchargeAmount
                                */
                                public void setSurchargeAmount(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localSurchargeAmountTracker = param != null;
+                                   
                                             this.localSurchargeAmount=param;
                                     
 
@@ -145,6 +157,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localTotalBillAmount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTotalBillAmountTracker = false ;
+
+                           public boolean isTotalBillAmountSpecified(){
+                               return localTotalBillAmountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -161,7 +184,8 @@
                                * @param param TotalBillAmount
                                */
                                public void setTotalBillAmount(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localTotalBillAmountTracker = param != null;
+                                   
                                             this.localTotalBillAmount=param;
                                     
 
@@ -298,10 +322,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localCreditCardType is null");
-                                      }
-                                    
                                                    if (!java.lang.Float.isNaN(localSurchargePercentage)) {
                                                
                                                 writeAttribute("",
@@ -316,25 +336,25 @@
                                             }
                                            localSurchargeThreshold.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","SurchargeThreshold"),
                                                xmlWriter);
-                                        }
+                                        } if (localSurchargeAmountTracker){
                                             if (localSurchargeAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("SurchargeAmount cannot be null!!");
                                             }
                                            localSurchargeAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","SurchargeAmount"),
                                                xmlWriter);
-                                         if (localTaxAmountTracker){
+                                        } if (localTaxAmountTracker){
                                             if (localTaxAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("TaxAmount cannot be null!!");
                                             }
                                            localTaxAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","TaxAmount"),
                                                xmlWriter);
-                                        }
+                                        } if (localTotalBillAmountTracker){
                                             if (localTotalBillAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("TotalBillAmount cannot be null!!");
                                             }
                                            localTotalBillAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","TotalBillAmount"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -342,7 +362,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns7";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -528,7 +548,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("SurchargeThreshold cannot be null!!");
                                     }
                                     elementList.add(localSurchargeThreshold);
-                                }
+                                } if (localSurchargeAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "SurchargeAmount"));
                             
@@ -537,7 +557,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("SurchargeAmount cannot be null!!");
                                     }
                                     elementList.add(localSurchargeAmount);
-                                 if (localTaxAmountTracker){
+                                } if (localTaxAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "TaxAmount"));
                             
@@ -546,7 +566,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("TaxAmount cannot be null!!");
                                     }
                                     elementList.add(localTaxAmount);
-                                }
+                                } if (localTotalBillAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "TotalBillAmount"));
                             
@@ -555,7 +575,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("TotalBillAmount cannot be null!!");
                                     }
                                     elementList.add(localTotalBillAmount);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","CreditCardType"));
                             
@@ -619,7 +639,7 @@
                             if (!"CreditCardSurcharge".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (CreditCardSurcharge)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (CreditCardSurcharge)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -651,8 +671,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute CreditCardType is missing");
-                           
                     }
                     handledAttributes.add("CreditCardType");
                     
@@ -703,11 +721,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -734,11 +751,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

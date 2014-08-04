@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ChargesForTheDay
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.ChargeList localRoomRateAndPackages ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRoomRateAndPackagesTracker = false ;
+
+                           public boolean isRoomRateAndPackagesSpecified(){
+                               return localRoomRateAndPackagesTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param RoomRateAndPackages
                                */
                                public void setRoomRateAndPackages(com.cloudkey.pms.micros.og.hotelcommon.ChargeList param){
-                            
+                            localRoomRateAndPackagesTracker = param != null;
+                                   
                                             this.localRoomRateAndPackages=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.ChargeList localTaxesAndFees ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTaxesAndFeesTracker = false ;
+
+                           public boolean isTaxesAndFeesSpecified(){
+                               return localTaxesAndFeesTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param TaxesAndFees
                                */
                                public void setTaxesAndFees(com.cloudkey.pms.micros.og.hotelcommon.ChargeList param){
-                            
+                            localTaxesAndFeesTracker = param != null;
+                                   
                                             this.localTaxesAndFees=param;
                                     
 
@@ -264,19 +288,19 @@
 
                                             
                                       }
-                                    
+                                     if (localRoomRateAndPackagesTracker){
                                             if (localRoomRateAndPackages==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RoomRateAndPackages cannot be null!!");
                                             }
                                            localRoomRateAndPackages.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","RoomRateAndPackages"),
                                                xmlWriter);
-                                        
+                                        } if (localTaxesAndFeesTracker){
                                             if (localTaxesAndFees==null){
                                                  throw new org.apache.axis2.databinding.ADBException("TaxesAndFees cannot be null!!");
                                             }
                                            localTaxesAndFees.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","TaxesAndFees"),
                                                xmlWriter);
-                                         if (localFixedChargesTracker){
+                                        } if (localFixedChargesTracker){
                                             if (localFixedCharges==null){
                                                  throw new org.apache.axis2.databinding.ADBException("FixedCharges cannot be null!!");
                                             }
@@ -290,7 +314,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -467,7 +491,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localRoomRateAndPackagesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "RoomRateAndPackages"));
                             
@@ -476,7 +500,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("RoomRateAndPackages cannot be null!!");
                                     }
                                     elementList.add(localRoomRateAndPackages);
-                                
+                                } if (localTaxesAndFeesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "TaxesAndFees"));
                             
@@ -485,7 +509,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("TaxesAndFees cannot be null!!");
                                     }
                                     elementList.add(localTaxesAndFees);
-                                 if (localFixedChargesTracker){
+                                } if (localFixedChargesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "FixedCharges"));
                             
@@ -558,7 +582,7 @@
                             if (!"ChargesForTheDay".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ChargesForTheDay)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (ChargesForTheDay)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -625,11 +649,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -641,11 +664,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = BlockType
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.name.Profile[] localProfile ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProfileTracker = false ;
+
+                           public boolean isProfileSpecified(){
+                               return localProfileTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -51,10 +62,6 @@
                                */
                               protected void validateProfile(com.cloudkey.pms.micros.og.name.Profile[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -66,7 +73,8 @@
                               
                                    validateProfile(param);
 
-                               
+                               localProfileTracker = param != null;
+                                      
                                       this.localProfile=param;
                               }
 
@@ -81,6 +89,9 @@
                                    localProfile = new com.cloudkey.pms.micros.og.name.Profile[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localProfileTracker = true;
                             
 
                                java.util.List list =
@@ -100,6 +111,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localBlockDate ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localBlockDateTracker = false ;
+
+                           public boolean isBlockDateSpecified(){
+                               return localBlockDateTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -116,7 +138,8 @@
                                * @param param BlockDate
                                */
                                public void setBlockDate(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localBlockDateTracker = param != null;
+                                   
                                             this.localBlockDate=param;
                                     
 
@@ -654,10 +677,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localBlockName is null");
-                                      }
-                                    
                                             if (localBlockCode != null){
                                         
                                                 writeAttribute("",
@@ -747,7 +766,7 @@
 
                                             
                                       }
-                                    
+                                     if (localProfileTracker){
                                        if (localProfile!=null){
                                             for (int i = 0;i < localProfile.length;i++){
                                                 if (localProfile[i] != null){
@@ -755,7 +774,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("Profile cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -765,13 +784,13 @@
                                                throw new org.apache.axis2.databinding.ADBException("Profile cannot be null!!");
                                         
                                     }
-                                 
+                                 } if (localBlockDateTracker){
                                             if (localBlockDate==null){
                                                  throw new org.apache.axis2.databinding.ADBException("BlockDate cannot be null!!");
                                             }
                                            localBlockDate.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","BlockDate"),
                                                xmlWriter);
-                                         if (localBlockIdTracker){
+                                        } if (localBlockIdTracker){
                                             if (localBlockId==null){
                                                  throw new org.apache.axis2.databinding.ADBException("BlockId cannot be null!!");
                                             }
@@ -803,7 +822,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -980,7 +999,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localProfileTracker){
                              if (localProfile!=null) {
                                  for (int i = 0;i < localProfile.length;i++){
 
@@ -990,7 +1009,7 @@
                                          elementList.add(localProfile[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("Profile cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -1001,7 +1020,7 @@
                                     
                              }
 
-                        
+                        } if (localBlockDateTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "BlockDate"));
                             
@@ -1010,7 +1029,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("BlockDate cannot be null!!");
                                     }
                                     elementList.add(localBlockDate);
-                                 if (localBlockIdTracker){
+                                } if (localBlockIdTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "BlockId"));
                             
@@ -1149,7 +1168,7 @@
                             if (!"BlockType".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BlockType)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (BlockType)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1181,8 +1200,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute blockName is missing");
-                           
                     }
                     handledAttributes.add("blockName");
                     
@@ -1397,11 +1414,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1413,11 +1429,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

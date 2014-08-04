@@ -23,239 +23,32 @@
                 Namespace Prefix = ns3
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localMembershipTracker = false;
-                
-                   localCreditCardTracker = false;
-                
-                   localEmailAddressTracker = false;
-                
-                   localNameLookupTracker = false;
-                
-                   localNameTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for Membership
+                        * field for NameLookupInputChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership localMembership ;
+                                    protected com.cloudkey.pms.micros.og.name.NameLookupInputChoice_type0 localNameLookupInputChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localMembershipTracker = false ;
-
-                           public boolean isMembershipSpecified(){
-                               return localMembershipTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership
+                           * @return com.cloudkey.pms.micros.og.name.NameLookupInputChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership getMembership(){
-                               return localMembership;
+                           public  com.cloudkey.pms.micros.og.name.NameLookupInputChoice_type0 getNameLookupInputChoice_type0(){
+                               return localNameLookupInputChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Membership
+                               * @param param NameLookupInputChoice_type0
                                */
-                               public void setMembership(com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership param){
+                               public void setNameLookupInputChoice_type0(com.cloudkey.pms.micros.og.name.NameLookupInputChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localMembershipTracker = param != null;
-                                   
-                                            this.localMembership=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for CreditCard
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.name.NameLookupCriteriaCreditCard localCreditCard ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCreditCardTracker = false ;
-
-                           public boolean isCreditCardSpecified(){
-                               return localCreditCardTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameLookupCriteriaCreditCard
-                           */
-                           public  com.cloudkey.pms.micros.og.name.NameLookupCriteriaCreditCard getCreditCard(){
-                               return localCreditCard;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CreditCard
-                               */
-                               public void setCreditCard(com.cloudkey.pms.micros.og.name.NameLookupCriteriaCreditCard param){
-                            
-                                clearAllSettingTrackers();
-                            localCreditCardTracker = param != null;
-                                   
-                                            this.localCreditCard=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for EmailAddress
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.name.NameLookupCriteriaEmailAddress localEmailAddress ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localEmailAddressTracker = false ;
-
-                           public boolean isEmailAddressSpecified(){
-                               return localEmailAddressTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameLookupCriteriaEmailAddress
-                           */
-                           public  com.cloudkey.pms.micros.og.name.NameLookupCriteriaEmailAddress getEmailAddress(){
-                               return localEmailAddress;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param EmailAddress
-                               */
-                               public void setEmailAddress(com.cloudkey.pms.micros.og.name.NameLookupCriteriaEmailAddress param){
-                            
-                                clearAllSettingTrackers();
-                            localEmailAddressTracker = param != null;
-                                   
-                                            this.localEmailAddress=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for NameLookup
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.name.NameLookupAll localNameLookup ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localNameLookupTracker = false ;
-
-                           public boolean isNameLookupSpecified(){
-                               return localNameLookupTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameLookupAll
-                           */
-                           public  com.cloudkey.pms.micros.og.name.NameLookupAll getNameLookup(){
-                               return localNameLookup;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param NameLookup
-                               */
-                               public void setNameLookup(com.cloudkey.pms.micros.og.name.NameLookupAll param){
-                            
-                                clearAllSettingTrackers();
-                            localNameLookupTracker = param != null;
-                                   
-                                            this.localNameLookup=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Name
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.name.NameLookupCriteriaName localName ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localNameTracker = false ;
-
-                           public boolean isNameSpecified(){
-                               return localNameTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.NameLookupCriteriaName
-                           */
-                           public  com.cloudkey.pms.micros.og.name.NameLookupCriteriaName getName(){
-                               return localName;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Name
-                               */
-                               public void setName(com.cloudkey.pms.micros.og.name.NameLookupCriteriaName param){
-                            
-                                clearAllSettingTrackers();
-                            localNameTracker = param != null;
-                                   
-                                            this.localName=param;
+                                            this.localNameLookupInputChoice_type0=param;
                                     
 
                                }
@@ -319,37 +112,12 @@
 
                
                    }
-                if (localMembershipTracker){
-                                            if (localMembership==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Membership cannot be null!!");
+               
+                                            if (localNameLookupInputChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("NameLookupInputChoice_type0 cannot be null!!");
                                             }
-                                           localMembership.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Membership"),
-                                               xmlWriter);
-                                        } if (localCreditCardTracker){
-                                            if (localCreditCard==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
-                                            }
-                                           localCreditCard.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","CreditCard"),
-                                               xmlWriter);
-                                        } if (localEmailAddressTracker){
-                                            if (localEmailAddress==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("EmailAddress cannot be null!!");
-                                            }
-                                           localEmailAddress.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","EmailAddress"),
-                                               xmlWriter);
-                                        } if (localNameLookupTracker){
-                                            if (localNameLookup==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("NameLookup cannot be null!!");
-                                            }
-                                           localNameLookup.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","NameLookup"),
-                                               xmlWriter);
-                                        } if (localNameTracker){
-                                            if (localName==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
-                                            }
-                                           localName.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Name"),
-                                               xmlWriter);
-                                        }
+                                           localNameLookupInputChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -534,52 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localMembershipTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "Membership"));
+                                                                      "NameLookupInputChoice_type0"));
                             
                             
-                                    if (localMembership==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Membership cannot be null!!");
+                                    if (localNameLookupInputChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("NameLookupInputChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localMembership);
-                                } if (localCreditCardTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "CreditCard"));
-                            
-                            
-                                    if (localCreditCard==null){
-                                         throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
-                                    }
-                                    elementList.add(localCreditCard);
-                                } if (localEmailAddressTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "EmailAddress"));
-                            
-                            
-                                    if (localEmailAddress==null){
-                                         throw new org.apache.axis2.databinding.ADBException("EmailAddress cannot be null!!");
-                                    }
-                                    elementList.add(localEmailAddress);
-                                } if (localNameLookupTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "NameLookup"));
-                            
-                            
-                                    if (localNameLookup==null){
-                                         throw new org.apache.axis2.databinding.ADBException("NameLookup cannot be null!!");
-                                    }
-                                    elementList.add(localNameLookup);
-                                } if (localNameTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "Name"));
-                            
-                            
-                                    if (localName==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
-                                    }
-                                    elementList.add(localName);
-                                }
+                                    elementList.add(localNameLookupInputChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -654,63 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Membership").equals(reader.getName())){
-                                
-                                                object.setMembership(com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setNameLookupInputChoice_type0(com.cloudkey.pms.micros.og.name.NameLookupInputChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","CreditCard").equals(reader.getName())){
-                                
-                                                object.setCreditCard(com.cloudkey.pms.micros.og.name.NameLookupCriteriaCreditCard.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","EmailAddress").equals(reader.getName())){
-                                
-                                                object.setEmailAddress(com.cloudkey.pms.micros.og.name.NameLookupCriteriaEmailAddress.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","NameLookup").equals(reader.getName())){
-                                
-                                                object.setNameLookup(com.cloudkey.pms.micros.og.name.NameLookupAll.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Name").equals(reader.getName())){
-                                
-                                                object.setName(com.cloudkey.pms.micros.og.name.NameLookupCriteriaName.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

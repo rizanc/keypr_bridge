@@ -20,25 +20,36 @@
         /* This type was generated from the piece of schema that had
                 name = Paragraph
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
                         /**
-                        * field for ParagraphChoice
+                        * field for ParagraphChoice_type0
                         * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[] localParagraphChoice ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[] localParagraphChoice_type0 ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localParagraphChoice_type0Tracker = false ;
+
+                           public boolean isParagraphChoice_type0Specified(){
+                               return localParagraphChoice_type0Tracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[]
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[]
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[] getParagraphChoice(){
-                               return localParagraphChoice;
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[] getParagraphChoice_type0(){
+                               return localParagraphChoice_type0;
                            }
 
                            
@@ -47,52 +58,48 @@
 
                                
                               /**
-                               * validate the array for ParagraphChoice
+                               * validate the array for ParagraphChoice_type0
                                */
-                              protected void validateParagraphChoice(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[] param){
+                              protected void validateParagraphChoice_type0(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[] param){
                              
-                              if ((param != null) && (param.length > 99)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
                              /**
                               * Auto generated setter method
-                              * @param param ParagraphChoice
+                              * @param param ParagraphChoice_type0
                               */
-                              public void setParagraphChoice(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[] param){
+                              public void setParagraphChoice_type0(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[] param){
                               
-                                   validateParagraphChoice(param);
+                                   validateParagraphChoice_type0(param);
 
-                               
-                                      this.localParagraphChoice=param;
+                               localParagraphChoice_type0Tracker = param != null;
+                                      
+                                      this.localParagraphChoice_type0=param;
                               }
 
                                
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice
+                             * @param param com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0
                              */
-                             public void addParagraphChoice(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice param){
-                                   if (localParagraphChoice == null){
-                                   localParagraphChoice = new com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[]{};
+                             public void addParagraphChoice_type0(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0 param){
+                                   if (localParagraphChoice_type0 == null){
+                                   localParagraphChoice_type0 = new com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[]{};
                                    }
 
                             
+                                 //update the setting tracker
+                                localParagraphChoice_type0Tracker = true;
+                            
 
                                java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localParagraphChoice);
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localParagraphChoice_type0);
                                list.add(param);
-                               this.localParagraphChoice =
-                             (com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[])list.toArray(
-                            new com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[list.size()]);
+                               this.localParagraphChoice_type0 =
+                             (com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[])list.toArray(
+                            new com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[list.size()]);
 
                              }
                              
@@ -155,23 +162,23 @@
 
                
                    }
-               
+                if (localParagraphChoice_type0Tracker){
                                      
-                                      if (localParagraphChoice!=null){
-                                            for (int i = 0;i < localParagraphChoice.length;i++){
-                                                if (localParagraphChoice[i] != null){
-                                                 localParagraphChoice[i].serialize(null,xmlWriter);
+                                      if (localParagraphChoice_type0!=null){
+                                            for (int i = 0;i < localParagraphChoice_type0.length;i++){
+                                                if (localParagraphChoice_type0[i] != null){
+                                                 localParagraphChoice_type0[i].serialize(null,xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
                                             }
                                      } else {
-                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null!!");
+                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice_type0 cannot be null!!");
                                      }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -179,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -356,28 +363,28 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
-                             if (localParagraphChoice!=null) {
-                                 for (int i = 0;i < localParagraphChoice.length;i++){
+                 if (localParagraphChoice_type0Tracker){
+                             if (localParagraphChoice_type0!=null) {
+                                 for (int i = 0;i < localParagraphChoice_type0.length;i++){
 
-                                    if (localParagraphChoice[i] != null){
+                                    if (localParagraphChoice_type0[i] != null){
                                          elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                          "ParagraphChoice"));
-                                         elementList.add(localParagraphChoice[i]);
+                                                                          "ParagraphChoice_type0"));
+                                         elementList.add(localParagraphChoice_type0[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
                                  }
                              } else {
                                  
-                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null!!");
+                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice_type0 cannot be null!!");
                                     
                              }
 
-                        
+                        }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -431,7 +438,7 @@
                             if (!"Paragraph".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Paragraph)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Paragraph)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -458,12 +465,15 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
+                                        
+                                         try{
+                                    
                                     if (reader.isStartElement() ){
                                 
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice.Factory.parse(reader));
+                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0.Factory.parse(reader));
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
                                                         while(!loopDone1){
@@ -475,18 +485,25 @@
                                                                 //two continuous end elements means we are exiting the xml structure
                                                                 loopDone1 = true;
                                                             } else {
-                                                                list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice.Factory.parse(reader));
+                                                                list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0.Factory.parse(reader));
                                                             }
                                                         }
                                                         // call the converter utility  to convert and set the array
-                                                        object.setParagraphChoice((com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[])
+                                                        object.setParagraphChoice_type0((com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice.class,
+                                                                com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0.class,
                                                                 list1));
 
                                                  
                               }  // End of if for expected property start element
-                                  
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                
+                                 } catch (java.lang.Exception e) {}
+                              
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

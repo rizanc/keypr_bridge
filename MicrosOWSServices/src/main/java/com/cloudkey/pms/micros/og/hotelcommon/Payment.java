@@ -20,104 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = Payment
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localPaymentsAcceptedTracker = false;
-                
-                   localPaymentUsedTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for PaymentsAccepted
+                        * field for PaymentChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PaymentsAccepted localPaymentsAccepted ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.PaymentChoice_type0 localPaymentChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPaymentsAcceptedTracker = false ;
-
-                           public boolean isPaymentsAcceptedSpecified(){
-                               return localPaymentsAcceptedTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PaymentsAccepted
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.PaymentChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PaymentsAccepted getPaymentsAccepted(){
-                               return localPaymentsAccepted;
+                           public  com.cloudkey.pms.micros.og.hotelcommon.PaymentChoice_type0 getPaymentChoice_type0(){
+                               return localPaymentChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param PaymentsAccepted
+                               * @param param PaymentChoice_type0
                                */
-                               public void setPaymentsAccepted(com.cloudkey.pms.micros.og.hotelcommon.PaymentsAccepted param){
+                               public void setPaymentChoice_type0(com.cloudkey.pms.micros.og.hotelcommon.PaymentChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localPaymentsAcceptedTracker = param != null;
-                                   
-                                            this.localPaymentsAccepted=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for PaymentUsed
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PaymentUsed localPaymentUsed ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPaymentUsedTracker = false ;
-
-                           public boolean isPaymentUsedSpecified(){
-                               return localPaymentUsedTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PaymentUsed
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PaymentUsed getPaymentUsed(){
-                               return localPaymentUsed;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PaymentUsed
-                               */
-                               public void setPaymentUsed(com.cloudkey.pms.micros.og.hotelcommon.PaymentUsed param){
-                            
-                                clearAllSettingTrackers();
-                            localPaymentUsedTracker = param != null;
-                                   
-                                            this.localPaymentUsed=param;
+                                            this.localPaymentChoice_type0=param;
                                     
 
                                }
@@ -181,19 +112,12 @@
 
                
                    }
-                if (localPaymentsAcceptedTracker){
-                                            if (localPaymentsAccepted==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("PaymentsAccepted cannot be null!!");
+               
+                                            if (localPaymentChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("PaymentChoice_type0 cannot be null!!");
                                             }
-                                           localPaymentsAccepted.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentsAccepted"),
-                                               xmlWriter);
-                                        } if (localPaymentUsedTracker){
-                                            if (localPaymentUsed==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("PaymentUsed cannot be null!!");
-                                            }
-                                           localPaymentUsed.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentUsed"),
-                                               xmlWriter);
-                                        }
+                                           localPaymentChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -201,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -378,25 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localPaymentsAcceptedTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "PaymentsAccepted"));
+                                                                      "PaymentChoice_type0"));
                             
                             
-                                    if (localPaymentsAccepted==null){
-                                         throw new org.apache.axis2.databinding.ADBException("PaymentsAccepted cannot be null!!");
+                                    if (localPaymentChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("PaymentChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localPaymentsAccepted);
-                                } if (localPaymentUsedTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "PaymentUsed"));
-                            
-                            
-                                    if (localPaymentUsed==null){
-                                         throw new org.apache.axis2.databinding.ADBException("PaymentUsed cannot be null!!");
-                                    }
-                                    elementList.add(localPaymentUsed);
-                                }
+                                    elementList.add(localPaymentChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -471,33 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentsAccepted").equals(reader.getName())){
-                                
-                                                object.setPaymentsAccepted(com.cloudkey.pms.micros.og.hotelcommon.PaymentsAccepted.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setPaymentChoice_type0(com.cloudkey.pms.micros.og.hotelcommon.PaymentChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentUsed").equals(reader.getName())){
-                                
-                                                object.setPaymentUsed(com.cloudkey.pms.micros.og.hotelcommon.PaymentUsed.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

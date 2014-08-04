@@ -7,7 +7,9 @@ import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.core.*;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
 import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
@@ -25,7 +27,7 @@ import java.util.*;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSAvailabilityProcessor {
+public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 
     final static String URL_AVAILABILITY = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Availability.asmx";
 
@@ -34,33 +36,22 @@ public class OWSAvailabilityProcessor {
 
         AvailabilityServiceStub astub = getAvailabilityServiceStub();
 
-        FetchCalendarRequest req = null;
-        FetchCalendarResponse objResponse = null;
-        GetAvailabilityResponse objGetAvailabilityResponse = null;
+        GetAvailabilityResponse objGetAvailabilityResponse;
+
         /*To get the request parameters*/
         LocalDate objSDate = availabilityRequest.getStartDate();
         LocalDate objEDate = availabilityRequest.getEndDate();
 
-        String xmlResponse = "";
+	    MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Start Date " + objSDate);
+	    MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " End Date " + objEDate);
 
-        int counter = 0;
-        int threadTime = 0;
-        int timeUnitCounter = 0;
-
-        if (objEDate.isBefore(objSDate)) {
-
+	    if (objEDate.isBefore(objSDate)) {
             objGetAvailabilityResponse = new GetAvailabilityResponse();
             objGetAvailabilityResponse.setStatus(IMicrosConstants.RESPONSE_FAIL);
-
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Start Date " + objSDate);
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " End Date " + objEDate);
-
         } else {
-
-            req = getAvailabiltyRequestObject(availabilityRequest);
-
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Start Date " + objSDate);
-            MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " End Date " + objEDate);
+	        FetchCalendarRequest req = getAvailabiltyRequestObject(availabilityRequest);
+	        FetchCalendarRequestE requestE = new FetchCalendarRequestE();
+		    requestE.setFetchCalendarRequest(req);
 
             MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processAvailability ", " Convert request into xml form ");
 
@@ -68,20 +59,17 @@ public class OWSAvailabilityProcessor {
 
             MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
                     AdapterUtility.convertToStreamXML(req));
-            FetchCalendarResponse resp = astub.fetchCalendar(req, ogh);
+            FetchCalendarResponseE responseE = astub.fetchCalendar(requestE, ogh);
             MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                    AdapterUtility.convertToStreamXML(resp));
+                    AdapterUtility.convertToStreamXML(responseE));
 
-            objGetAvailabilityResponse = getAvailabilityResponseObject(resp);
-            MicrosPMSLogger.logInfo(OWSReservationProcessor.class, "processAvailability ",
-                    AdapterUtility.convertToStreamXML(objGetAvailabilityResponse));
-
+            objGetAvailabilityResponse = getAvailabilityResponseObject(responseE.getFetchCalendarResponse());
         }
-        return objGetAvailabilityResponse;
+
+	    return objGetAvailabilityResponse;
     }
 
     private FetchCalendarRequest getAvailabiltyRequestObject(GetAvailabilityRequest availabilityRequest) {
-
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getAvailabiltyRequestObject ", " Enter getAvailabiltyRequestObject method. ");
 
         FetchCalendarRequest objFetchCalendarRequest = null;
@@ -194,91 +182,6 @@ public class OWSAvailabilityProcessor {
                     axisFault.getMessage());
         }
         return rstub;
-    }
-
-    private HotelReference getDefaultHotelReference() {
-        HotelReference objHotelReference = new HotelReference();
-        String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
-        String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
-        objHotelReference.setHotelCode(hotelCode);
-        objHotelReference.setString("");
-        objHotelReference.setChainCode(chainCode);
-        return objHotelReference;
-    }
-
-    private OGHeaderE getHeaderE() {
-
-        String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
-        // Sets Transaction Identifier
-        OGHeader ogHeader = new OGHeader();
-
-        ogHeader.setTransactionID(transactionId);
-
-        // creates origin end point of header.
-        EndPoint origin = new EndPoint();
-
-        String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
-        origin.setEntityID(entityId);
-
-        String systemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_SYSTEM_TYPE);
-        origin.setSystemType(systemType);
-
-        // creates destination end point of header.
-        EndPoint destination = new EndPoint();
-        String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
-
-        destination.setEntityID(destEntityId);
-        String destSystemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_DEST_TYPE);
-        destination.setSystemType(destSystemType);
-
-        // sets time stamp
-        ogHeader.setTimeStamp(AdapterUtility.getCalender());
-
-        // prepares OGHeader
-        ogHeader.setOrigin(origin);
-        ogHeader.setDestination(destination);
-
-        String username = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_NAME);
-        String password = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_PASS);
-
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
-
-            Authentication_type0 auth = new Authentication_type0();
-            ogHeader.setAuthentication(auth);
-
-            UserCredentials_type0 cred = new UserCredentials_type0();
-            auth.setUserCredentials(cred);
-
-            cred.setUserName(username);
-            cred.setUserPassword(password);
-        }
-
-        OGHeaderE ogHeaderE = new OGHeaderE();
-        ogHeaderE.setOGHeader(ogHeader);
-        return ogHeaderE;
-    }
-
-    private String getErrorMessage(ResultStatus resultStatus) {
-
-        String message = "";
-        if (resultStatus instanceof GDSResultStatus) {
-            GDSResultStatus gdsResultStatus = (GDSResultStatus) resultStatus;
-            if (gdsResultStatus.isGDSErrorSpecified()) {
-                message = gdsResultStatus.getGDSError().toString();
-            } else if (gdsResultStatus.isTextSpecified()){
-                if (gdsResultStatus.getText() != null &&
-                        gdsResultStatus.getText().getTextElement() != null &&
-                        gdsResultStatus.getText().getTextElement().length > 0
-                        )
-                    message=  gdsResultStatus.getText().getTextElement()[0].toString();
-            }
-        } else if (resultStatus.getText() != null &&
-                resultStatus.getText().getTextElement() != null &&
-                resultStatus.getText().getTextElement().length > 0) {
-            message = resultStatus.getText().getTextElement()[0].toString();
-        }
-
-        return message;
     }
 
 }

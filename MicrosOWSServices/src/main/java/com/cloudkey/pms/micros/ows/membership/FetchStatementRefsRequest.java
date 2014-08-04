@@ -17,108 +17,38 @@
         
         public  class FetchStatementRefsRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Membership.wsdl",
-                "FetchStatementRefsRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchStatementRefsRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Membership.wsdl
+                Namespace Prefix = ns3
+                */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localMembershipIDTracker = false;
-                
-                   localMembershipTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for MembershipID
+                        * field for FetchStatementRefsRequestChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueID localMembershipID ;
+                                    protected com.cloudkey.pms.micros.ows.membership.FetchStatementRefsRequestChoice_type0 localFetchStatementRefsRequestChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localMembershipIDTracker = false ;
-
-                           public boolean isMembershipIDSpecified(){
-                               return localMembershipIDTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueID
+                           * @return com.cloudkey.pms.micros.ows.membership.FetchStatementRefsRequestChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueID getMembershipID(){
-                               return localMembershipID;
+                           public  com.cloudkey.pms.micros.ows.membership.FetchStatementRefsRequestChoice_type0 getFetchStatementRefsRequestChoice_type0(){
+                               return localFetchStatementRefsRequestChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param MembershipID
+                               * @param param FetchStatementRefsRequestChoice_type0
                                */
-                               public void setMembershipID(com.cloudkey.pms.micros.og.common.UniqueID param){
+                               public void setFetchStatementRefsRequestChoice_type0(com.cloudkey.pms.micros.ows.membership.FetchStatementRefsRequestChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localMembershipIDTracker = param != null;
-                                   
-                                            this.localMembershipID=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Membership
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.common.Membership localMembership ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localMembershipTracker = false ;
-
-                           public boolean isMembershipSpecified(){
-                               return localMembershipTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.Membership
-                           */
-                           public  com.cloudkey.pms.micros.og.common.Membership getMembership(){
-                               return localMembership;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Membership
-                               */
-                               public void setMembership(com.cloudkey.pms.micros.og.common.Membership param){
-                            
-                                clearAllSettingTrackers();
-                            localMembershipTracker = param != null;
-                                   
-                                            this.localMembership=param;
+                                            this.localFetchStatementRefsRequestChoice_type0=param;
                                     
 
                                }
@@ -139,8 +69,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -182,19 +112,12 @@
 
                
                    }
-                if (localMembershipIDTracker){
-                                            if (localMembershipID==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("MembershipID cannot be null!!");
+               
+                                            if (localFetchStatementRefsRequestChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("FetchStatementRefsRequestChoice_type0 cannot be null!!");
                                             }
-                                           localMembershipID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","MembershipID"),
-                                               xmlWriter);
-                                        } if (localMembershipTracker){
-                                            if (localMembership==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Membership cannot be null!!");
-                                            }
-                                           localMembership.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","Membership"),
-                                               xmlWriter);
-                                        }
+                                           localFetchStatementRefsRequestChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -202,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Membership.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -379,25 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localMembershipIDTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
-                                                                      "MembershipID"));
+                                                                      "FetchStatementRefsRequestChoice_type0"));
                             
                             
-                                    if (localMembershipID==null){
-                                         throw new org.apache.axis2.databinding.ADBException("MembershipID cannot be null!!");
+                                    if (localFetchStatementRefsRequestChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("FetchStatementRefsRequestChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localMembershipID);
-                                } if (localMembershipTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl",
-                                                                      "Membership"));
-                            
-                            
-                                    if (localMembership==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Membership cannot be null!!");
-                                    }
-                                    elementList.add(localMembership);
-                                }
+                                    elementList.add(localFetchStatementRefsRequestChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -472,33 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","MembershipID").equals(reader.getName())){
-                                
-                                                object.setMembershipID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setFetchStatementRefsRequestChoice_type0(com.cloudkey.pms.micros.ows.membership.FetchStatementRefsRequestChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","Membership").equals(reader.getName())){
-                                
-                                                object.setMembership(com.cloudkey.pms.micros.og.common.Membership.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

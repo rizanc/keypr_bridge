@@ -17,12 +17,11 @@
         
         public  class MeetingRoomCreateRelationshipRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/MeetingRoom/",
-                "MeetingRoomCreateRelationshipRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = MeetingRoomCreateRelationshipRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.meetingroom.ProfileData localFrom ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localFromTracker = false ;
+
+                           public boolean isFromSpecified(){
+                               return localFromTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param From
                                */
                                public void setFrom(com.cloudkey.pms.micros.og.meetingroom.ProfileData param){
-                            
+                            localFromTracker = param != null;
+                                   
                                             this.localFrom=param;
                                     
 
@@ -92,6 +115,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.meetingroom.ProfileData localTo ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localToTracker = false ;
+
+                           public boolean isToSpecified(){
+                               return localToTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +142,8 @@
                                * @param param To
                                */
                                public void setTo(com.cloudkey.pms.micros.og.meetingroom.ProfileData param){
-                            
+                            localToTracker = param != null;
+                                   
                                             this.localTo=param;
                                     
 
@@ -130,8 +165,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -173,25 +208,25 @@
 
                
                    }
-               
+                if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localFromTracker){
                                             if (localFrom==null){
                                                  throw new org.apache.axis2.databinding.ADBException("From cannot be null!!");
                                             }
                                            localFrom.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","From"),
                                                xmlWriter);
-                                        
+                                        } if (localToTracker){
                                             if (localTo==null){
                                                  throw new org.apache.axis2.databinding.ADBException("To cannot be null!!");
                                             }
                                            localTo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","To"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -199,7 +234,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -376,7 +411,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "HotelReference"));
                             
@@ -385,7 +420,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localFromTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "From"));
                             
@@ -394,7 +429,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("From cannot be null!!");
                                     }
                                     elementList.add(localFrom);
-                                
+                                } if (localToTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "To"));
                             
@@ -403,7 +438,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("To cannot be null!!");
                                     }
                                     elementList.add(localTo);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -457,7 +492,7 @@
                             if (!"MeetingRoomCreateRelationshipRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (MeetingRoomCreateRelationshipRequest)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (MeetingRoomCreateRelationshipRequest)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -490,11 +525,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -506,11 +540,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -522,11 +555,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

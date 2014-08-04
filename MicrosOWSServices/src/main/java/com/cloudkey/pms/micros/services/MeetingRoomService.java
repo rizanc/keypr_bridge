@@ -19,16 +19,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingRegisterEventAttendeesRequest21
+                    * @param meetingFetchBlockDelegatesRequest21
                 
                     * @param oGHeader22
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesResponse meetingRegisterEventAttendees(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesResponseE meetingFetchBlockDelegates(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesRequest meetingRegisterEventAttendeesRequest21,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader22)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesRequestE meetingFetchBlockDelegatesRequest21,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader22)
                         throws java.rmi.RemoteException
              ;
 
@@ -36,14 +36,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingRegisterEventAttendeesRequest21
+                * @param meetingFetchBlockDelegatesRequest21
             
                 * @param oGHeader22
             
           */
-        public void startmeetingRegisterEventAttendees(
+        public void startmeetingFetchBlockDelegates(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesRequest meetingRegisterEventAttendeesRequest21,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader22,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesRequestE meetingFetchBlockDelegatesRequest21,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader22,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -55,16 +55,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingMultiPropertyAvailabilityRequest24
+                    * @param meetingPackageAvailabilityRequest24
                 
                     * @param oGHeader25
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityResponse meetingMultiPropertyAvailability(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityResponseE meetingPackageAvailability(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityRequest meetingMultiPropertyAvailabilityRequest24,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader25)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityRequestE meetingPackageAvailabilityRequest24,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader25)
                         throws java.rmi.RemoteException
              ;
 
@@ -72,14 +72,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingMultiPropertyAvailabilityRequest24
+                * @param meetingPackageAvailabilityRequest24
             
                 * @param oGHeader25
             
           */
-        public void startmeetingMultiPropertyAvailability(
+        public void startmeetingPackageAvailability(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityRequest meetingMultiPropertyAvailabilityRequest24,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader25,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityRequestE meetingPackageAvailabilityRequest24,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader25,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -91,16 +91,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingRoomCopyBlockRequest27
+                    * @param meetingFetchContractRequest27
                 
                     * @param oGHeader28
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockResponse meetingRoomCopyBlock(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractResponseE meetingFetchContract(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockRequest meetingRoomCopyBlockRequest27,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader28)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractRequestE meetingFetchContractRequest27,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader28)
                         throws java.rmi.RemoteException
              ;
 
@@ -108,14 +108,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingRoomCopyBlockRequest27
+                * @param meetingFetchContractRequest27
             
                 * @param oGHeader28
             
           */
-        public void startmeetingRoomCopyBlock(
+        public void startmeetingFetchContract(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockRequest meetingRoomCopyBlockRequest27,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader28,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractRequestE meetingFetchContractRequest27,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader28,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -127,16 +127,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchContractRequest30
+                    * @param meetingRoomFetchMyBlocksRequest30
                 
                     * @param oGHeader31
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractResponse meetingFetchContract(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksResponseE meetingRoomFetchMyBlocks(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractRequest meetingFetchContractRequest30,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader31)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksRequestE meetingRoomFetchMyBlocksRequest30,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader31)
                         throws java.rmi.RemoteException
              ;
 
@@ -144,14 +144,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchContractRequest30
+                * @param meetingRoomFetchMyBlocksRequest30
             
                 * @param oGHeader31
             
           */
-        public void startmeetingFetchContract(
+        public void startmeetingRoomFetchMyBlocks(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractRequest meetingFetchContractRequest30,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader31,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksRequestE meetingRoomFetchMyBlocksRequest30,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader31,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -163,16 +163,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchEventRequest33
+                    * @param meetingAvailabilityRequest33
                 
                     * @param oGHeader34
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventResponse meetingFetchEvent(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityResponseE meetingAvailability(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventRequest meetingFetchEventRequest33,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader34)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityRequestE meetingAvailabilityRequest33,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader34)
                         throws java.rmi.RemoteException
              ;
 
@@ -180,14 +180,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchEventRequest33
+                * @param meetingAvailabilityRequest33
             
                 * @param oGHeader34
             
           */
-        public void startmeetingFetchEvent(
+        public void startmeetingAvailability(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventRequest meetingFetchEventRequest33,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader34,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityRequestE meetingAvailabilityRequest33,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader34,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -199,16 +199,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchPackageEventRequest36
+                    * @param meetingModifyEventRequest36
                 
                     * @param oGHeader37
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventResponse meetingFetchPackageEvent(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventResponseE meetingModifyEvent(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventRequest meetingFetchPackageEventRequest36,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader37)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventRequestE meetingModifyEventRequest36,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader37)
                         throws java.rmi.RemoteException
              ;
 
@@ -216,14 +216,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchPackageEventRequest36
+                * @param meetingModifyEventRequest36
             
                 * @param oGHeader37
             
           */
-        public void startmeetingFetchPackageEvent(
+        public void startmeetingModifyEvent(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventRequest meetingFetchPackageEventRequest36,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader37,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventRequestE meetingModifyEventRequest36,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader37,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -235,16 +235,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingPackageAvailabilityRequest39
+                    * @param meetingRegisterEventAttendeesRequest39
                 
                     * @param oGHeader40
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityResponse meetingPackageAvailability(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesResponseE meetingRegisterEventAttendees(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityRequest meetingPackageAvailabilityRequest39,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader40)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesRequestE meetingRegisterEventAttendeesRequest39,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader40)
                         throws java.rmi.RemoteException
              ;
 
@@ -252,14 +252,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingPackageAvailabilityRequest39
+                * @param meetingRegisterEventAttendeesRequest39
             
                 * @param oGHeader40
             
           */
-        public void startmeetingPackageAvailability(
+        public void startmeetingRegisterEventAttendees(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityRequest meetingPackageAvailabilityRequest39,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader40,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesRequestE meetingRegisterEventAttendeesRequest39,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader40,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -271,16 +271,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingRoomFetchBlockRequest42
+                    * @param meetingFetchPackageEventRequest42
                 
                     * @param oGHeader43
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockResponse meetingRoomFetchBlock(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventResponseE meetingFetchPackageEvent(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockRequest meetingRoomFetchBlockRequest42,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader43)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventRequestE meetingFetchPackageEventRequest42,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader43)
                         throws java.rmi.RemoteException
              ;
 
@@ -288,14 +288,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingRoomFetchBlockRequest42
+                * @param meetingFetchPackageEventRequest42
             
                 * @param oGHeader43
             
           */
-        public void startmeetingRoomFetchBlock(
+        public void startmeetingFetchPackageEvent(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockRequest meetingRoomFetchBlockRequest42,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader43,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventRequestE meetingFetchPackageEventRequest42,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader43,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -307,16 +307,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchMiscellaneousItemRequest45
+                    * @param meetingModifyPackageEventRequest45
                 
                     * @param oGHeader46
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemResponse meetingFetchMiscellaneousItem(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventResponseE meetingModifyPackageEvent(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemRequest meetingFetchMiscellaneousItemRequest45,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader46)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventRequestE meetingModifyPackageEventRequest45,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader46)
                         throws java.rmi.RemoteException
              ;
 
@@ -324,14 +324,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchMiscellaneousItemRequest45
+                * @param meetingModifyPackageEventRequest45
             
                 * @param oGHeader46
             
           */
-        public void startmeetingFetchMiscellaneousItem(
+        public void startmeetingModifyPackageEvent(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemRequest meetingFetchMiscellaneousItemRequest45,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader46,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventRequestE meetingModifyPackageEventRequest45,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader46,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -343,16 +343,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingRoomCreateRelationshipRequest48
+                    * @param meetingFetchMiscellaneousItemRequest48
                 
                     * @param oGHeader49
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipResponse meetingRoomCreateRelationship(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemResponseE meetingFetchMiscellaneousItem(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipRequest meetingRoomCreateRelationshipRequest48,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader49)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemRequestE meetingFetchMiscellaneousItemRequest48,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader49)
                         throws java.rmi.RemoteException
              ;
 
@@ -360,14 +360,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingRoomCreateRelationshipRequest48
+                * @param meetingFetchMiscellaneousItemRequest48
             
                 * @param oGHeader49
             
           */
-        public void startmeetingRoomCreateRelationship(
+        public void startmeetingFetchMiscellaneousItem(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipRequest meetingRoomCreateRelationshipRequest48,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader49,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemRequestE meetingFetchMiscellaneousItemRequest48,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader49,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -379,16 +379,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchMenuItemRequest51
+                    * @param createBlockRequest51
                 
                     * @param oGHeader52
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemResponse meetingFetchMenuItem(
+                     public com.cloudkey.pms.micros.og.meetingroom.CreateBlockResponseE createBlock(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemRequest meetingFetchMenuItemRequest51,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader52)
+                        com.cloudkey.pms.micros.og.meetingroom.CreateBlockRequestE createBlockRequest51,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader52)
                         throws java.rmi.RemoteException
              ;
 
@@ -396,14 +396,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchMenuItemRequest51
+                * @param createBlockRequest51
             
                 * @param oGHeader52
             
           */
-        public void startmeetingFetchMenuItem(
+        public void startcreateBlock(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemRequest meetingFetchMenuItemRequest51,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader52,
+            com.cloudkey.pms.micros.og.meetingroom.CreateBlockRequestE createBlockRequest51,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader52,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -415,16 +415,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchBlockDelegatesRequest54
+                    * @param meetingFetchMyRegisteredEventsRequest54
                 
                     * @param oGHeader55
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesResponse meetingFetchBlockDelegates(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsResponseE meetingFetchMyRegisteredEvents(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesRequest meetingFetchBlockDelegatesRequest54,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader55)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsRequestE meetingFetchMyRegisteredEventsRequest54,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader55)
                         throws java.rmi.RemoteException
              ;
 
@@ -432,14 +432,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchBlockDelegatesRequest54
+                * @param meetingFetchMyRegisteredEventsRequest54
             
                 * @param oGHeader55
             
           */
-        public void startmeetingFetchBlockDelegates(
+        public void startmeetingFetchMyRegisteredEvents(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesRequest meetingFetchBlockDelegatesRequest54,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader55,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsRequestE meetingFetchMyRegisteredEventsRequest54,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader55,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -451,16 +451,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingRoomFetchMyBlocksRequest57
+                    * @param meetingFetchMenuItemRequest57
                 
                     * @param oGHeader58
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksResponse meetingRoomFetchMyBlocks(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemResponseE meetingFetchMenuItem(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksRequest meetingRoomFetchMyBlocksRequest57,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader58)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemRequestE meetingFetchMenuItemRequest57,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader58)
                         throws java.rmi.RemoteException
              ;
 
@@ -468,14 +468,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingRoomFetchMyBlocksRequest57
+                * @param meetingFetchMenuItemRequest57
             
                 * @param oGHeader58
             
           */
-        public void startmeetingRoomFetchMyBlocks(
+        public void startmeetingFetchMenuItem(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksRequest meetingRoomFetchMyBlocksRequest57,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader58,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemRequestE meetingFetchMenuItemRequest57,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader58,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -487,16 +487,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchMenuRequest60
+                    * @param meetingRoomCreateRelationshipRequest60
                 
                     * @param oGHeader61
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuResponse meetingFetchMenu(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipResponseE meetingRoomCreateRelationship(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuRequest meetingFetchMenuRequest60,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader61)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipRequestE meetingRoomCreateRelationshipRequest60,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader61)
                         throws java.rmi.RemoteException
              ;
 
@@ -504,14 +504,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchMenuRequest60
+                * @param meetingRoomCreateRelationshipRequest60
             
                 * @param oGHeader61
             
           */
-        public void startmeetingFetchMenu(
+        public void startmeetingRoomCreateRelationship(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuRequest meetingFetchMenuRequest60,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader61,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipRequestE meetingRoomCreateRelationshipRequest60,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader61,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -523,16 +523,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingAvailabilityRequest63
+                    * @param meetingFetchMenuRequest63
                 
                     * @param oGHeader64
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityResponse meetingAvailability(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuResponseE meetingFetchMenu(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityRequest meetingAvailabilityRequest63,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader64)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuRequestE meetingFetchMenuRequest63,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader64)
                         throws java.rmi.RemoteException
              ;
 
@@ -540,14 +540,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingAvailabilityRequest63
+                * @param meetingFetchMenuRequest63
             
                 * @param oGHeader64
             
           */
-        public void startmeetingAvailability(
+        public void startmeetingFetchMenu(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityRequest meetingAvailabilityRequest63,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader64,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuRequestE meetingFetchMenuRequest63,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader64,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -559,16 +559,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param modifyBlockRequest66
+                    * @param meetingCreatePackageEventRequest66
                 
                     * @param oGHeader67
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.ModifyBlockResponse modifyBlock(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventResponseE meetingCreatePackageEvent(
 
-                        com.cloudkey.pms.micros.og.meetingroom.ModifyBlockRequest modifyBlockRequest66,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader67)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventRequestE meetingCreatePackageEventRequest66,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader67)
                         throws java.rmi.RemoteException
              ;
 
@@ -576,14 +576,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param modifyBlockRequest66
+                * @param meetingCreatePackageEventRequest66
             
                 * @param oGHeader67
             
           */
-        public void startmodifyBlock(
+        public void startmeetingCreatePackageEvent(
 
-            com.cloudkey.pms.micros.og.meetingroom.ModifyBlockRequest modifyBlockRequest66,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader67,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventRequestE meetingCreatePackageEventRequest66,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader67,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -595,16 +595,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingFetchMyRegisteredEventsRequest69
+                    * @param meetingRoomFetchBlockRequest69
                 
                     * @param oGHeader70
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsResponse meetingFetchMyRegisteredEvents(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockResponseE meetingRoomFetchBlock(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsRequest meetingFetchMyRegisteredEventsRequest69,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader70)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockRequestE meetingRoomFetchBlockRequest69,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader70)
                         throws java.rmi.RemoteException
              ;
 
@@ -612,14 +612,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingFetchMyRegisteredEventsRequest69
+                * @param meetingRoomFetchBlockRequest69
             
                 * @param oGHeader70
             
           */
-        public void startmeetingFetchMyRegisteredEvents(
+        public void startmeetingRoomFetchBlock(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsRequest meetingFetchMyRegisteredEventsRequest69,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader70,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockRequestE meetingRoomFetchBlockRequest69,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader70,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -631,16 +631,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingCreatePackageEventRequest72
+                    * @param meetingRoomCopyBlockRequest72
                 
                     * @param oGHeader73
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventResponse meetingCreatePackageEvent(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockResponseE meetingRoomCopyBlock(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventRequest meetingCreatePackageEventRequest72,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader73)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockRequestE meetingRoomCopyBlockRequest72,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader73)
                         throws java.rmi.RemoteException
              ;
 
@@ -648,14 +648,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingCreatePackageEventRequest72
+                * @param meetingRoomCopyBlockRequest72
             
                 * @param oGHeader73
             
           */
-        public void startmeetingCreatePackageEvent(
+        public void startmeetingRoomCopyBlock(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventRequest meetingCreatePackageEventRequest72,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader73,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockRequestE meetingRoomCopyBlockRequest72,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader73,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -667,16 +667,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingCreateEventRequest75
+                    * @param meetingMultiPropertyAvailabilityRequest75
                 
                     * @param oGHeader76
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventResponse meetingCreateEvent(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityResponseE meetingMultiPropertyAvailability(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventRequest meetingCreateEventRequest75,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader76)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityRequestE meetingMultiPropertyAvailabilityRequest75,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader76)
                         throws java.rmi.RemoteException
              ;
 
@@ -684,14 +684,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingCreateEventRequest75
+                * @param meetingMultiPropertyAvailabilityRequest75
             
                 * @param oGHeader76
             
           */
-        public void startmeetingCreateEvent(
+        public void startmeetingMultiPropertyAvailability(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventRequest meetingCreateEventRequest75,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader76,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityRequestE meetingMultiPropertyAvailabilityRequest75,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader76,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -703,16 +703,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingModifyPackageEventRequest78
+                    * @param modifyBlockRequest78
                 
                     * @param oGHeader79
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventResponse meetingModifyPackageEvent(
+                     public com.cloudkey.pms.micros.og.meetingroom.ModifyBlockResponseE modifyBlock(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventRequest meetingModifyPackageEventRequest78,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader79)
+                        com.cloudkey.pms.micros.og.meetingroom.ModifyBlockRequestE modifyBlockRequest78,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader79)
                         throws java.rmi.RemoteException
              ;
 
@@ -720,14 +720,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingModifyPackageEventRequest78
+                * @param modifyBlockRequest78
             
                 * @param oGHeader79
             
           */
-        public void startmeetingModifyPackageEvent(
+        public void startmodifyBlock(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventRequest meetingModifyPackageEventRequest78,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader79,
+            com.cloudkey.pms.micros.og.meetingroom.ModifyBlockRequestE modifyBlockRequest78,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader79,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -739,16 +739,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param createBlockRequest81
+                    * @param meetingFetchEventRequest81
                 
                     * @param oGHeader82
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.CreateBlockResponse createBlock(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventResponseE meetingFetchEvent(
 
-                        com.cloudkey.pms.micros.og.meetingroom.CreateBlockRequest createBlockRequest81,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader82)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventRequestE meetingFetchEventRequest81,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader82)
                         throws java.rmi.RemoteException
              ;
 
@@ -756,14 +756,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param createBlockRequest81
+                * @param meetingFetchEventRequest81
             
                 * @param oGHeader82
             
           */
-        public void startcreateBlock(
+        public void startmeetingFetchEvent(
 
-            com.cloudkey.pms.micros.og.meetingroom.CreateBlockRequest createBlockRequest81,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader82,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventRequestE meetingFetchEventRequest81,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader82,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)
@@ -775,16 +775,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param meetingModifyEventRequest84
+                    * @param meetingCreateEventRequest84
                 
                     * @param oGHeader85
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventResponse meetingModifyEvent(
+                     public com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventResponseE meetingCreateEvent(
 
-                        com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventRequest meetingModifyEventRequest84,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader85)
+                        com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventRequestE meetingCreateEventRequest84,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader85)
                         throws java.rmi.RemoteException
              ;
 
@@ -792,14 +792,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param meetingModifyEventRequest84
+                * @param meetingCreateEventRequest84
             
                 * @param oGHeader85
             
           */
-        public void startmeetingModifyEvent(
+        public void startmeetingCreateEvent(
 
-            com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventRequest meetingModifyEventRequest84,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader85,
+            com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventRequestE meetingCreateEventRequest84,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader85,
                 
 
             final com.cloudkey.pms.micros.services.MeetingRoomServiceCallbackHandler callback)

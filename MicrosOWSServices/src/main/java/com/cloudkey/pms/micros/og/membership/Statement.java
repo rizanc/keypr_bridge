@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Statement
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.TextList localNoticeText ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfText localNoticeText ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.TextList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfText
                            */
-                           public  com.cloudkey.pms.micros.og.common.TextList getNoticeText(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfText getNoticeText(){
                                return localNoticeText;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param NoticeText
                                */
-                               public void setNoticeText(com.cloudkey.pms.micros.og.common.TextList param){
+                               public void setNoticeText(com.cloudkey.pms.micros.og.common.ArrayOfText param){
                             localNoticeTextTracker = param != null;
                                    
                                             this.localNoticeText=param;
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.AwardPointsToExpireList localAwardPointsToExpires ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire localAwardPointsToExpires ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.AwardPointsToExpireList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire
                            */
-                           public  com.cloudkey.pms.micros.og.common.AwardPointsToExpireList getAwardPointsToExpires(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire getAwardPointsToExpires(){
                                return localAwardPointsToExpires;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param AwardPointsToExpires
                                */
-                               public void setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.AwardPointsToExpireList param){
+                               public void setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire param){
                             localAwardPointsToExpiresTracker = param != null;
                                    
                                             this.localAwardPointsToExpires=param;
@@ -113,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.UDFsList localUDFsList ;
+                                    protected com.cloudkey.pms.micros.og.membership.ArrayOfUDFs localUDFsList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.UDFsList
+                           * @return com.cloudkey.pms.micros.og.membership.ArrayOfUDFs
                            */
-                           public  com.cloudkey.pms.micros.og.membership.UDFsList getUDFsList(){
+                           public  com.cloudkey.pms.micros.og.membership.ArrayOfUDFs getUDFsList(){
                                return localUDFsList;
                            }
 
@@ -141,7 +141,7 @@
                                * Auto generated setter method
                                * @param param UDFsList
                                */
-                               public void setUDFsList(com.cloudkey.pms.micros.og.membership.UDFsList param){
+                               public void setUDFsList(com.cloudkey.pms.micros.og.membership.ArrayOfUDFs param){
                             localUDFsListTracker = param != null;
                                    
                                             this.localUDFsList=param;
@@ -568,13 +568,13 @@
 
                                             
                                       }
-                                    
+                                     if (localCardInfoTracker){
                                             if (localCardInfo==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CardInfo cannot be null!!");
                                             }
                                            localCardInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","CardInfo"),
                                                xmlWriter);
-                                        
+                                        } if (localMembershipTransactionTracker){
                                        if (localMembershipTransaction!=null){
                                             for (int i = 0;i < localMembershipTransaction.length;i++){
                                                 if (localMembershipTransaction[i] != null){
@@ -582,7 +582,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("MembershipTransaction cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -592,7 +592,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("MembershipTransaction cannot be null!!");
                                         
                                     }
-                                  if (localNoticeTextTracker){
+                                 } if (localNoticeTextTracker){
                                             if (localNoticeText==null){
                                                  throw new org.apache.axis2.databinding.ADBException("noticeText cannot be null!!");
                                             }
@@ -618,7 +618,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -798,7 +798,7 @@
                 
                     attribList.add(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema-instance","type"));
                     attribList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Statement"));
-                
+                 if (localCardInfoTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "CardInfo"));
                             
@@ -807,7 +807,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("CardInfo cannot be null!!");
                                     }
                                     elementList.add(localCardInfo);
-                                
+                                } if (localMembershipTransactionTracker){
                              if (localMembershipTransaction!=null) {
                                  for (int i = 0;i < localMembershipTransaction.length;i++){
 
@@ -817,7 +817,7 @@
                                          elementList.add(localMembershipTransaction[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("MembershipTransaction cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -828,7 +828,7 @@
                                     
                              }
 
-                         if (localNoticeTextTracker){
+                        } if (localNoticeTextTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "noticeText"));
                             
@@ -1143,11 +1143,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1190,17 +1189,16 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","noticeText").equals(reader.getName())){
                                 
-                                                object.setNoticeText(com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader));
+                                                object.setNoticeText(com.cloudkey.pms.micros.og.common.ArrayOfText.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1215,7 +1213,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","AwardPointsToExpires").equals(reader.getName())){
                                 
-                                                object.setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.AwardPointsToExpireList.Factory.parse(reader));
+                                                object.setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1230,7 +1228,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","UDFsList").equals(reader.getName())){
                                 
-                                                object.setUDFsList(com.cloudkey.pms.micros.og.membership.UDFsList.Factory.parse(reader));
+                                                object.setUDFsList(com.cloudkey.pms.micros.og.membership.ArrayOfUDFs.Factory.parse(reader));
                                               
                                         reader.next();
                                     

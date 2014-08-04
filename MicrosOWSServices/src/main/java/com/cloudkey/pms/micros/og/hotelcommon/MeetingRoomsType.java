@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = MeetingRoomsType
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -30,7 +30,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[] localMeetingRoom ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[] localMeetingRoom ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -46,9 +46,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[]
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[]
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[] getMeetingRoom(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[] getMeetingRoom(){
                                return localMeetingRoom;
                            }
 
@@ -60,7 +60,7 @@
                               /**
                                * validate the array for MeetingRoom
                                */
-                              protected void validateMeetingRoom(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[] param){
+                              protected void validateMeetingRoom(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[] param){
                              
                               }
 
@@ -69,7 +69,7 @@
                               * Auto generated setter method
                               * @param param MeetingRoom
                               */
-                              public void setMeetingRoom(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[] param){
+                              public void setMeetingRoom(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[] param){
                               
                                    validateMeetingRoom(param);
 
@@ -82,11 +82,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0
+                             * @param param com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom
                              */
-                             public void addMeetingRoom(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0 param){
+                             public void addMeetingRoom(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom param){
                                    if (localMeetingRoom == null){
-                                   localMeetingRoom = new com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[]{};
+                                   localMeetingRoom = new com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[]{};
                                    }
 
                             
@@ -98,8 +98,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localMeetingRoom);
                                list.add(param);
                                this.localMeetingRoom =
-                             (com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[])list.toArray(
+                            new com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[list.size()]);
 
                              }
                              
@@ -468,7 +468,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -899,7 +899,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0.Factory.parse(reader));
+                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
@@ -917,7 +917,7 @@
                                                                 loopDone1 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","MeetingRoom").equals(reader.getName())){
-                                                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0.Factory.parse(reader));
+                                                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone1 = true;
@@ -926,9 +926,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setMeetingRoom((com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0[])
+                                                        object.setMeetingRoom((com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0.class,
+                                                                com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom.class,
                                                                 list1));
                                                             
                               }  // End of if for expected property start element

@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.membership.Promotion localPromotion ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPromotionTracker = false ;
+
+                           public boolean isPromotionSpecified(){
+                               return localPromotionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Promotion
                                */
                                public void setPromotion(com.cloudkey.pms.micros.og.membership.Promotion param){
-                            
+                            localPromotionTracker = param != null;
+                                   
                                             this.localPromotion=param;
                                     
 
@@ -228,10 +240,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localMembershipType is null");
-                                      }
-                                    
                                             if (localMembershipNumber != null){
                                         
                                                 writeAttribute("",
@@ -240,17 +248,13 @@
 
                                             
                                       }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localMembershipNumber is null");
-                                      }
-                                    
+                                     if (localPromotionTracker){
                                             if (localPromotion==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Promotion cannot be null!!");
                                             }
                                            localPromotion.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Promotion"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -435,7 +439,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPromotionTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Promotion"));
                             
@@ -444,7 +448,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Promotion cannot be null!!");
                                     }
                                     elementList.add(localPromotion);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","membershipID"));
                             
@@ -563,8 +567,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute membershipType is missing");
-                           
                     }
                     handledAttributes.add("membershipType");
                     
@@ -581,8 +583,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute membershipNumber is missing");
-                           
                     }
                     handledAttributes.add("membershipNumber");
                     
@@ -600,11 +600,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

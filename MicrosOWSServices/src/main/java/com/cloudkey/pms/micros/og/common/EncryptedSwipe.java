@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = EncryptedSwipe
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localTrackIndicator ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTrackIndicatorTracker = false ;
+
+                           public boolean isTrackIndicatorSpecified(){
+                               return localTrackIndicatorTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param TrackIndicator
                                */
                                public void setTrackIndicator(java.lang.String param){
-                            
+                            localTrackIndicatorTracker = param != null;
+                                   
                                             this.localTrackIndicator=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localSwiperType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localSwiperTypeTracker = false ;
+
+                           public boolean isSwiperTypeSpecified(){
+                               return localSwiperTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param SwiperType
                                */
                                public void setSwiperType(java.lang.String param){
-                            
+                            localSwiperTypeTracker = param != null;
+                                   
                                             this.localSwiperType=param;
                                     
 
@@ -133,6 +157,17 @@
                         
                                     protected java.lang.String localMaskedPAN ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMaskedPANTracker = false ;
+
+                           public boolean isMaskedPANSpecified(){
+                               return localMaskedPANTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -149,7 +184,8 @@
                                * @param param MaskedPAN
                                */
                                public void setMaskedPAN(java.lang.String param){
-                            
+                            localMaskedPANTracker = param != null;
+                                   
                                             this.localMaskedPAN=param;
                                     
 
@@ -247,6 +283,17 @@
                         
                                     protected java.lang.String localKeySerialNumber ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localKeySerialNumberTracker = false ;
+
+                           public boolean isKeySerialNumberSpecified(){
+                               return localKeySerialNumberTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -263,7 +310,8 @@
                                * @param param KeySerialNumber
                                */
                                public void setKeySerialNumber(java.lang.String param){
-                            
+                            localKeySerialNumberTracker = param != null;
+                                   
                                             this.localKeySerialNumber=param;
                                     
 
@@ -328,7 +376,7 @@
 
                
                    }
-               
+                if (localTrackIndicatorTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "TrackIndicator", xmlWriter);
                              
@@ -346,7 +394,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localSwiperTypeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "SwiperType", xmlWriter);
                              
@@ -364,7 +412,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localSwiperIDTracker){
+                             } if (localSwiperIDTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "SwiperID", xmlWriter);
                              
@@ -382,7 +430,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localMaskedPANTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "MaskedPAN", xmlWriter);
                              
@@ -400,7 +448,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localTrack1Tracker){
+                             } if (localTrack1Tracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "Track1", xmlWriter);
                              
@@ -436,7 +484,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localKeySerialNumberTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "KeySerialNumber", xmlWriter);
                              
@@ -454,7 +502,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -462,7 +510,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -639,7 +687,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localTrackIndicatorTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "TrackIndicator"));
                                  
@@ -648,7 +696,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("TrackIndicator cannot be null!!");
                                         }
-                                    
+                                    } if (localSwiperTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "SwiperType"));
                                  
@@ -657,7 +705,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("SwiperType cannot be null!!");
                                         }
-                                     if (localSwiperIDTracker){
+                                    } if (localSwiperIDTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "SwiperID"));
                                  
@@ -666,7 +714,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("SwiperID cannot be null!!");
                                         }
-                                    }
+                                    } if (localMaskedPANTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "MaskedPAN"));
                                  
@@ -675,7 +723,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MaskedPAN cannot be null!!");
                                         }
-                                     if (localTrack1Tracker){
+                                    } if (localTrack1Tracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "Track1"));
                                  
@@ -693,7 +741,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Track2 cannot be null!!");
                                         }
-                                    }
+                                    } if (localKeySerialNumberTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "KeySerialNumber"));
                                  
@@ -702,7 +750,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("KeySerialNumber cannot be null!!");
                                         }
-                                    
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -756,7 +804,7 @@
                             if (!"EncryptedSwipe".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (EncryptedSwipe)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (EncryptedSwipe)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -798,11 +846,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -823,11 +870,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -872,11 +918,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -945,11 +990,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

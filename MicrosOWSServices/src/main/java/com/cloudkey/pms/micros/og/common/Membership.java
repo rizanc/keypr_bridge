@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Membership
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -73,6 +73,17 @@
                         
                                     protected java.lang.String localMembershipNumber ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMembershipNumberTracker = false ;
+
+                           public boolean isMembershipNumberSpecified(){
+                               return localMembershipNumberTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -89,7 +100,8 @@
                                * @param param MembershipNumber
                                */
                                public void setMembershipNumber(java.lang.String param){
-                            
+                            localMembershipNumberTracker = param != null;
+                                   
                                             this.localMembershipNumber=param;
                                     
 
@@ -398,7 +410,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueIDList localResvNameId ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUniqueID localResvNameId ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -414,9 +426,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUniqueID
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueIDList getResvNameId(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID getResvNameId(){
                                return localResvNameId;
                            }
 
@@ -426,7 +438,7 @@
                                * Auto generated setter method
                                * @param param ResvNameId
                                */
-                               public void setResvNameId(com.cloudkey.pms.micros.og.common.UniqueIDList param){
+                               public void setResvNameId(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID param){
                             localResvNameIdTracker = param != null;
                                    
                                             this.localResvNameId=param;
@@ -611,7 +623,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.AwardPointsToExpireList localAwardPointsToExpires ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire localAwardPointsToExpires ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -627,9 +639,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.AwardPointsToExpireList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire
                            */
-                           public  com.cloudkey.pms.micros.og.common.AwardPointsToExpireList getAwardPointsToExpires(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire getAwardPointsToExpires(){
                                return localAwardPointsToExpires;
                            }
 
@@ -639,7 +651,7 @@
                                * Auto generated setter method
                                * @param param AwardPointsToExpires
                                */
-                               public void setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.AwardPointsToExpireList param){
+                               public void setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire param){
                             localAwardPointsToExpiresTracker = param != null;
                                    
                                             this.localAwardPointsToExpires=param;
@@ -769,7 +781,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localMembershipNumberTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "membershipNumber", xmlWriter);
                              
@@ -787,7 +799,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localMembershipLevelTracker){
+                             } if (localMembershipLevelTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "membershipLevel", xmlWriter);
                              
@@ -996,7 +1008,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1182,7 +1194,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("membershipType cannot be null!!");
                                         }
-                                    }
+                                    } if (localMembershipNumberTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "membershipNumber"));
                                  
@@ -1191,7 +1203,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("membershipNumber cannot be null!!");
                                         }
-                                     if (localMembershipLevelTracker){
+                                    } if (localMembershipLevelTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "membershipLevel"));
                                  
@@ -1362,7 +1374,7 @@
                             if (!"Membership".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Membership)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Membership)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1428,11 +1440,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1608,7 +1619,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","ResvNameId").equals(reader.getName())){
                                 
-                                                object.setResvNameId(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setResvNameId(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1712,7 +1723,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","awardPointsToExpires").equals(reader.getName())){
                                 
-                                                object.setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.AwardPointsToExpireList.Factory.parse(reader));
+                                                object.setAwardPointsToExpires(com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -154,10 +154,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localVaultedCardID is null");
-                                      }
-                                    
                                             if (localLastFourDigits != null){
                                         
                                                 writeAttribute("",
@@ -447,8 +443,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute vaultedCardID is missing");
-                           
                     }
                     handledAttributes.add("vaultedCardID");
                     

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PaymentUsed
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.PaymentType localPaymentType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPaymentTypeTracker = false ;
+
+                           public boolean isPaymentTypeSpecified(){
+                               return localPaymentTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param PaymentType
                                */
                                public void setPaymentType(com.cloudkey.pms.micros.og.hotelcommon.PaymentType param){
-                            
+                            localPaymentTypeTracker = param != null;
+                                   
                                             this.localPaymentType=param;
                                     
 
@@ -154,13 +166,13 @@
 
                
                    }
-               
+                if (localPaymentTypeTracker){
                                             if (localPaymentType==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PaymentType cannot be null!!");
                                             }
                                            localPaymentType.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PaymentType"),
                                                xmlWriter);
-                                         if (localDepositTracker){
+                                        } if (localDepositTracker){
                                             if (localDeposit==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Deposit cannot be null!!");
                                             }
@@ -174,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -351,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPaymentTypeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "PaymentType"));
                             
@@ -360,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PaymentType cannot be null!!");
                                     }
                                     elementList.add(localPaymentType);
-                                 if (localDepositTracker){
+                                } if (localDepositTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Deposit"));
                             
@@ -456,11 +468,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

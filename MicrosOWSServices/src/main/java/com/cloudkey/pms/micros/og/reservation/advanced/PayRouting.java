@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PayRouting
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -197,7 +197,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.advanced.RoutingInstructionCodes localRoutingCodes ;
+                                    protected com.cloudkey.pms.micros.og.reservation.advanced.ArrayOfRoutingInstructionCode localRoutingCodes ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -213,9 +213,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.advanced.RoutingInstructionCodes
+                           * @return com.cloudkey.pms.micros.og.reservation.advanced.ArrayOfRoutingInstructionCode
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.advanced.RoutingInstructionCodes getRoutingCodes(){
+                           public  com.cloudkey.pms.micros.og.reservation.advanced.ArrayOfRoutingInstructionCode getRoutingCodes(){
                                return localRoutingCodes;
                            }
 
@@ -225,7 +225,7 @@
                                * Auto generated setter method
                                * @param param RoutingCodes
                                */
-                               public void setRoutingCodes(com.cloudkey.pms.micros.og.reservation.advanced.RoutingInstructionCodes param){
+                               public void setRoutingCodes(com.cloudkey.pms.micros.og.reservation.advanced.ArrayOfRoutingInstructionCode param){
                             localRoutingCodesTracker = param != null;
                                    
                                             this.localRoutingCodes=param;
@@ -1731,10 +1731,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRoutingInstruction is null");
-                                      }
-                                    
                                             if (localOwner != null){
                                         
                                                 writeAttribute("",
@@ -1742,10 +1738,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOwner), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localOwner is null");
                                       }
                                     
                                                    if (localWindow!=java.lang.Integer.MIN_VALUE) {
@@ -2248,7 +2240,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -2769,7 +2761,7 @@
                             if (!"PayRouting".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PayRouting)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (PayRouting)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -2801,8 +2793,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute RoutingInstruction is missing");
-                           
                     }
                     handledAttributes.add("RoutingInstruction");
                     
@@ -2819,8 +2809,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute Owner is missing");
-                           
                     }
                     handledAttributes.add("Owner");
                     
@@ -2953,7 +2941,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","RoutingCodes").equals(reader.getName())){
                                 
-                                                object.setRoutingCodes(com.cloudkey.pms.micros.og.reservation.advanced.RoutingInstructionCodes.Factory.parse(reader));
+                                                object.setRoutingCodes(com.cloudkey.pms.micros.og.reservation.advanced.ArrayOfRoutingInstructionCode.Factory.parse(reader));
                                               
                                         reader.next();
                                     

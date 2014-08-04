@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Customer
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.PersonName localPersonName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPersonNameTracker = false ;
+
+                           public boolean isPersonNameSpecified(){
+                               return localPersonNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param PersonName
                                */
                                public void setPersonName(com.cloudkey.pms.micros.og.common.PersonName param){
-                            
+                            localPersonNameTracker = param != null;
+                                   
                                             this.localPersonName=param;
                                     
 
@@ -143,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.GovernmentIDList localGovernmentIDList ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfGovernmentID localGovernmentIDList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -159,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.GovernmentIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfGovernmentID
                            */
-                           public  com.cloudkey.pms.micros.og.common.GovernmentIDList getGovernmentIDList(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfGovernmentID getGovernmentIDList(){
                                return localGovernmentIDList;
                            }
 
@@ -171,7 +183,7 @@
                                * Auto generated setter method
                                * @param param GovernmentIDList
                                */
-                               public void setGovernmentIDList(com.cloudkey.pms.micros.og.common.GovernmentIDList param){
+                               public void setGovernmentIDList(com.cloudkey.pms.micros.og.common.ArrayOfGovernmentID param){
                             localGovernmentIDListTracker = param != null;
                                    
                                             this.localGovernmentIDList=param;
@@ -356,13 +368,13 @@
 
                                             
                                       }
-                                    
+                                     if (localPersonNameTracker){
                                             if (localPersonName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                             }
                                            localPersonName.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","PersonName"),
                                                xmlWriter);
-                                         if (localNativeNameTracker){
+                                        } if (localNativeNameTracker){
                                             if (localNativeName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NativeName cannot be null!!");
                                             }
@@ -400,7 +412,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -577,7 +589,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPersonNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "PersonName"));
                             
@@ -586,7 +598,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                     }
                                     elementList.add(localPersonName);
-                                 if (localNativeNameTracker){
+                                } if (localNativeNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "NativeName"));
                             
@@ -682,7 +694,7 @@
                             if (!"Customer".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Customer)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Customer)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -763,11 +775,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -812,7 +823,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","GovernmentIDList").equals(reader.getName())){
                                 
-                                                object.setGovernmentIDList(com.cloudkey.pms.micros.og.common.GovernmentIDList.Factory.parse(reader));
+                                                object.setGovernmentIDList(com.cloudkey.pms.micros.og.common.ArrayOfGovernmentID.Factory.parse(reader));
                                               
                                         reader.next();
                                     

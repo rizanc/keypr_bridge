@@ -28,56 +28,12 @@
              */
             private void clearAllSettingTrackers() {
             
-                   localCardNumberTracker = false;
-                
                    localLookupVaultedCardDataTracker = false;
+                
+                   localCardNumberTracker = false;
                 
             }
         
-
-                        /**
-                        * field for CardNumber
-                        */
-
-                        
-                                    protected java.lang.String localCardNumber ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCardNumberTracker = false ;
-
-                           public boolean isCardNumberSpecified(){
-                               return localCardNumberTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getCardNumber(){
-                               return localCardNumber;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CardNumber
-                               */
-                               public void setCardNumber(java.lang.String param){
-                            
-                                clearAllSettingTrackers();
-                            localCardNumberTracker = param != null;
-                                   
-                                            this.localCardNumber=param;
-                                    
-
-                               }
-                            
 
                         /**
                         * field for LookupVaultedCardData
@@ -118,6 +74,50 @@
                             localLookupVaultedCardDataTracker = param != null;
                                    
                                             this.localLookupVaultedCardData=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for CardNumber
+                        */
+
+                        
+                                    protected java.lang.String localCardNumber ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCardNumberTracker = false ;
+
+                           public boolean isCardNumberSpecified(){
+                               return localCardNumberTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getCardNumber(){
+                               return localCardNumber;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param CardNumber
+                               */
+                               public void setCardNumber(java.lang.String param){
+                            
+                                clearAllSettingTrackers();
+                            localCardNumberTracker = param != null;
+                                   
+                                            this.localCardNumber=param;
                                     
 
                                }
@@ -176,7 +176,13 @@
 
                
                    }
-                if (localCardNumberTracker){
+                if (localLookupVaultedCardDataTracker){
+                                            if (localLookupVaultedCardData==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("LookupVaultedCardData cannot be null!!");
+                                            }
+                                           localLookupVaultedCardData.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","LookupVaultedCardData"),
+                                               xmlWriter);
+                                        } if (localCardNumberTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Name/";
                                     writeStartElement(null, namespace, "CardNumber", xmlWriter);
                              
@@ -194,13 +200,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localLookupVaultedCardDataTracker){
-                                            if (localLookupVaultedCardData==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("LookupVaultedCardData cannot be null!!");
-                                            }
-                                           localLookupVaultedCardData.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","LookupVaultedCardData"),
-                                               xmlWriter);
-                                        }
+                             }
 
         }
 
@@ -383,16 +383,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localCardNumberTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
-                                                                      "CardNumber"));
-                                 
-                                        if (localCardNumber != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCardNumber));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("CardNumber cannot be null!!");
-                                        }
-                                    } if (localLookupVaultedCardDataTracker){
+                 if (localLookupVaultedCardDataTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "LookupVaultedCardData"));
                             
@@ -401,7 +392,16 @@
                                          throw new org.apache.axis2.databinding.ADBException("LookupVaultedCardData cannot be null!!");
                                     }
                                     elementList.add(localLookupVaultedCardData);
-                                }
+                                } if (localCardNumberTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
+                                                                      "CardNumber"));
+                                 
+                                        if (localCardNumber != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCardNumber));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("CardNumber cannot be null!!");
+                                        }
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -448,6 +448,16 @@
                 
 
                 
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","LookupVaultedCardData").equals(reader.getName())){
+                                
+                                                object.setLookupVaultedCardData(com.cloudkey.pms.micros.og.name.LookupVaultedCardType.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","CardNumber").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -460,16 +470,6 @@
                                     
                                               object.setCardNumber(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","LookupVaultedCardData").equals(reader.getName())){
-                                
-                                                object.setLookupVaultedCardData(com.cloudkey.pms.micros.og.name.LookupVaultedCardType.Factory.parse(reader));
                                               
                                         reader.next();
                                     

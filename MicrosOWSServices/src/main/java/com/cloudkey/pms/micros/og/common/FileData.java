@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FileData
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected javax.activation.DataHandler localFileContents ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localFileContentsTracker = false ;
+
+                           public boolean isFileContentsSpecified(){
+                               return localFileContentsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param FileContents
                                */
                                public void setFileContents(javax.activation.DataHandler param){
-                            
+                            localFileContentsTracker = param != null;
+                                   
                                             this.localFileContents=param;
                                     
 
@@ -234,7 +246,7 @@
 
                                             
                                       }
-                                    
+                                     if (localFileContentsTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "FileContents", xmlWriter);
                              
@@ -250,7 +262,7 @@
                                     }
                                  
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -258,7 +270,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -435,12 +447,12 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localFileContentsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                         "FileContents"));
                                 
                             elementList.add(localFileContents);
-                        
+                        }
                             attribList.add(
                             new javax.xml.namespace.QName("","fileType"));
                             
@@ -509,7 +521,7 @@
                             if (!"FileData".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (FileData)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (FileData)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -592,11 +604,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

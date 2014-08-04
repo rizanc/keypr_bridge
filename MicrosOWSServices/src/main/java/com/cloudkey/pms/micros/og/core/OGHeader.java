@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = OGHeader
                 Namespace URI = http://webservices.micros.com/og/4.3/Core/
-                Namespace Prefix = ns1
+                Namespace Prefix = ns6
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.core.EndPoint localOrigin ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localOriginTracker = false ;
+
+                           public boolean isOriginSpecified(){
+                               return localOriginTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Origin
                                */
                                public void setOrigin(com.cloudkey.pms.micros.og.core.EndPoint param){
-                            
+                            localOriginTracker = param != null;
+                                   
                                             this.localOrigin=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.core.EndPoint localDestination ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDestinationTracker = false ;
+
+                           public boolean isDestinationSpecified(){
+                               return localDestinationTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param Destination
                                */
                                public void setDestination(com.cloudkey.pms.micros.og.core.EndPoint param){
-                            
+                            localDestinationTracker = param != null;
+                                   
                                             this.localDestination=param;
                                     
 
@@ -89,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.core.EndPointList localIntermediaries ;
+                                    protected com.cloudkey.pms.micros.og.core.ArrayOfEndPoint localIntermediaries ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -105,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.core.EndPointList
+                           * @return com.cloudkey.pms.micros.og.core.ArrayOfEndPoint
                            */
-                           public  com.cloudkey.pms.micros.og.core.EndPointList getIntermediaries(){
+                           public  com.cloudkey.pms.micros.og.core.ArrayOfEndPoint getIntermediaries(){
                                return localIntermediaries;
                            }
 
@@ -117,7 +141,7 @@
                                * Auto generated setter method
                                * @param param Intermediaries
                                */
-                               public void setIntermediaries(com.cloudkey.pms.micros.og.core.EndPointList param){
+                               public void setIntermediaries(com.cloudkey.pms.micros.og.core.ArrayOfEndPoint param){
                             localIntermediariesTracker = param != null;
                                    
                                             this.localIntermediaries=param;
@@ -131,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.core.Authentication_type0 localAuthentication ;
+                                    protected com.cloudkey.pms.micros.og.core.OGHeaderAuthentication localAuthentication ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -147,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.core.Authentication_type0
+                           * @return com.cloudkey.pms.micros.og.core.OGHeaderAuthentication
                            */
-                           public  com.cloudkey.pms.micros.og.core.Authentication_type0 getAuthentication(){
+                           public  com.cloudkey.pms.micros.og.core.OGHeaderAuthentication getAuthentication(){
                                return localAuthentication;
                            }
 
@@ -159,7 +183,7 @@
                                * Auto generated setter method
                                * @param param Authentication
                                */
-                               public void setAuthentication(com.cloudkey.pms.micros.og.core.Authentication_type0 param){
+                               public void setAuthentication(com.cloudkey.pms.micros.og.core.OGHeaderAuthentication param){
                             localAuthenticationTracker = param != null;
                                    
                                             this.localAuthentication=param;
@@ -267,14 +291,14 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.core.PrimaryLangID_type0 localPrimaryLangID ;
+                                    protected java.lang.String localPrimaryLangID ;
                                 
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.core.PrimaryLangID_type0
+                           * @return java.lang.String
                            */
-                           public  com.cloudkey.pms.micros.og.core.PrimaryLangID_type0 getPrimaryLangID(){
+                           public  java.lang.String getPrimaryLangID(){
                                return localPrimaryLangID;
                            }
 
@@ -284,7 +308,7 @@
                                * Auto generated setter method
                                * @param param PrimaryLangID
                                */
-                               public void setPrimaryLangID(com.cloudkey.pms.micros.og.core.PrimaryLangID_type0 param){
+                               public void setPrimaryLangID(java.lang.String param){
                             
                                             this.localPrimaryLangID=param;
                                     
@@ -298,8 +322,7 @@
                         */
 
                         
-                                    protected boolean localChannelValidation =
-                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
+                                    protected boolean localChannelValidation ;
                                 
 
                            /**
@@ -354,6 +377,80 @@
 
                                }
                             
+
+                        /**
+                        * field for ExtraAttributes
+                        * This was an Attribute!
+                        * This was an Array!
+                        */
+
+                        
+                                    protected org.apache.axiom.om.OMAttribute[] localExtraAttributes ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return org.apache.axiom.om.OMAttribute[]
+                           */
+                           public  org.apache.axiom.om.OMAttribute[] getExtraAttributes(){
+                               return localExtraAttributes;
+                           }
+
+                           
+                        
+
+
+                               
+                              /**
+                               * validate the array for ExtraAttributes
+                               */
+                              protected void validateExtraAttributes(org.apache.axiom.om.OMAttribute[] param){
+                             
+                              if ((param != null) && (param.length > 1)){
+                                throw new java.lang.RuntimeException();
+                              }
+                              
+                              if ((param != null) && (param.length < 1)){
+                                throw new java.lang.RuntimeException();
+                              }
+                              
+                              }
+
+
+                             /**
+                              * Auto generated setter method
+                              * @param param ExtraAttributes
+                              */
+                              public void setExtraAttributes(org.apache.axiom.om.OMAttribute[] param){
+                              
+                                   validateExtraAttributes(param);
+
+                               
+                                      this.localExtraAttributes=param;
+                              }
+
+                               
+                             
+                             /**
+                             * Auto generated add method for the array for convenience
+                             * @param param org.apache.axiom.om.OMAttribute
+                             */
+                             public void addExtraAttributes(org.apache.axiom.om.OMAttribute param){
+                                   if (localExtraAttributes == null){
+                                   localExtraAttributes = new org.apache.axiom.om.OMAttribute[]{};
+                                   }
+
+                            
+
+                               java.util.List list =
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localExtraAttributes);
+                               list.add(param);
+                               this.localExtraAttributes =
+                             (org.apache.axiom.om.OMAttribute[])list.toArray(
+                            new org.apache.axiom.om.OMAttribute[list.size()]);
+
+                             }
+                             
 
      
      
@@ -441,12 +538,14 @@
                                             
                                       }
                                     
-                                    
-                                    if (localPrimaryLangID != null){
-                                        writeAttribute("",
-                                           "primaryLangID",
-                                           localPrimaryLangID.toString(), xmlWriter);
-                                    }
+                                            if (localPrimaryLangID != null){
+                                        
+                                                writeAttribute("",
+                                                         "primaryLangID",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrimaryLangID), xmlWriter);
+
+                                            
+                                      }
                                     
                                                    if (true) {
                                                
@@ -466,18 +565,26 @@
                                             
                                       }
                                     
+                             if (localExtraAttributes != null) {
+                                 for (int i=0;i <localExtraAttributes.length;i++){
+                                     writeAttribute(localExtraAttributes[i].getNamespace().getName(),
+                                                    localExtraAttributes[i].getLocalName(),
+                                                    localExtraAttributes[i].getAttributeValue(),xmlWriter);
+                                     }
+                             }
+                         if (localOriginTracker){
                                             if (localOrigin==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Origin cannot be null!!");
                                             }
                                            localOrigin.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/","Origin"),
                                                xmlWriter);
-                                        
+                                        } if (localDestinationTracker){
                                             if (localDestination==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Destination cannot be null!!");
                                             }
                                            localDestination.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/","Destination"),
                                                xmlWriter);
-                                         if (localIntermediariesTracker){
+                                        } if (localIntermediariesTracker){
                                             if (localIntermediaries==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Intermediaries cannot be null!!");
                                             }
@@ -497,7 +604,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Core/")){
-                return "ns1";
+                return "ns6";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -674,7 +781,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localOriginTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/",
                                                                       "Origin"));
                             
@@ -683,7 +790,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Origin cannot be null!!");
                                     }
                                     elementList.add(localOrigin);
-                                
+                                } if (localDestinationTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/",
                                                                       "Destination"));
                             
@@ -692,7 +799,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Destination cannot be null!!");
                                     }
                                     elementList.add(localDestination);
-                                 if (localIntermediariesTracker){
+                                } if (localIntermediariesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/",
                                                                       "Intermediaries"));
                             
@@ -729,7 +836,7 @@
                             attribList.add(
                             new javax.xml.namespace.QName("","primaryLangID"));
                             
-                                      attribList.add(localPrimaryLangID.toString());
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrimaryLangID));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","channelValidation"));
@@ -741,6 +848,11 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTerminalID));
                                 
+                             for (int i=0;i <localExtraAttributes.length;i++){
+                               attribList.add(org.apache.axis2.databinding.utils.Constants.OM_ATTRIBUTE_KEY);
+                               attribList.add(localExtraAttributes[i]);
+                             }
+                         
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -794,7 +906,7 @@
                             if (!"OGHeader".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (OGHeader)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (OGHeader)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -869,8 +981,8 @@
                    if (tempAttribPrimaryLangID!=null){
                          java.lang.String content = tempAttribPrimaryLangID;
                         
-                                                  object.setPrimaryLangID(
-                                                        com.cloudkey.pms.micros.og.core.PrimaryLangID_type0.Factory.fromString(reader,tempAttribPrimaryLangID));
+                                                 object.setPrimaryLangID(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribPrimaryLangID));
                                             
                     } else {
                        
@@ -909,6 +1021,28 @@
                     }
                     handledAttributes.add("terminalID");
                     
+                        // now run through all any or extra attributes
+                        // which were not reflected until now
+                        for (int i=0; i < reader.getAttributeCount(); i++) {
+                            if (!handledAttributes.contains(reader.getAttributeLocalName(i))) {
+                                // this is an anyAttribute and we create
+                                // an OMAttribute for this
+                                org.apache.axiom.om.OMFactory factory = org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+                                org.apache.axiom.om.OMAttribute attr =
+                                    factory.createOMAttribute(
+                                            reader.getAttributeLocalName(i),
+                                            factory.createOMNamespace(
+                                                reader.getAttributeNamespace(i), reader.getAttributePrefix(i)),
+                                            reader.getAttributeValue(i));
+
+                                // and add it to the extra attributes
+                                
+                                         object.addExtraAttributes(attr);
+                                    
+
+                            }
+                        }
+                    
                     
                     reader.next();
                 
@@ -923,11 +1057,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -939,17 +1072,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/","Intermediaries").equals(reader.getName())){
                                 
-                                                object.setIntermediaries(com.cloudkey.pms.micros.og.core.EndPointList.Factory.parse(reader));
+                                                object.setIntermediaries(com.cloudkey.pms.micros.og.core.ArrayOfEndPoint.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -964,7 +1096,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Core/","Authentication").equals(reader.getName())){
                                 
-                                                object.setAuthentication(com.cloudkey.pms.micros.og.core.Authentication_type0.Factory.parse(reader));
+                                                object.setAuthentication(com.cloudkey.pms.micros.og.core.OGHeaderAuthentication.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -17,12 +17,11 @@
         
         public  class CurrencyConverterRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "CurrencyConverterRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = CurrencyConverterRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localFromCurrency ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localFromCurrencyTracker = false ;
+
+                           public boolean isFromCurrencySpecified(){
+                               return localFromCurrencyTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param FromCurrency
                                */
                                public void setFromCurrency(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localFromCurrencyTracker = param != null;
+                                   
                                             this.localFromCurrency=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localToCurrency ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localToCurrencyTracker = false ;
+
+                           public boolean isToCurrencySpecified(){
+                               return localToCurrencyTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param ToCurrency
                                */
                                public void setToCurrency(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localToCurrencyTracker = param != null;
+                                   
                                             this.localToCurrency=param;
                                     
 
@@ -92,6 +115,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localResort ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResortTracker = false ;
+
+                           public boolean isResortSpecified(){
+                               return localResortTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +142,8 @@
                                * @param param Resort
                                */
                                public void setResort(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localResortTracker = param != null;
+                                   
                                             this.localResort=param;
                                     
 
@@ -172,8 +207,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -215,25 +250,25 @@
 
                
                    }
-               
+                if (localFromCurrencyTracker){
                                             if (localFromCurrency==null){
                                                  throw new org.apache.axis2.databinding.ADBException("FromCurrency cannot be null!!");
                                             }
                                            localFromCurrency.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","FromCurrency"),
                                                xmlWriter);
-                                        
+                                        } if (localToCurrencyTracker){
                                             if (localToCurrency==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ToCurrency cannot be null!!");
                                             }
                                            localToCurrency.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","ToCurrency"),
                                                xmlWriter);
-                                        
+                                        } if (localResortTracker){
                                             if (localResort==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Resort cannot be null!!");
                                             }
                                            localResort.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","Resort"),
                                                xmlWriter);
-                                         if (localExchangeTypeTracker){
+                                        } if (localExchangeTypeTracker){
                                             if (localExchangeType==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ExchangeType cannot be null!!");
                                             }
@@ -247,7 +282,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -424,7 +459,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localFromCurrencyTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "FromCurrency"));
                             
@@ -433,7 +468,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("FromCurrency cannot be null!!");
                                     }
                                     elementList.add(localFromCurrency);
-                                
+                                } if (localToCurrencyTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "ToCurrency"));
                             
@@ -442,7 +477,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ToCurrency cannot be null!!");
                                     }
                                     elementList.add(localToCurrency);
-                                
+                                } if (localResortTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "Resort"));
                             
@@ -451,7 +486,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Resort cannot be null!!");
                                     }
                                     elementList.add(localResort);
-                                 if (localExchangeTypeTracker){
+                                } if (localExchangeTypeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "ExchangeType"));
                             
@@ -547,11 +582,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -563,11 +597,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -579,11 +612,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

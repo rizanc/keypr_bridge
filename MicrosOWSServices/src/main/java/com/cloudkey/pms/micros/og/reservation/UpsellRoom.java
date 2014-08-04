@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = UpsellRoom
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns5
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localRoomCategory ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRoomCategoryTracker = false ;
+
+                           public boolean isRoomCategorySpecified(){
+                               return localRoomCategoryTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param RoomCategory
                                */
                                public void setRoomCategory(java.lang.String param){
-                            
+                            localRoomCategoryTracker = param != null;
+                                   
                                             this.localRoomCategory=param;
                                     
 
@@ -232,6 +244,17 @@
                         
                                     protected java.lang.String localToRoomCategory ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localToRoomCategoryTracker = false ;
+
+                           public boolean isToRoomCategorySpecified(){
+                               return localToRoomCategoryTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -248,7 +271,8 @@
                                * @param param ToRoomCategory
                                */
                                public void setToRoomCategory(java.lang.String param){
-                            
+                            localToRoomCategoryTracker = param != null;
+                                   
                                             this.localToRoomCategory=param;
                                     
 
@@ -262,6 +286,17 @@
                         
                                     protected java.lang.String localToRoomName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localToRoomNameTracker = false ;
+
+                           public boolean isToRoomNameSpecified(){
+                               return localToRoomNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -278,7 +313,8 @@
                                * @param param ToRoomName
                                */
                                public void setToRoomName(java.lang.String param){
-                            
+                            localToRoomNameTracker = param != null;
+                                   
                                             this.localToRoomName=param;
                                     
 
@@ -640,7 +676,7 @@
 
                
                    }
-               
+                if (localRoomCategoryTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "RoomCategory", xmlWriter);
                              
@@ -658,7 +694,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localFirstAmountTracker){
+                             } if (localFirstAmountTracker){
                                             if (localFirstAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("FirstAmount cannot be null!!");
                                             }
@@ -701,7 +737,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localToRoomCategoryTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "ToRoomCategory", xmlWriter);
                              
@@ -719,7 +755,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localToRoomNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "ToRoomName", xmlWriter);
                              
@@ -737,7 +773,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localToDescriptionTracker){
+                             } if (localToDescriptionTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Reservation/";
                                     writeStartElement(null, namespace, "ToDescription", xmlWriter);
                              
@@ -842,7 +878,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1019,7 +1055,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localRoomCategoryTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "RoomCategory"));
                                  
@@ -1028,7 +1064,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("RoomCategory cannot be null!!");
                                         }
-                                     if (localFirstAmountTracker){
+                                    } if (localFirstAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "FirstAmount"));
                             
@@ -1061,7 +1097,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ToRateCode cannot be null!!");
                                         }
-                                    }
+                                    } if (localToRoomCategoryTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "ToRoomCategory"));
                                  
@@ -1070,7 +1106,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ToRoomCategory cannot be null!!");
                                         }
-                                    
+                                    } if (localToRoomNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "ToRoomName"));
                                  
@@ -1079,7 +1115,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ToRoomName cannot be null!!");
                                         }
-                                     if (localToDescriptionTracker){
+                                    } if (localToDescriptionTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "ToDescription"));
                                  
@@ -1235,11 +1271,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1340,11 +1375,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1365,11 +1399,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

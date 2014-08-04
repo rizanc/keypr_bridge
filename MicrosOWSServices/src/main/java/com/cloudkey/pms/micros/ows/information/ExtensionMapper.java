@@ -22,10 +22,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "CompanyType_type1".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfPhone1".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.CompanyType_type1.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone1.Factory.parse(reader);
                         
 
                   }
@@ -42,26 +42,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
-                  "HotelInformation_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.ows.information.HotelInformation_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "BlackListFlag".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.BlackListFlag.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
                   "EncryptedSwipe".equals(typeName)){
                    
@@ -72,10 +52,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "KeyWordList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "HotelInformationResponseHotelInformation".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.KeyWordList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.HotelInformationResponseHotelInformation.Factory.parse(reader);
                         
 
                   }
@@ -83,29 +63,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "PackageElementList".equals(typeName)){
+                  "AmenityAmenityType".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.PackageElementList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NegotiatedRate".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NegotiatedRate.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "EndPointList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.core.EndPointList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType.Factory.parse(reader);
                         
 
                   }
@@ -122,10 +82,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Codes_type0".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "CurrencyConverterResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Codes_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.CurrencyConverterResponse.Factory.parse(reader);
                         
 
                   }
@@ -133,9 +93,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "GeoCode".equals(typeName)){
+                  "ArrayOfAttractionInfo".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.GeoCode.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionInfo.Factory.parse(reader);
                         
 
                   }
@@ -153,6 +113,26 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "GeoCode".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.GeoCode.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfAttractionsTypeAttraction".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionsTypeAttraction.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "AmenityInfo".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.AmenityInfo.Factory.parse(reader);
@@ -162,20 +142,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Code_type0".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "ScreenItemsResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Code_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "Authentication_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.core.Authentication_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.ScreenItemsResponse.Factory.parse(reader);
                         
 
                   }
@@ -183,19 +153,29 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "HotelReferenceList".equals(typeName)){
+                  "ArrayOfEmail1".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail1.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "EvaluationTypes".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfRestaurantsTypeRestaurant".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.EvaluationTypes.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurant.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfGuarantee".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee.Factory.parse(reader);
                         
 
                   }
@@ -212,26 +192,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameMembershipList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameMembershipList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "AwardInformationList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.AwardInformationList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "DiscountType".equals(typeName)){
                    
@@ -242,50 +202,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NamePhone".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NamePhone.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "DepositRequirement".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.DepositRequirement.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "AwardPointsToExpire".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.AwardPointsToExpire.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "OptionType_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.OptionType_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "AttractionsType".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AttractionsType.Factory.parse(reader);
                         
 
                   }
@@ -306,16 +226,6 @@
                   "Address".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.common.Address.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NamePhoneList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NamePhoneList.Factory.parse(reader);
                         
 
                   }
@@ -353,19 +263,29 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "GuestRooms_type0".equals(typeName)){
+                  "ArrayOfMeetingRoomsTypeMeetingRoomCode".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.GuestRooms_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfMeetingRoomsTypeMeetingRoomCode.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Cuisine_type0".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "ArrayOfEndPoint".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Cuisine_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.ArrayOfEndPoint.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "ScreenItemsRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.ScreenItemsRequest.Factory.parse(reader);
                         
 
                   }
@@ -383,9 +303,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "AddressList".equals(typeName)){
+                  "ArrayOfPaymentType".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AddressList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPaymentType.Factory.parse(reader);
                         
 
                   }
@@ -393,9 +313,19 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "availabilityFlag_type0".equals(typeName)){
+                  "ArrayOfHotelInfo".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AvailabilityFlag_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHotelInfo.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "FacilityInfoTypeGuestRoomsGuestRoom".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRoomsGuestRoom.Factory.parse(reader);
                         
 
                   }
@@ -412,20 +342,30 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "primaryLangID_type0".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "MeetingRoomsTypeMeetingRoomCode".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.PrimaryLangID_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoomCode.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "UniqueIDList".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfAddress1".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress1.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "LovRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.LovRequest.Factory.parse(reader);
                         
 
                   }
@@ -442,30 +382,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Customer".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.Customer.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "UserDefinedValue".equals(typeName)){
+                  "ArrayOfTextElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.UserDefinedValue.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "Licence_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.core.Licence_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfTextElement.Factory.parse(reader);
                         
 
                   }
@@ -473,29 +393,39 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Restaurant_type0".equals(typeName)){
+                  "ArrayOfAdditionalDetail".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Restaurant_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "PrivacyList".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfInventoryItemGroupElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.PrivacyList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfInventoryItemGroupElement.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "StayHistoryData".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfPhone".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.StayHistoryData.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "CurrencyConverterRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.CurrencyConverterRequest.Factory.parse(reader);
                         
 
                   }
@@ -513,6 +443,16 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "RestaurantsTypeRestaurant".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.RestaurantsTypeRestaurant.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "Amenity".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.Amenity.Factory.parse(reader);
@@ -522,40 +462,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "RestaurantsType".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.RestaurantsType.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "PersonName".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.PersonName.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "CommentList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.CommentList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "UserCredentials_type0".equals(typeName)){
+                  "OGHeaderAuthenticationLicence".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.UserCredentials_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.OGHeaderAuthenticationLicence.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfAddress".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress.Factory.parse(reader);
                         
 
                   }
@@ -566,26 +486,6 @@
                   "IDPair".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.common.IDPair.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "ContactEmailList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.ContactEmailList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameAddressList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameAddressList.Factory.parse(reader);
                         
 
                   }
@@ -622,36 +522,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "UserGroupType".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.UserGroupType.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "GuaranteesAccepted".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.GuaranteesAccepted.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameAddress".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameAddress.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "MeetingRoomsType".equals(typeName)){
                    
@@ -662,10 +532,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "GovernmentID".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "ChainInformationRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.GovernmentID.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.ChainInformationRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "AwardsSchedulesRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.AwardsSchedulesRequest.Factory.parse(reader);
                         
 
                   }
@@ -673,29 +553,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "HotelInfoList".equals(typeName)){
+                  "ArrayOfEmail".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.HotelInfoList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Company".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.Company.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameCreditCardList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameCreditCardList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail.Factory.parse(reader);
                         
 
                   }
@@ -712,30 +572,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "Key_type1".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfScreenItemElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.Key_type1.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "PreferenceList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.PreferenceList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NativeName".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NativeName.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfScreenItemElement.Factory.parse(reader);
                         
 
                   }
@@ -743,9 +583,19 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "amenityType_type0".equals(typeName)){
+                  "ArrayOfPackageElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AmenityType_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "AwardsSchedulesResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.AwardsSchedulesResponse.Factory.parse(reader);
                         
 
                   }
@@ -773,39 +623,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "PhoneList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.PhoneList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Profile".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.Profile.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "InventoryItemElement".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.InventoryItemElement.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Comment".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.Comment.Factory.parse(reader);
                         
 
                   }
@@ -823,9 +643,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "InventoryItemGroupElementList".equals(typeName)){
+                  "RestaurantsTypeRestaurantCuisine".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.InventoryItemGroupElementList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.RestaurantsTypeRestaurantCuisine.Factory.parse(reader);
                         
 
                   }
@@ -862,20 +682,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Percentage".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfAwardInformation".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Percentage.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "OptionValue_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.OptionValue_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfAwardInformation.Factory.parse(reader);
                         
 
                   }
@@ -903,9 +713,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "RoomFeatureList".equals(typeName)){
+                  "ArrayOfGuaranteeAccepted".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuaranteeAccepted.Factory.parse(reader);
                         
 
                   }
@@ -942,30 +752,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "IDPairList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "ChainInformationResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.IDPairList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "AdditionalDetailList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "TierWizard".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.TierWizard.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.ChainInformationResponse.Factory.parse(reader);
                         
 
                   }
@@ -992,16 +782,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NegotiatedRateList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NegotiatedRateList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "HotelContact".equals(typeName)){
                    
@@ -1012,10 +792,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "KeyWord".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "FacilityInfoTypeGuestRooms".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.KeyWord.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRooms.Factory.parse(reader);
                         
 
                   }
@@ -1042,30 +822,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameCreditCard".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "HotelInformationResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NameCreditCard.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "AwardPointsToExpireList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.AwardPointsToExpireList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "AttractionInfoList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AttractionInfoList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.HotelInformationResponse.Factory.parse(reader);
                         
 
                   }
@@ -1082,10 +842,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "CompanyType_type1".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "ArrayOfText".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.CompanyType_type1.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfText.Factory.parse(reader);
                         
 
                   }
@@ -1096,6 +856,16 @@
                   "DescriptiveText".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.common.DescriptiveText.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "PackageItemsRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.PackageItemsRequest.Factory.parse(reader);
                         
 
                   }
@@ -1142,36 +912,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "PhoneData_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.PhoneData_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "Benefit".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.Benefit.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "URIList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.URIList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "AttractionInfo".equals(typeName)){
                    
@@ -1182,10 +922,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameEmailList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "PackageItemsResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NameEmailList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.PackageItemsResponse.Factory.parse(reader);
                         
 
                   }
@@ -1212,6 +952,26 @@
 
               
                   if (
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "OGHeaderAuthenticationUserCredentials".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.core.OGHeaderAuthenticationUserCredentials.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "MeetingRoomsTypeMeetingRoom".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.MeetingRoomsTypeMeetingRoom.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "ChainInfo".equals(typeName)){
                    
@@ -1222,20 +982,30 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "PackageGroupElementList".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "ArrayOfIDPair".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.PackageGroupElementList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfIDPair.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "PrivacyOptionType".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfPackageGroupElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.PrivacyOptionType.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageGroupElement.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfAnyURI".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAnyURI.Factory.parse(reader);
                         
 
                   }
@@ -1243,19 +1013,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "UserDefinedValueList".equals(typeName)){
+                  "TextElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.UserDefinedValueList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "UserGroup_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.UserGroup_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.TextElement.Factory.parse(reader);
                         
 
                   }
@@ -1266,16 +1026,6 @@
                   "HotelInfo".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.HotelInfo.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameEmail".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameEmail.Factory.parse(reader);
                         
 
                   }
@@ -1303,9 +1053,39 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfAmenity".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAmenity.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "Paragraph".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.Paragraph.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "RateResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.RateResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "PackageElement".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.PackageElement.Factory.parse(reader);
                         
 
                   }
@@ -1323,19 +1103,19 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "PackageElement".equals(typeName)){
+                  "ArrayOfRestaurantsTypeRestaurantCuisine".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.PackageElement.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurantCuisine.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Preference".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "EndPoint".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.Preference.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.EndPoint.Factory.parse(reader);
                         
 
                   }
@@ -1352,10 +1132,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "EndPoint".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfHotelReference".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.EndPoint.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHotelReference.Factory.parse(reader);
                         
 
                   }
@@ -1373,49 +1153,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "GuaranteeDetailList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "ItemGroupElement".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.ItemGroupElement.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "Membership".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.Membership.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "ScreenItemList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.ScreenItemList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "PaymentsAccepted".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.PaymentsAccepted.Factory.parse(reader);
                         
 
                   }
@@ -1432,36 +1172,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "BlackList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.BlackList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "GovernmentIDList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.GovernmentIDList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "MeetingRoom_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.MeetingRoom_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "Vector".equals(typeName)){
                    
@@ -1472,20 +1182,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "TextList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "RateRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Amenities_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Amenities_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.information.RateRequest.Factory.parse(reader);
                         
 
                   }
@@ -1513,9 +1213,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "GuestRoom_type0".equals(typeName)){
+                  "AdditionalDetail".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.GuestRoom_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetail.Factory.parse(reader);
                         
 
                   }
@@ -1533,39 +1233,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "AdditionalDetail".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetail.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "Gender".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.Gender.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "PaymentType".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.PaymentType.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameMembership".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameMembership.Factory.parse(reader);
                         
 
                   }
@@ -1583,19 +1253,49 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "RoomFeature".equals(typeName)){
+                  "AmenityAvailabilityFlag".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.RoomFeature.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "Cuisines_type0".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "OGHeaderAuthentication".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.Cuisines_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.OGHeaderAuthentication.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "HotelInformationRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.HotelInformationRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "PhonePhoneData".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.common.PhonePhoneData.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Information.wsdl".equals(namespaceURI) &&
+                  "LovResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.information.LovResponse.Factory.parse(reader);
                         
 
                   }

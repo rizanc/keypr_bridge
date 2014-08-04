@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PackageDetail
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.PackageElement localPackageInfo ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPackageInfoTracker = false ;
+
+                           public boolean isPackageInfoSpecified(){
+                               return localPackageInfoTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param PackageInfo
                                */
                                public void setPackageInfo(com.cloudkey.pms.micros.og.hotelcommon.PackageElement param){
-                            
+                            localPackageInfoTracker = param != null;
+                                   
                                             this.localPackageInfo=param;
                                     
 
@@ -59,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PackageCharges localExpectedCharges ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageCharge localExpectedCharges ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -75,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PackageCharges
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageCharge
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PackageCharges getExpectedCharges(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageCharge getExpectedCharges(){
                                return localExpectedCharges;
                            }
 
@@ -87,7 +99,7 @@
                                * Auto generated setter method
                                * @param param ExpectedCharges
                                */
-                               public void setExpectedCharges(com.cloudkey.pms.micros.og.hotelcommon.PackageCharges param){
+                               public void setExpectedCharges(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageCharge param){
                             localExpectedChargesTracker = param != null;
                                    
                                             this.localExpectedCharges=param;
@@ -154,13 +166,13 @@
 
                
                    }
-               
+                if (localPackageInfoTracker){
                                             if (localPackageInfo==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PackageInfo cannot be null!!");
                                             }
                                            localPackageInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","PackageInfo"),
                                                xmlWriter);
-                                         if (localExpectedChargesTracker){
+                                        } if (localExpectedChargesTracker){
                                             if (localExpectedCharges==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ExpectedCharges cannot be null!!");
                                             }
@@ -174,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -351,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPackageInfoTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "PackageInfo"));
                             
@@ -360,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PackageInfo cannot be null!!");
                                     }
                                     elementList.add(localPackageInfo);
-                                 if (localExpectedChargesTracker){
+                                } if (localExpectedChargesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ExpectedCharges"));
                             
@@ -456,17 +468,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ExpectedCharges").equals(reader.getName())){
                                 
-                                                object.setExpectedCharges(com.cloudkey.pms.micros.og.hotelcommon.PackageCharges.Factory.parse(reader));
+                                                object.setExpectedCharges(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageCharge.Factory.parse(reader));
                                               
                                         reader.next();
                                     

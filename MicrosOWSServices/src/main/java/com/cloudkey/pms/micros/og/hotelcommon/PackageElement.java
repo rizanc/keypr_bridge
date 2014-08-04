@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PackageElement
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -1080,130 +1080,6 @@
                             
 
                         /**
-                        * field for RepeatPostingRhythm
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localRepeatPostingRhythm ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getRepeatPostingRhythm(){
-                               return localRepeatPostingRhythm;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param RepeatPostingRhythm
-                               */
-                               public void setRepeatPostingRhythm(boolean param){
-                            
-                                            this.localRepeatPostingRhythm=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for DiscountRateAmount
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected double localDiscountRateAmount ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return double
-                           */
-                           public  double getDiscountRateAmount(){
-                               return localDiscountRateAmount;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param DiscountRateAmount
-                               */
-                               public void setDiscountRateAmount(double param){
-                            
-                                            this.localDiscountRateAmount=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for DiscountRatePercent
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localDiscountRatePercent ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getDiscountRatePercent(){
-                               return localDiscountRatePercent;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param DiscountRatePercent
-                               */
-                               public void setDiscountRatePercent(boolean param){
-                            
-                                            this.localDiscountRatePercent=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for PostingRhythmNights
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected int localPostingRhythmNights ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return int
-                           */
-                           public  int getPostingRhythmNights(){
-                               return localPostingRhythmNights;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PostingRhythmNights
-                               */
-                               public void setPostingRhythmNights(int param){
-                            
-                                            this.localPostingRhythmNights=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for PackageType
                         * This was an Attribute!
                         */
@@ -1395,10 +1271,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localPackageCode is null");
-                                      }
-                                    
                                             if (localCalculationRule != null){
                                         
                                                 writeAttribute("",
@@ -1503,42 +1375,6 @@
                                                 writeAttribute("",
                                                          "taxIncluded",
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTaxIncluded), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "repeatPostingRhythm",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRepeatPostingRhythm), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                                   if (!java.lang.Double.isNaN(localDiscountRateAmount)) {
-                                               
-                                                writeAttribute("",
-                                                         "discountRateAmount",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRateAmount), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "discountRatePercent",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRatePercent), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                                   if (localPostingRhythmNights!=java.lang.Integer.MIN_VALUE) {
-                                               
-                                                writeAttribute("",
-                                                         "postingRhythmNights",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythmNights), xmlWriter);
 
                                             
                                       }
@@ -1736,7 +1572,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -2139,26 +1975,6 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTaxIncluded));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","repeatPostingRhythm"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRepeatPostingRhythm));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","discountRateAmount"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRateAmount));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","discountRatePercent"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRatePercent));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","postingRhythmNights"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythmNights));
-                                
-                            attribList.add(
                             new javax.xml.namespace.QName("","packageType"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPackageType));
@@ -2231,7 +2047,7 @@
                             if (!"PackageElement".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PackageElement)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (PackageElement)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -2263,8 +2079,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute packageCode is missing");
-                           
                     }
                     handledAttributes.add("packageCode");
                     
@@ -2463,74 +2277,6 @@
                        
                     }
                     handledAttributes.add("taxIncluded");
-                    
-                    // handle attribute "repeatPostingRhythm"
-                    java.lang.String tempAttribRepeatPostingRhythm =
-                        
-                                reader.getAttributeValue(null,"repeatPostingRhythm");
-                            
-                   if (tempAttribRepeatPostingRhythm!=null){
-                         java.lang.String content = tempAttribRepeatPostingRhythm;
-                        
-                                                 object.setRepeatPostingRhythm(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribRepeatPostingRhythm));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("repeatPostingRhythm");
-                    
-                    // handle attribute "discountRateAmount"
-                    java.lang.String tempAttribDiscountRateAmount =
-                        
-                                reader.getAttributeValue(null,"discountRateAmount");
-                            
-                   if (tempAttribDiscountRateAmount!=null){
-                         java.lang.String content = tempAttribDiscountRateAmount;
-                        
-                                                 object.setDiscountRateAmount(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(tempAttribDiscountRateAmount));
-                                            
-                    } else {
-                       
-                                           object.setDiscountRateAmount(java.lang.Double.NaN);
-                                       
-                    }
-                    handledAttributes.add("discountRateAmount");
-                    
-                    // handle attribute "discountRatePercent"
-                    java.lang.String tempAttribDiscountRatePercent =
-                        
-                                reader.getAttributeValue(null,"discountRatePercent");
-                            
-                   if (tempAttribDiscountRatePercent!=null){
-                         java.lang.String content = tempAttribDiscountRatePercent;
-                        
-                                                 object.setDiscountRatePercent(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribDiscountRatePercent));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("discountRatePercent");
-                    
-                    // handle attribute "postingRhythmNights"
-                    java.lang.String tempAttribPostingRhythmNights =
-                        
-                                reader.getAttributeValue(null,"postingRhythmNights");
-                            
-                   if (tempAttribPostingRhythmNights!=null){
-                         java.lang.String content = tempAttribPostingRhythmNights;
-                        
-                                                 object.setPostingRhythmNights(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(tempAttribPostingRhythmNights));
-                                            
-                    } else {
-                       
-                                           object.setPostingRhythmNights(java.lang.Integer.MIN_VALUE);
-                                       
-                    }
-                    handledAttributes.add("postingRhythmNights");
                     
                     // handle attribute "packageType"
                     java.lang.String tempAttribPackageType =

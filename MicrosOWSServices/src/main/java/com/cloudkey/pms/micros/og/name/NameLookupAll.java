@@ -325,17 +325,6 @@
                         
                                     protected com.cloudkey.pms.micros.og.name.NameLookupAllChoice_type0 localNameLookupAllChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localNameLookupAllChoice_type0Tracker = false ;
-
-                           public boolean isNameLookupAllChoice_type0Specified(){
-                               return localNameLookupAllChoice_type0Tracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -352,8 +341,7 @@
                                * @param param NameLookupAllChoice_type0
                                */
                                public void setNameLookupAllChoice_type0(com.cloudkey.pms.micros.og.name.NameLookupAllChoice_type0 param){
-                            localNameLookupAllChoice_type0Tracker = param != null;
-                                   
+                            
                                             this.localNameLookupAllChoice_type0=param;
                                     
 
@@ -442,6 +430,36 @@
                                        !java.lang.Double.isNaN(param);
                                    
                                             this.localNoOfRows=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for NoOfRowsSpecified
+                        */
+
+                        
+                                    protected boolean localNoOfRowsSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getNoOfRowsSpecified(){
+                               return localNoOfRowsSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param NoOfRowsSpecified
+                               */
+                               public void setNoOfRowsSpecified(boolean param){
+                            
+                                            this.localNoOfRowsSpecified=param;
                                     
 
                                }
@@ -631,12 +649,12 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localNameLookupAllChoice_type0Tracker){
+                             }
                                             if (localNameLookupAllChoice_type0==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameLookupAllChoice_type0 cannot be null!!");
                                             }
                                            localNameLookupAllChoice_type0.serialize(null,xmlWriter);
-                                        } if (localNativeNameTracker){
+                                         if (localNativeNameTracker){
                                             if (localNativeName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NativeName cannot be null!!");
                                             }
@@ -656,6 +674,19 @@
                                     
                                    xmlWriter.writeEndElement();
                              }
+                                    namespace = "http://webservices.micros.com/og/4.3/Name/";
+                                    writeStartElement(null, namespace, "NoOfRowsSpecified", xmlWriter);
+                             
+                                               if (false) {
+                                           
+                                                         throw new org.apache.axis2.databinding.ADBException("NoOfRowsSpecified cannot be null!!");
+                                                      
+                                               } else {
+                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNoOfRowsSpecified));
+                                               }
+                                    
+                                   xmlWriter.writeEndElement();
+                             
                     xmlWriter.writeEndElement();
                
 
@@ -903,7 +934,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ActiveYn cannot be null!!");
                                         }
-                                    } if (localNameLookupAllChoice_type0Tracker){
+                                    }
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "NameLookupAllChoice_type0"));
                             
@@ -912,7 +943,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameLookupAllChoice_type0 cannot be null!!");
                                     }
                                     elementList.add(localNameLookupAllChoice_type0);
-                                } if (localNativeNameTracker){
+                                 if (localNativeNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "NativeName"));
                             
@@ -928,6 +959,12 @@
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNoOfRows));
                             }
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
+                                                                      "NoOfRowsSpecified"));
+                                 
+                                elementList.add(
+                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNoOfRowsSpecified));
+                            
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -1174,22 +1211,12 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                        
-                                         try{
-                                    
                                     if (reader.isStartElement() ){
                                 
                                                 object.setNameLookupAllChoice_type0(com.cloudkey.pms.micros.og.name.NameLookupAllChoice_type0.Factory.parse(reader));
                                             
                               }  // End of if for expected property start element
                                 
-                                    else {
-                                        
-                                    }
-                                
-                                
-                                 } catch (java.lang.Exception e) {}
-                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1230,7 +1257,32 @@
                                                object.setNoOfRows(java.lang.Double.NaN);
                                            
                                     }
-                                  
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","NoOfRowsSpecified").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"NoOfRowsSpecified" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setNoOfRowsSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                              
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

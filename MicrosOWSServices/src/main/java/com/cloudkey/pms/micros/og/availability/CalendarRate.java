@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = CalendarRate
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.RestrictionList_type0 localRestrictionList ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfRestriction localRestrictionList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RestrictionList_type0
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfRestriction
                            */
-                           public  com.cloudkey.pms.micros.og.availability.RestrictionList_type0 getRestrictionList(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfRestriction getRestrictionList(){
                                return localRestrictionList;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param RestrictionList
                                */
-                               public void setRestrictionList(com.cloudkey.pms.micros.og.availability.RestrictionList_type0 param){
+                               public void setRestrictionList(com.cloudkey.pms.micros.og.availability.ArrayOfRestriction param){
                             localRestrictionListTracker = param != null;
                                    
                                             this.localRestrictionList=param;
@@ -71,14 +71,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.RateList_type0 localRateList ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfRoomRate localRateList ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRateListTracker = false ;
+
+                           public boolean isRateListSpecified(){
+                               return localRateListTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RateList_type0
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfRoomRate
                            */
-                           public  com.cloudkey.pms.micros.og.availability.RateList_type0 getRateList(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfRoomRate getRateList(){
                                return localRateList;
                            }
 
@@ -88,8 +99,9 @@
                                * Auto generated setter method
                                * @param param RateList
                                */
-                               public void setRateList(com.cloudkey.pms.micros.og.availability.RateList_type0 param){
-                            
+                               public void setRateList(com.cloudkey.pms.micros.og.availability.ArrayOfRoomRate param){
+                            localRateListTracker = param != null;
+                                   
                                             this.localRateList=param;
                                     
 
@@ -160,13 +172,13 @@
                                             }
                                            localRestrictionList.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RestrictionList"),
                                                xmlWriter);
-                                        }
+                                        } if (localRateListTracker){
                                             if (localRateList==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RateList cannot be null!!");
                                             }
                                            localRateList.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RateList"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -174,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -360,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("RestrictionList cannot be null!!");
                                     }
                                     elementList.add(localRestrictionList);
-                                }
+                                } if (localRateListTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "RateList"));
                             
@@ -369,7 +381,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("RateList cannot be null!!");
                                     }
                                     elementList.add(localRateList);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -450,7 +462,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RestrictionList").equals(reader.getName())){
                                 
-                                                object.setRestrictionList(com.cloudkey.pms.micros.og.availability.RestrictionList_type0.Factory.parse(reader));
+                                                object.setRestrictionList(com.cloudkey.pms.micros.og.availability.ArrayOfRestriction.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -465,17 +477,16 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RateList").equals(reader.getName())){
                                 
-                                                object.setRateList(com.cloudkey.pms.micros.og.availability.RateList_type0.Factory.parse(reader));
+                                                object.setRateList(com.cloudkey.pms.micros.og.availability.ArrayOfRoomRate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

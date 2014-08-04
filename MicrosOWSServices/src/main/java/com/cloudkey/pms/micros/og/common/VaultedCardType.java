@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = VaultedCardType
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -154,10 +154,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localVaultedCardID is null");
-                                      }
-                                    
                                             if (localLastFourDigits != null){
                                         
                                                 writeAttribute("",
@@ -167,10 +163,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localLastFourDigits is null");
-                                      }
-                                    
                     xmlWriter.writeEndElement();
                
 
@@ -178,7 +170,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -419,7 +411,7 @@
                             if (!"VaultedCardType".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (VaultedCardType)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (VaultedCardType)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -451,8 +443,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute vaultedCardID is missing");
-                           
                     }
                     handledAttributes.add("vaultedCardID");
                     
@@ -469,8 +459,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute lastFourDigits is missing");
-                           
                     }
                     handledAttributes.add("lastFourDigits");
                     

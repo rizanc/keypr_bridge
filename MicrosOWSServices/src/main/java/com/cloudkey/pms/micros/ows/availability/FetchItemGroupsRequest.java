@@ -17,12 +17,11 @@
         
         public  class FetchItemGroupsRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "FetchItemGroupsRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchItemGroupsRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -57,6 +68,7 @@
 
                         /**
                         * field for GroupOnly
+                        * This was an Attribute!
                         */
 
                         
@@ -100,8 +112,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -144,25 +156,25 @@
                
                    }
                
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "groupOnly",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGroupOnly), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localGroupOnly is null");
+                                      }
+                                     if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReference"),
                                                xmlWriter);
-                                        
-                                    namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
-                                    writeStartElement(null, namespace, "groupOnly", xmlWriter);
-                             
-                                               if (false) {
-                                           
-                                                         throw new org.apache.axis2.databinding.ADBException("groupOnly cannot be null!!");
-                                                      
-                                               } else {
-                                                    xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGroupOnly));
-                                               }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -170,7 +182,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -347,7 +359,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "HotelReference"));
                             
@@ -356,13 +368,12 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                                                                      "groupOnly"));
-                                 
-                                elementList.add(
-                                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGroupOnly));
+                                }
+                            attribList.add(
+                            new javax.xml.namespace.QName("","groupOnly"));
                             
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGroupOnly));
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -435,6 +446,24 @@
                 
 
                 
+                    // handle attribute "groupOnly"
+                    java.lang.String tempAttribGroupOnly =
+                        
+                                reader.getAttributeValue(null,"groupOnly");
+                            
+                   if (tempAttribGroupOnly!=null){
+                         java.lang.String content = tempAttribGroupOnly;
+                        
+                                                 object.setGroupOnly(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribGroupOnly));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute groupOnly is missing");
+                           
+                    }
+                    handledAttributes.add("groupOnly");
+                    
                     
                     reader.next();
                 
@@ -449,36 +478,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","groupOnly").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"groupOnly" +"  cannot be null");
+                                    else {
+                                        
                                     }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setGroupOnly(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

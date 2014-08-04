@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ChildAge
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -50,6 +50,37 @@
                                public void setAge(int param){
                             
                                             this.localAge=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for AgeSpecified
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localAgeSpecified ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getAgeSpecified(){
+                               return localAgeSpecified;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param AgeSpecified
+                               */
+                               public void setAgeSpecified(boolean param){
+                            
+                                            this.localAgeSpecified=param;
                                     
 
                                }
@@ -123,6 +154,19 @@
                                             
                                       }
                                     
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "ageSpecified",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAgeSpecified), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localAgeSpecified is null");
+                                      }
+                                    
                     xmlWriter.writeEndElement();
                
 
@@ -130,7 +174,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -313,6 +357,11 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAge));
                                 
+                            attribList.add(
+                            new javax.xml.namespace.QName("","ageSpecified"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAgeSpecified));
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -402,6 +451,24 @@
                                        
                     }
                     handledAttributes.add("age");
+                    
+                    // handle attribute "ageSpecified"
+                    java.lang.String tempAttribAgeSpecified =
+                        
+                                reader.getAttributeValue(null,"ageSpecified");
+                            
+                   if (tempAttribAgeSpecified!=null){
+                         java.lang.String content = tempAttribAgeSpecified;
+                        
+                                                 object.setAgeSpecified(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribAgeSpecified));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute ageSpecified is missing");
+                           
+                    }
+                    handledAttributes.add("ageSpecified");
                     
                     
                     reader.next();

@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCodeTracker = false ;
+
+                           public boolean isCodeSpecified(){
+                               return localCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Code
                                */
                                public void setCode(java.lang.String param){
-                            
+                            localCodeTracker = param != null;
+                                   
                                             this.localCode=param;
                                     
 
@@ -139,48 +151,6 @@
                             
 
                         /**
-                        * field for IssueType
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.membership.PromotionIssueType localIssueType ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localIssueTypeTracker = false ;
-
-                           public boolean isIssueTypeSpecified(){
-                               return localIssueTypeTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.PromotionIssueType
-                           */
-                           public  com.cloudkey.pms.micros.og.membership.PromotionIssueType getIssueType(){
-                               return localIssueType;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param IssueType
-                               */
-                               public void setIssueType(com.cloudkey.pms.micros.og.membership.PromotionIssueType param){
-                            localIssueTypeTracker = param != null;
-                                   
-                                            this.localIssueType=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for Status
                         */
 
@@ -217,6 +187,48 @@
                             localStatusTracker = param != null;
                                    
                                             this.localStatus=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for IssueType
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.membership.PromotionIssueType localIssueType ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localIssueTypeTracker = false ;
+
+                           public boolean isIssueTypeSpecified(){
+                               return localIssueTypeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.membership.PromotionIssueType
+                           */
+                           public  com.cloudkey.pms.micros.og.membership.PromotionIssueType getIssueType(){
+                               return localIssueType;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param IssueType
+                               */
+                               public void setIssueType(com.cloudkey.pms.micros.og.membership.PromotionIssueType param){
+                            localIssueTypeTracker = param != null;
+                                   
+                                            this.localIssueType=param;
                                     
 
                                }
@@ -280,7 +292,7 @@
 
                
                    }
-               
+                if (localCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "Code", xmlWriter);
                              
@@ -298,7 +310,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localDatesTracker){
+                             } if (localDatesTracker){
                                             if (localDates==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Dates cannot be null!!");
                                             }
@@ -322,17 +334,17 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localIssueTypeTracker){
-                                            if (localIssueType==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("IssueType cannot be null!!");
-                                            }
-                                           localIssueType.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","IssueType"),
-                                               xmlWriter);
-                                        } if (localStatusTracker){
+                             } if (localStatusTracker){
                                             if (localStatus==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Status cannot be null!!");
                                             }
                                            localStatus.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Status"),
+                                               xmlWriter);
+                                        } if (localIssueTypeTracker){
+                                            if (localIssueType==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("IssueType cannot be null!!");
+                                            }
+                                           localIssueType.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","IssueType"),
                                                xmlWriter);
                                         }
                     xmlWriter.writeEndElement();
@@ -519,7 +531,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Code"));
                                  
@@ -528,7 +540,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Code cannot be null!!");
                                         }
-                                     if (localDatesTracker){
+                                    } if (localDatesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Dates"));
                             
@@ -546,16 +558,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
                                         }
-                                    } if (localIssueTypeTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "IssueType"));
-                            
-                            
-                                    if (localIssueType==null){
-                                         throw new org.apache.axis2.databinding.ADBException("IssueType cannot be null!!");
-                                    }
-                                    elementList.add(localIssueType);
-                                } if (localStatusTracker){
+                                    } if (localStatusTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Status"));
                             
@@ -564,6 +567,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("Status cannot be null!!");
                                     }
                                     elementList.add(localStatus);
+                                } if (localIssueTypeTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
+                                                                      "IssueType"));
+                            
+                            
+                                    if (localIssueType==null){
+                                         throw new org.apache.axis2.databinding.ADBException("IssueType cannot be null!!");
+                                    }
+                                    elementList.add(localIssueType);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -639,10 +651,10 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Code").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -660,8 +672,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Dates").equals(reader.getName())){
                                 
                                                 object.setDates(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan.Factory.parse(reader));
@@ -670,8 +687,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Name").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -689,18 +711,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","IssueType").equals(reader.getName())){
+                                    else {
+                                        
+                                    }
                                 
-                                                object.setIssueType(com.cloudkey.pms.micros.og.membership.PromotionIssueType.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
-                              }  // End of if for expected property start element
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                        else
-                                    
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Status").equals(reader.getName())){
                                 
                                                 object.setStatus(com.cloudkey.pms.micros.og.membership.PromotionSubscriptionStatusType.Factory.parse(reader));
@@ -709,16 +726,32 @@
                                     
                               }  // End of if for expected property start element
                                 
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
-                             } else {
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","IssueType").equals(reader.getName())){
+                                
+                                                object.setIssueType(com.cloudkey.pms.micros.og.membership.PromotionIssueType.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

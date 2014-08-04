@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                 "CombineShareRequest",
-                "ns7");
+                "ns3");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localConfirmationNumber ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localConfirmationNumberTracker = false ;
+
+                           public boolean isConfirmationNumberSpecified(){
+                               return localConfirmationNumberTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +101,8 @@
                                * @param param ConfirmationNumber
                                */
                                public void setConfirmationNumber(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localConfirmationNumberTracker = param != null;
+                                   
                                             this.localConfirmationNumber=param;
                                     
 
@@ -134,6 +158,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.Joiner localJoiner ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localJoinerTracker = false ;
+
+                           public boolean isJoinerSpecified(){
+                               return localJoinerTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -150,7 +185,8 @@
                                * @param param Joiner
                                */
                                public void setJoiner(com.cloudkey.pms.micros.og.reservation.Joiner param){
-                            
+                            localJoinerTracker = param != null;
+                                   
                                             this.localJoiner=param;
                                     
 
@@ -381,31 +417,31 @@
 
                                             
                                       }
-                                    
+                                     if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localConfirmationNumberTracker){
                                             if (localConfirmationNumber==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ConfirmationNumber cannot be null!!");
                                             }
                                            localConfirmationNumber.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","ConfirmationNumber"),
                                                xmlWriter);
-                                         if (localLegNumberTracker){
+                                        } if (localLegNumberTracker){
                                             if (localLegNumber==null){
                                                  throw new org.apache.axis2.databinding.ADBException("LegNumber cannot be null!!");
                                             }
                                            localLegNumber.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","LegNumber"),
                                                xmlWriter);
-                                        }
+                                        } if (localJoinerTracker){
                                             if (localJoiner==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Joiner cannot be null!!");
                                             }
                                            localJoiner.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Joiner"),
                                                xmlWriter);
-                                         if (localShareReservationTracker){
+                                        } if (localShareReservationTracker){
                                             if (localShareReservation==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ShareReservation cannot be null!!");
                                             }
@@ -431,7 +467,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -608,7 +644,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "HotelReference"));
                             
@@ -617,7 +653,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localConfirmationNumberTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "ConfirmationNumber"));
                             
@@ -626,7 +662,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ConfirmationNumber cannot be null!!");
                                     }
                                     elementList.add(localConfirmationNumber);
-                                 if (localLegNumberTracker){
+                                } if (localLegNumberTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "LegNumber"));
                             
@@ -635,7 +671,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("LegNumber cannot be null!!");
                                     }
                                     elementList.add(localLegNumber);
-                                }
+                                } if (localJoinerTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "Joiner"));
                             
@@ -644,7 +680,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Joiner cannot be null!!");
                                     }
                                     elementList.add(localJoiner);
-                                 if (localShareReservationTracker){
+                                } if (localShareReservationTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "ShareReservation"));
                             
@@ -779,11 +815,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -795,11 +830,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -826,11 +860,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

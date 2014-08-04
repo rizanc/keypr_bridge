@@ -17,12 +17,11 @@
         
         public  class FetchPrivacyOptionResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "FetchPrivacyOptionResponse",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchPrivacyOptionResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.ResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.common.ResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -60,14 +71,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.PrivacyList localPrivacy ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType localPrivacy ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPrivacyTracker = false ;
+
+                           public boolean isPrivacySpecified(){
+                               return localPrivacyTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.PrivacyList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType
                            */
-                           public  com.cloudkey.pms.micros.og.name.PrivacyList getPrivacy(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType getPrivacy(){
                                return localPrivacy;
                            }
 
@@ -77,8 +99,9 @@
                                * Auto generated setter method
                                * @param param Privacy
                                */
-                               public void setPrivacy(com.cloudkey.pms.micros.og.name.PrivacyList param){
-                            
+                               public void setPrivacy(com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType param){
+                            localPrivacyTracker = param != null;
+                                   
                                             this.localPrivacy=param;
                                     
 
@@ -92,6 +115,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.name.PrivacyPromptData localPrivacyPrompt ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPrivacyPromptTracker = false ;
+
+                           public boolean isPrivacyPromptSpecified(){
+                               return localPrivacyPromptTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +142,8 @@
                                * @param param PrivacyPrompt
                                */
                                public void setPrivacyPrompt(com.cloudkey.pms.micros.og.name.PrivacyPromptData param){
-                            
+                            localPrivacyPromptTracker = param != null;
+                                   
                                             this.localPrivacyPrompt=param;
                                     
 
@@ -130,8 +165,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -173,25 +208,25 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Result"),
                                                xmlWriter);
-                                        
+                                        } if (localPrivacyTracker){
                                             if (localPrivacy==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Privacy cannot be null!!");
                                             }
                                            localPrivacy.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Privacy"),
                                                xmlWriter);
-                                        
+                                        } if (localPrivacyPromptTracker){
                                             if (localPrivacyPrompt==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PrivacyPrompt cannot be null!!");
                                             }
                                            localPrivacyPrompt.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","PrivacyPrompt"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -199,7 +234,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -376,7 +411,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Result"));
                             
@@ -385,7 +420,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                
+                                } if (localPrivacyTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Privacy"));
                             
@@ -394,7 +429,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Privacy cannot be null!!");
                                     }
                                     elementList.add(localPrivacy);
-                                
+                                } if (localPrivacyPromptTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "PrivacyPrompt"));
                             
@@ -403,7 +438,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PrivacyPrompt cannot be null!!");
                                     }
                                     elementList.add(localPrivacyPrompt);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -490,27 +525,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Privacy").equals(reader.getName())){
                                 
-                                                object.setPrivacy(com.cloudkey.pms.micros.og.name.PrivacyList.Factory.parse(reader));
+                                                object.setPrivacy(com.cloudkey.pms.micros.og.name.ArrayOfPrivacyOptionType.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -522,11 +555,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

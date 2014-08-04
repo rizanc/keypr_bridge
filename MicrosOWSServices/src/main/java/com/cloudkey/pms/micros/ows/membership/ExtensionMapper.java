@@ -22,80 +22,60 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "CompanyType_type1".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "IssueECertificateResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.CompanyType_type1.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.IssueECertificateResponse.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "BlackListFlag".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "ConsumeECertificateRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.BlackListFlag.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.ConsumeECertificateRequest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "EncryptedSwipe".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchECertificatesRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.EncryptedSwipe.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchECertificatesRequest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "KeyWordList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "ConsumePointsOthersRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.KeyWordList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.ConsumePointsOthersRequest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NegotiatedRate".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfFavoriteGuest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NegotiatedRate.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "EndPointList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "DeletePromoSubscriptionRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.EndPointList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "Authentication_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.core.Authentication_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "HotelReferenceList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.DeletePromoSubscriptionRequest.Factory.parse(reader);
                         
 
                   }
@@ -112,30 +92,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameMembershipList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchNextCardNumberResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NameMembershipList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "MemberPointsList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.MemberPointsList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NamePhone".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NamePhone.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchNextCardNumberResponse.Factory.parse(reader);
                         
 
                   }
@@ -146,16 +106,6 @@
                   "AwardPointsToExpire".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.common.AwardPointsToExpire.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "OptionType_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.OptionType_type0.Factory.parse(reader);
                         
 
                   }
@@ -182,6 +132,16 @@
 
               
                   if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchStatementResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchStatementResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
                   "Address".equals(typeName)){
                    
@@ -192,10 +152,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NamePhoneList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FavoriteGuestResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NamePhoneList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FavoriteGuestResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfStatementReference".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfStatementReference.Factory.parse(reader);
                         
 
                   }
@@ -222,10 +192,30 @@
 
               
                   if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchStatementRefsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchStatementRefsResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
                   "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
                   "TimeSpan".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.hotelcommon.TimeSpan.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchRateAwardsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchRateAwardsResponse.Factory.parse(reader);
                         
 
                   }
@@ -243,6 +233,16 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "RuleSchedule".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.RuleSchedule.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
                   "Statement".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.membership.Statement.Factory.parse(reader);
@@ -252,10 +252,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "RuleSchedule".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "ArrayOfEndPoint".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.RuleSchedule.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.ArrayOfEndPoint.Factory.parse(reader);
                         
 
                   }
@@ -283,6 +283,16 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfProductAward".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfProductAward.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
                   "Award".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.membership.Award.Factory.parse(reader);
@@ -292,10 +302,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "primaryLangID_type0".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "ArrayOfUniqueID".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.PrimaryLangID_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader);
                         
 
                   }
@@ -303,9 +313,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "RateAwardList".equals(typeName)){
+                  "FetchMemberTierWizardRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.RateAwardList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.FetchMemberTierWizardRequest.Factory.parse(reader);
                         
 
                   }
@@ -322,30 +332,30 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "FavoriteGuestList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.FavoriteGuestList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "UniqueIDList".equals(typeName)){
+                  "ArrayOfTextElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfTextElement.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Customer".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchMembershipTransactionsResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.Customer.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchMembershipTransactionsResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "ConsumePointsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.ConsumePointsResponse.Factory.parse(reader);
                         
 
                   }
@@ -362,40 +372,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "Licence_type0".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.core.Licence_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
                   "AwardPointsInfo".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.membership.AwardPointsInfo.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "PrivacyList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.PrivacyList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "StayHistoryData".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.StayHistoryData.Factory.parse(reader);
                         
 
                   }
@@ -412,20 +392,30 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "CommentList".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "OGHeaderAuthenticationLicence".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.CommentList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.OGHeaderAuthenticationLicence.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "UserCredentials_type0".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfECertificate".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.core.UserCredentials_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfECertificate.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "AddPromoSubscriptionRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.AddPromoSubscriptionRequest.Factory.parse(reader);
                         
 
                   }
@@ -442,10 +432,40 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameAddressList".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfUpgradeAward".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NameAddressList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfUpgradeAward.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfPointsChange".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfPointsChange.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "FetchBenefitsRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.FetchBenefitsRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "ArrayOfAwardPointsToExpire".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfAwardPointsToExpire.Factory.parse(reader);
                         
 
                   }
@@ -462,20 +482,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "UserGroupType".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfMembership".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.UserGroupType.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfMembership.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameAddress".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchRateAwardsRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NameAddress.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchRateAwardsRequest.Factory.parse(reader);
                         
 
                   }
@@ -483,39 +503,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "GovernmentID".equals(typeName)){
+                  "ArrayOfUserDefinedValue".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.GovernmentID.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Company".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.Company.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameCreditCardList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameCreditCardList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
-                  "Key_type1".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.core.Key_type1.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue.Factory.parse(reader);
                         
 
                   }
@@ -532,30 +522,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "PreferenceList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchECertificatesResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.PreferenceList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NativeName".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NativeName.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "MembershipTransaction".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.MembershipTransaction.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchECertificatesResponse.Factory.parse(reader);
                         
 
                   }
@@ -573,9 +543,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "ProductAwardList".equals(typeName)){
+                  "MembershipTransaction".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.ProductAwardList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.MembershipTransaction.Factory.parse(reader);
                         
 
                   }
@@ -583,9 +553,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "PointsChangeList".equals(typeName)){
+                  "FetchMemberTierWizardResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.PointsChangeList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.FetchMemberTierWizardResponse.Factory.parse(reader);
                         
 
                   }
@@ -593,9 +563,19 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "TransactionAwardList".equals(typeName)){
+                  "AddBenefitResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.TransactionAwardList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.AddBenefitResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FavoriteGuestRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FavoriteGuestRequest.Factory.parse(reader);
                         
 
                   }
@@ -612,20 +592,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Profile".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfUDFs".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.Profile.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Comment".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.Comment.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfUDFs.Factory.parse(reader);
                         
 
                   }
@@ -652,20 +622,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "TransactionPointsInfo".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "UpdateEnrollmentCodeResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.TransactionPointsInfo.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.UpdateEnrollmentCodeResponse.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "VaultedCardType".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchPointsExchangeRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.VaultedCardType.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchPointsExchangeRequest.Factory.parse(reader);
                         
 
                   }
@@ -682,6 +652,26 @@
 
               
                   if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "TransferPointsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.TransferPointsResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "IssueECertificateRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.IssueECertificateRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
                   "RateAward".equals(typeName)){
                    
@@ -692,10 +682,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "OptionValue_type0".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchAvailableECertificatesResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.OptionValue_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchAvailableECertificatesResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "ConsumePointsOthersResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.ConsumePointsOthersResponse.Factory.parse(reader);
                         
 
                   }
@@ -703,9 +703,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "UpgradeAwardList".equals(typeName)){
+                  "ArrayOfTransactionAward".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.UpgradeAwardList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfTransactionAward.Factory.parse(reader);
                         
 
                   }
@@ -732,10 +732,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "RoomFeatureList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchEnrollmentCodeRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchEnrollmentCodeRequest.Factory.parse(reader);
                         
 
                   }
@@ -746,16 +746,6 @@
                   "Phone".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.common.Phone.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "ResultStatus".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.ResultStatus.Factory.parse(reader);
                         
 
                   }
@@ -773,19 +763,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "IDPairList".equals(typeName)){
+                  "ResultStatus".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.IDPairList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "ECertificateList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.ECertificateList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ResultStatus.Factory.parse(reader);
                         
 
                   }
@@ -812,20 +792,10 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NegotiatedRateList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchUpgradeAwardsResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NegotiatedRateList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "KeyWord".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.KeyWord.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchUpgradeAwardsResponse.Factory.parse(reader);
                         
 
                   }
@@ -842,16 +812,6 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameCreditCard".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameCreditCard.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
                   "PromotionSubscriptionList".equals(typeName)){
                    
@@ -862,30 +822,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "AwardPointsToExpireList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.AwardPointsToExpireList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "UDFsList".equals(typeName)){
+                  "AddBenefitRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.UDFsList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.AddBenefitRequest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "CompanyType_type1".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "ArrayOfText".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.CompanyType_type1.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfText.Factory.parse(reader);
                         
 
                   }
@@ -912,10 +862,40 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "PhoneData_type0".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "ArrayOfPointsBreakup".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.PhoneData_type0.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfPointsBreakup.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchProductAwardsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchProductAwardsResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "DeletePromoSubscriptionResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.DeletePromoSubscriptionResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchPromoSubscriptionsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchPromoSubscriptionsResponse.Factory.parse(reader);
                         
 
                   }
@@ -942,20 +922,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameEmailList".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "PromotionDetails".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.NameEmailList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.PromotionDetails.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "PromotionDetails".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "OGHeaderAuthenticationUserCredentials".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.PromotionDetails.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.OGHeaderAuthenticationUserCredentials.Factory.parse(reader);
                         
 
                   }
@@ -972,10 +952,20 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "PrivacyOptionType".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "AddPromoSubscriptionResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.PrivacyOptionType.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.AddPromoSubscriptionResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "ArrayOfIDPair".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.common.ArrayOfIDPair.Factory.parse(reader);
                         
 
                   }
@@ -993,39 +983,19 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "UserDefinedValueList".equals(typeName)){
+                  "TextElement".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.UserDefinedValueList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.common.TextElement.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "UserGroup_type0".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchProductAwardsRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.UserGroup_type0.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "NameEmail".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.name.NameEmail.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "CreditCard".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.common.CreditCard.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchProductAwardsRequest.Factory.parse(reader);
                         
 
                   }
@@ -1042,10 +1012,40 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "Preference".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "UpdateEnrollmentCodeRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.Preference.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.UpdateEnrollmentCodeRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "ConsumePointsRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.ConsumePointsRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "FetchBenefitsResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.FetchBenefitsResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchStatementRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchStatementRequest.Factory.parse(reader);
                         
 
                   }
@@ -1056,6 +1056,26 @@
                   "EndPoint".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.core.EndPoint.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
+                  "ArrayOfHotelReference".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHotelReference.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchAvailableECertificatesRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchAvailableECertificatesRequest.Factory.parse(reader);
                         
 
                   }
@@ -1082,30 +1102,40 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Name/".equals(namespaceURI) &&
-                  "BlackList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchNextCardNumberRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.name.BlackList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchNextCardNumberRequest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "GovernmentIDList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchPointsExchangeResponse".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.GovernmentIDList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchPointsExchangeResponse.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "TextList".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchMembershipTransactionsRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchMembershipTransactionsRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchPromoSubscriptionsRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchPromoSubscriptionsRequest.Factory.parse(reader);
                         
 
                   }
@@ -1122,20 +1152,30 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "PointsChange".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "TransferPointsRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.PointsChange.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.TransferPointsRequest.Factory.parse(reader);
                         
 
                   }
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
-                  "Gender".equals(typeName)){
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchUpgradeAwardsRequest".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.common.Gender.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.ows.membership.FetchUpgradeAwardsRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "PointsChange".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.PointsChange.Factory.parse(reader);
                         
 
                   }
@@ -1153,29 +1193,29 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "PointsBreakupList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.PointsBreakupList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "StatementReferenceList".equals(typeName)){
-                   
-                            return  com.cloudkey.pms.micros.og.membership.StatementReferenceList.Factory.parse(reader);
-                        
-
-                  }
-
-              
-                  if (
-                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
                   "UDFs".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.membership.UDFs.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "ConsumeECertificateResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.ConsumeECertificateResponse.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchEnrollmentCodeResponse".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchEnrollmentCodeResponse.Factory.parse(reader);
                         
 
                   }
@@ -1192,10 +1232,30 @@
 
               
                   if (
-                  "http://webservices.micros.com/og/4.3/HotelCommon/".equals(namespaceURI) &&
-                  "RoomFeature".equals(typeName)){
+                  "http://webservices.micros.com/og/4.3/Core/".equals(namespaceURI) &&
+                  "OGHeaderAuthentication".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.hotelcommon.RoomFeature.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.core.OGHeaderAuthentication.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/ows/5.1/Membership.wsdl".equals(namespaceURI) &&
+                  "FetchStatementRefsRequest".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.ows.membership.FetchStatementRefsRequest.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Common/".equals(namespaceURI) &&
+                  "PhonePhoneData".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.common.PhonePhoneData.Factory.parse(reader);
                         
 
                   }
@@ -1203,9 +1263,9 @@
               
                   if (
                   "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
-                  "UDFDate".equals(typeName)){
+                  "ArrayOfRateAward".equals(typeName)){
                    
-                            return  com.cloudkey.pms.micros.og.membership.UDFDate.Factory.parse(reader);
+                            return  com.cloudkey.pms.micros.og.membership.ArrayOfRateAward.Factory.parse(reader);
                         
 
                   }
@@ -1216,6 +1276,16 @@
                   "UDFNumeric".equals(typeName)){
                    
                             return  com.cloudkey.pms.micros.og.membership.UDFNumeric.Factory.parse(reader);
+                        
+
+                  }
+
+              
+                  if (
+                  "http://webservices.micros.com/og/4.3/Membership/".equals(namespaceURI) &&
+                  "UDFDate".equals(typeName)){
+                   
+                            return  com.cloudkey.pms.micros.og.membership.UDFDate.Factory.parse(reader);
                         
 
                   }

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GdsTotalPricingTax
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,17 +31,6 @@
                         
                                     protected java.util.Date localEffectiveStartDate ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localEffectiveStartDateTracker = false ;
-
-                           public boolean isEffectiveStartDateSpecified(){
-                               return localEffectiveStartDateTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -58,8 +47,7 @@
                                * @param param EffectiveStartDate
                                */
                                public void setEffectiveStartDate(java.util.Date param){
-                            localEffectiveStartDateTracker = param != null;
-                                   
+                            
                                             this.localEffectiveStartDate=param;
                                     
 
@@ -73,17 +61,6 @@
                         
                                     protected java.util.Date localEffectiveEndDate ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localEffectiveEndDateTracker = false ;
-
-                           public boolean isEffectiveEndDateSpecified(){
-                               return localEffectiveEndDateTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -100,8 +77,7 @@
                                * @param param EffectiveEndDate
                                */
                                public void setEffectiveEndDate(java.util.Date param){
-                            localEffectiveEndDateTracker = param != null;
-                                   
+                            
                                             this.localEffectiveEndDate=param;
                                     
 
@@ -584,7 +560,7 @@
 
                                             
                                       }
-                                     if (localEffectiveStartDateTracker){
+                                    
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "EffectiveStartDate", xmlWriter);
                              
@@ -602,7 +578,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localEffectiveEndDateTracker){
+                             
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "EffectiveEndDate", xmlWriter);
                              
@@ -620,7 +596,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localTaxOrFeeOrderTracker){
+                              if (localTaxOrFeeOrderTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "TaxOrFeeOrder", xmlWriter);
                              
@@ -790,7 +766,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -967,7 +943,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localEffectiveStartDateTracker){
+                
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "EffectiveStartDate"));
                                  
@@ -976,7 +952,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("EffectiveStartDate cannot be null!!");
                                         }
-                                    } if (localEffectiveEndDateTracker){
+                                    
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "EffectiveEndDate"));
                                  
@@ -985,7 +961,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("EffectiveEndDate cannot be null!!");
                                         }
-                                    } if (localTaxOrFeeOrderTracker){
+                                     if (localTaxOrFeeOrderTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "TaxOrFeeOrder"));
                                  
@@ -1125,7 +1101,7 @@
                             if (!"GdsTotalPricingTax".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (GdsTotalPricingTax)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (GdsTotalPricingTax)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1185,10 +1161,11 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                    else {
-                                        
-                                    }
-                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1209,10 +1186,11 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                    else {
-                                        
-                                    }
-                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

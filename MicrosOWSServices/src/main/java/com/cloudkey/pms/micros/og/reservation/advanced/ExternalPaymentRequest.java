@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/og/4.3/ResvAdvanced/",
                 "ExternalPaymentRequest",
-                "ns6");
+                "ns3");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.PaymentData localPayment ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPaymentTracker = false ;
+
+                           public boolean isPaymentSpecified(){
+                               return localPaymentTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param Payment
                                */
                                public void setPayment(com.cloudkey.pms.micros.og.reservation.advanced.PaymentData param){
-                            
+                            localPaymentTracker = param != null;
+                                   
                                             this.localPayment=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.URLData localURLs ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localURLsTracker = false ;
+
+                           public boolean isURLsSpecified(){
+                               return localURLsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +101,8 @@
                                * @param param URLs
                                */
                                public void setURLs(com.cloudkey.pms.micros.og.reservation.advanced.URLData param){
-                            
+                            localURLsTracker = param != null;
+                                   
                                             this.localURLs=param;
                                     
 
@@ -92,6 +116,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.AccountData localUserAccount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localUserAccountTracker = false ;
+
+                           public boolean isUserAccountSpecified(){
+                               return localUserAccountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +143,8 @@
                                * @param param UserAccount
                                */
                                public void setUserAccount(com.cloudkey.pms.micros.og.reservation.advanced.AccountData param){
-                            
+                            localUserAccountTracker = param != null;
+                                   
                                             this.localUserAccount=param;
                                     
 
@@ -122,6 +158,17 @@
                         
                                     protected java.lang.String localResponseToken ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResponseTokenTracker = false ;
+
+                           public boolean isResponseTokenSpecified(){
+                               return localResponseTokenTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -138,7 +185,8 @@
                                * @param param ResponseToken
                                */
                                public void setResponseToken(java.lang.String param){
-                            
+                            localResponseTokenTracker = param != null;
+                                   
                                             this.localResponseToken=param;
                                     
 
@@ -152,6 +200,17 @@
                         
                                     protected java.lang.String localAction ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localActionTracker = false ;
+
+                           public boolean isActionSpecified(){
+                               return localActionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -168,7 +227,8 @@
                                * @param param Action
                                */
                                public void setAction(java.lang.String param){
-                            
+                            localActionTracker = param != null;
+                                   
                                             this.localAction=param;
                                     
 
@@ -182,6 +242,17 @@
                         
                                     protected java.lang.String localPayerID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPayerIDTracker = false ;
+
+                           public boolean isPayerIDSpecified(){
+                               return localPayerIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -198,7 +269,8 @@
                                * @param param PayerID
                                */
                                public void setPayerID(java.lang.String param){
-                            
+                            localPayerIDTracker = param != null;
+                                   
                                             this.localPayerID=param;
                                     
 
@@ -212,6 +284,17 @@
                         
                                     protected java.lang.String localConfirmationNo ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localConfirmationNoTracker = false ;
+
+                           public boolean isConfirmationNoSpecified(){
+                               return localConfirmationNoTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -228,7 +311,8 @@
                                * @param param ConfirmationNo
                                */
                                public void setConfirmationNo(java.lang.String param){
-                            
+                            localConfirmationNoTracker = param != null;
+                                   
                                             this.localConfirmationNo=param;
                                     
 
@@ -333,25 +417,25 @@
 
                                             
                                       }
-                                    
+                                     if (localPaymentTracker){
                                             if (localPayment==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Payment cannot be null!!");
                                             }
                                            localPayment.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","Payment"),
                                                xmlWriter);
-                                        
+                                        } if (localURLsTracker){
                                             if (localURLs==null){
                                                  throw new org.apache.axis2.databinding.ADBException("URLs cannot be null!!");
                                             }
                                            localURLs.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","URLs"),
                                                xmlWriter);
-                                        
+                                        } if (localUserAccountTracker){
                                             if (localUserAccount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("UserAccount cannot be null!!");
                                             }
                                            localUserAccount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","UserAccount"),
                                                xmlWriter);
-                                        
+                                        } if (localResponseTokenTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "ResponseToken", xmlWriter);
                              
@@ -369,7 +453,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localActionTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Action", xmlWriter);
                              
@@ -387,7 +471,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localPayerIDTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "PayerID", xmlWriter);
                              
@@ -405,7 +489,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localConfirmationNoTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "ConfirmationNo", xmlWriter);
                              
@@ -423,7 +507,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -431,7 +515,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -608,7 +692,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPaymentTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Payment"));
                             
@@ -617,7 +701,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Payment cannot be null!!");
                                     }
                                     elementList.add(localPayment);
-                                
+                                } if (localURLsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "URLs"));
                             
@@ -626,7 +710,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("URLs cannot be null!!");
                                     }
                                     elementList.add(localURLs);
-                                
+                                } if (localUserAccountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "UserAccount"));
                             
@@ -635,7 +719,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("UserAccount cannot be null!!");
                                     }
                                     elementList.add(localUserAccount);
-                                
+                                } if (localResponseTokenTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ResponseToken"));
                                  
@@ -644,7 +728,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ResponseToken cannot be null!!");
                                         }
-                                    
+                                    } if (localActionTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Action"));
                                  
@@ -653,7 +737,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Action cannot be null!!");
                                         }
-                                    
+                                    } if (localPayerIDTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "PayerID"));
                                  
@@ -662,7 +746,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("PayerID cannot be null!!");
                                         }
-                                    
+                                    } if (localConfirmationNoTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "ConfirmationNo"));
                                  
@@ -671,7 +755,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ConfirmationNo cannot be null!!");
                                         }
-                                    
+                                    }
                             attribList.add(
                             new javax.xml.namespace.QName("","isMobile"));
                             
@@ -730,7 +814,7 @@
                             if (!"ExternalPaymentRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ExternalPaymentRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (ExternalPaymentRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -779,11 +863,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -795,11 +878,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -811,11 +893,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -836,11 +917,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -861,11 +941,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -886,11 +965,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -911,11 +989,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

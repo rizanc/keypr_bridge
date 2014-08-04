@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = DailyChargeList
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.ChargesForTheDay[] localChargesForPostingDate ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localChargesForPostingDateTracker = false ;
+
+                           public boolean isChargesForPostingDateSpecified(){
+                               return localChargesForPostingDateTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -51,10 +62,6 @@
                                */
                               protected void validateChargesForPostingDate(com.cloudkey.pms.micros.og.hotelcommon.ChargesForTheDay[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -66,7 +73,8 @@
                               
                                    validateChargesForPostingDate(param);
 
-                               
+                               localChargesForPostingDateTracker = param != null;
+                                      
                                       this.localChargesForPostingDate=param;
                               }
 
@@ -81,6 +89,9 @@
                                    localChargesForPostingDate = new com.cloudkey.pms.micros.og.hotelcommon.ChargesForTheDay[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localChargesForPostingDateTracker = true;
                             
 
                                java.util.List list =
@@ -351,7 +362,7 @@
 
                                             
                                       }
-                                    
+                                     if (localChargesForPostingDateTracker){
                                        if (localChargesForPostingDate!=null){
                                             for (int i = 0;i < localChargesForPostingDate.length;i++){
                                                 if (localChargesForPostingDate[i] != null){
@@ -359,7 +370,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("ChargesForPostingDate cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -369,7 +380,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("ChargesForPostingDate cannot be null!!");
                                         
                                     }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -377,7 +388,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -554,7 +565,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localChargesForPostingDateTracker){
                              if (localChargesForPostingDate!=null) {
                                  for (int i = 0;i < localChargesForPostingDate.length;i++){
 
@@ -564,7 +575,7 @@
                                          elementList.add(localChargesForPostingDate[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("ChargesForPostingDate cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -575,7 +586,7 @@
                                     
                              }
 
-                        
+                        }
                             attribList.add(
                             new javax.xml.namespace.QName("","TotalRoomRateAndPackages"));
                             
@@ -654,7 +665,7 @@
                             if (!"DailyChargeList".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (DailyChargeList)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (DailyChargeList)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -808,11 +819,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

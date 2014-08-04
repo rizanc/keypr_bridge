@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = HotelCacheStatus
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localHotelCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelCodeTracker = false ;
+
+                           public boolean isHotelCodeSpecified(){
+                               return localHotelCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param HotelCode
                                */
                                public void setHotelCode(java.lang.String param){
-                            
+                            localHotelCodeTracker = param != null;
+                                   
                                             this.localHotelCode=param;
                                     
 
@@ -196,7 +208,7 @@
 
                
                    }
-               
+                if (localHotelCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "HotelCode", xmlWriter);
                              
@@ -214,7 +226,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localLatestUpdateTimeTracker){
+                             } if (localLatestUpdateTimeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "LatestUpdateTime", xmlWriter);
                              
@@ -258,7 +270,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -435,7 +447,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "HotelCode"));
                                  
@@ -444,7 +456,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("HotelCode cannot be null!!");
                                         }
-                                     if (localLatestUpdateTimeTracker){
+                                    } if (localLatestUpdateTimeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "LatestUpdateTime"));
                                  
@@ -558,11 +570,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

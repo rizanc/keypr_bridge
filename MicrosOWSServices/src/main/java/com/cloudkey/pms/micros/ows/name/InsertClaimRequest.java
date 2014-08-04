@@ -17,12 +17,11 @@
         
         public  class InsertClaimRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "InsertClaimRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = InsertClaimRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.GuestProfile localProfile ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProfileTracker = false ;
+
+                           public boolean isProfileSpecified(){
+                               return localProfileTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Profile
                                */
                                public void setProfile(com.cloudkey.pms.micros.og.common.GuestProfile param){
-                            
+                            localProfileTracker = param != null;
+                                   
                                             this.localProfile=param;
                                     
 
@@ -104,6 +115,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Claim localClaim ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localClaimTracker = false ;
+
+                           public boolean isClaimSpecified(){
+                               return localClaimTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -120,7 +142,8 @@
                                * @param param Claim
                                */
                                public void setClaim(com.cloudkey.pms.micros.og.common.Claim param){
-                            
+                            localClaimTracker = param != null;
+                                   
                                             this.localClaim=param;
                                     
 
@@ -142,8 +165,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -185,13 +208,13 @@
 
                
                    }
-               
+                if (localProfileTracker){
                                             if (localProfile==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Profile cannot be null!!");
                                             }
                                            localProfile.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Profile"),
                                                xmlWriter);
-                                         if (localCallerNameTracker){
+                                        } if (localCallerNameTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
                                     writeStartElement(null, namespace, "CallerName", xmlWriter);
                              
@@ -209,13 +232,13 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localClaimTracker){
                                             if (localClaim==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Claim cannot be null!!");
                                             }
                                            localClaim.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Claim"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -223,7 +246,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -400,7 +423,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localProfileTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Profile"));
                             
@@ -409,7 +432,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Profile cannot be null!!");
                                     }
                                     elementList.add(localProfile);
-                                 if (localCallerNameTracker){
+                                } if (localCallerNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "CallerName"));
                                  
@@ -418,7 +441,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CallerName cannot be null!!");
                                         }
-                                    }
+                                    } if (localClaimTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Claim"));
                             
@@ -427,7 +450,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Claim cannot be null!!");
                                     }
                                     elementList.add(localClaim);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -514,11 +537,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -554,11 +576,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

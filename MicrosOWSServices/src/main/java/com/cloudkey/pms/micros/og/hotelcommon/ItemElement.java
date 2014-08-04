@@ -20,89 +20,9 @@
         /* This type was generated from the piece of schema that had
                 name = ItemElement
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
-
-                        /**
-                        * field for Package
-                        * This was an Array!
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PackageElement[] localPackage ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPackageTracker = false ;
-
-                           public boolean isPackageSpecified(){
-                               return localPackageTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PackageElement[]
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PackageElement[] getPackage(){
-                               return localPackage;
-                           }
-
-                           
-                        
-
-
-                               
-                              /**
-                               * validate the array for Package
-                               */
-                              protected void validatePackage(com.cloudkey.pms.micros.og.hotelcommon.PackageElement[] param){
-                             
-                              }
-
-
-                             /**
-                              * Auto generated setter method
-                              * @param param Package
-                              */
-                              public void setPackage(com.cloudkey.pms.micros.og.hotelcommon.PackageElement[] param){
-                              
-                                   validatePackage(param);
-
-                               localPackageTracker = param != null;
-                                      
-                                      this.localPackage=param;
-                              }
-
-                               
-                             
-                             /**
-                             * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.hotelcommon.PackageElement
-                             */
-                             public void addPackage(com.cloudkey.pms.micros.og.hotelcommon.PackageElement param){
-                                   if (localPackage == null){
-                                   localPackage = new com.cloudkey.pms.micros.og.hotelcommon.PackageElement[]{};
-                                   }
-
-                            
-                                 //update the setting tracker
-                                localPackageTracker = true;
-                            
-
-                               java.util.List list =
-                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localPackage);
-                               list.add(param);
-                               this.localPackage =
-                             (com.cloudkey.pms.micros.og.hotelcommon.PackageElement[])list.toArray(
-                            new com.cloudkey.pms.micros.og.hotelcommon.PackageElement[list.size()]);
-
-                             }
-                             
 
                         /**
                         * field for InventoryItem
@@ -111,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.InventoryItemElement localInventoryItem ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localInventoryItemTracker = false ;
+
+                           public boolean isInventoryItemSpecified(){
+                               return localInventoryItemTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -127,8 +58,51 @@
                                * @param param InventoryItem
                                */
                                public void setInventoryItem(com.cloudkey.pms.micros.og.hotelcommon.InventoryItemElement param){
-                            
+                            localInventoryItemTracker = param != null;
+                                   
                                             this.localInventoryItem=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Packages
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement1 localPackages ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPackagesTracker = false ;
+
+                           public boolean isPackagesSpecified(){
+                               return localPackagesTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement1
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement1 getPackages(){
+                               return localPackages;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Packages
+                               */
+                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement1 param){
+                            localPackagesTracker = param != null;
+                                   
+                                            this.localPackages=param;
                                     
 
                                }
@@ -192,31 +166,19 @@
 
                
                    }
-                if (localPackageTracker){
-                                       if (localPackage!=null){
-                                            for (int i = 0;i < localPackage.length;i++){
-                                                if (localPackage[i] != null){
-                                                 localPackage[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Package"),
-                                                           xmlWriter);
-                                                } else {
-                                                   
-                                                        // we don't have to do any thing since minOccures is zero
-                                                    
-                                                }
-
-                                            }
-                                     } else {
-                                        
-                                               throw new org.apache.axis2.databinding.ADBException("Package cannot be null!!");
-                                        
-                                    }
-                                 }
+                if (localInventoryItemTracker){
                                             if (localInventoryItem==null){
                                                  throw new org.apache.axis2.databinding.ADBException("InventoryItem cannot be null!!");
                                             }
                                            localInventoryItem.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","InventoryItem"),
                                                xmlWriter);
-                                        
+                                        } if (localPackagesTracker){
+                                            if (localPackages==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("Packages cannot be null!!");
+                                            }
+                                           localPackages.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Packages"),
+                                               xmlWriter);
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -224,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -401,28 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localPackageTracker){
-                             if (localPackage!=null) {
-                                 for (int i = 0;i < localPackage.length;i++){
-
-                                    if (localPackage[i] != null){
-                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                          "Package"));
-                                         elementList.add(localPackage[i]);
-                                    } else {
-                                        
-                                                // nothing to do
-                                            
-                                    }
-
-                                 }
-                             } else {
-                                 
-                                        throw new org.apache.axis2.databinding.ADBException("Package cannot be null!!");
-                                    
-                             }
-
-                        }
+                 if (localInventoryItemTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "InventoryItem"));
                             
@@ -431,7 +372,16 @@
                                          throw new org.apache.axis2.databinding.ADBException("InventoryItem cannot be null!!");
                                     }
                                     elementList.add(localInventoryItem);
-                                
+                                } if (localPackagesTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
+                                                                      "Packages"));
+                            
+                            
+                                    if (localPackages==null){
+                                         throw new org.apache.axis2.databinding.ADBException("Packages cannot be null!!");
+                                    }
+                                    elementList.add(localPackages);
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -507,54 +457,6 @@
                     
                     reader.next();
                 
-                        java.util.ArrayList list1 = new java.util.ArrayList();
-                    
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Package").equals(reader.getName())){
-                                
-                                    
-                                    
-                                    // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.PackageElement.Factory.parse(reader));
-                                                                
-                                                        //loop until we find a start element that is not part of this array
-                                                        boolean loopDone1 = false;
-                                                        while(!loopDone1){
-                                                            // We should be at the end element, but make sure
-                                                            while (!reader.isEndElement())
-                                                                reader.next();
-                                                            // Step out of this element
-                                                            reader.next();
-                                                            // Step to next element event.
-                                                            while (!reader.isStartElement() && !reader.isEndElement())
-                                                                reader.next();
-                                                            if (reader.isEndElement()){
-                                                                //two continuous end elements means we are exiting the xml structure
-                                                                loopDone1 = true;
-                                                            } else {
-                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Package").equals(reader.getName())){
-                                                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.PackageElement.Factory.parse(reader));
-                                                                        
-                                                                }else{
-                                                                    loopDone1 = true;
-                                                                }
-                                                            }
-                                                        }
-                                                        // call the converter utility  to convert and set the array
-                                                        
-                                                        object.setPackage((com.cloudkey.pms.micros.og.hotelcommon.PackageElement[])
-                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.hotelcommon.PackageElement.class,
-                                                                list1));
-                                                            
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -566,11 +468,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Packages").equals(reader.getName())){
+                                
+                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement1.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

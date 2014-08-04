@@ -17,12 +17,11 @@
         
         public  class InsertClaimResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "InsertClaimResponse",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = InsertClaimResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.ResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.common.ResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -102,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.ClaimsList localClaimsList ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfClaim localClaimsList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -118,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.ClaimsList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfClaim
                            */
-                           public  com.cloudkey.pms.micros.og.common.ClaimsList getClaimsList(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfClaim getClaimsList(){
                                return localClaimsList;
                            }
 
@@ -130,7 +141,7 @@
                                * Auto generated setter method
                                * @param param ClaimsList
                                */
-                               public void setClaimsList(com.cloudkey.pms.micros.og.common.ClaimsList param){
+                               public void setClaimsList(com.cloudkey.pms.micros.og.common.ArrayOfClaim param){
                             localClaimsListTracker = param != null;
                                    
                                             this.localClaimsList=param;
@@ -154,8 +165,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -197,13 +208,13 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Result"),
                                                xmlWriter);
-                                         if (localNameIDTracker){
+                                        } if (localNameIDTracker){
                                             if (localNameID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                             }
@@ -223,7 +234,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -400,7 +411,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Result"));
                             
@@ -409,7 +420,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                 if (localNameIDTracker){
+                                } if (localNameIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "NameID"));
                             
@@ -514,11 +525,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -539,7 +549,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","ClaimsList").equals(reader.getName())){
                                 
-                                                object.setClaimsList(com.cloudkey.pms.micros.og.common.ClaimsList.Factory.parse(reader));
+                                                object.setClaimsList(com.cloudkey.pms.micros.og.common.ArrayOfClaim.Factory.parse(reader));
                                               
                                         reader.next();
                                     

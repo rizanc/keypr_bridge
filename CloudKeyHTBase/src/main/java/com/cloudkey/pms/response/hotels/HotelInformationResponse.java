@@ -5,6 +5,7 @@ import java.util.List;
 import com.cloudkey.commons.Response;
 import com.cloudkey.commons.Restaurants;
 import com.cloudkey.commons.RoomType;
+import com.google.common.base.Objects;
 
 /**
  * This Class has information of Hotel. 
@@ -18,6 +19,7 @@ public class HotelInformationResponse extends Response {
     //private List<Address> addressList ;
     private String address;
     private String city;
+    private String state;
     private String country;
     private String postalCode;
     private String contactEmails;
@@ -54,7 +56,16 @@ public class HotelInformationResponse extends Response {
 
         this.city = city;
     }
-    public String getCountry() {
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
 
         return country;
     }
@@ -134,16 +145,23 @@ public class HotelInformationResponse extends Response {
         this.restaurantsList = restaurantsList;
     }
 
-    @Override
-    public String toString() {
-        return "HotelInformationResponse [hotelName=" + hotelName
-                + ", address=" + address + ", city=" + city + ", country="
-                + country + ", postalCode=" + postalCode + ", contactEmails="
-                + contactEmails + ", contactPhones=" + contactPhones + ", fax="
-                + fax + ", checkInTime=" + checkInTime + ", checkOutTime="
-                + checkOutTime + ", notes=" + notes + ", roomTypeList="
-                + roomTypeList + ", restaurantsList=" + restaurantsList
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("hotelName", hotelName)
+			.add("address", address)
+			.add("city", city)
+			.add("state", state)
+			.add("country", country)
+			.add("postalCode", postalCode)
+			.add("contactEmails", contactEmails)
+			.add("contactPhones", contactPhones)
+			.add("fax", fax)
+			.add("checkInTime", checkInTime)
+			.add("checkOutTime", checkOutTime)
+			.add("notes", notes)
+			.add("roomTypeList", roomTypeList)
+			.add("restaurantsList", restaurantsList)
+			.toString();
+	}
 }

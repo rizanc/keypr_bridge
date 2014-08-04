@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PayMethod
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -61,48 +61,6 @@
                             localPaymentMethodTracker = param != null;
                                    
                                             this.localPaymentMethod=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Last4Digits
-                        */
-
-                        
-                                    protected java.lang.String localLast4Digits ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localLast4DigitsTracker = false ;
-
-                           public boolean isLast4DigitsSpecified(){
-                               return localLast4DigitsTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getLast4Digits(){
-                               return localLast4Digits;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Last4Digits
-                               */
-                               public void setLast4Digits(java.lang.String param){
-                            localLast4DigitsTracker = param != null;
-                                   
-                                            this.localLast4Digits=param;
                                     
 
                                }
@@ -238,10 +196,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localOwner is null");
-                                      }
-                                    
                                                    if (localWindow!=java.lang.Integer.MIN_VALUE) {
                                                
                                                 writeAttribute("",
@@ -260,25 +214,7 @@
                                             }
                                            localPaymentMethod.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","PaymentMethod"),
                                                xmlWriter);
-                                        } if (localLast4DigitsTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "last4digits", xmlWriter);
-                             
-
-                                          if (localLast4Digits==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("last4digits cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localLast4Digits);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             }
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -286,7 +222,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -472,16 +408,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PaymentMethod cannot be null!!");
                                     }
                                     elementList.add(localPaymentMethod);
-                                } if (localLast4DigitsTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "last4digits"));
-                                 
-                                        if (localLast4Digits != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLast4Digits));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("last4digits cannot be null!!");
-                                        }
-                                    }
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","Owner"));
                             
@@ -545,7 +472,7 @@
                             if (!"PayMethod".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PayMethod)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (PayMethod)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -577,8 +504,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute Owner is missing");
-                           
                     }
                     handledAttributes.add("Owner");
                     
@@ -609,30 +534,6 @@
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","PaymentMethod").equals(reader.getName())){
                                 
                                                 object.setPaymentMethod(com.cloudkey.pms.micros.og.hotelcommon.OtherPaymentType.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","last4digits").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"last4digits" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setLast4Digits(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     

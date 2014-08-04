@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Name.wsdl",
                 "DeleteDocumentRequest",
-                "ns6");
+                "ns2");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localNameID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNameIDTracker = false ;
+
+                           public boolean isNameIDSpecified(){
+                               return localNameIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param NameID
                                */
                                public void setNameID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localNameIDTracker = param != null;
+                                   
                                             this.localNameID=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localDocumentID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDocumentIDTracker = false ;
+
+                           public boolean isDocumentIDSpecified(){
+                               return localDocumentIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +101,8 @@
                                * @param param DocumentID
                                */
                                public void setDocumentID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localDocumentIDTracker = param != null;
+                                   
                                             this.localDocumentID=param;
                                     
 
@@ -143,19 +167,19 @@
 
                
                    }
-               
+                if (localNameIDTracker){
                                             if (localNameID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                             }
                                            localNameID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","NameID"),
                                                xmlWriter);
-                                        
+                                        } if (localDocumentIDTracker){
                                             if (localDocumentID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("DocumentID cannot be null!!");
                                             }
                                            localDocumentID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","DocumentID"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +187,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,7 +364,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localNameIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "NameID"));
                             
@@ -349,7 +373,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                     }
                                     elementList.add(localNameID);
-                                
+                                } if (localDocumentIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "DocumentID"));
                             
@@ -358,7 +382,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("DocumentID cannot be null!!");
                                     }
                                     elementList.add(localDocumentID);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -445,11 +469,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -461,11 +484,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

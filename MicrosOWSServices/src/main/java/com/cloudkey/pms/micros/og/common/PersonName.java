@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PersonName
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -233,6 +233,17 @@
                         
                                     protected java.lang.String localLastName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLastNameTracker = false ;
+
+                           public boolean isLastNameSpecified(){
+                               return localLastNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -249,7 +260,8 @@
                                * @param param LastName
                                */
                                public void setLastName(java.lang.String param){
-                            
+                            localLastNameTracker = param != null;
+                                   
                                             this.localLastName=param;
                                     
 
@@ -712,7 +724,7 @@
                                     
                              }
 
-                        }
+                        } if (localLastNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "lastName", xmlWriter);
                              
@@ -730,7 +742,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localNameSuffixTracker){
+                             } if (localNameSuffixTracker){
                              if (localNameSuffix!=null) {
                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
                                    for (int i = 0;i < localNameSuffix.length;i++){
@@ -819,7 +831,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1051,7 +1063,7 @@
                                 
                             }
 
-                        }
+                        } if (localLastNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "lastName"));
                                  
@@ -1060,7 +1072,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("lastName cannot be null!!");
                                         }
-                                     if (localNameSuffixTracker){
+                                    } if (localNameSuffixTracker){
                             if (localNameSuffix!=null){
                                   for (int i = 0;i < localNameSuffix.length;i++){
                                       
@@ -1179,7 +1191,7 @@
                             if (!"PersonName".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PersonName)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (PersonName)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1389,11 +1401,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

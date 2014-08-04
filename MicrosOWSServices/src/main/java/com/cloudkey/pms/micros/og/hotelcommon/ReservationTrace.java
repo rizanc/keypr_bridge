@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ReservationTrace
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -371,23 +371,23 @@
 
                                             
                                       }
-                                    
+                                     if (localParagraphChoice_type0Tracker){
                                      
-                                      if (localParagraphChoice!=null){
-                                            for (int i = 0;i < localParagraphChoice.length;i++){
-                                                if (localParagraphChoice[i] != null){
-                                                 localParagraphChoice[i].serialize(null,xmlWriter);
+                                      if (localParagraphChoice_type0!=null){
+                                            for (int i = 0;i < localParagraphChoice_type0.length;i++){
+                                                if (localParagraphChoice_type0[i] != null){
+                                                 localParagraphChoice_type0[i].serialize(null,xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
                                             }
                                      } else {
-                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null!!");
+                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice_type0 cannot be null!!");
                                      }
-                                  if (localTraceIdTracker){
+                                 } if (localTraceIdTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "TraceId", xmlWriter);
                              
@@ -480,7 +480,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -660,28 +660,28 @@
                 
                     attribList.add(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema-instance","type"));
                     attribList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ReservationTrace"));
-                
-                             if (localParagraphChoice!=null) {
-                                 for (int i = 0;i < localParagraphChoice.length;i++){
+                 if (localParagraphChoice_type0Tracker){
+                             if (localParagraphChoice_type0!=null) {
+                                 for (int i = 0;i < localParagraphChoice_type0.length;i++){
 
-                                    if (localParagraphChoice[i] != null){
+                                    if (localParagraphChoice_type0[i] != null){
                                          elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                          "ParagraphChoice"));
-                                         elementList.add(localParagraphChoice[i]);
+                                                                          "ParagraphChoice_type0"));
+                                         elementList.add(localParagraphChoice_type0[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
                                  }
                              } else {
                                  
-                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice cannot be null!!");
+                                        throw new org.apache.axis2.databinding.ADBException("ParagraphChoice_type0 cannot be null!!");
                                     
                              }
 
-                         if (localTraceIdTracker){
+                        } if (localTraceIdTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "TraceId"));
                                  
@@ -846,12 +846,15 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
+                                        
+                                         try{
+                                    
                                     if (reader.isStartElement() ){
                                 
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice.Factory.parse(reader));
+                                    list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0.Factory.parse(reader));
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone1 = false;
                                                         while(!loopDone1){
@@ -863,18 +866,25 @@
                                                                 //two continuous end elements means we are exiting the xml structure
                                                                 loopDone1 = true;
                                                             } else {
-                                                                list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice.Factory.parse(reader));
+                                                                list1.add(com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0.Factory.parse(reader));
                                                             }
                                                         }
                                                         // call the converter utility  to convert and set the array
-                                                        object.setParagraphChoice((com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice[])
+                                                        object.setParagraphChoice_type0((com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice.class,
+                                                                com.cloudkey.pms.micros.og.hotelcommon.ParagraphChoice_type0.class,
                                                                 list1));
 
                                                  
                               }  // End of if for expected property start element
                                 
+                                    else {
+                                        
+                                    }
+                                
+                                
+                                 } catch (java.lang.Exception e) {}
+                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

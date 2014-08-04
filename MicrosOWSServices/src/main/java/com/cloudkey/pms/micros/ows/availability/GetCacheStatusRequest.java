@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Availability.wsdl",
                 "GetCacheStatusRequest",
-                "ns7");
+                "ns2");
 
             
 
@@ -30,7 +30,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList localHotelReferences ;
+                                    protected ArrayOfHotelReference localHotelReferences ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -46,9 +46,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList
+                           * @return ArrayOfHotelReference
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList getHotelReferences(){
+                           public  ArrayOfHotelReference getHotelReferences(){
                                return localHotelReferences;
                            }
 
@@ -58,7 +58,7 @@
                                * Auto generated setter method
                                * @param param HotelReferences
                                */
-                               public void setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList param){
+                               public void setHotelReferences(ArrayOfHotelReference param){
                             localHotelReferencesTracker = param != null;
                                    
                                             this.localHotelReferences=param;
@@ -139,7 +139,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -404,9 +404,9 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReferences").equals(reader.getName())){
+                                   if (reader.isStartElement()){
                                 
-                                                object.setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList.Factory.parse(reader));
+                                                object.setHotelReferences(ArrayOfHotelReference.Factory.parse(reader));
                                               
                                         reader.next();
                                     

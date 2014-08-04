@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = CreditCardAuthorizationDetail
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.CreditCard localCreditCard ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCreditCardTracker = false ;
+
+                           public boolean isCreditCardSpecified(){
+                               return localCreditCardTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param CreditCard
                                */
                                public void setCreditCard(com.cloudkey.pms.micros.og.common.CreditCard param){
-                            
+                            localCreditCardTracker = param != null;
+                                   
                                             this.localCreditCard=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localApprovalAmount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localApprovalAmountTracker = false ;
+
+                           public boolean isApprovalAmountSpecified(){
+                               return localApprovalAmountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param ApprovalAmount
                                */
                                public void setApprovalAmount(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localApprovalAmountTracker = param != null;
+                                   
                                             this.localApprovalAmount=param;
                                     
 
@@ -276,10 +300,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localApprovalCode is null");
-                                      }
-                                    
                                             if (localSettlementDate != null){
                                         
                                                 writeAttribute("",
@@ -310,19 +330,19 @@
 
                                             
                                       }
-                                    
+                                     if (localCreditCardTracker){
                                             if (localCreditCard==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
                                             }
                                            localCreditCard.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","CreditCard"),
                                                xmlWriter);
-                                        
+                                        } if (localApprovalAmountTracker){
                                             if (localApprovalAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ApprovalAmount cannot be null!!");
                                             }
                                            localApprovalAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ApprovalAmount"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -330,7 +350,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -507,7 +527,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localCreditCardTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "CreditCard"));
                             
@@ -516,7 +536,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
                                     }
                                     elementList.add(localCreditCard);
-                                
+                                } if (localApprovalAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ApprovalAmount"));
                             
@@ -525,7 +545,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ApprovalAmount cannot be null!!");
                                     }
                                     elementList.add(localApprovalAmount);
-                                
+                                }
                             attribList.add(
                             new javax.xml.namespace.QName("","ApprovalCode"));
                             
@@ -599,7 +619,7 @@
                             if (!"CreditCardAuthorizationDetail".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (CreditCardAuthorizationDetail)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (CreditCardAuthorizationDetail)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -631,8 +651,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute ApprovalCode is missing");
-                           
                     }
                     handledAttributes.add("ApprovalCode");
                     
@@ -700,11 +718,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -716,11 +733,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

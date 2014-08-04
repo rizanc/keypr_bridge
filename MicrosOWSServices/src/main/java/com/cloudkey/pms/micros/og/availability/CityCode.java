@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = CityCode
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -247,10 +247,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localCountryCode is null");
-                                      }
-                                    
                                             if (localStateCode != null){
                                         
                                                 writeAttribute("",
@@ -267,10 +263,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCityCode), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localCityCode is null");
                                       }
                                     
                                                    if (true) {
@@ -298,7 +290,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -554,7 +546,7 @@
                             if (!"CityCode".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (CityCode)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (CityCode)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -586,8 +578,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute countryCode is missing");
-                           
                     }
                     handledAttributes.add("countryCode");
                     
@@ -620,8 +610,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute cityCode is missing");
-                           
                     }
                     handledAttributes.add("cityCode");
                     

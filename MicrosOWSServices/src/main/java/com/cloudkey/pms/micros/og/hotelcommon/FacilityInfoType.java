@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FacilityInfoType
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.GuestRooms_type0 localGuestRooms ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRooms localGuestRooms ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.GuestRooms_type0
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRooms
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.GuestRooms_type0 getGuestRooms(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRooms getGuestRooms(){
                                return localGuestRooms;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param GuestRooms
                                */
-                               public void setGuestRooms(com.cloudkey.pms.micros.og.hotelcommon.GuestRooms_type0 param){
+                               public void setGuestRooms(com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRooms param){
                             localGuestRoomsTracker = param != null;
                                    
                                             this.localGuestRooms=param;
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RestaurantsType localRestaurants ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurant localRestaurants ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RestaurantsType
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurant
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RestaurantsType getRestaurants(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurant getRestaurants(){
                                return localRestaurants;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param Restaurants
                                */
-                               public void setRestaurants(com.cloudkey.pms.micros.og.hotelcommon.RestaurantsType param){
+                               public void setRestaurants(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurant param){
                             localRestaurantsTracker = param != null;
                                    
                                             this.localRestaurants=param;
@@ -155,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AttractionsType localAttractions ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionsTypeAttraction localAttractions ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -171,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AttractionsType
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionsTypeAttraction
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AttractionsType getAttractions(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionsTypeAttraction getAttractions(){
                                return localAttractions;
                            }
 
@@ -183,7 +183,7 @@
                                * Auto generated setter method
                                * @param param Attractions
                                */
-                               public void setAttractions(com.cloudkey.pms.micros.og.hotelcommon.AttractionsType param){
+                               public void setAttractions(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionsTypeAttraction param){
                             localAttractionsTracker = param != null;
                                    
                                             this.localAttractions=param;
@@ -362,7 +362,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -698,7 +698,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GuestRooms").equals(reader.getName())){
                                 
-                                                object.setGuestRooms(com.cloudkey.pms.micros.og.hotelcommon.GuestRooms_type0.Factory.parse(reader));
+                                                object.setGuestRooms(com.cloudkey.pms.micros.og.hotelcommon.FacilityInfoTypeGuestRooms.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -713,7 +713,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Restaurants").equals(reader.getName())){
                                 
-                                                object.setRestaurants(com.cloudkey.pms.micros.og.hotelcommon.RestaurantsType.Factory.parse(reader));
+                                                object.setRestaurants(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRestaurantsTypeRestaurant.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -743,7 +743,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Attractions").equals(reader.getName())){
                                 
-                                                object.setAttractions(com.cloudkey.pms.micros.og.hotelcommon.AttractionsType.Factory.parse(reader));
+                                                object.setAttractions(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionsTypeAttraction.Factory.parse(reader));
                                               
                                         reader.next();
                                     

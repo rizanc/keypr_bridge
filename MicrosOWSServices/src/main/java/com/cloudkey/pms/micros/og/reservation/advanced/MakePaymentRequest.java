@@ -17,12 +17,11 @@
         
         public  class MakePaymentRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                "MakePaymentRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = MakePaymentRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.advanced.Posting localPosting ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPostingTracker = false ;
+
+                           public boolean isPostingSpecified(){
+                               return localPostingTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Posting
                                */
                                public void setPosting(com.cloudkey.pms.micros.og.reservation.advanced.Posting param){
-                            
+                            localPostingTracker = param != null;
+                                   
                                             this.localPosting=param;
                                     
 
@@ -227,8 +238,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -279,13 +290,13 @@
 
                                             
                                       }
-                                    
+                                     if (localPostingTracker){
                                             if (localPosting==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Posting cannot be null!!");
                                             }
                                            localPosting.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","Posting"),
                                                xmlWriter);
-                                         if (localCreditCardInfoTracker){
+                                        } if (localCreditCardInfoTracker){
                                             if (localCreditCardInfo==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CreditCardInfo cannot be null!!");
                                             }
@@ -323,7 +334,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -500,7 +511,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPostingTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Posting"));
                             
@@ -509,7 +520,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Posting cannot be null!!");
                                     }
                                     elementList.add(localPosting);
-                                 if (localCreditCardInfoTracker){
+                                } if (localCreditCardInfoTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "CreditCardInfo"));
                             
@@ -595,7 +606,7 @@
                             if (!"MakePaymentRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (MakePaymentRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (MakePaymentRequest)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -644,11 +655,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

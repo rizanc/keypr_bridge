@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = NameEmail
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -186,6 +186,161 @@
                             
 
                         /**
+                        * field for InsertUser
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localInsertUser ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getInsertUser(){
+                               return localInsertUser;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param InsertUser
+                               */
+                               public void setInsertUser(java.lang.String param){
+                            
+                                            this.localInsertUser=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for InsertDate
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.util.Calendar localInsertDate ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.util.Calendar
+                           */
+                           public  java.util.Calendar getInsertDate(){
+                               return localInsertDate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param InsertDate
+                               */
+                               public void setInsertDate(java.util.Calendar param){
+                            
+                                            this.localInsertDate=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for UpdateUser
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localUpdateUser ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getUpdateUser(){
+                               return localUpdateUser;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param UpdateUser
+                               */
+                               public void setUpdateUser(java.lang.String param){
+                            
+                                            this.localUpdateUser=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for UpdateDate
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.util.Calendar localUpdateDate ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.util.Calendar
+                           */
+                           public  java.util.Calendar getUpdateDate(){
+                               return localUpdateDate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param UpdateDate
+                               */
+                               public void setUpdateDate(java.util.Calendar param){
+                            
+                                            this.localUpdateDate=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for InactiveDate
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.util.Date localInactiveDate ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.util.Date
+                           */
+                           public  java.util.Date getInactiveDate(){
+                               return localInactiveDate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param InactiveDate
+                               */
+                               public void setInactiveDate(java.util.Date param){
+                            
+                                            this.localInactiveDate=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for EmailType
                         * This was an Attribute!
                         */
@@ -342,6 +497,51 @@
                                             
                                       }
                                     
+                                            if (localInsertUser != null){
+                                        
+                                                writeAttribute("",
+                                                         "insertUser",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInsertUser), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localInsertDate != null){
+                                        
+                                                writeAttribute("",
+                                                         "insertDate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInsertDate), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localUpdateUser != null){
+                                        
+                                                writeAttribute("",
+                                                         "updateUser",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUpdateUser), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localUpdateDate != null){
+                                        
+                                                writeAttribute("",
+                                                         "updateDate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUpdateDate), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localInactiveDate != null){
+                                        
+                                                writeAttribute("",
+                                                         "inactiveDate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInactiveDate), xmlWriter);
+
+                                            
+                                      }
+                                    
                                             if (localEmailType != null){
                                         
                                                 writeAttribute("",
@@ -380,7 +580,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -588,6 +788,31 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDisplaySequence));
                                 
                             attribList.add(
+                            new javax.xml.namespace.QName("","insertUser"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInsertUser));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","insertDate"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInsertDate));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","updateUser"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUpdateUser));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","updateDate"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUpdateDate));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","inactiveDate"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInactiveDate));
+                                
+                            attribList.add(
                             new javax.xml.namespace.QName("","emailType"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localEmailType));
@@ -673,7 +898,7 @@
                             if (!"NameEmail".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (NameEmail)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (NameEmail)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -759,6 +984,86 @@
                                        
                     }
                     handledAttributes.add("displaySequence");
+                    
+                    // handle attribute "insertUser"
+                    java.lang.String tempAttribInsertUser =
+                        
+                                reader.getAttributeValue(null,"insertUser");
+                            
+                   if (tempAttribInsertUser!=null){
+                         java.lang.String content = tempAttribInsertUser;
+                        
+                                                 object.setInsertUser(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribInsertUser));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("insertUser");
+                    
+                    // handle attribute "insertDate"
+                    java.lang.String tempAttribInsertDate =
+                        
+                                reader.getAttributeValue(null,"insertDate");
+                            
+                   if (tempAttribInsertDate!=null){
+                         java.lang.String content = tempAttribInsertDate;
+                        
+                                                 object.setInsertDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(tempAttribInsertDate));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("insertDate");
+                    
+                    // handle attribute "updateUser"
+                    java.lang.String tempAttribUpdateUser =
+                        
+                                reader.getAttributeValue(null,"updateUser");
+                            
+                   if (tempAttribUpdateUser!=null){
+                         java.lang.String content = tempAttribUpdateUser;
+                        
+                                                 object.setUpdateUser(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribUpdateUser));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("updateUser");
+                    
+                    // handle attribute "updateDate"
+                    java.lang.String tempAttribUpdateDate =
+                        
+                                reader.getAttributeValue(null,"updateDate");
+                            
+                   if (tempAttribUpdateDate!=null){
+                         java.lang.String content = tempAttribUpdateDate;
+                        
+                                                 object.setUpdateDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(tempAttribUpdateDate));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("updateDate");
+                    
+                    // handle attribute "inactiveDate"
+                    java.lang.String tempAttribInactiveDate =
+                        
+                                reader.getAttributeValue(null,"inactiveDate");
+                            
+                   if (tempAttribInactiveDate!=null){
+                         java.lang.String content = tempAttribInactiveDate;
+                        
+                                                 object.setInactiveDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(tempAttribInactiveDate));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("inactiveDate");
                     
                     // handle attribute "emailType"
                     java.lang.String tempAttribEmailType =

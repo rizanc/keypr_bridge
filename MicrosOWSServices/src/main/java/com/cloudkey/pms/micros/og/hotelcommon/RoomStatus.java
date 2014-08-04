@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RoomStatus
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList localFeatures ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature localFeatures ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList getFeatures(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature getFeatures(){
                                return localFeatures;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param Features
                                */
-                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList param){
+                               public void setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature param){
                             localFeaturesTracker = param != null;
                                    
                                             this.localFeatures=param;
@@ -439,31 +439,31 @@
                             
 
                         /**
-                        * field for RoomClass
+                        * field for Floor
                         * This was an Attribute!
                         */
 
                         
-                                    protected java.lang.String localRoomClass ;
+                                    protected java.lang.String localFloor ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getRoomClass(){
-                               return localRoomClass;
+                           public  java.lang.String getFloor(){
+                               return localFloor;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param RoomClass
+                               * @param param Floor
                                */
-                               public void setRoomClass(java.lang.String param){
+                               public void setFloor(java.lang.String param){
                             
-                                            this.localRoomClass=param;
+                                            this.localFloor=param;
                                     
 
                                }
@@ -501,31 +501,31 @@
                             
 
                         /**
-                        * field for RoomCondition
+                        * field for RoomClass
                         * This was an Attribute!
                         */
 
                         
-                                    protected java.lang.String localRoomCondition ;
+                                    protected java.lang.String localRoomClass ;
                                 
 
                            /**
                            * Auto generated getter method
                            * @return java.lang.String
                            */
-                           public  java.lang.String getRoomCondition(){
-                               return localRoomCondition;
+                           public  java.lang.String getRoomClass(){
+                               return localRoomClass;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param RoomCondition
+                               * @param param RoomClass
                                */
-                               public void setRoomCondition(java.lang.String param){
+                               public void setRoomClass(java.lang.String param){
                             
-                                            this.localRoomCondition=param;
+                                            this.localRoomClass=param;
                                     
 
                                }
@@ -608,10 +608,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRoomStatus is null");
-                                      }
-                                    
                                             if (localRoomStatusToDate != null){
                                         
                                                 writeAttribute("",
@@ -628,10 +624,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFrontOfficeStatus), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localFrontOfficeStatus is null");
                                       }
                                     
                                             if (localRoomStatusFromDate != null){
@@ -659,10 +651,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localHouseKeepingStatus), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localHouseKeepingStatus is null");
                                       }
                                     
                                             if (localHouseKeepingInspectionFlag != null){
@@ -701,10 +689,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRoomNumber is null");
-                                      }
-                                    
                                             if (localRoomType != null){
                                         
                                                 writeAttribute("",
@@ -714,15 +698,11 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRoomType is null");
-                                      }
-                                    
-                                            if (localRoomClass != null){
+                                            if (localFloor != null){
                                         
                                                 writeAttribute("",
-                                                         "RoomClass",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass), xmlWriter);
+                                                         "Floor",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFloor), xmlWriter);
 
                                             
                                       }
@@ -736,11 +716,11 @@
                                             
                                       }
                                     
-                                            if (localRoomCondition != null){
+                                            if (localRoomClass != null){
                                         
                                                 writeAttribute("",
-                                                         "RoomCondition",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomCondition), xmlWriter);
+                                                         "RoomClass",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass), xmlWriter);
 
                                             
                                       }
@@ -758,7 +738,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1006,9 +986,9 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomType));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","RoomClass"));
+                            new javax.xml.namespace.QName("","Floor"));
                             
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localFloor));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","ReservationStatus"));
@@ -1016,9 +996,9 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReservationStatus));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","RoomCondition"));
+                            new javax.xml.namespace.QName("","RoomClass"));
                             
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomCondition));
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -1073,7 +1053,7 @@
                             if (!"RoomStatus".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (RoomStatus)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (RoomStatus)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1121,8 +1101,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute RoomStatus is missing");
-                           
                     }
                     handledAttributes.add("RoomStatus");
                     
@@ -1155,8 +1133,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute FrontOfficeStatus is missing");
-                           
                     }
                     handledAttributes.add("FrontOfficeStatus");
                     
@@ -1205,8 +1181,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute HouseKeepingStatus is missing");
-                           
                     }
                     handledAttributes.add("HouseKeepingStatus");
                     
@@ -1271,8 +1245,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute RoomNumber is missing");
-                           
                     }
                     handledAttributes.add("RoomNumber");
                     
@@ -1289,26 +1261,24 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute RoomType is missing");
-                           
                     }
                     handledAttributes.add("RoomType");
                     
-                    // handle attribute "RoomClass"
-                    java.lang.String tempAttribRoomClass =
+                    // handle attribute "Floor"
+                    java.lang.String tempAttribFloor =
                         
-                                reader.getAttributeValue(null,"RoomClass");
+                                reader.getAttributeValue(null,"Floor");
                             
-                   if (tempAttribRoomClass!=null){
-                         java.lang.String content = tempAttribRoomClass;
+                   if (tempAttribFloor!=null){
+                         java.lang.String content = tempAttribFloor;
                         
-                                                 object.setRoomClass(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomClass));
+                                                 object.setFloor(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribFloor));
                                             
                     } else {
                        
                     }
-                    handledAttributes.add("RoomClass");
+                    handledAttributes.add("Floor");
                     
                     // handle attribute "ReservationStatus"
                     java.lang.String tempAttribReservationStatus =
@@ -1326,21 +1296,21 @@
                     }
                     handledAttributes.add("ReservationStatus");
                     
-                    // handle attribute "RoomCondition"
-                    java.lang.String tempAttribRoomCondition =
+                    // handle attribute "RoomClass"
+                    java.lang.String tempAttribRoomClass =
                         
-                                reader.getAttributeValue(null,"RoomCondition");
+                                reader.getAttributeValue(null,"RoomClass");
                             
-                   if (tempAttribRoomCondition!=null){
-                         java.lang.String content = tempAttribRoomCondition;
+                   if (tempAttribRoomClass!=null){
+                         java.lang.String content = tempAttribRoomClass;
                         
-                                                 object.setRoomCondition(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomCondition));
+                                                 object.setRoomClass(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomClass));
                                             
                     } else {
                        
                     }
-                    handledAttributes.add("RoomCondition");
+                    handledAttributes.add("RoomClass");
                     
                     
                     reader.next();
@@ -1350,7 +1320,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Features").equals(reader.getName())){
                                 
-                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader));
+                                                object.setFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature.Factory.parse(reader));
                                               
                                         reader.next();
                                     

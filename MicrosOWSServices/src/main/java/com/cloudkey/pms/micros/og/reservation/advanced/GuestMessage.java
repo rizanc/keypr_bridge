@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GuestMessage
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -73,6 +73,17 @@
                         
                                     protected java.lang.String localValue ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localValueTracker = false ;
+
+                           public boolean isValueSpecified(){
+                               return localValueTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -89,302 +100,9 @@
                                * @param param Value
                                */
                                public void setValue(java.lang.String param){
-                            
+                            localValueTracker = param != null;
+                                   
                                             this.localValue=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for ReceivedYN
-                        */
-
-                        
-                                    protected java.lang.String localReceivedYN ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localReceivedYNTracker = false ;
-
-                           public boolean isReceivedYNSpecified(){
-                               return localReceivedYNTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getReceivedYN(){
-                               return localReceivedYN;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ReceivedYN
-                               */
-                               public void setReceivedYN(java.lang.String param){
-                            localReceivedYNTracker = param != null;
-                                   
-                                            this.localReceivedYN=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for StatusFlag
-                        */
-
-                        
-                                    protected java.lang.String localStatusFlag ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localStatusFlagTracker = false ;
-
-                           public boolean isStatusFlagSpecified(){
-                               return localStatusFlagTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getStatusFlag(){
-                               return localStatusFlag;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param StatusFlag
-                               */
-                               public void setStatusFlag(java.lang.String param){
-                            localStatusFlagTracker = param != null;
-                                   
-                                            this.localStatusFlag=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for RecipientName
-                        */
-
-                        
-                                    protected java.lang.String localRecipientName ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localRecipientNameTracker = false ;
-
-                           public boolean isRecipientNameSpecified(){
-                               return localRecipientNameTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getRecipientName(){
-                               return localRecipientName;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param RecipientName
-                               */
-                               public void setRecipientName(java.lang.String param){
-                            localRecipientNameTracker = param != null;
-                                   
-                                            this.localRecipientName=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for ReceivedTime
-                        */
-
-                        
-                                    protected java.util.Date localReceivedTime ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localReceivedTimeTracker = false ;
-
-                           public boolean isReceivedTimeSpecified(){
-                               return localReceivedTimeTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.util.Date
-                           */
-                           public  java.util.Date getReceivedTime(){
-                               return localReceivedTime;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ReceivedTime
-                               */
-                               public void setReceivedTime(java.util.Date param){
-                            localReceivedTimeTracker = param != null;
-                                   
-                                            this.localReceivedTime=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Printed
-                        */
-
-                        
-                                    protected java.lang.String localPrinted ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPrintedTracker = false ;
-
-                           public boolean isPrintedSpecified(){
-                               return localPrintedTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getPrinted(){
-                               return localPrinted;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Printed
-                               */
-                               public void setPrinted(java.lang.String param){
-                            localPrintedTracker = param != null;
-                                   
-                                            this.localPrinted=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for TextMessageSent
-                        */
-
-                        
-                                    protected java.lang.String localTextMessageSent ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localTextMessageSentTracker = false ;
-
-                           public boolean isTextMessageSentSpecified(){
-                               return localTextMessageSentTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getTextMessageSent(){
-                               return localTextMessageSent;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param TextMessageSent
-                               */
-                               public void setTextMessageSent(java.lang.String param){
-                            localTextMessageSentTracker = param != null;
-                                   
-                                            this.localTextMessageSent=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for ReceivedBy
-                        */
-
-                        
-                                    protected java.lang.String localReceivedBy ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localReceivedByTracker = false ;
-
-                           public boolean isReceivedBySpecified(){
-                               return localReceivedByTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getReceivedBy(){
-                               return localReceivedBy;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ReceivedBy
-                               */
-                               public void setReceivedBy(java.lang.String param){
-                            localReceivedByTracker = param != null;
-                                   
-                                            this.localReceivedBy=param;
                                     
 
                                }
@@ -643,6 +361,300 @@
                             
 
                         /**
+                        * field for RecipientName
+                        */
+
+                        
+                                    protected java.lang.String localRecipientName ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRecipientNameTracker = false ;
+
+                           public boolean isRecipientNameSpecified(){
+                               return localRecipientNameTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getRecipientName(){
+                               return localRecipientName;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param RecipientName
+                               */
+                               public void setRecipientName(java.lang.String param){
+                            localRecipientNameTracker = param != null;
+                                   
+                                            this.localRecipientName=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ReceivedTime
+                        */
+
+                        
+                                    protected java.util.Calendar localReceivedTime ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReceivedTimeTracker = false ;
+
+                           public boolean isReceivedTimeSpecified(){
+                               return localReceivedTimeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.util.Calendar
+                           */
+                           public  java.util.Calendar getReceivedTime(){
+                               return localReceivedTime;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ReceivedTime
+                               */
+                               public void setReceivedTime(java.util.Calendar param){
+                            localReceivedTimeTracker = param != null;
+                                   
+                                            this.localReceivedTime=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for Printed
+                        */
+
+                        
+                                    protected java.lang.String localPrinted ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPrintedTracker = false ;
+
+                           public boolean isPrintedSpecified(){
+                               return localPrintedTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getPrinted(){
+                               return localPrinted;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Printed
+                               */
+                               public void setPrinted(java.lang.String param){
+                            localPrintedTracker = param != null;
+                                   
+                                            this.localPrinted=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for TextMessageSent
+                        */
+
+                        
+                                    protected java.lang.String localTextMessageSent ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTextMessageSentTracker = false ;
+
+                           public boolean isTextMessageSentSpecified(){
+                               return localTextMessageSentTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getTextMessageSent(){
+                               return localTextMessageSent;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param TextMessageSent
+                               */
+                               public void setTextMessageSent(java.lang.String param){
+                            localTextMessageSentTracker = param != null;
+                                   
+                                            this.localTextMessageSent=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ReceivedBy
+                        */
+
+                        
+                                    protected java.lang.String localReceivedBy ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReceivedByTracker = false ;
+
+                           public boolean isReceivedBySpecified(){
+                               return localReceivedByTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getReceivedBy(){
+                               return localReceivedBy;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ReceivedBy
+                               */
+                               public void setReceivedBy(java.lang.String param){
+                            localReceivedByTracker = param != null;
+                                   
+                                            this.localReceivedBy=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ReceivedYN
+                        */
+
+                        
+                                    protected java.lang.String localReceivedYN ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReceivedYNTracker = false ;
+
+                           public boolean isReceivedYNSpecified(){
+                               return localReceivedYNTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getReceivedYN(){
+                               return localReceivedYN;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ReceivedYN
+                               */
+                               public void setReceivedYN(java.lang.String param){
+                            localReceivedYNTracker = param != null;
+                                   
+                                            this.localReceivedYN=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for StatusFlag
+                        */
+
+                        
+                                    protected java.lang.String localStatusFlag ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localStatusFlagTracker = false ;
+
+                           public boolean isStatusFlagSpecified(){
+                               return localStatusFlagTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getStatusFlag(){
+                               return localStatusFlag;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param StatusFlag
+                               */
+                               public void setStatusFlag(java.lang.String param){
+                            localStatusFlagTracker = param != null;
+                                   
+                                            this.localStatusFlag=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for Date
                         * This was an Attribute!
                         */
@@ -790,7 +802,7 @@
                                             }
                                            localUserID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","UserID"),
                                                xmlWriter);
-                                        }
+                                        } if (localValueTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Value", xmlWriter);
                              
@@ -804,132 +816,6 @@
 
                                         
                                                    xmlWriter.writeCharacters(localValue);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                              if (localReceivedYNTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "ReceivedYN", xmlWriter);
-                             
-
-                                          if (localReceivedYN==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("ReceivedYN cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localReceivedYN);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localStatusFlagTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "StatusFlag", xmlWriter);
-                             
-
-                                          if (localStatusFlag==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("StatusFlag cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localStatusFlag);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localRecipientNameTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "RecipientName", xmlWriter);
-                             
-
-                                          if (localRecipientName==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("RecipientName cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localRecipientName);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localReceivedTimeTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "ReceivedTime", xmlWriter);
-                             
-
-                                          if (localReceivedTime==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("ReceivedTime cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedTime));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localPrintedTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "Printed", xmlWriter);
-                             
-
-                                          if (localPrinted==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Printed cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localPrinted);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localTextMessageSentTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "TextMessageSent", xmlWriter);
-                             
-
-                                          if (localTextMessageSent==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("TextMessageSent cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localTextMessageSent);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localReceivedByTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
-                                    writeStartElement(null, namespace, "ReceivedBy", xmlWriter);
-                             
-
-                                          if (localReceivedBy==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("ReceivedBy cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localReceivedBy);
                                             
                                           }
                                     
@@ -1030,7 +916,133 @@
                                             }
                                            localGuestMessageID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","GuestMessageID"),
                                                xmlWriter);
-                                        }
+                                        } if (localRecipientNameTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "RecipientName", xmlWriter);
+                             
+
+                                          if (localRecipientName==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("RecipientName cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localRecipientName);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localReceivedTimeTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "ReceivedTime", xmlWriter);
+                             
+
+                                          if (localReceivedTime==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("ReceivedTime cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedTime));
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localPrintedTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "Printed", xmlWriter);
+                             
+
+                                          if (localPrinted==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("Printed cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localPrinted);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localTextMessageSentTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "TextMessageSent", xmlWriter);
+                             
+
+                                          if (localTextMessageSent==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("TextMessageSent cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localTextMessageSent);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localReceivedByTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "ReceivedBy", xmlWriter);
+                             
+
+                                          if (localReceivedBy==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("ReceivedBy cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localReceivedBy);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localReceivedYNTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "ReceivedYN", xmlWriter);
+                             
+
+                                          if (localReceivedYN==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("ReceivedYN cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localReceivedYN);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localStatusFlagTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
+                                    writeStartElement(null, namespace, "StatusFlag", xmlWriter);
+                             
+
+                                          if (localStatusFlag==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("StatusFlag cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localStatusFlag);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -1038,7 +1050,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1224,7 +1236,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("UserID cannot be null!!");
                                     }
                                     elementList.add(localUserID);
-                                }
+                                } if (localValueTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Value"));
                                  
@@ -1232,69 +1244,6 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localValue));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Value cannot be null!!");
-                                        }
-                                     if (localReceivedYNTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "ReceivedYN"));
-                                 
-                                        if (localReceivedYN != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedYN));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("ReceivedYN cannot be null!!");
-                                        }
-                                    } if (localStatusFlagTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "StatusFlag"));
-                                 
-                                        if (localStatusFlag != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localStatusFlag));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("StatusFlag cannot be null!!");
-                                        }
-                                    } if (localRecipientNameTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "RecipientName"));
-                                 
-                                        if (localRecipientName != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRecipientName));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("RecipientName cannot be null!!");
-                                        }
-                                    } if (localReceivedTimeTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "ReceivedTime"));
-                                 
-                                        if (localReceivedTime != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedTime));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("ReceivedTime cannot be null!!");
-                                        }
-                                    } if (localPrintedTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "Printed"));
-                                 
-                                        if (localPrinted != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrinted));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Printed cannot be null!!");
-                                        }
-                                    } if (localTextMessageSentTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "TextMessageSent"));
-                                 
-                                        if (localTextMessageSent != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTextMessageSent));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("TextMessageSent cannot be null!!");
-                                        }
-                                    } if (localReceivedByTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "ReceivedBy"));
-                                 
-                                        if (localReceivedBy != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedBy));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("ReceivedBy cannot be null!!");
                                         }
                                     } if (localSenderTitleTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
@@ -1350,7 +1299,70 @@
                                          throw new org.apache.axis2.databinding.ADBException("GuestMessageID cannot be null!!");
                                     }
                                     elementList.add(localGuestMessageID);
-                                }
+                                } if (localRecipientNameTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "RecipientName"));
+                                 
+                                        if (localRecipientName != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRecipientName));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("RecipientName cannot be null!!");
+                                        }
+                                    } if (localReceivedTimeTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "ReceivedTime"));
+                                 
+                                        if (localReceivedTime != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedTime));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("ReceivedTime cannot be null!!");
+                                        }
+                                    } if (localPrintedTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "Printed"));
+                                 
+                                        if (localPrinted != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrinted));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("Printed cannot be null!!");
+                                        }
+                                    } if (localTextMessageSentTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "TextMessageSent"));
+                                 
+                                        if (localTextMessageSent != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTextMessageSent));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("TextMessageSent cannot be null!!");
+                                        }
+                                    } if (localReceivedByTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "ReceivedBy"));
+                                 
+                                        if (localReceivedBy != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedBy));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("ReceivedBy cannot be null!!");
+                                        }
+                                    } if (localReceivedYNTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "ReceivedYN"));
+                                 
+                                        if (localReceivedYN != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReceivedYN));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("ReceivedYN cannot be null!!");
+                                        }
+                                    } if (localStatusFlagTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
+                                                                      "StatusFlag"));
+                                 
+                                        if (localStatusFlag != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localStatusFlag));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("StatusFlag cannot be null!!");
+                                        }
+                                    }
                             attribList.add(
                             new javax.xml.namespace.QName("","Date"));
                             
@@ -1414,7 +1426,7 @@
                             if (!"GuestMessage".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (GuestMessage)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (GuestMessage)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1499,175 +1511,6 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setValue(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReceivedYN").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ReceivedYN" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setReceivedYN(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","StatusFlag").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"StatusFlag" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setStatusFlag(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","RecipientName").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"RecipientName" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setRecipientName(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReceivedTime").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ReceivedTime" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setReceivedTime(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","Printed").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Printed" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setPrinted(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","TextMessageSent").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"TextMessageSent" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setTextMessageSent(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReceivedBy").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ReceivedBy" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setReceivedBy(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
@@ -1804,6 +1647,174 @@
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","GuestMessageID").equals(reader.getName())){
                                 
                                                 object.setGuestMessageID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","RecipientName").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"RecipientName" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setRecipientName(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReceivedTime").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ReceivedTime" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setReceivedTime(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","Printed").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Printed" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setPrinted(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","TextMessageSent").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"TextMessageSent" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setTextMessageSent(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReceivedBy").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ReceivedBy" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setReceivedBy(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","ReceivedYN").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ReceivedYN" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setReceivedYN(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","StatusFlag").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"StatusFlag" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setStatusFlag(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     

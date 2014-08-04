@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PromotionSubscription
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -61,6 +61,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.membership.Promotion localPromotion ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPromotionTracker = false ;
+
+                           public boolean isPromotionSpecified(){
+                               return localPromotionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +88,8 @@
                                * @param param Promotion
                                */
                                public void setPromotion(com.cloudkey.pms.micros.og.membership.Promotion param){
-                            
+                            localPromotionTracker = param != null;
+                                   
                                             this.localPromotion=param;
                                     
 
@@ -155,13 +167,13 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                              if (localPromotionTracker){
                                             if (localPromotion==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Promotion cannot be null!!");
                                             }
                                            localPromotion.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Promotion"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -169,7 +181,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -352,7 +364,7 @@
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localMembershipId));
-                            
+                             if (localPromotionTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Promotion"));
                             
@@ -361,7 +373,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Promotion cannot be null!!");
                                     }
                                     elementList.add(localPromotion);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -436,10 +448,10 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","MembershipId").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -457,8 +469,14 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Promotion").equals(reader.getName())){
                                 
                                                 object.setPromotion(com.cloudkey.pms.micros.og.membership.Promotion.Factory.parse(reader));
@@ -467,16 +485,17 @@
                                     
                               }  // End of if for expected property start element
                                 
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
-                             } else {
+                                    else {
+                                        
+                                    }
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

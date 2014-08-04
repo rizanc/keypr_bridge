@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Menu
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localMenuID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMenuIDTracker = false ;
+
+                           public boolean isMenuIDSpecified(){
+                               return localMenuIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param MenuID
                                */
                                public void setMenuID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localMenuIDTracker = param != null;
+                                   
                                             this.localMenuID=param;
                                     
 
@@ -261,48 +273,6 @@
                              
 
                         /**
-                        * field for MenuDate
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localMenuDate ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localMenuDateTracker = false ;
-
-                           public boolean isMenuDateSpecified(){
-                               return localMenuDateTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.TimeSpan
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.TimeSpan getMenuDate(){
-                               return localMenuDate;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param MenuDate
-                               */
-                               public void setMenuDate(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            localMenuDateTracker = param != null;
-                                   
-                                            this.localMenuDate=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for MenuItems
                         * This was an Array!
                         */
@@ -381,6 +351,48 @@
 
                              }
                              
+
+                        /**
+                        * field for EventDate
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localEventDate ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEventDateTracker = false ;
+
+                           public boolean isEventDateSpecified(){
+                               return localEventDateTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.TimeSpan
+                           */
+                           public  com.cloudkey.pms.micros.og.hotelcommon.TimeSpan getEventDate(){
+                               return localEventDate;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param EventDate
+                               */
+                               public void setEventDate(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
+                            localEventDateTracker = param != null;
+                                   
+                                            this.localEventDate=param;
+                                    
+
+                               }
+                            
 
                         /**
                         * field for InternalBookedID
@@ -722,13 +734,13 @@
 
                                             
                                       }
-                                    
+                                     if (localMenuIDTracker){
                                             if (localMenuID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("MenuID cannot be null!!");
                                             }
                                            localMenuID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MenuID"),
                                                xmlWriter);
-                                         if (localEventMenuIDTracker){
+                                        } if (localEventMenuIDTracker){
                                             if (localEventMenuID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("EventMenuID cannot be null!!");
                                             }
@@ -773,13 +785,7 @@
                                     
                              }
 
-                        } if (localMenuDateTracker){
-                                            if (localMenuDate==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("MenuDate cannot be null!!");
-                                            }
-                                           localMenuDate.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MenuDate"),
-                                               xmlWriter);
-                                        } if (localMenuItemsTracker){
+                        } if (localMenuItemsTracker){
                                        if (localMenuItems!=null){
                                             for (int i = 0;i < localMenuItems.length;i++){
                                                 if (localMenuItems[i] != null){
@@ -797,7 +803,13 @@
                                                throw new org.apache.axis2.databinding.ADBException("MenuItems cannot be null!!");
                                         
                                     }
-                                 } if (localInternalBookedIDTracker){
+                                 } if (localEventDateTracker){
+                                            if (localEventDate==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("EventDate cannot be null!!");
+                                            }
+                                           localEventDate.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventDate"),
+                                               xmlWriter);
+                                        } if (localInternalBookedIDTracker){
                                             if (localInternalBookedID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("InternalBookedID cannot be null!!");
                                             }
@@ -811,7 +823,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -988,7 +1000,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localMenuIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "MenuID"));
                             
@@ -997,7 +1009,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("MenuID cannot be null!!");
                                     }
                                     elementList.add(localMenuID);
-                                 if (localEventMenuIDTracker){
+                                } if (localEventMenuIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "EventMenuID"));
                             
@@ -1047,16 +1059,7 @@
                                 
                             }
 
-                        } if (localMenuDateTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
-                                                                      "MenuDate"));
-                            
-                            
-                                    if (localMenuDate==null){
-                                         throw new org.apache.axis2.databinding.ADBException("MenuDate cannot be null!!");
-                                    }
-                                    elementList.add(localMenuDate);
-                                } if (localMenuItemsTracker){
+                        } if (localMenuItemsTracker){
                              if (localMenuItems!=null) {
                                  for (int i = 0;i < localMenuItems.length;i++){
 
@@ -1077,7 +1080,16 @@
                                     
                              }
 
-                        } if (localInternalBookedIDTracker){
+                        } if (localEventDateTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
+                                                                      "EventDate"));
+                            
+                            
+                                    if (localEventDate==null){
+                                         throw new org.apache.axis2.databinding.ADBException("EventDate cannot be null!!");
+                                    }
+                                    elementList.add(localEventDate);
+                                } if (localInternalBookedIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "InternalBookedID"));
                             
@@ -1170,7 +1182,7 @@
                             if (!"Menu".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Menu)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (Menu)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1290,7 +1302,7 @@
                 
                         java.util.ArrayList list5 = new java.util.ArrayList();
                     
-                        java.util.ArrayList list7 = new java.util.ArrayList();
+                        java.util.ArrayList list6 = new java.util.ArrayList();
                     
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
@@ -1303,11 +1315,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1401,31 +1412,16 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MenuDate").equals(reader.getName())){
-                                
-                                                object.setMenuDate(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MenuItems").equals(reader.getName())){
                                 
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list7.add(com.cloudkey.pms.micros.og.meetingroom.MenuItem.Factory.parse(reader));
+                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.MenuItem.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
-                                                        boolean loopDone7 = false;
-                                                        while(!loopDone7){
+                                                        boolean loopDone6 = false;
+                                                        while(!loopDone6){
                                                             // We should be at the end element, but make sure
                                                             while (!reader.isEndElement())
                                                                 reader.next();
@@ -1436,13 +1432,13 @@
                                                                 reader.next();
                                                             if (reader.isEndElement()){
                                                                 //two continuous end elements means we are exiting the xml structure
-                                                                loopDone7 = true;
+                                                                loopDone6 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MenuItems").equals(reader.getName())){
-                                                                    list7.add(com.cloudkey.pms.micros.og.meetingroom.MenuItem.Factory.parse(reader));
+                                                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.MenuItem.Factory.parse(reader));
                                                                         
                                                                 }else{
-                                                                    loopDone7 = true;
+                                                                    loopDone6 = true;
                                                                 }
                                                             }
                                                         }
@@ -1451,8 +1447,23 @@
                                                         object.setMenuItems((com.cloudkey.pms.micros.og.meetingroom.MenuItem[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
                                                                 com.cloudkey.pms.micros.og.meetingroom.MenuItem.class,
-                                                                list7));
+                                                                list6));
                                                             
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventDate").equals(reader.getName())){
+                                
+                                                object.setEventDate(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
                               }  // End of if for expected property start element
                                 
                                     else {

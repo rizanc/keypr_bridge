@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = PaymentData
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localProvider ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localProviderTracker = false ;
+
+                           public boolean isProviderSpecified(){
+                               return localProviderTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Provider
                                */
                                public void setProvider(java.lang.String param){
-                            
+                            localProviderTracker = param != null;
+                                   
                                             this.localProvider=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localDescription ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDescriptionTracker = false ;
+
+                           public boolean isDescriptionSpecified(){
+                               return localDescriptionTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param Description
                                */
                                public void setDescription(java.lang.String param){
-                            
+                            localDescriptionTracker = param != null;
+                                   
                                             this.localDescription=param;
                                     
 
@@ -121,6 +145,17 @@
                         
                                     protected java.lang.String localCurrencyCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCurrencyCodeTracker = false ;
+
+                           public boolean isCurrencyCodeSpecified(){
+                               return localCurrencyCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -137,7 +172,8 @@
                                * @param param CurrencyCode
                                */
                                public void setCurrencyCode(java.lang.String param){
-                            
+                            localCurrencyCodeTracker = param != null;
+                                   
                                             this.localCurrencyCode=param;
                                     
 
@@ -202,7 +238,7 @@
 
                
                    }
-               
+                if (localProviderTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Provider", xmlWriter);
                              
@@ -220,7 +256,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localDescriptionTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Description", xmlWriter);
                              
@@ -238,7 +274,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "Amount", xmlWriter);
                              
@@ -251,7 +287,7 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                              if (localCurrencyCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/ResvAdvanced/";
                                     writeStartElement(null, namespace, "CurrencyCode", xmlWriter);
                              
@@ -269,7 +305,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -277,7 +313,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -454,7 +490,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localProviderTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Provider"));
                                  
@@ -463,7 +499,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Provider cannot be null!!");
                                         }
-                                    
+                                    } if (localDescriptionTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Description"));
                                  
@@ -472,13 +508,13 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("Description cannot be null!!");
                                         }
-                                    
+                                    }
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "Amount"));
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAmount));
-                            
+                             if (localCurrencyCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
                                                                       "CurrencyCode"));
                                  
@@ -487,7 +523,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CurrencyCode cannot be null!!");
                                         }
-                                    
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -541,7 +577,7 @@
                             if (!"PaymentData".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (PaymentData)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (PaymentData)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -583,11 +619,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -608,11 +643,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -658,11 +692,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

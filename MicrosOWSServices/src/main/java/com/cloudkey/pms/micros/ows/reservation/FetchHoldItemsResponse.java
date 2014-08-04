@@ -17,12 +17,11 @@
         
         public  class FetchHoldItemsResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                "FetchHoldItemsResponse",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchHoldItemsResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Reservation.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -56,30 +67,42 @@
                             
 
                         /**
-                        * field for HoldItems
+                        * field for HoldInventoryItemElements
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.HoldItemElementList localHoldItems ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHoldInventoryItemElement localHoldInventoryItemElements ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHoldInventoryItemElementsTracker = false ;
+
+                           public boolean isHoldInventoryItemElementsSpecified(){
+                               return localHoldInventoryItemElementsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.HoldItemElementList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHoldInventoryItemElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.HoldItemElementList getHoldItems(){
-                               return localHoldItems;
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHoldInventoryItemElement getHoldInventoryItemElements(){
+                               return localHoldInventoryItemElements;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param HoldItems
+                               * @param param HoldInventoryItemElements
                                */
-                               public void setHoldItems(com.cloudkey.pms.micros.og.hotelcommon.HoldItemElementList param){
-                            
-                                            this.localHoldItems=param;
+                               public void setHoldInventoryItemElements(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHoldInventoryItemElement param){
+                            localHoldInventoryItemElementsTracker = param != null;
+                                   
+                                            this.localHoldInventoryItemElements=param;
                                     
 
                                }
@@ -100,8 +123,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -143,19 +166,19 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Result"),
                                                xmlWriter);
-                                        
-                                            if (localHoldItems==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("HoldItems cannot be null!!");
+                                        } if (localHoldInventoryItemElementsTracker){
+                                            if (localHoldInventoryItemElements==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("HoldInventoryItemElements cannot be null!!");
                                             }
-                                           localHoldItems.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","HoldItems"),
+                                           localHoldInventoryItemElements.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","HoldInventoryItemElements"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "Result"));
                             
@@ -349,16 +372,16 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                
+                                } if (localHoldInventoryItemElementsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                                                                      "HoldItems"));
+                                                                      "HoldInventoryItemElements"));
                             
                             
-                                    if (localHoldItems==null){
-                                         throw new org.apache.axis2.databinding.ADBException("HoldItems cannot be null!!");
+                                    if (localHoldInventoryItemElements==null){
+                                         throw new org.apache.axis2.databinding.ADBException("HoldInventoryItemElements cannot be null!!");
                                     }
-                                    elementList.add(localHoldItems);
-                                
+                                    elementList.add(localHoldInventoryItemElements);
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -445,27 +468,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","HoldItems").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","HoldInventoryItemElements").equals(reader.getName())){
                                 
-                                                object.setHoldItems(com.cloudkey.pms.micros.og.hotelcommon.HoldItemElementList.Factory.parse(reader));
+                                                object.setHoldInventoryItemElements(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfHoldInventoryItemElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

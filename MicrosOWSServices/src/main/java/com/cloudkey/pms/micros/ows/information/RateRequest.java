@@ -17,12 +17,11 @@
         
         public  class RateRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "RateRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = RateRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.ows.information.RateQueryType localRateQuery ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRateQueryTracker = false ;
+
+                           public boolean isRateQuerySpecified(){
+                               return localRateQueryTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param RateQuery
                                */
                                public void setRateQuery(com.cloudkey.pms.micros.ows.information.RateQueryType param){
-                            
+                            localRateQueryTracker = param != null;
+                                   
                                             this.localRateQuery=param;
                                     
 
@@ -70,8 +81,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -113,13 +124,13 @@
 
                
                    }
-               
+                if (localRateQueryTracker){
                                             if (localRateQuery==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RateQuery cannot be null!!");
                                             }
                                            localRateQuery.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","RateQuery"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -127,7 +138,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -304,7 +315,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localRateQueryTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "RateQuery"));
                             
@@ -313,7 +324,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("RateQuery cannot be null!!");
                                     }
                                     elementList.add(localRateQuery);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -400,11 +411,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

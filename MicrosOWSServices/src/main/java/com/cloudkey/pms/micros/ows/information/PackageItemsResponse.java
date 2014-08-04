@@ -17,12 +17,11 @@
         
         public  class PackageItemsResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "PackageItemsResponse",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = PackageItemsResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -60,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PackageGroupElementList localPackageGroups ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageGroupElement localPackageGroups ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -76,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PackageGroupElementList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageGroupElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PackageGroupElementList getPackageGroups(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageGroupElement getPackageGroups(){
                                return localPackageGroups;
                            }
 
@@ -88,7 +99,7 @@
                                * Auto generated setter method
                                * @param param PackageGroups
                                */
-                               public void setPackageGroups(com.cloudkey.pms.micros.og.hotelcommon.PackageGroupElementList param){
+                               public void setPackageGroups(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageGroupElement param){
                             localPackageGroupsTracker = param != null;
                                    
                                             this.localPackageGroups=param;
@@ -102,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PackageElementList localPackages ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement localPackages ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -118,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PackageElementList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PackageElementList getPackages(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement getPackages(){
                                return localPackages;
                            }
 
@@ -130,7 +141,7 @@
                                * Auto generated setter method
                                * @param param Packages
                                */
-                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList param){
+                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement param){
                             localPackagesTracker = param != null;
                                    
                                             this.localPackages=param;
@@ -144,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.InventoryItemGroupElementList localItems ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfInventoryItemGroupElement localItems ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -160,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.InventoryItemGroupElementList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfInventoryItemGroupElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.InventoryItemGroupElementList getItems(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfInventoryItemGroupElement getItems(){
                                return localItems;
                            }
 
@@ -172,7 +183,7 @@
                                * Auto generated setter method
                                * @param param Items
                                */
-                               public void setItems(com.cloudkey.pms.micros.og.hotelcommon.InventoryItemGroupElementList param){
+                               public void setItems(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfInventoryItemGroupElement param){
                             localItemsTracker = param != null;
                                    
                                             this.localItems=param;
@@ -196,8 +207,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -239,13 +250,13 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","Result"),
                                                xmlWriter);
-                                         if (localPackageGroupsTracker){
+                                        } if (localPackageGroupsTracker){
                                             if (localPackageGroups==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PackageGroups cannot be null!!");
                                             }
@@ -271,7 +282,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -448,7 +459,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "Result"));
                             
@@ -457,7 +468,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                 if (localPackageGroupsTracker){
+                                } if (localPackageGroupsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "PackageGroups"));
                             
@@ -571,17 +582,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","PackageGroups").equals(reader.getName())){
                                 
-                                                object.setPackageGroups(com.cloudkey.pms.micros.og.hotelcommon.PackageGroupElementList.Factory.parse(reader));
+                                                object.setPackageGroups(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageGroupElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -596,7 +606,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","Packages").equals(reader.getName())){
                                 
-                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList.Factory.parse(reader));
+                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -611,7 +621,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","Items").equals(reader.getName())){
                                 
-                                                object.setItems(com.cloudkey.pms.micros.og.hotelcommon.InventoryItemGroupElementList.Factory.parse(reader));
+                                                object.setItems(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfInventoryItemGroupElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     

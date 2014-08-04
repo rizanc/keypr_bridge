@@ -45,187 +45,11 @@
 
         
            /**
-            * auto generated Axis2 call back method for meetingRegisterEventAttendees method
-            * override this method for handling normal response from meetingRegisterEventAttendees operation
-            */
-           public void receiveResultmeetingRegisterEventAttendees(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingRegisterEventAttendees operation
-           */
-            public void receiveErrormeetingRegisterEventAttendees(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingMultiPropertyAvailability method
-            * override this method for handling normal response from meetingMultiPropertyAvailability operation
-            */
-           public void receiveResultmeetingMultiPropertyAvailability(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingMultiPropertyAvailability operation
-           */
-            public void receiveErrormeetingMultiPropertyAvailability(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingRoomCopyBlock method
-            * override this method for handling normal response from meetingRoomCopyBlock operation
-            */
-           public void receiveResultmeetingRoomCopyBlock(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingRoomCopyBlock operation
-           */
-            public void receiveErrormeetingRoomCopyBlock(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingFetchContract method
-            * override this method for handling normal response from meetingFetchContract operation
-            */
-           public void receiveResultmeetingFetchContract(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchContract operation
-           */
-            public void receiveErrormeetingFetchContract(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingFetchEvent method
-            * override this method for handling normal response from meetingFetchEvent operation
-            */
-           public void receiveResultmeetingFetchEvent(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchEvent operation
-           */
-            public void receiveErrormeetingFetchEvent(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingFetchPackageEvent method
-            * override this method for handling normal response from meetingFetchPackageEvent operation
-            */
-           public void receiveResultmeetingFetchPackageEvent(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchPackageEvent operation
-           */
-            public void receiveErrormeetingFetchPackageEvent(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingPackageAvailability method
-            * override this method for handling normal response from meetingPackageAvailability operation
-            */
-           public void receiveResultmeetingPackageAvailability(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingPackageAvailability operation
-           */
-            public void receiveErrormeetingPackageAvailability(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingRoomFetchBlock method
-            * override this method for handling normal response from meetingRoomFetchBlock operation
-            */
-           public void receiveResultmeetingRoomFetchBlock(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingRoomFetchBlock operation
-           */
-            public void receiveErrormeetingRoomFetchBlock(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingFetchMiscellaneousItem method
-            * override this method for handling normal response from meetingFetchMiscellaneousItem operation
-            */
-           public void receiveResultmeetingFetchMiscellaneousItem(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchMiscellaneousItem operation
-           */
-            public void receiveErrormeetingFetchMiscellaneousItem(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingRoomCreateRelationship method
-            * override this method for handling normal response from meetingRoomCreateRelationship operation
-            */
-           public void receiveResultmeetingRoomCreateRelationship(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingRoomCreateRelationship operation
-           */
-            public void receiveErrormeetingRoomCreateRelationship(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingFetchMenuItem method
-            * override this method for handling normal response from meetingFetchMenuItem operation
-            */
-           public void receiveResultmeetingFetchMenuItem(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchMenuItem operation
-           */
-            public void receiveErrormeetingFetchMenuItem(java.lang.Exception e) {
-            }
-                
-           /**
             * auto generated Axis2 call back method for meetingFetchBlockDelegates method
             * override this method for handling normal response from meetingFetchBlockDelegates operation
             */
            public void receiveResultmeetingFetchBlockDelegates(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesResponse result
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchBlockDelegatesResponseE result
                         ) {
            }
 
@@ -237,11 +61,43 @@
             }
                 
            /**
+            * auto generated Axis2 call back method for meetingPackageAvailability method
+            * override this method for handling normal response from meetingPackageAvailability operation
+            */
+           public void receiveResultmeetingPackageAvailability(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingPackageAvailabilityResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingPackageAvailability operation
+           */
+            public void receiveErrormeetingPackageAvailability(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingFetchContract method
+            * override this method for handling normal response from meetingFetchContract operation
+            */
+           public void receiveResultmeetingFetchContract(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchContractResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingFetchContract operation
+           */
+            public void receiveErrormeetingFetchContract(java.lang.Exception e) {
+            }
+                
+           /**
             * auto generated Axis2 call back method for meetingRoomFetchMyBlocks method
             * override this method for handling normal response from meetingRoomFetchMyBlocks operation
             */
            public void receiveResultmeetingRoomFetchMyBlocks(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksResponse result
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchMyBlocksResponseE result
                         ) {
            }
 
@@ -253,27 +109,11 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for meetingFetchMenu method
-            * override this method for handling normal response from meetingFetchMenu operation
-            */
-           public void receiveResultmeetingFetchMenu(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchMenu operation
-           */
-            public void receiveErrormeetingFetchMenu(java.lang.Exception e) {
-            }
-                
-           /**
             * auto generated Axis2 call back method for meetingAvailability method
             * override this method for handling normal response from meetingAvailability operation
             */
            public void receiveResultmeetingAvailability(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityResponse result
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingAvailabilityResponseE result
                         ) {
            }
 
@@ -285,67 +125,51 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for modifyBlock method
-            * override this method for handling normal response from modifyBlock operation
+            * auto generated Axis2 call back method for meetingModifyEvent method
+            * override this method for handling normal response from meetingModifyEvent operation
             */
-           public void receiveResultmodifyBlock(
-                    com.cloudkey.pms.micros.og.meetingroom.ModifyBlockResponse result
+           public void receiveResultmeetingModifyEvent(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from modifyBlock operation
+           * override this method for handling error response from meetingModifyEvent operation
            */
-            public void receiveErrormodifyBlock(java.lang.Exception e) {
+            public void receiveErrormeetingModifyEvent(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for meetingFetchMyRegisteredEvents method
-            * override this method for handling normal response from meetingFetchMyRegisteredEvents operation
+            * auto generated Axis2 call back method for meetingRegisterEventAttendees method
+            * override this method for handling normal response from meetingRegisterEventAttendees operation
             */
-           public void receiveResultmeetingFetchMyRegisteredEvents(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsResponse result
+           public void receiveResultmeetingRegisterEventAttendees(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingRegisterEventAttendeesResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingFetchMyRegisteredEvents operation
+           * override this method for handling error response from meetingRegisterEventAttendees operation
            */
-            public void receiveErrormeetingFetchMyRegisteredEvents(java.lang.Exception e) {
+            public void receiveErrormeetingRegisterEventAttendees(java.lang.Exception e) {
             }
                 
            /**
-            * auto generated Axis2 call back method for meetingCreatePackageEvent method
-            * override this method for handling normal response from meetingCreatePackageEvent operation
+            * auto generated Axis2 call back method for meetingFetchPackageEvent method
+            * override this method for handling normal response from meetingFetchPackageEvent operation
             */
-           public void receiveResultmeetingCreatePackageEvent(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventResponse result
+           public void receiveResultmeetingFetchPackageEvent(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchPackageEventResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingCreatePackageEvent operation
+           * override this method for handling error response from meetingFetchPackageEvent operation
            */
-            public void receiveErrormeetingCreatePackageEvent(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for meetingCreateEvent method
-            * override this method for handling normal response from meetingCreateEvent operation
-            */
-           public void receiveResultmeetingCreateEvent(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingCreateEvent operation
-           */
-            public void receiveErrormeetingCreateEvent(java.lang.Exception e) {
+            public void receiveErrormeetingFetchPackageEvent(java.lang.Exception e) {
             }
                 
            /**
@@ -353,7 +177,7 @@
             * override this method for handling normal response from meetingModifyPackageEvent operation
             */
            public void receiveResultmeetingModifyPackageEvent(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventResponse result
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingModifyPackageEventResponseE result
                         ) {
            }
 
@@ -365,11 +189,27 @@
             }
                 
            /**
+            * auto generated Axis2 call back method for meetingFetchMiscellaneousItem method
+            * override this method for handling normal response from meetingFetchMiscellaneousItem operation
+            */
+           public void receiveResultmeetingFetchMiscellaneousItem(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMiscellaneousItemResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingFetchMiscellaneousItem operation
+           */
+            public void receiveErrormeetingFetchMiscellaneousItem(java.lang.Exception e) {
+            }
+                
+           /**
             * auto generated Axis2 call back method for createBlock method
             * override this method for handling normal response from createBlock operation
             */
            public void receiveResultcreateBlock(
-                    com.cloudkey.pms.micros.og.meetingroom.CreateBlockResponse result
+                    com.cloudkey.pms.micros.og.meetingroom.CreateBlockResponseE result
                         ) {
            }
 
@@ -381,19 +221,179 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for meetingModifyEvent method
-            * override this method for handling normal response from meetingModifyEvent operation
+            * auto generated Axis2 call back method for meetingFetchMyRegisteredEvents method
+            * override this method for handling normal response from meetingFetchMyRegisteredEvents operation
             */
-           public void receiveResultmeetingModifyEvent(
-                    com.cloudkey.pms.micros.og.meetingroom.MeetingModifyEventResponse result
+           public void receiveResultmeetingFetchMyRegisteredEvents(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMyRegisteredEventsResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from meetingModifyEvent operation
+           * override this method for handling error response from meetingFetchMyRegisteredEvents operation
            */
-            public void receiveErrormeetingModifyEvent(java.lang.Exception e) {
+            public void receiveErrormeetingFetchMyRegisteredEvents(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingFetchMenuItem method
+            * override this method for handling normal response from meetingFetchMenuItem operation
+            */
+           public void receiveResultmeetingFetchMenuItem(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuItemResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingFetchMenuItem operation
+           */
+            public void receiveErrormeetingFetchMenuItem(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingRoomCreateRelationship method
+            * override this method for handling normal response from meetingRoomCreateRelationship operation
+            */
+           public void receiveResultmeetingRoomCreateRelationship(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCreateRelationshipResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingRoomCreateRelationship operation
+           */
+            public void receiveErrormeetingRoomCreateRelationship(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingFetchMenu method
+            * override this method for handling normal response from meetingFetchMenu operation
+            */
+           public void receiveResultmeetingFetchMenu(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchMenuResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingFetchMenu operation
+           */
+            public void receiveErrormeetingFetchMenu(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingCreatePackageEvent method
+            * override this method for handling normal response from meetingCreatePackageEvent operation
+            */
+           public void receiveResultmeetingCreatePackageEvent(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingCreatePackageEventResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingCreatePackageEvent operation
+           */
+            public void receiveErrormeetingCreatePackageEvent(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingRoomFetchBlock method
+            * override this method for handling normal response from meetingRoomFetchBlock operation
+            */
+           public void receiveResultmeetingRoomFetchBlock(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomFetchBlockResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingRoomFetchBlock operation
+           */
+            public void receiveErrormeetingRoomFetchBlock(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingRoomCopyBlock method
+            * override this method for handling normal response from meetingRoomCopyBlock operation
+            */
+           public void receiveResultmeetingRoomCopyBlock(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingRoomCopyBlockResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingRoomCopyBlock operation
+           */
+            public void receiveErrormeetingRoomCopyBlock(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingMultiPropertyAvailability method
+            * override this method for handling normal response from meetingMultiPropertyAvailability operation
+            */
+           public void receiveResultmeetingMultiPropertyAvailability(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingMultiPropertyAvailabilityResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingMultiPropertyAvailability operation
+           */
+            public void receiveErrormeetingMultiPropertyAvailability(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for modifyBlock method
+            * override this method for handling normal response from modifyBlock operation
+            */
+           public void receiveResultmodifyBlock(
+                    com.cloudkey.pms.micros.og.meetingroom.ModifyBlockResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from modifyBlock operation
+           */
+            public void receiveErrormodifyBlock(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingFetchEvent method
+            * override this method for handling normal response from meetingFetchEvent operation
+            */
+           public void receiveResultmeetingFetchEvent(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingFetchEventResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingFetchEvent operation
+           */
+            public void receiveErrormeetingFetchEvent(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for meetingCreateEvent method
+            * override this method for handling normal response from meetingCreateEvent operation
+            */
+           public void receiveResultmeetingCreateEvent(
+                    com.cloudkey.pms.micros.og.meetingroom.MeetingCreateEventResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from meetingCreateEvent operation
+           */
+            public void receiveErrormeetingCreateEvent(java.lang.Exception e) {
             }
                 
 

@@ -17,12 +17,11 @@
         
         public  class LovResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "LovResponse",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = LovResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -63,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.ows.information.LovQueryResultType[] localLovQueryResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLovQueryResultTracker = false ;
+
+                           public boolean isLovQueryResultSpecified(){
+                               return localLovQueryResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -82,10 +104,6 @@
                                */
                               protected void validateLovQueryResult(com.cloudkey.pms.micros.ows.information.LovQueryResultType[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -97,7 +115,8 @@
                               
                                    validateLovQueryResult(param);
 
-                               
+                               localLovQueryResultTracker = param != null;
+                                      
                                       this.localLovQueryResult=param;
                               }
 
@@ -112,6 +131,9 @@
                                    localLovQueryResult = new com.cloudkey.pms.micros.ows.information.LovQueryResultType[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localLovQueryResultTracker = true;
                             
 
                                java.util.List list =
@@ -139,8 +161,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -182,13 +204,13 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","Result"),
                                                xmlWriter);
-                                        
+                                        } if (localLovQueryResultTracker){
                                        if (localLovQueryResult!=null){
                                             for (int i = 0;i < localLovQueryResult.length;i++){
                                                 if (localLovQueryResult[i] != null){
@@ -196,7 +218,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("LovQueryResult cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -206,7 +228,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("LovQueryResult cannot be null!!");
                                         
                                     }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -214,7 +236,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -391,7 +413,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "Result"));
                             
@@ -400,7 +422,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                
+                                } if (localLovQueryResultTracker){
                              if (localLovQueryResult!=null) {
                                  for (int i = 0;i < localLovQueryResult.length;i++){
 
@@ -410,7 +432,7 @@
                                          elementList.add(localLovQueryResult[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("LovQueryResult cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -421,7 +443,7 @@
                                     
                              }
 
-                        
+                        }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -510,11 +532,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -557,11 +578,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

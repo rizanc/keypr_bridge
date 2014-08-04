@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/og/4.3/Reservation/",
                 "ShareActionType",
-                "ns6");
+                "ns5");
 
             
 
@@ -46,23 +46,23 @@
 
                                 }
                             
-                                    public static final java.lang.String _ENTIRE =
-                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("ENTIRE");
+                                    public static final java.lang.String _FULL =
+                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("FULL");
                                 
                                     public static final java.lang.String _SPLIT =
                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString("SPLIT");
                                 
-                                    public static final java.lang.String _FULL =
-                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("FULL");
+                                    public static final java.lang.String _ENTIRE =
+                                        org.apache.axis2.databinding.utils.ConverterUtil.convertToString("ENTIRE");
                                 
-                                public static final ShareActionType ENTIRE =
-                                    new ShareActionType(_ENTIRE,true);
+                                public static final ShareActionType FULL =
+                                    new ShareActionType(_FULL,true);
                             
                                 public static final ShareActionType SPLIT =
                                     new ShareActionType(_SPLIT,true);
                             
-                                public static final ShareActionType FULL =
-                                    new ShareActionType(_FULL,true);
+                                public static final ShareActionType ENTIRE =
+                                    new ShareActionType(_ENTIRE,true);
                             
 
                                 public java.lang.String getValue() { return localShareActionType;}
@@ -148,7 +148,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }

@@ -17,108 +17,38 @@
         
         public  class LovRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Information.wsdl",
-                "LovRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = LovRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
+                Namespace Prefix = ns3
+                */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localLovQueryTracker = false;
-                
-                   localLovQuery2Tracker = false;
-                
-            }
-        
 
                         /**
-                        * field for LovQuery
+                        * field for LovRequestChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.ows.information.LovQueryType localLovQuery ;
+                                    protected com.cloudkey.pms.micros.ows.information.LovRequestChoice_type0 localLovRequestChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localLovQueryTracker = false ;
-
-                           public boolean isLovQuerySpecified(){
-                               return localLovQueryTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.ows.information.LovQueryType
+                           * @return com.cloudkey.pms.micros.ows.information.LovRequestChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.ows.information.LovQueryType getLovQuery(){
-                               return localLovQuery;
+                           public  com.cloudkey.pms.micros.ows.information.LovRequestChoice_type0 getLovRequestChoice_type0(){
+                               return localLovRequestChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param LovQuery
+                               * @param param LovRequestChoice_type0
                                */
-                               public void setLovQuery(com.cloudkey.pms.micros.ows.information.LovQueryType param){
+                               public void setLovRequestChoice_type0(com.cloudkey.pms.micros.ows.information.LovRequestChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localLovQueryTracker = param != null;
-                                   
-                                            this.localLovQuery=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for LovQuery2
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.ows.information.LovQueryType2 localLovQuery2 ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localLovQuery2Tracker = false ;
-
-                           public boolean isLovQuery2Specified(){
-                               return localLovQuery2Tracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.ows.information.LovQueryType2
-                           */
-                           public  com.cloudkey.pms.micros.ows.information.LovQueryType2 getLovQuery2(){
-                               return localLovQuery2;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param LovQuery2
-                               */
-                               public void setLovQuery2(com.cloudkey.pms.micros.ows.information.LovQueryType2 param){
-                            
-                                clearAllSettingTrackers();
-                            localLovQuery2Tracker = param != null;
-                                   
-                                            this.localLovQuery2=param;
+                                            this.localLovRequestChoice_type0=param;
                                     
 
                                }
@@ -139,8 +69,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -182,19 +112,12 @@
 
                
                    }
-                if (localLovQueryTracker){
-                                            if (localLovQuery==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("LovQuery cannot be null!!");
+               
+                                            if (localLovRequestChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("LovRequestChoice_type0 cannot be null!!");
                                             }
-                                           localLovQuery.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQuery"),
-                                               xmlWriter);
-                                        } if (localLovQuery2Tracker){
-                                            if (localLovQuery2==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("LovQuery2 cannot be null!!");
-                                            }
-                                           localLovQuery2.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQuery2"),
-                                               xmlWriter);
-                                        }
+                                           localLovRequestChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -202,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -379,25 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localLovQueryTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
-                                                                      "LovQuery"));
+                                                                      "LovRequestChoice_type0"));
                             
                             
-                                    if (localLovQuery==null){
-                                         throw new org.apache.axis2.databinding.ADBException("LovQuery cannot be null!!");
+                                    if (localLovRequestChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("LovRequestChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localLovQuery);
-                                } if (localLovQuery2Tracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
-                                                                      "LovQuery2"));
-                            
-                            
-                                    if (localLovQuery2==null){
-                                         throw new org.apache.axis2.databinding.ADBException("LovQuery2 cannot be null!!");
-                                    }
-                                    elementList.add(localLovQuery2);
-                                }
+                                    elementList.add(localLovRequestChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -472,33 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQuery").equals(reader.getName())){
-                                
-                                                object.setLovQuery(com.cloudkey.pms.micros.ows.information.LovQueryType.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setLovRequestChoice_type0(com.cloudkey.pms.micros.ows.information.LovRequestChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl","LovQuery2").equals(reader.getName())){
-                                
-                                                object.setLovQuery2(com.cloudkey.pms.micros.ows.information.LovQueryType2.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

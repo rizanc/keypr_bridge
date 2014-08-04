@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FutureBookingSummaryRequestChoice_type0
                 Namespace URI = http://webservices.micros.com/ows/5.1/Reservation.wsdl
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -28,14 +28,62 @@
              */
             private void clearAllSettingTrackers() {
             
-                   localNameIDTracker = false;
+                   localContactIDTracker = false;
                 
-                   localCorporateIDTracker = false;
+                   localNameIDTracker = false;
                 
                    localTravelAgentIDTracker = false;
                 
+                   localSourceIDTracker = false;
+                
+                   localCorporateIDTracker = false;
+                
             }
         
+
+                        /**
+                        * field for ContactID
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.common.UniqueID localContactID ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localContactIDTracker = false ;
+
+                           public boolean isContactIDSpecified(){
+                               return localContactIDTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.common.UniqueID
+                           */
+                           public  com.cloudkey.pms.micros.og.common.UniqueID getContactID(){
+                               return localContactID;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ContactID
+                               */
+                               public void setContactID(com.cloudkey.pms.micros.og.common.UniqueID param){
+                            
+                                clearAllSettingTrackers();
+                            localContactIDTracker = param != null;
+                                   
+                                            this.localContactID=param;
+                                    
+
+                               }
+                            
 
                         /**
                         * field for NameID
@@ -82,50 +130,6 @@
                             
 
                         /**
-                        * field for CorporateID
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.common.UniqueID localCorporateID ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCorporateIDTracker = false ;
-
-                           public boolean isCorporateIDSpecified(){
-                               return localCorporateIDTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueID
-                           */
-                           public  com.cloudkey.pms.micros.og.common.UniqueID getCorporateID(){
-                               return localCorporateID;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CorporateID
-                               */
-                               public void setCorporateID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
-                                clearAllSettingTrackers();
-                            localCorporateIDTracker = param != null;
-                                   
-                                            this.localCorporateID=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for TravelAgentID
                         */
 
@@ -164,6 +168,94 @@
                             localTravelAgentIDTracker = param != null;
                                    
                                             this.localTravelAgentID=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for SourceID
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.common.UniqueID localSourceID ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localSourceIDTracker = false ;
+
+                           public boolean isSourceIDSpecified(){
+                               return localSourceIDTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.common.UniqueID
+                           */
+                           public  com.cloudkey.pms.micros.og.common.UniqueID getSourceID(){
+                               return localSourceID;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param SourceID
+                               */
+                               public void setSourceID(com.cloudkey.pms.micros.og.common.UniqueID param){
+                            
+                                clearAllSettingTrackers();
+                            localSourceIDTracker = param != null;
+                                   
+                                            this.localSourceID=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for CorporateID
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.common.UniqueID localCorporateID ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCorporateIDTracker = false ;
+
+                           public boolean isCorporateIDSpecified(){
+                               return localCorporateIDTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.common.UniqueID
+                           */
+                           public  com.cloudkey.pms.micros.og.common.UniqueID getCorporateID(){
+                               return localCorporateID;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param CorporateID
+                               */
+                               public void setCorporateID(com.cloudkey.pms.micros.og.common.UniqueID param){
+                            
+                                clearAllSettingTrackers();
+                            localCorporateIDTracker = param != null;
+                                   
+                                            this.localCorporateID=param;
                                     
 
                                }
@@ -222,17 +314,17 @@
 
                
                    }
-                if (localNameIDTracker){
+                if (localContactIDTracker){
+                                            if (localContactID==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("ContactID cannot be null!!");
+                                            }
+                                           localContactID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","ContactID"),
+                                               xmlWriter);
+                                        } if (localNameIDTracker){
                                             if (localNameID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                             }
                                            localNameID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","NameID"),
-                                               xmlWriter);
-                                        } if (localCorporateIDTracker){
-                                            if (localCorporateID==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("CorporateID cannot be null!!");
-                                            }
-                                           localCorporateID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CorporateID"),
                                                xmlWriter);
                                         } if (localTravelAgentIDTracker){
                                             if (localTravelAgentID==null){
@@ -240,13 +332,25 @@
                                             }
                                            localTravelAgentID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","TravelAgentID"),
                                                xmlWriter);
+                                        } if (localSourceIDTracker){
+                                            if (localSourceID==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("SourceID cannot be null!!");
+                                            }
+                                           localSourceID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","SourceID"),
+                                               xmlWriter);
+                                        } if (localCorporateIDTracker){
+                                            if (localCorporateID==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("CorporateID cannot be null!!");
+                                            }
+                                           localCorporateID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CorporateID"),
+                                               xmlWriter);
                                         }
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -423,7 +527,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localNameIDTracker){
+                 if (localContactIDTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
+                                                                      "ContactID"));
+                            
+                            
+                                    if (localContactID==null){
+                                         throw new org.apache.axis2.databinding.ADBException("ContactID cannot be null!!");
+                                    }
+                                    elementList.add(localContactID);
+                                } if (localNameIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "NameID"));
                             
@@ -432,15 +545,6 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                     }
                                     elementList.add(localNameID);
-                                } if (localCorporateIDTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
-                                                                      "CorporateID"));
-                            
-                            
-                                    if (localCorporateID==null){
-                                         throw new org.apache.axis2.databinding.ADBException("CorporateID cannot be null!!");
-                                    }
-                                    elementList.add(localCorporateID);
                                 } if (localTravelAgentIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "TravelAgentID"));
@@ -450,6 +554,24 @@
                                          throw new org.apache.axis2.databinding.ADBException("TravelAgentID cannot be null!!");
                                     }
                                     elementList.add(localTravelAgentID);
+                                } if (localSourceIDTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
+                                                                      "SourceID"));
+                            
+                            
+                                    if (localSourceID==null){
+                                         throw new org.apache.axis2.databinding.ADBException("SourceID cannot be null!!");
+                                    }
+                                    elementList.add(localSourceID);
+                                } if (localCorporateIDTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
+                                                                      "CorporateID"));
+                            
+                            
+                                    if (localCorporateID==null){
+                                         throw new org.apache.axis2.databinding.ADBException("CorporateID cannot be null!!");
+                                    }
+                                    elementList.add(localCorporateID);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -497,6 +619,16 @@
                 
 
                 
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","ContactID").equals(reader.getName())){
+                                
+                                                object.setContactID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","NameID").equals(reader.getName())){
                                 
                                                 object.setNameID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
@@ -507,9 +639,9 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CorporateID").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","TravelAgentID").equals(reader.getName())){
                                 
-                                                object.setCorporateID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
+                                                object.setTravelAgentID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -517,9 +649,19 @@
                                 
                                         else
                                     
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","TravelAgentID").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","SourceID").equals(reader.getName())){
                                 
-                                                object.setTravelAgentID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
+                                                object.setSourceID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","CorporateID").equals(reader.getName())){
+                                
+                                                object.setCorporateID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     

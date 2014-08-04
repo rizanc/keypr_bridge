@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RegionalSearchCode
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -87,6 +87,37 @@
                                public void setRegionalSearchCodeType(com.cloudkey.pms.micros.og.hotelcommon.RegionalSearchCodeType param){
                             
                                             this.localRegionalSearchCodeType=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for OtherRegionalSearchCodeType
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localOtherRegionalSearchCodeType ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getOtherRegionalSearchCodeType(){
+                               return localOtherRegionalSearchCodeType;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param OtherRegionalSearchCodeType
+                               */
+                               public void setOtherRegionalSearchCodeType(java.lang.String param){
+                            
+                                            this.localOtherRegionalSearchCodeType=param;
                                     
 
                                }
@@ -162,6 +193,15 @@
                                           throw new org.apache.axis2.databinding.ADBException("required attribute localRegionalSearchCodeType is null");
                                       }
                                     
+                                            if (localOtherRegionalSearchCodeType != null){
+                                        
+                                                writeAttribute("",
+                                                         "otherRegionalSearchCodeType",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOtherRegionalSearchCodeType), xmlWriter);
+
+                                            
+                                      }
+                                    
 
                                           if (localString==null){
                                               // write the nil attribute
@@ -182,7 +222,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -374,6 +414,11 @@
                             
                                       attribList.add(localRegionalSearchCodeType.toString());
                                 
+                            attribList.add(
+                            new javax.xml.namespace.QName("","otherRegionalSearchCodeType"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOtherRegionalSearchCodeType));
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -450,7 +495,7 @@
                             if (!"RegionalSearchCode".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (RegionalSearchCode)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (RegionalSearchCode)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -486,6 +531,22 @@
                            
                     }
                     handledAttributes.add("regionalSearchCodeType");
+                    
+                    // handle attribute "otherRegionalSearchCodeType"
+                    java.lang.String tempAttribOtherRegionalSearchCodeType =
+                        
+                                reader.getAttributeValue(null,"otherRegionalSearchCodeType");
+                            
+                   if (tempAttribOtherRegionalSearchCodeType!=null){
+                         java.lang.String content = tempAttribOtherRegionalSearchCodeType;
+                        
+                                                 object.setOtherRegionalSearchCodeType(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribOtherRegionalSearchCodeType));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("otherRegionalSearchCodeType");
                        
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement()  || reader.hasText()){

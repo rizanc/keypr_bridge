@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Attraction_type0
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -155,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AttractionInfoList localAttractionInformation ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionInfo localAttractionInformation ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -171,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AttractionInfoList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionInfo
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AttractionInfoList getAttractionInformation(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionInfo getAttractionInformation(){
                                return localAttractionInformation;
                            }
 
@@ -183,7 +183,7 @@
                                * Auto generated setter method
                                * @param param AttractionInformation
                                */
-                               public void setAttractionInformation(com.cloudkey.pms.micros.og.hotelcommon.AttractionInfoList param){
+                               public void setAttractionInformation(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionInfo param){
                             localAttractionInformationTracker = param != null;
                                    
                                             this.localAttractionInformation=param;
@@ -970,7 +970,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1423,7 +1423,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","AttractionInformation").equals(reader.getName())){
                                 
-                                                object.setAttractionInformation(com.cloudkey.pms.micros.og.hotelcommon.AttractionInfoList.Factory.parse(reader));
+                                                object.setAttractionInformation(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAttractionInfo.Factory.parse(reader));
                                               
                                         reader.next();
                                     

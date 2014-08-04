@@ -3,6 +3,7 @@ package com.micros.harvester.dao;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail;
 import com.micros.harvester.logger.DataHarvesterLogger;
 
 import com.cloudkey.dao.DataBaseHandler;
@@ -525,7 +526,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		String sqlQuery = null;
 
-		com.cloudkey.pms.micros.og.availability.Calendar objCalendar = objFetchCalendarResponse.getCalendar();
+		ArrayOfCalendarDailyDetail objCalendar = objFetchCalendarResponse.getCalendar();
 		CalendarDailyDetail objCalendarDailyDetailArry[] = objCalendar.getCalendarDay();
 		int calendarArrayLength = objCalendarDailyDetailArry.length;
 
@@ -538,7 +539,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			CalendarDailyDetail objCalendarDailyDetail = objCalendarDailyDetailArry[len];
 			Date currentCalendarDay = objCalendarDailyDetail.getDate();
 
-			RoomTypeInventoryList objRoomInventoryList = objCalendarDailyDetail.getOccupancy();
+			ArrayOfRoomTypeInventory objRoomInventoryList = objCalendarDailyDetail.getOccupancy();
 			com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory[] objRoomTypeInventoryArray = objRoomInventoryList.getRoomTypeInventory();
 
 			int lengthRoomInventory = objRoomTypeInventoryArray.length;
@@ -925,7 +926,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 * This method accepts room inventory detail information , fetched from room type inventory list.
 	 * Pull the data from fetched instance and set the retrieved data in an instance of RoomTypeInventory Class.
 	 *
-	 * @param objRoomTypeInventory
+	 * @param objRoomTypInventory
+	 * @param currentCalendarDay
 	 * @return
 	 */
 	private com.cloudkey.commons.RoomTypeInventory getRoomTypeInventoryInstance( RoomTypeInventory objRoomTypInventory, Date currentCalendarDay ) {

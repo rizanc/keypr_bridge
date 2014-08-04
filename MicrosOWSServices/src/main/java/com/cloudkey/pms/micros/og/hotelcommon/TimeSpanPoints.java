@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = TimeSpanPoints
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localDates ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDatesTracker = false ;
+
+                           public boolean isDatesSpecified(){
+                               return localDatesTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Dates
                                */
                                public void setDates(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localDatesTracker = param != null;
+                                   
                                             this.localDates=param;
                                     
 
@@ -142,13 +154,13 @@
 
                
                    }
-               
+                if (localDatesTracker){
                                             if (localDates==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Dates cannot be null!!");
                                             }
                                            localDates.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Dates"),
                                                xmlWriter);
-                                        
+                                        }
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "Points", xmlWriter);
                              
@@ -169,7 +181,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -346,7 +358,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localDatesTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Dates"));
                             
@@ -355,7 +367,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Dates cannot be null!!");
                                     }
                                     elementList.add(localDates);
-                                
+                                }
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Points"));
                                  
@@ -436,10 +448,10 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Dates").equals(reader.getName())){
                                 
                                                 object.setDates(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan.Factory.parse(reader));
@@ -448,8 +460,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Points").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -467,16 +484,18 @@
                                     
                               }  // End of if for expected property start element
                                 
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
-                             } else {
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                              
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

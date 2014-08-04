@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Comment
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -112,99 +112,6 @@
                                public void setCommentTitle(java.lang.String param){
                             
                                             this.localCommentTitle=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for CommentType
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localCommentType ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getCommentType(){
-                               return localCommentType;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CommentType
-                               */
-                               public void setCommentType(java.lang.String param){
-                            
-                                            this.localCommentType=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for GlobalYn
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localGlobalYn ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getGlobalYn(){
-                               return localGlobalYn;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param GlobalYn
-                               */
-                               public void setGlobalYn(java.lang.String param){
-                            
-                                            this.localGlobalYn=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for InternalYn
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localInternalYn ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getInternalYn(){
-                               return localInternalYn;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param InternalYn
-                               */
-                               public void setInternalYn(java.lang.String param){
-                            
-                                            this.localInternalYn=param;
                                     
 
                                }
@@ -365,6 +272,99 @@
                                }
                             
 
+                        /**
+                        * field for CommentType
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localCommentType ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getCommentType(){
+                               return localCommentType;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param CommentType
+                               */
+                               public void setCommentType(java.lang.String param){
+                            
+                                            this.localCommentType=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for GlobalYn
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localGlobalYn ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getGlobalYn(){
+                               return localGlobalYn;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param GlobalYn
+                               */
+                               public void setGlobalYn(java.lang.String param){
+                            
+                                            this.localGlobalYn=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for InternalYn
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localInternalYn ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getInternalYn(){
+                               return localInternalYn;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param InternalYn
+                               */
+                               public void setInternalYn(java.lang.String param){
+                            
+                                            this.localInternalYn=param;
+                                    
+
+                               }
+                            
+
      
      
         /**
@@ -447,33 +447,6 @@
                                             
                                       }
                                     
-                                            if (localCommentType != null){
-                                        
-                                                writeAttribute("",
-                                                         "commentType",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCommentType), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localGlobalYn != null){
-                                        
-                                                writeAttribute("",
-                                                         "globalYn",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGlobalYn), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                            if (localInternalYn != null){
-                                        
-                                                writeAttribute("",
-                                                         "internalYn",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInternalYn), xmlWriter);
-
-                                            
-                                      }
-                                    
                                             if (localInsertUser != null){
                                         
                                                 writeAttribute("",
@@ -519,48 +492,38 @@
                                             
                                       }
                                     
-                                            if (localText==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Text cannot be null!!");
+                                            if (localCommentType != null){
+                                        
+                                                writeAttribute("",
+                                                         "commentType",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCommentType), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localGlobalYn != null){
+                                        
+                                                writeAttribute("",
+                                                         "globalYn",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGlobalYn), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localInternalYn != null){
+                                        
+                                                writeAttribute("",
+                                                         "internalYn",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInternalYn), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                            if (localDescriptiveTextChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("DescriptiveTextChoice_type0 cannot be null!!");
                                             }
-                                           localText.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text"),
-                                               xmlWriter);
+                                           localDescriptiveTextChoice_type0.serialize(null,xmlWriter);
                                         
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "Image", xmlWriter);
-                             
-
-                                          if (localImage==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Image cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localImage);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "Url", xmlWriter);
-                             
-
-                                          if (localUrl==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Url cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUrl));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
                     xmlWriter.writeEndElement();
                
 
@@ -568,7 +531,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -750,32 +713,14 @@
                     attribList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","Comment"));
                 
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Text"));
+                                                                      "DescriptiveTextChoice_type0"));
                             
                             
-                                    if (localText==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Text cannot be null!!");
+                                    if (localDescriptiveTextChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("DescriptiveTextChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localText);
+                                    elementList.add(localDescriptiveTextChoice_type0);
                                 
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Image"));
-                                 
-                                        if (localImage != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localImage));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Image cannot be null!!");
-                                        }
-                                    
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Url"));
-                                 
-                                        if (localUrl != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUrl));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Url cannot be null!!");
-                                        }
-                                    
                             attribList.add(
                             new javax.xml.namespace.QName("","operaId"));
                             
@@ -790,21 +735,6 @@
                             new javax.xml.namespace.QName("","commentTitle"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCommentTitle));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","commentType"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCommentType));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","globalYn"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGlobalYn));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","internalYn"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInternalYn));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","insertUser"));
@@ -830,6 +760,21 @@
                             new javax.xml.namespace.QName("","inactiveDate"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInactiveDate));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","commentType"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCommentType));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","globalYn"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localGlobalYn));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","internalYn"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInternalYn));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -884,7 +829,7 @@
                             if (!"Comment".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Comment)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Comment)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -952,54 +897,6 @@
                        
                     }
                     handledAttributes.add("commentTitle");
-                    
-                    // handle attribute "commentType"
-                    java.lang.String tempAttribCommentType =
-                        
-                                reader.getAttributeValue(null,"commentType");
-                            
-                   if (tempAttribCommentType!=null){
-                         java.lang.String content = tempAttribCommentType;
-                        
-                                                 object.setCommentType(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribCommentType));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("commentType");
-                    
-                    // handle attribute "globalYn"
-                    java.lang.String tempAttribGlobalYn =
-                        
-                                reader.getAttributeValue(null,"globalYn");
-                            
-                   if (tempAttribGlobalYn!=null){
-                         java.lang.String content = tempAttribGlobalYn;
-                        
-                                                 object.setGlobalYn(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribGlobalYn));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("globalYn");
-                    
-                    // handle attribute "internalYn"
-                    java.lang.String tempAttribInternalYn =
-                        
-                                reader.getAttributeValue(null,"internalYn");
-                            
-                   if (tempAttribInternalYn!=null){
-                         java.lang.String content = tempAttribInternalYn;
-                        
-                                                 object.setInternalYn(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribInternalYn));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("internalYn");
                     
                     // handle attribute "insertUser"
                     java.lang.String tempAttribInsertUser =
@@ -1081,63 +978,66 @@
                     }
                     handledAttributes.add("inactiveDate");
                     
+                    // handle attribute "commentType"
+                    java.lang.String tempAttribCommentType =
+                        
+                                reader.getAttributeValue(null,"commentType");
+                            
+                   if (tempAttribCommentType!=null){
+                         java.lang.String content = tempAttribCommentType;
+                        
+                                                 object.setCommentType(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribCommentType));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("commentType");
+                    
+                    // handle attribute "globalYn"
+                    java.lang.String tempAttribGlobalYn =
+                        
+                                reader.getAttributeValue(null,"globalYn");
+                            
+                   if (tempAttribGlobalYn!=null){
+                         java.lang.String content = tempAttribGlobalYn;
+                        
+                                                 object.setGlobalYn(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribGlobalYn));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("globalYn");
+                    
+                    // handle attribute "internalYn"
+                    java.lang.String tempAttribInternalYn =
+                        
+                                reader.getAttributeValue(null,"internalYn");
+                            
+                   if (tempAttribInternalYn!=null){
+                         java.lang.String content = tempAttribInternalYn;
+                        
+                                                 object.setInternalYn(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribInternalYn));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("internalYn");
+                    
                     
                     reader.next();
                    
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text").equals(reader.getName())){
+                                    if (reader.isStartElement() ){
                                 
-                                                object.setText(com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
+                                                object.setDescriptiveTextChoice_type0(com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
                                 
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Image").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Image" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setImage(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Url").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Url" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setUrl(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToAnyURI(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
                              } else {
                                 reader.next();
                              }  

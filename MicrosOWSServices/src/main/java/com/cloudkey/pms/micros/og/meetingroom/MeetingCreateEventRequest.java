@@ -17,12 +17,11 @@
         
         public  class MeetingCreateEventRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/MeetingRoom/",
-                "MeetingCreateEventRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = MeetingCreateEventRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.meetingroom.MeetingEvent localEvent ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEventTracker = false ;
+
+                           public boolean isEventSpecified(){
+                               return localEventTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Event
                                */
                                public void setEvent(com.cloudkey.pms.micros.og.meetingroom.MeetingEvent param){
-                            
+                            localEventTracker = param != null;
+                                   
                                             this.localEvent=param;
                                     
 
@@ -205,8 +216,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -275,13 +286,13 @@
 
                                             
                                       }
-                                    
+                                     if (localEventTracker){
                                             if (localEvent==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Event cannot be null!!");
                                             }
                                            localEvent.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","Event"),
                                                xmlWriter);
-                                         if (localCreditCardTracker){
+                                        } if (localCreditCardTracker){
                                             if (localCreditCard==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
                                             }
@@ -295,7 +306,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -472,7 +483,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localEventTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "Event"));
                             
@@ -481,7 +492,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Event cannot be null!!");
                                     }
                                     elementList.add(localEvent);
-                                 if (localCreditCardTracker){
+                                } if (localCreditCardTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "CreditCard"));
                             
@@ -559,7 +570,7 @@
                             if (!"MeetingCreateEventRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (MeetingCreateEventRequest)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (MeetingCreateEventRequest)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -640,11 +651,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FetchMembershipTransactionsRequestChoice_type0
                 Namespace URI = http://webservices.micros.com/ows/5.1/Membership.wsdl
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -194,7 +194,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Membership.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }

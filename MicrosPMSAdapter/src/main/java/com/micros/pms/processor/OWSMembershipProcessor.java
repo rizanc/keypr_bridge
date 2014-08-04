@@ -12,6 +12,7 @@ import com.cloudkey.pms.micros.ows.membership.FetchMemberPointsResponse;
 import com.cloudkey.pms.micros.services.MembershipServiceStub;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
+import com.google.common.collect.Iterables;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.parser.MicrosOWSParser;
@@ -26,7 +27,7 @@ import java.util.UUID;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSMembershipProcessor {
+public class OWSMembershipProcessor extends AbstractOWSProcessor {
 
     final static String URL_MEMBERSHIP = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Membership.asmx";
 
@@ -70,7 +71,7 @@ public class OWSMembershipProcessor {
         objFetchMemberPointsRequest = new FetchMemberPointsRequest();
         objFetchMemberPointsRequest.setMembershipNumber(objMemberPointsRequest.getMembershipNumber());
 
-        MicrosPMSLogger.logInfo( MicrosOWSParser.class, " getFetchMemberPointsRequestObject "," Exit getFetchMemberPointsRequestObject method " );
+        MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getFetchMemberPointsRequestObject ", " Exit getFetchMemberPointsRequestObject method ");
         return objFetchMemberPointsRequest;
     }
 
@@ -114,15 +115,33 @@ public class OWSMembershipProcessor {
             revId.concat(rev).concat(" ");
         }
 
-        AwardPointsInfo objAwardPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo();
-	    StayPointsInfo objStayPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo();
+        AwardPointsInfo[] objAwardPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getAwardPointsInfo();
 
-	    String totalPoints = String.valueOf(objAwardPointsInfo.getTotalPoints());
-        String bonusPoints = String.valueOf(objAwardPointsInfo.getBonusPoints());
-        String guestTotalNight = String.valueOf(objStayPointsInfo.getGuestTotalNights());
-        String guestTotalStay = String.valueOf(objStayPointsInfo.getGuestTotalStays());
+	    double bonusPoint = 0.0;
+	    double totalPoint = 0.0;
 
-        objMemberPointsResponse.setMemberName(membername);
+	    for (AwardPointsInfo anObjAwardPointsInfo : objAwardPointsInfo) {
+		    bonusPoint = anObjAwardPointsInfo.getBonusPoints();
+		    totalPoint = anObjAwardPointsInfo.getTotalPoints();
+	    }
+
+	    StayPointsInfo[] objStayPointsInfo = objFetchMemberPointsResponse.getPointsInfo().getStayPointsInfo();
+
+	    int totalNight = 0;
+	    int totalStay = 0;
+
+	    for (StayPointsInfo anObjStayPointsInfo : objStayPointsInfo) {
+		    totalNight = anObjStayPointsInfo.getGuestTotalNights();
+		    totalStay = anObjStayPointsInfo.getGuestTotalStays();
+	    }
+
+	    String totalPoints = String.valueOf(totalPoint);
+	    String bonusPoints = String.valueOf(bonusPoint);
+	    String guestTotalNight = String.valueOf(totalNight);
+	    String guestTotalStay = String.valueOf(totalStay);
+
+
+	    objMemberPointsResponse.setMemberName(membername);
         objMemberPointsResponse.setMembershipId(membershipId);
         objMemberPointsResponse.setMembershipType(membershipType);
 
@@ -158,80 +177,6 @@ public class OWSMembershipProcessor {
         }
 
         return rstub;
-    }
-
-    private HotelReference getDefaultHotelReference() {
-        HotelReference objHotelReference = new HotelReference();
-        String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
-        String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
-        objHotelReference.setHotelCode(hotelCode);
-        objHotelReference.setString("");
-        objHotelReference.setChainCode(chainCode);
-        return objHotelReference;
-    }
-
-    private OGHeaderE getHeaderE() {
-
-        String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
-        // Sets Transaction Identifier
-        OGHeader ogHeader = new OGHeader();
-
-        ogHeader.setTransactionID(transactionId);
-
-        // creates origin end point of header.
-        EndPoint origin = new EndPoint();
-
-        String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
-        origin.setEntityID(entityId);
-
-        String systemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_SYSTEM_TYPE);
-        origin.setSystemType(systemType);
-
-        // creates destination end point of header.
-        EndPoint destination = new EndPoint();
-        String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
-
-        destination.setEntityID(destEntityId);
-        String destSystemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_DEST_TYPE);
-        destination.setSystemType(destSystemType);
-
-        // sets time stamp
-        ogHeader.setTimeStamp(AdapterUtility.getCalender());
-
-        // prepares OGHeader
-        ogHeader.setOrigin(origin);
-        ogHeader.setDestination(destination);
-
-        String username = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_NAME);
-        String password = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_PASS);
-
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
-
-            Authentication_type0 auth = new Authentication_type0();
-            ogHeader.setAuthentication(auth);
-
-            UserCredentials_type0 cred = new UserCredentials_type0();
-            auth.setUserCredentials(cred);
-
-            cred.setUserName(username);
-            cred.setUserPassword(password);
-        }
-
-        OGHeaderE ogHeaderE = new OGHeaderE();
-        ogHeaderE.setOGHeader(ogHeader);
-        return ogHeaderE;
-    }
-
-    private String getErrorMessage(ResultStatus resultStatus) {
-
-        String message = "";
-        if (resultStatus.getText() != null &&
-                resultStatus.getText().getTextElement() != null &&
-                resultStatus.getText().getTextElement().length > 0) {
-            message = resultStatus.getText().getTextElement()[0].toString();
-        }
-
-        return message;
     }
 
 }

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RatePlan
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -155,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList localAdditionalDetails ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail localAdditionalDetails ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -171,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList getAdditionalDetails(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail getAdditionalDetails(){
                                return localAdditionalDetails;
                            }
 
@@ -183,7 +183,7 @@
                                * Auto generated setter method
                                * @param param AdditionalDetails
                                */
-                               public void setAdditionalDetails(com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList param){
+                               public void setAdditionalDetails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail param){
                             localAdditionalDetailsTracker = param != null;
                                    
                                             this.localAdditionalDetails=param;
@@ -323,7 +323,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList localGuaranteeDetails ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee localGuaranteeDetails ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -339,9 +339,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList getGuaranteeDetails(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee getGuaranteeDetails(){
                                return localGuaranteeDetails;
                            }
 
@@ -351,7 +351,7 @@
                                * Auto generated setter method
                                * @param param GuaranteeDetails
                                */
-                               public void setGuaranteeDetails(com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList param){
+                               public void setGuaranteeDetails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee param){
                             localGuaranteeDetailsTracker = param != null;
                                    
                                             this.localGuaranteeDetails=param;
@@ -407,7 +407,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PackageElementList localPackages ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement localPackages ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -423,9 +423,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PackageElementList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PackageElementList getPackages(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement getPackages(){
                                return localPackages;
                            }
 
@@ -435,7 +435,7 @@
                                * Auto generated setter method
                                * @param param Packages
                                */
-                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList param){
+                               public void setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement param){
                             localPackagesTracker = param != null;
                                    
                                             this.localPackages=param;
@@ -1168,6 +1168,130 @@
                                }
                             
 
+                        /**
+                        * field for RepeatPostingRhythm
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localRepeatPostingRhythm ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getRepeatPostingRhythm(){
+                               return localRepeatPostingRhythm;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param RepeatPostingRhythm
+                               */
+                               public void setRepeatPostingRhythm(boolean param){
+                            
+                                            this.localRepeatPostingRhythm=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for DiscountRateAmount
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected double localDiscountRateAmount ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return double
+                           */
+                           public  double getDiscountRateAmount(){
+                               return localDiscountRateAmount;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param DiscountRateAmount
+                               */
+                               public void setDiscountRateAmount(double param){
+                            
+                                            this.localDiscountRateAmount=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for DiscountRatePercent
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localDiscountRatePercent ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getDiscountRatePercent(){
+                               return localDiscountRatePercent;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param DiscountRatePercent
+                               */
+                               public void setDiscountRatePercent(boolean param){
+                            
+                                            this.localDiscountRatePercent=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for PostingRhythmNights
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected int localPostingRhythmNights ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return int
+                           */
+                           public  int getPostingRhythmNights(){
+                               return localPostingRhythmNights;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param PostingRhythmNights
+                               */
+                               public void setPostingRhythmNights(int param){
+                            
+                                            this.localPostingRhythmNights=param;
+                                    
+
+                               }
+                            
+
      
      
         /**
@@ -1243,10 +1367,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanCode), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRatePlanCode is null");
                                       }
                                     
                                             if (localPromotionCode != null){
@@ -1428,6 +1548,42 @@
 
                                             
                                       }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "repeatPostingRhythm",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRepeatPostingRhythm), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (!java.lang.Double.isNaN(localDiscountRateAmount)) {
+                                               
+                                                writeAttribute("",
+                                                         "discountRateAmount",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRateAmount), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "discountRatePercent",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRatePercent), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (localPostingRhythmNights!=java.lang.Integer.MIN_VALUE) {
+                                               
+                                                writeAttribute("",
+                                                         "postingRhythmNights",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythmNights), xmlWriter);
+
+                                            
+                                      }
                                      if (localRatePlanDescriptionTracker){
                                             if (localRatePlanDescription==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RatePlanDescription cannot be null!!");
@@ -1502,7 +1658,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1889,6 +2045,26 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythm));
                                 
+                            attribList.add(
+                            new javax.xml.namespace.QName("","repeatPostingRhythm"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRepeatPostingRhythm));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","discountRateAmount"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRateAmount));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","discountRatePercent"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRatePercent));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","postingRhythmNights"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythmNights));
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -1942,7 +2118,7 @@
                             if (!"RatePlan".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (RatePlan)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (RatePlan)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1990,8 +2166,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute ratePlanCode is missing");
-                           
                     }
                     handledAttributes.add("ratePlanCode");
                     
@@ -2315,6 +2489,74 @@
                     }
                     handledAttributes.add("postingRhythm");
                     
+                    // handle attribute "repeatPostingRhythm"
+                    java.lang.String tempAttribRepeatPostingRhythm =
+                        
+                                reader.getAttributeValue(null,"repeatPostingRhythm");
+                            
+                   if (tempAttribRepeatPostingRhythm!=null){
+                         java.lang.String content = tempAttribRepeatPostingRhythm;
+                        
+                                                 object.setRepeatPostingRhythm(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribRepeatPostingRhythm));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("repeatPostingRhythm");
+                    
+                    // handle attribute "discountRateAmount"
+                    java.lang.String tempAttribDiscountRateAmount =
+                        
+                                reader.getAttributeValue(null,"discountRateAmount");
+                            
+                   if (tempAttribDiscountRateAmount!=null){
+                         java.lang.String content = tempAttribDiscountRateAmount;
+                        
+                                                 object.setDiscountRateAmount(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(tempAttribDiscountRateAmount));
+                                            
+                    } else {
+                       
+                                           object.setDiscountRateAmount(java.lang.Double.NaN);
+                                       
+                    }
+                    handledAttributes.add("discountRateAmount");
+                    
+                    // handle attribute "discountRatePercent"
+                    java.lang.String tempAttribDiscountRatePercent =
+                        
+                                reader.getAttributeValue(null,"discountRatePercent");
+                            
+                   if (tempAttribDiscountRatePercent!=null){
+                         java.lang.String content = tempAttribDiscountRatePercent;
+                        
+                                                 object.setDiscountRatePercent(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribDiscountRatePercent));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("discountRatePercent");
+                    
+                    // handle attribute "postingRhythmNights"
+                    java.lang.String tempAttribPostingRhythmNights =
+                        
+                                reader.getAttributeValue(null,"postingRhythmNights");
+                            
+                   if (tempAttribPostingRhythmNights!=null){
+                         java.lang.String content = tempAttribPostingRhythmNights;
+                        
+                                                 object.setPostingRhythmNights(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(tempAttribPostingRhythmNights));
+                                            
+                    } else {
+                       
+                                           object.setPostingRhythmNights(java.lang.Integer.MIN_VALUE);
+                                       
+                    }
+                    handledAttributes.add("postingRhythmNights");
+                    
                     
                     reader.next();
                 
@@ -2368,7 +2610,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","AdditionalDetails").equals(reader.getName())){
                                 
-                                                object.setAdditionalDetails(com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList.Factory.parse(reader));
+                                                object.setAdditionalDetails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2428,7 +2670,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GuaranteeDetails").equals(reader.getName())){
                                 
-                                                object.setGuaranteeDetails(com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList.Factory.parse(reader));
+                                                object.setGuaranteeDetails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -2458,7 +2700,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Packages").equals(reader.getName())){
                                 
-                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList.Factory.parse(reader));
+                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     

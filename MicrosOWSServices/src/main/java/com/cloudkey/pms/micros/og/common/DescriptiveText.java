@@ -20,150 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = DescriptiveText
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localTextTracker = false;
-                
-                   localImageTracker = false;
-                
-                   localUrlTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for Text
+                        * field for DescriptiveTextChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.TextList localText ;
+                                    protected com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0 localDescriptiveTextChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localTextTracker = false ;
-
-                           public boolean isTextSpecified(){
-                               return localTextTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.TextList
+                           * @return com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.common.TextList getText(){
-                               return localText;
+                           public  com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0 getDescriptiveTextChoice_type0(){
+                               return localDescriptiveTextChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param Text
+                               * @param param DescriptiveTextChoice_type0
                                */
-                               public void setText(com.cloudkey.pms.micros.og.common.TextList param){
+                               public void setDescriptiveTextChoice_type0(com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localTextTracker = param != null;
-                                   
-                                            this.localText=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Image
-                        */
-
-                        
-                                    protected java.lang.String localImage ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localImageTracker = false ;
-
-                           public boolean isImageSpecified(){
-                               return localImageTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getImage(){
-                               return localImage;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Image
-                               */
-                               public void setImage(java.lang.String param){
-                            
-                                clearAllSettingTrackers();
-                            localImageTracker = param != null;
-                                   
-                                            this.localImage=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Url
-                        */
-
-                        
-                                    protected org.apache.axis2.databinding.types.URI localUrl ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localUrlTracker = false ;
-
-                           public boolean isUrlSpecified(){
-                               return localUrlTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return org.apache.axis2.databinding.types.URI
-                           */
-                           public  org.apache.axis2.databinding.types.URI getUrl(){
-                               return localUrl;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Url
-                               */
-                               public void setUrl(org.apache.axis2.databinding.types.URI param){
-                            
-                                clearAllSettingTrackers();
-                            localUrlTracker = param != null;
-                                   
-                                            this.localUrl=param;
+                                            this.localDescriptiveTextChoice_type0=param;
                                     
 
                                }
@@ -227,49 +112,12 @@
 
                
                    }
-                if (localTextTracker){
-                                            if (localText==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Text cannot be null!!");
+               
+                                            if (localDescriptiveTextChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("DescriptiveTextChoice_type0 cannot be null!!");
                                             }
-                                           localText.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text"),
-                                               xmlWriter);
-                                        } if (localImageTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "Image", xmlWriter);
-                             
-
-                                          if (localImage==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Image cannot be null!!");
-                                                  
-                                          }else{
-
+                                           localDescriptiveTextChoice_type0.serialize(null,xmlWriter);
                                         
-                                                   xmlWriter.writeCharacters(localImage);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localUrlTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "Url", xmlWriter);
-                             
-
-                                          if (localUrl==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Url cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUrl));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             }
                     xmlWriter.writeEndElement();
                
 
@@ -277,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -454,34 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localTextTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Text"));
+                                                                      "DescriptiveTextChoice_type0"));
                             
                             
-                                    if (localText==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Text cannot be null!!");
+                                    if (localDescriptiveTextChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("DescriptiveTextChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localText);
-                                } if (localImageTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Image"));
-                                 
-                                        if (localImage != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localImage));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Image cannot be null!!");
-                                        }
-                                    } if (localUrlTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "Url"));
-                                 
-                                        if (localUrl != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localUrl));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Url cannot be null!!");
-                                        }
-                                    }
+                                    elementList.add(localDescriptiveTextChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -535,7 +365,7 @@
                             if (!"DescriptiveText".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (DescriptiveText)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (DescriptiveText)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -556,61 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text").equals(reader.getName())){
-                                
-                                                object.setText(com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setDescriptiveTextChoice_type0(com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Image").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Image" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setImage(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Url").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Url" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setUrl(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToAnyURI(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

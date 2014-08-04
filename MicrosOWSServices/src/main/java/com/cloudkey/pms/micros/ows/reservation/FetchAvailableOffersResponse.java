@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                 "FetchAvailableOffersResponse",
-                "ns7");
+                "ns3");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -60,14 +72,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.UpsellRoomList localUpsellRooms ;
+                                    protected com.cloudkey.pms.micros.og.reservation.ArrayOfUpsellRoom localUpsellRooms ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localUpsellRoomsTracker = false ;
+
+                           public boolean isUpsellRoomsSpecified(){
+                               return localUpsellRoomsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.UpsellRoomList
+                           * @return com.cloudkey.pms.micros.og.reservation.ArrayOfUpsellRoom
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.UpsellRoomList getUpsellRooms(){
+                           public  com.cloudkey.pms.micros.og.reservation.ArrayOfUpsellRoom getUpsellRooms(){
                                return localUpsellRooms;
                            }
 
@@ -77,8 +100,9 @@
                                * Auto generated setter method
                                * @param param UpsellRooms
                                */
-                               public void setUpsellRooms(com.cloudkey.pms.micros.og.reservation.UpsellRoomList param){
-                            
+                               public void setUpsellRooms(com.cloudkey.pms.micros.og.reservation.ArrayOfUpsellRoom param){
+                            localUpsellRoomsTracker = param != null;
+                                   
                                             this.localUpsellRooms=param;
                                     
 
@@ -143,19 +167,19 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","Result"),
                                                xmlWriter);
-                                        
+                                        } if (localUpsellRoomsTracker){
                                             if (localUpsellRooms==null){
                                                  throw new org.apache.axis2.databinding.ADBException("UpsellRooms cannot be null!!");
                                             }
                                            localUpsellRooms.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","UpsellRooms"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +187,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Reservation.wsdl")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,7 +364,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "Result"));
                             
@@ -349,7 +373,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                
+                                } if (localUpsellRoomsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl",
                                                                       "UpsellRooms"));
                             
@@ -358,7 +382,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("UpsellRooms cannot be null!!");
                                     }
                                     elementList.add(localUpsellRooms);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -445,27 +469,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Reservation.wsdl","UpsellRooms").equals(reader.getName())){
                                 
-                                                object.setUpsellRooms(com.cloudkey.pms.micros.og.reservation.UpsellRoomList.Factory.parse(reader));
+                                                object.setUpsellRooms(com.cloudkey.pms.micros.og.reservation.ArrayOfUpsellRoom.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

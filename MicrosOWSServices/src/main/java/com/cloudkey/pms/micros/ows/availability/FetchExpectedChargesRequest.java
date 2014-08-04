@@ -21,7 +21,7 @@
                 public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
                 "http://webservices.micros.com/ows/5.1/Availability.wsdl",
                 "FetchExpectedChargesRequest",
-                "ns7");
+                "ns2");
 
             
 
@@ -32,6 +32,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +59,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localStayDateRange ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localStayDateRangeTracker = false ;
+
+                           public boolean isStayDateRangeSpecified(){
+                               return localStayDateRangeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +101,8 @@
                                * @param param StayDateRange
                                */
                                public void setStayDateRange(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localStayDateRangeTracker = param != null;
+                                   
                                             this.localStayDateRange=param;
                                     
 
@@ -92,6 +116,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.GuestCountList localGuestCount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localGuestCountTracker = false ;
+
+                           public boolean isGuestCountSpecified(){
+                               return localGuestCountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -108,7 +143,8 @@
                                * @param param GuestCount
                                */
                                public void setGuestCount(com.cloudkey.pms.micros.og.hotelcommon.GuestCountList param){
-                            
+                            localGuestCountTracker = param != null;
+                                   
                                             this.localGuestCount=param;
                                     
 
@@ -122,6 +158,17 @@
                         
                                     protected java.lang.String localRatePlanCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRatePlanCodeTracker = false ;
+
+                           public boolean isRatePlanCodeSpecified(){
+                               return localRatePlanCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -138,7 +185,8 @@
                                * @param param RatePlanCode
                                */
                                public void setRatePlanCode(java.lang.String param){
-                            
+                            localRatePlanCodeTracker = param != null;
+                                   
                                             this.localRatePlanCode=param;
                                     
 
@@ -152,6 +200,17 @@
                         
                                     protected java.lang.String localRoomType ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localRoomTypeTracker = false ;
+
+                           public boolean isRoomTypeSpecified(){
+                               return localRoomTypeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -168,7 +227,8 @@
                                * @param param RoomType
                                */
                                public void setRoomType(java.lang.String param){
-                            
+                            localRoomTypeTracker = param != null;
+                                   
                                             this.localRoomType=param;
                                     
 
@@ -278,25 +338,25 @@
 
                
                    }
-               
+                if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localStayDateRangeTracker){
                                             if (localStayDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                             }
                                            localStayDateRange.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","StayDateRange"),
                                                xmlWriter);
-                                        
+                                        } if (localGuestCountTracker){
                                             if (localGuestCount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("GuestCount cannot be null!!");
                                             }
                                            localGuestCount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","GuestCount"),
                                                xmlWriter);
-                                        
+                                        } if (localRatePlanCodeTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
                                     writeStartElement(null, namespace, "RatePlanCode", xmlWriter);
                              
@@ -314,7 +374,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localRoomTypeTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
                                     writeStartElement(null, namespace, "RoomType", xmlWriter);
                              
@@ -332,7 +392,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localNumberOfRoomsTracker){
+                             } if (localNumberOfRoomsTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
                                     writeStartElement(null, namespace, "NumberOfRooms", xmlWriter);
                              
@@ -353,7 +413,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -530,7 +590,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "HotelReference"));
                             
@@ -539,7 +599,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localStayDateRangeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "StayDateRange"));
                             
@@ -548,7 +608,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                     }
                                     elementList.add(localStayDateRange);
-                                
+                                } if (localGuestCountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "GuestCount"));
                             
@@ -557,7 +617,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("GuestCount cannot be null!!");
                                     }
                                     elementList.add(localGuestCount);
-                                
+                                } if (localRatePlanCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "RatePlanCode"));
                                  
@@ -566,7 +626,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("RatePlanCode cannot be null!!");
                                         }
-                                    
+                                    } if (localRoomTypeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "RoomType"));
                                  
@@ -575,7 +635,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("RoomType cannot be null!!");
                                         }
-                                     if (localNumberOfRoomsTracker){
+                                    } if (localNumberOfRoomsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "NumberOfRooms"));
                                  
@@ -668,11 +728,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -684,11 +743,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -700,11 +758,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -725,11 +782,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -750,11 +806,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

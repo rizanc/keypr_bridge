@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = Claim
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -328,6 +328,17 @@
                         
                                     protected java.lang.String localClaimInformation ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localClaimInformationTracker = false ;
+
+                           public boolean isClaimInformationSpecified(){
+                               return localClaimInformationTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -344,7 +355,8 @@
                                * @param param ClaimInformation
                                */
                                public void setClaimInformation(java.lang.String param){
-                            
+                            localClaimInformationTracker = param != null;
+                                   
                                             this.localClaimInformation=param;
                                     
 
@@ -772,48 +784,6 @@
                             
 
                         /**
-                        * field for ClaimComments
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.common.ClaimCommentsList localClaimComments ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localClaimCommentsTracker = false ;
-
-                           public boolean isClaimCommentsSpecified(){
-                               return localClaimCommentsTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.ClaimCommentsList
-                           */
-                           public  com.cloudkey.pms.micros.og.common.ClaimCommentsList getClaimComments(){
-                               return localClaimComments;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ClaimComments
-                               */
-                               public void setClaimComments(com.cloudkey.pms.micros.og.common.ClaimCommentsList param){
-                            localClaimCommentsTracker = param != null;
-                                   
-                                            this.localClaimComments=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for StartDate
                         */
 
@@ -892,6 +862,48 @@
                             localEndDateTracker = param != null;
                                    
                                             this.localEndDate=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ClaimComments
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfClaimComment localClaimComments ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localClaimCommentsTracker = false ;
+
+                           public boolean isClaimCommentsSpecified(){
+                               return localClaimCommentsTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfClaimComment
+                           */
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfClaimComment getClaimComments(){
+                               return localClaimComments;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ClaimComments
+                               */
+                               public void setClaimComments(com.cloudkey.pms.micros.og.common.ArrayOfClaimComment param){
+                            localClaimCommentsTracker = param != null;
+                                   
+                                            this.localClaimComments=param;
                                     
 
                                }
@@ -1076,7 +1088,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localClaimInformationTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "ClaimInformation", xmlWriter);
                              
@@ -1094,7 +1106,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localCloseDateTracker){
+                             } if (localCloseDateTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "CloseDate", xmlWriter);
                              
@@ -1250,13 +1262,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localClaimCommentsTracker){
-                                            if (localClaimComments==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("ClaimComments cannot be null!!");
-                                            }
-                                           localClaimComments.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","ClaimComments"),
-                                               xmlWriter);
-                                        } if (localStartDateTracker){
+                             } if (localStartDateTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "StartDate", xmlWriter);
                              
@@ -1292,7 +1298,13 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localClaimCommentsTracker){
+                                            if (localClaimComments==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("ClaimComments cannot be null!!");
+                                            }
+                                           localClaimComments.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","ClaimComments"),
+                                               xmlWriter);
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -1300,7 +1312,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1537,7 +1549,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("FinalStatus cannot be null!!");
                                         }
-                                    }
+                                    } if (localClaimInformationTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "ClaimInformation"));
                                  
@@ -1546,7 +1558,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ClaimInformation cannot be null!!");
                                         }
-                                     if (localCloseDateTracker){
+                                    } if (localCloseDateTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "CloseDate"));
                                  
@@ -1636,16 +1648,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("OrsReferenceNumber cannot be null!!");
                                         }
-                                    } if (localClaimCommentsTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "ClaimComments"));
-                            
-                            
-                                    if (localClaimComments==null){
-                                         throw new org.apache.axis2.databinding.ADBException("ClaimComments cannot be null!!");
-                                    }
-                                    elementList.add(localClaimComments);
-                                } if (localStartDateTracker){
+                                    } if (localStartDateTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "StartDate"));
                                  
@@ -1663,7 +1666,16 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("EndDate cannot be null!!");
                                         }
+                                    } if (localClaimCommentsTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
+                                                                      "ClaimComments"));
+                            
+                            
+                                    if (localClaimComments==null){
+                                         throw new org.apache.axis2.databinding.ADBException("ClaimComments cannot be null!!");
                                     }
+                                    elementList.add(localClaimComments);
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -1929,11 +1941,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -2159,21 +2170,6 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","ClaimComments").equals(reader.getName())){
-                                
-                                                object.setClaimComments(com.cloudkey.pms.micros.og.common.ClaimCommentsList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","StartDate").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -2210,6 +2206,21 @@
                                     
                                               object.setEndDate(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","ClaimComments").equals(reader.getName())){
+                                
+                                                object.setClaimComments(com.cloudkey.pms.micros.og.common.ArrayOfClaimComment.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = TierWizard
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -61,6 +61,17 @@
                         
                                     protected java.lang.String localMessageCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMessageCodeTracker = false ;
+
+                           public boolean isMessageCodeSpecified(){
+                               return localMessageCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +88,8 @@
                                * @param param MessageCode
                                */
                                public void setMessageCode(java.lang.String param){
-                            
+                            localMessageCodeTracker = param != null;
+                                   
                                             this.localMessageCode=param;
                                     
 
@@ -91,6 +103,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Text localTranslatedMessage ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localTranslatedMessageTracker = false ;
+
+                           public boolean isTranslatedMessageSpecified(){
+                               return localTranslatedMessageTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -107,7 +130,8 @@
                                * @param param TranslatedMessage
                                */
                                public void setTranslatedMessage(com.cloudkey.pms.micros.og.common.Text param){
-                            
+                            localTranslatedMessageTracker = param != null;
+                                   
                                             this.localTranslatedMessage=param;
                                     
 
@@ -185,7 +209,7 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                              if (localMessageCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "MessageCode", xmlWriter);
                              
@@ -203,13 +227,13 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localTranslatedMessageTracker){
                                             if (localTranslatedMessage==null){
                                                  throw new org.apache.axis2.databinding.ADBException("TranslatedMessage cannot be null!!");
                                             }
                                            localTranslatedMessage.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TranslatedMessage"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -217,7 +241,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -400,7 +424,7 @@
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSequenceNumber));
-                            
+                             if (localMessageCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "MessageCode"));
                                  
@@ -409,7 +433,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MessageCode cannot be null!!");
                                         }
-                                    
+                                    } if (localTranslatedMessageTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "TranslatedMessage"));
                             
@@ -418,7 +442,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("TranslatedMessage cannot be null!!");
                                     }
                                     elementList.add(localTranslatedMessage);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -472,7 +496,7 @@
                             if (!"TierWizard".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (TierWizard)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (TierWizard)com.cloudkey.pms.micros.ows.membership.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -539,11 +563,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -555,11 +578,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

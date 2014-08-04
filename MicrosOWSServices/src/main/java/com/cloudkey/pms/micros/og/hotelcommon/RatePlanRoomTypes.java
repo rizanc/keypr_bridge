@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RatePlanRoomTypes
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomTypeList localRoomTypes ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomType localRoomTypes ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomTypeList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomType
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomTypeList getRoomTypes(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomType getRoomTypes(){
                                return localRoomTypes;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param RoomTypes
                                */
-                               public void setRoomTypes(com.cloudkey.pms.micros.og.hotelcommon.RoomTypeList param){
+                               public void setRoomTypes(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomType param){
                             localRoomTypesTracker = param != null;
                                    
                                             this.localRoomTypes=param;
@@ -137,10 +137,6 @@
                                                          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRatePlanCode), xmlWriter);
 
                                             
-                                      }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localRatePlanCode is null");
                                       }
                                     
                                             if (localPromotionCode != null){
@@ -322,6 +318,42 @@
 
                                             
                                       }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "repeatPostingRhythm",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRepeatPostingRhythm), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (!java.lang.Double.isNaN(localDiscountRateAmount)) {
+                                               
+                                                writeAttribute("",
+                                                         "discountRateAmount",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRateAmount), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "discountRatePercent",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRatePercent), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (localPostingRhythmNights!=java.lang.Integer.MIN_VALUE) {
+                                               
+                                                writeAttribute("",
+                                                         "postingRhythmNights",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythmNights), xmlWriter);
+
+                                            
+                                      }
                                      if (localRatePlanDescriptionTracker){
                                             if (localRatePlanDescription==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RatePlanDescription cannot be null!!");
@@ -402,7 +434,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -801,6 +833,26 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythm));
                                 
+                            attribList.add(
+                            new javax.xml.namespace.QName("","repeatPostingRhythm"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRepeatPostingRhythm));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","discountRateAmount"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRateAmount));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","discountRatePercent"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDiscountRatePercent));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","postingRhythmNights"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPostingRhythmNights));
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -902,8 +954,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute ratePlanCode is missing");
-                           
                     }
                     handledAttributes.add("ratePlanCode");
                     
@@ -1227,6 +1277,74 @@
                     }
                     handledAttributes.add("postingRhythm");
                     
+                    // handle attribute "repeatPostingRhythm"
+                    java.lang.String tempAttribRepeatPostingRhythm =
+                        
+                                reader.getAttributeValue(null,"repeatPostingRhythm");
+                            
+                   if (tempAttribRepeatPostingRhythm!=null){
+                         java.lang.String content = tempAttribRepeatPostingRhythm;
+                        
+                                                 object.setRepeatPostingRhythm(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribRepeatPostingRhythm));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("repeatPostingRhythm");
+                    
+                    // handle attribute "discountRateAmount"
+                    java.lang.String tempAttribDiscountRateAmount =
+                        
+                                reader.getAttributeValue(null,"discountRateAmount");
+                            
+                   if (tempAttribDiscountRateAmount!=null){
+                         java.lang.String content = tempAttribDiscountRateAmount;
+                        
+                                                 object.setDiscountRateAmount(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(tempAttribDiscountRateAmount));
+                                            
+                    } else {
+                       
+                                           object.setDiscountRateAmount(java.lang.Double.NaN);
+                                       
+                    }
+                    handledAttributes.add("discountRateAmount");
+                    
+                    // handle attribute "discountRatePercent"
+                    java.lang.String tempAttribDiscountRatePercent =
+                        
+                                reader.getAttributeValue(null,"discountRatePercent");
+                            
+                   if (tempAttribDiscountRatePercent!=null){
+                         java.lang.String content = tempAttribDiscountRatePercent;
+                        
+                                                 object.setDiscountRatePercent(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribDiscountRatePercent));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("discountRatePercent");
+                    
+                    // handle attribute "postingRhythmNights"
+                    java.lang.String tempAttribPostingRhythmNights =
+                        
+                                reader.getAttributeValue(null,"postingRhythmNights");
+                            
+                   if (tempAttribPostingRhythmNights!=null){
+                         java.lang.String content = tempAttribPostingRhythmNights;
+                        
+                                                 object.setPostingRhythmNights(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(tempAttribPostingRhythmNights));
+                                            
+                    } else {
+                       
+                                           object.setPostingRhythmNights(java.lang.Integer.MIN_VALUE);
+                                       
+                    }
+                    handledAttributes.add("postingRhythmNights");
+                    
                     
                     reader.next();
                 
@@ -1280,7 +1398,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","AdditionalDetails").equals(reader.getName())){
                                 
-                                                object.setAdditionalDetails(com.cloudkey.pms.micros.og.hotelcommon.AdditionalDetailList.Factory.parse(reader));
+                                                object.setAdditionalDetails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAdditionalDetail.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1340,7 +1458,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","GuaranteeDetails").equals(reader.getName())){
                                 
-                                                object.setGuaranteeDetails(com.cloudkey.pms.micros.og.hotelcommon.GuaranteeDetailList.Factory.parse(reader));
+                                                object.setGuaranteeDetails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfGuarantee.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1370,7 +1488,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Packages").equals(reader.getName())){
                                 
-                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.PackageElementList.Factory.parse(reader));
+                                                object.setPackages(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPackageElement.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -1400,7 +1518,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","RoomTypes").equals(reader.getName())){
                                 
-                                                object.setRoomTypes(com.cloudkey.pms.micros.og.hotelcommon.RoomTypeList.Factory.parse(reader));
+                                                object.setRoomTypes(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomType.Factory.parse(reader));
                                               
                                         reader.next();
                                     

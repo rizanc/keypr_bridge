@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = NamePhone
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -303,6 +303,37 @@
                                }
                             
 
+                        /**
+                        * field for Extension
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localExtension ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getExtension(){
+                               return localExtension;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Extension
+                               */
+                               public void setExtension(java.lang.String param){
+                            
+                                            this.localExtension=param;
+                                    
+
+                               }
+                            
+
      
      
         /**
@@ -466,30 +497,20 @@
                                             
                                       }
                                     
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "PhoneNumber", xmlWriter);
-                             
-
-                                          if (localPhoneNumber==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("PhoneNumber cannot be null!!");
-                                                  
-                                          }else{
-
+                                            if (localExtension != null){
                                         
-                                                   xmlWriter.writeCharacters(localPhoneNumber);
+                                                writeAttribute("",
+                                                         "extension",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localExtension), xmlWriter);
+
                                             
-                                          }
+                                      }
                                     
-                                   xmlWriter.writeEndElement();
-                              if (localPhoneDataTracker){
-                                            if (localPhoneData==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("PhoneData cannot be null!!");
+                                            if (localPhoneChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("PhoneChoice_type0 cannot be null!!");
                                             }
-                                           localPhoneData.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PhoneData"),
-                                               xmlWriter);
-                                        }
+                                           localPhoneChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -497,7 +518,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -678,24 +699,15 @@
                     attribList.add(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema-instance","type"));
                     attribList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/","NamePhone"));
                 
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "PhoneNumber"));
-                                 
-                                        if (localPhoneNumber != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPhoneNumber));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("PhoneNumber cannot be null!!");
-                                        }
-                                     if (localPhoneDataTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "PhoneData"));
+                                                                      "PhoneChoice_type0"));
                             
                             
-                                    if (localPhoneData==null){
-                                         throw new org.apache.axis2.databinding.ADBException("PhoneData cannot be null!!");
+                                    if (localPhoneChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("PhoneChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localPhoneData);
-                                }
+                                    elementList.add(localPhoneChoice_type0);
+                                
                             attribList.add(
                             new javax.xml.namespace.QName("","phoneType"));
                             
@@ -756,6 +768,11 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInactiveDate));
                                 
+                            attribList.add(
+                            new javax.xml.namespace.QName("","extension"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localExtension));
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -809,7 +826,7 @@
                             if (!"NamePhone".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (NamePhone)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (NamePhone)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1024,44 +1041,34 @@
                     }
                     handledAttributes.add("inactiveDate");
                     
+                    // handle attribute "extension"
+                    java.lang.String tempAttribExtension =
+                        
+                                reader.getAttributeValue(null,"extension");
+                            
+                   if (tempAttribExtension!=null){
+                         java.lang.String content = tempAttribExtension;
+                        
+                                                 object.setExtension(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribExtension));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("extension");
+                    
                     
                     reader.next();
                    
                 while(!reader.isEndElement()) {
                     if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PhoneNumber").equals(reader.getName())){
+                                    if (reader.isStartElement() ){
                                 
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PhoneNumber" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setPhoneNumber(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
+                                                object.setPhoneChoice_type0(com.cloudkey.pms.micros.og.common.PhoneChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
                                 
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PhoneData").equals(reader.getName())){
-                                
-                                                object.setPhoneData(com.cloudkey.pms.micros.og.common.PhoneData_type0.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
                              } else {
                                 reader.next();
                              }  

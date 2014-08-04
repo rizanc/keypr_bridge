@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = MeetingSearch
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns1
                 */
             
 
@@ -289,10 +289,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localMeetingFeature is null");
-                                      }
-                                    
                                                    if (localNumberOfAttendees!=java.lang.Integer.MIN_VALUE) {
                                                
                                                 writeAttribute("",
@@ -346,7 +342,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -611,7 +607,7 @@
                             if (!"MeetingSearch".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (MeetingSearch)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (MeetingSearch)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -643,8 +639,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute meetingFeature is missing");
-                           
                     }
                     handledAttributes.add("meetingFeature");
                     

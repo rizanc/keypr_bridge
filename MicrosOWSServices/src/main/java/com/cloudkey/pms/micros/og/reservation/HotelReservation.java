@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = HotelReservation
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns5
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UniqueIDList localUniqueIDList ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUniqueID localUniqueIDList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueIDList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUniqueID
                            */
-                           public  com.cloudkey.pms.micros.og.common.UniqueIDList getUniqueIDList(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUniqueID getUniqueIDList(){
                                return localUniqueIDList;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param UniqueIDList
                                */
-                               public void setUniqueIDList(com.cloudkey.pms.micros.og.common.UniqueIDList param){
+                               public void setUniqueIDList(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID param){
                             localUniqueIDListTracker = param != null;
                                    
                                             this.localUniqueIDList=param;
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomStayList localRoomStays ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomStay localRoomStays ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomStayList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomStay
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomStayList getRoomStays(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomStay getRoomStays(){
                                return localRoomStays;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param RoomStays
                                */
-                               public void setRoomStays(com.cloudkey.pms.micros.og.hotelcommon.RoomStayList param){
+                               public void setRoomStays(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomStay param){
                             localRoomStaysTracker = param != null;
                                    
                                             this.localRoomStays=param;
@@ -113,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.ResGuestList localResGuests ;
+                                    protected com.cloudkey.pms.micros.og.reservation.ArrayOfResGuest localResGuests ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.ResGuestList
+                           * @return com.cloudkey.pms.micros.og.reservation.ArrayOfResGuest
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.ResGuestList getResGuests(){
+                           public  com.cloudkey.pms.micros.og.reservation.ArrayOfResGuest getResGuests(){
                                return localResGuests;
                            }
 
@@ -141,7 +141,7 @@
                                * Auto generated setter method
                                * @param param ResGuests
                                */
-                               public void setResGuests(com.cloudkey.pms.micros.og.reservation.ResGuestList param){
+                               public void setResGuests(com.cloudkey.pms.micros.og.reservation.ArrayOfResGuest param){
                             localResGuestsTracker = param != null;
                                    
                                             this.localResGuests=param;
@@ -239,7 +239,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.UserDefinedValueList localUserDefinedValues ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue localUserDefinedValues ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -255,9 +255,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UserDefinedValueList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue
                            */
-                           public  com.cloudkey.pms.micros.og.common.UserDefinedValueList getUserDefinedValues(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue getUserDefinedValues(){
                                return localUserDefinedValues;
                            }
 
@@ -267,7 +267,7 @@
                                * Auto generated setter method
                                * @param param UserDefinedValues
                                */
-                               public void setUserDefinedValues(com.cloudkey.pms.micros.og.common.UserDefinedValueList param){
+                               public void setUserDefinedValues(com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue param){
                             localUserDefinedValuesTracker = param != null;
                                    
                                             this.localUserDefinedValues=param;
@@ -323,7 +323,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.PreferenceList localPreferences ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfPreference localPreferences ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -339,9 +339,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.PreferenceList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfPreference
                            */
-                           public  com.cloudkey.pms.micros.og.name.PreferenceList getPreferences(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfPreference getPreferences(){
                                return localPreferences;
                            }
 
@@ -351,7 +351,7 @@
                                * Auto generated setter method
                                * @param param Preferences
                                */
-                               public void setPreferences(com.cloudkey.pms.micros.og.name.PreferenceList param){
+                               public void setPreferences(com.cloudkey.pms.micros.og.name.ArrayOfPreference param){
                             localPreferencesTracker = param != null;
                                    
                                             this.localPreferences=param;
@@ -605,7 +605,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AccompanyGuestList localAccompanyGuests ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAccompanyGuest localAccompanyGuests ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -621,9 +621,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AccompanyGuestList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAccompanyGuest
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AccompanyGuestList getAccompanyGuests(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAccompanyGuest getAccompanyGuests(){
                                return localAccompanyGuests;
                            }
 
@@ -633,7 +633,7 @@
                                * Auto generated setter method
                                * @param param AccompanyGuests
                                */
-                               public void setAccompanyGuests(com.cloudkey.pms.micros.og.hotelcommon.AccompanyGuestList param){
+                               public void setAccompanyGuests(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAccompanyGuest param){
                             localAccompanyGuestsTracker = param != null;
                                    
                                             this.localAccompanyGuests=param;
@@ -689,7 +689,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.reservation.ShareReservationList localShareReservations ;
+                                    protected com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation localShareReservations ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -705,9 +705,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.reservation.ShareReservationList
+                           * @return com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation
                            */
-                           public  com.cloudkey.pms.micros.og.reservation.ShareReservationList getShareReservations(){
+                           public  com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation getShareReservations(){
                                return localShareReservations;
                            }
 
@@ -717,7 +717,7 @@
                                * Auto generated setter method
                                * @param param ShareReservations
                                */
-                               public void setShareReservations(com.cloudkey.pms.micros.og.reservation.ShareReservationList param){
+                               public void setShareReservations(com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation param){
                             localShareReservationsTracker = param != null;
                                    
                                             this.localShareReservations=param;
@@ -763,6 +763,48 @@
                             localMiscellaneousTracker = param != null;
                                    
                                             this.localMiscellaneous=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for ReservationVouchers
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.reservation.ArrayOfReservationVoucher localReservationVouchers ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localReservationVouchersTracker = false ;
+
+                           public boolean isReservationVouchersSpecified(){
+                               return localReservationVouchersTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.reservation.ArrayOfReservationVoucher
+                           */
+                           public  com.cloudkey.pms.micros.og.reservation.ArrayOfReservationVoucher getReservationVouchers(){
+                               return localReservationVouchers;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ReservationVouchers
+                               */
+                               public void setReservationVouchers(com.cloudkey.pms.micros.og.reservation.ArrayOfReservationVoucher param){
+                            localReservationVouchersTracker = param != null;
+                                   
+                                            this.localReservationVouchers=param;
                                     
 
                                }
@@ -1383,6 +1425,68 @@
                                public void setAttachPreferenceProfile(boolean param){
                             
                                             this.localAttachPreferenceProfile=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for AllowPreRegisteration
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localAllowPreRegisteration ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getAllowPreRegisteration(){
+                               return localAllowPreRegisteration;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param AllowPreRegisteration
+                               */
+                               public void setAllowPreRegisteration(boolean param){
+                            
+                                            this.localAllowPreRegisteration=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for PreRegisterFlag
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected boolean localPreRegisterFlag ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return boolean
+                           */
+                           public  boolean getPreRegisterFlag(){
+                               return localPreRegisterFlag;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param PreRegisterFlag
+                               */
+                               public void setPreRegisterFlag(boolean param){
+                            
+                                            this.localPreRegisterFlag=param;
                                     
 
                                }
@@ -2163,68 +2267,6 @@
                                }
                             
 
-                        /**
-                        * field for AllowPreRegisteration
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localAllowPreRegisteration ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getAllowPreRegisteration(){
-                               return localAllowPreRegisteration;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param AllowPreRegisteration
-                               */
-                               public void setAllowPreRegisteration(boolean param){
-                            
-                                            this.localAllowPreRegisteration=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for PreRegisterFlag
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localPreRegisterFlag ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getPreRegisterFlag(){
-                               return localPreRegisterFlag;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PreRegisterFlag
-                               */
-                               public void setPreRegisterFlag(boolean param){
-                            
-                                            this.localPreRegisterFlag=param;
-                                    
-
-                               }
-                            
-
      
      
         /**
@@ -2460,6 +2502,24 @@
                                             
                                       }
                                     
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "allowPreRegisteration",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAllowPreRegisteration), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                                   if (true) {
+                                               
+                                                writeAttribute("",
+                                                         "preRegisterFlag",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPreRegisterFlag), xmlWriter);
+
+                                            
+                                      }
+                                    
                                             if (localKeyExpirationDate != null){
                                         
                                                 writeAttribute("",
@@ -2682,24 +2742,6 @@
 
                                             
                                       }
-                                    
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "allowPreRegisteration",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAllowPreRegisteration), xmlWriter);
-
-                                            
-                                      }
-                                    
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "preRegisterFlag",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPreRegisterFlag), xmlWriter);
-
-                                            
-                                      }
                                      if (localUniqueIDListTracker){
                                             if (localUniqueIDList==null){
                                                  throw new org.apache.axis2.databinding.ADBException("UniqueIDList cannot be null!!");
@@ -2826,6 +2868,12 @@
                                             }
                                            localMiscellaneous.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Miscellaneous"),
                                                xmlWriter);
+                                        } if (localReservationVouchersTracker){
+                                            if (localReservationVouchers==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("ReservationVouchers cannot be null!!");
+                                            }
+                                           localReservationVouchers.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ReservationVouchers"),
+                                               xmlWriter);
                                         }
                     xmlWriter.writeEndElement();
                
@@ -2834,7 +2882,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -3182,6 +3230,15 @@
                                          throw new org.apache.axis2.databinding.ADBException("Miscellaneous cannot be null!!");
                                     }
                                     elementList.add(localMiscellaneous);
+                                } if (localReservationVouchersTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
+                                                                      "ReservationVouchers"));
+                            
+                            
+                                    if (localReservationVouchers==null){
+                                         throw new org.apache.axis2.databinding.ADBException("ReservationVouchers cannot be null!!");
+                                    }
+                                    elementList.add(localReservationVouchers);
                                 }
                             attribList.add(
                             new javax.xml.namespace.QName("","reservationAction"));
@@ -3282,6 +3339,16 @@
                             new javax.xml.namespace.QName("","attachPreferenceProfile"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAttachPreferenceProfile));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","allowPreRegisteration"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAllowPreRegisteration));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","preRegisterFlag"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPreRegisterFlag));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","keyExpirationDate"));
@@ -3407,16 +3474,6 @@
                             new javax.xml.namespace.QName("","referralYN"));
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localReferralYN));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","allowPreRegisteration"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localAllowPreRegisteration));
-                                
-                            attribList.add(
-                            new javax.xml.namespace.QName("","preRegisterFlag"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPreRegisterFlag));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -3809,6 +3866,38 @@
                        
                     }
                     handledAttributes.add("attachPreferenceProfile");
+                    
+                    // handle attribute "allowPreRegisteration"
+                    java.lang.String tempAttribAllowPreRegisteration =
+                        
+                                reader.getAttributeValue(null,"allowPreRegisteration");
+                            
+                   if (tempAttribAllowPreRegisteration!=null){
+                         java.lang.String content = tempAttribAllowPreRegisteration;
+                        
+                                                 object.setAllowPreRegisteration(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribAllowPreRegisteration));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("allowPreRegisteration");
+                    
+                    // handle attribute "preRegisterFlag"
+                    java.lang.String tempAttribPreRegisterFlag =
+                        
+                                reader.getAttributeValue(null,"preRegisterFlag");
+                            
+                   if (tempAttribPreRegisterFlag!=null){
+                         java.lang.String content = tempAttribPreRegisterFlag;
+                        
+                                                 object.setPreRegisterFlag(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribPreRegisterFlag));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("preRegisterFlag");
                     
                     // handle attribute "keyExpirationDate"
                     java.lang.String tempAttribKeyExpirationDate =
@@ -4226,38 +4315,6 @@
                     }
                     handledAttributes.add("referralYN");
                     
-                    // handle attribute "allowPreRegisteration"
-                    java.lang.String tempAttribAllowPreRegisteration =
-                        
-                                reader.getAttributeValue(null,"allowPreRegisteration");
-                            
-                   if (tempAttribAllowPreRegisteration!=null){
-                         java.lang.String content = tempAttribAllowPreRegisteration;
-                        
-                                                 object.setAllowPreRegisteration(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribAllowPreRegisteration));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("allowPreRegisteration");
-                    
-                    // handle attribute "preRegisterFlag"
-                    java.lang.String tempAttribPreRegisterFlag =
-                        
-                                reader.getAttributeValue(null,"preRegisterFlag");
-                            
-                   if (tempAttribPreRegisterFlag!=null){
-                         java.lang.String content = tempAttribPreRegisterFlag;
-                        
-                                                 object.setPreRegisterFlag(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribPreRegisterFlag));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("preRegisterFlag");
-                    
                     
                     reader.next();
                 
@@ -4272,7 +4329,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","UniqueIDList").equals(reader.getName())){
                                 
-                                                object.setUniqueIDList(com.cloudkey.pms.micros.og.common.UniqueIDList.Factory.parse(reader));
+                                                object.setUniqueIDList(com.cloudkey.pms.micros.og.common.ArrayOfUniqueID.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4287,7 +4344,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","RoomStays").equals(reader.getName())){
                                 
-                                                object.setRoomStays(com.cloudkey.pms.micros.og.hotelcommon.RoomStayList.Factory.parse(reader));
+                                                object.setRoomStays(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomStay.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4302,7 +4359,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ResGuests").equals(reader.getName())){
                                 
-                                                object.setResGuests(com.cloudkey.pms.micros.og.reservation.ResGuestList.Factory.parse(reader));
+                                                object.setResGuests(com.cloudkey.pms.micros.og.reservation.ArrayOfResGuest.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4347,7 +4404,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","UserDefinedValues").equals(reader.getName())){
                                 
-                                                object.setUserDefinedValues(com.cloudkey.pms.micros.og.common.UserDefinedValueList.Factory.parse(reader));
+                                                object.setUserDefinedValues(com.cloudkey.pms.micros.og.common.ArrayOfUserDefinedValue.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4377,7 +4434,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Preferences").equals(reader.getName())){
                                 
-                                                object.setPreferences(com.cloudkey.pms.micros.og.name.PreferenceList.Factory.parse(reader));
+                                                object.setPreferences(com.cloudkey.pms.micros.og.name.ArrayOfPreference.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4530,7 +4587,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","AccompanyGuests").equals(reader.getName())){
                                 
-                                                object.setAccompanyGuests(com.cloudkey.pms.micros.og.hotelcommon.AccompanyGuestList.Factory.parse(reader));
+                                                object.setAccompanyGuests(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAccompanyGuest.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4560,7 +4617,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ShareReservations").equals(reader.getName())){
                                 
-                                                object.setShareReservations(com.cloudkey.pms.micros.og.reservation.ShareReservationList.Factory.parse(reader));
+                                                object.setShareReservations(com.cloudkey.pms.micros.og.reservation.ArrayOfShareReservation.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -4576,6 +4633,21 @@
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","Miscellaneous").equals(reader.getName())){
                                 
                                                 object.setMiscellaneous(com.cloudkey.pms.micros.og.reservation.MoreFields.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ReservationVouchers").equals(reader.getName())){
+                                
+                                                object.setReservationVouchers(com.cloudkey.pms.micros.og.reservation.ArrayOfReservationVoucher.Factory.parse(reader));
                                               
                                         reader.next();
                                     

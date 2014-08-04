@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ShareAction
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns5
                 */
             
 
@@ -31,17 +31,6 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.SharerType localShareAllocation ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localShareAllocationTracker = false ;
-
-                           public boolean isShareAllocationSpecified(){
-                               return localShareAllocationTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -58,8 +47,7 @@
                                * @param param ShareAllocation
                                */
                                public void setShareAllocation(com.cloudkey.pms.micros.og.reservation.SharerType param){
-                            localShareAllocationTracker = param != null;
-                                   
+                            
                                             this.localShareAllocation=param;
                                     
 
@@ -73,17 +61,6 @@
                         
                                     protected com.cloudkey.pms.micros.og.reservation.ShareActionType localActionType ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localActionTypeTracker = false ;
-
-                           public boolean isActionTypeSpecified(){
-                               return localActionTypeTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -100,8 +77,7 @@
                                * @param param ActionType
                                */
                                public void setActionType(com.cloudkey.pms.micros.og.reservation.ShareActionType param){
-                            localActionTypeTracker = param != null;
-                                   
+                            
                                             this.localActionType=param;
                                     
 
@@ -166,19 +142,19 @@
 
                
                    }
-                if (localShareAllocationTracker){
+               
                                             if (localShareAllocation==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ShareAllocation cannot be null!!");
                                             }
                                            localShareAllocation.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ShareAllocation"),
                                                xmlWriter);
-                                        } if (localActionTypeTracker){
+                                        
                                             if (localActionType==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ActionType cannot be null!!");
                                             }
                                            localActionType.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/","ActionType"),
                                                xmlWriter);
-                                        }
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -186,7 +162,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -363,7 +339,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localShareAllocationTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "ShareAllocation"));
                             
@@ -372,7 +348,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ShareAllocation cannot be null!!");
                                     }
                                     elementList.add(localShareAllocation);
-                                } if (localActionTypeTracker){
+                                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Reservation/",
                                                                       "ActionType"));
                             
@@ -381,7 +357,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ActionType cannot be null!!");
                                     }
                                     elementList.add(localActionType);
-                                }
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -468,10 +444,11 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                    else {
-                                        
-                                    }
-                                
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                            
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -483,10 +460,11 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                    else {
-                                        
-                                    }
-                                  
+                                else{
+                                    // A start element we are not expecting indicates an invalid parameter was passed
+                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                                }
+                              
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

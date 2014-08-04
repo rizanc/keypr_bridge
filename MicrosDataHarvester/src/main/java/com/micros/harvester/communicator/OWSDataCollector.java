@@ -128,8 +128,8 @@ public class OWSDataCollector {
 			objOGHeader.setDestination(destination);
 
 			// Authentication Information
-			Authentication_type0 objAType0 = new Authentication_type0();
-			UserCredentials_type0 objUCredentials_type0 = new UserCredentials_type0();
+			OGHeaderAuthentication objAType0 = new OGHeaderAuthentication();
+			OGHeaderAuthenticationUserCredentials objUCredentials_type0 = new OGHeaderAuthenticationUserCredentials();
 			objUCredentials_type0.setUserName( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_USER_NAME));
 			objUCredentials_type0.setUserPassword( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_USER_PASS));
 			objAType0.setUserCredentials(objUCredentials_type0);

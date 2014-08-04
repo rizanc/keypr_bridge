@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RoomStayCandidate
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList localRoomFeatures ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature localRoomFeatures ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList getRoomFeatures(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature getRoomFeatures(){
                                return localRoomFeatures;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param RoomFeatures
                                */
-                               public void setRoomFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList param){
+                               public void setRoomFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature param){
                             localRoomFeaturesTracker = param != null;
                                    
                                             this.localRoomFeatures=param;
@@ -201,37 +201,6 @@
                                }
                             
 
-                        /**
-                        * field for PseudoRoom
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected boolean localPseudoRoom ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return boolean
-                           */
-                           public  boolean getPseudoRoom(){
-                               return localPseudoRoom;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PseudoRoom
-                               */
-                               public void setPseudoRoom(boolean param){
-                            
-                                            this.localPseudoRoom=param;
-                                    
-
-                               }
-                            
-
      
      
         /**
@@ -317,15 +286,6 @@
 
                                             
                                       }
-                                    
-                                                   if (true) {
-                                               
-                                                writeAttribute("",
-                                                         "pseudoRoom",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPseudoRoom), xmlWriter);
-
-                                            
-                                      }
                                      if (localAmenityInfoTracker){
                                             if (localAmenityInfo==null){
                                                  throw new org.apache.axis2.databinding.ADBException("AmenityInfo cannot be null!!");
@@ -346,7 +306,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -557,11 +517,6 @@
                             
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
                                 
-                            attribList.add(
-                            new javax.xml.namespace.QName("","pseudoRoom"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPseudoRoom));
-                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -682,22 +637,6 @@
                     }
                     handledAttributes.add("roomClass");
                     
-                    // handle attribute "pseudoRoom"
-                    java.lang.String tempAttribPseudoRoom =
-                        
-                                reader.getAttributeValue(null,"pseudoRoom");
-                            
-                   if (tempAttribPseudoRoom!=null){
-                         java.lang.String content = tempAttribPseudoRoom;
-                        
-                                                 object.setPseudoRoom(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(tempAttribPseudoRoom));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("pseudoRoom");
-                    
                     
                     reader.next();
                 
@@ -721,7 +660,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RoomFeatures").equals(reader.getName())){
                                 
-                                                object.setRoomFeatures(com.cloudkey.pms.micros.og.hotelcommon.RoomFeatureList.Factory.parse(reader));
+                                                object.setRoomFeatures(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomFeature.Factory.parse(reader));
                                               
                                         reader.next();
                                     

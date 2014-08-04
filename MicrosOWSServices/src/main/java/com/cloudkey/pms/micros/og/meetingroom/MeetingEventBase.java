@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = MeetingEventBase
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localEventDate ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localEventDateTracker = false ;
+
+                           public boolean isEventDateSpecified(){
+                               return localEventDateTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param EventDate
                                */
                                public void setEventDate(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localEventDateTracker = param != null;
+                                   
                                             this.localEventDate=param;
                                     
 
@@ -144,7 +156,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[] localMiscellaneousItems ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[] localMiscellaneousItems ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -160,9 +172,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[]
+                           * @return com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[]
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[] getMiscellaneousItems(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[] getMiscellaneousItems(){
                                return localMiscellaneousItems;
                            }
 
@@ -174,7 +186,7 @@
                               /**
                                * validate the array for MiscellaneousItems
                                */
-                              protected void validateMiscellaneousItems(com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[] param){
+                              protected void validateMiscellaneousItems(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[] param){
                              
                               }
 
@@ -183,7 +195,7 @@
                               * Auto generated setter method
                               * @param param MiscellaneousItems
                               */
-                              public void setMiscellaneousItems(com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[] param){
+                              public void setMiscellaneousItems(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[] param){
                               
                                    validateMiscellaneousItems(param);
 
@@ -196,11 +208,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0
+                             * @param param com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems
                              */
-                             public void addMiscellaneousItems(com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0 param){
+                             public void addMiscellaneousItems(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems param){
                                    if (localMiscellaneousItems == null){
-                                   localMiscellaneousItems = new com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[]{};
+                                   localMiscellaneousItems = new com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[]{};
                                    }
 
                             
@@ -212,8 +224,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localMiscellaneousItems);
                                list.add(param);
                                this.localMiscellaneousItems =
-                             (com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[])list.toArray(
+                            new com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[list.size()]);
 
                              }
                              
@@ -224,7 +236,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.Menus_type0[] localMenus ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[] localMenus ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -240,9 +252,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.Menus_type0[]
+                           * @return com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[]
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.Menus_type0[] getMenus(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[] getMenus(){
                                return localMenus;
                            }
 
@@ -254,7 +266,7 @@
                               /**
                                * validate the array for Menus
                                */
-                              protected void validateMenus(com.cloudkey.pms.micros.og.meetingroom.Menus_type0[] param){
+                              protected void validateMenus(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[] param){
                              
                               }
 
@@ -263,7 +275,7 @@
                               * Auto generated setter method
                               * @param param Menus
                               */
-                              public void setMenus(com.cloudkey.pms.micros.og.meetingroom.Menus_type0[] param){
+                              public void setMenus(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[] param){
                               
                                    validateMenus(param);
 
@@ -276,11 +288,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.meetingroom.Menus_type0
+                             * @param param com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus
                              */
-                             public void addMenus(com.cloudkey.pms.micros.og.meetingroom.Menus_type0 param){
+                             public void addMenus(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus param){
                                    if (localMenus == null){
-                                   localMenus = new com.cloudkey.pms.micros.og.meetingroom.Menus_type0[]{};
+                                   localMenus = new com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[]{};
                                    }
 
                             
@@ -292,8 +304,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localMenus);
                                list.add(param);
                                this.localMenus =
-                             (com.cloudkey.pms.micros.og.meetingroom.Menus_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.meetingroom.Menus_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[])list.toArray(
+                            new com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[list.size()]);
 
                              }
                              
@@ -304,7 +316,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[] localMenuItems ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[] localMenuItems ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -320,9 +332,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[]
+                           * @return com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[]
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[] getMenuItems(){
+                           public  com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[] getMenuItems(){
                                return localMenuItems;
                            }
 
@@ -334,7 +346,7 @@
                               /**
                                * validate the array for MenuItems
                                */
-                              protected void validateMenuItems(com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[] param){
+                              protected void validateMenuItems(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[] param){
                              
                               }
 
@@ -343,7 +355,7 @@
                               * Auto generated setter method
                               * @param param MenuItems
                               */
-                              public void setMenuItems(com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[] param){
+                              public void setMenuItems(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[] param){
                               
                                    validateMenuItems(param);
 
@@ -356,11 +368,11 @@
                              
                              /**
                              * Auto generated add method for the array for convenience
-                             * @param param com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0
+                             * @param param com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems
                              */
-                             public void addMenuItems(com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0 param){
+                             public void addMenuItems(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems param){
                                    if (localMenuItems == null){
-                                   localMenuItems = new com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[]{};
+                                   localMenuItems = new com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[]{};
                                    }
 
                             
@@ -372,8 +384,8 @@
                             org.apache.axis2.databinding.utils.ConverterUtil.toList(localMenuItems);
                                list.add(param);
                                this.localMenuItems =
-                             (com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[])list.toArray(
-                            new com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[list.size()]);
+                             (com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[])list.toArray(
+                            new com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[list.size()]);
 
                              }
                              
@@ -720,13 +732,13 @@
 
                                             
                                       }
-                                    
+                                     if (localEventDateTracker){
                                             if (localEventDate==null){
                                                  throw new org.apache.axis2.databinding.ADBException("EventDate cannot be null!!");
                                             }
                                            localEventDate.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","EventDate"),
                                                xmlWriter);
-                                         if (localEventIDTracker){
+                                        } if (localEventIDTracker){
                                             if (localEventID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("EventID cannot be null!!");
                                             }
@@ -818,7 +830,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -995,7 +1007,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localEventDateTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "EventDate"));
                             
@@ -1004,7 +1016,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("EventDate cannot be null!!");
                                     }
                                     elementList.add(localEventDate);
-                                 if (localEventIDTracker){
+                                } if (localEventIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
                                                                       "EventID"));
                             
@@ -1185,7 +1197,7 @@
                             if (!"MeetingEventBase".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (MeetingEventBase)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (MeetingEventBase)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -1310,11 +1322,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1353,7 +1364,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list4.add(com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0.Factory.parse(reader));
+                                    list4.add(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone4 = false;
@@ -1371,7 +1382,7 @@
                                                                 loopDone4 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MiscellaneousItems").equals(reader.getName())){
-                                                                    list4.add(com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0.Factory.parse(reader));
+                                                                    list4.add(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone4 = true;
@@ -1380,9 +1391,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setMiscellaneousItems((com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0[])
+                                                        object.setMiscellaneousItems((com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.meetingroom.MiscellaneousItems_type0.class,
+                                                                com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMiscellaneousItems.class,
                                                                 list4));
                                                             
                               }  // End of if for expected property start element
@@ -1399,7 +1410,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list5.add(com.cloudkey.pms.micros.og.meetingroom.Menus_type0.Factory.parse(reader));
+                                    list5.add(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone5 = false;
@@ -1417,7 +1428,7 @@
                                                                 loopDone5 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","Menus").equals(reader.getName())){
-                                                                    list5.add(com.cloudkey.pms.micros.og.meetingroom.Menus_type0.Factory.parse(reader));
+                                                                    list5.add(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone5 = true;
@@ -1426,9 +1437,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setMenus((com.cloudkey.pms.micros.og.meetingroom.Menus_type0[])
+                                                        object.setMenus((com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.meetingroom.Menus_type0.class,
+                                                                com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenus.class,
                                                                 list5));
                                                             
                               }  // End of if for expected property start element
@@ -1445,7 +1456,7 @@
                                     
                                     
                                     // Process the array and step past its final element's end.
-                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0.Factory.parse(reader));
+                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems.Factory.parse(reader));
                                                                 
                                                         //loop until we find a start element that is not part of this array
                                                         boolean loopDone6 = false;
@@ -1463,7 +1474,7 @@
                                                                 loopDone6 = true;
                                                             } else {
                                                                 if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","MenuItems").equals(reader.getName())){
-                                                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0.Factory.parse(reader));
+                                                                    list6.add(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems.Factory.parse(reader));
                                                                         
                                                                 }else{
                                                                     loopDone6 = true;
@@ -1472,9 +1483,9 @@
                                                         }
                                                         // call the converter utility  to convert and set the array
                                                         
-                                                        object.setMenuItems((com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0[])
+                                                        object.setMenuItems((com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems[])
                                                             org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
-                                                                com.cloudkey.pms.micros.og.meetingroom.MenuItems_type0.class,
+                                                                com.cloudkey.pms.micros.og.meetingroom.MeetingEventBaseMenuItems.class,
                                                                 list6));
                                                             
                               }  // End of if for expected property start element

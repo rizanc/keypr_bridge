@@ -20,104 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = BookedPackageEvent
                 Namespace URI = http://webservices.micros.com/og/4.3/MeetingRoom/
-                Namespace Prefix = ns7
+                Namespace Prefix = ns3
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localBookedPackageTracker = false;
-                
-                   localEventTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for BookedPackage
+                        * field for BookedPackageEventChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.meetingroom.BookedPackage localBookedPackage ;
+                                    protected com.cloudkey.pms.micros.og.meetingroom.BookedPackageEventChoice_type0 localBookedPackageEventChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localBookedPackageTracker = false ;
-
-                           public boolean isBookedPackageSpecified(){
-                               return localBookedPackageTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.BookedPackage
+                           * @return com.cloudkey.pms.micros.og.meetingroom.BookedPackageEventChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.meetingroom.BookedPackage getBookedPackage(){
-                               return localBookedPackage;
+                           public  com.cloudkey.pms.micros.og.meetingroom.BookedPackageEventChoice_type0 getBookedPackageEventChoice_type0(){
+                               return localBookedPackageEventChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param BookedPackage
+                               * @param param BookedPackageEventChoice_type0
                                */
-                               public void setBookedPackage(com.cloudkey.pms.micros.og.meetingroom.BookedPackage param){
+                               public void setBookedPackageEventChoice_type0(com.cloudkey.pms.micros.og.meetingroom.BookedPackageEventChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localBookedPackageTracker = param != null;
-                                   
-                                            this.localBookedPackage=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for Event
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.meetingroom.MeetingEventBase localEvent ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localEventTracker = false ;
-
-                           public boolean isEventSpecified(){
-                               return localEventTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.meetingroom.MeetingEventBase
-                           */
-                           public  com.cloudkey.pms.micros.og.meetingroom.MeetingEventBase getEvent(){
-                               return localEvent;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Event
-                               */
-                               public void setEvent(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBase param){
-                            
-                                clearAllSettingTrackers();
-                            localEventTracker = param != null;
-                                   
-                                            this.localEvent=param;
+                                            this.localBookedPackageEventChoice_type0=param;
                                     
 
                                }
@@ -181,19 +112,12 @@
 
                
                    }
-                if (localBookedPackageTracker){
-                                            if (localBookedPackage==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("BookedPackage cannot be null!!");
+               
+                                            if (localBookedPackageEventChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("BookedPackageEventChoice_type0 cannot be null!!");
                                             }
-                                           localBookedPackage.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","BookedPackage"),
-                                               xmlWriter);
-                                        } if (localEventTracker){
-                                            if (localEvent==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("Event cannot be null!!");
-                                            }
-                                           localEvent.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","Event"),
-                                               xmlWriter);
-                                        }
+                                           localBookedPackageEventChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -201,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/MeetingRoom/")){
-                return "ns7";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -378,25 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localBookedPackageTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
-                                                                      "BookedPackage"));
+                                                                      "BookedPackageEventChoice_type0"));
                             
                             
-                                    if (localBookedPackage==null){
-                                         throw new org.apache.axis2.databinding.ADBException("BookedPackage cannot be null!!");
+                                    if (localBookedPackageEventChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("BookedPackageEventChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localBookedPackage);
-                                } if (localEventTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/",
-                                                                      "Event"));
-                            
-                            
-                                    if (localEvent==null){
-                                         throw new org.apache.axis2.databinding.ADBException("Event cannot be null!!");
-                                    }
-                                    elementList.add(localEvent);
-                                }
+                                    elementList.add(localBookedPackageEventChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -450,7 +365,7 @@
                             if (!"BookedPackageEvent".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (BookedPackageEvent)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (BookedPackageEvent)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -471,33 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","BookedPackage").equals(reader.getName())){
-                                
-                                                object.setBookedPackage(com.cloudkey.pms.micros.og.meetingroom.BookedPackage.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setBookedPackageEventChoice_type0(com.cloudkey.pms.micros.og.meetingroom.BookedPackageEventChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/MeetingRoom/","Event").equals(reader.getName())){
-                                
-                                                object.setEvent(com.cloudkey.pms.micros.og.meetingroom.MeetingEventBase.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

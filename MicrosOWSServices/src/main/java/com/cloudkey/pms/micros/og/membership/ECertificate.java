@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ECertificate
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns6
                 */
             
 
@@ -157,6 +157,17 @@
                         
                                     protected java.lang.String localCertificateCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCertificateCodeTracker = false ;
+
+                           public boolean isCertificateCodeSpecified(){
+                               return localCertificateCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -173,7 +184,8 @@
                                * @param param CertificateCode
                                */
                                public void setCertificateCode(java.lang.String param){
-                            
+                            localCertificateCodeTracker = param != null;
+                                   
                                             this.localCertificateCode=param;
                                     
 
@@ -1573,48 +1585,6 @@
                             
 
                         /**
-                        * field for WebConsumed
-                        */
-
-                        
-                                    protected java.lang.String localWebConsumed ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localWebConsumedTracker = false ;
-
-                           public boolean isWebConsumedSpecified(){
-                               return localWebConsumedTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getWebConsumed(){
-                               return localWebConsumed;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param WebConsumed
-                               */
-                               public void setWebConsumed(java.lang.String param){
-                            localWebConsumedTracker = param != null;
-                                   
-                                            this.localWebConsumed=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for WebAllowed
                         */
 
@@ -1693,6 +1663,48 @@
                             localPMSConsumedTracker = param != null;
                                    
                                             this.localPMSConsumed=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for WebConsumed
+                        */
+
+                        
+                                    protected java.lang.String localWebConsumed ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localWebConsumedTracker = false ;
+
+                           public boolean isWebConsumedSpecified(){
+                               return localWebConsumedTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getWebConsumed(){
+                               return localWebConsumed;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param WebConsumed
+                               */
+                               public void setWebConsumed(java.lang.String param){
+                            localWebConsumedTracker = param != null;
+                                   
+                                            this.localWebConsumed=param;
                                     
 
                                }
@@ -1962,7 +1974,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localCertificateCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "CertificateCode", xmlWriter);
                              
@@ -1980,7 +1992,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localHotelReferenceTracker){
+                             } if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
@@ -2468,24 +2480,6 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localWebConsumedTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Membership/";
-                                    writeStartElement(null, namespace, "WebConsumed", xmlWriter);
-                             
-
-                                          if (localWebConsumed==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("WebConsumed cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localWebConsumed);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
                              } if (localWebAllowedTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Membership/";
                                     writeStartElement(null, namespace, "WebAllowed", xmlWriter);
@@ -2518,6 +2512,24 @@
 
                                         
                                                    xmlWriter.writeCharacters(localPMSConsumed);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localWebConsumedTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/Membership/";
+                                    writeStartElement(null, namespace, "WebConsumed", xmlWriter);
+                             
+
+                                          if (localWebConsumed==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("WebConsumed cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localWebConsumed);
                                             
                                           }
                                     
@@ -2572,7 +2584,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns6";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -2776,7 +2788,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CertificateNumber cannot be null!!");
                                         }
-                                    }
+                                    } if (localCertificateCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "CertificateCode"));
                                  
@@ -2785,7 +2797,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CertificateCode cannot be null!!");
                                         }
-                                     if (localHotelReferenceTracker){
+                                    } if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "HotelReference"));
                             
@@ -3076,16 +3088,7 @@
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCertificateExpriyMonths));
-                            } if (localWebConsumedTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "WebConsumed"));
-                                 
-                                        if (localWebConsumed != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localWebConsumed));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("WebConsumed cannot be null!!");
-                                        }
-                                    } if (localWebAllowedTracker){
+                            } if (localWebAllowedTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "WebAllowed"));
                                  
@@ -3102,6 +3105,15 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPMSConsumed));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("PMSConsumed cannot be null!!");
+                                        }
+                                    } if (localWebConsumedTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
+                                                                      "WebConsumed"));
+                                 
+                                        if (localWebConsumed != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localWebConsumed));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("WebConsumed cannot be null!!");
                                         }
                                     } if (localAwardsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
@@ -3303,11 +3315,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -4035,30 +4046,6 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","WebConsumed").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"WebConsumed" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setWebConsumed(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","WebAllowed").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -4094,6 +4081,30 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setPMSConsumed(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","WebConsumed").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"WebConsumed" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setWebConsumed(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();

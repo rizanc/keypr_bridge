@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = RegionalAvailabilityExtRequestChoice_type0
                 Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
-                Namespace Prefix = ns7
+                Namespace Prefix = ns2
                 */
             
             /** Whenever a new property is set ensure all others are unset
@@ -28,14 +28,58 @@
              */
             private void clearAllSettingTrackers() {
             
+                   localGeographicSearchTracker = false;
+                
                    localRegionalSearchCodeTracker = false;
                 
                    localHotelReferencesTracker = false;
                 
-                   localGeographicSearchTracker = false;
-                
             }
         
+
+                        /**
+                        * field for GeographicSearch
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.availability.RegionalSearch localGeographicSearch ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localGeographicSearchTracker = false ;
+
+                           public boolean isGeographicSearchSpecified(){
+                               return localGeographicSearchTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.availability.RegionalSearch
+                           */
+                           public  com.cloudkey.pms.micros.og.availability.RegionalSearch getGeographicSearch(){
+                               return localGeographicSearch;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param GeographicSearch
+                               */
+                               public void setGeographicSearch(com.cloudkey.pms.micros.og.availability.RegionalSearch param){
+                            
+                                clearAllSettingTrackers();
+                            localGeographicSearchTracker = param != null;
+                                   
+                                            this.localGeographicSearch=param;
+                                    
+
+                               }
+                            
 
                         /**
                         * field for RegionalSearchCode
@@ -86,7 +130,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList localHotelReferences ;
+                                    protected com.cloudkey.pms.micros.ows.availability.ArrayOfHotelReference localHotelReferences ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -102,9 +146,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList
+                           * @return com.cloudkey.pms.micros.ows.availability.ArrayOfHotelReference
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList getHotelReferences(){
+                           public  com.cloudkey.pms.micros.ows.availability.ArrayOfHotelReference getHotelReferences(){
                                return localHotelReferences;
                            }
 
@@ -114,56 +158,12 @@
                                * Auto generated setter method
                                * @param param HotelReferences
                                */
-                               public void setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList param){
+                               public void setHotelReferences(com.cloudkey.pms.micros.ows.availability.ArrayOfHotelReference param){
                             
                                 clearAllSettingTrackers();
                             localHotelReferencesTracker = param != null;
                                    
                                             this.localHotelReferences=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for GeographicSearch
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.availability.RegionalSearch localGeographicSearch ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localGeographicSearchTracker = false ;
-
-                           public boolean isGeographicSearchSpecified(){
-                               return localGeographicSearchTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RegionalSearch
-                           */
-                           public  com.cloudkey.pms.micros.og.availability.RegionalSearch getGeographicSearch(){
-                               return localGeographicSearch;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param GeographicSearch
-                               */
-                               public void setGeographicSearch(com.cloudkey.pms.micros.og.availability.RegionalSearch param){
-                            
-                                clearAllSettingTrackers();
-                            localGeographicSearchTracker = param != null;
-                                   
-                                            this.localGeographicSearch=param;
                                     
 
                                }
@@ -222,7 +222,13 @@
 
                
                    }
-                if (localRegionalSearchCodeTracker){
+                if (localGeographicSearchTracker){
+                                            if (localGeographicSearch==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("GeographicSearch cannot be null!!");
+                                            }
+                                           localGeographicSearch.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","GeographicSearch"),
+                                               xmlWriter);
+                                        } if (localRegionalSearchCodeTracker){
                                             if (localRegionalSearchCode==null){
                                                  throw new org.apache.axis2.databinding.ADBException("RegionalSearchCode cannot be null!!");
                                             }
@@ -234,19 +240,13 @@
                                             }
                                            localHotelReferences.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReferences"),
                                                xmlWriter);
-                                        } if (localGeographicSearchTracker){
-                                            if (localGeographicSearch==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("GeographicSearch cannot be null!!");
-                                            }
-                                           localGeographicSearch.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","GeographicSearch"),
-                                               xmlWriter);
                                         }
 
         }
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -423,7 +423,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localRegionalSearchCodeTracker){
+                 if (localGeographicSearchTracker){
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
+                                                                      "GeographicSearch"));
+                            
+                            
+                                    if (localGeographicSearch==null){
+                                         throw new org.apache.axis2.databinding.ADBException("GeographicSearch cannot be null!!");
+                                    }
+                                    elementList.add(localGeographicSearch);
+                                } if (localRegionalSearchCodeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "RegionalSearchCode"));
                             
@@ -441,15 +450,6 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
                                     }
                                     elementList.add(localHotelReferences);
-                                } if (localGeographicSearchTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                                                                      "GeographicSearch"));
-                            
-                            
-                                    if (localGeographicSearch==null){
-                                         throw new org.apache.axis2.databinding.ADBException("GeographicSearch cannot be null!!");
-                                    }
-                                    elementList.add(localGeographicSearch);
                                 }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -497,6 +497,16 @@
                 
 
                 
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","GeographicSearch").equals(reader.getName())){
+                                
+                                                object.setGeographicSearch(com.cloudkey.pms.micros.og.availability.RegionalSearch.Factory.parse(reader));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                        else
+                                    
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","RegionalSearchCode").equals(reader.getName())){
                                 
                                                 object.setRegionalSearchCode(com.cloudkey.pms.micros.og.availability.RegionalSearchCode.Factory.parse(reader));
@@ -509,17 +519,7 @@
                                     
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReferences").equals(reader.getName())){
                                 
-                                                object.setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","GeographicSearch").equals(reader.getName())){
-                                
-                                                object.setGeographicSearch(com.cloudkey.pms.micros.og.availability.RegionalSearch.Factory.parse(reader));
+                                                object.setHotelReferences(com.cloudkey.pms.micros.ows.availability.ArrayOfHotelReference.Factory.parse(reader));
                                               
                                         reader.next();
                                     

@@ -115,6 +115,17 @@
                         
                                     protected java.lang.String localCardCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCardCodeTracker = false ;
+
+                           public boolean isCardCodeSpecified(){
+                               return localCardCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -131,7 +142,8 @@
                                * @param param CardCode
                                */
                                public void setCardCode(java.lang.String param){
-                            
+                            localCardCodeTracker = param != null;
+                                   
                                             this.localCardCode=param;
                                     
 
@@ -304,7 +316,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             }
+                             } if (localCardCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Name/";
                                     writeStartElement(null, namespace, "CardCode", xmlWriter);
                              
@@ -322,7 +334,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                                             if (localNameLookupCriteriaCreditCardChoice_type0==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameLookupCriteriaCreditCardChoice_type0 cannot be null!!");
                                             }
@@ -536,7 +548,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("FirstName cannot be null!!");
                                         }
-                                    }
+                                    } if (localCardCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "CardCode"));
                                  
@@ -545,7 +557,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("CardCode cannot be null!!");
                                         }
-                                    
+                                    }
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Name/",
                                                                       "NameLookupCriteriaCreditCardChoice_type0"));
                             
@@ -707,11 +719,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

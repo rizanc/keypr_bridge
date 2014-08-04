@@ -20,104 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = RegionalSearch
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localGeoSearchTracker = false;
-                
-                   localCitySearchTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for GeoSearch
+                        * field for RegionalSearchChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.GeoPosition localGeoSearch ;
+                                    protected com.cloudkey.pms.micros.og.availability.RegionalSearchChoice_type0 localRegionalSearchChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localGeoSearchTracker = false ;
-
-                           public boolean isGeoSearchSpecified(){
-                               return localGeoSearchTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.GeoPosition
+                           * @return com.cloudkey.pms.micros.og.availability.RegionalSearchChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.GeoPosition getGeoSearch(){
-                               return localGeoSearch;
+                           public  com.cloudkey.pms.micros.og.availability.RegionalSearchChoice_type0 getRegionalSearchChoice_type0(){
+                               return localRegionalSearchChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param GeoSearch
+                               * @param param RegionalSearchChoice_type0
                                */
-                               public void setGeoSearch(com.cloudkey.pms.micros.og.hotelcommon.GeoPosition param){
+                               public void setRegionalSearchChoice_type0(com.cloudkey.pms.micros.og.availability.RegionalSearchChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localGeoSearchTracker = param != null;
-                                   
-                                            this.localGeoSearch=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for CitySearch
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.availability.CityCode localCitySearch ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCitySearchTracker = false ;
-
-                           public boolean isCitySearchSpecified(){
-                               return localCitySearchTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.CityCode
-                           */
-                           public  com.cloudkey.pms.micros.og.availability.CityCode getCitySearch(){
-                               return localCitySearch;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CitySearch
-                               */
-                               public void setCitySearch(com.cloudkey.pms.micros.og.availability.CityCode param){
-                            
-                                clearAllSettingTrackers();
-                            localCitySearchTracker = param != null;
-                                   
-                                            this.localCitySearch=param;
+                                            this.localRegionalSearchChoice_type0=param;
                                     
 
                                }
@@ -181,19 +112,12 @@
 
                
                    }
-                if (localGeoSearchTracker){
-                                            if (localGeoSearch==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("GeoSearch cannot be null!!");
+               
+                                            if (localRegionalSearchChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("RegionalSearchChoice_type0 cannot be null!!");
                                             }
-                                           localGeoSearch.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","GeoSearch"),
-                                               xmlWriter);
-                                        } if (localCitySearchTracker){
-                                            if (localCitySearch==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("CitySearch cannot be null!!");
-                                            }
-                                           localCitySearch.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","CitySearch"),
-                                               xmlWriter);
-                                        }
+                                           localRegionalSearchChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -201,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -378,25 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localGeoSearchTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
-                                                                      "GeoSearch"));
+                                                                      "RegionalSearchChoice_type0"));
                             
                             
-                                    if (localGeoSearch==null){
-                                         throw new org.apache.axis2.databinding.ADBException("GeoSearch cannot be null!!");
+                                    if (localRegionalSearchChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("RegionalSearchChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localGeoSearch);
-                                } if (localCitySearchTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
-                                                                      "CitySearch"));
-                            
-                            
-                                    if (localCitySearch==null){
-                                         throw new org.apache.axis2.databinding.ADBException("CitySearch cannot be null!!");
-                                    }
-                                    elementList.add(localCitySearch);
-                                }
+                                    elementList.add(localRegionalSearchChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -450,7 +365,7 @@
                             if (!"RegionalSearch".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (RegionalSearch)com.cloudkey.pms.micros.og.hotelcommon.ExtensionMapper.getTypeObject(
+                                return (RegionalSearch)com.cloudkey.pms.micros.og.meetingroom.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -471,33 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","GeoSearch").equals(reader.getName())){
-                                
-                                                object.setGeoSearch(com.cloudkey.pms.micros.og.hotelcommon.GeoPosition.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setRegionalSearchChoice_type0(com.cloudkey.pms.micros.og.availability.RegionalSearchChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","CitySearch").equals(reader.getName())){
-                                
-                                                object.setCitySearch(com.cloudkey.pms.micros.og.availability.CityCode.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

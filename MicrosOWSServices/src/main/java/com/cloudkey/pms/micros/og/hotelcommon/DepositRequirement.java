@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = DepositRequirement
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.Amount localDepositAmount ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localDepositAmountTracker = false ;
+
+                           public boolean isDepositAmountSpecified(){
+                               return localDepositAmountTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param DepositAmount
                                */
                                public void setDepositAmount(com.cloudkey.pms.micros.og.common.Amount param){
-                            
+                            localDepositAmountTracker = param != null;
+                                   
                                             this.localDepositAmount=param;
                                     
 
@@ -196,13 +208,13 @@
 
                
                    }
-               
+                if (localDepositAmountTracker){
                                             if (localDepositAmount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("DepositAmount cannot be null!!");
                                             }
                                            localDepositAmount.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","DepositAmount"),
                                                xmlWriter);
-                                         if (localDueDateTracker){
+                                        } if (localDueDateTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "DueDate", xmlWriter);
                              
@@ -234,7 +246,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -411,7 +423,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localDepositAmountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "DepositAmount"));
                             
@@ -420,7 +432,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("DepositAmount cannot be null!!");
                                     }
                                     elementList.add(localDepositAmount);
-                                 if (localDueDateTracker){
+                                } if (localDueDateTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "DueDate"));
                                  
@@ -492,7 +504,7 @@
                             if (!"DepositRequirement".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (DepositRequirement)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (DepositRequirement)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -513,10 +525,10 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","DepositAmount").equals(reader.getName())){
                                 
                                                 object.setDepositAmount(com.cloudkey.pms.micros.og.common.Amount.Factory.parse(reader));
@@ -525,8 +537,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","DueDate").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -544,8 +561,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","DepositDueAmount").equals(reader.getName())){
                                 
                                                 object.setDepositDueAmount(com.cloudkey.pms.micros.og.common.Amount.Factory.parse(reader));
@@ -554,16 +576,17 @@
                                     
                               }  // End of if for expected property start element
                                 
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
-                             } else {
+                                    else {
+                                        
+                                    }
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

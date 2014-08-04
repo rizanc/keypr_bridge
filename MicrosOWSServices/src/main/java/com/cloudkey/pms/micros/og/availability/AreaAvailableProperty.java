@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = AreaAvailableProperty
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.availability.PropertyStatusCode localPropertyStatus ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPropertyStatusTracker = false ;
+
+                           public boolean isPropertyStatusSpecified(){
+                               return localPropertyStatusTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,50 +100,9 @@
                                * @param param PropertyStatus
                                */
                                public void setPropertyStatus(com.cloudkey.pms.micros.og.availability.PropertyStatusCode param){
-                            
-                                            this.localPropertyStatus=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for PropertyErrorCode
-                        */
-
-                        
-                                    protected java.lang.String localPropertyErrorCode ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPropertyErrorCodeTracker = false ;
-
-                           public boolean isPropertyErrorCodeSpecified(){
-                               return localPropertyErrorCodeTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getPropertyErrorCode(){
-                               return localPropertyErrorCode;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PropertyErrorCode
-                               */
-                               public void setPropertyErrorCode(java.lang.String param){
-                            localPropertyErrorCodeTracker = param != null;
+                            localPropertyStatusTracker = param != null;
                                    
-                                            this.localPropertyErrorCode=param;
+                                            this.localPropertyStatus=param;
                                     
 
                                }
@@ -131,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.MinMaxRate_type1 localMinMaxRate ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate localMinMaxRate ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -147,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.MinMaxRate_type1
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate
                            */
-                           public  com.cloudkey.pms.micros.og.availability.MinMaxRate_type1 getMinMaxRate(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate getMinMaxRate(){
                                return localMinMaxRate;
                            }
 
@@ -159,7 +141,7 @@
                                * Auto generated setter method
                                * @param param MinMaxRate
                                */
-                               public void setMinMaxRate(com.cloudkey.pms.micros.og.availability.MinMaxRate_type1 param){
+                               public void setMinMaxRate(com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate param){
                             localMinMaxRateTracker = param != null;
                                    
                                             this.localMinMaxRate=param;
@@ -173,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.RateCodeInformationList localRateCodes ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation1 localRateCodes ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -189,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RateCodeInformationList
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation1
                            */
-                           public  com.cloudkey.pms.micros.og.availability.RateCodeInformationList getRateCodes(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation1 getRateCodes(){
                                return localRateCodes;
                            }
 
@@ -201,7 +183,7 @@
                                * Auto generated setter method
                                * @param param RateCodes
                                */
-                               public void setRateCodes(com.cloudkey.pms.micros.og.availability.RateCodeInformationList param){
+                               public void setRateCodes(com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation1 param){
                             localRateCodesTracker = param != null;
                                    
                                             this.localRateCodes=param;
@@ -247,6 +229,48 @@
                             localRateCalculationMethodTracker = param != null;
                                    
                                             this.localRateCalculationMethod=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for PropertyErrorCode
+                        */
+
+                        
+                                    protected java.lang.String localPropertyErrorCode ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPropertyErrorCodeTracker = false ;
+
+                           public boolean isPropertyErrorCodeSpecified(){
+                               return localPropertyErrorCodeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getPropertyErrorCode(){
+                               return localPropertyErrorCode;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param PropertyErrorCode
+                               */
+                               public void setPropertyErrorCode(java.lang.String param){
+                            localPropertyErrorCodeTracker = param != null;
+                                   
+                                            this.localPropertyErrorCode=param;
                                     
 
                                }
@@ -310,37 +334,19 @@
 
                
                    }
-               
+                if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localPropertyStatusTracker){
                                             if (localPropertyStatus==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PropertyStatus cannot be null!!");
                                             }
                                            localPropertyStatus.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","PropertyStatus"),
                                                xmlWriter);
-                                         if (localPropertyErrorCodeTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Availability/";
-                                    writeStartElement(null, namespace, "PropertyErrorCode", xmlWriter);
-                             
-
-                                          if (localPropertyErrorCode==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("PropertyErrorCode cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localPropertyErrorCode);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localMinMaxRateTracker){
+                                        } if (localMinMaxRateTracker){
                                             if (localMinMaxRate==null){
                                                  throw new org.apache.axis2.databinding.ADBException("MinMaxRate cannot be null!!");
                                             }
@@ -370,6 +376,24 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
+                             } if (localPropertyErrorCodeTracker){
+                                    namespace = "http://webservices.micros.com/og/4.3/Availability/";
+                                    writeStartElement(null, namespace, "PropertyErrorCode", xmlWriter);
+                             
+
+                                          if (localPropertyErrorCode==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("PropertyErrorCode cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localPropertyErrorCode);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
                              }
                     xmlWriter.writeEndElement();
                
@@ -378,7 +402,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -555,7 +579,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "HotelReference"));
                             
@@ -564,7 +588,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localPropertyStatusTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "PropertyStatus"));
                             
@@ -573,16 +597,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PropertyStatus cannot be null!!");
                                     }
                                     elementList.add(localPropertyStatus);
-                                 if (localPropertyErrorCodeTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
-                                                                      "PropertyErrorCode"));
-                                 
-                                        if (localPropertyErrorCode != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPropertyErrorCode));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("PropertyErrorCode cannot be null!!");
-                                        }
-                                    } if (localMinMaxRateTracker){
+                                } if (localMinMaxRateTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "MinMaxRate"));
                             
@@ -608,6 +623,15 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRateCalculationMethod));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("RateCalculationMethod cannot be null!!");
+                                        }
+                                    } if (localPropertyErrorCodeTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
+                                                                      "PropertyErrorCode"));
+                                 
+                                        if (localPropertyErrorCode != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPropertyErrorCode));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("PropertyErrorCode cannot be null!!");
                                         }
                                     }
 
@@ -696,42 +720,16 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","PropertyStatus").equals(reader.getName())){
                                 
                                                 object.setPropertyStatus(com.cloudkey.pms.micros.og.availability.PropertyStatusCode.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","PropertyErrorCode").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PropertyErrorCode" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setPropertyErrorCode(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     
@@ -746,7 +744,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","MinMaxRate").equals(reader.getName())){
                                 
-                                                object.setMinMaxRate(com.cloudkey.pms.micros.og.availability.MinMaxRate_type1.Factory.parse(reader));
+                                                object.setMinMaxRate(com.cloudkey.pms.micros.og.hotelcommon.MinMaxRate.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -761,7 +759,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","RateCodes").equals(reader.getName())){
                                 
-                                                object.setRateCodes(com.cloudkey.pms.micros.og.availability.RateCodeInformationList.Factory.parse(reader));
+                                                object.setRateCodes(com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation1.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -785,6 +783,30 @@
                                     java.lang.String content = reader.getElementText();
                                     
                                               object.setRateCalculationMethod(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","PropertyErrorCode").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PropertyErrorCode" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setPropertyErrorCode(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();

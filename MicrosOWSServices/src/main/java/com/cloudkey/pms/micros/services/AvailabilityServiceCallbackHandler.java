@@ -45,107 +45,11 @@
 
         
            /**
-            * auto generated Axis2 call back method for fetchCalendar method
-            * override this method for handling normal response from fetchCalendar operation
-            */
-           public void receiveResultfetchCalendar(
-                    com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchCalendar operation
-           */
-            public void receiveErrorfetchCalendar(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchItemGroups method
-            * override this method for handling normal response from fetchItemGroups operation
-            */
-           public void receiveResultfetchItemGroups(
-                    com.cloudkey.pms.micros.ows.availability.FetchItemGroupsResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchItemGroups operation
-           */
-            public void receiveErrorfetchItemGroups(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchExpectedCharges method
-            * override this method for handling normal response from fetchExpectedCharges operation
-            */
-           public void receiveResultfetchExpectedCharges(
-                    com.cloudkey.pms.micros.ows.availability.FetchExpectedChargesResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchExpectedCharges operation
-           */
-            public void receiveErrorfetchExpectedCharges(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for fetchAvailablePackages method
-            * override this method for handling normal response from fetchAvailablePackages operation
-            */
-           public void receiveResultfetchAvailablePackages(
-                    com.cloudkey.pms.micros.ows.availability.FetchAvailablePackagesResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchAvailablePackages operation
-           */
-            public void receiveErrorfetchAvailablePackages(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for gdsAreaAvailability method
-            * override this method for handling normal response from gdsAreaAvailability operation
-            */
-           public void receiveResultgdsAreaAvailability(
-                    com.cloudkey.pms.micros.ows.availability.GdsAreaAvailabilityResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from gdsAreaAvailability operation
-           */
-            public void receiveErrorgdsAreaAvailability(java.lang.Exception e) {
-            }
-                
-           /**
-            * auto generated Axis2 call back method for regionalAvailability method
-            * override this method for handling normal response from regionalAvailability operation
-            */
-           public void receiveResultregionalAvailability(
-                    com.cloudkey.pms.micros.ows.availability.RegionalAvailabilityResponse result
-                        ) {
-           }
-
-          /**
-           * auto generated Axis2 Error handler
-           * override this method for handling error response from regionalAvailability operation
-           */
-            public void receiveErrorregionalAvailability(java.lang.Exception e) {
-            }
-                
-           /**
             * auto generated Axis2 call back method for regionalAvailabilityExt method
             * override this method for handling normal response from regionalAvailabilityExt operation
             */
            public void receiveResultregionalAvailabilityExt(
-                    com.cloudkey.pms.micros.ows.availability.RegionalAvailabilityExtResponse result
+                    com.cloudkey.pms.micros.ows.availability.RegionalAvailabilityExtResponseE result
                         ) {
            }
 
@@ -157,19 +61,51 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for availability method
-            * override this method for handling normal response from availability operation
+            * auto generated Axis2 call back method for fetchAvailablePackages method
+            * override this method for handling normal response from fetchAvailablePackages operation
             */
-           public void receiveResultavailability(
-                    com.cloudkey.pms.micros.ows.availability.AvailabilityResponse result
+           public void receiveResultfetchAvailablePackages(
+                    com.cloudkey.pms.micros.ows.availability.FetchAvailablePackagesResponseE result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from availability operation
+           * override this method for handling error response from fetchAvailablePackages operation
            */
-            public void receiveErroravailability(java.lang.Exception e) {
+            public void receiveErrorfetchAvailablePackages(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for regionalAvailability method
+            * override this method for handling normal response from regionalAvailability operation
+            */
+           public void receiveResultregionalAvailability(
+                    com.cloudkey.pms.micros.ows.availability.RegionalAvailabilityResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from regionalAvailability operation
+           */
+            public void receiveErrorregionalAvailability(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchAvailableItems method
+            * override this method for handling normal response from fetchAvailableItems operation
+            */
+           public void receiveResultfetchAvailableItems(
+                    com.cloudkey.pms.micros.ows.availability.FetchAvailableItemsResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchAvailableItems operation
+           */
+            public void receiveErrorfetchAvailableItems(java.lang.Exception e) {
             }
                 
            /**
@@ -189,19 +125,83 @@
             }
                 
            /**
-            * auto generated Axis2 call back method for fetchAvailableItems method
-            * override this method for handling normal response from fetchAvailableItems operation
+            * auto generated Axis2 call back method for fetchExpectedCharges method
+            * override this method for handling normal response from fetchExpectedCharges operation
             */
-           public void receiveResultfetchAvailableItems(
-                    com.cloudkey.pms.micros.ows.availability.FetchAvailableItemsResponse result
+           public void receiveResultfetchExpectedCharges(
+                    com.cloudkey.pms.micros.ows.availability.FetchExpectedChargesResponse result
                         ) {
            }
 
           /**
            * auto generated Axis2 Error handler
-           * override this method for handling error response from fetchAvailableItems operation
+           * override this method for handling error response from fetchExpectedCharges operation
            */
-            public void receiveErrorfetchAvailableItems(java.lang.Exception e) {
+            public void receiveErrorfetchExpectedCharges(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchCalendar method
+            * override this method for handling normal response from fetchCalendar operation
+            */
+           public void receiveResultfetchCalendar(
+                    com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchCalendar operation
+           */
+            public void receiveErrorfetchCalendar(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for availability method
+            * override this method for handling normal response from availability operation
+            */
+           public void receiveResultavailability(
+                    com.cloudkey.pms.micros.ows.availability.AvailabilityResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from availability operation
+           */
+            public void receiveErroravailability(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for gdsAreaAvailability method
+            * override this method for handling normal response from gdsAreaAvailability operation
+            */
+           public void receiveResultgdsAreaAvailability(
+                    com.cloudkey.pms.micros.ows.availability.GdsAreaAvailabilityResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from gdsAreaAvailability operation
+           */
+            public void receiveErrorgdsAreaAvailability(java.lang.Exception e) {
+            }
+                
+           /**
+            * auto generated Axis2 call back method for fetchItemGroups method
+            * override this method for handling normal response from fetchItemGroups operation
+            */
+           public void receiveResultfetchItemGroups(
+                    com.cloudkey.pms.micros.ows.availability.FetchItemGroupsResponseE result
+                        ) {
+           }
+
+          /**
+           * auto generated Axis2 Error handler
+           * override this method for handling error response from fetchItemGroups operation
+           */
+            public void receiveErrorfetchItemGroups(java.lang.Exception e) {
             }
                 
 

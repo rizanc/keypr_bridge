@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = LovQueryType2
                 Namespace URI = http://webservices.micros.com/ows/5.1/Information.wsdl
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localLovIdentifier ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLovIdentifierTracker = false ;
+
+                           public boolean isLovIdentifierSpecified(){
+                               return localLovIdentifierTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param LovIdentifier
                                */
                                public void setLovIdentifier(java.lang.String param){
-                            
+                            localLovIdentifierTracker = param != null;
+                                   
                                             this.localLovIdentifier=param;
                                     
 
@@ -62,6 +74,17 @@
                         
                                     protected com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[] localLovQueryQualifier ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLovQueryQualifierTracker = false ;
+
+                           public boolean isLovQueryQualifierSpecified(){
+                               return localLovQueryQualifierTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -81,10 +104,6 @@
                                */
                               protected void validateLovQueryQualifier(com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[] param){
                              
-                              if ((param != null) && (param.length < 1)){
-                                throw new java.lang.RuntimeException();
-                              }
-                              
                               }
 
 
@@ -96,7 +115,8 @@
                               
                                    validateLovQueryQualifier(param);
 
-                               
+                               localLovQueryQualifierTracker = param != null;
+                                      
                                       this.localLovQueryQualifier=param;
                               }
 
@@ -111,6 +131,9 @@
                                    localLovQueryQualifier = new com.cloudkey.pms.micros.ows.information.LovQueryQualifierType[]{};
                                    }
 
+                            
+                                 //update the setting tracker
+                                localLovQueryQualifierTracker = true;
                             
 
                                java.util.List list =
@@ -181,7 +204,7 @@
 
                
                    }
-               
+                if (localLovIdentifierTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Information.wsdl";
                                     writeStartElement(null, namespace, "LovIdentifier", xmlWriter);
                              
@@ -199,7 +222,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localLovQueryQualifierTracker){
                                        if (localLovQueryQualifier!=null){
                                             for (int i = 0;i < localLovQueryQualifier.length;i++){
                                                 if (localLovQueryQualifier[i] != null){
@@ -207,7 +230,7 @@
                                                            xmlWriter);
                                                 } else {
                                                    
-                                                           throw new org.apache.axis2.databinding.ADBException("LovQueryQualifier cannot be null!!");
+                                                        // we don't have to do any thing since minOccures is zero
                                                     
                                                 }
 
@@ -217,7 +240,7 @@
                                                throw new org.apache.axis2.databinding.ADBException("LovQueryQualifier cannot be null!!");
                                         
                                     }
-                                 
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -225,7 +248,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Information.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -402,7 +425,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localLovIdentifierTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Information.wsdl",
                                                                       "LovIdentifier"));
                                  
@@ -411,7 +434,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("LovIdentifier cannot be null!!");
                                         }
-                                    
+                                    } if (localLovQueryQualifierTracker){
                              if (localLovQueryQualifier!=null) {
                                  for (int i = 0;i < localLovQueryQualifier.length;i++){
 
@@ -421,7 +444,7 @@
                                          elementList.add(localLovQueryQualifier[i]);
                                     } else {
                                         
-                                               throw new org.apache.axis2.databinding.ADBException("LovQueryQualifier cannot be null !!");
+                                                // nothing to do
                                             
                                     }
 
@@ -432,7 +455,7 @@
                                     
                              }
 
-                        
+                        }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -530,11 +553,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -577,11 +599,10 @@
                                                             
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

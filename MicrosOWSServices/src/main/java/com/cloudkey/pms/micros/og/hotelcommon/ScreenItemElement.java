@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ScreenItemElement
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected long localId ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localIdTracker = false ;
+
+                           public boolean isIdSpecified(){
+                               return localIdTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,6 +59,10 @@
                                */
                                public void setId(long param){
                             
+                                       // setting primitive attribute tracker to true
+                                       localIdTracker =
+                                       param != java.lang.Long.MIN_VALUE;
+                                   
                                             this.localId=param;
                                     
 
@@ -61,6 +76,17 @@
                         
                                     protected java.lang.String localScreenId ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localScreenIdTracker = false ;
+
+                           public boolean isScreenIdSpecified(){
+                               return localScreenIdTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +103,8 @@
                                * @param param ScreenId
                                */
                                public void setScreenId(java.lang.String param){
-                            
+                            localScreenIdTracker = param != null;
+                                   
                                             this.localScreenId=param;
                                     
 
@@ -306,7 +333,7 @@
 
                
                    }
-               
+                if (localIdTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "Id", xmlWriter);
                              
@@ -319,7 +346,7 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localScreenIdTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "ScreenId", xmlWriter);
                              
@@ -337,7 +364,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localDescriptionTracker){
+                             } if (localDescriptionTracker){
                                        if (localDescription!=null){
                                             for (int i = 0;i < localDescription.length;i++){
                                                 if (localDescription[i] != null){
@@ -399,7 +426,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -576,13 +603,13 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localIdTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Id"));
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localId));
-                            
+                            } if (localScreenIdTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ScreenId"));
                                  
@@ -591,7 +618,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ScreenId cannot be null!!");
                                         }
-                                     if (localDescriptionTracker){
+                                    } if (localDescriptionTracker){
                              if (localDescription!=null) {
                                  for (int i = 0;i < localDescription.length;i++){
 
@@ -728,11 +755,12 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                               object.setId(java.lang.Long.MIN_VALUE);
+                                           
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -753,11 +781,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 

@@ -19,16 +19,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param externalPaymentRequest34
+                    * @param fetchRoomSetupRequest33
                 
-                    * @param oGHeader35
+                    * @param oGHeader34
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.ExternalPaymentResponse externalPayment(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupResponseE fetchRoomSetup(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.ExternalPaymentRequest externalPaymentRequest34,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader35)
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupRequestE fetchRoomSetupRequest33,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader34)
                         throws java.rmi.RemoteException
              ;
 
@@ -36,14 +36,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param externalPaymentRequest34
+                * @param fetchRoomSetupRequest33
             
-                * @param oGHeader35
+                * @param oGHeader34
             
           */
-        public void startexternalPayment(
+        public void startfetchRoomSetup(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.ExternalPaymentRequest externalPaymentRequest34,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader35,
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupRequestE fetchRoomSetupRequest33,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader34,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -55,16 +55,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param releaseRoomAdvRequest37
+                    * @param checkOutRequest36
                 
-                    * @param oGHeader38
+                    * @param oGHeader37
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.ReleaseRoomAdvResponse releaseRoom(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponseE checkOut(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.ReleaseRoomAdvRequest releaseRoomAdvRequest37,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader38)
+                        com.cloudkey.pms.micros.og.reservation.advanced.CheckOutRequestE checkOutRequest36,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader37)
                         throws java.rmi.RemoteException
              ;
 
@@ -72,14 +72,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param releaseRoomAdvRequest37
+                * @param checkOutRequest36
             
-                * @param oGHeader38
+                * @param oGHeader37
             
           */
-        public void startreleaseRoom(
+        public void startcheckOut(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.ReleaseRoomAdvRequest releaseRoomAdvRequest37,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader38,
+            com.cloudkey.pms.micros.og.reservation.advanced.CheckOutRequestE checkOutRequest36,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader37,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -91,16 +91,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param printPreCheckOutBillRequest40
+                    * @param updateMethodOfPaymentRequest39
                 
-                    * @param oGHeader41
+                    * @param oGHeader40
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.PrintPreCheckOutBillResponse printPreCheckOutBill(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.UpdateMethodOfPaymentResponseE updateMethodOfPayment(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.PrintPreCheckOutBillRequest printPreCheckOutBillRequest40,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader41)
+                        com.cloudkey.pms.micros.og.reservation.advanced.UpdateMethodOfPaymentRequestE updateMethodOfPaymentRequest39,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader40)
                         throws java.rmi.RemoteException
              ;
 
@@ -108,14 +108,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param printPreCheckOutBillRequest40
+                * @param updateMethodOfPaymentRequest39
             
-                * @param oGHeader41
+                * @param oGHeader40
             
           */
-        public void startprintPreCheckOutBill(
+        public void startupdateMethodOfPayment(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.PrintPreCheckOutBillRequest printPreCheckOutBillRequest40,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader41,
+            com.cloudkey.pms.micros.og.reservation.advanced.UpdateMethodOfPaymentRequestE updateMethodOfPaymentRequest39,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader40,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -127,16 +127,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param alternateRoomsRequest43
+                    * @param fetchPromotionCodeRequest42
                 
-                    * @param oGHeader44
+                    * @param oGHeader43
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.AlternateRoomsResponse alternateRooms(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeResponseE fetchPromotionCode(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.AlternateRoomsRequest alternateRoomsRequest43,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader44)
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchPromotionCodeRequestE fetchPromotionCodeRequest42,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader43)
                         throws java.rmi.RemoteException
              ;
 
@@ -144,14 +144,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param alternateRoomsRequest43
+                * @param fetchPromotionCodeRequest42
             
-                * @param oGHeader44
+                * @param oGHeader43
             
           */
-        public void startalternateRooms(
+        public void startfetchPromotionCode(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.AlternateRoomsRequest alternateRoomsRequest43,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader44,
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchPromotionCodeRequestE fetchPromotionCodeRequest42,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader43,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -163,16 +163,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param queueReservationRequest46
+                    * @param updatePayRoutingRequest45
                 
-                    * @param oGHeader47
+                    * @param oGHeader46
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.QueueReservationResponse queueReservation(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.UpdatePayRoutingResponseE updatePayRouting(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.QueueReservationRequest queueReservationRequest46,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader47)
+                        com.cloudkey.pms.micros.og.reservation.advanced.UpdatePayRoutingRequestE updatePayRoutingRequest45,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader46)
                         throws java.rmi.RemoteException
              ;
 
@@ -180,158 +180,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param queueReservationRequest46
+                * @param updatePayRoutingRequest45
             
-                * @param oGHeader47
-            
-          */
-        public void startqueueReservation(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.QueueReservationRequest queueReservationRequest46,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader47,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param invoiceRequest49
-                
-                    * @param oGHeader50
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.InvoiceResponse invoice(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.InvoiceRequest invoiceRequest49,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader50)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param invoiceRequest49
-            
-                * @param oGHeader50
-            
-          */
-        public void startinvoice(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.InvoiceRequest invoiceRequest49,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader50,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param postChargeRequest52
-                
-                    * @param oGHeader53
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.PostChargeResponse postCharge(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest postChargeRequest52,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader53)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param postChargeRequest52
-            
-                * @param oGHeader53
-            
-          */
-        public void startpostCharge(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest postChargeRequest52,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader53,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param setKeyDataRequest55
-                
-                    * @param oGHeader56
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.SetKeyDataResponse setKeyData(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.SetKeyDataRequest setKeyDataRequest55,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader56)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param setKeyDataRequest55
-            
-                * @param oGHeader56
-            
-          */
-        public void startsetKeyData(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.SetKeyDataRequest setKeyDataRequest55,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader56,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param updatePayRoutingRequest58
-                
-                    * @param oGHeader59
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.UpdatePayRoutingResponse updatePayRouting(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.UpdatePayRoutingRequest updatePayRoutingRequest58,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader59)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param updatePayRoutingRequest58
-            
-                * @param oGHeader59
+                * @param oGHeader46
             
           */
         public void startupdatePayRouting(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.UpdatePayRoutingRequest updatePayRoutingRequest58,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader59,
+            com.cloudkey.pms.micros.og.reservation.advanced.UpdatePayRoutingRequestE updatePayRoutingRequest45,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader46,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -342,104 +198,32 @@
 
         /**
           * Auto generated method signature
-          * 
-                    * @param instantPaymentNotificationRequest61
+          * Check Dynamic Currency Conversion.
+                    * @param dCCCheckRequest48
                 
-                    * @param oGHeader62
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.InstantPaymentNotificationResponse instantPaymentNotification(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.InstantPaymentNotificationRequest instantPaymentNotificationRequest61,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader62)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param instantPaymentNotificationRequest61
-            
-                * @param oGHeader62
-            
-          */
-        public void startinstantPaymentNotification(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.InstantPaymentNotificationRequest instantPaymentNotificationRequest61,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader62,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param fetchAuthorizationsHistoryRequest64
-                
-                    * @param oGHeader65
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchAuthorizationsHistoryResponse fetchAuthorizationsHistory(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchAuthorizationsHistoryRequest fetchAuthorizationsHistoryRequest64,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader65)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param fetchAuthorizationsHistoryRequest64
-            
-                * @param oGHeader65
-            
-          */
-        public void startfetchAuthorizationsHistory(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchAuthorizationsHistoryRequest fetchAuthorizationsHistoryRequest64,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader65,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param dCCCheckRequest67
-                
-                    * @param oGHeader68
+                    * @param oGHeader49
                 
          */
 
          
                      public com.cloudkey.pms.micros.og.reservation.advanced.DCCCheckResponse dCCCheck(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.DCCCheckRequest dCCCheckRequest67,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader68)
+                        com.cloudkey.pms.micros.og.reservation.advanced.DCCCheckRequest dCCCheckRequest48,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader49)
                         throws java.rmi.RemoteException
              ;
 
         
          /**
             * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param dCCCheckRequest67
+            * Check Dynamic Currency Conversion.
+                * @param dCCCheckRequest48
             
-                * @param oGHeader68
+                * @param oGHeader49
             
           */
         public void startdCCCheck(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.DCCCheckRequest dCCCheckRequest67,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader68,
+            com.cloudkey.pms.micros.og.reservation.advanced.DCCCheckRequest dCCCheckRequest48,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader49,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -451,16 +235,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param checkInRequest70
+                    * @param reservationRequestCodeRequest51
                 
-                    * @param oGHeader71
+                    * @param oGHeader52
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponse checkIn(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestCodeResponseE reservationRequestCode(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.CheckInRequest checkInRequest70,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader71)
+                        com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestCodeRequestE reservationRequestCodeRequest51,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader52)
                         throws java.rmi.RemoteException
              ;
 
@@ -468,86 +252,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param checkInRequest70
+                * @param reservationRequestCodeRequest51
             
-                * @param oGHeader71
-            
-          */
-        public void startcheckIn(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.CheckInRequest checkInRequest70,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader71,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param fetchRoomStatusRequest73
-                
-                    * @param oGHeader74
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusResponse fetchRoomStatus(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequest fetchRoomStatusRequest73,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader74)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param fetchRoomStatusRequest73
-            
-                * @param oGHeader74
-            
-          */
-        public void startfetchRoomStatus(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequest fetchRoomStatusRequest73,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader74,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param reservationRequestCodeRequest76
-                
-                    * @param oGHeader77
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestCodeResponse reservationRequestCode(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestCodeRequest reservationRequestCodeRequest76,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader77)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param reservationRequestCodeRequest76
-            
-                * @param oGHeader77
+                * @param oGHeader52
             
           */
         public void startreservationRequestCode(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestCodeRequest reservationRequestCodeRequest76,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader77,
+            com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestCodeRequestE reservationRequestCodeRequest51,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader52,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -559,16 +271,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param generateRegistrationCardRequest79
+                    * @param releaseRoomAdvRequest54
                 
-                    * @param oGHeader80
+                    * @param oGHeader55
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.GenerateRegistrationCardResponse generateRegistrationCard(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.ReleaseRoomAdvResponseE releaseRoom(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.GenerateRegistrationCardRequest generateRegistrationCardRequest79,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader80)
+                        com.cloudkey.pms.micros.og.reservation.advanced.ReleaseRoomAdvRequestE releaseRoomAdvRequest54,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader55)
                         throws java.rmi.RemoteException
              ;
 
@@ -576,14 +288,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param generateRegistrationCardRequest79
+                * @param releaseRoomAdvRequest54
             
-                * @param oGHeader80
+                * @param oGHeader55
             
           */
-        public void startgenerateRegistrationCard(
+        public void startreleaseRoom(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.GenerateRegistrationCardRequest generateRegistrationCardRequest79,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader80,
+            com.cloudkey.pms.micros.og.reservation.advanced.ReleaseRoomAdvRequestE releaseRoomAdvRequest54,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader55,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -595,16 +307,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param guestMessagesRequest82
+                    * @param folioTransactionTransferRequest57
                 
-                    * @param oGHeader83
+                    * @param oGHeader58
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.GuestMessagesResponse guestMessages(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FolioTransactionTransferResponseE folioTransactionTransfer(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.GuestMessagesRequest guestMessagesRequest82,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader83)
+                        com.cloudkey.pms.micros.og.reservation.advanced.FolioTransactionTransferRequestE folioTransactionTransferRequest57,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader58)
                         throws java.rmi.RemoteException
              ;
 
@@ -612,122 +324,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param guestMessagesRequest82
+                * @param folioTransactionTransferRequest57
             
-                * @param oGHeader83
-            
-          */
-        public void startguestMessages(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.GuestMessagesRequest guestMessagesRequest82,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader83,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param additionalKeysRequest85
-                
-                    * @param oGHeader86
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.AdditionalKeysResponse additionalKeys(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.AdditionalKeysRequest additionalKeysRequest85,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader86)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param additionalKeysRequest85
-            
-                * @param oGHeader86
-            
-          */
-        public void startadditionalKeys(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.AdditionalKeysRequest additionalKeysRequest85,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader86,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param fetchRoomSetupRequest88
-                
-                    * @param oGHeader89
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupResponse fetchRoomSetup(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupRequest fetchRoomSetupRequest88,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader89)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param fetchRoomSetupRequest88
-            
-                * @param oGHeader89
-            
-          */
-        public void startfetchRoomSetup(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupRequest fetchRoomSetupRequest88,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader89,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param folioTransactionTransferRequest91
-                
-                    * @param oGHeader92
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FolioTransactionTransferResponse folioTransactionTransfer(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.FolioTransactionTransferRequest folioTransactionTransferRequest91,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader92)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param folioTransactionTransferRequest91
-            
-                * @param oGHeader92
+                * @param oGHeader58
             
           */
         public void startfolioTransactionTransfer(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.FolioTransactionTransferRequest folioTransactionTransferRequest91,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader92,
+            com.cloudkey.pms.micros.og.reservation.advanced.FolioTransactionTransferRequestE folioTransactionTransferRequest57,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader58,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -739,16 +343,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param checkOutRequest94
+                    * @param externalPaymentRequest60
                 
-                    * @param oGHeader95
+                    * @param oGHeader61
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse checkOut(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.ExternalPaymentResponse externalPayment(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.CheckOutRequest checkOutRequest94,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader95)
+                        com.cloudkey.pms.micros.og.reservation.advanced.ExternalPaymentRequest externalPaymentRequest60,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader61)
                         throws java.rmi.RemoteException
              ;
 
@@ -756,14 +360,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param checkOutRequest94
+                * @param externalPaymentRequest60
             
-                * @param oGHeader95
+                * @param oGHeader61
             
           */
-        public void startcheckOut(
+        public void startexternalPayment(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.CheckOutRequest checkOutRequest94,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader95,
+            com.cloudkey.pms.micros.og.reservation.advanced.ExternalPaymentRequest externalPaymentRequest60,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader61,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -775,16 +379,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param fetchResPromotionCodeRequest97
+                    * @param instantPaymentNotificationRequest63
                 
-                    * @param oGHeader98
+                    * @param oGHeader64
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeResponse fetchResPromotionCode(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.InstantPaymentNotificationResponse instantPaymentNotification(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeRequest fetchResPromotionCodeRequest97,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader98)
+                        com.cloudkey.pms.micros.og.reservation.advanced.InstantPaymentNotificationRequest instantPaymentNotificationRequest63,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader64)
                         throws java.rmi.RemoteException
              ;
 
@@ -792,14 +396,50 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param fetchResPromotionCodeRequest97
+                * @param instantPaymentNotificationRequest63
             
-                * @param oGHeader98
+                * @param oGHeader64
+            
+          */
+        public void startinstantPaymentNotification(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.InstantPaymentNotificationRequest instantPaymentNotificationRequest63,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader64,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param fetchResPromotionCodeRequest66
+                
+                    * @param oGHeader67
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeResponseE fetchResPromotionCode(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeRequestE fetchResPromotionCodeRequest66,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader67)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param fetchResPromotionCodeRequest66
+            
+                * @param oGHeader67
             
           */
         public void startfetchResPromotionCode(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeRequest fetchResPromotionCodeRequest97,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader98,
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeRequestE fetchResPromotionCodeRequest66,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader67,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -811,16 +451,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param payRoutingRequest100
+                    * @param fetchAuthorizationsHistoryRequest69
                 
-                    * @param oGHeader101
+                    * @param oGHeader70
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.PayRoutingResponse payRouting(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchAuthorizationsHistoryResponse fetchAuthorizationsHistory(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.PayRoutingRequest payRoutingRequest100,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader101)
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchAuthorizationsHistoryRequest fetchAuthorizationsHistoryRequest69,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader70)
                         throws java.rmi.RemoteException
              ;
 
@@ -828,14 +468,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param payRoutingRequest100
+                * @param fetchAuthorizationsHistoryRequest69
             
-                * @param oGHeader101
+                * @param oGHeader70
             
           */
-        public void startpayRouting(
+        public void startfetchAuthorizationsHistory(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.PayRoutingRequest payRoutingRequest100,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader101,
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchAuthorizationsHistoryRequest fetchAuthorizationsHistoryRequest69,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader70,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -847,16 +487,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param assignRoomAdvRequest103
+                    * @param setResPromotionCodeRequest72
                 
-                    * @param oGHeader104
+                    * @param oGHeader73
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.AssignRoomAdvResponse assignRoom(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.SetResPromotionCodeResponseE setResPromotionCode(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.AssignRoomAdvRequest assignRoomAdvRequest103,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader104)
+                        com.cloudkey.pms.micros.og.reservation.advanced.SetResPromotionCodeRequestE setResPromotionCodeRequest72,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader73)
                         throws java.rmi.RemoteException
              ;
 
@@ -864,158 +504,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param assignRoomAdvRequest103
+                * @param setResPromotionCodeRequest72
             
-                * @param oGHeader104
-            
-          */
-        public void startassignRoom(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.AssignRoomAdvRequest assignRoomAdvRequest103,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader104,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param fetchKeyDataRequest106
-                
-                    * @param oGHeader107
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchKeyDataResponse fetchKeyData(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchKeyDataRequest fetchKeyDataRequest106,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader107)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param fetchKeyDataRequest106
-            
-                * @param oGHeader107
-            
-          */
-        public void startfetchKeyData(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchKeyDataRequest fetchKeyDataRequest106,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader107,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param cancelCheckInRequest109
-                
-                    * @param oGHeader110
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.CancelCheckInResponse cancelCheckIn(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.CancelCheckInRequest cancelCheckInRequest109,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader110)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param cancelCheckInRequest109
-            
-                * @param oGHeader110
-            
-          */
-        public void startcancelCheckIn(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.CancelCheckInRequest cancelCheckInRequest109,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader110,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param kioskAvaliablityRequest112
-                
-                    * @param oGHeader113
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.KioskAvaliablityResponse kioskAvaliablity(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.KioskAvaliablityRequest kioskAvaliablityRequest112,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader113)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param kioskAvaliablityRequest112
-            
-                * @param oGHeader113
-            
-          */
-        public void startkioskAvaliablity(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.KioskAvaliablityRequest kioskAvaliablityRequest112,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader113,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param setResPromotionCodeRequest115
-                
-                    * @param oGHeader116
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.SetResPromotionCodeResponse setResPromotionCode(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.SetResPromotionCodeRequest setResPromotionCodeRequest115,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader116)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param setResPromotionCodeRequest115
-            
-                * @param oGHeader116
+                * @param oGHeader73
             
           */
         public void startsetResPromotionCode(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.SetResPromotionCodeRequest setResPromotionCodeRequest115,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader116,
+            com.cloudkey.pms.micros.og.reservation.advanced.SetResPromotionCodeRequestE setResPromotionCodeRequest72,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader73,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -1027,16 +523,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param makePaymentRequest118
+                    * @param cancelCheckInRequest75
                 
-                    * @param oGHeader119
+                    * @param oGHeader76
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.MakePaymentResponse makePayment(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.CancelCheckInResponseE cancelCheckIn(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.MakePaymentRequest makePaymentRequest118,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader119)
+                        com.cloudkey.pms.micros.og.reservation.advanced.CancelCheckInRequestE cancelCheckInRequest75,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader76)
                         throws java.rmi.RemoteException
              ;
 
@@ -1044,14 +540,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param makePaymentRequest118
+                * @param cancelCheckInRequest75
             
-                * @param oGHeader119
+                * @param oGHeader76
             
           */
-        public void startmakePayment(
+        public void startcancelCheckIn(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.MakePaymentRequest makePaymentRequest118,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader119,
+            com.cloudkey.pms.micros.og.reservation.advanced.CancelCheckInRequestE cancelCheckInRequest75,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader76,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -1063,16 +559,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param updateMethodOfPaymentRequest121
+                    * @param fetchKeyDataRequest78
                 
-                    * @param oGHeader122
+                    * @param oGHeader79
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.UpdateMethodOfPaymentResponse updateMethodOfPayment(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchKeyDataResponseE fetchKeyData(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.UpdateMethodOfPaymentRequest updateMethodOfPaymentRequest121,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader122)
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchKeyDataRequestE fetchKeyDataRequest78,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader79)
                         throws java.rmi.RemoteException
              ;
 
@@ -1080,14 +576,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param updateMethodOfPaymentRequest121
+                * @param fetchKeyDataRequest78
             
-                * @param oGHeader122
+                * @param oGHeader79
             
           */
-        public void startupdateMethodOfPayment(
+        public void startfetchKeyData(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.UpdateMethodOfPaymentRequest updateMethodOfPaymentRequest121,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader122,
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchKeyDataRequestE fetchKeyDataRequest78,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader79,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -1099,16 +595,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param fetchPromotionCodeRequest124
+                    * @param postChargeRequest81
                 
-                    * @param oGHeader125
+                    * @param oGHeader82
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchResPromotionCodeResponse fetchPromotionCode(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.PostChargeResponseE postCharge(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchPromotionCodeRequest fetchPromotionCodeRequest124,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader125)
+                        com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequestE postChargeRequest81,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader82)
                         throws java.rmi.RemoteException
              ;
 
@@ -1116,14 +612,50 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param fetchPromotionCodeRequest124
+                * @param postChargeRequest81
             
-                * @param oGHeader125
+                * @param oGHeader82
             
           */
-        public void startfetchPromotionCode(
+        public void startpostCharge(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchPromotionCodeRequest fetchPromotionCodeRequest124,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader125,
+            com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequestE postChargeRequest81,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader82,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * Assign or remove existing reservation from queue.
+                    * @param queueReservationRequest84
+                
+                    * @param oGHeader85
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.QueueReservationResponse queueReservation(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.QueueReservationRequest queueReservationRequest84,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader85)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * Assign or remove existing reservation from queue.
+                * @param queueReservationRequest84
+            
+                * @param oGHeader85
+            
+          */
+        public void startqueueReservation(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.QueueReservationRequest queueReservationRequest84,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader85,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -1135,16 +667,16 @@
         /**
           * Auto generated method signature
           * 
-                    * @param insertPayRoutingRequest127
+                    * @param assignRoomAdvRequest87
                 
-                    * @param oGHeader128
+                    * @param oGHeader88
                 
          */
 
          
-                     public com.cloudkey.pms.micros.og.reservation.advanced.InsertPayRoutingResponse insertPayRouting(
+                     public com.cloudkey.pms.micros.og.reservation.advanced.AssignRoomAdvResponseE assignRoom(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.InsertPayRoutingRequest insertPayRoutingRequest127,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader128)
+                        com.cloudkey.pms.micros.og.reservation.advanced.AssignRoomAdvRequestE assignRoomAdvRequest87,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader88)
                         throws java.rmi.RemoteException
              ;
 
@@ -1152,14 +684,14 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param insertPayRoutingRequest127
+                * @param assignRoomAdvRequest87
             
-                * @param oGHeader128
+                * @param oGHeader88
             
           */
-        public void startinsertPayRouting(
+        public void startassignRoom(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.InsertPayRoutingRequest insertPayRoutingRequest127,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader128,
+            com.cloudkey.pms.micros.og.reservation.advanced.AssignRoomAdvRequestE assignRoomAdvRequest87,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader88,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
@@ -1170,53 +702,53 @@
 
         /**
           * Auto generated method signature
-          * 
-                    * @param monitorQueueReservationsRequest130
+          * Fetch existing queue reservations.
+                    * @param fetchQueueReservationsRequest90
                 
-                    * @param oGHeader131
-                
-         */
-
-         
-                     public com.cloudkey.pms.micros.og.reservation.advanced.MonitorQueueReservationsResponse monitorQueueReservations(
-
-                        com.cloudkey.pms.micros.og.reservation.advanced.MonitorQueueReservationsRequest monitorQueueReservationsRequest130,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader131)
-                        throws java.rmi.RemoteException
-             ;
-
-        
-         /**
-            * Auto generated method signature for Asynchronous Invocations
-            * 
-                * @param monitorQueueReservationsRequest130
-            
-                * @param oGHeader131
-            
-          */
-        public void startmonitorQueueReservations(
-
-            com.cloudkey.pms.micros.og.reservation.advanced.MonitorQueueReservationsRequest monitorQueueReservationsRequest130,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader131,
-                
-
-            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
-
-            throws java.rmi.RemoteException;
-
-     
-
-        /**
-          * Auto generated method signature
-          * 
-                    * @param fetchQueueReservationsRequest133
-                
-                    * @param oGHeader134
+                    * @param oGHeader91
                 
          */
 
          
                      public com.cloudkey.pms.micros.og.reservation.advanced.FetchQueueReservationsResponse fetchQueueReservations(
 
-                        com.cloudkey.pms.micros.og.reservation.advanced.FetchQueueReservationsRequest fetchQueueReservationsRequest133,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader134)
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchQueueReservationsRequest fetchQueueReservationsRequest90,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader91)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * Fetch existing queue reservations.
+                * @param fetchQueueReservationsRequest90
+            
+                * @param oGHeader91
+            
+          */
+        public void startfetchQueueReservations(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchQueueReservationsRequest fetchQueueReservationsRequest90,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader91,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param invoiceRequest93
+                
+                    * @param oGHeader94
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.InvoiceResponseE invoice(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.InvoiceRequestE invoiceRequest93,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader94)
                         throws java.rmi.RemoteException
              ;
 
@@ -1224,14 +756,446 @@
          /**
             * Auto generated method signature for Asynchronous Invocations
             * 
-                * @param fetchQueueReservationsRequest133
+                * @param invoiceRequest93
             
-                * @param oGHeader134
+                * @param oGHeader94
             
           */
-        public void startfetchQueueReservations(
+        public void startinvoice(
 
-            com.cloudkey.pms.micros.og.reservation.advanced.FetchQueueReservationsRequest fetchQueueReservationsRequest133,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader134,
+            com.cloudkey.pms.micros.og.reservation.advanced.InvoiceRequestE invoiceRequest93,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader94,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param guestMessagesRequest96
+                
+                    * @param oGHeader97
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.GuestMessagesResponseE guestMessages(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.GuestMessagesRequestE guestMessagesRequest96,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader97)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param guestMessagesRequest96
+            
+                * @param oGHeader97
+            
+          */
+        public void startguestMessages(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.GuestMessagesRequestE guestMessagesRequest96,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader97,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param alternateRoomsRequest99
+                
+                    * @param oGHeader100
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.AlternateRoomsResponseE alternateRooms(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.AlternateRoomsRequestE alternateRoomsRequest99,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader100)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param alternateRoomsRequest99
+            
+                * @param oGHeader100
+            
+          */
+        public void startalternateRooms(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.AlternateRoomsRequestE alternateRoomsRequest99,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader100,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param insertPayRoutingRequest102
+                
+                    * @param oGHeader103
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.InsertPayRoutingResponseE insertPayRouting(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.InsertPayRoutingRequestE insertPayRoutingRequest102,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader103)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param insertPayRoutingRequest102
+            
+                * @param oGHeader103
+            
+          */
+        public void startinsertPayRouting(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.InsertPayRoutingRequestE insertPayRoutingRequest102,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader103,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param makePaymentRequest105
+                
+                    * @param oGHeader106
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.MakePaymentResponseE makePayment(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.MakePaymentRequestE makePaymentRequest105,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader106)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param makePaymentRequest105
+            
+                * @param oGHeader106
+            
+          */
+        public void startmakePayment(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.MakePaymentRequestE makePaymentRequest105,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader106,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param generateRegistrationCardRequest108
+                
+                    * @param oGHeader109
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.GenerateRegistrationCardResponseE generateRegistrationCard(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.GenerateRegistrationCardRequestE generateRegistrationCardRequest108,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader109)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param generateRegistrationCardRequest108
+            
+                * @param oGHeader109
+            
+          */
+        public void startgenerateRegistrationCard(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.GenerateRegistrationCardRequestE generateRegistrationCardRequest108,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader109,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param payRoutingRequest111
+                
+                    * @param oGHeader112
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.PayRoutingResponseE payRouting(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.PayRoutingRequestE payRoutingRequest111,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader112)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param payRoutingRequest111
+            
+                * @param oGHeader112
+            
+          */
+        public void startpayRouting(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.PayRoutingRequestE payRoutingRequest111,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader112,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param kioskAvaliablityRequest114
+                
+                    * @param oGHeader115
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.KioskAvaliablityResponseE kioskAvaliablity(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.KioskAvaliablityRequestE kioskAvaliablityRequest114,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader115)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param kioskAvaliablityRequest114
+            
+                * @param oGHeader115
+            
+          */
+        public void startkioskAvaliablity(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.KioskAvaliablityRequestE kioskAvaliablityRequest114,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader115,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param printPreCheckOutBillRequest117
+                
+                    * @param oGHeader118
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.PrintPreCheckOutBillResponseE printPreCheckOutBill(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.PrintPreCheckOutBillRequestE printPreCheckOutBillRequest117,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader118)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param printPreCheckOutBillRequest117
+            
+                * @param oGHeader118
+            
+          */
+        public void startprintPreCheckOutBill(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.PrintPreCheckOutBillRequestE printPreCheckOutBillRequest117,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader118,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param setKeyDataRequest120
+                
+                    * @param oGHeader121
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.SetKeyDataResponseE setKeyData(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.SetKeyDataRequestE setKeyDataRequest120,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader121)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param setKeyDataRequest120
+            
+                * @param oGHeader121
+            
+          */
+        public void startsetKeyData(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.SetKeyDataRequestE setKeyDataRequest120,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader121,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param additionalKeysRequest123
+                
+                    * @param oGHeader124
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.AdditionalKeysResponseE additionalKeys(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.AdditionalKeysRequestE additionalKeysRequest123,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader124)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param additionalKeysRequest123
+            
+                * @param oGHeader124
+            
+          */
+        public void startadditionalKeys(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.AdditionalKeysRequestE additionalKeysRequest123,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader124,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param checkInRequest126
+                
+                    * @param oGHeader127
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponseE checkIn(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.CheckInRequestE checkInRequest126,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader127)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param checkInRequest126
+            
+                * @param oGHeader127
+            
+          */
+        public void startcheckIn(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.CheckInRequestE checkInRequest126,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader127,
+                
+
+            final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)
+
+            throws java.rmi.RemoteException;
+
+     
+
+        /**
+          * Auto generated method signature
+          * 
+                    * @param fetchRoomStatusRequest129
+                
+                    * @param oGHeader130
+                
+         */
+
+         
+                     public com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusResponseE fetchRoomStatus(
+
+                        com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequestE fetchRoomStatusRequest129,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader130)
+                        throws java.rmi.RemoteException
+             ;
+
+        
+         /**
+            * Auto generated method signature for Asynchronous Invocations
+            * 
+                * @param fetchRoomStatusRequest129
+            
+                * @param oGHeader130
+            
+          */
+        public void startfetchRoomStatus(
+
+            com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequestE fetchRoomStatusRequest129,com.cloudkey.pms.micros.og.core.OGHeaderE oGHeader130,
                 
 
             final com.cloudkey.pms.micros.services.ResvAdvancedServiceCallbackHandler callback)

@@ -17,12 +17,11 @@
         
         public  class GdsAreaAvailabilityRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "GdsAreaAvailabilityRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = GdsAreaAvailabilityRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -30,14 +29,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList localHotelReferences ;
+                                    protected org.apache.axiom.om.OMElement localHotelReferences ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferencesTracker = false ;
+
+                           public boolean isHotelReferencesSpecified(){
+                               return localHotelReferencesTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList
+                           * @return org.apache.axiom.om.OMElement
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList getHotelReferences(){
+                           public  org.apache.axiom.om.OMElement getHotelReferences(){
                                return localHotelReferences;
                            }
 
@@ -47,8 +57,9 @@
                                * Auto generated setter method
                                * @param param HotelReferences
                                */
-                               public void setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList param){
-                            
+                               public void setHotelReferences(org.apache.axiom.om.OMElement param){
+                            localHotelReferencesTracker = param != null;
+                                   
                                             this.localHotelReferences=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localStayDateRange ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localStayDateRangeTracker = false ;
+
+                           public boolean isStayDateRangeSpecified(){
+                               return localStayDateRangeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param StayDateRange
                                */
                                public void setStayDateRange(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localStayDateRangeTracker = param != null;
+                                   
                                             this.localStayDateRange=param;
                                     
 
@@ -291,7 +314,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.availability.RateCodeInformationList localRateCodes ;
+                                    protected com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation localRateCodes ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -307,9 +330,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.availability.RateCodeInformationList
+                           * @return com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation
                            */
-                           public  com.cloudkey.pms.micros.og.availability.RateCodeInformationList getRateCodes(){
+                           public  com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation getRateCodes(){
                                return localRateCodes;
                            }
 
@@ -319,7 +342,7 @@
                                * Auto generated setter method
                                * @param param RateCodes
                                */
-                               public void setRateCodes(com.cloudkey.pms.micros.og.availability.RateCodeInformationList param){
+                               public void setRateCodes(com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation param){
                             localRateCodesTracker = param != null;
                                    
                                             this.localRateCodes=param;
@@ -343,8 +366,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -386,19 +409,30 @@
 
                
                    }
-               
-                                            if (localHotelReferences==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
-                                            }
-                                           localHotelReferences.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReferences"),
-                                               xmlWriter);
-                                        
+                if (localHotelReferencesTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
+                                    writeStartElement(null, namespace, "HotelReferences", xmlWriter);
+                             
+
+                                          if (localHotelReferences==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
+                                                  
+                                          }else{
+
+                                        localHotelReferences.serialize(xmlWriter);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localStayDateRangeTracker){
                                             if (localStayDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                             }
                                            localStayDateRange.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","StayDateRange"),
                                                xmlWriter);
-                                         if (localNumberOfRoomsTracker){
+                                        } if (localNumberOfRoomsTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
                                     writeStartElement(null, namespace, "NumberOfRooms", xmlWriter);
                              
@@ -480,7 +514,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -657,16 +691,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
+                 if (localHotelReferencesTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "HotelReferences"));
-                            
-                            
-                                    if (localHotelReferences==null){
-                                         throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
-                                    }
-                                    elementList.add(localHotelReferences);
-                                
+                                 
+                                        if (localHotelReferences != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localHotelReferences));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("HotelReferences cannot be null!!");
+                                        }
+                                    } if (localStayDateRangeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "StayDateRange"));
                             
@@ -675,7 +709,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                     }
                                     elementList.add(localStayDateRange);
-                                 if (localNumberOfRoomsTracker){
+                                } if (localNumberOfRoomsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "NumberOfRooms"));
                                  
@@ -802,19 +836,30 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReferences").equals(reader.getName())){
+                                   if (reader.isStartElement()){
                                 
-                                                object.setHotelReferences(com.cloudkey.pms.micros.og.hotelcommon.HotelReferenceList.Factory.parse(reader));
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"HotelReferences" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                                org.apache.axiom.om.OMFactory fac = org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+                                                org.apache.axiom.om.OMNamespace omNs = fac.createOMNamespace("http://webservices.micros.com/ows/5.1/Availability.wsdl", "");
+                                                org.apache.axiom.om.OMElement _valueHotelReferences = fac.createOMElement("HotelReferences", omNs);
+                                                _valueHotelReferences.addChild(fac.createOMText(_valueHotelReferences, content));
+                                                object.setHotelReferences(_valueHotelReferences);
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -826,11 +871,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -950,7 +994,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","RateCodes").equals(reader.getName())){
                                 
-                                                object.setRateCodes(com.cloudkey.pms.micros.og.availability.RateCodeInformationList.Factory.parse(reader));
+                                                object.setRateCodes(com.cloudkey.pms.micros.og.availability.ArrayOfRateCodeInformation.Factory.parse(reader));
                                               
                                         reader.next();
                                     

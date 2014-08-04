@@ -20,104 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = Phone
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localPhoneNumberTracker = false;
-                
-                   localPhoneDataTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for PhoneNumber
+                        * field for PhoneChoice_type0
                         */
 
                         
-                                    protected java.lang.String localPhoneNumber ;
+                                    protected com.cloudkey.pms.micros.og.common.PhoneChoice_type0 localPhoneChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPhoneNumberTracker = false ;
-
-                           public boolean isPhoneNumberSpecified(){
-                               return localPhoneNumberTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return com.cloudkey.pms.micros.og.common.PhoneChoice_type0
                            */
-                           public  java.lang.String getPhoneNumber(){
-                               return localPhoneNumber;
+                           public  com.cloudkey.pms.micros.og.common.PhoneChoice_type0 getPhoneChoice_type0(){
+                               return localPhoneChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param PhoneNumber
+                               * @param param PhoneChoice_type0
                                */
-                               public void setPhoneNumber(java.lang.String param){
+                               public void setPhoneChoice_type0(com.cloudkey.pms.micros.og.common.PhoneChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localPhoneNumberTracker = param != null;
-                                   
-                                            this.localPhoneNumber=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for PhoneData
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.common.PhoneData_type0 localPhoneData ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPhoneDataTracker = false ;
-
-                           public boolean isPhoneDataSpecified(){
-                               return localPhoneDataTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.PhoneData_type0
-                           */
-                           public  com.cloudkey.pms.micros.og.common.PhoneData_type0 getPhoneData(){
-                               return localPhoneData;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param PhoneData
-                               */
-                               public void setPhoneData(com.cloudkey.pms.micros.og.common.PhoneData_type0 param){
-                            
-                                clearAllSettingTrackers();
-                            localPhoneDataTracker = param != null;
-                                   
-                                            this.localPhoneData=param;
+                                            this.localPhoneChoice_type0=param;
                                     
 
                                }
@@ -131,17 +62,6 @@
                         
                                     protected java.lang.String localPhoneType ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPhoneTypeTracker = false ;
-
-                           public boolean isPhoneTypeSpecified(){
-                               return localPhoneTypeTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -159,9 +79,6 @@
                                */
                                public void setPhoneType(java.lang.String param){
                             
-                                clearAllSettingTrackers();
-                            localPhoneTypeTracker = param != null;
-                                   
                                             this.localPhoneType=param;
                                     
 
@@ -176,17 +93,6 @@
                         
                                     protected java.lang.String localPhoneRole ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPhoneRoleTracker = false ;
-
-                           public boolean isPhoneRoleSpecified(){
-                               return localPhoneRoleTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -204,9 +110,6 @@
                                */
                                public void setPhoneRole(java.lang.String param){
                             
-                                clearAllSettingTrackers();
-                            localPhoneRoleTracker = param != null;
-                                   
                                             this.localPhoneRole=param;
                                     
 
@@ -221,17 +124,6 @@
                         
                                     protected boolean localPrimaryPhone ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localPrimaryPhoneTracker = false ;
-
-                           public boolean isPrimaryPhoneSpecified(){
-                               return localPrimaryPhoneTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -249,12 +141,6 @@
                                */
                                public void setPrimaryPhone(boolean param){
                             
-                                clearAllSettingTrackers();
-                            
-                                       // setting primitive attribute tracker to true
-                                       localPrimaryPhoneTracker =
-                                       true;
-                                   
                                             this.localPrimaryPhone=param;
                                     
 
@@ -346,31 +232,12 @@
 
                                             
                                       }
-                                     if (localPhoneNumberTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "PhoneNumber", xmlWriter);
-                             
-
-                                          if (localPhoneNumber==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("PhoneNumber cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localPhoneNumber);
-                                            
-                                          }
                                     
-                                   xmlWriter.writeEndElement();
-                             } if (localPhoneDataTracker){
-                                            if (localPhoneData==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("PhoneData cannot be null!!");
+                                            if (localPhoneChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("PhoneChoice_type0 cannot be null!!");
                                             }
-                                           localPhoneData.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PhoneData"),
-                                               xmlWriter);
-                                        }
+                                           localPhoneChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -378,7 +245,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -555,25 +422,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localPhoneNumberTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "PhoneNumber"));
-                                 
-                                        if (localPhoneNumber != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPhoneNumber));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("PhoneNumber cannot be null!!");
-                                        }
-                                    } if (localPhoneDataTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "PhoneData"));
+                                                                      "PhoneChoice_type0"));
                             
                             
-                                    if (localPhoneData==null){
-                                         throw new org.apache.axis2.databinding.ADBException("PhoneData cannot be null!!");
+                                    if (localPhoneChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("PhoneChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localPhoneData);
-                                }
+                                    elementList.add(localPhoneChoice_type0);
+                                
                             attribList.add(
                             new javax.xml.namespace.QName("","phoneType"));
                             
@@ -642,7 +500,7 @@
                             if (!"Phone".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (Phone)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (Phone)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -711,42 +569,23 @@
                     
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PhoneNumber").equals(reader.getName())){
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PhoneNumber" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setPhoneNumber(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setPhoneChoice_type0(com.cloudkey.pms.micros.og.common.PhoneChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","PhoneData").equals(reader.getName())){
-                                
-                                                object.setPhoneData(com.cloudkey.pms.micros.og.common.PhoneData_type0.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

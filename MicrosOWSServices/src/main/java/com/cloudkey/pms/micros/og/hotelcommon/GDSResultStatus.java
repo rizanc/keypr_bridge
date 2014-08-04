@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = GDSResultStatus
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -171,7 +171,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -489,7 +489,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text").equals(reader.getName())){
                                 
-                                                object.setText(com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader));
+                                                object.setText(com.cloudkey.pms.micros.og.common.ArrayOfText.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -504,7 +504,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","IDs").equals(reader.getName())){
                                 
-                                                object.setIDs(com.cloudkey.pms.micros.og.common.IDPairList.Factory.parse(reader));
+                                                object.setIDs(com.cloudkey.pms.micros.og.common.ArrayOfIDPair.Factory.parse(reader));
                                               
                                         reader.next();
                                     

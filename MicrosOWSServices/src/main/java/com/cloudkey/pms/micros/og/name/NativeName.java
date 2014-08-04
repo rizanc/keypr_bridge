@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = NativeName
                 Namespace URI = http://webservices.micros.com/og/4.3/Name/
-                Namespace Prefix = ns3
+                Namespace Prefix = ns4
                 */
             
 
@@ -145,10 +145,6 @@
 
                                             
                                       }
-                                    
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localLanguageCode is null");
-                                      }
                                      if (localNameTitleTracker){
                              if (localNameTitle!=null) {
                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
@@ -221,7 +217,7 @@
                                     
                              }
 
-                        }
+                        } if (localLastNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/Common/";
                                     writeStartElement(null, namespace, "lastName", xmlWriter);
                              
@@ -239,7 +235,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localNameSuffixTracker){
+                             } if (localNameSuffixTracker){
                              if (localNameSuffix!=null) {
                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
                                    for (int i = 0;i < localNameSuffix.length;i++){
@@ -328,7 +324,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Name/")){
-                return "ns3";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -563,7 +559,7 @@
                                 
                             }
 
-                        }
+                        } if (localLastNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
                                                                       "lastName"));
                                  
@@ -572,7 +568,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("lastName cannot be null!!");
                                         }
-                                     if (localNameSuffixTracker){
+                                    } if (localNameSuffixTracker){
                             if (localNameSuffix!=null){
                                   for (int i = 0;i < localNameSuffix.length;i++){
                                       
@@ -696,7 +692,7 @@
                             if (!"NativeName".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (NativeName)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (NativeName)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -776,8 +772,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute languageCode is missing");
-                           
                     }
                     handledAttributes.add("languageCode");
                     

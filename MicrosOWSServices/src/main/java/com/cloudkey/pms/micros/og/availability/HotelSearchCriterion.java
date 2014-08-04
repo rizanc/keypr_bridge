@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = HotelSearchCriterion
                 Namespace URI = http://webservices.micros.com/og/4.3/Availability/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns4
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelRef ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelRefTracker = false ;
+
+                           public boolean isHotelRefSpecified(){
+                               return localHotelRefTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param HotelRef
                                */
                                public void setHotelRef(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelRefTracker = param != null;
+                                   
                                             this.localHotelRef=param;
                                     
 
@@ -112,13 +124,13 @@
 
                
                    }
-               
+                if (localHotelRefTracker){
                                             if (localHotelRef==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelRef cannot be null!!");
                                             }
                                            localHotelRef.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/","HotelRef"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -126,7 +138,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Availability/")){
-                return "ns6";
+                return "ns4";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -303,7 +315,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelRefTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Availability/",
                                                                       "HotelRef"));
                             
@@ -312,7 +324,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelRef cannot be null!!");
                                     }
                                     elementList.add(localHotelRef);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -399,11 +411,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

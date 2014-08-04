@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = FetchBookingFilters
                 Namespace URI = http://webservices.micros.com/og/4.3/Reservation/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns5
                 */
             
 
@@ -591,37 +591,6 @@
                             
 
                         /**
-                        * field for RoomClass
-                        * This was an Attribute!
-                        */
-
-                        
-                                    protected java.lang.String localRoomClass ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getRoomClass(){
-                               return localRoomClass;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param RoomClass
-                               */
-                               public void setRoomClass(java.lang.String param){
-                            
-                                            this.localRoomClass=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for ReservationStatus
                         * This was an Attribute!
                         */
@@ -678,6 +647,37 @@
                                public void setReservationDisposition(com.cloudkey.pms.micros.og.reservation.ReservationDispositionType param){
                             
                                             this.localReservationDisposition=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for RoomClass
+                        * This was an Attribute!
+                        */
+
+                        
+                                    protected java.lang.String localRoomClass ;
+                                
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getRoomClass(){
+                               return localRoomClass;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param RoomClass
+                               */
+                               public void setRoomClass(java.lang.String param){
+                            
+                                            this.localRoomClass=param;
                                     
 
                                }
@@ -791,15 +791,6 @@
                                             
                                       }
                                     
-                                            if (localRoomClass != null){
-                                        
-                                                writeAttribute("",
-                                                         "RoomClass",
-                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass), xmlWriter);
-
-                                            
-                                      }
-                                    
                                     
                                     if (localReservationStatus != null){
                                         writeAttribute("",
@@ -813,6 +804,15 @@
                                            "ReservationDisposition",
                                            localReservationDisposition.toString(), xmlWriter);
                                     }
+                                    
+                                            if (localRoomClass != null){
+                                        
+                                                writeAttribute("",
+                                                         "RoomClass",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass), xmlWriter);
+
+                                            
+                                      }
                                     
                                                    if (true) {
                                                
@@ -926,7 +926,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Reservation/")){
-                return "ns6";
+                return "ns5";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1223,11 +1223,6 @@
                                       attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomNumber));
                                 
                             attribList.add(
-                            new javax.xml.namespace.QName("","RoomClass"));
-                            
-                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
-                                
-                            attribList.add(
                             new javax.xml.namespace.QName("","ReservationStatus"));
                             
                                       attribList.add(localReservationStatus.toString());
@@ -1236,6 +1231,11 @@
                             new javax.xml.namespace.QName("","ReservationDisposition"));
                             
                                       attribList.add(localReservationDisposition.toString());
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","RoomClass"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRoomClass));
                                 
                             attribList.add(
                             new javax.xml.namespace.QName("","IncludePseudoRoom"));
@@ -1346,22 +1346,6 @@
                     }
                     handledAttributes.add("RoomNumber");
                     
-                    // handle attribute "RoomClass"
-                    java.lang.String tempAttribRoomClass =
-                        
-                                reader.getAttributeValue(null,"RoomClass");
-                            
-                   if (tempAttribRoomClass!=null){
-                         java.lang.String content = tempAttribRoomClass;
-                        
-                                                 object.setRoomClass(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomClass));
-                                            
-                    } else {
-                       
-                    }
-                    handledAttributes.add("RoomClass");
-                    
                     // handle attribute "ReservationStatus"
                     java.lang.String tempAttribReservationStatus =
                         
@@ -1393,6 +1377,22 @@
                        
                     }
                     handledAttributes.add("ReservationDisposition");
+                    
+                    // handle attribute "RoomClass"
+                    java.lang.String tempAttribRoomClass =
+                        
+                                reader.getAttributeValue(null,"RoomClass");
+                            
+                   if (tempAttribRoomClass!=null){
+                         java.lang.String content = tempAttribRoomClass;
+                        
+                                                 object.setRoomClass(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(tempAttribRoomClass));
+                                            
+                    } else {
+                       
+                    }
+                    handledAttributes.add("RoomClass");
                     
                     // handle attribute "IncludePseudoRoom"
                     java.lang.String tempAttribIncludePseudoRoom =

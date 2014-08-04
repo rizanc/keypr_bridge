@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ChainInfo
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.AddressList localAddresses ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress1 localAddresses ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.AddressList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress1
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.AddressList getAddresses(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress1 getAddresses(){
                                return localAddresses;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param Addresses
                                */
-                               public void setAddresses(com.cloudkey.pms.micros.og.hotelcommon.AddressList param){
+                               public void setAddresses(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress1 param){
                             localAddressesTracker = param != null;
                                    
                                             this.localAddresses=param;
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.ContactEmailList localContactEmails ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail1 localContactEmails ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.ContactEmailList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail1
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.ContactEmailList getContactEmails(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail1 getContactEmails(){
                                return localContactEmails;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param ContactEmails
                                */
-                               public void setContactEmails(com.cloudkey.pms.micros.og.hotelcommon.ContactEmailList param){
+                               public void setContactEmails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail1 param){
                             localContactEmailsTracker = param != null;
                                    
                                             this.localContactEmails=param;
@@ -113,7 +113,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.PhoneList localContactPhones ;
+                                    protected com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone1 localContactPhones ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,9 +129,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.PhoneList
+                           * @return com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone1
                            */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.PhoneList getContactPhones(){
+                           public  com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone1 getContactPhones(){
                                return localContactPhones;
                            }
 
@@ -141,7 +141,7 @@
                                * Auto generated setter method
                                * @param param ContactPhones
                                */
-                               public void setContactPhones(com.cloudkey.pms.micros.og.hotelcommon.PhoneList param){
+                               public void setContactPhones(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone1 param){
                             localContactPhonesTracker = param != null;
                                    
                                             this.localContactPhones=param;
@@ -157,6 +157,17 @@
                         
                                     protected java.lang.String localMarketingText ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localMarketingTextTracker = false ;
+
+                           public boolean isMarketingTextSpecified(){
+                               return localMarketingTextTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -173,7 +184,8 @@
                                * @param param MarketingText
                                */
                                public void setMarketingText(java.lang.String param){
-                            
+                            localMarketingTextTracker = param != null;
+                                   
                                             this.localMarketingText=param;
                                     
 
@@ -187,6 +199,17 @@
                         
                                     protected java.lang.String localLoyaltyProgram ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLoyaltyProgramTracker = false ;
+
+                           public boolean isLoyaltyProgramSpecified(){
+                               return localLoyaltyProgramTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -203,7 +226,8 @@
                                * @param param LoyaltyProgram
                                */
                                public void setLoyaltyProgram(java.lang.String param){
-                            
+                            localLoyaltyProgramTracker = param != null;
+                                   
                                             this.localLoyaltyProgram=param;
                                     
 
@@ -217,6 +241,17 @@
                         
                                     protected java.lang.String localBookingConditions ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localBookingConditionsTracker = false ;
+
+                           public boolean isBookingConditionsSpecified(){
+                               return localBookingConditionsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -233,7 +268,8 @@
                                * @param param BookingConditions
                                */
                                public void setBookingConditions(java.lang.String param){
-                            
+                            localBookingConditionsTracker = param != null;
+                                   
                                             this.localBookingConditions=param;
                                     
 
@@ -247,6 +283,17 @@
                         
                                     protected java.lang.String localAcceptFrequenFlyerCard ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localAcceptFrequenFlyerCardTracker = false ;
+
+                           public boolean isAcceptFrequenFlyerCardSpecified(){
+                               return localAcceptFrequenFlyerCardTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -263,7 +310,8 @@
                                * @param param AcceptFrequenFlyerCard
                                */
                                public void setAcceptFrequenFlyerCard(java.lang.String param){
-                            
+                            localAcceptFrequenFlyerCardTracker = param != null;
+                                   
                                             this.localAcceptFrequenFlyerCard=param;
                                     
 
@@ -346,7 +394,7 @@
                                             }
                                            localContactPhones.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ContactPhones"),
                                                xmlWriter);
-                                        }
+                                        } if (localMarketingTextTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "MarketingText", xmlWriter);
                              
@@ -364,7 +412,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localLoyaltyProgramTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "LoyaltyProgram", xmlWriter);
                              
@@ -382,7 +430,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localBookingConditionsTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "BookingConditions", xmlWriter);
                              
@@ -400,7 +448,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localAcceptFrequenFlyerCardTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "AcceptFrequenFlyerCard", xmlWriter);
                              
@@ -418,7 +466,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             }
                     xmlWriter.writeEndElement();
                
 
@@ -426,7 +474,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -630,7 +678,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("ContactPhones cannot be null!!");
                                     }
                                     elementList.add(localContactPhones);
-                                }
+                                } if (localMarketingTextTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "MarketingText"));
                                  
@@ -639,7 +687,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("MarketingText cannot be null!!");
                                         }
-                                    
+                                    } if (localLoyaltyProgramTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "LoyaltyProgram"));
                                  
@@ -648,7 +696,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("LoyaltyProgram cannot be null!!");
                                         }
-                                    
+                                    } if (localBookingConditionsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "BookingConditions"));
                                  
@@ -657,7 +705,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("BookingConditions cannot be null!!");
                                         }
-                                    
+                                    } if (localAcceptFrequenFlyerCardTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "AcceptFrequenFlyerCard"));
                                  
@@ -666,7 +714,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("AcceptFrequenFlyerCard cannot be null!!");
                                         }
-                                    
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -747,7 +795,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","Addresses").equals(reader.getName())){
                                 
-                                                object.setAddresses(com.cloudkey.pms.micros.og.hotelcommon.AddressList.Factory.parse(reader));
+                                                object.setAddresses(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfAddress1.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -762,7 +810,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ContactEmails").equals(reader.getName())){
                                 
-                                                object.setContactEmails(com.cloudkey.pms.micros.og.hotelcommon.ContactEmailList.Factory.parse(reader));
+                                                object.setContactEmails(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfEmail1.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -777,7 +825,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ContactPhones").equals(reader.getName())){
                                 
-                                                object.setContactPhones(com.cloudkey.pms.micros.og.hotelcommon.PhoneList.Factory.parse(reader));
+                                                object.setContactPhones(com.cloudkey.pms.micros.og.hotelcommon.ArrayOfPhone1.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -807,11 +855,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -832,11 +879,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -857,11 +903,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -882,11 +927,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

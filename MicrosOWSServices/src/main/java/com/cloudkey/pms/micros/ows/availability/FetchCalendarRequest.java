@@ -17,12 +17,11 @@
         
         public  class FetchCalendarRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                "FetchCalendarRequest",
-                "ns7");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchCalendarRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Availability.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.HotelReference localHotelReference ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localHotelReferenceTracker = false ;
+
+                           public boolean isHotelReferenceSpecified(){
+                               return localHotelReferenceTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param HotelReference
                                */
                                public void setHotelReference(com.cloudkey.pms.micros.og.hotelcommon.HotelReference param){
-                            
+                            localHotelReferenceTracker = param != null;
+                                   
                                             this.localHotelReference=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.hotelcommon.TimeSpan localStayDateRange ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localStayDateRangeTracker = false ;
+
+                           public boolean isStayDateRangeSpecified(){
+                               return localStayDateRangeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param StayDateRange
                                */
                                public void setStayDateRange(com.cloudkey.pms.micros.og.hotelcommon.TimeSpan param){
-                            
+                            localStayDateRangeTracker = param != null;
+                                   
                                             this.localStayDateRange=param;
                                     
 
@@ -254,48 +277,6 @@
                             
 
                         /**
-                        * field for CorporateCode
-                        */
-
-                        
-                                    protected java.lang.String localCorporateCode ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCorporateCodeTracker = false ;
-
-                           public boolean isCorporateCodeSpecified(){
-                               return localCorporateCodeTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getCorporateCode(){
-                               return localCorporateCode;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CorporateCode
-                               */
-                               public void setCorporateCode(java.lang.String param){
-                            localCorporateCodeTracker = param != null;
-                                   
-                                            this.localCorporateCode=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for PromotionCode
                         */
 
@@ -332,6 +313,48 @@
                             localPromotionCodeTracker = param != null;
                                    
                                             this.localPromotionCode=param;
+                                    
+
+                               }
+                            
+
+                        /**
+                        * field for CorporateCode
+                        */
+
+                        
+                                    protected java.lang.String localCorporateCode ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCorporateCodeTracker = false ;
+
+                           public boolean isCorporateCodeSpecified(){
+                               return localCorporateCodeTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getCorporateCode(){
+                               return localCorporateCode;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param CorporateCode
+                               */
+                               public void setCorporateCode(java.lang.String param){
+                            localCorporateCodeTracker = param != null;
+                                   
+                                            this.localCorporateCode=param;
                                     
 
                                }
@@ -487,8 +510,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -530,19 +553,19 @@
 
                
                    }
-               
+                if (localHotelReferenceTracker){
                                             if (localHotelReference==null){
                                                  throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                             }
                                            localHotelReference.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","HotelReference"),
                                                xmlWriter);
-                                        
+                                        } if (localStayDateRangeTracker){
                                             if (localStayDateRange==null){
                                                  throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                             }
                                            localStayDateRange.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","StayDateRange"),
                                                xmlWriter);
-                                         if (localGuestCountTracker){
+                                        } if (localGuestCountTracker){
                                             if (localGuestCount==null){
                                                  throw new org.apache.axis2.databinding.ADBException("GuestCount cannot be null!!");
                                             }
@@ -602,24 +625,6 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localCorporateCodeTracker){
-                                    namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
-                                    writeStartElement(null, namespace, "CorporateCode", xmlWriter);
-                             
-
-                                          if (localCorporateCode==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("CorporateCode cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localCorporateCode);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
                              } if (localPromotionCodeTracker){
                                     namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
                                     writeStartElement(null, namespace, "PromotionCode", xmlWriter);
@@ -634,6 +639,24 @@
 
                                         
                                                    xmlWriter.writeCharacters(localPromotionCode);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
+                             } if (localCorporateCodeTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Availability.wsdl";
+                                    writeStartElement(null, namespace, "CorporateCode", xmlWriter);
+                             
+
+                                          if (localCorporateCode==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("CorporateCode cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localCorporateCode);
                                             
                                           }
                                     
@@ -685,7 +708,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Availability.wsdl")){
-                return "ns7";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -862,7 +885,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localHotelReferenceTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "HotelReference"));
                             
@@ -871,7 +894,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("HotelReference cannot be null!!");
                                     }
                                     elementList.add(localHotelReference);
-                                
+                                } if (localStayDateRangeTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "StayDateRange"));
                             
@@ -880,7 +903,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("StayDateRange cannot be null!!");
                                     }
                                     elementList.add(localStayDateRange);
-                                 if (localGuestCountTracker){
+                                } if (localGuestCountTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "GuestCount"));
                             
@@ -916,15 +939,6 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("BlockCode cannot be null!!");
                                         }
-                                    } if (localCorporateCodeTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
-                                                                      "CorporateCode"));
-                                 
-                                        if (localCorporateCode != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCorporateCode));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("CorporateCode cannot be null!!");
-                                        }
                                     } if (localPromotionCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
                                                                       "PromotionCode"));
@@ -933,6 +947,15 @@
                                             elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPromotionCode));
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("PromotionCode cannot be null!!");
+                                        }
+                                    } if (localCorporateCodeTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
+                                                                      "CorporateCode"));
+                                 
+                                        if (localCorporateCode != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCorporateCode));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("CorporateCode cannot be null!!");
                                         }
                                     } if (localNumberOfNightsTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl",
@@ -1039,11 +1062,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1055,11 +1077,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1150,17 +1171,17 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","CorporateCode").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","PromotionCode").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CorporateCode" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PromotionCode" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setCorporateCode(
+                                              object.setPromotionCode(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
@@ -1174,17 +1195,17 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","PromotionCode").equals(reader.getName())){
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Availability.wsdl","CorporateCode").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
                                     if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"PromotionCode" +"  cannot be null");
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CorporateCode" +"  cannot be null");
                                     }
                                     
 
                                     java.lang.String content = reader.getElementText();
                                     
-                                              object.setPromotionCode(
+                                              object.setCorporateCode(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();

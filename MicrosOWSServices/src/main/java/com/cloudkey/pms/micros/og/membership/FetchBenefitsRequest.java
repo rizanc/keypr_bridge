@@ -17,12 +17,11 @@
         
         public  class FetchBenefitsRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/og/4.3/Membership/",
-                "FetchBenefitsRequest",
-                "ns5");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchBenefitsRequest
+                Namespace URI = http://webservices.micros.com/og/4.3/Membership/
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -102,8 +101,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -175,7 +174,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -416,7 +415,7 @@
                             if (!"FetchBenefitsRequest".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (FetchBenefitsRequest)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (FetchBenefitsRequest)com.cloudkey.pms.micros.ows.membership.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         

@@ -5,10 +5,8 @@ import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.micros.og.common.*;
 import com.cloudkey.pms.micros.og.core.*;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
-import com.cloudkey.pms.micros.ows.information.HotelInformationRequest;
-import com.cloudkey.pms.micros.ows.information.HotelInformationResponse;
-import com.cloudkey.pms.micros.ows.information.HotelInformation_type0;
-import com.cloudkey.pms.micros.services.InformationServiceStub;
+import com.cloudkey.pms.micros.ows.information.*;
+import com.cloudkey.pms.micros.services.InformationStub;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.logger.MicrosPMSLogger;
 import com.micros.pms.parser.MicrosOWSParser;
@@ -24,30 +22,28 @@ import java.util.UUID;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSInformationProcessor {
+public class OWSInformationProcessor extends AbstractOWSProcessor {
 
     final static String URL_INFORMATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Information.asmx";
 
     public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " processHotelInformation ", " Enter processHotelInformation method. ");
 
-        InformationServiceStub informationStub = getInformationServiceStub();
+        InformationStub informationStub = getInformationStub();
 
 	    HotelInformationRequest req = getHotelInformationRequestObject(hotelInformationRequest);
+	    HotelInformationRequestE requestE = new HotelInformationRequestE();
+	    requestE.setHotelInformationRequest(req);
 
         OGHeaderE ogh = getHeaderE();
 
         MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
                 AdapterUtility.convertToStreamXML(req));
-        HotelInformationResponse resp = informationStub.queryHotelInformation(req, ogh);
+        HotelInformationResponseE responseE = informationStub.queryHotelInformation(requestE, ogh);
         MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                AdapterUtility.convertToStreamXML(resp));
+                AdapterUtility.convertToStreamXML(responseE));
 
-	    com.cloudkey.pms.response.hotels.HotelInformationResponse response = getHotelInformationResponseObject(resp);
-	    MicrosPMSLogger.logInfo(OWSInformationProcessor.class, "processHotelInformation ",
-                AdapterUtility.convertToStreamXML(response));
-
-        return response;
+	    return getHotelInformationResponseObject(responseE.getHotelInformationResponse());
     }
 
     //TODO: Chain required.
@@ -93,11 +89,11 @@ public class OWSInformationProcessor {
 
         MicrosPMSLogger.logInfo(MicrosOWSParser.class, " getHotelInformationResponseObject ", " ResultStatus Set to the response ");
 
-	    HotelInformation_type0 hotelInformation = objHotelInformationResponse.getHotelInformation();
+	    HotelInformationResponseHotelInformation hotelInformation = objHotelInformationResponse.getHotelInformation();
 	    HotelContact objContact = hotelInformation.getHotelContactInformation();
 
         //populate  contactEmail details
-        ContactEmailList objEmailList = objContact.getContactEmails();
+        ArrayOfEmail objEmailList = objContact.getContactEmails();
         Email[] emailObj = objEmailList.getContactEmail();
 
         int emailLength = emailObj.length;
@@ -354,7 +350,7 @@ public class OWSInformationProcessor {
             return response;
         }
 
-	    HotelInformation_type0 hotelInformation = hotelInformationResponse.getHotelInformation();
+	    HotelInformationResponseHotelInformation hotelInformation = hotelInformationResponse.getHotelInformation();
 	    HotelReference hotelInformation1 = hotelInformation.getHotelInformation();
         HotelContact hotelContactInformation = hotelInformation.getHotelContactInformation();
         ExtendedHotelInfo hotelExtendedInformation = hotelInformation.getHotelExtendedInformation();
@@ -362,15 +358,15 @@ public class OWSInformationProcessor {
         if (hotelExtendedInformation != null &&
                 hotelExtendedInformation.getFacilityInfo() != null &&
                 hotelExtendedInformation.getFacilityInfo().getGuestRooms() != null) {
-	        GuestRooms_type0 guestRooms = hotelExtendedInformation.getFacilityInfo().getGuestRooms();
+	        FacilityInfoTypeGuestRooms guestRooms = hotelExtendedInformation.getFacilityInfo().getGuestRooms();
 
 	        ArrayList<RoomType> rooms = new ArrayList<>();
             response.setRoomTypeList(rooms);
 
-	        GuestRoom_type0[] roomList = guestRooms.getGuestRoom();
+	        FacilityInfoTypeGuestRoomsGuestRoom[] roomList = guestRooms.getGuestRoom();
 	        if (roomList != null && roomList.length > 0) {
 
-                for (GuestRoom_type0 room_item : roomList) {
+                for (FacilityInfoTypeGuestRoomsGuestRoom room_item : roomList) {
                     RoomType roomType = new RoomType();
                     rooms.add(roomType);
 
@@ -398,11 +394,11 @@ public class OWSInformationProcessor {
 
                     DescriptiveText descriptiveText = room_item.getRoomDescription();
                     if (descriptiveText != null &&
-                            descriptiveText.getText() != null) {
+                            descriptiveText.getDescriptiveTextChoice_type0() != null) {
 
-	                    TextList text = descriptiveText.getText();
-	                    if (text.getTextElement() != null && text.getTextElement().length > 0) {
-                            roomType.setDescription(text.getTextElement()[0].toString());
+	                    DescriptiveTextChoice_type0 text = descriptiveText.getDescriptiveTextChoice_type0();
+	                    if (text.getText() != null && text.getText().getTextElement() != null && text.getText().getTextElement().length > 0) {
+                            roomType.setDescription(text.getText().getTextElement()[0].toString());
                         }
                     }
                 }
@@ -413,21 +409,21 @@ public class OWSInformationProcessor {
                 hotelExtendedInformation.getFacilityInfo() != null &&
                 hotelExtendedInformation.getFacilityInfo().getRestaurants() != null) {
 
-            RestaurantsType restaurants = hotelExtendedInformation.getFacilityInfo().getRestaurants();
+            ArrayOfRestaurantsTypeRestaurant restaurants = hotelExtendedInformation.getFacilityInfo().getRestaurants();
 
             List<Restaurants> restaurant_list = new ArrayList<Restaurants>();
             response.setRestaurantsList(restaurant_list);
 
-            for (Restaurant_type0 restaurant : restaurants.getRestaurant()) {
+            for (RestaurantsTypeRestaurant restaurant : restaurants.getRestaurant()) {
 
                 Restaurants restaurant_item = new Restaurants();
                 restaurant_list.add(restaurant_item);
                 restaurant_item.setName(restaurant.getRestaurantName());
 
-	            Cuisines_type0 cuisines = restaurant.getCuisines();
+	            ArrayOfRestaurantsTypeRestaurantCuisine cuisines = restaurant.getCuisines();
 	            if (cuisines != null) {
                     String cuisine_all = "";
-                    for (Cuisine_type0 cuisine : cuisines.getCuisine()) {
+                    for (RestaurantsTypeRestaurantCuisine cuisine : cuisines.getCuisine()) {
                         if (!cuisine_all.equals("")) {
                             cuisine_all += "|";
                         }
@@ -440,9 +436,9 @@ public class OWSInformationProcessor {
                 if (description != null && description.length > 0) {
                     Paragraph paragraph = description[0];
                     if (paragraph != null) {
-	                    ParagraphChoice[] pchoice = paragraph.getParagraphChoice();
+	                    ParagraphChoice_type0[] pchoice = paragraph.getParagraphChoice_type0();
 	                    if (pchoice != null && pchoice.length > 0) {
-		                    ParagraphChoice p1 = pchoice[0];
+		                    ParagraphChoice_type0 p1 = pchoice[0];
 		                    restaurant_item.setDescription(p1.getText().toString());
                         }
                     }
@@ -451,18 +447,18 @@ public class OWSInformationProcessor {
         }
 
         response.setHotelName(hotelInformation1.getString());
-        PhoneList phones = hotelContactInformation.getContactPhones();
+        ArrayOfPhone phones = hotelContactInformation.getContactPhones();
         if (phones != null && phones.getPhone() != null) {
             for (Phone phone : phones.getPhone()) {
-                if (phone.getPhoneData() != null &&
-                        phone.getPhoneData().getPhoneNumber() != null) {
-                    response.setContactPhones(phone.getPhoneData().getPhoneNumber());
+                if (phone.getPhoneChoice_type0() != null &&
+                        phone.getPhoneChoice_type0().getPhoneNumber() != null) {
+                    response.setContactPhones(phone.getPhoneChoice_type0().getPhoneNumber());
                     break;
                 }
             }
         }
 
-	    ContactEmailList emails = hotelContactInformation.getContactEmails();
+	    ArrayOfEmail emails = hotelContactInformation.getContactEmails();
 	    if (emails != null && emails.getContactEmail() != null) {
             for (Email email : emails.getContactEmail()) {
                 response.setContactEmails(email.getString());
@@ -470,7 +466,7 @@ public class OWSInformationProcessor {
             }
         }
 
-        AddressList addresses = hotelContactInformation.getAddresses();
+        ArrayOfAddress addresses = hotelContactInformation.getAddresses();
         if (addresses != null && addresses.getAddress() != null && addresses.getAddress().length > 0) {
             String addressLine = "";
             Address address = addresses.getAddress()[0];
@@ -492,7 +488,7 @@ public class OWSInformationProcessor {
 
                 //TODO: Add State/Prov
                 if (address.getStateProv() != null) {
-                    //response.setState
+                    response.setState(address.getStateProv());
                 }
 
                 if (address.getPostalCode() != null) {
@@ -508,105 +504,20 @@ public class OWSInformationProcessor {
         return response;
     }
 
-    private InformationServiceStub getInformationServiceStub() {
+    private InformationStub getInformationStub() {
 
         if (URL_INFORMATION == null) throw new NullPointerException("Information URL is null");
 
-        InformationServiceStub rstub = null;
+        InformationStub rstub = null;
         try {
-            rstub = new InformationServiceStub(URL_INFORMATION);
+            rstub = new InformationStub(URL_INFORMATION);
 
         } catch (AxisFault axisFault) {
             axisFault.printStackTrace();
-            MicrosPMSLogger.logError(OWSReservationProcessor.class, "getInformationServiceStub ",
+            MicrosPMSLogger.logError(OWSReservationProcessor.class, "getInformationStub ",
                     axisFault.getMessage());
         }
         return rstub;
-    }
-
-    private HotelReference getDefaultHotelReference() {
-        HotelReference objHotelReference = new HotelReference();
-        String hotelCode = ParserConfigurationReader.getProperty(IMicrosConstants.HOTEL_CODE);
-        String chainCode = ParserConfigurationReader.getProperty(IMicrosConstants.CHAIN_CODE);
-        objHotelReference.setHotelCode(hotelCode);
-        objHotelReference.setString("");
-        objHotelReference.setChainCode(chainCode);
-        return objHotelReference;
-    }
-
-    private OGHeaderE getHeaderE() {
-
-        String transactionId = UUID.randomUUID().toString(); //TransIdGenerator.getTransactionId();
-        // Sets Transaction Identifier
-        OGHeader ogHeader = new OGHeader();
-
-        ogHeader.setTransactionID(transactionId);
-
-        // creates origin end point of header.
-        EndPoint origin = new EndPoint();
-
-        String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
-        origin.setEntityID(entityId);
-
-        String systemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_SYSTEM_TYPE);
-        origin.setSystemType(systemType);
-
-        // creates destination end point of header.
-        EndPoint destination = new EndPoint();
-        String destEntityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_DESTINATION_ID);
-
-        destination.setEntityID(destEntityId);
-        String destSystemType = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORI_DEST_TYPE);
-        destination.setSystemType(destSystemType);
-
-        // sets time stamp
-        ogHeader.setTimeStamp(AdapterUtility.getCalender());
-
-        // prepares OGHeader
-        ogHeader.setOrigin(origin);
-        ogHeader.setDestination(destination);
-
-        String username = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_NAME);
-        String password = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_USER_PASS);
-
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
-
-            Authentication_type0 auth = new Authentication_type0();
-            ogHeader.setAuthentication(auth);
-
-            UserCredentials_type0 cred = new UserCredentials_type0();
-            auth.setUserCredentials(cred);
-
-            cred.setUserName(username);
-            cred.setUserPassword(password);
-        }
-
-        OGHeaderE ogHeaderE = new OGHeaderE();
-        ogHeaderE.setOGHeader(ogHeader);
-        return ogHeaderE;
-    }
-
-    private String getErrorMessage(ResultStatus resultStatus) {
-
-        String message = "";
-        if (resultStatus instanceof GDSResultStatus) {
-            GDSResultStatus gdsResultStatus = (GDSResultStatus) resultStatus;
-            if (gdsResultStatus.isGDSErrorSpecified()) {
-                message = gdsResultStatus.getGDSError().toString();
-            } else if (gdsResultStatus.isTextSpecified()) {
-                if (gdsResultStatus.getText() != null &&
-                        gdsResultStatus.getText().getTextElement() != null &&
-                        gdsResultStatus.getText().getTextElement().length > 0
-                        )
-                    message = gdsResultStatus.getText().getTextElement()[0].toString();
-            }
-        } else if (resultStatus.getText() != null &&
-                resultStatus.getText().getTextElement() != null &&
-                resultStatus.getText().getTextElement().length > 0) {
-            message = resultStatus.getText().getTextElement()[0].toString();
-        }
-
-        return message;
     }
 
 }

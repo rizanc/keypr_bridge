@@ -17,12 +17,11 @@
         
         public  class FetchCommentListResponse
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "FetchCommentListResponse",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = FetchCommentListResponse
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.ResultStatus localResult ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localResultTracker = false ;
+
+                           public boolean isResultSpecified(){
+                               return localResultTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param Result
                                */
                                public void setResult(com.cloudkey.pms.micros.og.common.ResultStatus param){
-                            
+                            localResultTracker = param != null;
+                                   
                                             this.localResult=param;
                                     
 
@@ -60,14 +71,25 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.name.CommentList localCommentList ;
+                                    protected com.cloudkey.pms.micros.og.name.ArrayOfComment localCommentList ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localCommentListTracker = false ;
+
+                           public boolean isCommentListSpecified(){
+                               return localCommentListTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.name.CommentList
+                           * @return com.cloudkey.pms.micros.og.name.ArrayOfComment
                            */
-                           public  com.cloudkey.pms.micros.og.name.CommentList getCommentList(){
+                           public  com.cloudkey.pms.micros.og.name.ArrayOfComment getCommentList(){
                                return localCommentList;
                            }
 
@@ -77,8 +99,9 @@
                                * Auto generated setter method
                                * @param param CommentList
                                */
-                               public void setCommentList(com.cloudkey.pms.micros.og.name.CommentList param){
-                            
+                               public void setCommentList(com.cloudkey.pms.micros.og.name.ArrayOfComment param){
+                            localCommentListTracker = param != null;
+                                   
                                             this.localCommentList=param;
                                     
 
@@ -100,8 +123,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -143,19 +166,19 @@
 
                
                    }
-               
+                if (localResultTracker){
                                             if (localResult==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                             }
                                            localResult.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Result"),
                                                xmlWriter);
-                                        
+                                        } if (localCommentListTracker){
                                             if (localCommentList==null){
                                                  throw new org.apache.axis2.databinding.ADBException("CommentList cannot be null!!");
                                             }
                                            localCommentList.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","CommentList"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -163,7 +186,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -340,7 +363,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localResultTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Result"));
                             
@@ -349,7 +372,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
                                     }
                                     elementList.add(localResult);
-                                
+                                } if (localCommentListTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "CommentList"));
                             
@@ -358,7 +381,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("CommentList cannot be null!!");
                                     }
                                     elementList.add(localCommentList);
-                                
+                                }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -445,27 +468,25 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","CommentList").equals(reader.getName())){
                                 
-                                                object.setCommentList(com.cloudkey.pms.micros.og.name.CommentList.Factory.parse(reader));
+                                                object.setCommentList(com.cloudkey.pms.micros.og.name.ArrayOfComment.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

@@ -17,12 +17,11 @@
         
         public  class UpdateNameRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Name.wsdl",
-                "UpdateNameRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = UpdateNameRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Name.wsdl
+                Namespace Prefix = ns2
+                */
             
 
                         /**
@@ -32,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.UniqueID localNameID ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localNameIDTracker = false ;
+
+                           public boolean isNameIDSpecified(){
+                               return localNameIDTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -48,7 +58,8 @@
                                * @param param NameID
                                */
                                public void setNameID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
+                            localNameIDTracker = param != null;
+                                   
                                             this.localNameID=param;
                                     
 
@@ -62,6 +73,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.common.PersonName localPersonName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPersonNameTracker = false ;
+
+                           public boolean isPersonNameSpecified(){
+                               return localPersonNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -78,7 +100,8 @@
                                * @param param PersonName
                                */
                                public void setPersonName(com.cloudkey.pms.micros.og.common.PersonName param){
-                            
+                            localPersonNameTracker = param != null;
+                                   
                                             this.localPersonName=param;
                                     
 
@@ -296,48 +319,6 @@
                             
 
                         /**
-                        * field for Language
-                        */
-
-                        
-                                    protected java.lang.String localLanguage ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localLanguageTracker = false ;
-
-                           public boolean isLanguageSpecified(){
-                               return localLanguageTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.lang.String
-                           */
-                           public  java.lang.String getLanguage(){
-                               return localLanguage;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param Language
-                               */
-                               public void setLanguage(java.lang.String param){
-                            localLanguageTracker = param != null;
-                                   
-                                            this.localLanguage=param;
-                                    
-
-                               }
-                            
-
-                        /**
                         * field for Id
                         */
 
@@ -508,6 +489,48 @@
                                }
                             
 
+                        /**
+                        * field for Language
+                        */
+
+                        
+                                    protected java.lang.String localLanguage ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localLanguageTracker = false ;
+
+                           public boolean isLanguageSpecified(){
+                               return localLanguageTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return java.lang.String
+                           */
+                           public  java.lang.String getLanguage(){
+                               return localLanguage;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param Language
+                               */
+                               public void setLanguage(java.lang.String param){
+                            localLanguageTracker = param != null;
+                                   
+                                            this.localLanguage=param;
+                                    
+
+                               }
+                            
+
      
      
         /**
@@ -523,8 +546,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -566,19 +589,19 @@
 
                
                    }
-               
+                if (localNameIDTracker){
                                             if (localNameID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                             }
                                            localNameID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","NameID"),
                                                xmlWriter);
-                                        
+                                        } if (localPersonNameTracker){
                                             if (localPersonName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                             }
                                            localPersonName.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","PersonName"),
                                                xmlWriter);
-                                         if (localNativeNameTracker){
+                                        } if (localNativeNameTracker){
                                             if (localNativeName==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NativeName cannot be null!!");
                                             }
@@ -644,24 +667,6 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             } if (localLanguageTracker){
-                                    namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
-                                    writeStartElement(null, namespace, "Language", xmlWriter);
-                             
-
-                                          if (localLanguage==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("Language cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localLanguage);
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
                              } if (localIdTracker){
                                             if (localId==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Id cannot be null!!");
@@ -693,6 +698,24 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
+                             } if (localLanguageTracker){
+                                    namespace = "http://webservices.micros.com/ows/5.1/Name.wsdl";
+                                    writeStartElement(null, namespace, "Language", xmlWriter);
+                             
+
+                                          if (localLanguage==null){
+                                              // write the nil attribute
+                                              
+                                                     throw new org.apache.axis2.databinding.ADBException("Language cannot be null!!");
+                                                  
+                                          }else{
+
+                                        
+                                                   xmlWriter.writeCharacters(localLanguage);
+                                            
+                                          }
+                                    
+                                   xmlWriter.writeEndElement();
                              }
                     xmlWriter.writeEndElement();
                
@@ -701,7 +724,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Name.wsdl")){
-                return "ns6";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -878,7 +901,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localNameIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "NameID"));
                             
@@ -887,7 +910,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
                                     }
                                     elementList.add(localNameID);
-                                
+                                } if (localPersonNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "PersonName"));
                             
@@ -896,7 +919,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("PersonName cannot be null!!");
                                     }
                                     elementList.add(localPersonName);
-                                 if (localNativeNameTracker){
+                                } if (localNativeNameTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "NativeName"));
                             
@@ -941,15 +964,6 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("vipCode cannot be null!!");
                                         }
-                                    } if (localLanguageTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
-                                                                      "Language"));
-                                 
-                                        if (localLanguage != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLanguage));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("Language cannot be null!!");
-                                        }
                                     } if (localIdTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
                                                                       "Id"));
@@ -983,7 +997,16 @@
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localActivate));
-                            }
+                            } if (localLanguageTracker){
+                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl",
+                                                                      "Language"));
+                                 
+                                        if (localLanguage != null){
+                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLanguage));
+                                        } else {
+                                           throw new org.apache.axis2.databinding.ADBException("Language cannot be null!!");
+                                        }
+                                    }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -1070,11 +1093,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1086,11 +1108,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -1196,30 +1217,6 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Language").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Language" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setLanguage(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Id").equals(reader.getName())){
                                 
                                                 object.setId(com.cloudkey.pms.micros.og.common.GovernmentID.Factory.parse(reader));
@@ -1277,6 +1274,30 @@
                                     
                                               object.setActivate(
                                                     org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+                                              
+                                        reader.next();
+                                    
+                              }  // End of if for expected property start element
+                                
+                                    else {
+                                        
+                                    }
+                                
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Name.wsdl","Language").equals(reader.getName())){
+                                
+                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
+                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
+                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"Language" +"  cannot be null");
+                                    }
+                                    
+
+                                    java.lang.String content = reader.getElementText();
+                                    
+                                              object.setLanguage(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
                                               
                                         reader.next();
                                     

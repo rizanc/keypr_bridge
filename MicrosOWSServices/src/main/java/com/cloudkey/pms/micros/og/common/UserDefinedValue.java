@@ -20,150 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = UserDefinedValue
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localCharacterValueTracker = false;
-                
-                   localDateValueTracker = false;
-                
-                   localNumericValueTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for CharacterValue
+                        * field for UserDefinedValueChoice_type0
                         */
 
                         
-                                    protected java.lang.String localCharacterValue ;
+                                    protected com.cloudkey.pms.micros.og.common.UserDefinedValueChoice_type0 localUserDefinedValueChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCharacterValueTracker = false ;
-
-                           public boolean isCharacterValueSpecified(){
-                               return localCharacterValueTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return java.lang.String
+                           * @return com.cloudkey.pms.micros.og.common.UserDefinedValueChoice_type0
                            */
-                           public  java.lang.String getCharacterValue(){
-                               return localCharacterValue;
+                           public  com.cloudkey.pms.micros.og.common.UserDefinedValueChoice_type0 getUserDefinedValueChoice_type0(){
+                               return localUserDefinedValueChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param CharacterValue
+                               * @param param UserDefinedValueChoice_type0
                                */
-                               public void setCharacterValue(java.lang.String param){
+                               public void setUserDefinedValueChoice_type0(com.cloudkey.pms.micros.og.common.UserDefinedValueChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localCharacterValueTracker = param != null;
-                                   
-                                            this.localCharacterValue=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for DateValue
-                        */
-
-                        
-                                    protected java.util.Calendar localDateValue ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localDateValueTracker = false ;
-
-                           public boolean isDateValueSpecified(){
-                               return localDateValueTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.util.Calendar
-                           */
-                           public  java.util.Calendar getDateValue(){
-                               return localDateValue;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param DateValue
-                               */
-                               public void setDateValue(java.util.Calendar param){
-                            
-                                clearAllSettingTrackers();
-                            localDateValueTracker = param != null;
-                                   
-                                            this.localDateValue=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for NumericValue
-                        */
-
-                        
-                                    protected java.math.BigDecimal localNumericValue ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localNumericValueTracker = false ;
-
-                           public boolean isNumericValueSpecified(){
-                               return localNumericValueTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return java.math.BigDecimal
-                           */
-                           public  java.math.BigDecimal getNumericValue(){
-                               return localNumericValue;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param NumericValue
-                               */
-                               public void setNumericValue(java.math.BigDecimal param){
-                            
-                                clearAllSettingTrackers();
-                            localNumericValueTracker = param != null;
-                                   
-                                            this.localNumericValue=param;
+                                            this.localUserDefinedValueChoice_type0=param;
                                     
 
                                }
@@ -177,17 +62,6 @@
                         
                                     protected java.lang.String localValueName ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localValueNameTracker = false ;
-
-                           public boolean isValueNameSpecified(){
-                               return localValueNameTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
@@ -205,9 +79,6 @@
                                */
                                public void setValueName(java.lang.String param){
                             
-                                clearAllSettingTrackers();
-                            localValueNameTracker = param != null;
-                                   
                                             this.localValueName=param;
                                     
 
@@ -281,61 +152,12 @@
 
                                             
                                       }
-                                     if (localCharacterValueTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "CharacterValue", xmlWriter);
-                             
-
-                                          if (localCharacterValue==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("CharacterValue cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(localCharacterValue);
-                                            
-                                          }
                                     
-                                   xmlWriter.writeEndElement();
-                             } if (localDateValueTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "DateValue", xmlWriter);
-                             
-
-                                          if (localDateValue==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("DateValue cannot be null!!");
-                                                  
-                                          }else{
-
+                                            if (localUserDefinedValueChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("UserDefinedValueChoice_type0 cannot be null!!");
+                                            }
+                                           localUserDefinedValueChoice_type0.serialize(null,xmlWriter);
                                         
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDateValue));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             } if (localNumericValueTracker){
-                                    namespace = "http://webservices.micros.com/og/4.3/Common/";
-                                    writeStartElement(null, namespace, "NumericValue", xmlWriter);
-                             
-
-                                          if (localNumericValue==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("NumericValue cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumericValue));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             }
                     xmlWriter.writeEndElement();
                
 
@@ -343,7 +165,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -520,34 +342,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localCharacterValueTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "CharacterValue"));
-                                 
-                                        if (localCharacterValue != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCharacterValue));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("CharacterValue cannot be null!!");
-                                        }
-                                    } if (localDateValueTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "DateValue"));
-                                 
-                                        if (localDateValue != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localDateValue));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("DateValue cannot be null!!");
-                                        }
-                                    } if (localNumericValueTracker){
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
-                                                                      "NumericValue"));
-                                 
-                                        if (localNumericValue != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localNumericValue));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("NumericValue cannot be null!!");
-                                        }
+                
+                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/",
+                                                                      "UserDefinedValueChoice_type0"));
+                            
+                            
+                                    if (localUserDefinedValueChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("UserDefinedValueChoice_type0 cannot be null!!");
                                     }
+                                    elementList.add(localUserDefinedValueChoice_type0);
+                                
                             attribList.add(
                             new javax.xml.namespace.QName("","valueName"));
                             
@@ -606,7 +410,7 @@
                             if (!"UserDefinedValue".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (UserDefinedValue)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (UserDefinedValue)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -643,70 +447,23 @@
                     
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","CharacterValue").equals(reader.getName())){
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"CharacterValue" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setCharacterValue(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-                                              
-                                        reader.next();
-                                    
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setUserDefinedValueChoice_type0(com.cloudkey.pms.micros.og.common.UserDefinedValueChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","DateValue").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"DateValue" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setDateValue(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDateTime(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","NumericValue").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"NumericValue" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setNumericValue(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDecimal(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

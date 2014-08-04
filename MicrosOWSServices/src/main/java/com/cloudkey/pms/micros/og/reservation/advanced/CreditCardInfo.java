@@ -20,104 +20,35 @@
         /* This type was generated from the piece of schema that had
                 name = CreditCardInfo
                 Namespace URI = http://webservices.micros.com/og/4.3/ResvAdvanced/
-                Namespace Prefix = ns6
+                Namespace Prefix = ns3
                 */
             
-            /** Whenever a new property is set ensure all others are unset
-             *  There can be only one choice and the last one wins
-             */
-            private void clearAllSettingTrackers() {
-            
-                   localCreditCardTracker = false;
-                
-                   localCreditCardApprovedTracker = false;
-                
-            }
-        
 
                         /**
-                        * field for CreditCard
+                        * field for CreditCardInfoChoice_type0
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.CreditCard localCreditCard ;
+                                    protected com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfoChoice_type0 localCreditCardInfoChoice_type0 ;
                                 
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCreditCardTracker = false ;
-
-                           public boolean isCreditCardSpecified(){
-                               return localCreditCardTracker;
-                           }
-
-                           
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.CreditCard
+                           * @return com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfoChoice_type0
                            */
-                           public  com.cloudkey.pms.micros.og.common.CreditCard getCreditCard(){
-                               return localCreditCard;
+                           public  com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfoChoice_type0 getCreditCardInfoChoice_type0(){
+                               return localCreditCardInfoChoice_type0;
                            }
 
                            
                         
                             /**
                                * Auto generated setter method
-                               * @param param CreditCard
+                               * @param param CreditCardInfoChoice_type0
                                */
-                               public void setCreditCard(com.cloudkey.pms.micros.og.common.CreditCard param){
+                               public void setCreditCardInfoChoice_type0(com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfoChoice_type0 param){
                             
-                                clearAllSettingTrackers();
-                            localCreditCardTracker = param != null;
-                                   
-                                            this.localCreditCard=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for CreditCardApproved
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.hotelcommon.CreditCardPayment localCreditCardApproved ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localCreditCardApprovedTracker = false ;
-
-                           public boolean isCreditCardApprovedSpecified(){
-                               return localCreditCardApprovedTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.hotelcommon.CreditCardPayment
-                           */
-                           public  com.cloudkey.pms.micros.og.hotelcommon.CreditCardPayment getCreditCardApproved(){
-                               return localCreditCardApproved;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param CreditCardApproved
-                               */
-                               public void setCreditCardApproved(com.cloudkey.pms.micros.og.hotelcommon.CreditCardPayment param){
-                            
-                                clearAllSettingTrackers();
-                            localCreditCardApprovedTracker = param != null;
-                                   
-                                            this.localCreditCardApproved=param;
+                                            this.localCreditCardInfoChoice_type0=param;
                                     
 
                                }
@@ -181,19 +112,12 @@
 
                
                    }
-                if (localCreditCardTracker){
-                                            if (localCreditCard==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
+               
+                                            if (localCreditCardInfoChoice_type0==null){
+                                                 throw new org.apache.axis2.databinding.ADBException("CreditCardInfoChoice_type0 cannot be null!!");
                                             }
-                                           localCreditCard.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","CreditCard"),
-                                               xmlWriter);
-                                        } if (localCreditCardApprovedTracker){
-                                            if (localCreditCardApproved==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("CreditCardApproved cannot be null!!");
-                                            }
-                                           localCreditCardApproved.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","CreditCardApproved"),
-                                               xmlWriter);
-                                        }
+                                           localCreditCardInfoChoice_type0.serialize(null,xmlWriter);
+                                        
                     xmlWriter.writeEndElement();
                
 
@@ -201,7 +125,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/ResvAdvanced/")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -378,25 +302,16 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                 if (localCreditCardTracker){
+                
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "CreditCard"));
+                                                                      "CreditCardInfoChoice_type0"));
                             
                             
-                                    if (localCreditCard==null){
-                                         throw new org.apache.axis2.databinding.ADBException("CreditCard cannot be null!!");
+                                    if (localCreditCardInfoChoice_type0==null){
+                                         throw new org.apache.axis2.databinding.ADBException("CreditCardInfoChoice_type0 cannot be null!!");
                                     }
-                                    elementList.add(localCreditCard);
-                                } if (localCreditCardApprovedTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/",
-                                                                      "CreditCardApproved"));
-                            
-                            
-                                    if (localCreditCardApproved==null){
-                                         throw new org.apache.axis2.databinding.ADBException("CreditCardApproved cannot be null!!");
-                                    }
-                                    elementList.add(localCreditCardApproved);
-                                }
+                                    elementList.add(localCreditCardInfoChoice_type0);
+                                
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -450,7 +365,7 @@
                             if (!"CreditCardInfo".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (CreditCardInfo)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (CreditCardInfo)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -471,33 +386,23 @@
                 
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","CreditCard").equals(reader.getName())){
-                                
-                                                object.setCreditCard(com.cloudkey.pms.micros.og.common.CreditCard.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
+                                    if (reader.isStartElement() ){
+                                
+                                                object.setCreditCardInfoChoice_type0(com.cloudkey.pms.micros.og.reservation.advanced.CreditCardInfoChoice_type0.Factory.parse(reader));
+                                            
                               }  // End of if for expected property start element
-                                
-                                        else
-                                    
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/ResvAdvanced/","CreditCardApproved").equals(reader.getName())){
-                                
-                                                object.setCreditCardApproved(com.cloudkey.pms.micros.og.hotelcommon.CreditCardPayment.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                             } else {
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 

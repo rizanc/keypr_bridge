@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = HoldInventoryItemElement
                 Namespace URI = http://webservices.micros.com/og/4.3/HotelCommon/
-                Namespace Prefix = ns4
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected java.lang.String localItemCode ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localItemCodeTracker = false ;
+
+                           public boolean isItemCodeSpecified(){
+                               return localItemCodeTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param ItemCode
                                */
                                public void setItemCode(java.lang.String param){
-                            
+                            localItemCodeTracker = param != null;
+                                   
                                             this.localItemCode=param;
                                     
 
@@ -61,6 +73,17 @@
                         
                                     protected java.lang.String localItemName ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localItemNameTracker = false ;
+
+                           public boolean isItemNameSpecified(){
+                               return localItemNameTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -77,7 +100,8 @@
                                * @param param ItemName
                                */
                                public void setItemName(java.lang.String param){
-                            
+                            localItemNameTracker = param != null;
+                                   
                                             this.localItemName=param;
                                     
 
@@ -130,7 +154,50 @@
                             
 
                         /**
+                        * field for ItemHoldID
+                        */
+
+                        
+                                    protected com.cloudkey.pms.micros.og.common.UniqueID localItemHoldID ;
+                                
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localItemHoldIDTracker = false ;
+
+                           public boolean isItemHoldIDSpecified(){
+                               return localItemHoldIDTracker;
+                           }
+
+                           
+
+                           /**
+                           * Auto generated getter method
+                           * @return com.cloudkey.pms.micros.og.common.UniqueID
+                           */
+                           public  com.cloudkey.pms.micros.og.common.UniqueID getItemHoldID(){
+                               return localItemHoldID;
+                           }
+
+                           
+                        
+                            /**
+                               * Auto generated setter method
+                               * @param param ItemHoldID
+                               */
+                               public void setItemHoldID(com.cloudkey.pms.micros.og.common.UniqueID param){
+                            localItemHoldIDTracker = param != null;
+                                   
+                                            this.localItemHoldID=param;
+                                    
+
+                               }
+                            
+
+                        /**
                         * field for ItemStartDate
+                        * This was an Attribute!
                         */
 
                         
@@ -161,6 +228,7 @@
 
                         /**
                         * field for ItemEndDate
+                        * This was an Attribute!
                         */
 
                         
@@ -184,36 +252,6 @@
                                public void setItemEndDate(java.util.Date param){
                             
                                             this.localItemEndDate=param;
-                                    
-
-                               }
-                            
-
-                        /**
-                        * field for ItemHoldID
-                        */
-
-                        
-                                    protected com.cloudkey.pms.micros.og.common.UniqueID localItemHoldID ;
-                                
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.UniqueID
-                           */
-                           public  com.cloudkey.pms.micros.og.common.UniqueID getItemHoldID(){
-                               return localItemHoldID;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param ItemHoldID
-                               */
-                               public void setItemHoldID(com.cloudkey.pms.micros.og.common.UniqueID param){
-                            
-                                            this.localItemHoldID=param;
                                     
 
                                }
@@ -278,6 +316,32 @@
                
                    }
                
+                                            if (localItemStartDate != null){
+                                        
+                                                writeAttribute("",
+                                                         "ItemStartDate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemStartDate), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localItemStartDate is null");
+                                      }
+                                    
+                                            if (localItemEndDate != null){
+                                        
+                                                writeAttribute("",
+                                                         "ItemEndDate",
+                                                         org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemEndDate), xmlWriter);
+
+                                            
+                                      }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localItemEndDate is null");
+                                      }
+                                     if (localItemCodeTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "ItemCode", xmlWriter);
                              
@@ -295,7 +359,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                             
+                             } if (localItemNameTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "ItemName", xmlWriter);
                              
@@ -313,7 +377,7 @@
                                           }
                                     
                                    xmlWriter.writeEndElement();
-                              if (localQuantityTracker){
+                             } if (localQuantityTracker){
                                     namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
                                     writeStartElement(null, namespace, "Quantity", xmlWriter);
                              
@@ -326,49 +390,13 @@
                                                }
                                     
                                    xmlWriter.writeEndElement();
-                             }
-                                    namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
-                                    writeStartElement(null, namespace, "ItemStartDate", xmlWriter);
-                             
-
-                                          if (localItemStartDate==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("ItemStartDate cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemStartDate));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
-                                    namespace = "http://webservices.micros.com/og/4.3/HotelCommon/";
-                                    writeStartElement(null, namespace, "ItemEndDate", xmlWriter);
-                             
-
-                                          if (localItemEndDate==null){
-                                              // write the nil attribute
-                                              
-                                                     throw new org.apache.axis2.databinding.ADBException("ItemEndDate cannot be null!!");
-                                                  
-                                          }else{
-
-                                        
-                                                   xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemEndDate));
-                                            
-                                          }
-                                    
-                                   xmlWriter.writeEndElement();
-                             
+                             } if (localItemHoldIDTracker){
                                             if (localItemHoldID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("ItemHoldID cannot be null!!");
                                             }
                                            localItemHoldID.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ItemHoldID"),
                                                xmlWriter);
-                                        
+                                        }
                     xmlWriter.writeEndElement();
                
 
@@ -376,7 +404,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/HotelCommon/")){
-                return "ns4";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -553,7 +581,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localItemCodeTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ItemCode"));
                                  
@@ -562,7 +590,7 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ItemCode cannot be null!!");
                                         }
-                                    
+                                    } if (localItemNameTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ItemName"));
                                  
@@ -571,31 +599,13 @@
                                         } else {
                                            throw new org.apache.axis2.databinding.ADBException("ItemName cannot be null!!");
                                         }
-                                     if (localQuantityTracker){
+                                    } if (localQuantityTracker){
                                       elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "Quantity"));
                                  
                                 elementList.add(
                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localQuantity));
-                            }
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "ItemStartDate"));
-                                 
-                                        if (localItemStartDate != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemStartDate));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("ItemStartDate cannot be null!!");
-                                        }
-                                    
-                                      elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
-                                                                      "ItemEndDate"));
-                                 
-                                        if (localItemEndDate != null){
-                                            elementList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemEndDate));
-                                        } else {
-                                           throw new org.apache.axis2.databinding.ADBException("ItemEndDate cannot be null!!");
-                                        }
-                                    
+                            } if (localItemHoldIDTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/",
                                                                       "ItemHoldID"));
                             
@@ -604,6 +614,16 @@
                                          throw new org.apache.axis2.databinding.ADBException("ItemHoldID cannot be null!!");
                                     }
                                     elementList.add(localItemHoldID);
+                                }
+                            attribList.add(
+                            new javax.xml.namespace.QName("","ItemStartDate"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemStartDate));
+                                
+                            attribList.add(
+                            new javax.xml.namespace.QName("","ItemEndDate"));
+                            
+                                      attribList.add(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localItemEndDate));
                                 
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
@@ -677,6 +697,42 @@
                 
 
                 
+                    // handle attribute "ItemStartDate"
+                    java.lang.String tempAttribItemStartDate =
+                        
+                                reader.getAttributeValue(null,"ItemStartDate");
+                            
+                   if (tempAttribItemStartDate!=null){
+                         java.lang.String content = tempAttribItemStartDate;
+                        
+                                                 object.setItemStartDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(tempAttribItemStartDate));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute ItemStartDate is missing");
+                           
+                    }
+                    handledAttributes.add("ItemStartDate");
+                    
+                    // handle attribute "ItemEndDate"
+                    java.lang.String tempAttribItemEndDate =
+                        
+                                reader.getAttributeValue(null,"ItemEndDate");
+                            
+                   if (tempAttribItemEndDate!=null){
+                         java.lang.String content = tempAttribItemEndDate;
+                        
+                                                 object.setItemEndDate(
+                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(tempAttribItemEndDate));
+                                            
+                    } else {
+                       
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute ItemEndDate is missing");
+                           
+                    }
+                    handledAttributes.add("ItemEndDate");
+                    
                     
                     reader.next();
                 
@@ -700,11 +756,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -725,11 +780,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
+                                    else {
+                                        
+                                    }
+                                
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
@@ -759,56 +813,6 @@
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ItemStartDate").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ItemStartDate" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setItemStartDate(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ItemEndDate").equals(reader.getName())){
-                                
-                                    nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
-                                    if ("true".equals(nillableValue) || "1".equals(nillableValue)){
-                                        throw new org.apache.axis2.databinding.ADBException("The element: "+"ItemEndDate" +"  cannot be null");
-                                    }
-                                    
-
-                                    java.lang.String content = reader.getElementText();
-                                    
-                                              object.setItemEndDate(
-                                                    org.apache.axis2.databinding.utils.ConverterUtil.convertToDate(content));
-                                              
-                                        reader.next();
-                                    
-                              }  // End of if for expected property start element
-                                
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                            
-                                    
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/HotelCommon/","ItemHoldID").equals(reader.getName())){
                                 
                                                 object.setItemHoldID(com.cloudkey.pms.micros.og.common.UniqueID.Factory.parse(reader));
@@ -817,11 +821,10 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                else{
-                                    // A start element we are not expecting indicates an invalid parameter was passed
-                                    throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                                }
-                              
+                                    else {
+                                        
+                                    }
+                                  
                             while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
                             

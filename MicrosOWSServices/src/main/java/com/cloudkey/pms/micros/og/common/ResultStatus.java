@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = ResultStatus
                 Namespace URI = http://webservices.micros.com/og/4.3/Common/
-                Namespace Prefix = ns2
+                Namespace Prefix = ns1
                 */
             
 
@@ -29,7 +29,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.TextList localText ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfText localText ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,9 +45,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.TextList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfText
                            */
-                           public  com.cloudkey.pms.micros.og.common.TextList getText(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfText getText(){
                                return localText;
                            }
 
@@ -57,7 +57,7 @@
                                * Auto generated setter method
                                * @param param Text
                                */
-                               public void setText(com.cloudkey.pms.micros.og.common.TextList param){
+                               public void setText(com.cloudkey.pms.micros.og.common.ArrayOfText param){
                             localTextTracker = param != null;
                                    
                                             this.localText=param;
@@ -71,7 +71,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.common.IDPairList localIDs ;
+                                    protected com.cloudkey.pms.micros.og.common.ArrayOfIDPair localIDs ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,9 +87,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.common.IDPairList
+                           * @return com.cloudkey.pms.micros.og.common.ArrayOfIDPair
                            */
-                           public  com.cloudkey.pms.micros.og.common.IDPairList getIDs(){
+                           public  com.cloudkey.pms.micros.og.common.ArrayOfIDPair getIDs(){
                                return localIDs;
                            }
 
@@ -99,7 +99,7 @@
                                * Auto generated setter method
                                * @param param IDs
                                */
-                               public void setIDs(com.cloudkey.pms.micros.og.common.IDPairList param){
+                               public void setIDs(com.cloudkey.pms.micros.og.common.ArrayOfIDPair param){
                             localIDsTracker = param != null;
                                    
                                             this.localIDs=param;
@@ -284,7 +284,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Common/")){
-                return "ns2";
+                return "ns1";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -547,7 +547,7 @@
                             if (!"ResultStatus".equals(type)){
                                 //find namespace for the prefix
                                 java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-                                return (ResultStatus)com.cloudkey.pms.micros.ows.reservation.advanced.ExtensionMapper.getTypeObject(
+                                return (ResultStatus)com.cloudkey.pms.micros.og.reservation.advanced.ExtensionMapper.getTypeObject(
                                      nsUri,type,reader);
                               }
                         
@@ -590,7 +590,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","Text").equals(reader.getName())){
                                 
-                                                object.setText(com.cloudkey.pms.micros.og.common.TextList.Factory.parse(reader));
+                                                object.setText(com.cloudkey.pms.micros.og.common.ArrayOfText.Factory.parse(reader));
                                               
                                         reader.next();
                                     
@@ -605,7 +605,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Common/","IDs").equals(reader.getName())){
                                 
-                                                object.setIDs(com.cloudkey.pms.micros.og.common.IDPairList.Factory.parse(reader));
+                                                object.setIDs(com.cloudkey.pms.micros.og.common.ArrayOfIDPair.Factory.parse(reader));
                                               
                                         reader.next();
                                     

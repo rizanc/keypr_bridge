@@ -20,16 +20,17 @@
         /* This type was generated from the piece of schema that had
                 name = PointsInfo
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
                         /**
                         * field for AwardPointsInfo
+                        * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.AwardPointsInfo localAwardPointsInfo ;
+                                    protected com.cloudkey.pms.micros.og.membership.AwardPointsInfo[] localAwardPointsInfo ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -45,33 +46,71 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.AwardPointsInfo
+                           * @return com.cloudkey.pms.micros.og.membership.AwardPointsInfo[]
                            */
-                           public  com.cloudkey.pms.micros.og.membership.AwardPointsInfo getAwardPointsInfo(){
+                           public  com.cloudkey.pms.micros.og.membership.AwardPointsInfo[] getAwardPointsInfo(){
                                return localAwardPointsInfo;
                            }
 
                            
                         
-                            /**
-                               * Auto generated setter method
-                               * @param param AwardPointsInfo
-                               */
-                               public void setAwardPointsInfo(com.cloudkey.pms.micros.og.membership.AwardPointsInfo param){
-                            localAwardPointsInfoTracker = param != null;
-                                   
-                                            this.localAwardPointsInfo=param;
-                                    
 
-                               }
+
+                               
+                              /**
+                               * validate the array for AwardPointsInfo
+                               */
+                              protected void validateAwardPointsInfo(com.cloudkey.pms.micros.og.membership.AwardPointsInfo[] param){
+                             
+                              }
+
+
+                             /**
+                              * Auto generated setter method
+                              * @param param AwardPointsInfo
+                              */
+                              public void setAwardPointsInfo(com.cloudkey.pms.micros.og.membership.AwardPointsInfo[] param){
+                              
+                                   validateAwardPointsInfo(param);
+
+                               localAwardPointsInfoTracker = param != null;
+                                      
+                                      this.localAwardPointsInfo=param;
+                              }
+
+                               
+                             
+                             /**
+                             * Auto generated add method for the array for convenience
+                             * @param param com.cloudkey.pms.micros.og.membership.AwardPointsInfo
+                             */
+                             public void addAwardPointsInfo(com.cloudkey.pms.micros.og.membership.AwardPointsInfo param){
+                                   if (localAwardPointsInfo == null){
+                                   localAwardPointsInfo = new com.cloudkey.pms.micros.og.membership.AwardPointsInfo[]{};
+                                   }
+
                             
+                                 //update the setting tracker
+                                localAwardPointsInfoTracker = true;
+                            
+
+                               java.util.List list =
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localAwardPointsInfo);
+                               list.add(param);
+                               this.localAwardPointsInfo =
+                             (com.cloudkey.pms.micros.og.membership.AwardPointsInfo[])list.toArray(
+                            new com.cloudkey.pms.micros.og.membership.AwardPointsInfo[list.size()]);
+
+                             }
+                             
 
                         /**
                         * field for TierPointsInfo
+                        * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.TierPointsInfo localTierPointsInfo ;
+                                    protected com.cloudkey.pms.micros.og.membership.TierPointsInfo[] localTierPointsInfo ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -87,33 +126,71 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.TierPointsInfo
+                           * @return com.cloudkey.pms.micros.og.membership.TierPointsInfo[]
                            */
-                           public  com.cloudkey.pms.micros.og.membership.TierPointsInfo getTierPointsInfo(){
+                           public  com.cloudkey.pms.micros.og.membership.TierPointsInfo[] getTierPointsInfo(){
                                return localTierPointsInfo;
                            }
 
                            
                         
-                            /**
-                               * Auto generated setter method
-                               * @param param TierPointsInfo
-                               */
-                               public void setTierPointsInfo(com.cloudkey.pms.micros.og.membership.TierPointsInfo param){
-                            localTierPointsInfoTracker = param != null;
-                                   
-                                            this.localTierPointsInfo=param;
-                                    
 
-                               }
+
+                               
+                              /**
+                               * validate the array for TierPointsInfo
+                               */
+                              protected void validateTierPointsInfo(com.cloudkey.pms.micros.og.membership.TierPointsInfo[] param){
+                             
+                              }
+
+
+                             /**
+                              * Auto generated setter method
+                              * @param param TierPointsInfo
+                              */
+                              public void setTierPointsInfo(com.cloudkey.pms.micros.og.membership.TierPointsInfo[] param){
+                              
+                                   validateTierPointsInfo(param);
+
+                               localTierPointsInfoTracker = param != null;
+                                      
+                                      this.localTierPointsInfo=param;
+                              }
+
+                               
+                             
+                             /**
+                             * Auto generated add method for the array for convenience
+                             * @param param com.cloudkey.pms.micros.og.membership.TierPointsInfo
+                             */
+                             public void addTierPointsInfo(com.cloudkey.pms.micros.og.membership.TierPointsInfo param){
+                                   if (localTierPointsInfo == null){
+                                   localTierPointsInfo = new com.cloudkey.pms.micros.og.membership.TierPointsInfo[]{};
+                                   }
+
                             
+                                 //update the setting tracker
+                                localTierPointsInfoTracker = true;
+                            
+
+                               java.util.List list =
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localTierPointsInfo);
+                               list.add(param);
+                               this.localTierPointsInfo =
+                             (com.cloudkey.pms.micros.og.membership.TierPointsInfo[])list.toArray(
+                            new com.cloudkey.pms.micros.og.membership.TierPointsInfo[list.size()]);
+
+                             }
+                             
 
                         /**
                         * field for StayPointsInfo
+                        * This was an Array!
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.StayPointsInfo localStayPointsInfo ;
+                                    protected com.cloudkey.pms.micros.og.membership.StayPointsInfo[] localStayPointsInfo ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -129,68 +206,63 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.StayPointsInfo
+                           * @return com.cloudkey.pms.micros.og.membership.StayPointsInfo[]
                            */
-                           public  com.cloudkey.pms.micros.og.membership.StayPointsInfo getStayPointsInfo(){
+                           public  com.cloudkey.pms.micros.og.membership.StayPointsInfo[] getStayPointsInfo(){
                                return localStayPointsInfo;
                            }
 
                            
                         
-                            /**
-                               * Auto generated setter method
-                               * @param param StayPointsInfo
-                               */
-                               public void setStayPointsInfo(com.cloudkey.pms.micros.og.membership.StayPointsInfo param){
-                            localStayPointsInfoTracker = param != null;
-                                   
-                                            this.localStayPointsInfo=param;
-                                    
 
-                               }
+
+                               
+                              /**
+                               * validate the array for StayPointsInfo
+                               */
+                              protected void validateStayPointsInfo(com.cloudkey.pms.micros.og.membership.StayPointsInfo[] param){
+                             
+                              }
+
+
+                             /**
+                              * Auto generated setter method
+                              * @param param StayPointsInfo
+                              */
+                              public void setStayPointsInfo(com.cloudkey.pms.micros.og.membership.StayPointsInfo[] param){
+                              
+                                   validateStayPointsInfo(param);
+
+                               localStayPointsInfoTracker = param != null;
+                                      
+                                      this.localStayPointsInfo=param;
+                              }
+
+                               
+                             
+                             /**
+                             * Auto generated add method for the array for convenience
+                             * @param param com.cloudkey.pms.micros.og.membership.StayPointsInfo
+                             */
+                             public void addStayPointsInfo(com.cloudkey.pms.micros.og.membership.StayPointsInfo param){
+                                   if (localStayPointsInfo == null){
+                                   localStayPointsInfo = new com.cloudkey.pms.micros.og.membership.StayPointsInfo[]{};
+                                   }
+
+                            
+                                 //update the setting tracker
+                                localStayPointsInfoTracker = true;
                             
 
-                        /**
-                        * field for TransactionPointsInfo
-                        */
+                               java.util.List list =
+                            org.apache.axis2.databinding.utils.ConverterUtil.toList(localStayPointsInfo);
+                               list.add(param);
+                               this.localStayPointsInfo =
+                             (com.cloudkey.pms.micros.og.membership.StayPointsInfo[])list.toArray(
+                            new com.cloudkey.pms.micros.og.membership.StayPointsInfo[list.size()]);
 
-                        
-                                    protected com.cloudkey.pms.micros.og.membership.TransactionPointsInfo localTransactionPointsInfo ;
-                                
-                           /*  This tracker boolean wil be used to detect whether the user called the set method
-                          *   for this attribute. It will be used to determine whether to include this field
-                           *   in the serialized XML
-                           */
-                           protected boolean localTransactionPointsInfoTracker = false ;
-
-                           public boolean isTransactionPointsInfoSpecified(){
-                               return localTransactionPointsInfoTracker;
-                           }
-
-                           
-
-                           /**
-                           * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.TransactionPointsInfo
-                           */
-                           public  com.cloudkey.pms.micros.og.membership.TransactionPointsInfo getTransactionPointsInfo(){
-                               return localTransactionPointsInfo;
-                           }
-
-                           
-                        
-                            /**
-                               * Auto generated setter method
-                               * @param param TransactionPointsInfo
-                               */
-                               public void setTransactionPointsInfo(com.cloudkey.pms.micros.og.membership.TransactionPointsInfo param){
-                            localTransactionPointsInfoTracker = param != null;
-                                   
-                                            this.localTransactionPointsInfo=param;
-                                    
-
-                               }
-                            
+                             }
+                             
 
      
      
@@ -251,30 +323,60 @@
                
                    }
                 if (localAwardPointsInfoTracker){
-                                            if (localAwardPointsInfo==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("AwardPointsInfo cannot be null!!");
+                                       if (localAwardPointsInfo!=null){
+                                            for (int i = 0;i < localAwardPointsInfo.length;i++){
+                                                if (localAwardPointsInfo[i] != null){
+                                                 localAwardPointsInfo[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","AwardPointsInfo"),
+                                                           xmlWriter);
+                                                } else {
+                                                   
+                                                        // we don't have to do any thing since minOccures is zero
+                                                    
+                                                }
+
                                             }
-                                           localAwardPointsInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","AwardPointsInfo"),
-                                               xmlWriter);
-                                        } if (localTierPointsInfoTracker){
-                                            if (localTierPointsInfo==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("TierPointsInfo cannot be null!!");
+                                     } else {
+                                        
+                                               throw new org.apache.axis2.databinding.ADBException("AwardPointsInfo cannot be null!!");
+                                        
+                                    }
+                                 } if (localTierPointsInfoTracker){
+                                       if (localTierPointsInfo!=null){
+                                            for (int i = 0;i < localTierPointsInfo.length;i++){
+                                                if (localTierPointsInfo[i] != null){
+                                                 localTierPointsInfo[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TierPointsInfo"),
+                                                           xmlWriter);
+                                                } else {
+                                                   
+                                                        // we don't have to do any thing since minOccures is zero
+                                                    
+                                                }
+
                                             }
-                                           localTierPointsInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TierPointsInfo"),
-                                               xmlWriter);
-                                        } if (localStayPointsInfoTracker){
-                                            if (localStayPointsInfo==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("StayPointsInfo cannot be null!!");
+                                     } else {
+                                        
+                                               throw new org.apache.axis2.databinding.ADBException("TierPointsInfo cannot be null!!");
+                                        
+                                    }
+                                 } if (localStayPointsInfoTracker){
+                                       if (localStayPointsInfo!=null){
+                                            for (int i = 0;i < localStayPointsInfo.length;i++){
+                                                if (localStayPointsInfo[i] != null){
+                                                 localStayPointsInfo[i].serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","StayPointsInfo"),
+                                                           xmlWriter);
+                                                } else {
+                                                   
+                                                        // we don't have to do any thing since minOccures is zero
+                                                    
+                                                }
+
                                             }
-                                           localStayPointsInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","StayPointsInfo"),
-                                               xmlWriter);
-                                        } if (localTransactionPointsInfoTracker){
-                                            if (localTransactionPointsInfo==null){
-                                                 throw new org.apache.axis2.databinding.ADBException("TransactionPointsInfo cannot be null!!");
-                                            }
-                                           localTransactionPointsInfo.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TransactionPointsInfo"),
-                                               xmlWriter);
-                                        }
+                                     } else {
+                                        
+                                               throw new org.apache.axis2.databinding.ADBException("StayPointsInfo cannot be null!!");
+                                        
+                                    }
+                                 }
                     xmlWriter.writeEndElement();
                
 
@@ -282,7 +384,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -460,42 +562,69 @@
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
                  if (localAwardPointsInfoTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "AwardPointsInfo"));
-                            
-                            
-                                    if (localAwardPointsInfo==null){
-                                         throw new org.apache.axis2.databinding.ADBException("AwardPointsInfo cannot be null!!");
+                             if (localAwardPointsInfo!=null) {
+                                 for (int i = 0;i < localAwardPointsInfo.length;i++){
+
+                                    if (localAwardPointsInfo[i] != null){
+                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
+                                                                          "AwardPointsInfo"));
+                                         elementList.add(localAwardPointsInfo[i]);
+                                    } else {
+                                        
+                                                // nothing to do
+                                            
                                     }
-                                    elementList.add(localAwardPointsInfo);
-                                } if (localTierPointsInfoTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "TierPointsInfo"));
-                            
-                            
-                                    if (localTierPointsInfo==null){
-                                         throw new org.apache.axis2.databinding.ADBException("TierPointsInfo cannot be null!!");
+
+                                 }
+                             } else {
+                                 
+                                        throw new org.apache.axis2.databinding.ADBException("AwardPointsInfo cannot be null!!");
+                                    
+                             }
+
+                        } if (localTierPointsInfoTracker){
+                             if (localTierPointsInfo!=null) {
+                                 for (int i = 0;i < localTierPointsInfo.length;i++){
+
+                                    if (localTierPointsInfo[i] != null){
+                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
+                                                                          "TierPointsInfo"));
+                                         elementList.add(localTierPointsInfo[i]);
+                                    } else {
+                                        
+                                                // nothing to do
+                                            
                                     }
-                                    elementList.add(localTierPointsInfo);
-                                } if (localStayPointsInfoTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "StayPointsInfo"));
-                            
-                            
-                                    if (localStayPointsInfo==null){
-                                         throw new org.apache.axis2.databinding.ADBException("StayPointsInfo cannot be null!!");
+
+                                 }
+                             } else {
+                                 
+                                        throw new org.apache.axis2.databinding.ADBException("TierPointsInfo cannot be null!!");
+                                    
+                             }
+
+                        } if (localStayPointsInfoTracker){
+                             if (localStayPointsInfo!=null) {
+                                 for (int i = 0;i < localStayPointsInfo.length;i++){
+
+                                    if (localStayPointsInfo[i] != null){
+                                         elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
+                                                                          "StayPointsInfo"));
+                                         elementList.add(localStayPointsInfo[i]);
+                                    } else {
+                                        
+                                                // nothing to do
+                                            
                                     }
-                                    elementList.add(localStayPointsInfo);
-                                } if (localTransactionPointsInfoTracker){
-                            elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
-                                                                      "TransactionPointsInfo"));
-                            
-                            
-                                    if (localTransactionPointsInfo==null){
-                                         throw new org.apache.axis2.databinding.ADBException("TransactionPointsInfo cannot be null!!");
-                                    }
-                                    elementList.add(localTransactionPointsInfo);
-                                }
+
+                                 }
+                             } else {
+                                 
+                                        throw new org.apache.axis2.databinding.ADBException("StayPointsInfo cannot be null!!");
+                                    
+                             }
+
+                        }
 
                 return new org.apache.axis2.databinding.utils.reader.ADBXMLStreamReaderImpl(qName, elementList.toArray(), attribList.toArray());
             
@@ -571,15 +700,52 @@
                     
                     reader.next();
                 
+                        java.util.ArrayList list1 = new java.util.ArrayList();
+                    
+                        java.util.ArrayList list2 = new java.util.ArrayList();
+                    
+                        java.util.ArrayList list3 = new java.util.ArrayList();
+                    
                                     
                                     while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","AwardPointsInfo").equals(reader.getName())){
                                 
-                                                object.setAwardPointsInfo(com.cloudkey.pms.micros.og.membership.AwardPointsInfo.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    
+                                    // Process the array and step past its final element's end.
+                                    list1.add(com.cloudkey.pms.micros.og.membership.AwardPointsInfo.Factory.parse(reader));
+                                                                
+                                                        //loop until we find a start element that is not part of this array
+                                                        boolean loopDone1 = false;
+                                                        while(!loopDone1){
+                                                            // We should be at the end element, but make sure
+                                                            while (!reader.isEndElement())
+                                                                reader.next();
+                                                            // Step out of this element
+                                                            reader.next();
+                                                            // Step to next element event.
+                                                            while (!reader.isStartElement() && !reader.isEndElement())
+                                                                reader.next();
+                                                            if (reader.isEndElement()){
+                                                                //two continuous end elements means we are exiting the xml structure
+                                                                loopDone1 = true;
+                                                            } else {
+                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","AwardPointsInfo").equals(reader.getName())){
+                                                                    list1.add(com.cloudkey.pms.micros.og.membership.AwardPointsInfo.Factory.parse(reader));
+                                                                        
+                                                                }else{
+                                                                    loopDone1 = true;
+                                                                }
+                                                            }
+                                                        }
+                                                        // call the converter utility  to convert and set the array
+                                                        
+                                                        object.setAwardPointsInfo((com.cloudkey.pms.micros.og.membership.AwardPointsInfo[])
+                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
+                                                                com.cloudkey.pms.micros.og.membership.AwardPointsInfo.class,
+                                                                list1));
+                                                            
                               }  // End of if for expected property start element
                                 
                                     else {
@@ -591,10 +757,41 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TierPointsInfo").equals(reader.getName())){
                                 
-                                                object.setTierPointsInfo(com.cloudkey.pms.micros.og.membership.TierPointsInfo.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
+                                    
+                                    // Process the array and step past its final element's end.
+                                    list2.add(com.cloudkey.pms.micros.og.membership.TierPointsInfo.Factory.parse(reader));
+                                                                
+                                                        //loop until we find a start element that is not part of this array
+                                                        boolean loopDone2 = false;
+                                                        while(!loopDone2){
+                                                            // We should be at the end element, but make sure
+                                                            while (!reader.isEndElement())
+                                                                reader.next();
+                                                            // Step out of this element
+                                                            reader.next();
+                                                            // Step to next element event.
+                                                            while (!reader.isStartElement() && !reader.isEndElement())
+                                                                reader.next();
+                                                            if (reader.isEndElement()){
+                                                                //two continuous end elements means we are exiting the xml structure
+                                                                loopDone2 = true;
+                                                            } else {
+                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TierPointsInfo").equals(reader.getName())){
+                                                                    list2.add(com.cloudkey.pms.micros.og.membership.TierPointsInfo.Factory.parse(reader));
+                                                                        
+                                                                }else{
+                                                                    loopDone2 = true;
+                                                                }
+                                                            }
+                                                        }
+                                                        // call the converter utility  to convert and set the array
+                                                        
+                                                        object.setTierPointsInfo((com.cloudkey.pms.micros.og.membership.TierPointsInfo[])
+                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
+                                                                com.cloudkey.pms.micros.og.membership.TierPointsInfo.class,
+                                                                list2));
+                                                            
                               }  // End of if for expected property start element
                                 
                                     else {
@@ -606,25 +803,41 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","StayPointsInfo").equals(reader.getName())){
                                 
-                                                object.setStayPointsInfo(com.cloudkey.pms.micros.og.membership.StayPointsInfo.Factory.parse(reader));
-                                              
-                                        reader.next();
                                     
-                              }  // End of if for expected property start element
-                                
-                                    else {
-                                        
-                                    }
-                                
                                     
-                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
-                                
-                                    if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TransactionPointsInfo").equals(reader.getName())){
-                                
-                                                object.setTransactionPointsInfo(com.cloudkey.pms.micros.og.membership.TransactionPointsInfo.Factory.parse(reader));
-                                              
-                                        reader.next();
-                                    
+                                    // Process the array and step past its final element's end.
+                                    list3.add(com.cloudkey.pms.micros.og.membership.StayPointsInfo.Factory.parse(reader));
+                                                                
+                                                        //loop until we find a start element that is not part of this array
+                                                        boolean loopDone3 = false;
+                                                        while(!loopDone3){
+                                                            // We should be at the end element, but make sure
+                                                            while (!reader.isEndElement())
+                                                                reader.next();
+                                                            // Step out of this element
+                                                            reader.next();
+                                                            // Step to next element event.
+                                                            while (!reader.isStartElement() && !reader.isEndElement())
+                                                                reader.next();
+                                                            if (reader.isEndElement()){
+                                                                //two continuous end elements means we are exiting the xml structure
+                                                                loopDone3 = true;
+                                                            } else {
+                                                                if (new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","StayPointsInfo").equals(reader.getName())){
+                                                                    list3.add(com.cloudkey.pms.micros.og.membership.StayPointsInfo.Factory.parse(reader));
+                                                                        
+                                                                }else{
+                                                                    loopDone3 = true;
+                                                                }
+                                                            }
+                                                        }
+                                                        // call the converter utility  to convert and set the array
+                                                        
+                                                        object.setStayPointsInfo((com.cloudkey.pms.micros.og.membership.StayPointsInfo[])
+                                                            org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
+                                                                com.cloudkey.pms.micros.og.membership.StayPointsInfo.class,
+                                                                list3));
+                                                            
                               }  // End of if for expected property start element
                                 
                                     else {

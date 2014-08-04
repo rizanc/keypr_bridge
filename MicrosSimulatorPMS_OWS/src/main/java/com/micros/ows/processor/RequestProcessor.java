@@ -49,7 +49,7 @@ import com.micros.ows.information.InformationStub.HotelContact;
 import com.micros.ows.information.InformationStub.HotelInfo;
 import com.micros.ows.information.InformationStub.HotelInfoList;
 import com.micros.ows.information.InformationStub.HotelInfoType;
-import com.micros.ows.information.InformationStub.HotelInformation_type0;
+import com.micros.ows.information.InformationStub.HotelInformationResponseHotelInformation;
 import com.micros.ows.information.InformationStub.HotelReference;
 import com.micros.ows.information.InformationStub.Phone;
 import com.micros.ows.information.InformationStub.PhoneData_type0;
@@ -99,10 +99,10 @@ import com.micros.reservation.ReservationServiceStub.HotelReservation;
 import com.micros.reservation.ReservationServiceStub.HotelReservation_type0;
 import com.micros.reservation.ReservationServiceStub.ModifyBookingRequest;
 import com.micros.reservation.ReservationServiceStub.ModifyBookingResponse;
-import com.micros.reservation.ReservationServiceStub.NameAddressList;
+import com.micros.reservation.ReservationServiceStub.ArrayOfNameAddress;
 import com.micros.reservation.ReservationServiceStub.OtherPaymentType;
 import com.micros.reservation.ReservationServiceStub.Paragraph;
-import com.micros.reservation.ReservationServiceStub.ParagraphChoice;
+import com.micros.reservation.ReservationServiceStub.ParagraphChoice_type0[];
 import com.micros.reservation.ReservationServiceStub.Payment;
 import com.micros.reservation.ReservationServiceStub.PaymentType;
 import com.micros.reservation.ReservationServiceStub.PaymentTypeChoice_type0;
@@ -121,7 +121,7 @@ import com.micros.reservation.ReservationServiceStub.ReservationCommentList;
 import com.micros.reservation.ReservationServiceStub.ReservationStatusType;
 import com.micros.reservation.ReservationServiceStub.ResultStatusFlag;
 import com.micros.reservation.ReservationServiceStub.RoomFeature;
-import com.micros.reservation.ReservationServiceStub.RoomFeatureList;
+import com.micros.reservation.ReservationServiceStub.ArrayOfRoomFeature;
 import com.micros.reservation.ReservationServiceStub.RoomRate;
 import com.micros.reservation.ReservationServiceStub.RoomRateList;
 import com.micros.reservation.ReservationServiceStub.RoomStay;
@@ -764,7 +764,7 @@ public class RequestProcessor extends HttpServlet {
 
 			OWSMessageLogger.logInfo( RequestProcessor.class, " doPost Hotel Information Request block ", " Result status set " );
 
-			HotelInformation_type0 objHotelInformation_type0 = new HotelInformation_type0();
+			HotelInformationResponseHotelInformation objHotelInformationResponseHotelInformation = new HotelInformationResponseHotelInformation();
 
 			/* set hotel name */
 			HotelReference objHotelReference = new HotelReference();
@@ -837,7 +837,7 @@ public class RequestProcessor extends HttpServlet {
 
 			com.micros.ows.information.InformationStub.Paragraph[] objParagraph = new com.micros.ows.information.InformationStub.Paragraph[1];
 			com.micros.ows.information.InformationStub.Paragraph objParagraph2 =new com.micros.ows.information.InformationStub.Paragraph();
-			com.micros.ows.information.InformationStub.ParagraphChoice objChoice = new com.micros.ows.information.InformationStub.ParagraphChoice();
+			com.micros.ows.information.InformationStub.ParagraphChoice_type0[] objChoice = new com.micros.ows.information.InformationStub.ParagraphChoice_type0[]();
 			com.micros.ows.information.InformationStub.Text objText = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objString = new NormalizedString();
@@ -864,7 +864,7 @@ public class RequestProcessor extends HttpServlet {
 
 			com.micros.ows.information.InformationStub.Paragraph[] objParagraph1 = new com.micros.ows.information.InformationStub.Paragraph[1];
 			com.micros.ows.information.InformationStub.Paragraph objParagraph21 =new com.micros.ows.information.InformationStub.Paragraph();
-			com.micros.ows.information.InformationStub.ParagraphChoice objChoice1 = new com.micros.ows.information.InformationStub.ParagraphChoice();
+			com.micros.ows.information.InformationStub.ParagraphChoice_type0[] objChoice1 = new com.micros.ows.information.InformationStub.ParagraphChoice_type0[]();
 			com.micros.ows.information.InformationStub.Text objText1 = new com.micros.ows.information.InformationStub.Text();
 
 			NormalizedString objString1 = new NormalizedString();
@@ -1015,11 +1015,11 @@ public class RequestProcessor extends HttpServlet {
 			objExtendedHotelInfo.setHotelInformation(objHotelInfoList);
 			objExtendedHotelInfo.setFacilityInfo(objFacilityInfoType);
 
-			objHotelInformation_type0.setHotelExtendedInformation(objExtendedHotelInfo);
-			objHotelInformation_type0.setHotelContactInformation(objHotelContact);
-			objHotelInformation_type0.setHotelInformation(objHotelReference);
+			objHotelInformationResponseHotelInformation.setHotelExtendedInformation(objExtendedHotelInfo);
+			objHotelInformationResponseHotelInformation.setHotelContactInformation(objHotelContact);
+			objHotelInformationResponseHotelInformation.setHotelInformation(objHotelReference);
 
-			objHotelInformationResponse.setHotelInformation(objHotelInformation_type0);
+			objHotelInformationResponse.setHotelInformation(objHotelInformationResponseHotelInformation);
 
 			hotelInformationResponse = OWSUtility.convertToStreamXML( objHotelInformationResponse ); 
 
@@ -1236,7 +1236,7 @@ public class RequestProcessor extends HttpServlet {
 
 		if( creditCardNumber != null ) {
 
-			com.micros.reservation.ReservationServiceStub.NameCreditCardList objCardList = new  com.micros.reservation.ReservationServiceStub.NameCreditCardList();
+			com.micros.reservation.ReservationServiceStub.ArrayOfNameCreditCard objCardList = new  com.micros.reservation.ReservationServiceStub.ArrayOfNameCreditCard();
 
 			com.micros.reservation.ReservationServiceStub.NameCreditCard objCard = new com.micros.reservation.ReservationServiceStub.NameCreditCard();
 
@@ -1306,7 +1306,7 @@ public class RequestProcessor extends HttpServlet {
 
 			if( creditCardNumber != null ) {
 
-				com.micros.reservation.ReservationServiceStub.NameCreditCardList objCardList = new  com.micros.reservation.ReservationServiceStub.NameCreditCardList();
+				com.micros.reservation.ReservationServiceStub.ArrayOfNameCreditCard objCardList = new  com.micros.reservation.ReservationServiceStub.ArrayOfNameCreditCard();
 
 				com.micros.reservation.ReservationServiceStub.NameCreditCard objCard = new com.micros.reservation.ReservationServiceStub.NameCreditCard();
 
@@ -1405,7 +1405,7 @@ public class RequestProcessor extends HttpServlet {
 		RatePlanList objRatePlanList = new RatePlanList();
 		RatePlan objPlan = new RatePlan();
 
-		ParagraphChoice objChoice = new ParagraphChoice();
+		ParagraphChoice_type0[] objChoice = new ParagraphChoice_type0[]();
 		Text objText = new Text();
 
 		Language objLanguage = new Language();
@@ -1424,7 +1424,7 @@ public class RequestProcessor extends HttpServlet {
 		AdditionalDetail objAdditionalDetail = new AdditionalDetail();
 		objAdditionalDetail.setDetailType( AdditionalDetailType.CommissionPolicy );
 
-		objChoice = new ParagraphChoice();
+		objChoice = new ParagraphChoice_type0[]();
 		objText = new Text();
 		objLanguage = new Language();
 
@@ -1440,7 +1440,7 @@ public class RequestProcessor extends HttpServlet {
 		AdditionalDetail objAdditionalDetail1 = new AdditionalDetail();
 		objAdditionalDetail.setDetailType( AdditionalDetailType.TaxInformation );
 
-		objChoice = new ParagraphChoice();
+		objChoice = new ParagraphChoice_type0[]();
 		objText = new Text();
 		objLanguage = new Language();
 
@@ -1477,7 +1477,7 @@ public class RequestProcessor extends HttpServlet {
 		objRoomType.setRoomTypeCode( "POKB" );
 		objRoomType.setNumberOfUnits( 1 );
 
-		objChoice = new ParagraphChoice();
+		objChoice = new ParagraphChoice_type0[]();
 		objText = new Text();
 		objLanguage = new Language();
 
@@ -1493,7 +1493,7 @@ public class RequestProcessor extends HttpServlet {
 		objRoomType.setRoomTypeShortDescription( objParagraph );
 
 		/*To add the room features */
-		RoomFeatureList objRoomFeatureList = new RoomFeatureList();
+		ArrayOfRoomFeature objRoomFeatureList = new ArrayOfRoomFeature();
 		RoomFeature objFeature = new RoomFeature();
 
 		objFeature.setFeature( "POOL" );
@@ -1520,7 +1520,7 @@ public class RequestProcessor extends HttpServlet {
 		objRoomType.setRoomTypeCode( "KNG" );
 		objRoomType.setNumberOfUnits( 1 );
 
-		objChoice = new ParagraphChoice();
+		objChoice = new ParagraphChoice_type0[]();
 		objText = new Text();
 		objLanguage = new Language();
 
@@ -1535,7 +1535,7 @@ public class RequestProcessor extends HttpServlet {
 		objRoomType.setRoomTypeShortDescription( objParagraph );
 
 		/*To add the room features*/
-		RoomFeatureList objRoomFeatureList1 = new RoomFeatureList();
+		ArrayOfRoomFeature objRoomFeatureList1 = new ArrayOfRoomFeature();
 		objFeature = new RoomFeature();
 
 		/*Set the room features with description.*/
@@ -1693,7 +1693,7 @@ public class RequestProcessor extends HttpServlet {
 		objProfile.setProfileChoice_type0( objChoice_type02 );
 
 		/*To add the address information.*/
-		NameAddressList objAddressList = new NameAddressList();
+		ArrayOfNameAddress objAddressList = new ArrayOfNameAddress();
 		com.micros.reservation.ReservationServiceStub.NameAddress objNameAddress = new com.micros.reservation.ReservationServiceStub.NameAddress();
 
 		objNameAddress.setCountryCode( "US" );
@@ -2115,7 +2115,7 @@ public class RequestProcessor extends HttpServlet {
 		/* set credit card number. */
 		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Profile objProfile = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.Profile();
 
-		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCardList objCardList = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCardList();
+		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ArrayOfNameCreditCard objCardList = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.ArrayOfNameCreditCard();
 		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCard objCard = new  com.micros.ows.resvadvanced.ResvAdvancedServiceStub.NameCreditCard();
 		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CreditCardChoice_type0 objCardChoice_type0 = new com.micros.ows.resvadvanced.ResvAdvancedServiceStub.CreditCardChoice_type0();
 

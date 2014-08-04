@@ -17,12 +17,11 @@
         
         public  class FavoriteGuestRequest
         implements org.apache.axis2.databinding.ADBBean{
-        
-                public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName(
-                "http://webservices.micros.com/ows/5.1/Membership.wsdl",
-                "FavoriteGuestRequest",
-                "ns6");
-
+        /* This type was generated from the piece of schema that had
+                name = FavoriteGuestRequest
+                Namespace URI = http://webservices.micros.com/ows/5.1/Membership.wsdl
+                Namespace Prefix = ns3
+                */
             
 
                         /**
@@ -156,7 +155,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.FavoriteGuestList localFavoriteGuestList ;
+                                    protected com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest localFavoriteGuestList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -172,9 +171,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.FavoriteGuestList
+                           * @return com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest
                            */
-                           public  com.cloudkey.pms.micros.og.membership.FavoriteGuestList getFavoriteGuestList(){
+                           public  com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest getFavoriteGuestList(){
                                return localFavoriteGuestList;
                            }
 
@@ -184,7 +183,7 @@
                                * Auto generated setter method
                                * @param param FavoriteGuestList
                                */
-                               public void setFavoriteGuestList(com.cloudkey.pms.micros.og.membership.FavoriteGuestList param){
+                               public void setFavoriteGuestList(com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest param){
                             localFavoriteGuestListTracker = param != null;
                                    
                                             this.localFavoriteGuestList=param;
@@ -239,8 +238,8 @@
 
         
                org.apache.axiom.om.OMDataSource dataSource =
-                       new org.apache.axis2.databinding.ADBDataSource(this,MY_QNAME);
-               return factory.createOMElement(dataSource,MY_QNAME);
+                       new org.apache.axis2.databinding.ADBDataSource(this,parentQName);
+               return factory.createOMElement(dataSource,parentQName);
             
         }
 
@@ -289,6 +288,10 @@
                                            "actionType",
                                            localActionType.toString(), xmlWriter);
                                     }
+                                    
+                                      else {
+                                          throw new org.apache.axis2.databinding.ADBException("required attribute localActionType is null");
+                                      }
                                      if (localNameIDTracker){
                                             if (localNameID==null){
                                                  throw new org.apache.axis2.databinding.ADBException("NameID cannot be null!!");
@@ -321,7 +324,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/ows/5.1/Membership.wsdl")){
-                return "ns6";
+                return "ns3";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -625,6 +628,8 @@
                                             
                     } else {
                        
+                               throw new org.apache.axis2.databinding.ADBException("Required attribute actionType is missing");
+                           
                     }
                     handledAttributes.add("actionType");
                     
@@ -681,7 +686,7 @@
                                 
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/ows/5.1/Membership.wsdl","FavoriteGuestList").equals(reader.getName())){
                                 
-                                                object.setFavoriteGuestList(com.cloudkey.pms.micros.og.membership.FavoriteGuestList.Factory.parse(reader));
+                                                object.setFavoriteGuestList(com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest.Factory.parse(reader));
                                               
                                         reader.next();
                                     

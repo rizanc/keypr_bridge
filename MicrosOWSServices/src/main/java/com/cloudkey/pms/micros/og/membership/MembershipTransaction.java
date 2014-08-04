@@ -20,7 +20,7 @@
         /* This type was generated from the piece of schema that had
                 name = MembershipTransaction
                 Namespace URI = http://webservices.micros.com/og/4.3/Membership/
-                Namespace Prefix = ns5
+                Namespace Prefix = ns2
                 */
             
 
@@ -31,6 +31,17 @@
                         
                                     protected com.cloudkey.pms.micros.og.membership.Points localPoints ;
                                 
+                           /*  This tracker boolean wil be used to detect whether the user called the set method
+                          *   for this attribute. It will be used to determine whether to include this field
+                           *   in the serialized XML
+                           */
+                           protected boolean localPointsTracker = false ;
+
+                           public boolean isPointsSpecified(){
+                               return localPointsTracker;
+                           }
+
+                           
 
                            /**
                            * Auto generated getter method
@@ -47,7 +58,8 @@
                                * @param param Points
                                */
                                public void setPoints(com.cloudkey.pms.micros.og.membership.Points param){
-                            
+                            localPointsTracker = param != null;
+                                   
                                             this.localPoints=param;
                                     
 
@@ -227,7 +239,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.PointsBreakupList localPointsBreakups ;
+                                    protected com.cloudkey.pms.micros.og.membership.ArrayOfPointsBreakup localPointsBreakups ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -243,9 +255,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.PointsBreakupList
+                           * @return com.cloudkey.pms.micros.og.membership.ArrayOfPointsBreakup
                            */
-                           public  com.cloudkey.pms.micros.og.membership.PointsBreakupList getPointsBreakups(){
+                           public  com.cloudkey.pms.micros.og.membership.ArrayOfPointsBreakup getPointsBreakups(){
                                return localPointsBreakups;
                            }
 
@@ -255,7 +267,7 @@
                                * Auto generated setter method
                                * @param param PointsBreakups
                                */
-                               public void setPointsBreakups(com.cloudkey.pms.micros.og.membership.PointsBreakupList param){
+                               public void setPointsBreakups(com.cloudkey.pms.micros.og.membership.ArrayOfPointsBreakup param){
                             localPointsBreakupsTracker = param != null;
                                    
                                             this.localPointsBreakups=param;
@@ -269,7 +281,7 @@
                         */
 
                         
-                                    protected com.cloudkey.pms.micros.og.membership.FavoriteGuestList localProfileList ;
+                                    protected com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest localProfileList ;
                                 
                            /*  This tracker boolean wil be used to detect whether the user called the set method
                           *   for this attribute. It will be used to determine whether to include this field
@@ -285,9 +297,9 @@
 
                            /**
                            * Auto generated getter method
-                           * @return com.cloudkey.pms.micros.og.membership.FavoriteGuestList
+                           * @return com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest
                            */
-                           public  com.cloudkey.pms.micros.og.membership.FavoriteGuestList getProfileList(){
+                           public  com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest getProfileList(){
                                return localProfileList;
                            }
 
@@ -297,7 +309,7 @@
                                * Auto generated setter method
                                * @param param ProfileList
                                */
-                               public void setProfileList(com.cloudkey.pms.micros.og.membership.FavoriteGuestList param){
+                               public void setProfileList(com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest param){
                             localProfileListTracker = param != null;
                                    
                                             this.localProfileList=param;
@@ -848,10 +860,6 @@
                                             
                                       }
                                     
-                                      else {
-                                          throw new org.apache.axis2.databinding.ADBException("required attribute localTransactionTypeCode is null");
-                                      }
-                                    
                                             if (localSource != null){
                                         
                                                 writeAttribute("",
@@ -968,13 +976,13 @@
 
                                             
                                       }
-                                    
+                                     if (localPointsTracker){
                                             if (localPoints==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Points cannot be null!!");
                                             }
                                            localPoints.serialize(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Points"),
                                                xmlWriter);
-                                         if (localTscTracker){
+                                        } if (localTscTracker){
                                             if (localTsc==null){
                                                  throw new org.apache.axis2.databinding.ADBException("Tsc cannot be null!!");
                                             }
@@ -1054,7 +1062,7 @@
 
         private static java.lang.String generatePrefix(java.lang.String namespace) {
             if(namespace.equals("http://webservices.micros.com/og/4.3/Membership/")){
-                return "ns5";
+                return "ns2";
             }
             return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
         }
@@ -1231,7 +1239,7 @@
                  java.util.ArrayList elementList = new java.util.ArrayList();
                  java.util.ArrayList attribList = new java.util.ArrayList();
 
-                
+                 if (localPointsTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Points"));
                             
@@ -1240,7 +1248,7 @@
                                          throw new org.apache.axis2.databinding.ADBException("Points cannot be null!!");
                                     }
                                     elementList.add(localPoints);
-                                 if (localTscTracker){
+                                } if (localTscTracker){
                             elementList.add(new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/",
                                                                       "Tsc"));
                             
@@ -1471,8 +1479,6 @@
                                             
                     } else {
                        
-                               throw new org.apache.axis2.databinding.ADBException("Required attribute transactionTypeCode is missing");
-                           
                     }
                     handledAttributes.add("transactionTypeCode");
                     
@@ -1686,10 +1692,10 @@
                     
                     
                     reader.next();
-                   
-                while(!reader.isEndElement()) {
-                    if (reader.isStartElement() ){
                 
+                                    
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Points").equals(reader.getName())){
                                 
                                                 object.setPoints(com.cloudkey.pms.micros.og.membership.Points.Factory.parse(reader));
@@ -1698,8 +1704,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","Tsc").equals(reader.getName())){
                                 
                                                 object.setTsc(com.cloudkey.pms.micros.og.membership.Tsc.Factory.parse(reader));
@@ -1708,8 +1719,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","AwardLabel").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -1727,8 +1743,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","TransferDescription").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -1746,8 +1767,13 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","UserNotes").equals(reader.getName())){
                                 
                                     nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance","nil");
@@ -1765,36 +1791,47 @@
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","PointsBreakups").equals(reader.getName())){
                                 
-                                                object.setPointsBreakups(com.cloudkey.pms.micros.og.membership.PointsBreakupList.Factory.parse(reader));
+                                                object.setPointsBreakups(com.cloudkey.pms.micros.og.membership.ArrayOfPointsBreakup.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                                        else
+                                    else {
+                                        
+                                    }
+                                
                                     
+                                    while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+                                
                                     if (reader.isStartElement() && new javax.xml.namespace.QName("http://webservices.micros.com/og/4.3/Membership/","ProfileList").equals(reader.getName())){
                                 
-                                                object.setProfileList(com.cloudkey.pms.micros.og.membership.FavoriteGuestList.Factory.parse(reader));
+                                                object.setProfileList(com.cloudkey.pms.micros.og.membership.ArrayOfFavoriteGuest.Factory.parse(reader));
                                               
                                         reader.next();
                                     
                               }  // End of if for expected property start element
                                 
-                             else{
-                                        // A start element we are not expecting indicates an invalid parameter was passed
-                                        throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
-                             }
-                          
-                             } else {
+                                    else {
+                                        
+                                    }
+                                  
+                            while (!reader.isStartElement() && !reader.isEndElement())
                                 reader.next();
-                             }  
-                           }  // end of while loop
-                        
+                            
+                                if (reader.isStartElement())
+                                // A start element we are not expecting indicates a trailing invalid property
+                                throw new org.apache.axis2.databinding.ADBException("Unexpected subelement " + reader.getName());
+                            
 
 
 
