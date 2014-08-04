@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.Rtav;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
@@ -31,6 +32,16 @@ import com.micros.harvester.logger.DataHarvesterLogger;
 public class OXIParserUtility {
 
 	/**
+	 * The parsed document
+	 */
+	 private Document document ;
+
+	/**
+	 * The parsed document
+	 */
+	 private Boolean docLoaded = false ;
+
+	/**
 	 * * This method accept xpath expression and reference of xml document. It returns the list 
 	 * of nodes satisfying the criteria of xpath expression.
 	 * 
@@ -44,6 +55,80 @@ public class OXIParserUtility {
 		XPath xPath =  XPathFactory.newInstance().newXPath();		
 		NodeList nodeList = (NodeList) xPath.compile(expression).evaluate( document, XPathConstants.NODESET );	
 		return nodeList;
+	}
+
+
+	/**
+	 * Parse the OXI xml into a document for further processing.
+	 * 
+	 */
+	public void loadDoc( File xmlfile ){
+		try {
+
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+			if ( xmlfile.exists() ) {
+
+				document = docBuilder.parse( xmlfile ); 
+				docLoaded = true ;
+				}
+				
+		}
+		catch ( Exception exc ){
+
+			DataHarvesterLogger.logError( OXIParserUtility.class," loadDoc ", exc);
+		}
+
+
+	}
+
+
+
+	/**
+	 * Return true if document is a Reservation
+	 * 
+	 */
+	public Boolean isReservation( ){
+		boolean returnVal = false ;
+		try {
+				if (docLoaded) {
+					// Try to retrive reservation type
+					String expression = "/Reservation[@mfReservationAction]";
+					NodeList nodeList = retrieveNodeList(expression, document );
+					returnVal = (nodeList.getLength() > 0 );
+				}
+				
+		}
+		catch ( Exception exc ){
+
+			DataHarvesterLogger.logError( OXIParserUtility.class," isReaservation ", exc);
+		}
+		
+		return returnVal ;
+	}
+
+
+	/**
+	 * Return true if document is a Rtav
+	 * 
+	 */
+	public Boolean isRtav( ){
+		Boolean returnVal = false ;
+		try {
+				// Try to retrive reservation type
+				if (docLoaded){
+					String expression = "/RtavMessage/DailyInventories/DailyInventory[@datum]";
+					NodeList nodeList = retrieveNodeList(expression, document );
+					returnVal = (nodeList.getLength() > 0 );
+				}
+				
+		}
+		catch ( Exception exc ){
+
+			DataHarvesterLogger.logError( OXIParserUtility.class," isRtav ", exc);
+		}
+		
+		return returnVal ;
 	}
 
 
@@ -102,8 +187,6 @@ public class OXIParserUtility {
 
 		try {
 
-			dbFactory = DocumentBuilderFactory.newInstance();
-			docBuilder = dbFactory.newDocumentBuilder();
 			objReservation = new Reservation();
 			objRoomAllocation = new ReservationRoomAllocation();
 			//obRoomRatesList = objRoomAllocation.getRoomRateList();
@@ -113,9 +196,7 @@ public class OXIParserUtility {
 			objRoomType = new RoomType();
 			objStringBuffer = new StringBuffer();
 
-			if ( reservationFile.exists() ) {
-
-				Document document = docBuilder.parse( reservationFile ); 
+			if ( isReservation() ) {
 
 				// Retrieving reservation type whether it is check in, check out or new.
 				expression = "/Reservation[@mfReservationAction]";
@@ -629,7 +710,7 @@ public class OXIParserUtility {
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " File Not Availabel. ");
+				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Not Reservation ");
 			}
 
 		}
@@ -641,6 +722,38 @@ public class OXIParserUtility {
 		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Exit populateReservation method. ");
 
 		return objReservation;
+
+	}
+
+	/**
+	 * Parses the document if it is Rtav
+	 * 
+	 * @return
+	 */
+	public Rtav populateRtav ( ) {
+
+		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateRtav ", " Enter populateRtav method. ");
+
+		Rtav objRtav = new Rtav();
+		try {
+
+			if ( isRtav() ) {
+				/* Todo: TBD Process the request todo */
+			}
+			else {
+
+				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateRtav ", " Not Rtav ");
+			}
+
+		}
+		catch ( Exception exc ){
+
+			DataHarvesterLogger.logError( OXIParserUtility.class," populateRtav ", exc);
+		}
+
+		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateRtav ", " Exit populateRtav method. ");
+
+		return objRtav;
 
 	}
 

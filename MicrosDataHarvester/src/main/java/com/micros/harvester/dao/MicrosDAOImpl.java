@@ -1,9 +1,10 @@
 package com.micros.harvester.dao;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationRoomAllocation;
-import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.commons.*;
+import com.cloudkey.commons.RoomRate;
+import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail;
+import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.micros.harvester.logger.DataHarvesterLogger;
 
 import com.cloudkey.dao.DataBaseHandler;
@@ -12,8 +13,6 @@ import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.micros.harvester.constant.IMicrosHarvester;
 import com.micros.harvester.logger.DataHarvesterLogger;
-import com.cloudkey.commons.RoomRate;
-import com.cloudkey.commons.RoomType;
 
 import java.sql.*;
 import java.util.Date;
@@ -204,7 +203,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB Connection cannot be closed ", sqe );
+					DataHarvesterLogger.logError( MicrosDAOImpl.class, " StatusDataInBridgeDB Connection cannot be closed ", sqe );
 				}
 			}
 		}
@@ -1094,6 +1093,38 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		return isStored;
 	}
+
+	@Override
+	public boolean persistRtavData( Rtav objRtav ) throws SQLException {
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRtavData ", " Enter persistRtavData method " );
+
+		boolean isStored = false;
+
+		Connection objConn = null;
+		String sqlQuery = null;
+
+		int rowUpdated = 0;
+		int lastInsetedId = 0;
+
+		try {
+
+			/* Todo TBD: Persist Rtav data. */
+			isStored = true ;
+
+		}
+		catch( Exception exc ){
+
+			objConn.rollback();
+			DataHarvesterLogger.logError(MicrosDAOImpl.class, " persistRtavData ", exc );
+		}
+
+		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRtavData ", " Exit persistRtavData method " );
+
+		return isStored;
+	}
+
+
 	/**
 	 * This method will store reservation room allocation data in the database. It accept reservation identifier
 	 * of the reservation record recently added to the reservation upload table.
