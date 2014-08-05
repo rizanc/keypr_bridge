@@ -22,12 +22,12 @@ public class ParserConfigurationReader {
 
 	static {
 		prop = new Properties();
-		ClassLoader loader = ParserConfigurationReader.class.getClassLoader();
-		String popfileName = "com/micros/pms/util/pms-adapter-configuration.properties";
-		InputStream propFile = loader.getResourceAsStream(popfileName);
+		String popfileName = "pms-adapter-configuration.properties";
+		InputStream propFile = ParserConfigurationReader.class.getResourceAsStream(popfileName);
 
 		try {
 			prop.load(propFile);
+			propFile.close();
 		} catch (IOException e) {
 			log.error("Could not load property file", propFile, e);
 		}

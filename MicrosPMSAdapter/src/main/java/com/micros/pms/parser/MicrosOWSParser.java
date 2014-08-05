@@ -21,7 +21,6 @@ import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
-import com.micros.http.connection.HttpClientRequest;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.processor.*;
 import org.apache.commons.lang3.NotImplementedException;
