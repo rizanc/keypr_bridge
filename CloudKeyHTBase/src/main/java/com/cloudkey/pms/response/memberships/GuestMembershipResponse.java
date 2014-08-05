@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.cloudkey.commons.Membership;
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 public class GuestMembershipResponse extends Response {
 
@@ -29,10 +30,10 @@ public class GuestMembershipResponse extends Response {
         this.membershipList = membershipList;
     }
 
-    @Override
-    public String toString() {
-        return "GuestMembershipResponse [membershipList=" + membershipList
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("membershipList", membershipList)
+			.toString();
+	}
 }

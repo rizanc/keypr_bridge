@@ -2,6 +2,7 @@ package com.cloudkey.pms.response.reservations;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 /**
  * The Class stores the check out response for the guest. It has the details of check out response
@@ -27,10 +28,10 @@ public class CheckOutResponse extends Response {
         this.reservation = reservation;
     }
 
-    @Override
-    public String toString() {
-        return "CheckOutResponse [reservation=" + reservation + ", status="
-                + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("reservation", reservation)
+			.toString();
+	}
 }

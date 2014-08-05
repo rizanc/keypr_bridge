@@ -2,7 +2,6 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Availability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
-import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
@@ -14,13 +13,12 @@ import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
 import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 import org.joda.time.LocalDate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -29,17 +27,13 @@ import java.util.List;
 /**
  * @author crizan2
  */
-public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
-	final static Logger log = LoggerFactory.getLogger(OWSAvailabilityProcessor.class);
-
+public class OWSAvailabilityProcessor extends OWSBase {
     final static String URL_AVAILABILITY = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Availability.asmx";
 
     public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest availabilityRequest) throws RemoteException {
         log.debug("processAvailability", "Enter checkAvailability method.");
 
         AvailabilityServiceStub astub = getAvailabilityServiceStub();
-
-        GetAvailabilityResponse objGetAvailabilityResponse;
 
         /*To get the request parameters*/
         LocalDate objSDate = availabilityRequest.getStartDate();
@@ -48,30 +42,24 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
 	    log.debug("processAvailability", "Start Date", objSDate);
 	    log.debug("processAvailability", "End Date", objEDate);
 
-	    if (objEDate.isBefore(objSDate)) {
-            objGetAvailabilityResponse = new GetAvailabilityResponse();
-            objGetAvailabilityResponse.setStatus(IMicrosConstants.RESPONSE_FAIL);
-        } else {
-	        FetchCalendarRequest req = getAvailabilityRequestObject(availabilityRequest);
-	        FetchCalendarRequestE requestE = new FetchCalendarRequestE();
-		    requestE.setFetchCalendarRequest(req);
+        FetchCalendarRequest req = getAvailabilityRequestObject(availabilityRequest);
+        FetchCalendarRequestE requestE = new FetchCalendarRequestE();
+	    requestE.setFetchCalendarRequest(req);
 
-            log.debug("processAvailability", "Convert request into xml form");
+        log.debug("processAvailability", "Convert request into xml form");
 
-            OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = getHeaderE();
 
-            log.debug("processAvailability", AdapterUtility.convertToStreamXML(req));
+        log.debug("processAvailability", AdapterUtility.convertToStreamXML(req));
+        FetchCalendarResponseE responseE = astub.fetchCalendar(requestE, ogh);
+        log.debug("processAvailability", AdapterUtility.convertToStreamXML(responseE));
 
-            FetchCalendarResponseE responseE = astub.fetchCalendar(requestE, ogh);
-            log.debug("processAvailability", AdapterUtility.convertToStreamXML(responseE));
+	    errorIfFailure(responseE.getFetchCalendarResponse().getResult());
 
-            objGetAvailabilityResponse = getAvailabilityResponseObject(responseE.getFetchCalendarResponse());
-        }
-
-	    return objGetAvailabilityResponse;
+	    return getAvailabilityResponseObject(responseE.getFetchCalendarResponse());
     }
 
-    private FetchCalendarRequest getAvailabilityRequestObject(GetAvailabilityRequest availabilityRequest) {
+	private FetchCalendarRequest getAvailabilityRequestObject(GetAvailabilityRequest availabilityRequest) {
         log.debug("getAvailabilityRequestObject", "Enter getAvailabilityRequestObject method.");
 
         /*To get the request parameters*/
@@ -105,14 +93,6 @@ public class OWSAvailabilityProcessor extends AbstractOWSProcessor {
         log.debug("getAvailabilityResponseObject", "Enter getAvailabilityResponseObject method.");
 
         GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
-
-        objAvailabilityResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-        if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String message = getErrorMessage(objResponse.getResult());
-            objAvailabilityResponse.setErrorMessage(message);
-            log.debug("getAvailabilityResponseObject", "Availability Failed:" + message);
-            return objAvailabilityResponse;
-        }
 
 		/*To get the list from availability response.*/
         List<Availability> objLiAvailabilities = new ArrayList<>();

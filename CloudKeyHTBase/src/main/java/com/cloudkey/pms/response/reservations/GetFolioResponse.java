@@ -5,6 +5,7 @@ import java.util.List;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 /**
  * This Class has information of bill requested by the guest. It has details of reservations 
@@ -41,11 +42,11 @@ public class GetFolioResponse extends Response {
         this.reservationOrderList = reservationOrderList;
     }
 
-    @Override
-    public String toString() {
-        return "GetFolioResponse [reservation=" + reservation
-                + ", reservationOrderList=" + reservationOrderList
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("reservation", reservation)
+			.add("reservationOrderList", reservationOrderList)
+			.toString();
+	}
 }

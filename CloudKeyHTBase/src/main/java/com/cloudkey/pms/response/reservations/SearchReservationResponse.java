@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 /**
  * This class has carry response of search reservation request made by the client. It has
@@ -30,10 +31,10 @@ public class SearchReservationResponse  extends Response{
         this.reservationList = reservationList;
     }
 
-    @Override
-    public String toString() {
-        return "SearchReservationResponse [reservationList=" + reservationList
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("reservationList", reservationList)
+			.toString();
+	}
 }

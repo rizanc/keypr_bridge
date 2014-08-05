@@ -10,10 +10,4 @@ import com.cloudkey.commons.Response;
  */
 public class UpdatePaymentResponse extends Response {
 
-    @Override
-    public String toString() {
-        return "UpdatePaymentResponse [status=" + status + ", errorMessage="
-                + errorMessage + "]";
-    }
-
 }

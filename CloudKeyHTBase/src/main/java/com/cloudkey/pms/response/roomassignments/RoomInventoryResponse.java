@@ -2,6 +2,7 @@ package com.cloudkey.pms.response.roomassignments;
 
 import com.cloudkey.commons.Response;
 import com.cloudkey.commons.RoomDetails;
+import com.google.common.base.Objects;
 
 /**
  * This class stores the room inventory details. The information includes
@@ -25,10 +26,10 @@ public class RoomInventoryResponse extends Response {
         this.roomDetailList = roomDetailList;
     }
 
-    @Override
-    public String toString() {
-        return "RoomInventoryResponse [roomDetailList=" + roomDetailList
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("roomDetailList", roomDetailList)
+			.toString();
+	}
 }

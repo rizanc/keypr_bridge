@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloudkey.commons.Availability;
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 /**
  * The Class has the details of reservation availability. It has the information of response status
@@ -30,10 +31,10 @@ public class GetAvailabilityResponse extends Response {
         this.availabiltyList = availList;
     }
 
-    @Override
-    public String toString() {
-        return "GetAvailabilityResponse [availabiltyList=" + availabiltyList
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("availabiltyList", availabiltyList)
+			.toString();
+	}
 }

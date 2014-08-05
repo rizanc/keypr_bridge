@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloudkey.commons.AvailableProperty;
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 /**
  * This class represents the details of the meeting room availability in the hotel.
@@ -24,11 +25,10 @@ public class MeetingRoomInformationResponse extends Response {
         this.availableProperty = availableProperty;
     }
 
-    @Override
-    public String toString() {
-        return "MeetingRoomInformationResponse [availableProperty="
-                + availableProperty + ", status=" + status + ", errorMessage="
-                + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("availableProperty", availableProperty)
+			.toString();
+	}
 }

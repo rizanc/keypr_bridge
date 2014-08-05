@@ -30,8 +30,9 @@ public class RoomAssignmentsResource extends AbstractResource {
         response = AssignRoomResponse.class
     )
     @ApiResponses({
-        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
+	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public AssignRoomResponse assignRoom(@Valid AssignRoomRequest request) {
         return messageParser.assignRoom(request);
@@ -43,8 +44,9 @@ public class RoomAssignmentsResource extends AbstractResource {
         response = ReleaseRoomResponse.class
     )
     @ApiResponses({
-        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
+	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public ReleaseRoomResponse releaseRoom(@Valid ReleaseRoomRequest request) {
         return messageParser.releaseRoom(request);
@@ -56,8 +58,9 @@ public class RoomAssignmentsResource extends AbstractResource {
         response = GetAvailabilityResponse.class
     )
     @ApiResponses({
-        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
+	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public GetAvailabilityResponse getAvailability(
             @QueryParam("startDate") LocalDateParam startDate,

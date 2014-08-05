@@ -16,13 +16,12 @@ import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -31,9 +30,7 @@ import java.util.List;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSReservationProcessor extends AbstractOWSProcessor {
-	final static Logger log = LoggerFactory.getLogger(OWSReservationProcessor.class);
-
+public class OWSReservationProcessor extends OWSBase {
     final static String URL_RESERVATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Reservation.asmx";
 
     public FetchBookingResponse fetchBooking(String confirmation) throws RemoteException {
@@ -62,6 +59,8 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         log.debug("fetchBooking",
 	        AdapterUtility.convertToStreamXML(responseE));
 
+	    errorIfFailure(responseE.getFetchBookingResponse().getResult());
+
         return responseE.getFetchBookingResponse();
     }
 
@@ -84,6 +83,8 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         log.debug("processAssignRoom",
 	        AdapterUtility.convertToStreamXML(responseE));
 
+	    errorIfFailure(responseE.getAssignRoomResponse().getResult());
+
 	    return getAssignRoomResponseObject(responseE.getAssignRoomResponse());
     }
 
@@ -105,6 +106,8 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         ReleaseRoomResponseE responseE = rstub.releaseRoom(requestE, ogh);
         log.debug("processReleaseRoom",
 	        AdapterUtility.convertToStreamXML(responseE));
+
+	    errorIfFailure(responseE.getReleaseRoomResponse().getResult());
 
 	    return getReleaseRoomResponseObject(responseE.getReleaseRoomResponse());
     }
@@ -129,7 +132,9 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         log.debug("processUpdateBooking",
 	        AdapterUtility.convertToStreamXML(responseE));
 
-        return getUpdateBookingResponseObject(responseE.getModifyBookingResponse());
+	    errorIfFailure(responseE.getModifyBookingResponse().getResult());
+
+	    return getUpdateBookingResponseObject(responseE.getModifyBookingResponse());
 
     }
 
@@ -138,17 +143,9 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
      * @return UpdateBookingResponse
      */
     private UpdateBookingResponse getUpdateBookingResponseObject(ModifyBookingResponse objResponse) {
-
         log.debug("getUpdateBookingResponseObject", "Enter getUpdateBookingResponseObject method ");
 
         UpdateBookingResponse objUpdateBookingResponse = new UpdateBookingResponse();
-        objUpdateBookingResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-        if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String errorMessage = getErrorMessage(objResponse.getResult());
-            objUpdateBookingResponse.setErrorMessage(errorMessage);
-            log.debug("getUpdateBookingResponseObject", "Update Failed:" + errorMessage);
-            return objUpdateBookingResponse;
-        }
 
         log.debug("getUpdateBookingResponseObject", "Exit  getUpdateBookingResponseObject method ");
 
@@ -255,12 +252,6 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         log.debug("getReleaseRoomResponseObject", "Enter getReleaseRoomResponseObject method ");
 
         com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse objReleaseRoomRespons = new com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse();
-	    String status = objReleaseRoomResponse.getResult().getResultStatusFlag().toString();
-        objReleaseRoomRespons.setStatus(status);
-
-        if (objReleaseRoomResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            objReleaseRoomRespons.setErrorMessage(getErrorMessage(objReleaseRoomResponse.getResult()));
-        }
 
         log.debug("getReleaseRoomResponseObject", "Exit getReleaseRoomResponseObject method ");
 
@@ -295,14 +286,6 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         log.debug("getAssignRoomResponseObject", "Enter getAssignRoomResponseObject method ");
 
 	    com.cloudkey.pms.response.roomassignments.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.roomassignments.AssignRoomResponse();
-
-        objAssignRoomResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-        if (objAssignRoomResponse.getStatus().equalsIgnoreCase("FAIL")) {
-            String message = getErrorMessage(objResponse.getResult());
-            objAssignRoomResponse.setErrorMessage(message);
-            log.debug("getCheckInResponseObject", "CheckIn Failed:" + message);
-            return objAssignRoomResponse;
-        }
 
         objAssignRoomResponse.setAssignRoomNumber(objResponse.getRoomNoAssigned());
         log.debug("getAssignRoomResponseObject", "Exit getAssignRoomResponseObject method ");
@@ -360,6 +343,8 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
         FutureBookingSummaryResponseE responseE = rstub.futureBookingSummary(requestE, ogh);
         log.debug("processSearchReservationData",
 	        AdapterUtility.convertToStreamXML(responseE));
+
+	    errorIfFailure(responseE.getFutureBookingSummaryResponse().getResult());
 
 	    return getFutureBookingResponseObject(responseE.getFutureBookingSummaryResponse());
     }
@@ -486,19 +471,10 @@ public class OWSReservationProcessor extends AbstractOWSProcessor {
 
 		/* Populate response into Reservation instance */
         SearchReservationResponse objSearchReservationResponse = new SearchReservationResponse();
-        objSearchReservationResponse.setStatus(objResponse.getResult().getResultStatusFlag().getValue());
-        if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String errorMessage = getErrorMessage(objResponse.getResult());
-            objSearchReservationResponse.setErrorMessage(errorMessage);
-            log.debug("getUpdateBookingResponseObject", "Update Failed:" + errorMessage);
-            return objSearchReservationResponse;
-        }
 
-        List<Reservation> objLReservations = objSearchReservationResponse.getReservationList();
+	    HotelReservation[] arrHotelReservation = objResponse.getHotelReservations().getHotelReservation();
 
-        HotelReservation[] arrHotelReservation = objResponse.getHotelReservations().getHotelReservation();
-
-        objLReservations = parseHotelReservation(arrHotelReservation);
+	    List<Reservation> objLReservations = parseHotelReservation(arrHotelReservation);
 
         /**
          * To set the reservation list and status on the response.

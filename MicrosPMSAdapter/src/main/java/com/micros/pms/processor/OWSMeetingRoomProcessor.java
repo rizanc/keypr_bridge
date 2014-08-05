@@ -1,19 +1,15 @@
 package com.micros.pms.processor;
 
 import com.cloudkey.pms.micros.services.MeetingRoomServiceStub;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSMeetingRoomProcessor extends AbstractOWSProcessor {
-
-	final static Logger log = LoggerFactory.getLogger(OWSMeetingRoomProcessor.class);
-
+public class OWSMeetingRoomProcessor extends OWSBase {
 	final static String URL_MEETING_ROOM = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/MeetingRoom.asmx";
 
     private MeetingRoomServiceStub getMeetingRoomServiceStub() {

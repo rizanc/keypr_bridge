@@ -16,12 +16,11 @@ import com.cloudkey.pms.micros.og.reservation.advanced.*;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceStub;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
 import com.cloudkey.pms.response.reservations.GetFolioResponse;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -31,17 +30,11 @@ import java.util.List;
 /**
  * Created by crizan2 on 17/07/2014.
  */
-public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
-
-	final static Logger log = LoggerFactory.getLogger(OWSResvAdvancedProcessor.class);
-
+public class OWSResvAdvancedProcessor extends OWSBase {
 	final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
 
-    public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest postChargeRequest) {
-
+    public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest postChargeRequest) throws RemoteException {
         log.debug("postCharge", "Enter in postCharge method.");
-
-        PostChargeResponse objResponse = null;
 
         OGHeaderE ogh = getHeaderE();
 
@@ -53,21 +46,18 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
 	    com.cloudkey.pms.response.reservations.PostChargeResponse response = null;
 
-        try {
-            log.debug("postCharge",
-                    AdapterUtility.convertToStreamXML(requestE));
-            PostChargeResponseE responseE = rstub.postCharge(requestE, ogh);
-            log.debug("postCharge",
-                    AdapterUtility.convertToStreamXML(responseE));
+        log.debug("postCharge",
+                AdapterUtility.convertToStreamXML(requestE));
+        PostChargeResponseE responseE = rstub.postCharge(requestE, ogh);
 
-            response = getPostChargeResponseObject(responseE.getPostChargeResponse());
-            log.debug("postCharge",
-                    AdapterUtility.convertToStreamXML(response));
+        log.debug("postCharge",
+                AdapterUtility.convertToStreamXML(responseE));
 
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            log.error("postCharge ", e.getMessage());
-        }
+	    errorIfFailure(responseE.getPostChargeResponse().getResult());
+
+	    response = getPostChargeResponseObject(responseE.getPostChargeResponse());
+	    log.debug("postCharge",
+                AdapterUtility.convertToStreamXML(response));
 
         log.debug("postCharge", "Exit postCharge method ");
 
@@ -110,12 +100,6 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         log.debug("getPostChargeResponseObject", "Enter method");
 
 	    com.cloudkey.pms.response.reservations.PostChargeResponse objFolioResponse = new com.cloudkey.pms.response.reservations.PostChargeResponse();
-        objFolioResponse.setStatus(postChargeResponse.getResult().getResultStatusFlag().toString());
-        if (postChargeResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String message = getErrorMessage(postChargeResponse.getResult());
-            objFolioResponse.setErrorMessage(message);
-            log.debug("getPostChargeResponseObject", "Get Folio Failed:" + message);
-        }
 
         return objFolioResponse;
     }
@@ -123,8 +107,6 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
     public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest folioRequest) throws RemoteException {
 
         log.debug("processRetrieveFolioInfo", "Enter in processRetrieveFolioInfo method.");
-
-        InvoiceResponse objResponse = null;
 
         OGHeaderE ogh = getHeaderE();
 
@@ -141,6 +123,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         InvoiceResponseE responseE = rstub.invoice(requestE, ogh);
         log.debug("processRetrieveFolioInfo",
                 AdapterUtility.convertToStreamXML(responseE));
+	    errorIfFailure(responseE.getInvoiceResponse().getResult());
 
         response = getFolioResponseObject(responseE.getInvoiceResponse());
         log.debug("processRetrieveFolioInfo",
@@ -156,13 +139,6 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         log.debug("getFolioResponseObject", "Enter method");
 
         GetFolioResponse objFolioResponse = new GetFolioResponse();
-        objFolioResponse.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-        if (objFolioResponse.getStatus().equalsIgnoreCase("FAIL")) {
-            String message = getErrorMessage(objResponse.getResult());
-            objFolioResponse.setErrorMessage(message);
-            log.debug("getFolioResponseObject", "Get Folio Failed:" + message);
-            return objFolioResponse;
-        }
 
 		/* Populate response into Reservation instance */
         String addressType = null;
@@ -308,8 +284,6 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
     public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) throws RemoteException {
         log.debug("processCheckOut", "Enter in processCheckOut method. ");
 
-        CheckOutResponse objResponse = null;
-
         OGHeaderE ogh = getHeaderE();
 
         CheckOutRequest req = getCheckOutRequestObject(request);
@@ -318,15 +292,16 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
 
         ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
 
-	    com.cloudkey.pms.response.reservations.CheckOutResponse response = null;
+	    com.cloudkey.pms.response.reservations.CheckOutResponse response;
 
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(requestE));
         CheckOutResponseE resp = rstub.checkOut(requestE, ogh);
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(resp));
+	    errorIfFailure(resp.getCheckOutResponse().getResult());
 
-        response = getCheckOutResponseObject(resp.getCheckOutResponse());
+	    response = getCheckOutResponseObject(resp.getCheckOutResponse());
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(response));
 
@@ -374,17 +349,6 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         String firstName = null;
         String lastName = null;
         StringBuffer objStringBuffer = null;
-
-        // set status in the response.
-        status = checkOutResponse.getResult().getResultStatusFlag().toString();
-        objCheckOutResponse.setStatus(status);
-
-        if (checkOutResponse.getResult().getResultStatusFlag() != ResultStatusFlag.SUCCESS) {
-            String message = getErrorMessage(checkOutResponse.getResult());
-            objCheckOutResponse.setErrorMessage(message);
-            log.debug("getCheckOutResponseObject", "Could not check out:" + message);
-            return objCheckOutResponse;
-        }
 
         log.debug("getCheckOutResponseObject", "Status Set ");
 
@@ -439,9 +403,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
     }
 
     public String getNextAvailableRoom(String roomType) throws RemoteException {
-        log.debug("processFetchRoomStatus", "Enter in processSearchReservationData method. ");
-
-        FetchRoomStatusRequest objResponse = null;
+        log.debug("processFetchRoomStatus", "Enter in processSearchReservationData method.");
 
         OGHeaderE ogh = getHeaderE();
 
@@ -461,10 +423,9 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
                 AdapterUtility.convertToStreamXML(responseE));
 
 	    FetchRoomStatusResponse response = responseE.getFetchRoomStatusResponse();
+	    errorIfFailure(response.getResult());
 
-	    if (response.getResult().getResultStatusFlag() == ResultStatusFlag.SUCCESS) {
-		    nextAvailableRoom = response.getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
-	    }
+	    nextAvailableRoom = response.getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
 
 	    log.debug("processFetchRoomStatus", nextAvailableRoom);
 
@@ -488,6 +449,7 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         CheckInResponseE responseE = rstub.checkIn(requestE, ogh);
         log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(responseE));
+	    errorIfFailure(responseE.getCheckInResponse().getResult());
 
 	    com.cloudkey.pms.response.reservations.CheckInResponse response = getCheckInResponseObject(responseE.getCheckInResponse());
         log.debug("processFetchRoomStatus",
@@ -573,18 +535,6 @@ public class OWSResvAdvancedProcessor extends AbstractOWSProcessor {
         String firstName = null;
         String lastName = null;
         StringBuffer objStringBuffer = null;
-
-        // set status in the response.
-        status = objResponse.getResult().getResultStatusFlag().getValue();
-        objCheckInResponse.setStatus(status);
-
-        // If this has failed, we return and do not do any more processing.
-        if (status.equalsIgnoreCase("FAIL")) {
-            String message = getErrorMessage(objResponse.getResult());
-            objCheckInResponse.setErrorMessage(message);
-            log.debug("getCheckInResponseObject", "CheckIn Failed:" + message);
-            return objCheckInResponse;
-        }
 
         CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
 

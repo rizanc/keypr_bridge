@@ -1,7 +1,6 @@
 package com.micros.pms.processor;
 
 import com.cloudkey.commons.Membership;
-import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
 import com.cloudkey.pms.micros.og.core.OGHeaderE;
@@ -12,12 +11,11 @@ import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -25,9 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSNameProcessor extends AbstractOWSProcessor {
-	final static Logger log = LoggerFactory.getLogger(OWSNameProcessor.class);
-
+public class OWSNameProcessor extends OWSBase {
     final static String URL_NAME = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Name.asmx";
 
     public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
@@ -53,16 +49,9 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
 	        AdapterUtility.convertToStreamXML(responseE));
 
         FetchGuestCardListResponse objResponse = responseE.getFetchGuestCardListResponse();
+	    errorIfFailure(objResponse.getResult());
 
 	    GuestMembershipResponse response = new GuestMembershipResponse();
-
-	    response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-        if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String errorMessage = getErrorMessage(objResponse.getResult());
-        response.setErrorMessage(errorMessage);
-            log.debug("processGuestCardList", errorMessage);
-            return response;
-        }
 
         ArrayList<Membership> memberships = new ArrayList<Membership>();
         if (objResponse.getGuestCardList() != null && objResponse.getGuestCardList().getNameMembership() != null) {
@@ -96,7 +85,6 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
     public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
         log.debug("processNameLookupByMembership", "Enter processNameLookupByMembership method ");
 
-
         NameServiceStub nameServiceStub = getNameServiceStub();
 
         NameLookupRequest objRequest = new NameLookupRequest();
@@ -126,15 +114,9 @@ public class OWSNameProcessor extends AbstractOWSProcessor {
 	        AdapterUtility.convertToStreamXML(resp));
 
         NameLookupResponse objResponse = resp.getNameLookupResponse();
+	    errorIfFailure(objResponse.getResult());
 
 	    NameIdByMembershipResponse response = new NameIdByMembershipResponse();
-	    response.setStatus(objResponse.getResult().getResultStatusFlag().toString());
-        if (objResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String errorMessage = getErrorMessage(objResponse.getResult());
-        response.setErrorMessage(errorMessage);
-            log.debug("processNameLookupByMembership", errorMessage);
-            return response;
-        }
 
         ArrayOfProfile profiles = objResponse.getProfiles();
         if (profiles.getProfile().length > 0) {

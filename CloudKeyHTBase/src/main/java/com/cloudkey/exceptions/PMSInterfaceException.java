@@ -5,7 +5,7 @@ import com.cloudkey.message.parser.IParserInterface;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Exception which implementations {@link IParserInterface} may throw when a PMS communication error occurs
+ * Exception which implementations of {@link IParserInterface} may throw when a PMS communication error occurs.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */

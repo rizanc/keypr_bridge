@@ -10,12 +10,5 @@ import com.cloudkey.commons.Response;
  */
 public class ReleaseRoomResponse extends Response {
 
-    @Override
-    public String toString() {
-        return "ReleaseRoomResponse [status=" + status + ", errorMessage="
-                + errorMessage + "]";
-    }
-
-
 }
 

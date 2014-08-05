@@ -21,6 +21,7 @@ import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.processor.*;
 import org.apache.commons.lang3.NotImplementedException;
@@ -34,8 +35,7 @@ import java.util.List;
  *
  * @author crizan2
  */
-public class MicrosOWSParser implements IParserInterface {
-	final static Logger log = LoggerFactory.getLogger(MicrosOWSParser.class);
+public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
@@ -192,6 +192,7 @@ public class MicrosOWSParser implements IParserInterface {
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
 	    log.debug("memberPointsQuery", "Enter method.");
+
 	    MemberPointsResponse response = new MemberPointsResponse();
 
         // Get the name id for the member
@@ -202,34 +203,22 @@ public class MicrosOWSParser implements IParserInterface {
         NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName);
 
         NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
-	    if (nameIdByMembershipResponse.getStatus().equals(IMicrosConstants.RESPONSE_FAIL)) {
-		    response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-		    response.setErrorMessage(nameIdByMembershipResponse.getErrorMessage());
-		    log.debug("memberPointsQuery", "Failure response", response.getErrorMessage());
-		    return response;
-	    }
 
         String nameID = nameIdByMembershipResponse.getNameId();
 
         // Get the membership request
         GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest(nameID);
-        GuestMembershipResponse guestMembershipResponse = null;
+        GuestMembershipResponse guestMembershipResponse;
         try {
             guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
-        }
-        if (guestMembershipResponse.getStatus().equals(IMicrosConstants.RESPONSE_FAIL)) {
-        response.setStatus(IMicrosConstants.RESPONSE_FAIL);
-        response.setErrorMessage(guestMembershipResponse.getErrorMessage());
-            return response;
         }
 
         List<Membership> memberships = guestMembershipResponse.getMembershipList();
         if (memberships != null) {
 
             for (Membership membership : memberships) {
-                String mt = membership.getMembershipType();
                 if (membership.getMembershipType().equalsIgnoreCase(membershipType)) {
                 response.setMembershipNumber(membership.getMembershipNumber());
                 response.setMembershipType(membership.getMembershipType());
@@ -242,7 +231,6 @@ public class MicrosOWSParser implements IParserInterface {
             }
         }
 
-        response.setStatus(IMicrosConstants.RESPONSE_SUCCESS);
         return response;
     }
 }

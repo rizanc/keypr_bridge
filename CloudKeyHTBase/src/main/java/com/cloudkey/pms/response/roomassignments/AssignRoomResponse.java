@@ -1,6 +1,7 @@
 package com.cloudkey.pms.response.roomassignments;
 
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 /**
  * This class is used to sote the response status and assign room number .
@@ -23,10 +24,10 @@ public class AssignRoomResponse extends Response {
         this.assignRoomNumber = assignRoomNumber;
     }
 
-    @Override
-    public String toString() {
-        return "AssignRoomResponse [assignRoomNumber=" + assignRoomNumber
-                + ", status=" + status + ", errorMessage=" + errorMessage + "]";
-    }
-
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("assignRoomNumber", assignRoomNumber)
+			.toString();
+	}
 }

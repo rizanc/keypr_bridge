@@ -9,6 +9,7 @@ package com.cloudkey.pms.response.memberships;
 import java.util.Date;
 
 import com.cloudkey.commons.Response;
+import com.google.common.base.Objects;
 
 public class MemberPointsResponse extends Response {
 
@@ -136,18 +137,23 @@ public class MemberPointsResponse extends Response {
 
         this.guestTotalStay = guestTotalStay;
     }
-    @Override
-    public String toString() {
-        return "MemberPointsResponse [membershipId=" + membershipId
-                + ", membershipType=" + membershipType + ", membershipLevel="
-                + membershipLevel + ", memberName=" + memberName
-                + ", membershipNumber=" + membershipNumber + ", expireDate="
-                + expireDate + ", effectiveDate=" + effectiveDate
-                + ", inactive=" + inactive + ", resvnameId=" + resvnameId
-                + ", totalPoints=" + totalPoints + ", bonuspoints="
-                + bonuspoints + ", guestTotalNights=" + guestTotalNights
-                + ", guestTotalStay=" + guestTotalStay + ", status=" + status
-                + ", errorMessage=" + errorMessage + "]";
-    }
 
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("membershipId", membershipId)
+			.add("membershipType", membershipType)
+			.add("membershipLevel", membershipLevel)
+			.add("memberName", memberName)
+			.add("membershipNumber", membershipNumber)
+			.add("expireDate", expireDate)
+			.add("effectiveDate", effectiveDate)
+			.add("inactive", inactive)
+			.add("resvnameId", resvnameId)
+			.add("totalPoints", totalPoints)
+			.add("bonuspoints", bonuspoints)
+			.add("guestTotalNights", guestTotalNights)
+			.add("guestTotalStay", guestTotalStay)
+			.toString();
+	}
 }

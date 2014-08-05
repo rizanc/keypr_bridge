@@ -31,8 +31,9 @@ public class MembershipsResource extends AbstractResource {
         response = GuestMembershipResponse.class
     )
     @ApiResponses({
-        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
+	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public GuestMembershipResponse guestMemberships(@QueryParam("nameId") String nameId) {
 	    GuestMembershipsRequest request = new GuestMembershipsRequest(nameId);
@@ -48,8 +49,9 @@ public class MembershipsResource extends AbstractResource {
         response = MakePaymentResponse.class
     )
     @ApiResponses({
-        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
+	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public MemberPointsResponse memberPoints(
             @QueryParam("membershipNumber") String membershipNumber,
@@ -68,8 +70,9 @@ public class MembershipsResource extends AbstractResource {
         response = NameIdByMembershipResponse.class
     )
     @ApiResponses({
-        @ApiResponse(code = 502, message = "PMSInterfaceException occurred"),
-        @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid")
+	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public NameIdByMembershipResponse nameIdSearch(
             @QueryParam("membershipNumber") String membershipNumber,

@@ -10,12 +10,11 @@ import com.cloudkey.pms.micros.ows.membership.FetchMemberPointsResponse;
 import com.cloudkey.pms.micros.services.MembershipServiceStub;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -23,38 +22,28 @@ import java.util.Date;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSMembershipProcessor extends AbstractOWSProcessor {
-
-	final static Logger log = LoggerFactory.getLogger(OWSMembershipProcessor.class);
-
+public class OWSMembershipProcessor extends OWSBase {
 	final static String URL_MEMBERSHIP = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Membership.asmx";
 
     //TODO: Get Samples
     public MemberPointsResponse processFetchMemberPoints(MemberPointsRequest objMemberPointsRequest) throws RemoteException {
-        log.debug("processFetchMemberPoints"," Enter processFetchMemberPoints method " );
+        log.debug("processFetchMemberPoints", "Enter processFetchMemberPoints method");
 
-        MembershipServiceStub membershipServiceStub =  getMembershipServiceStub();
+        MembershipServiceStub membershipServiceStub = getMembershipServiceStub();
 
-        FetchMemberPointsRequest objRequest;
-
-        MemberPointsResponse response = null;
-
-        objRequest = getFetchMemberPointsRequestObject(objMemberPointsRequest);
+	    FetchMemberPointsRequest objRequest = getFetchMemberPointsRequestObject(objMemberPointsRequest);
 
         OGHeaderE ogh = getHeaderE();
 
         log.debug("processFetchMemberPoints",
 	        AdapterUtility.convertToStreamXML(objRequest));
-        FetchMemberPointsResponse resp =
-                membershipServiceStub.fetchMemberPoints(objRequest, ogh);
+        FetchMemberPointsResponse resp = membershipServiceStub.fetchMemberPoints(objRequest, ogh);
         log.debug("processFetchMemberPoints",
 	        AdapterUtility.convertToStreamXML(resp));
 
-        response = getMemberPointsResponse(resp);
-        log.debug("processFetchMemberPoints",
-	        AdapterUtility.convertToStreamXML(response));
+	    errorIfFailure(resp.getResult());
 
-        return response;
+	    return getMemberPointsResponse(resp);
     }
 
     /*
@@ -81,11 +70,6 @@ public class OWSMembershipProcessor extends AbstractOWSProcessor {
         log.debug("getMemberPointsResponse"," Enter getMemberPointsResponse method " );
 
         MemberPointsResponse objMemberPointsResponse = new MemberPointsResponse();
-
-        //objMemberPointsResponse.setResult(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
-        objMemberPointsResponse.setStatus(objFetchMemberPointsResponse.getResult().getResultStatusFlag().getValue());
-
-        log.debug("getMemberPointsResponse"," Result Status Set to the response " );
 
         Membership objMembership = objFetchMemberPointsResponse.getMemberInfo();
 

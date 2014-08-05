@@ -2,17 +2,19 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Restaurants;
 import com.cloudkey.commons.RoomType;
-import com.cloudkey.pms.micros.og.common.*;
+import com.cloudkey.pms.micros.og.common.Address;
+import com.cloudkey.pms.micros.og.common.DescriptiveText;
+import com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0;
+import com.cloudkey.pms.micros.og.common.Phone;
 import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.information.*;
 import com.cloudkey.pms.micros.services.InformationStub;
+import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -21,9 +23,7 @@ import java.util.List;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSInformationProcessor extends AbstractOWSProcessor {
-	final static Logger log = LoggerFactory.getLogger(OWSInformationProcessor.class);
-
+public class OWSInformationProcessor extends OWSBase {
     final static String URL_INFORMATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Information.asmx";
 
     public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
@@ -42,6 +42,8 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
         HotelInformationResponseE responseE = informationStub.queryHotelInformation(requestE, ogh);
         log.debug("processHotelInformation",
 	        AdapterUtility.convertToStreamXML(responseE));
+
+	    errorIfFailure(responseE.getHotelInformationResponse().getResult());
 
 	    return getHotelInformationResponseObject(responseE.getHotelInformationResponse());
     }
@@ -64,7 +66,6 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
 	    com.cloudkey.pms.response.hotels.HotelInformationResponse objHotelInformationResponse2 = null;
 
-        String result = null;
         String contactEmail = " ";
         String phoneNo = " ";
         String addressLine = " ";
@@ -80,14 +81,10 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
 
         objHotelInformationResponse2 = new com.cloudkey.pms.response.hotels.HotelInformationResponse();
 
-        result = objHotelInformationResponse.getResult().getResultStatusFlag().toString();
         hotelName = objHotelInformationResponse.getHotelInformation().getHotelInformation().getString();
 
-        objHotelInformationResponse2.setStatus(result);
         //objHotelInformationResponse2.setResult(result);
         objHotelInformationResponse2.setHotelName(hotelName);
-
-        log.debug("getHotelInformationResponseObject", "ResultStatus Set to the response ");
 
 	    HotelInformationResponseHotelInformation hotelInformation = objHotelInformationResponse.getHotelInformation();
 	    HotelContact objContact = hotelInformation.getHotelContactInformation();
@@ -341,14 +338,6 @@ public class OWSInformationProcessor extends AbstractOWSProcessor {
     private com.cloudkey.pms.response.hotels.HotelInformationResponse getHotelInformationResponseObject(HotelInformationResponse hotelInformationResponse) {
 
         com.cloudkey.pms.response.hotels.HotelInformationResponse response = new com.cloudkey.pms.response.hotels.HotelInformationResponse();
-
-        response.setStatus(hotelInformationResponse.getResult().getResultStatusFlag().toString());
-        if (hotelInformationResponse.getResult().getResultStatusFlag() == ResultStatusFlag.FAIL) {
-            String errorMessage = getErrorMessage(hotelInformationResponse.getResult());
-            response.setErrorMessage(errorMessage);
-            log.debug("getHotelInformationResponseObject", errorMessage);
-            return response;
-        }
 
 	    HotelInformationResponseHotelInformation hotelInformation = hotelInformationResponse.getHotelInformation();
 	    HotelReference hotelInformation1 = hotelInformation.getHotelInformation();

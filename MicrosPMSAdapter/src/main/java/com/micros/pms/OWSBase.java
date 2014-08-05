@@ -1,19 +1,25 @@
-package com.micros.pms.processor;
+package com.micros.pms;
 
+import com.cloudkey.exceptions.PMSError;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.core.*;
 import com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParserConfigurationReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class AbstractOWSProcessor {
+public class OWSBase {
+
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	protected HotelReference getDefaultHotelReference() {
 		HotelReference objHotelReference = new HotelReference();
@@ -78,18 +84,8 @@ public class AbstractOWSProcessor {
 
 	protected String getErrorMessage(ResultStatus resultStatus) {
 		String message = "";
-		if (resultStatus instanceof GDSResultStatus) {
-			GDSResultStatus gdsResultStatus = (GDSResultStatus) resultStatus;
-			if (gdsResultStatus.isGDSErrorSpecified()) {
-				message = gdsResultStatus.getGDSError().toString();
-			} else if (gdsResultStatus.isTextSpecified()) {
-				if (gdsResultStatus.getText() != null &&
-					gdsResultStatus.getText().getTextElement() != null &&
-					gdsResultStatus.getText().getTextElement().length > 0
-					) {
-					message = gdsResultStatus.getText().getTextElement()[0].toString();
-				}
-			}
+		if (resultStatus instanceof GDSResultStatus && ((GDSResultStatus) resultStatus).isGDSErrorSpecified()) {
+			message = ((GDSResultStatus) resultStatus).getGDSError().toString();
 		} else if (resultStatus.getText() != null &&
 			resultStatus.getText().getTextElement() != null &&
 			resultStatus.getText().getTextElement().length > 0
@@ -98,5 +94,19 @@ public class AbstractOWSProcessor {
 		}
 
 		return message;
+	}
+
+	/**
+	 * Throws a {@link com.cloudkey.exceptions.PMSError} with the contained error message and code
+	 * if the result status is not successful.
+	 *
+	 * @param result
+	 */
+	protected void errorIfFailure(ResultStatus result) {
+		if (result.getResultStatusFlag() == ResultStatusFlag.FAIL) {
+			PMSError pmsError = new PMSError(getErrorMessage(result), result.getOperaErrorCode());
+			log.debug("OWS Response ResultStatus was FAIL. Throwing exception", pmsError);
+			throw pmsError;
+		}
 	}
 }
