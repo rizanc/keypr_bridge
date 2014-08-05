@@ -18,7 +18,12 @@ logging:
 
   loggers:
     io.dropwizard: INFO
+
+    # Logs WebServices REST requests and responses when INFO
     com.sun.jersey.api.container.filter.LoggingFilter: INFO
+
+    # Logs MICROS OWS SOAP requests and responses when DEBUG
+    httpclient.wire.content: DEBUG
 
   appenders:
     - type: file
