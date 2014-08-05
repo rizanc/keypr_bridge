@@ -13,20 +13,19 @@ B. Steps to run the implementation:
 
 	* CloudKeyHTBase: it holds all the common classes.
 
-	* CloudKeyHTWebServices: Services to be called by the KEYPR cloud.
+	* CloudKeyHTWebServices: A DropWizard application with REST services called by the KEYPR cloud. It is backed by
+	    a PMS adapter implementing IParserInterface, such as CloudKeyTestAdapter or MicrosPMSAdapter.
 
-	* CloudKeyPrWebServiceClient: An example CloudKeyHTWebServices client with a web front-end.
-
-	* CloudKeyTestAdapter: An example PMS adapter. PMS adapters act as an interface between the bridge and a PMS system,
-	    such as micros.
+	* CloudKeyTestAdapter: An database-backed implementation of IParserInterface.
 
 	* CloudKeyHTUploadService: Java application which pushes the data from the upload queue to the KEYPR cloud.
 
-	* MicrosDataHarvester: Service which periodically pulls data from OWS, and pushes new data to the upload tables.
+	* MicrosDataHarvester: Service which periodically pulls data from OWS and/or listens for updates from OXI,
+	    and pushes new data to the upload tables.
 
-	* MicrosPMSAdapter: Parser which converts generic PMS requests/responses into/from OWS-specific xml.
+	* MicrosPMSAdapter: Backend for CloudKeyHTWebServices which obtains data from a MICROS OPERA server via OWS.
 
-	* MicrosSimulatorPMS_OWS: An OWS simulator that generates the responses corresponding to the request made from keypr.
+	* MicrosSimulatorPMS_OWS: An simulator of the MICROS OPERA OWS web services.
 
 	* UploadServiceRest: "It behaves as proxy for keypr upload
         webservices endpoint and return response as SUCCESS�/�FAIL�. As of now, we are using chrome application postman to push reservation data to the upload service."
@@ -48,53 +47,40 @@ room_details,room_details_upload, room_inventory, room_inventory_upload,reservat
 	username:root
 	password:Chetu@123
 
-	* Update the database credentials in every place they are found, which includes:
-	  * CloudKeyHTBase/src/main/resources/log4j.xml
-      * CloudKeyHTUploadService/src/main/resources/log4j.xml
-      * CloudKeyHTWebServices/src/main/resources/log4j.xml
-      * CloudKeyPrWebServiceClient/src/main/resources/log4j.xml
-      * CloudKeyTestAdapter/src/main/resources/adapterConfiguration.properties
-      * MicrosDataHarvester/src/main/resources/log4j.xml
-      * MicrosOWSClient/src/main/resources/log4j.xml
-      * MicrosPMSAdapter/src/main/resources/log4j.xml
-      * MicrosSimulator_OXI/src/main/resources/log4j.xml
-      * MicrosSimulatorPMS_OWS/src/main/resources/log4j.xml
+	* Update the database credentials in every place they are found
 
-	
+Project Distribution Instructions
+============================================
+
+The project contains three java applications to run:
+	* CloudKeyHTWebServices
+	* CloudKeyHTUploadService
+	* MicrosDataHarvester
+
+
 Project Deployment Instructions
 ============================================
 
 Project will be deployed and run as follows: 
 
-A. Update the database credentials in the above files.
+A. Update the database credentials in the above files,
+   and update the hotel configuration in pms-adapter-configuration.properties
 
-B. Run "gradle clean install"
+B. Run "gradle clean distTar (or distZip)"
 
-C. Gather the built WARs. They are:
-CloudKeyHTWebServices/build/libs/CloudKeyHTWebServices-${version}-SNAPSHOT.war
-CloudKeyPrWebServiceClient/build/libs/CloudKeyPrWebServiceClient-${version}-SNAPSHOT.war
-MicrosSimulatorPMS_OWS/build/libs/MicrosSimulatorPMS_OWS-${version}-SNAPSHOT.war
+C. Copy the .tar files in the build/distributions directories of the above projects.
 
-D. Deploy them to the Tomcat environment with the following Application Contexts:
-CloudKeyHTWebServices
-CloudKeyPrWebServiceClient
-MicrosSimulatorPMS_OWS
+D. Unextract them.
 
-E. Start the Tomcat Service and hit the following urls to confirm that war have been deployed at your tomcat.
-/MicrosSimulatorPMS_OWS/
-/CloudKeyHTWebServices/
-/CloudKeyPrWebServiceClient/
-
-F. Build a distribution of MicrosDataHarvester, by running "gradle distTar" or "gradle distZip".
-   It is created in MicrosDataHarvester/build/distributions.
-
-G. Install MicrosDataHarvester in the server environment. To run the application call bin/MicrosDataHarvester.
+E. Start the applications using the scripts provided in each distribution's bin folder.
+   The CloudKeyHTWebServices application takes the arguments "server configuration.yml" where configuration.yml
+   is a real configuration file. See CloudKeyHTUploadService/configuration.yml for an example.
 
 As soon as the Data Harvesting service is up Data will be uploaded in the database (keypr_bridge_db) in following tables room_details, room_details_upload, room_inventory and room_inventory_upload.
 
 NOTE: Please ensure that the database (keypr_bridge_db) is already in placed.
 
-H. Populate reservation data in the reservation upload queue tables. Open Chrome Browser add postman addons to it. Once done,
+F. Populate reservation data in the reservation upload queue tables. Open Chrome Browser add postman addons to it. Once done,
 double click on postman to use the application. In the url paste http://localhost:9090/servlets/ORSInterface as of now, we suppose that osi server will be pushing the data at this url. 
 On deployment, this port number and url can be changed in properties of MicrosDataHarvester/src/main/resources/configuration.properties file.
 
@@ -103,20 +89,3 @@ micros.pms.oxi.listener.url = /servlets/ORSInterface
 micros.pms.oxi.listener.port = 9090
 
 Make post request to the listener, after putting the reservation details in the request section by using send button. The listener should send success response to the postman. Now Check the reservation_upload, reservation_room_rates_upload and reservation_room_allocation_upload for the data sent by the reservation.
-
-============================================
-Note: Make sure to start MicrosSimulatorPMS_OWS as mentioned above in Step G Before starting DataHarvester.
-============================================
-
-I. To run the Upload Service for development purpose, call "gradle run" in the CloudKeyHTUploadService directory.
-   To run it in production, create a distribution (distZip or distTar) and install that on the target environment.
-
-============================================
-Note: Make sure Step I should follow G
-============================================
-
-J. Check the updated database, it will removed all the data from 
-the upload tables room_details_upload, room_inventory_upload,reservation_upload,reservation_room_rates_upload and reservtion_room_allocation_upload.
-
-K. Make Web Service call by hitting url:
-    /CloudKeyPrWebServiceClient/ and check for the response, which is expected from micros pms ends.
