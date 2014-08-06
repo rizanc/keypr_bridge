@@ -1,5 +1,6 @@
 apply plugin: 'java'
 project.ext.generatedSources = "$buildDir/generated-sources"
+project.ext.generatedSources = "$buildDir/generated-sources"
 
 configurations {
     generate
@@ -32,4 +33,14 @@ task jaxb(dependsOn: createGeneratedDir) << {
     }
 }
 
+
 compileJava.dependsOn jaxb
+
+idea {
+    module {
+        excludeDirs = []
+        ["classes", "docs", "dependency-cache", "libs", "reports", "resources", "test-results", "tmp"].each {
+            excludeDirs << file("$buildDir/$it")
+        }
+    }
+}
