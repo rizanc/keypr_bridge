@@ -66,7 +66,7 @@ Project will be deployed and run as follows:
 A. Update the database credentials in the above files,
    and update the hotel configuration in pms-adapter-configuration.properties
 
-B. Run "gradle clean distTar (or distZip)"
+B. Run "gradlew clean distTar (or distZip)"
 
 C. Copy the .tar files in the build/distributions directories of the above projects.
 

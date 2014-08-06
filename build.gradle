@@ -24,3 +24,9 @@ subprojects {
         all*.exclude group: 'javax.servlet', module: 'servlet-api'
     }
 }
+
+// Task for creatting a Gradle wrapper
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
