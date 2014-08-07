@@ -21,12 +21,10 @@ import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.processor.*;
 import org.apache.commons.lang3.NotImplementedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -37,12 +35,30 @@ import java.util.List;
  */
 public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
+	@Inject
+	OWSAvailabilityProcessor availabilityProcessor;
+
+	@Inject
+	OWSInformationProcessor informationProcessor;
+
+	@Inject
+	OWSMeetingRoomProcessor meetingRoomProcessor;
+	
+	@Inject
+	OWSNameProcessor nameProcessor;
+
+	@Inject
+	OWSReservationProcessor reservationProcessor;
+
+	@Inject
+	OWSResvAdvancedProcessor resvAdvancedProcessor;
+
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
         log.debug("retrieveFolioInfo", "Enter method.");
 
         try {
-            return new OWSResvAdvancedProcessor().processRetrieveFolioInfo(getFolioRequest);
+            return resvAdvancedProcessor.processRetrieveFolioInfo(getFolioRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -53,7 +69,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("releaseRoom", "Enter method.");
 
         try {
-            return new OWSReservationProcessor().processReleaseRoom(releaseRoomRequest);
+            return reservationProcessor.processReleaseRoom(releaseRoomRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -64,7 +80,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("guestCheckIn", "Enter method.");
 
         try {
-            return new OWSResvAdvancedProcessor().processCheckIn(checkInRequest);
+            return resvAdvancedProcessor.processCheckIn(checkInRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -75,7 +91,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("assignRoom", "Enter method.");
 
         try {
-            return new OWSReservationProcessor().processAssignRoom(assignRoomRequest);
+            return reservationProcessor.processAssignRoom(assignRoomRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -86,7 +102,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("guestCheckOut", "Enter method.");
 
         try {
-            return new OWSResvAdvancedProcessor().processCheckOut(checkOutRequest);
+            return resvAdvancedProcessor.processCheckOut(checkOutRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -97,7 +113,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("updateBooking", "Enter method.");
 
         try {
-            return new OWSReservationProcessor().processUpdateBooking(updateBookingRequest);
+            return reservationProcessor.processUpdateBooking(updateBookingRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -122,15 +138,11 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
 	    log.debug("checkAvailability", "Enter method.");
 
-        GetAvailabilityResponse response;
-
         try {
-	        response = new OWSAvailabilityProcessor().processAvailability(getAvailabilityRequest);
+	        return availabilityProcessor.processAvailability(getAvailabilityRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
-
-        return response;
     }
 
     @Override
@@ -140,7 +152,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         SearchReservationResponse response;
 
         try {
-        response = new OWSReservationProcessor().processSearchReservationData(searchReservationRequest);
+        response = reservationProcessor.processSearchReservationData(searchReservationRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -161,7 +173,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	    log.debug("getMembershipInformation", "Enter method.");
 
         try {
-            return new OWSNameProcessor().processGuestCardList(guestMembershipsRequest);
+            return nameProcessor.processGuestCardList(guestMembershipsRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -172,7 +184,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("getNameIdInformation", "Enter method.");
 
         try {
-            return new OWSNameProcessor().processNameLookupByMembership(nameIdByMembershipRequest);
+            return nameProcessor.processNameLookupByMembership(nameIdByMembershipRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -183,7 +195,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         log.debug("hotelInformationQuery", "Enter method.");
 
         try {
-            return new OWSInformationProcessor().processHotelInformation(hotelInformationRequest);
+            return informationProcessor.processHotelInformation(hotelInformationRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
@@ -210,7 +222,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest(nameID);
         GuestMembershipResponse guestMembershipResponse;
         try {
-            guestMembershipResponse = new OWSNameProcessor().processGuestCardList(guestMembershipRequest);
+            guestMembershipResponse = nameProcessor.processGuestCardList(guestMembershipRequest);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }

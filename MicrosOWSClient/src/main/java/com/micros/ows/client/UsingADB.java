@@ -1,39 +1,46 @@
 package com.micros.ows.client;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.keypr.webservices.WebServicesModule;
+
 public class UsingADB extends junit.framework.TestCase {
 
     public static void main(String[] argv) {
-        //OWSTestUtils.AssignRoom();
+	    Injector injector = Guice.createInjector(new WebServicesModule());
 
-        //OWSTestUtils.FutureBookingSummary();
+	    OWSTestUtils testUtils = injector.getInstance(OWSTestUtils.class);
+	    //testUtils.AssignRoom();
 
-        //OWSTestUtils.CheckIn();
+        //testUtils.FutureBookingSummary();
 
-        //OWSTestUtils.CheckOut();
+        //testUtils.CheckIn();
 
-        //OWSTestUtils.ReleaseRoom();
+        //testUtils.CheckOut();
 
-        //OWSTestUtils.AssignRoom();
-        //OWSTestUtils.FutureBookingSummary();
+        //testUtils.ReleaseRoom();
 
-        //OWSTestUtils.CheckIn();
+        //testUtils.AssignRoom();
+        //testUtils.FutureBookingSummary();
 
-        //OWSTestUtils.CheckOut();
+        //testUtils.CheckIn();
 
-        //OWSTestUtils.ReleaseRoom();
+        //testUtils.CheckOut();
 
-        //OWSTestUtils.Availability();
+        //testUtils.ReleaseRoom();
 
-        //OWSTestUtils.ModifyBooking();
+        //testUtils.Availability();
 
-        //OWSTestUtils.Folio();
-        //OWSTestUtils.HotelInformation();
+        //testUtils.ModifyBooking();
 
-        //OWSTestUtils.Membership();
+        //testUtils.Folio();
+        //testUtils.HotelInformation();
 
-        //OWSTestUtils.NameLookupByMembership();
+        //testUtils.Membership();
 
-        OWSTestUtils.GetCardList();
+        //testUtils.NameLookupByMembership();
+
+        testUtils.GetCardList();
     }
 
 }

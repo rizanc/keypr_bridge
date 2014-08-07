@@ -2,7 +2,6 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Availability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
-import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpanChoice_type0;
@@ -10,15 +9,15 @@ import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
+import com.cloudkey.pms.micros.services.AvailabilityService;
 import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
-import org.joda.time.LocalDate;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -28,56 +27,52 @@ import java.util.List;
  * @author crizan2
  */
 public class OWSAvailabilityProcessor extends OWSBase {
-    final static String URL_AVAILABILITY = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Availability.asmx";
 
-    public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest availabilityRequest) throws RemoteException {
+	protected AvailabilityService service;
+
+	@Inject
+	public OWSAvailabilityProcessor(
+		@Named("com.micros.ows.url") String targetEndpoint,
+        @Named("com.micros.ows.availability.path") String servicePath
+	) {
+		try {
+			this.service = new AvailabilityServiceStub(targetEndpoint + "/" + servicePath);
+		} catch (AxisFault axisFault) {
+			log.error("Could not instantiate service", AvailabilityService.class, axisFault);
+		}
+	}
+
+	public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest request) throws RemoteException {
         log.debug("processAvailability", "Enter checkAvailability method.");
 
-        AvailabilityServiceStub astub = getAvailabilityServiceStub();
+        FetchCalendarRequest microsRequest = getAvailabilityRequestObject(request);
+		log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsRequest));
 
-        /*To get the request parameters*/
-        LocalDate objSDate = availabilityRequest.getStartDate();
-        LocalDate objEDate = availabilityRequest.getEndDate();
+		FetchCalendarRequestE microsRequestE = new FetchCalendarRequestE();
+		microsRequestE.setFetchCalendarRequest(microsRequest);
 
-	    log.debug("processAvailability", "Start Date", objSDate);
-	    log.debug("processAvailability", "End Date", objEDate);
+		FetchCalendarResponseE microsResponseE = service.fetchCalendar(microsRequestE, getHeaderE());
+        log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsResponseE));
 
-        FetchCalendarRequest req = getAvailabilityRequestObject(availabilityRequest);
-        FetchCalendarRequestE requestE = new FetchCalendarRequestE();
-	    requestE.setFetchCalendarRequest(req);
+	    errorIfFailure(microsResponseE.getFetchCalendarResponse().getResult());
 
-        log.debug("processAvailability", "Convert request into xml form");
-
-        OGHeaderE ogh = getHeaderE();
-
-        log.debug("processAvailability", AdapterUtility.convertToStreamXML(req));
-        FetchCalendarResponseE responseE = astub.fetchCalendar(requestE, ogh);
-        log.debug("processAvailability", AdapterUtility.convertToStreamXML(responseE));
-
-	    errorIfFailure(responseE.getFetchCalendarResponse().getResult());
-
-	    return getAvailabilityResponseObject(responseE.getFetchCalendarResponse());
+	    return getAvailabilityResponseObject(microsResponseE.getFetchCalendarResponse());
     }
 
 	private FetchCalendarRequest getAvailabilityRequestObject(GetAvailabilityRequest availabilityRequest) {
         log.debug("getAvailabilityRequestObject", "Enter getAvailabilityRequestObject method.");
 
-        /*To get the request parameters*/
-        LocalDate objSDate = availabilityRequest.getStartDate();
-        LocalDate objEDate = availabilityRequest.getEndDate();
-
 		/*To create the request for availability.*/
 	    FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
-
         objFetchCalendarRequest.setHotelReference(getDefaultHotelReference());
 
 		/*To set start and end date.*/
 	    TimeSpan objTimeSpan = new TimeSpan();
 
-	    objTimeSpan.setStartDate(objSDate.toDateTimeAtStartOfDay().toGregorianCalendar());
+	    objTimeSpan.setStartDate(availabilityRequest.getStartDate().toDateTimeAtStartOfDay().toGregorianCalendar());
         TimeSpanChoice_type0 objType0 = new TimeSpanChoice_type0();
 
-        objType0.setEndDate(objEDate.toDateTimeAtStartOfDay().toGregorianCalendar());
+        objType0.setEndDate(availabilityRequest.getEndDate().toDateTimeAtStartOfDay().toGregorianCalendar());
         objTimeSpan.setTimeSpanChoice_type0(objType0);
 
 		/*To set time span in fetch calendar request.*/
@@ -89,13 +84,13 @@ public class OWSAvailabilityProcessor extends OWSBase {
     }
 
     private GetAvailabilityResponse getAvailabilityResponseObject(FetchCalendarResponse objResponse) {
-
         log.debug("getAvailabilityResponseObject", "Enter getAvailabilityResponseObject method.");
 
         GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
 
 		/*To get the list from availability response.*/
-        List<Availability> objLiAvailabilities = new ArrayList<>();
+        List<Availability> availabilities = new ArrayList<>();
+
         /*To get the calendar daily detail array from response.*/
         CalendarDailyDetail[] arrCalendarDailyDetail = objResponse.getCalendar().getCalendarDay();
 
@@ -137,31 +132,16 @@ public class OWSAvailabilityProcessor extends OWSBase {
             objAvailability.setRoomTypeInventoryList(objLInventories);
 
 			/*To add availability object into list.*/
-            objLiAvailabilities.add(objAvailability);
+            availabilities.add(objAvailability);
 
             log.debug("getAvailabilityResponseObject", "Exit traversing calendar details. ");
         } // End loop for calendar details.
 
-        objAvailabilityResponse.setAvailList(objLiAvailabilities);
+        objAvailabilityResponse.setAvailList(availabilities);
 
         log.debug("getAvailabilityResponseObject", "Exit getAvailabilityResponseObject method. ");
 
         return objAvailabilityResponse;
-    }
-
-    private AvailabilityServiceStub getAvailabilityServiceStub() {
-
-        if (URL_AVAILABILITY == null) throw new NullPointerException("Availability URL is null");
-
-        AvailabilityServiceStub rstub = null;
-        try {
-            rstub = new AvailabilityServiceStub(URL_AVAILABILITY);
-
-        } catch (AxisFault axisFault) {
-            axisFault.printStackTrace();
-            log.error("getReservationServiceStub", axisFault);
-        }
-        return rstub;
     }
 
 }

@@ -6,15 +6,16 @@ import com.cloudkey.pms.micros.og.common.UniqueIDType;
 import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.ows.name.*;
+import com.cloudkey.pms.micros.services.NameService;
 import com.cloudkey.pms.micros.services.NameServiceStub;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
@@ -24,12 +25,23 @@ import java.util.ArrayList;
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSNameProcessor extends OWSBase {
-    final static String URL_NAME = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Name.asmx";
 
-    public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
+	protected NameService service;
+
+	@Inject
+	public OWSNameProcessor(
+		@Named("com.micros.ows.url") String targetEndpoint,
+		@Named("com.micros.ows.name.path") String servicePath
+	) {
+		try {
+			this.service = new NameServiceStub(targetEndpoint + "/" + servicePath);
+		} catch (AxisFault axisFault) {
+			log.error("Could not instantiate service", NameService.class, axisFault);
+		}
+	}
+
+	public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
         log.debug("processGuestCardList", "Enter processGuestCardList method ");
-
-	    NameServiceStub nameServiceStub = getNameServiceStub();
 
         FetchGuestCardListRequest request = new FetchGuestCardListRequest();
 
@@ -39,14 +51,10 @@ public class OWSNameProcessor extends OWSBase {
         request.setNameID(uniqueID);
 
 	    FetchGuestCardListRequestE requestE = new FetchGuestCardListRequestE();
+		log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(requestE));
 
-	    OGHeaderE ogh = getHeaderE();
-
-        log.debug("processGuestCardList",
-	        AdapterUtility.convertToStreamXML(requestE));
-        FetchGuestCardListResponseE responseE = nameServiceStub.fetchGuestCardList(requestE, ogh);
-        log.debug("processGuestCardList",
-	        AdapterUtility.convertToStreamXML(responseE));
+        FetchGuestCardListResponseE responseE = service.fetchGuestCardList(requestE, getHeaderE());
+        log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(responseE));
 
         FetchGuestCardListResponse objResponse = responseE.getFetchGuestCardListResponse();
 	    errorIfFailure(objResponse.getResult());
@@ -85,8 +93,6 @@ public class OWSNameProcessor extends OWSBase {
     public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
         log.debug("processNameLookupByMembership", "Enter processNameLookupByMembership method ");
 
-        NameServiceStub nameServiceStub = getNameServiceStub();
-
         NameLookupRequest objRequest = new NameLookupRequest();
 
         NameLookupInput nameLookupInput = new NameLookupInput();
@@ -109,7 +115,7 @@ public class OWSNameProcessor extends OWSBase {
 
         log.debug("processNameLookupByMembership",
 	        AdapterUtility.convertToStreamXML(requestE));
-        NameLookupResponseE resp = nameServiceStub.nameLookup(requestE, ogh);
+        NameLookupResponseE resp = service.nameLookup(requestE, ogh);
         log.debug("processNameLookupByMembership",
 	        AdapterUtility.convertToStreamXML(resp));
 
@@ -124,7 +130,7 @@ public class OWSNameProcessor extends OWSBase {
             if (profile.getProfileIDs() != null && profile.getProfileIDs().getUniqueID() != null) {
                 for (UniqueID uniqueID : profile.getProfileIDs().getUniqueID()) {
                     if (uniqueID.getType() == UniqueIDType.INTERNAL) {
-                    response.setNameId(uniqueID.getString());
+	                    response.setNameId(uniqueID.getString());
                         break;
                     }
                 }
@@ -135,21 +141,6 @@ public class OWSNameProcessor extends OWSBase {
 	        AdapterUtility.convertToStreamXML(response));
 
         return response;
-    }
-
-    private NameServiceStub getNameServiceStub() {
-
-        if (URL_NAME == null) throw new NullPointerException("getNameServiceStub URL is null");
-
-        NameServiceStub rstub = null;
-        try {
-            rstub = new NameServiceStub(URL_NAME);
-
-        } catch (AxisFault axisFault) {
-            axisFault.printStackTrace();
-            log.error("getNameServiceStub ", axisFault);
-        }
-        return rstub;
     }
 
 }

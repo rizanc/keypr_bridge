@@ -72,13 +72,9 @@ public interface IMicrosConstants {
 	String TRANSACTION_ID = "transId";
 
 	Integer ROWS_UPDATED = 0;
-	String ADV_RESERVATION_URL = "ows.adv.reservation.service.url";
-	String RESERVATION_URL = "ows.reservation.service.url";
-	String RESERVATION_ID = "RESVID";
+	String RESERVATION_ID_SOURCE = "RESVID";
+	String INTERNAL_TYPE = "INTERNAL";
 
-	String INFORMATION_URL = "ows.hotel.info.service.url";
-	String MEETINGROOM_URL = "ows.meeting.avail.service.url";
-	String MEMBERSHIP_URL = "ows.guest.member.service.url";
 
     String REQUIRED_FIELDS_EMPTY = "One or more required fields are empty.";
 	

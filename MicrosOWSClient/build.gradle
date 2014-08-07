@@ -4,6 +4,7 @@ mainClassName = 'com.micros.ows.client.UsingADB'
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
+    compile project(':CloudKeyHTWebServices')
     compile project(':MicrosPMSAdapter')
     compile project(':MicrosOWSServices')
     compile junit

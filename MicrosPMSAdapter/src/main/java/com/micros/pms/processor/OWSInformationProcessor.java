@@ -9,11 +9,12 @@ import com.cloudkey.pms.micros.og.common.Phone;
 import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.information.*;
+import com.cloudkey.pms.micros.services.Information;
 import com.cloudkey.pms.micros.services.InformationStub;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
@@ -24,12 +25,23 @@ import java.util.List;
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSInformationProcessor extends OWSBase {
-    final static String URL_INFORMATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Information.asmx";
 
-    public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
+	protected Information service;
+
+	@Inject
+	public OWSInformationProcessor(
+		@Named("com.micros.ows.url") String targetEndpoint,
+		@Named("com.micros.ows.information.path") String servicePath
+	) {
+		try {
+			this.service = new InformationStub(targetEndpoint + "/" + servicePath);
+		} catch (AxisFault axisFault) {
+			log.error("Could not instantiate service", Information.class, axisFault);
+		}
+	}
+
+	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
         log.debug("processHotelInformation", "Enter processHotelInformation method. ");
-
-        InformationStub informationStub = getInformationStub();
 
 	    HotelInformationRequest req = getHotelInformationRequestObject(hotelInformationRequest);
 	    HotelInformationRequestE requestE = new HotelInformationRequestE();
@@ -39,7 +51,7 @@ public class OWSInformationProcessor extends OWSBase {
 
         log.debug("processHotelInformation",
 	        AdapterUtility.convertToStreamXML(req));
-        HotelInformationResponseE responseE = informationStub.queryHotelInformation(requestE, ogh);
+        HotelInformationResponseE responseE = service.queryHotelInformation(requestE, ogh);
         log.debug("processHotelInformation",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -96,12 +108,11 @@ public class OWSInformationProcessor extends OWSBase {
         int emailLength = emailObj.length;
         String emails = "";
 
-        for (int emailIndex = 0; emailIndex < emailLength; emailIndex++) {
+	    for (Email mail : emailObj) {
 
-            Email mail = emailObj[emailIndex];
-            contactEmail = mail.toString();
-            emails.concat(" ").concat(contactEmail);
-        }
+		    contactEmail = mail.toString();
+		    emails.concat(" ").concat(contactEmail);
+	    }
         objHotelInformationResponse2.setContactEmails(emails);
 
 		/* populate  contact phone list */
@@ -139,17 +150,13 @@ public class OWSInformationProcessor extends OWSBase {
 		/* populate addresslist  */
         Address[] objAddress = objContact.getAddresses().getAddress();
 
-        int addressLength = objAddress.length;
+	    for (Address objAdd : objAddress) {
 
-        for (int addressIndex = 0; addressIndex < addressLength; addressIndex++) {
-
-            Address objAdd = objAddress[addressIndex];
-
-            cityName = objAdd.getCityName();
-            addressLine = objAdd.getAddressLine()[0];
-            countryCode = objAdd.getCountryCode();
-            postalCode = objAdd.getPostalCode();
-        }
+		    cityName = objAdd.getCityName();
+		    addressLine = objAdd.getAddressLine()[0];
+		    countryCode = objAdd.getCountryCode();
+		    postalCode = objAdd.getPostalCode();
+	    }
         objHotelInformationResponse2.setCity(cityName);
         objHotelInformationResponse2.setAddress(addressLine);
         objHotelInformationResponse2.setCountry(countryCode);
@@ -449,6 +456,7 @@ public class OWSInformationProcessor extends OWSBase {
 
 	    ArrayOfEmail emails = hotelContactInformation.getContactEmails();
 	    if (emails != null && emails.getContactEmail() != null) {
+		    // TODO: This surely doesn't do what we want
             for (Email email : emails.getContactEmail()) {
                 response.setContactEmails(email.getString());
                 break;
@@ -492,20 +500,4 @@ public class OWSInformationProcessor extends OWSBase {
 
         return response;
     }
-
-    private InformationStub getInformationStub() {
-
-        if (URL_INFORMATION == null) throw new NullPointerException("Information URL is null");
-
-        InformationStub rstub = null;
-        try {
-            rstub = new InformationStub(URL_INFORMATION);
-
-        } catch (AxisFault axisFault) {
-            axisFault.printStackTrace();
-            log.error("getInformationStub ", axisFault);
-        }
-        return rstub;
-    }
-
 }

@@ -23,7 +23,7 @@ public class ParserConfigurationReader {
 	static {
 		prop = new Properties();
 		String popfileName = "pms-adapter-configuration.properties";
-		InputStream propFile = ParserConfigurationReader.class.getResourceAsStream(popfileName);
+		InputStream propFile = ParserConfigurationReader.class.getClassLoader().getResourceAsStream(popfileName);
 
 		try {
 			prop.load(propFile);

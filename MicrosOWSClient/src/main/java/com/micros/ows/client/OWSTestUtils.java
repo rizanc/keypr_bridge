@@ -1,16 +1,14 @@
 package com.micros.ows.client;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.pms.common.payment.CardNumber;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.google.inject.Inject;
 import com.micros.pms.processor.*;
 import org.joda.time.LocalDate;
 
@@ -35,10 +33,22 @@ public class OWSTestUtils {
     private static final String MEMBER_ID = "223123123123123212";
     private static final String MEMBER_TYPE = "IB";
 
-    public static void Availability() {
+	@Inject
+	OWSAvailabilityProcessor owsAvailabilityProcessor;
 
-        OWSAvailabilityProcessor owsAvailabilityProcessor = new OWSAvailabilityProcessor();
+	@Inject
+	OWSReservationProcessor owsReservationProcessor;
 
+	@Inject
+	OWSResvAdvancedProcessor owsResvAdvancedProcessor;
+
+	@Inject
+	OWSNameProcessor owsNameProcessor;
+
+	@Inject
+	OWSInformationProcessor owsInformationProcessor;
+
+	public void Availability() {
         GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE);
 
         try {
@@ -50,9 +60,8 @@ public class OWSTestUtils {
 
     }
 
-    public static void FutureBookingSummary() {
+    public void FutureBookingSummary() {
 
-        OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
         SearchReservationRequest request = new SearchReservationRequest(
 	        CONFIRMATION_NO,
 	        FIRST_NAME,
@@ -74,10 +83,8 @@ public class OWSTestUtils {
 
     }
 
-    public static void AssignRoom() {
-
-        OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
         AssignRoomRequest request = new AssignRoomRequest(CONFIRMATION_NO, ROOM_TYPE_DEFAULT);
+    public void AssignRoom() {
 
         try {
             owsReservationProcessor.processAssignRoom(request);
@@ -88,10 +95,8 @@ public class OWSTestUtils {
 
     }
 
-    public static void ReleaseRoom() {
-
-        OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
         ReleaseRoomRequest request = new ReleaseRoomRequest(CONFIRMATION_NO);
+    public void ReleaseRoom() {
 
         try {
             owsReservationProcessor.processReleaseRoom(request);
@@ -101,10 +106,8 @@ public class OWSTestUtils {
 
     }
 
-    public static void CheckIn() {
-
-        OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
         CheckInRequest request = new CheckInRequest(CONFIRMATION_NO, CREDIT_CARD_NO);
+    public void CheckIn() {
 
         try {
             owsResvAdvancedProcessor.processCheckIn(request);
@@ -115,9 +118,8 @@ public class OWSTestUtils {
     }
 
 
-    public static void CheckOut() {
+    public void CheckOut() {
 
-        OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
         CheckOutRequest request = new CheckOutRequest(CONFIRMATION_NO);
 
         try {
@@ -128,9 +130,7 @@ public class OWSTestUtils {
 
     }
 
-    public static void ModifyBooking() {
-
-        OWSReservationProcessor owsReservationProcessor = new OWSReservationProcessor();
+    public void ModifyBooking() {
         //owsReservationProcessor.fetchBooking("938929");
         //owsReservationProcessor.fetchBooking("11900");
 
@@ -144,9 +144,7 @@ public class OWSTestUtils {
         }
     }
 
-    public static void Folio() {
-
-        OWSResvAdvancedProcessor owsResvAdvancedProcessor = new OWSResvAdvancedProcessor();
+    public void Folio() {
 
         GetFolioRequest request = new GetFolioRequest(CONFIRMATION_NO);
 
@@ -158,10 +156,7 @@ public class OWSTestUtils {
 
     }
 
-    public static void HotelInformation() {
-
-        OWSInformationProcessor owsInformationProcessor = new OWSInformationProcessor();
-
+    public void HotelInformation() {
         HotelInformationRequest request = new HotelInformationRequest(HOTEL_CODE);
 
         try {
@@ -172,9 +167,7 @@ public class OWSTestUtils {
 
     }
 
-    public static void NameLookupByMembership() {
-
-        OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
+    public void NameLookupByMembership() {
 
         NameIdByMembershipRequest request = new NameIdByMembershipRequest("OR", "1166666666", "REWARDS");
 
@@ -186,9 +179,7 @@ public class OWSTestUtils {
 
     }
 
-    public static void GetCardList() {
-
-        OWSNameProcessor owsNameProcessor = new OWSNameProcessor();
+    public void GetCardList() {
 
 /*        NameIdByMembershipRequest request = new NameIdByMembershipRequest();
         request.setMembershipNumber("1166666666");

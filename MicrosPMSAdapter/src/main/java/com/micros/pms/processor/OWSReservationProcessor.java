@@ -11,11 +11,14 @@ import com.cloudkey.pms.micros.og.reservation.FetchBookingFilters;
 import com.cloudkey.pms.micros.og.reservation.HotelReservation;
 import com.cloudkey.pms.micros.og.reservation.ResGuest;
 import com.cloudkey.pms.micros.ows.reservation.*;
+import com.cloudkey.pms.micros.services.ReservationService;
 import com.cloudkey.pms.micros.services.ReservationServiceStub;
 import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
@@ -31,9 +34,24 @@ import java.util.List;
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSReservationProcessor extends OWSBase {
-    final static String URL_RESERVATION = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/Reservation.asmx";
+	@Inject
+	protected OWSResvAdvancedProcessor resvAdvancedProcessor;
 
-    public FetchBookingResponse fetchBooking(String confirmation) throws RemoteException {
+	protected ReservationService service;
+
+	@Inject
+	public OWSReservationProcessor(
+		@Named("com.micros.ows.url") String targetEndpoint,
+		@Named("com.micros.ows.reservation.path") String servicePath
+	) {
+		try {
+			this.service = new ReservationServiceStub(targetEndpoint + "/" + servicePath);
+		} catch (AxisFault axisFault) {
+			log.error("Could not instantiate service", ReservationService.class, axisFault);
+		}
+	}
+
+    public FetchBookingResponse fetchBooking(String pmsReservationId) throws RemoteException {
         log.debug("fetchBooking", "Enter method");
 
         FetchBookingRequest request = new FetchBookingRequest();
@@ -48,14 +66,10 @@ public class OWSReservationProcessor extends OWSBase {
 	    FetchBookingRequestE requestE = new FetchBookingRequestE();
 	    requestE.setFetchBookingRequest(request);
 
-	    OGHeaderE ogh = getHeaderE();
-
-        ReservationServiceStub rstub = getReservationServiceStub();
-
         log.debug("fetchBooking",
 	        AdapterUtility.convertToStreamXML(requestE));
 
-	    FetchBookingResponseE responseE = rstub.fetchBooking(requestE, ogh);
+	    FetchBookingResponseE responseE = service.fetchBooking(requestE, getHeaderE());
         log.debug("fetchBooking",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -65,20 +79,16 @@ public class OWSReservationProcessor extends OWSBase {
     }
 
     public com.cloudkey.pms.response.roomassignments.AssignRoomResponse processAssignRoom(com.cloudkey.pms.request.roomassignments.AssignRoomRequest request) throws RemoteException {
-        log.debug("processAssignRoom", "Enter in processSearchReservationData method. ");
+        log.debug("processAssignRoom", "Enter in processSearchReservationData method.");
 
-        OGHeaderE ogh = getHeaderE();
-
-        AssignRoomRequest req = getAssignRoomRequestObject(request);
+	    AssignRoomRequest req = getAssignRoomRequestObject(request);
 
 	    AssignRoomRequestE requestE = new AssignRoomRequestE();
 	    requestE.setAssignRoomRequest(req);
 
-	    ReservationServiceStub rstub = getReservationServiceStub();
-
         log.debug("processAssignRoom",
 	        AdapterUtility.convertToStreamXML(requestE));
-        AssignRoomResponseE responseE = rstub.assignRoom(requestE, ogh);
+        AssignRoomResponseE responseE = service.assignRoom(requestE, getHeaderE());
 
         log.debug("processAssignRoom",
 	        AdapterUtility.convertToStreamXML(responseE));
@@ -91,19 +101,15 @@ public class OWSReservationProcessor extends OWSBase {
     public com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse processReleaseRoom(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest request) throws RemoteException {
         log.debug("processReleaseRoom", "Enter in processReleaseRoom method. ");
 
-        OGHeaderE ogh = getHeaderE();
-
-        ReleaseRoomRequest req =
+	    ReleaseRoomRequest req =
                 getReleaseRoomRequestObject(request);
 
 	    ReleaseRoomRequestE requestE = new ReleaseRoomRequestE();
 	    requestE.setReleaseRoomRequest(req);
 
-        ReservationServiceStub rstub = getReservationServiceStub();
-
         log.debug("processReleaseRoom",
 	        AdapterUtility.convertToStreamXML(requestE));
-        ReleaseRoomResponseE responseE = rstub.releaseRoom(requestE, ogh);
+        ReleaseRoomResponseE responseE = service.releaseRoom(requestE, getHeaderE());
         log.debug("processReleaseRoom",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -116,19 +122,15 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("processUpdateBooking", "Enter method");
 
-        OGHeaderE ogh = getHeaderE();
-
-        ModifyBookingRequest req =
+	    ModifyBookingRequest req =
                 getUpdateBookingRequestObject(updateBookingRequest);
 
         ModifyBookingRequestE requestE = new ModifyBookingRequestE();
 	    requestE.setModifyBookingRequest(req);
 
-        ReservationServiceStub rstub = getReservationServiceStub();
-
         log.debug("processUpdateBooking",
 	        AdapterUtility.convertToStreamXML(requestE));
-        ModifyBookingResponseE responseE = rstub.modifyBooking(requestE, ogh);
+        ModifyBookingResponseE responseE = service.modifyBooking(requestE, getHeaderE());
         log.debug("processUpdateBooking",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -264,7 +266,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         String reservationId = releaseRoomRequest.getReservationId();
 
-        ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
+	    ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
 
 		/*To set the reservation name  number.*/
         UniqueID objUniqueID = new UniqueID();
@@ -302,7 +304,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         AssignRoomRequest objAssignRoomRequest = null;
 
-        String nextAvailableRoom = new OWSResvAdvancedProcessor().getNextAvailableRoom(roomTypeCode);
+        String nextAvailableRoom = resvAdvancedProcessor.getNextAvailableRoom(roomTypeCode);
         if (nextAvailableRoom != null) {
             objAssignRoomRequest = new AssignRoomRequest();
             objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);
@@ -329,18 +331,14 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("processSearchReservationData", "Enter in processSearchReservationData method. ");
 
-        OGHeaderE ogh = getHeaderE();
-
-        FutureBookingSummaryRequest req =
+	    FutureBookingSummaryRequest req =
                 getFutureBookingRequestObject(searchReservationRequest);
 	    FutureBookingSummaryRequestE requestE = new FutureBookingSummaryRequestE();
 	    requestE.setFutureBookingSummaryRequest(req);
 
-        ReservationServiceStub rstub = getReservationServiceStub();
-
         log.debug("processSearchReservationData",
 	        AdapterUtility.convertToStreamXML(requestE));
-        FutureBookingSummaryResponseE responseE = rstub.futureBookingSummary(requestE, ogh);
+        FutureBookingSummaryResponseE responseE = service.futureBookingSummary(requestE, getHeaderE());
         log.debug("processSearchReservationData",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -349,22 +347,7 @@ public class OWSReservationProcessor extends OWSBase {
 	    return getFutureBookingResponseObject(responseE.getFutureBookingSummaryResponse());
     }
 
-    private ReservationServiceStub getReservationServiceStub() {
-
-        if (URL_RESERVATION == null) throw new NullPointerException("Reservation URL is null");
-
-        ReservationServiceStub rstub = null;
-        try {
-            rstub = new ReservationServiceStub(URL_RESERVATION);
-
-        } catch (AxisFault axisFault) {
-            axisFault.printStackTrace();
-            log.error("getReservationServiceStub ", axisFault);
-        }
-        return rstub;
-    }
-
-    private FutureBookingSummaryRequest getFutureBookingRequestObject(SearchReservationRequest searchReservationRequest) {
+	private FutureBookingSummaryRequest getFutureBookingRequestObject(SearchReservationRequest searchReservationRequest) {
 
         log.debug("getFutureBookingRequestObject", "Enter getFutureBookingRequestObject method ");
 

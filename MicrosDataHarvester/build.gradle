@@ -6,6 +6,7 @@ dependencies {
     compile project(':CloudKeyHTBase')
     compile project(':MicrosPMSAdapter')
     compile project(':MicrosOWSServices')
+    compile project(':MicrosOXIJaxb')
 
     // External dependencies
     compile sun_httpserver

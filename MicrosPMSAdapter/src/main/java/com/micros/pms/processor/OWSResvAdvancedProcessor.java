@@ -13,13 +13,15 @@ import com.cloudkey.pms.micros.og.name.Profile;
 import com.cloudkey.pms.micros.og.reservation.BillHeader;
 import com.cloudkey.pms.micros.og.reservation.BillItem;
 import com.cloudkey.pms.micros.og.reservation.advanced.*;
+import com.cloudkey.pms.micros.services.ResvAdvancedService;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceStub;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
 import com.cloudkey.pms.response.reservations.GetFolioResponse;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
@@ -31,33 +33,37 @@ import java.util.List;
  * Created by crizan2 on 17/07/2014.
  */
 public class OWSResvAdvancedProcessor extends OWSBase {
-	final static String URL_RESV_ADVANCED = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/ResvAdvanced.asmx";
 
-    public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest postChargeRequest) throws RemoteException {
+	protected ResvAdvancedService service;
+
+	@Inject
+	public OWSResvAdvancedProcessor(
+		@Named("com.micros.ows.url") String targetEndpoint,
+		@Named("com.micros.ows.resvadvanced.path") String servicePath
+	) {
+		try {
+			this.service = new ResvAdvancedServiceStub(targetEndpoint + "/" + servicePath);
+		} catch (AxisFault axisFault) {
+			log.error("Could not instantiate service", ResvAdvancedService.class, axisFault);
+		}
+	}
+
+	public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest request) throws RemoteException {
         log.debug("postCharge", "Enter in postCharge method.");
 
-        OGHeaderE ogh = getHeaderE();
+	    PostChargeRequest microsRequest = getPostChargeRequestObject(request);
+	    PostChargeRequestE microsRequestE = new PostChargeRequestE();
 
-        PostChargeRequest req = getPostChargeRequestObject(postChargeRequest);
-	    PostChargeRequestE requestE = new PostChargeRequestE();
-	    requestE.setPostChargeRequest(req);
+	    microsRequestE.setPostChargeRequest(microsRequest);
+	    log.debug("postCharge", AdapterUtility.convertToStreamXML(microsRequestE));
 
-	    ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
-
-	    com.cloudkey.pms.response.reservations.PostChargeResponse response = null;
-
-        log.debug("postCharge",
-                AdapterUtility.convertToStreamXML(requestE));
-        PostChargeResponseE responseE = rstub.postCharge(requestE, ogh);
-
-        log.debug("postCharge",
-                AdapterUtility.convertToStreamXML(responseE));
+	            PostChargeResponseE responseE = service.postCharge(microsRequestE, getHeaderE());
+        log.debug("postCharge", AdapterUtility.convertToStreamXML(responseE));
 
 	    errorIfFailure(responseE.getPostChargeResponse().getResult());
 
-	    response = getPostChargeResponseObject(responseE.getPostChargeResponse());
-	    log.debug("postCharge",
-                AdapterUtility.convertToStreamXML(response));
+	    com.cloudkey.pms.response.reservations.PostChargeResponse response = getPostChargeResponseObject(responseE.getPostChargeResponse());
+	    log.debug("postCharge", AdapterUtility.convertToStreamXML(response));
 
         log.debug("postCharge", "Exit postCharge method ");
 
@@ -68,7 +74,6 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         PostChargeRequest objPostChargeRequest = new PostChargeRequest();
 
         Posting posting = new Posting();
-        objPostChargeRequest.setPosting(posting);
 
         posting.setCharge(postChargeRequest.getChargeAmount());
         posting.setFolioViewNo(postChargeRequest.getFolioViewNo());
@@ -76,7 +81,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         posting.setShortInfo(postChargeRequest.getShortInfo());
         posting.setPostDate(postChargeRequest.getPostDate());
         posting.setStationID(postChargeRequest.getStationId());
-        posting.setUserID(postChargeRequest.getUserId());
+	    posting.setUserID(postChargeRequest.getUserId());
 
         ReservationRequestBase reservationRequestBase = new ReservationRequestBase();
         reservationRequestBase.setHotelReference(getDefaultHotelReference());
@@ -91,17 +96,15 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         uid.setString(postChargeRequest.getReservationId());
         reservationRequestBase.setReservationID(reservationIDs);
 
-        objPostChargeRequest.setAccount(postChargeRequest.getAccount());
-        objPostChargeRequest.setAccount(postChargeRequest.getArticle());
+	    objPostChargeRequest.setPosting(posting);
+	    objPostChargeRequest.setAccount(postChargeRequest.getAccount());
+	    objPostChargeRequest.setArticle(postChargeRequest.getArticle());
         return objPostChargeRequest;
     }
 
-    private com.cloudkey.pms.response.reservations.PostChargeResponse getPostChargeResponseObject(PostChargeResponse postChargeResponse) {
+    private com.cloudkey.pms.response.reservations.PostChargeResponse getPostChargeResponseObject(PostChargeResponse microsResponse) {
         log.debug("getPostChargeResponseObject", "Enter method");
-
-	    com.cloudkey.pms.response.reservations.PostChargeResponse objFolioResponse = new com.cloudkey.pms.response.reservations.PostChargeResponse();
-
-        return objFolioResponse;
+	    return new com.cloudkey.pms.response.reservations.PostChargeResponse();
     }
 
     public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest folioRequest) throws RemoteException {
@@ -114,13 +117,12 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         InvoiceRequestE requestE = new InvoiceRequestE();
 	    requestE.setInvoiceRequest(req);
 
-        ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
+        InvoiceResponseE responseE = service.invoice(microsRequestE, getHeaderE());
 
         GetFolioResponse response = null;
 
         log.debug("processRetrieveFolioInfo",
                 AdapterUtility.convertToStreamXML(requestE));
-        InvoiceResponseE responseE = rstub.invoice(requestE, ogh);
         log.debug("processRetrieveFolioInfo",
                 AdapterUtility.convertToStreamXML(responseE));
 	    errorIfFailure(responseE.getInvoiceResponse().getResult());
@@ -290,13 +292,11 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         CheckOutRequestE requestE = new CheckOutRequestE();
 	    requestE.setCheckOutRequest(req);
 
-        ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
-
 	    com.cloudkey.pms.response.reservations.CheckOutResponse response;
 
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(requestE));
-        CheckOutResponseE resp = rstub.checkOut(requestE, ogh);
+        CheckOutResponseE resp = service.checkOut(requestE, getHeaderE());
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(resp));
 	    errorIfFailure(resp.getCheckOutResponse().getResult());
@@ -405,19 +405,15 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     public String getNextAvailableRoom(String roomType) throws RemoteException {
         log.debug("processFetchRoomStatus", "Enter in processSearchReservationData method.");
 
-        OGHeaderE ogh = getHeaderE();
-
         FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
         FetchRoomStatusRequestE requestE = new FetchRoomStatusRequestE();
 	    requestE.setFetchRoomStatusRequest(req);
-
-        ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
 
         String nextAvailableRoom = null;
 
         log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(requestE));
-        FetchRoomStatusResponseE responseE = rstub.fetchRoomStatus(requestE, ogh);
+        FetchRoomStatusResponseE responseE = service.fetchRoomStatus(requestE, getHeaderE());
 
         log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(responseE));
@@ -435,18 +431,14 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
         log.debug("processCheckIn", "Enter in processSearchReservationData method. ");
 
-        OGHeaderE ogh = getHeaderE();
-
         CheckInRequest req = getCheckInRequestObject(request);
 
         CheckInRequestE requestE = new CheckInRequestE();
 	    requestE.setCheckInRequest(req);
 
-        ResvAdvancedServiceStub rstub = getResvAdvancedServiceStub();
-
         log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(requestE));
-        CheckInResponseE responseE = rstub.checkIn(requestE, ogh);
+        CheckInResponseE responseE = service.checkIn(requestE, getHeaderE());
         log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(responseE));
 	    errorIfFailure(responseE.getCheckInResponse().getResult());

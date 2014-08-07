@@ -1,30 +1,27 @@
 package com.micros.pms.processor;
 
+import com.cloudkey.pms.micros.services.MeetingRoomService;
 import com.cloudkey.pms.micros.services.MeetingRoomServiceStub;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 
 /**
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSMeetingRoomProcessor extends OWSBase {
-	final static String URL_MEETING_ROOM = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_URL_ROOT) + "/MeetingRoom.asmx";
+	protected MeetingRoomService service;
 
-    private MeetingRoomServiceStub getMeetingRoomServiceStub() {
-
-        if (URL_MEETING_ROOM == null) throw new NullPointerException("getMeetingRoomServiceStub URL is null");
-
-        MeetingRoomServiceStub rstub = null;
-        try {
-            rstub = new MeetingRoomServiceStub(URL_MEETING_ROOM);
-
-        } catch (AxisFault axisFault) {
-            axisFault.printStackTrace();
-            log.error("getNameServiceStub ", axisFault);
-        }
-        return rstub;
-    }
-
+	@Inject
+	public OWSMeetingRoomProcessor(
+		@Named("com.micros.ows.url") String targetEndpoint,
+		@Named("com.micros.ows.meetingroom.path") String servicePath
+	) {
+		try {
+			this.service = new MeetingRoomServiceStub(targetEndpoint + "/" + servicePath);
+		} catch (AxisFault axisFault) {
+			log.error("Could not instantiate service", MeetingRoomService.class, axisFault);
+		}
+	}
 }

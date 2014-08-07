@@ -1,12 +1,5 @@
 package com.micros.harvester.oxi;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.Rtav;
 import com.micros.harvester.constant.IMicrosHarvester;
@@ -15,11 +8,13 @@ import com.micros.harvester.dao.MicrosDAOImpl;
 import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.HarvesterConfigurationReader;
 import com.micros.harvester.util.OXIParserUtility;
-
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import java.io.*;
+import java.net.InetSocketAddress;
 
 /**
  * This class acts as a http listener class. It keeps running in a listening 
@@ -37,7 +32,6 @@ public class OXIListener implements HttpHandler {
 	 * to every request arriving to the url.
 	 */
 	public void connectWithOXI() {
-
 		DataHarvesterLogger.logInfo( OXIListener.class, " connectWithOXI ", " enter connectWithServer method " );
 
 		try {
