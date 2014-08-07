@@ -3,7 +3,7 @@ package com.cloudkey.pms.request.reservations;
 import com.cloudkey.pms.common.payment.CreditCardApproval;
 import com.cloudkey.pms.common.payment.CreditCardInfo;
 import com.google.common.base.Objects;
-import com.keypr.pms.micros.oxi.ids.ReservationId;
+import com.keypr.pms.micros.oxi.ids.PmsReservationId;
 import com.keypr.pms.micros.oxi.ids.StationId;
 import com.keypr.pms.micros.oxi.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
@@ -19,11 +19,11 @@ import java.util.Date;
  */
 public class MakePaymentRequest {
     /**
-     * The {@link ReservationId} of the reservation to which payment was applied
+     * The {@link com.keypr.pms.micros.oxi.ids.PmsReservationId} of the reservation to which payment was applied
      */
     @NotNull
     @ApiModelProperty(required = true)
-    private ReservationId reservationId;
+    private PmsReservationId pmsReservationId;
 
     /**
      * The amount to charge or charged (USD)
@@ -81,8 +81,8 @@ public class MakePaymentRequest {
 
 	protected MakePaymentRequest() { /* For serialization */ }
 
-	public MakePaymentRequest(ReservationId reservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, Date postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
-		this.reservationId = reservationId;
+	public MakePaymentRequest(PmsReservationId pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, Date postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
+		this.pmsReservationId = pmsReservationId;
 		this.chargeAmount = chargeAmount;
 		this.creditCardInfo = creditCardInfo;
 		this.creditCardApproval = creditCardApproval;
@@ -95,8 +95,8 @@ public class MakePaymentRequest {
 		this.folioViewNo = folioViewNo;
 	}
 
-	public ReservationId getReservationId() {
-        return reservationId;
+	public PmsReservationId getPmsReservationId() {
+        return pmsReservationId;
     }
 
     public Double getChargeAmount() {
@@ -142,7 +142,7 @@ public class MakePaymentRequest {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("reservationId", reservationId)
+                .add("pmsReservationId", pmsReservationId)
                 .add("chargeAmount", chargeAmount)
                 .add("creditCardInfo", creditCardInfo)
                 .add("creditCardApproval", creditCardApproval)

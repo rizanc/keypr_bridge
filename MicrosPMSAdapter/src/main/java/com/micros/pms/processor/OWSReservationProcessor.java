@@ -3,7 +3,6 @@ package com.micros.pms.processor;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.micros.og.common.*;
-import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.og.reservation.ExternalReference;
@@ -56,11 +55,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         FetchBookingRequest request = new FetchBookingRequest();
 
-        UniqueID uid = new UniqueID();
-        uid.setType(UniqueIDType.INTERNAL);
-        uid.setString(confirmation);
-
-        request.setConfirmationNumber(uid);
+	    request.setResvNameId(internalReservationId(pmsReservationId));
         request.setHotelReference(getDefaultHotelReference());
 
 	    FetchBookingRequestE requestE = new FetchBookingRequestE();
@@ -174,14 +169,7 @@ public class OWSReservationProcessor extends OWSBase {
         HotelReservation hotelReservation = new HotelReservation();
         objModifyBookingRequest.setHotelReservation(hotelReservation);
 
-        ArrayOfUniqueID uidList = new ArrayOfUniqueID();
-        hotelReservation.setUniqueIDList(uidList);
-
-        UniqueID uid = new UniqueID();
-        uidList.addUniqueID(uid);
-
-        uid.setString(updateBookingRequest.getConfirmationNumber());
-        uid.setType(UniqueIDType.INTERNAL);
+        hotelReservation.setUniqueIDList(arrayOf(internalReservationId(updateBookingRequest.getPmsReservationId())));
 
         ArrayOfRoomStay roomStays = new ArrayOfRoomStay();
         hotelReservation.setRoomStays(roomStays);
@@ -264,16 +252,10 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("getReleaseRoomRequestObject", "Enter getReleaseRoomRequestObject method ");
 
-        String reservationId = releaseRoomRequest.getReservationId();
-
 	    ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
 
-		/*To set the reservation name  number.*/
-        UniqueID objUniqueID = new UniqueID();
-        objUniqueID.setSource(IMicrosConstants.VALUE_SOURCE);
-        objUniqueID.setString(reservationId);
-        objUniqueID.setType(UniqueIDType.INTERNAL);
-        objReleaseRoomRequest.setResvNameId(objUniqueID);
+		/*To set the reservation number.*/
+        objReleaseRoomRequest.setResvNameId(internalReservationId(releaseRoomRequest.getPmsReservationId()));
 
         objReleaseRoomRequest.setHotelReference(getDefaultHotelReference());
 
@@ -300,20 +282,15 @@ public class OWSReservationProcessor extends OWSBase {
         log.debug("getAssignRoomRequestObject", "Enter getAssignRoomRequestObject method ");
 
         String roomTypeCode = assignRoomRequest.getRoomTypeCode();
-        String confirmationNumber = assignRoomRequest.getConfirmationNumber();
 
-        AssignRoomRequest objAssignRoomRequest = null;
+	    AssignRoomRequest objAssignRoomRequest = null;
 
         String nextAvailableRoom = resvAdvancedProcessor.getNextAvailableRoom(roomTypeCode);
         if (nextAvailableRoom != null) {
             objAssignRoomRequest = new AssignRoomRequest();
             objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);
 
-            UniqueID objUniqueID = new UniqueID();
-            objUniqueID.setSource(IMicrosConstants.VALUE_SOURCE);
-            objUniqueID.setString(confirmationNumber);
-            objUniqueID.setType(UniqueIDType.INTERNAL);
-            objAssignRoomRequest.setResvNameId(objUniqueID);
+            objAssignRoomRequest.setResvNameId(internalReservationId(assignRoomRequest.getPmsReservationId()));
 
             HotelReference objHotelReference = getDefaultHotelReference();
             objAssignRoomRequest.setHotelReference(objHotelReference);
@@ -351,7 +328,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("getFutureBookingRequestObject", "Enter getFutureBookingRequestObject method ");
 
-        String confirmationNumber = searchReservationRequest.getConfirmationNumber();
+        String pmsReservationId = searchReservationRequest.getPmsReservationId();
         String creditCardNumber = searchReservationRequest.getCreditCardNumber();
         String firstName = searchReservationRequest.getFirstName();
         String lastName = searchReservationRequest.getLastName();
@@ -388,13 +365,9 @@ public class OWSReservationProcessor extends OWSBase {
             objBookingFilters.setExternalSystemNumber(ext);
         }
 
-		/* Sets confirmation number to the request */
-        if (confirmationNumber != null) {
-            UniqueID objUniqueID = new UniqueID();
-            objUniqueID.setType(UniqueIDType.INTERNAL);
-            objUniqueID.setString(confirmationNumber);
-            objUniqueID.setSource("CONFIRMATION_NO");
-            objBookingFilters.setConfirmationNumber(objUniqueID);
+		/* Sets pmsReservationId to the request */
+        if (pmsReservationId != null) {
+            objBookingFilters.setResvNameId(internalReservationId(pmsReservationId));
         }
 
         if (membershipType != null && memebershipNumber != null) {
@@ -492,19 +465,17 @@ public class OWSReservationProcessor extends OWSBase {
 
                 log.debug("getFutureBookingResponseObject", "Iterating UniqueID list .");
 
-                if (objUniqueID.getType().toString().equalsIgnoreCase("INTERNAL") &&
-                        objUniqueID.getSource() != null &&
-                        objUniqueID.getSource().equalsIgnoreCase("RESVID")) {
+                if (objUniqueID.getType().toString().equalsIgnoreCase(IMicrosConstants.INTERNAL_TYPE)) {
+	                if (objUniqueID.getSource() != null) {
+		                if (objUniqueID.getSource().equalsIgnoreCase(IMicrosConstants.RESERVATION_ID_SOURCE)) {
 
-                    objReservation.setPmsId(objUniqueID.getString());
+			                objReservation.setPmsReservationId(objUniqueID.getString());
 
-                    log.debug("getFutureBookingResponseObject", "Confirmation Number is set.");
-                } else if (objUniqueID.getType().toString().equalsIgnoreCase("INTERNAL") &&
-                        objUniqueID.getSource() == null ) {
-                    objReservation.setConfirmationNumber(objUniqueID.getString());
-                } else {
-
-                    log.debug("getFutureBookingResponseObject", "Confirmation Number is not set.");
+			                log.debug("getFutureBookingResponseObject", "PmsReservationId is set.");
+		                }
+	                } else {
+		                objReservation.setConfirmationNumber(objUniqueID.getString());
+	                }
                 }
             } // End loop for Unique ID .
             String status = objHotelReservation.getReservationStatus().getValue();

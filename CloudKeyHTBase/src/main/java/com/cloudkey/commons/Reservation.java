@@ -339,7 +339,7 @@ public class Reservation {
 		return pmsId;
 	}
 
-	public void setPmsId(String pmsId) {
+	public void setPmsReservationId(String pmsId) {
 		this.pmsId = pmsId;
 	}
 

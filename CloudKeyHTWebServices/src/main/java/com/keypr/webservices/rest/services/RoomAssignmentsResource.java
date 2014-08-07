@@ -26,7 +26,6 @@ public class RoomAssignmentsResource extends AbstractResource {
     @POST
     @ApiOperation(
         value = "Assigns an available room of the given type to an existing reservation",
-        notes = "Micros implementation only uses request.roomTypeCode and request.reservation.confirmationNumber",
         response = AssignRoomResponse.class
     )
     @ApiResponses({

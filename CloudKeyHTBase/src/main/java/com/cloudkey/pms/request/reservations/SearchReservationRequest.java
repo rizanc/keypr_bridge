@@ -12,7 +12,7 @@ import javax.validation.constraints.AssertTrue;
  */
 public class SearchReservationRequest {
 
-    private String confirmationNumber;
+    private String pmsReservationId;
 
     private String firstName;
 
@@ -34,8 +34,8 @@ public class SearchReservationRequest {
 
 	protected SearchReservationRequest() { /* For serialization */ }
 
-	public SearchReservationRequest(String confirmationNumber, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String hotelCode, String extRefLegNumber, String extReferenceNumber, String extReferenceType) {
-		this.confirmationNumber = confirmationNumber;
+	public SearchReservationRequest(String pmsReservationId, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String hotelCode, String extRefLegNumber, String extReferenceNumber, String extReferenceType) {
+		this.pmsReservationId = pmsReservationId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.creditCardNumber = creditCardNumber;
@@ -50,7 +50,7 @@ public class SearchReservationRequest {
 	@AssertTrue(message = "At least one criteria must be specified")
     private boolean isValid() {
 		// At least one criteria must be specified
-		return (confirmationNumber != null
+		return (pmsReservationId != null
 			|| firstName != null
 			|| lastName != null
 			|| creditCardNumber != null
@@ -62,8 +62,8 @@ public class SearchReservationRequest {
 			|| extReferenceType != null);
 	}
 
-    public String getConfirmationNumber() {
-        return confirmationNumber;
+    public String getPmsReservationId() {
+        return pmsReservationId;
     }
 
     public String getFirstName() {
@@ -105,7 +105,7 @@ public class SearchReservationRequest {
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("confirmationNumber", confirmationNumber)
+			.add("pmsReservationId", pmsReservationId)
 			.add("firstName", firstName)
 			.add("lastName", lastName)
 			.add("creditCardNumber", creditCardNumber)

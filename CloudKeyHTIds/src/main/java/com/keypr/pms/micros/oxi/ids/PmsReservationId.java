@@ -3,8 +3,8 @@ package com.keypr.pms.micros.oxi.ids;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class ReservationId extends TypedStringIdentifier {
-    protected ReservationId(String identifier) {
+public class PmsReservationId extends TypedStringIdentifier {
+    protected PmsReservationId(String identifier) {
         super(identifier);
     }
 }

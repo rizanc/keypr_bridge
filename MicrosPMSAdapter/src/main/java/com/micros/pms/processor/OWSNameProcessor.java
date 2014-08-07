@@ -44,11 +44,7 @@ public class OWSNameProcessor extends OWSBase {
         log.debug("processGuestCardList", "Enter processGuestCardList method ");
 
         FetchGuestCardListRequest request = new FetchGuestCardListRequest();
-
-        UniqueID uniqueID = new UniqueID();
-        uniqueID.setType(UniqueIDType.INTERNAL);
-        uniqueID.setString(guestMembershipsRequest.getNameId());
-        request.setNameID(uniqueID);
+        request.setNameID(uniqueID(guestMembershipsRequest.getPmsNameId(), UniqueIDType.INTERNAL, null));
 
 	    FetchGuestCardListRequestE requestE = new FetchGuestCardListRequestE();
 		log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(requestE));

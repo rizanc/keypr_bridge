@@ -55,7 +55,7 @@
 //			assertTrue( "Number of reservation",  1 == objSearchReservationResponse.getReservationList().size() );
 //
 //			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
-//			assertEquals( "2", (objSearchReservationResponse.getReservationList().get(0).getConfirmationNumber()));
+//			assertEquals( "2", (objSearchReservationResponse.getReservationList().get(0).getPmsReservationId()));
 //
 //		}
 //		else {
@@ -383,7 +383,7 @@
 //		assertNotNull( " UpdateBookingResponse Instance must not be null ",  objUpdateBookingResponse);
 //
 //		assertNotNull( "Reservation Instance in response cannot be null ", objUpdateBookingResponse.getReservation() );
-//		assertEquals( "Confirmation must be Same " , "100" , objUpdateBookingResponse.getReservation().getConfirmationNumber() );
+//		assertEquals( "Confirmation must be Same " , "100" , objUpdateBookingResponse.getReservation().getPmsReservationId() );
 //
 //		String resNotes = objUpdateBookingResponse.getReservation().getNotes();
 //
@@ -483,7 +483,7 @@
 //
 //		assertNotNull( "Reservation Instance in response cannot be null ", objCheckInResponse.getReservation() );
 //		assertEquals( "Status Must be Success", "SUCCESS" , objCheckInResponse.getStatus() );
-//		assertEquals( "Confirmation must be Same " , "100" , objCheckInResponse.getReservation().getConfirmationNumber() );
+//		assertEquals( "Confirmation must be Same " , "100" , objCheckInResponse.getReservation().getPmsReservationId() );
 //		assertEquals( "CreditCardNumebr must be Same " , "1234123412341234" , objCheckInResponse.getReservation().getCreditCardNumber() );
 //
 //		assertTrue ( "CheckIn Date should not be null ", objCheckInResponse.getReservation().getCheckinDate() != null );
@@ -730,12 +730,12 @@
 //		objCheckOutResponse = makeCheckOutRequest(objCheckOutRequest);
 //
 //		assertNotNull( " CheckOutRequest Instance must not be null " , objCheckOutRequest );
-//		assertNotNull( " CheckOutRequest Instance must have confirmation number " , objCheckOutRequest.getConfirmationNumber() );
+//		assertNotNull( " CheckOutRequest Instance must have confirmation number " , objCheckOutRequest.getPmsReservationId() );
 //		assertNotNull( " CheckOutResponse Instance must not be null ",  objCheckOutResponse);
 //
 //		assertNotNull( "Reservation Instance in response cannot be null ", objCheckOutResponse.getReservation() );
 //		assertEquals( "Status Must be Success", "SUCCESS" , objCheckOutResponse.getStatus() );
-//		assertEquals( "Confirmation must be Same " , "100" , objCheckOutResponse.getReservation().getConfirmationNumber() );
+//		assertEquals( "Confirmation must be Same " , "100" , objCheckOutResponse.getReservation().getPmsReservationId() );
 //
 //
 //		//			assertTrue ( "CheckIn Date should not be null ", objCheckOutResponse.getReservation().getCheckinDate() != null );
@@ -824,7 +824,7 @@
 //		objAssignRoomResponse = makeAssignRoomRequest(objAssignRoomRequest);
 //
 //		assertNotNull( " AssignRoomRequest Instance must not be null " , objAssignRoomRequest );
-//		assertNotNull( " AssignRoomRequest Instance must have confirmation number " , objAssignRoomRequest.getReservation().getConfirmationNumber() );
+//		assertNotNull( " AssignRoomRequest Instance must have confirmation number " , objAssignRoomRequest.getReservation().getPmsReservationId() );
 //		assertNotNull( " AssignRoomRequest Instance must have room type code " , objAssignRoomRequest.getRoomTypeCode() );
 //		assertNotNull( " AssignRoomResponse Instance must not be null ",  objAssignRoomResponse);
 //
@@ -867,7 +867,7 @@
 //		ReleaseRoomResponse objReleaseRoomResponse = null;
 //
 //		objReleaseRoomRequest = new ReleaseRoomRequest();
-//		objReleaseRoomRequest.setReservationId("111");
+//		objReleaseRoomRequest.setPmsReservationId("111");
 //
 //		objReleaseRoomResponse = makeReleaseRoomRequest(objReleaseRoomRequest);
 //
@@ -891,7 +891,7 @@
 //		TimeOutError objTimeOutError = null;
 //
 //		objReleaseRoomRequest = new ReleaseRoomRequest();
-//		objReleaseRoomRequest.setReservationId("111");
+//		objReleaseRoomRequest.setPmsReservationId("111");
 //
 //		Entity<ReleaseRoomRequest>entity = Entity.json(objReleaseRoomRequest);
 //

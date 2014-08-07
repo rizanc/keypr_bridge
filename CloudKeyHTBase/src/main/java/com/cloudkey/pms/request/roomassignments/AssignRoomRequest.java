@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class AssignRoomRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String confirmationNumber;
+	private String pmsReservationId;
 
 	@NotBlank
 	@ApiModelProperty(required = true)
@@ -20,13 +20,13 @@ public class AssignRoomRequest {
 
 	protected AssignRoomRequest() { /* For serialization */ }
 
-	public AssignRoomRequest(String confirmationNumber, String roomTypeCode) {
-		this.confirmationNumber = confirmationNumber;
+	public AssignRoomRequest(String pmsReservationId, String roomTypeCode) {
+		this.pmsReservationId = pmsReservationId;
 		this.roomTypeCode = roomTypeCode;
 	}
 
-	public String getConfirmationNumber() {
-		return confirmationNumber;
+	public String getPmsReservationId() {
+		return pmsReservationId;
 	}
 
 	public String getRoomTypeCode() {
@@ -36,7 +36,7 @@ public class AssignRoomRequest {
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("confirmationNumber", confirmationNumber)
+			.add("pmsReservationId", pmsReservationId)
 			.add("roomTypeCode", roomTypeCode)
 			.toString();
 	}

@@ -32,7 +32,7 @@ public class ReservationsResource extends AbstractResource {
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public SearchReservationResponse searchReservation(
-            @QueryParam("confirmationNumber") String confirmationNumber,
+            @QueryParam("pmsReservationId") String pmsReservationId,
             @QueryParam("firstName") String firstName,
             @QueryParam("lastName") String lastName,
             @QueryParam("creditCardNumber") String creditCardNumber,
@@ -44,7 +44,7 @@ public class ReservationsResource extends AbstractResource {
 		    @QueryParam("extReferenceType") String extReferenceType
             ) {
         SearchReservationRequest request = new SearchReservationRequest(
-            confirmationNumber,
+            pmsReservationId,
             firstName,
             lastName,
             creditCardNumber,
@@ -102,8 +102,8 @@ public class ReservationsResource extends AbstractResource {
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public GetFolioResponse getFolio(@QueryParam("confirmationNumber") String confirmationNumber) {
-        GetFolioRequest request = new GetFolioRequest(confirmationNumber);
+    public GetFolioResponse getFolio(@QueryParam("pmsReservationId") String pmsReservationId) {
+        GetFolioRequest request = new GetFolioRequest(pmsReservationId);
         validate(request);
 
         return messageParser.retrieveFolioInfo(request);

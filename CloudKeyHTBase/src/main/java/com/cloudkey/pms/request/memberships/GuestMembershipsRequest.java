@@ -13,22 +13,22 @@ public class GuestMembershipsRequest {
 
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String nameId;
+	private String pmsNameId;
 
 	protected GuestMembershipsRequest() { /* For serialization */ }
 
-	public GuestMembershipsRequest(String nameId) {
-		this.nameId = nameId;
+	public GuestMembershipsRequest(String pmsNameId) {
+		this.pmsNameId = pmsNameId;
 	}
 
-	public String getNameId() {
-		return nameId;
+	public String getPmsNameId() {
+		return pmsNameId;
 	}
 
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("nameId", nameId)
+			.add("pmsNameId", pmsNameId)
 			.toString();
 	}
 }

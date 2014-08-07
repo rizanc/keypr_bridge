@@ -695,7 +695,7 @@ public class OXIParserUtility {
 				objReservation.setCheckinDate( checkInDate );
 				objReservation.setCheckoutDate(DataUtility.getEndDate(checkInDate,Integer.parseInt(stayLength) , "DAY"));
 				objReservation.setStayLength(Integer.parseInt(stayLength));
-				objReservation.setPmsId( pmsId );
+				objReservation.setPmsReservationId(pmsId);
 				objReservation.setLoyaltyProgram( loyaltyProgram );
 				objReservation.setNumberOfGuests( totalGuest );
 				objReservation.setFullName( fullName );

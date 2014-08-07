@@ -16,7 +16,7 @@ public class PostChargeRequest {
     private int folioViewNo;
     private String account;
     private String article;
-    private String reservationId;
+    private String pmsReservationId;
 
     public Date getPostDate() {
         return postDate;
@@ -90,11 +90,11 @@ public class PostChargeRequest {
         this.article = article;
     }
 
-    public String getReservationId() {
-        return reservationId;
+    public String getPmsReservationId() {
+        return pmsReservationId;
     }
 
-    public void setReservationId(String reservationId) {
-        this.reservationId = reservationId;
+    public void setPmsReservationId(String pmsReservationId) {
+        this.pmsReservationId = pmsReservationId;
     }
 }

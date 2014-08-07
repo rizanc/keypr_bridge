@@ -20,7 +20,7 @@ public class UpdateBookingRequest {
 
     @NotBlank
     @ApiModelProperty(required = true)
-    private String confirmationNumber;
+    private String pmsReservationId;
 
     @NotEmpty
     @ApiModelProperty(required = true)
@@ -28,13 +28,13 @@ public class UpdateBookingRequest {
 
 	protected UpdateBookingRequest() { /* For serialization */ }
 
-	public UpdateBookingRequest(String confirmationNumber, List<String> notes) {
-        this.confirmationNumber = confirmationNumber;
+	public UpdateBookingRequest(String pmsReservationId, List<String> notes) {
+        this.pmsReservationId = pmsReservationId;
         this.notes.addAll(notes);
     }
 
-    public String getConfirmationNumber() {
-        return confirmationNumber;
+    public String getPmsReservationId() {
+        return pmsReservationId;
     }
 
     public List<String> getNotes() {
@@ -44,7 +44,7 @@ public class UpdateBookingRequest {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("confirmationNumber", confirmationNumber)
+                .add("pmsReservationId", pmsReservationId)
                 .add("notes", notes)
                 .toString();
     }

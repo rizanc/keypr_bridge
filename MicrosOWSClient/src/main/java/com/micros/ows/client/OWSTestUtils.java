@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class OWSTestUtils {
 
-    private static final String CONFIRMATION_NO = "11900";
+    private static final String PMS_RESERVATION_ID = "11900";
     private static final LocalDate START_DATE = new LocalDate(2014, 10, 5);
     private static final LocalDate END_DATE = new LocalDate(2014, 10, 11);
     private static final String ROOM_TYPE_DEFAULT = "SKN";
@@ -63,7 +63,7 @@ public class OWSTestUtils {
     public void FutureBookingSummary() {
 
         SearchReservationRequest request = new SearchReservationRequest(
-	        CONFIRMATION_NO,
+	        PMS_RESERVATION_ID,
 	        FIRST_NAME,
 	        LAST_NAME,
 	        CREDIT_CARD_NO,
@@ -83,8 +83,8 @@ public class OWSTestUtils {
 
     }
 
-        AssignRoomRequest request = new AssignRoomRequest(CONFIRMATION_NO, ROOM_TYPE_DEFAULT);
     public void AssignRoom() {
+        AssignRoomRequest request = new AssignRoomRequest(PMS_RESERVATION_ID, ROOM_TYPE_DEFAULT);
 
         try {
             owsReservationProcessor.processAssignRoom(request);
@@ -95,8 +95,8 @@ public class OWSTestUtils {
 
     }
 
-        ReleaseRoomRequest request = new ReleaseRoomRequest(CONFIRMATION_NO);
     public void ReleaseRoom() {
+        ReleaseRoomRequest request = new ReleaseRoomRequest(PMS_RESERVATION_ID);
 
         try {
             owsReservationProcessor.processReleaseRoom(request);
@@ -106,8 +106,8 @@ public class OWSTestUtils {
 
     }
 
-        CheckInRequest request = new CheckInRequest(CONFIRMATION_NO, CREDIT_CARD_NO);
     public void CheckIn() {
+        CheckInRequest request = new CheckInRequest(PMS_RESERVATION_ID, CREDIT_CARD_NO);
 
         try {
             owsResvAdvancedProcessor.processCheckIn(request);
@@ -120,7 +120,7 @@ public class OWSTestUtils {
 
     public void CheckOut() {
 
-        CheckOutRequest request = new CheckOutRequest(CONFIRMATION_NO);
+        CheckOutRequest request = new CheckOutRequest(PMS_RESERVATION_ID);
 
         try {
             owsResvAdvancedProcessor.processCheckOut(request);
@@ -135,7 +135,7 @@ public class OWSTestUtils {
         //owsReservationProcessor.fetchBooking("11900");
 
         List<String> notes = Arrays.asList("Comment 1", "Comment 2", "Comment 3");
-        UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest(CONFIRMATION_NO, notes);
+        UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest(PMS_RESERVATION_ID, notes);
 
         try {
             owsReservationProcessor.processUpdateBooking(updateBookingRequest);
@@ -146,7 +146,7 @@ public class OWSTestUtils {
 
     public void Folio() {
 
-        GetFolioRequest request = new GetFolioRequest(CONFIRMATION_NO);
+        GetFolioRequest request = new GetFolioRequest(PMS_RESERVATION_ID);
 
         try {
             owsResvAdvancedProcessor.processRetrieveFolioInfo(request);

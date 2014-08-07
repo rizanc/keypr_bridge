@@ -135,4 +135,45 @@ public class OWSBase {
 			throw pmsError;
 		}
 	}
+
+	protected UniqueID uniqueID(String value, UniqueIDType type, String source) {
+		UniqueID uniqueID = new UniqueID();
+		if (value != null) {
+			uniqueID.setString(value);
+		}
+
+		if (type != null) {
+			uniqueID.setType(type);
+		}
+
+		if (source != null) {
+			uniqueID.setSource(source);
+		}
+
+		return uniqueID;
+	}
+
+	/**
+	 * Creates a {@link UniqueID} representing the provided internal reservation id.
+	 *
+	 * @param pmsReservationId
+	 * @return
+	 */
+	protected UniqueID internalReservationId(String pmsReservationId) {
+		return uniqueID(pmsReservationId, UniqueIDType.INTERNAL, IMicrosConstants.RESERVATION_ID_SOURCE);
+	}
+
+	/**
+	 * Helper for creating an {@link ArrayOfUniqueID}.
+	 *
+	 * @param uniqueIDs
+	 * @return
+	 */
+	protected ArrayOfUniqueID arrayOf(UniqueID... uniqueIDs) {
+		ArrayOfUniqueID list = new ArrayOfUniqueID();
+		for (UniqueID uniqueID : uniqueIDs) {
+			list.addUniqueID(uniqueID);
+		}
+		return list;
+	}
 }

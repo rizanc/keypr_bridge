@@ -5,30 +5,29 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Class stores check out request information of the guest. It has confirmation
- * number as its details.
+ * Class stores check out request information of the guest.
  *
  * @author vinayk2
  */
 public class CheckOutRequest {
     @NotBlank
     @ApiModelProperty(required = true)
-    private String confirmationNumber;
+    private String pmsReservationId;
 
 	protected CheckOutRequest() { /* For serialization */ }
 
-    public CheckOutRequest(String confirmationNumber) {
-        this.confirmationNumber = confirmationNumber;
+    public CheckOutRequest(String pmsReservationId) {
+        this.pmsReservationId = pmsReservationId;
     }
 
-    public String getConfirmationNumber() {
-        return confirmationNumber;
+    public String getPmsReservationId() {
+        return pmsReservationId;
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("confirmationNumber", confirmationNumber)
+                .add("pmsReservationId", pmsReservationId)
                 .toString();
     }
 }

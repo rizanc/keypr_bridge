@@ -12,22 +12,22 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ReleaseRoomRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String reservationId;
+	private String pmsReservationId;
 
 	protected ReleaseRoomRequest() { /* For serialization */ }
 
-	public ReleaseRoomRequest(String reservationId) {
-		this.reservationId = reservationId;
+	public ReleaseRoomRequest(String pmsReservationId) {
+		this.pmsReservationId = pmsReservationId;
 	}
 
-	public String getReservationId() {
-		return reservationId;
+	public String getPmsReservationId() {
+		return pmsReservationId;
 	}
 
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("reservationId", reservationId)
+			.add("pmsReservationId", pmsReservationId)
 			.toString();
 	}
 }

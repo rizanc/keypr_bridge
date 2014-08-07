@@ -2,7 +2,7 @@ package com.cloudkey.pms.response.reservations;
 
 import com.cloudkey.commons.Response;
 import com.cloudkey.pms.request.reservations.MakePaymentRequest;
-import com.keypr.pms.micros.oxi.ids.ReservationId;
+import com.keypr.pms.micros.oxi.ids.PmsReservationId;
 
 /**
  * Response to {@link MakePaymentRequest}
@@ -10,13 +10,13 @@ import com.keypr.pms.micros.oxi.ids.ReservationId;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class MakePaymentResponse extends Response {
-    private ReservationId reservationId;
+    private PmsReservationId pmsReservationId;
 
-    public MakePaymentResponse(ReservationId reservationId) {
-        this.reservationId = reservationId;
+    public MakePaymentResponse(PmsReservationId pmsReservationId) {
+        this.pmsReservationId = pmsReservationId;
     }
 
-    public ReservationId getReservationId() {
-        return reservationId;
+    public PmsReservationId getPmsReservationId() {
+        return pmsReservationId;
     }
 }

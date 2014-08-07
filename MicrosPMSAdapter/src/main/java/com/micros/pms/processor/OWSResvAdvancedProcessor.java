@@ -5,7 +5,6 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrders;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.pms.micros.og.common.*;
-import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.ArrayOfNameCreditCard;
 import com.cloudkey.pms.micros.og.name.NameCreditCard;
@@ -87,14 +86,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         reservationRequestBase.setHotelReference(getDefaultHotelReference());
         posting.setReservationRequestBase(reservationRequestBase);
 
-        ArrayOfUniqueID reservationIDs = new ArrayOfUniqueID();
-        UniqueID uid = new UniqueID();
-        reservationIDs.addUniqueID(uid);
-
-        // TODO: Clarify INTERNAL/EXTERNAL
-        uid.setType(UniqueIDType.INTERNAL);
-        uid.setString(postChargeRequest.getReservationId());
-        reservationRequestBase.setReservationID(reservationIDs);
+        reservationRequestBase.setReservationID(arrayOf(internalReservationId(postChargeRequest.getPmsReservationId())));
 
 	    objPostChargeRequest.setPosting(posting);
 	    objPostChargeRequest.setAccount(postChargeRequest.getAccount());
@@ -107,47 +99,36 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	    return new com.cloudkey.pms.response.reservations.PostChargeResponse();
     }
 
-    public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest folioRequest) throws RemoteException {
-
+    public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest request) throws RemoteException {
         log.debug("processRetrieveFolioInfo", "Enter in processRetrieveFolioInfo method.");
 
-        OGHeaderE ogh = getHeaderE();
+	    InvoiceRequest microsRequest = getFolioRequestObject(request);
+        InvoiceRequestE microsRequestE = new InvoiceRequestE();
+	    microsRequestE.setInvoiceRequest(microsRequest);
 
-        InvoiceRequest req = getFolioRequestObject(folioRequest);
-        InvoiceRequestE requestE = new InvoiceRequestE();
-	    requestE.setInvoiceRequest(req);
+        log.debug("processRetrieveFolioInfo", AdapterUtility.convertToStreamXML(microsRequestE));
 
         InvoiceResponseE responseE = service.invoice(microsRequestE, getHeaderE());
+        log.debug("processRetrieveFolioInfo", AdapterUtility.convertToStreamXML(responseE));
 
-        GetFolioResponse response = null;
-
-        log.debug("processRetrieveFolioInfo",
-                AdapterUtility.convertToStreamXML(requestE));
-        log.debug("processRetrieveFolioInfo",
-                AdapterUtility.convertToStreamXML(responseE));
 	    errorIfFailure(responseE.getInvoiceResponse().getResult());
-
-        response = getFolioResponseObject(responseE.getInvoiceResponse());
-        log.debug("processRetrieveFolioInfo",
-                AdapterUtility.convertToStreamXML(response));
 
         log.debug("processRetrieveFolioInfo", "Exit processRetrieveFolioInfo method ");
 
-        return response;
+        return getFolioResponseObject(responseE.getInvoiceResponse());
     }
 
     private GetFolioResponse getFolioResponseObject(InvoiceResponse objResponse) {
-
         log.debug("getFolioResponseObject", "Enter method");
 
         GetFolioResponse objFolioResponse = new GetFolioResponse();
 
 		/* Populate response into Reservation instance */
-        String addressType = null;
-        String countryCode = null;
-        String firstName = null;
-        String lastName = null;
-        String description = null;
+        String addressType;
+        String countryCode;
+        String firstName;
+        String lastName;
+        String description;
 
         double unitPrice;
         double totalBillAmount;
@@ -175,12 +156,11 @@ public class OWSResvAdvancedProcessor extends OWSBase {
                 objReservation.setFirstName(firstName);
                 objReservation.setLastName(lastName);
 
-                objReservation.setFullName(firstName.concat(" " + lastName));
+                objReservation.setFullName(firstName + " " + lastName);
 
                 List<ReservationOrders> objReservationOrders = objFolioResponse.getReservationOrderList();
 
                 if (objReservationOrders == null) {
-
                     objReservationOrders = new ArrayList<ReservationOrders>();
                 }
 
@@ -189,7 +169,6 @@ public class OWSResvAdvancedProcessor extends OWSBase {
                 List<OrderDetails> objDetails = objOrders.getOrderDetailList();
 
                 if (objDetails == null) {
-
                     objDetails = new ArrayList<OrderDetails>();
                 }
 
@@ -233,7 +212,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
                     String confirmationNumber = uniqueID.getString();
                     objReservation.setConfirmationNumber(confirmationNumber);
-                    objReservation.setPmsId(confirmationNumber);
+                    objReservation.setPmsReservationId(confirmationNumber);
                 }
 */
                 log.debug("getFolioResponseObject", "Exit to traverse Bill Header ");
@@ -255,14 +234,14 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 		/* To get the request parameters. */
         InvoiceRequest objInvoiceRequest = null;
 
-        if (folioRequest.getConfirmationNumber() != null) {
+        if (folioRequest.getPmsReservationId() != null) {
 
             objInvoiceRequest = new InvoiceRequest();
 
             ArrayOfUniqueID objArrayOfUniqueID = new ArrayOfUniqueID();
             UniqueID objUId = new UniqueID();
 
-            objUId.setString(folioRequest.getConfirmationNumber());
+            objUId.setString(folioRequest.getPmsReservationId());
             //objUId.setSource(IMicrosConstants.CoN);
             objUId.setType(UniqueIDType.INTERNAL);
             objArrayOfUniqueID.addUniqueID(objUId);
@@ -286,13 +265,11 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) throws RemoteException {
         log.debug("processCheckOut", "Enter in processCheckOut method. ");
 
-        OGHeaderE ogh = getHeaderE();
-
-        CheckOutRequest req = getCheckOutRequestObject(request);
+	    CheckOutRequest req = getCheckOutRequestObject(request);
         CheckOutRequestE requestE = new CheckOutRequestE();
 	    requestE.setCheckOutRequest(req);
 
-	    com.cloudkey.pms.response.reservations.CheckOutResponse response;
+        	    com.cloudkey.pms.response.reservations.CheckOutResponse response;
 
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(requestE));
@@ -312,24 +289,13 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     private CheckOutRequest getCheckOutRequestObject(com.cloudkey.pms.request.reservations.CheckOutRequest checkOutRequest) {
         log.debug("getCheckOutRequestObject", "Enter getCheckOutRequestObject method.");
 
-        String confirmationNumber = checkOutRequest.getConfirmationNumber();
-
-        OGHeaderE ogh = getHeaderE();
         CheckOutRequest objCheckOutRequest = new CheckOutRequest();
 
 		/*To set the confirmation number and hotel code into reservation request base*/
-
         ReservationRequestBase objReservationRequestBase = new ReservationRequestBase();
         objCheckOutRequest.setReservationRequest(objReservationRequestBase);
 
-        ArrayOfUniqueID objArrayOfUniqueID = new ArrayOfUniqueID();
-        UniqueID objUniqueID = new UniqueID();
-        objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
-        objUniqueID.setString(confirmationNumber);
-        objUniqueID.setType(UniqueIDType.EXTERNAL);
-        objArrayOfUniqueID.addUniqueID(objUniqueID);
-
-        objReservationRequestBase.setReservationID(objArrayOfUniqueID);
+        objReservationRequestBase.setReservationID(arrayOf(internalReservationId(checkOutRequest.getPmsReservationId())));
         objReservationRequestBase.setHotelReference(getDefaultHotelReference());
 
         log.debug("getCheckOutRequestObject", "Exit getCheckOutRequestObject method ");
@@ -344,11 +310,10 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	    com.cloudkey.pms.response.reservations.CheckOutResponse objCheckOutResponse = new com.cloudkey.pms.response.reservations.CheckOutResponse();
         Reservation objReservation = new Reservation();
 
-        String confirmationNumber = null;
-        String status = null;
-        String firstName = null;
-        String lastName = null;
-        StringBuffer objStringBuffer = null;
+        String confirmationNumber;
+	    String firstName;
+        String lastName;
+        StringBuffer objStringBuffer;
 
         log.debug("getCheckOutResponseObject", "Status Set ");
 
@@ -359,9 +324,10 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 		/*To set the confirmation number.*/
         for (UniqueID objUniqueID : arrUniqueIDs) {
 
+	        // TODO: Parse these correctly
             confirmationNumber = objUniqueID.getString();
             objReservation.setConfirmationNumber(confirmationNumber);
-            objReservation.setPmsId(confirmationNumber);
+            objReservation.setPmsReservationId(confirmationNumber);
 
             log.debug("getCheckOutResponseObject", "confirmation Number is  Set ");
         }
@@ -405,11 +371,11 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     public String getNextAvailableRoom(String roomType) throws RemoteException {
         log.debug("processFetchRoomStatus", "Enter in processSearchReservationData method.");
 
-        FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
+	    FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
         FetchRoomStatusRequestE requestE = new FetchRoomStatusRequestE();
 	    requestE.setFetchRoomStatusRequest(req);
 
-        String nextAvailableRoom = null;
+                String nextAvailableRoom = null;
 
         log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(requestE));
@@ -431,12 +397,12 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
         log.debug("processCheckIn", "Enter in processSearchReservationData method. ");
 
-        CheckInRequest req = getCheckInRequestObject(request);
+	    CheckInRequest req = getCheckInRequestObject(request);
 
         CheckInRequestE requestE = new CheckInRequestE();
 	    requestE.setCheckInRequest(req);
 
-        log.debug("processCheckIn",
+                log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(requestE));
         CheckInResponseE responseE = service.checkIn(requestE, getHeaderE());
         log.debug("processCheckIn",
@@ -483,23 +449,13 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 		/*To set the confirmation number and hotel code into reservation request base*/
         ReservationRequestBase objReservationRequestBase = new ReservationRequestBase();
 
-        ArrayOfUniqueID objArrayOfUniqueID = new ArrayOfUniqueID();
-
-        UniqueID objUniqueID = new UniqueID();
-        objUniqueID.setSource(IMicrosConstants.OWS_RESV_NAMEID);
-        objUniqueID.setString(checkInRequest.getConfirmationNumber());
-        objUniqueID.setType(UniqueIDType.EXTERNAL);
-
-        objArrayOfUniqueID.addUniqueID(objUniqueID);
-
         // set the confirmation number.
-        objReservationRequestBase.setReservationID(objArrayOfUniqueID);
+        objReservationRequestBase.setReservationID(arrayOf(internalReservationId(checkInRequest.getPmsReservationId())));
 
         // set the hotel code.
         objReservationRequestBase.setHotelReference(getDefaultHotelReference());
 
 		/* Set the confirmation . hotel code and credit card info into check in request. */
-
         objCheckInRequest.setReservationRequest(objReservationRequestBase);
         //objCheckInRequest.setCreditCardInfo( objCreditCardInfo );
 
@@ -519,14 +475,13 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         Reservation objReservation = new Reservation();
         objCheckInResponse.setReservation(objReservation);
 
-        String confirmationNumber = null;
-        String status = null;
-        String roomTypeCode = null;
-        String feature = null;
-        String roomNumber = null;
-        String firstName = null;
-        String lastName = null;
-        StringBuffer objStringBuffer = null;
+        String confirmationNumber;
+        String roomTypeCode;
+        String feature;
+        String roomNumber;
+        String firstName;
+        String lastName;
+        StringBuffer objStringBuffer;
 
         CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
 
@@ -534,10 +489,11 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         UniqueID[] arrUniqueIDs = objArrayOfUniqueID.getUniqueID();
 
         for (UniqueID objUniqueID : arrUniqueIDs) {
+	        // TODO: parse these correctly
             if (objUniqueID.getType() == UniqueIDType.EXTERNAL) {
                 confirmationNumber = objUniqueID.getString();
                 objReservation.setConfirmationNumber(confirmationNumber);
-                objReservation.setPmsId(confirmationNumber);
+                objReservation.setPmsReservationId(confirmationNumber);
             }
         }
 
@@ -663,20 +619,5 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         request.setHotelReference(objHotelReference);
 
         return request;
-    }
-
-    private ResvAdvancedServiceStub getResvAdvancedServiceStub() {
-
-        if (URL_RESV_ADVANCED == null) throw new NullPointerException("ResvAdvanced URL is null");
-
-        ResvAdvancedServiceStub rstub = null;
-        try {
-            rstub = new ResvAdvancedServiceStub(URL_RESV_ADVANCED);
-
-        } catch (AxisFault axisFault) {
-            axisFault.printStackTrace();
-            log.error("getReservationServiceStub ", axisFault);
-        }
-        return rstub;
     }
 }

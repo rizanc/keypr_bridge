@@ -36,7 +36,6 @@ task oneJar(type: OneJar) {
 // Configure the run task to start the Dropwizard service
 run {
     args 'server', './configuration.yml'
-
 }
 
 artifacts {

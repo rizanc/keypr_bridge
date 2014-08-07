@@ -107,7 +107,7 @@ public class UploadReservationDataRetriever {
 
 							// To set the reservation data.
 							reservation.setId( id ) ;
-							reservation.setPmsId( String.valueOf(pmsId)) ;
+							reservation.setPmsReservationId(String.valueOf(pmsId)) ;
 
 							reservation.setStayLength( reservationSet.getInt( "reservation.stay_length" )  ) ;
 							reservation.setNumberOfGuests( reservationSet.getInt( "reservation.number_of_guest" ) );

@@ -5,30 +5,29 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * This class represents the get bill request of the guest. The request
- * include confirmation number of the guest.
+ * This class represents the get bill request of the guest.
  *
  * @author vinayk2
  */
 public class GetFolioRequest {
     @NotBlank
     @ApiModelProperty(required = true)
-    private String confirmationNumber;
+    private String pmsReservationId;
 
 	protected GetFolioRequest() { /* For serialization */ }
 
-	public GetFolioRequest(String confirmationNumber) {
-        this.confirmationNumber = confirmationNumber;
+	public GetFolioRequest(String pmsReservationId) {
+        this.pmsReservationId = pmsReservationId;
     }
 
-    public String getConfirmationNumber() {
-        return confirmationNumber;
+    public String getPmsReservationId() {
+        return pmsReservationId;
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("confirmationNumber", confirmationNumber)
+                .add("pmsReservationId", pmsReservationId)
                 .toString();
     }
 }

@@ -1,26 +1,23 @@
 package com.cloudkey.upload.client;
 
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import org.json.simple.JSONObject;
-
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 import com.cloudkey.upload.constant.IUploadConstants;
 import com.cloudkey.upload.logger.UploadServiceLogger;
 import com.cloudkey.upload.utility.UploadConfigurationReader;
+import com.sun.jersey.api.client.Client;
+import org.json.simple.JSONObject;
+
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * this class acts as a web service client to invoke the service of Keypr for posting the updated data from UploadQueue 
  * and expecting response from Keypr service as Success and Failure.
  * 
- * @author ektas 
+ * @author ektas
  */
 public class UploadServiceClient {
 
@@ -88,7 +85,7 @@ public class UploadServiceClient {
 		try {
 
 			// To make call the keypr service with the reservation data list and list size.
-			int statusCode = makeJSONRequest( UploadConfigurationReader.getProperty( IUploadConstants.KEYPR_RESERVATION_URL ), UploadConfigurationReader.getProperty( IUploadConstants.KEYPR_RESV_LIST_KEY ) , reservationList , size );			
+			int statusCode = makeJSONRequest( UploadConfigurationReader.getProperty( IUploadConstants.KEYPR_RESERVATION_URL ), UploadConfigurationReader.getProperty( IUploadConstants.KEYPR_RESV_LIST_KEY ) , reservationList , size );
 
 			UploadServiceLogger.logInfo( UploadServiceClient.class, "invokeReservation", " Status Code " + statusCode ) ;
 

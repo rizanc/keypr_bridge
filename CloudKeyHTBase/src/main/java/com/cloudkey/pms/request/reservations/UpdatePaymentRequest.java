@@ -7,7 +7,6 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class UpdatePaymentRequest {
 
     @NotBlank
     @ApiModelProperty(required = true)
-    private String confirmationNumber;
+    private String pmsReservationId;
 
     @NotEmpty
     @ApiModelProperty(required = true)
@@ -27,13 +26,13 @@ public class UpdatePaymentRequest {
 
 	protected UpdatePaymentRequest() { /* For serialization */ }
 
-	public UpdatePaymentRequest(String confirmationNumber, List<Payments> payments) {
-		this.confirmationNumber = confirmationNumber;
+	public UpdatePaymentRequest(String pmsReservationId, List<Payments> payments) {
+		this.pmsReservationId = pmsReservationId;
 		this.payments.addAll(payments);
 	}
 
-	public String getConfirmationNumber() {
-        return confirmationNumber;
+	public String getPmsReservationId() {
+        return pmsReservationId;
     }
 
     public List<Payments> getPayments() {
@@ -43,7 +42,7 @@ public class UpdatePaymentRequest {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("confirmationNumber", confirmationNumber)
+                .add("pmsReservationId", pmsReservationId)
                 .add("payments", payments)
                 .toString();
     }
