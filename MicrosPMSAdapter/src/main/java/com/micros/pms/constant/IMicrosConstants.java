@@ -7,33 +7,15 @@ package com.micros.pms.constant;
  */
 public interface IMicrosConstants {
 
-	String HOTEL_CODE = "ows.hotel.code";
-	String CHAIN_CODE = "ows.chain.code";
-    String OWS_STATION_ID = "ows.station.id";
-
-	String OWS_ORIGIN_ID = "origin.entity.id";
-	String OWS_ORI_SYSTEM_TYPE = "origin.system.type";
-
-
-	String OWS_DESTINATION_ID = "destination.entity.id";
-	String OWS_ORI_DEST_TYPE = "destination.system.type";
-
-	String OWS_USER_NAME = "auth.user.name";
-	String OWS_USER_PASS = "auth.user.pass";
-
 	String OWS_RESV_NAMEID = "RESV_NAME_ID";
 	String PMS_ID = "PMS_ID";
 	String DATE_FORMAT =  "MM-dd-yyyy";
 
 	String PMS_SERVER_URL = "http://localhost:8080/MicrosSimulatorPMS_OWS/call";
 
-    String OWS_URL_ROOT = "com.micros.ows.url";
-
 	String RESPONSE_SERVER_NOT_FOUND = "The requested resource is not available" ;
 
 	String EXCEPTION_MESSAGE = "Property Mangaement System is Down! ";
-
-	String MEETING_HOTEL_CODE = "meeting.hotel.code";
 
 
 	String ENG_LANG = "E";

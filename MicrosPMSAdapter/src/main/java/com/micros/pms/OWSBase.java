@@ -8,7 +8,6 @@ import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
 import com.google.inject.Inject;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +44,10 @@ public class OWSBase {
 	@Inject
 	@Named("destination.system.type")
 	protected String destSystemType;
+
+	@Inject
+	@Named("ows.station.id")
+	protected String stationId;
 
 	@Inject(optional = true)
 	@Named("auth.user.name")

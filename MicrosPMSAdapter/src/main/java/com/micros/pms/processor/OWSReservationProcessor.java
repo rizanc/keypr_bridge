@@ -2,7 +2,10 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
-import com.cloudkey.pms.micros.og.common.*;
+import com.cloudkey.pms.micros.og.common.Membership;
+import com.cloudkey.pms.micros.og.common.PersonName;
+import com.cloudkey.pms.micros.og.common.Text;
+import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.og.reservation.ExternalReference;
@@ -21,7 +24,6 @@ import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
 import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParserConfigurationReader;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
 
@@ -190,7 +192,6 @@ public class OWSReservationProcessor extends OWSBase {
                 comment.setCommentType("RESERVATION");
                 comment.setGuestViewable(false);
 
-                String entityId = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_ORIGIN_ID);
                 if (entityId != null && !entityId.isEmpty()) {
                     comment.setCommentOriginatorCode(entityId);
                 }
@@ -295,8 +296,7 @@ public class OWSReservationProcessor extends OWSBase {
             HotelReference objHotelReference = getDefaultHotelReference();
             objAssignRoomRequest.setHotelReference(objHotelReference);
 
-            String stationID = ParserConfigurationReader.getProperty(IMicrosConstants.OWS_STATION_ID);
-            objAssignRoomRequest.setStationID(stationID);
+            objAssignRoomRequest.setStationID(stationId);
 
             log.debug("getAssignRoomRequestObject", "Exit getAssignRoomRequestObject method ");
         }
