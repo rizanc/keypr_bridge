@@ -171,19 +171,6 @@ public class OWSTestUtils {
         }
 
     }
-    public static void Membership() {
-
-        OWSMembershipProcessor owsMembershipProcessor = new OWSMembershipProcessor();
-
-        MemberPointsRequest request = new MemberPointsRequest(MEMBER_ID, MEMBER_TYPE, LAST_NAME);
-
-        try {
-            owsMembershipProcessor.processFetchMemberPoints(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public static void NameLookupByMembership() {
 
