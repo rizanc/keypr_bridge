@@ -119,6 +119,17 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         }
     }
 
+	@Override
+	public PostChargeResponse postCharge(PostChargeRequest request) throws PMSInterfaceException {
+		log.debug("postCharge", "Enter method.");
+
+		try {
+			return resvAdvancedProcessor.postCharge(request);
+		} catch (RemoteException e) {
+			throw new PMSInterfaceException(e);
+		}
+	}
+
     @Override
     public MakePaymentResponse makePayment(MakePaymentRequest request) throws PMSInterfaceException {
 	    log.debug("makePayment", "Enter method.");

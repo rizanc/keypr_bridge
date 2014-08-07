@@ -109,19 +109,19 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.retrieveFolioInfo(request);
     }
 
-    @Path("/folio/pay")
+    @Path("/postcharge")
     @POST
     @ApiOperation(
-        value = "Not Implemented. Makes a payment towards a reservation folio",
-        response = MakePaymentResponse.class
+        value = "Adds charges to a guest account",
+        response = PostChargeResponse.class
     )
     @ApiResponses({
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public MakePaymentResponse makePayment(@Valid MakePaymentRequest request) {
-        return messageParser.makePayment(request);
+    public PostChargeResponse postCharge(@Valid PostChargeRequest request) {
+        return messageParser.postCharge(request);
     }
 
     @Path("/notes")
@@ -139,11 +139,31 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.updateBooking(request);
     }
 
-    // It's not clear that there is a MICROS message for this, or what the intention
+//    @Path("/folio/pay")
+//    @POST
+//    @ApiOperation(
+//        value = "Not Implemented. Makes a payment towards a reservation folio",
+//        response = MakePaymentResponse.class
+//    )
+//    @ApiResponses({
+//	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+//	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+//	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+//    })
+//    public MakePaymentResponse makePayment(@Valid MakePaymentRequest request) {
+//        return messageParser.makePayment(request);
+//    }
+
+	// It's not clear that there is a MICROS message for this, or what the intention
     // of this method is. Disabling it & probably will remove it.
 //    @Path("/folio/pay")
 //    @PUT
 //    @ApiOperation("Updates the payment records of a reservation")
+//    @ApiResponses({
+//	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+//	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
+//	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+//    })
 //    public UpdatePaymentResponse makePayment(@Valid UpdatePaymentRequest request) {
 //        return messageParser.updatePayment(request);
 //    }

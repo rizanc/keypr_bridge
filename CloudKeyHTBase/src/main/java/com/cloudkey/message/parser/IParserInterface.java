@@ -35,7 +35,7 @@ public interface IParserInterface {
      * @param folioRequest
      * @return GetFolioResponse
      */
-    public GetFolioResponse retrieveFolioInfo(GetFolioRequest folioRequest) throws PMSInterfaceException;
+    GetFolioResponse retrieveFolioInfo(GetFolioRequest folioRequest) throws PMSInterfaceException;
 
     /**
      * This method is used to released the room using reservation id.
@@ -43,7 +43,7 @@ public interface IParserInterface {
      * @param releaseRoomRequest
      * @return ReleaseRoomResponse
      */
-    public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException;
+    ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException;
 
     /**
      * This method makes check in request for the guest to the property management system.
@@ -52,7 +52,7 @@ public interface IParserInterface {
      * @param checkInRequest
      * @return CheckInResponse
      */
-    public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) throws PMSInterfaceException;
+    CheckInResponse guestCheckIn(CheckInRequest checkInRequest) throws PMSInterfaceException;
 
     /**
      * This method makes assign Room request for the guest to the property management system.
@@ -61,7 +61,7 @@ public interface IParserInterface {
      * @param assignRoomRequest
      * @return CheckInResponse
      */
-    public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) throws PMSInterfaceException;
+    AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) throws PMSInterfaceException;
 
 
     /**
@@ -72,7 +72,7 @@ public interface IParserInterface {
      * @param checkOutRequest
      * @return CheckOutResponse
      */
-    public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) throws PMSInterfaceException;
+    CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) throws PMSInterfaceException;
 
     /**
      * This method makes update booking request of the guest to the property management system.
@@ -82,13 +82,21 @@ public interface IParserInterface {
      * @param upBookingRequest
      * @return UpdateBookingResponse
      */
-    public UpdateBookingResponse updateBooking(UpdateBookingRequest upBookingRequest) throws PMSInterfaceException;
+    UpdateBookingResponse updateBooking(UpdateBookingRequest upBookingRequest) throws PMSInterfaceException;
+
+	/**
+	 * Adds charges to a guest account
+	 *
+	 * @param request
+	 * @return
+	 */
+	PostChargeResponse postCharge(PostChargeRequest request) throws PMSInterfaceException;
 
     /**
      * @param request
      * @return UpdatePaymentResponse
      */
-    public MakePaymentResponse makePayment(MakePaymentRequest request) throws PMSInterfaceException;
+    MakePaymentResponse makePayment(MakePaymentRequest request) throws PMSInterfaceException;
 
     /**
      * This method makes update Payment request of the guest to the property management system.
@@ -97,7 +105,7 @@ public interface IParserInterface {
      * @param upPaymentRequest
      * @return UpdatePaymentResponse
      */
-    public UpdatePaymentResponse updatePayment(UpdatePaymentRequest upPaymentRequest) throws PMSInterfaceException;
+    UpdatePaymentResponse updatePayment(UpdatePaymentRequest upPaymentRequest) throws PMSInterfaceException;
 
     /**
      * This method check the availability  of the room for a given interval of time.
@@ -105,7 +113,7 @@ public interface IParserInterface {
      * @param availRequest
      * @return GetAvailabilityResponse
      */
-    public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest availRequest) throws PMSInterfaceException;
+    GetAvailabilityResponse checkAvailability(GetAvailabilityRequest availRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for the reservation details on the basis of email id, confirmation number, credit card,
@@ -114,7 +122,7 @@ public interface IParserInterface {
      * @param reservationRequest
      * @return SearchReservationResponse
      */
-    public SearchReservationResponse searchReservationData(SearchReservationRequest reservationRequest) throws PMSInterfaceException;
+    SearchReservationResponse searchReservationData(SearchReservationRequest reservationRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for the meeting room availability on the basis of number of attendees. It returns
@@ -123,7 +131,7 @@ public interface IParserInterface {
      * @param objInformationRequest
      * @return
      */
-    public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest objInformationRequest) throws PMSInterfaceException;
+    MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest objInformationRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for Details of Guest Membership on the basis of Name Id. It returns
@@ -132,7 +140,7 @@ public interface IParserInterface {
      * @param objGuestMembershipsRequest
      * @return
      */
-    public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest objGuestMembershipsRequest) throws PMSInterfaceException;
+    GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest objGuestMembershipsRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for Name Id. It returns name id to guest.
@@ -141,7 +149,7 @@ public interface IParserInterface {
      * @return
      */
 
-    public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) throws PMSInterfaceException;
+    NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for Details of Hotel Information on the basis of hotel code. It returns
@@ -151,7 +159,7 @@ public interface IParserInterface {
      * @return
      */
 
-    public HotelInformationResponse hotelInformationQuery(HotelInformationRequest objHotelInformationRequest) throws PMSInterfaceException;
+    HotelInformationResponse hotelInformationQuery(HotelInformationRequest objHotelInformationRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for Details of Member points  on the basis of membership id. It returns
@@ -161,5 +169,5 @@ public interface IParserInterface {
      * @return
      */
 
-    public MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest) throws PMSInterfaceException;
+    MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest) throws PMSInterfaceException;
 }

@@ -1,100 +1,150 @@
 package com.cloudkey.pms.request.reservations;
 
+import com.google.common.base.Objects;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by crizan2 on 31/07/2014.
+ * Request bean for posting a new charge to a guest account.
+ *
+ * @author crizan2
  */
 public class PostChargeRequest {
-    private Date postDate;
-    private String shortInfo;
-    private String longInfo;
-    private BigDecimal chargeAmount;
-    private String stationId;
-    private String userId;
-    private int folioViewNo;
-    private String account;
-    private String article;
-    private String pmsReservationId;
+	@NotNull
+	@ApiModelProperty(required = true)
+	private String pmsReservationId;
 
-    public Date getPostDate() {
-        return postDate;
-    }
+	@NotNull
+	@ApiModelProperty(required = true)
+	private BigDecimal chargeAmount;
 
-    public void setPostDate(Date postDate) {
-        this.postDate = postDate;
-    }
+	private Date postDate;
 
-    public String getShortInfo() {
-        return shortInfo;
-    }
+	private String shortInfo;
 
-    public void setShortInfo(String shortInfo) {
-        this.shortInfo = shortInfo;
-    }
+	private String longInfo;
 
-    public String getLongInfo() {
-        return longInfo;
-    }
+	private String stationId;
 
-    public void setLongInfo(String longInfo) {
-        this.longInfo = longInfo;
-    }
+	private String userId;
 
-    public BigDecimal getChargeAmount() {
-        return chargeAmount;
-    }
+	private int folioViewNo;
 
-    public void setChargeAmount(BigDecimal chargeAmount) {
-        this.chargeAmount = chargeAmount;
-    }
+	private String account;
 
-    public String getStationId() {
-        return stationId;
-    }
+	private String article;
 
-    public void setStationId(String stationId) {
-        this.stationId = stationId;
-    }
+	protected PostChargeRequest() { /* For serialization */ }
 
-    public String getUserId() {
-        return userId;
-    }
+	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, Date postDate, String shortInfo, String longInfo, String stationId, String userId, int folioViewNo, String account, String article) {
+		this.pmsReservationId = pmsReservationId;
+		this.chargeAmount = chargeAmount;
+		this.postDate = postDate;
+		this.shortInfo = shortInfo;
+		this.longInfo = longInfo;
+		this.stationId = stationId;
+		this.userId = userId;
+		this.folioViewNo = folioViewNo;
+		this.account = account;
+		this.article = article;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public String getPmsReservationId() {
+		return pmsReservationId;
+	}
 
-    public int getFolioViewNo() {
-        return folioViewNo;
-    }
+	public void setPmsReservationId(String pmsReservationId) {
+		this.pmsReservationId = pmsReservationId;
+	}
 
-    public void setFolioViewNo(int folioViewNo) {
-        this.folioViewNo = folioViewNo;
-    }
+	public BigDecimal getChargeAmount() {
+		return chargeAmount;
+	}
 
-    public String getAccount() {
-        return account;
-    }
+	public void setChargeAmount(BigDecimal chargeAmount) {
+		this.chargeAmount = chargeAmount;
+	}
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
+	public Date getPostDate() {
+		return postDate;
+	}
 
-    public String getArticle() {
-        return article;
-    }
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
 
-    public void setArticle(String article) {
-        this.article = article;
-    }
+	public String getShortInfo() {
+		return shortInfo;
+	}
 
-    public String getPmsReservationId() {
-        return pmsReservationId;
-    }
+	public void setShortInfo(String shortInfo) {
+		this.shortInfo = shortInfo;
+	}
 
-    public void setPmsReservationId(String pmsReservationId) {
-        this.pmsReservationId = pmsReservationId;
-    }
+	public String getLongInfo() {
+		return longInfo;
+	}
+
+	public void setLongInfo(String longInfo) {
+		this.longInfo = longInfo;
+	}
+
+	public String getStationId() {
+		return stationId;
+	}
+
+	public void setStationId(String stationId) {
+		this.stationId = stationId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getFolioViewNo() {
+		return folioViewNo;
+	}
+
+	public void setFolioViewNo(int folioViewNo) {
+		this.folioViewNo = folioViewNo;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+	public String getArticle() {
+		return article;
+	}
+
+	public void setArticle(String article) {
+		this.article = article;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("article", article)
+			.add("pmsReservationId", pmsReservationId)
+			.add("chargeAmount", chargeAmount)
+			.add("postDate", postDate)
+			.add("shortInfo", shortInfo)
+			.add("longInfo", longInfo)
+			.add("stationId", stationId)
+			.add("userId", userId)
+			.add("folioViewNo", folioViewNo)
+			.add("account", account)
+			.toString();
+	}
 }
