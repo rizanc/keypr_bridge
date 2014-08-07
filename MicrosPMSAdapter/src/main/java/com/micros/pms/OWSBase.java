@@ -46,11 +46,11 @@ public class OWSBase {
 	@Named("destination.system.type")
 	protected String destSystemType;
 
-	@Inject
+	@Inject(optional = true)
 	@Named("auth.user.name")
 	protected String authUsername;
 
-	@Inject
+	@Inject(optional = true)
 	@Named("auth.user.pass")
 	protected String authPassword;
 
@@ -63,6 +63,9 @@ public class OWSBase {
 		HotelReference hotelReference = new HotelReference();
 		hotelReference.setHotelCode(hotelCode);
 		hotelReference.setChainCode(chainCode);
+
+		// If not set, exception raised: org.apache.axis2.databinding.ADBException: string cannot be null!!
+		hotelReference.setString("");
 
 		return hotelReference;
 	}
