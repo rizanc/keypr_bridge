@@ -2,6 +2,7 @@ dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
     compile project(':MicrosOWSServices')
+    compile project(':MicrosOWSSupport')
 
     // External dependencies
     compile httpcomponents_httpclient

@@ -10,12 +10,9 @@ import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.information.*;
 import com.cloudkey.pms.micros.services.Information;
-import com.cloudkey.pms.micros.services.InformationStub;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
-import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -26,19 +23,8 @@ import java.util.List;
  */
 public class OWSInformationProcessor extends OWSBase {
 
-	protected Information service;
-
 	@Inject
-	public OWSInformationProcessor(
-		@Named("com.micros.ows.url") String targetEndpoint,
-		@Named("com.micros.ows.information.path") String servicePath
-	) {
-		try {
-			this.service = new InformationStub(targetEndpoint + "/" + servicePath);
-		} catch (AxisFault axisFault) {
-			log.error("Could not instantiate service", Information.class, axisFault);
-		}
-	}
+	protected Information service;
 
 	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
         log.debug("processHotelInformation", "Enter processHotelInformation method. ");
@@ -47,7 +33,7 @@ public class OWSInformationProcessor extends OWSBase {
 	    HotelInformationRequestE requestE = new HotelInformationRequestE();
 	    requestE.setHotelInformationRequest(req);
 
-        OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = createOGHeaderE();
 
         log.debug("processHotelInformation",
 	        AdapterUtility.convertToStreamXML(req));
@@ -64,10 +50,7 @@ public class OWSInformationProcessor extends OWSBase {
     private HotelInformationRequest getHotelInformationRequestObject(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) {
 	    HotelInformationRequest request = new HotelInformationRequest();
 
-        HotelReference defaultHotelReference = getDefaultHotelReference();
-        defaultHotelReference.setHotelCode(hotelInformationRequest.getHotelCode());
-
-        request.setHotelInformationQuery(defaultHotelReference);
+	    request.setHotelInformationQuery(getDefaultHotelReference());
 
         return request;
     }

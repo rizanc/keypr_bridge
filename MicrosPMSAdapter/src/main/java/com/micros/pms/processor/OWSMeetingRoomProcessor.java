@@ -10,18 +10,8 @@ import org.apache.axis2.AxisFault;
 /**
  * Created by crizan2 on 16/07/2014.
  */
-public class OWSMeetingRoomProcessor extends OWSBase {
-	protected MeetingRoomService service;
 
+public class OWSMeetingRoomProcessor extends OWSBase {
 	@Inject
-	public OWSMeetingRoomProcessor(
-		@Named("com.micros.ows.url") String targetEndpoint,
-		@Named("com.micros.ows.meetingroom.path") String servicePath
-	) {
-		try {
-			this.service = new MeetingRoomServiceStub(targetEndpoint + "/" + servicePath);
-		} catch (AxisFault axisFault) {
-			log.error("Could not instantiate service", MeetingRoomService.class, axisFault);
-		}
-	}
+	protected MeetingRoomService service;
 }

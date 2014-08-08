@@ -13,15 +13,11 @@ import com.cloudkey.pms.micros.og.reservation.BillHeader;
 import com.cloudkey.pms.micros.og.reservation.BillItem;
 import com.cloudkey.pms.micros.og.reservation.advanced.*;
 import com.cloudkey.pms.micros.services.ResvAdvancedService;
-import com.cloudkey.pms.micros.services.ResvAdvancedServiceStub;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
 import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
-import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -33,19 +29,8 @@ import java.util.List;
  */
 public class OWSResvAdvancedProcessor extends OWSBase {
 
-	protected ResvAdvancedService service;
-
 	@Inject
-	public OWSResvAdvancedProcessor(
-		@Named("com.micros.ows.url") String targetEndpoint,
-		@Named("com.micros.ows.resvadvanced.path") String servicePath
-	) {
-		try {
-			this.service = new ResvAdvancedServiceStub(targetEndpoint + "/" + servicePath);
-		} catch (AxisFault axisFault) {
-			log.error("Could not instantiate service", ResvAdvancedService.class, axisFault);
-		}
-	}
+	protected ResvAdvancedService service;
 
 	public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest request) throws RemoteException {
         log.debug("postCharge", "Enter in postCharge method.");
@@ -56,7 +41,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	    microsRequestE.setPostChargeRequest(microsRequest);
 	    log.debug("postCharge", AdapterUtility.convertToStreamXML(microsRequestE));
 
-	            PostChargeResponseE responseE = service.postCharge(microsRequestE, getHeaderE());
+	            PostChargeResponseE responseE = service.postCharge(microsRequestE, createOGHeaderE());
         log.debug("postCharge", AdapterUtility.convertToStreamXML(responseE));
 
 	    errorIfFailure(responseE.getPostChargeResponse().getResult());
@@ -108,7 +93,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         log.debug("processRetrieveFolioInfo", AdapterUtility.convertToStreamXML(microsRequestE));
 
-        InvoiceResponseE responseE = service.invoice(microsRequestE, getHeaderE());
+        InvoiceResponseE responseE = service.invoice(microsRequestE, createOGHeaderE());
         log.debug("processRetrieveFolioInfo", AdapterUtility.convertToStreamXML(responseE));
 
 	    errorIfFailure(responseE.getInvoiceResponse().getResult());
@@ -175,7 +160,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
                 BillItem[] arrBillItem = objBillHeader.getBillItems();
 
                 if (arrBillItem != null) {
-                    for (int i = IMicrosConstants.COUNT_ZERO; i < arrBillItem.length; i++) { // Traversing bill Items.
+                    for (int i = 0; i < arrBillItem.length; i++) { // Traversing bill Items.
 
                         log.debug("getFolioResponseObject", "Enter to traverse Bill Items ");
                         OrderDetails objOrderDetails = new OrderDetails();
@@ -273,7 +258,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(requestE));
-        CheckOutResponseE resp = service.checkOut(requestE, getHeaderE());
+        CheckOutResponseE resp = service.checkOut(requestE, createOGHeaderE());
         log.debug("processCheckOut",
                 AdapterUtility.convertToStreamXML(resp));
 	    errorIfFailure(resp.getCheckOutResponse().getResult());
@@ -358,7 +343,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
             log.debug("getCheckOutResponseObject", "Full Name is set.");
 
-            objStringBuffer.setLength(IMicrosConstants.COUNT_ZERO);
+            objStringBuffer.setLength(0);
         }
 
         log.debug("getCheckOutResponseObject", "Exit Profile.");
@@ -379,7 +364,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(requestE));
-        FetchRoomStatusResponseE responseE = service.fetchRoomStatus(requestE, getHeaderE());
+        FetchRoomStatusResponseE responseE = service.fetchRoomStatus(requestE, createOGHeaderE());
 
         log.debug("processFetchRoomStatus",
                 AdapterUtility.convertToStreamXML(responseE));
@@ -387,7 +372,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	    FetchRoomStatusResponse response = responseE.getFetchRoomStatusResponse();
 	    errorIfFailure(response.getResult());
 
-	    nextAvailableRoom = response.getRoomStatus()[IMicrosConstants.COUNT_ZERO].getRoomNumber();
+	    nextAvailableRoom = response.getRoomStatus()[((Integer) 0)].getRoomNumber();
 
 	    log.debug("processFetchRoomStatus", nextAvailableRoom);
 
@@ -404,7 +389,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
                 log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(requestE));
-        CheckInResponseE responseE = service.checkIn(requestE, getHeaderE());
+        CheckInResponseE responseE = service.checkIn(requestE, createOGHeaderE());
         log.debug("processCheckIn",
                 AdapterUtility.convertToStreamXML(responseE));
 	    errorIfFailure(responseE.getCheckInResponse().getResult());
@@ -599,7 +584,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
             log.debug("getCheckInResponseObject", "Full Name is set.");
 
-            objStringBuffer.setLength(IMicrosConstants.COUNT_ZERO);
+            objStringBuffer.setLength(0);
         }
 
         log.debug("getCheckInResponseObject", "Exit Profile.");

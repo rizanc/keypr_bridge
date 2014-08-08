@@ -32,9 +32,8 @@ public class HotelsResource extends AbstractResource {
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public HotelInformationResponse updateBookingRequest(
-	        @QueryParam("hotelCode") String hotelCode) {
-        HotelInformationRequest request = new HotelInformationRequest(hotelCode);
+    public HotelInformationResponse updateBookingRequest() {
+        HotelInformationRequest request = new HotelInformationRequest();
 	    validate(request);
 
         return messageParser.hotelInformationQuery(request);

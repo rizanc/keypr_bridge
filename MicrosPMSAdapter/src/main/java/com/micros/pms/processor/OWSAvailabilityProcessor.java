@@ -10,14 +10,11 @@ import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
 import com.cloudkey.pms.micros.services.AvailabilityService;
-import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
-import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -28,19 +25,8 @@ import java.util.List;
  */
 public class OWSAvailabilityProcessor extends OWSBase {
 
-	protected AvailabilityService service;
-
 	@Inject
-	public OWSAvailabilityProcessor(
-		@Named("com.micros.ows.url") String targetEndpoint,
-        @Named("com.micros.ows.availability.path") String servicePath
-	) {
-		try {
-			this.service = new AvailabilityServiceStub(targetEndpoint + "/" + servicePath);
-		} catch (AxisFault axisFault) {
-			log.error("Could not instantiate service", AvailabilityService.class, axisFault);
-		}
-	}
+	protected AvailabilityService service;
 
 	public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest request) throws RemoteException {
         log.debug("processAvailability", "Enter checkAvailability method.");
@@ -51,7 +37,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
 		FetchCalendarRequestE microsRequestE = new FetchCalendarRequestE();
 		microsRequestE.setFetchCalendarRequest(microsRequest);
 
-		FetchCalendarResponseE microsResponseE = service.fetchCalendar(microsRequestE, getHeaderE());
+		FetchCalendarResponseE microsResponseE = service.fetchCalendar(microsRequestE, createOGHeaderE());
         log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsResponseE));
 
 	    errorIfFailure(microsResponseE.getFetchCalendarResponse().getResult());

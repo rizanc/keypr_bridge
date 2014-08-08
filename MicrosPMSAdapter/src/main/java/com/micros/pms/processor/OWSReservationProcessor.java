@@ -2,10 +2,7 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
-import com.cloudkey.pms.micros.og.common.Membership;
-import com.cloudkey.pms.micros.og.common.PersonName;
-import com.cloudkey.pms.micros.og.common.Text;
-import com.cloudkey.pms.micros.og.common.UniqueID;
+import com.cloudkey.pms.micros.og.common.*;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.og.reservation.ExternalReference;
@@ -14,15 +11,13 @@ import com.cloudkey.pms.micros.og.reservation.HotelReservation;
 import com.cloudkey.pms.micros.og.reservation.ResGuest;
 import com.cloudkey.pms.micros.ows.reservation.*;
 import com.cloudkey.pms.micros.services.ReservationService;
-import com.cloudkey.pms.micros.services.ReservationServiceStub;
 import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
-import com.micros.pms.constant.IMicrosConstants;
 import com.micros.pms.util.AdapterUtility;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.types.NormalizedString;
@@ -38,19 +33,8 @@ public class OWSReservationProcessor extends OWSBase {
 	@Inject
 	protected OWSResvAdvancedProcessor resvAdvancedProcessor;
 
-	protected ReservationService service;
-
 	@Inject
-	public OWSReservationProcessor(
-		@Named("com.micros.ows.url") String targetEndpoint,
-		@Named("com.micros.ows.reservation.path") String servicePath
-	) {
-		try {
-			this.service = new ReservationServiceStub(targetEndpoint + "/" + servicePath);
-		} catch (AxisFault axisFault) {
-			log.error("Could not instantiate service", ReservationService.class, axisFault);
-		}
-	}
+	protected ReservationService service;
 
     public FetchBookingResponse fetchBooking(String pmsReservationId) throws RemoteException {
         log.debug("fetchBooking", "Enter method");
@@ -66,7 +50,7 @@ public class OWSReservationProcessor extends OWSBase {
         log.debug("fetchBooking",
 	        AdapterUtility.convertToStreamXML(requestE));
 
-	    FetchBookingResponseE responseE = service.fetchBooking(requestE, getHeaderE());
+	    FetchBookingResponseE responseE = service.fetchBooking(requestE, createOGHeaderE());
         log.debug("fetchBooking",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -85,7 +69,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("processAssignRoom",
 	        AdapterUtility.convertToStreamXML(requestE));
-        AssignRoomResponseE responseE = service.assignRoom(requestE, getHeaderE());
+        AssignRoomResponseE responseE = service.assignRoom(requestE, createOGHeaderE());
 
         log.debug("processAssignRoom",
 	        AdapterUtility.convertToStreamXML(responseE));
@@ -106,7 +90,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("processReleaseRoom",
 	        AdapterUtility.convertToStreamXML(requestE));
-        ReleaseRoomResponseE responseE = service.releaseRoom(requestE, getHeaderE());
+        ReleaseRoomResponseE responseE = service.releaseRoom(requestE, createOGHeaderE());
         log.debug("processReleaseRoom",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -127,7 +111,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("processUpdateBooking",
 	        AdapterUtility.convertToStreamXML(requestE));
-        ModifyBookingResponseE responseE = service.modifyBooking(requestE, getHeaderE());
+        ModifyBookingResponseE responseE = service.modifyBooking(requestE, createOGHeaderE());
         log.debug("processUpdateBooking",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -209,30 +193,6 @@ public class OWSReservationProcessor extends OWSBase {
                 text.setFormatted(false);
             }
         }
-       /* <localComment>
-        <com.micros.ows.reservation.ReservationServiceStub_-ReservationComment>
-        <localParagraphChoice__type0>
-        <com.micros.ows.reservation.ReservationServiceStub_-ParagraphChoice__type0>
-        <localImageTracker>false</localImageTracker>
-        <localText>
-        <localNormalizedString>
-        <m__value>Big room, away from elevator.</m__value>
-        </localNormalizedString>
-        <localFormatted>false</localFormatted>
-        </localText>
-        <localTextTracker>true</localTextTracker>
-        <localURLTracker>false</localURLTracker>
-        </com.micros.ows.reservation.ReservationServiceStub_-ParagraphChoice__type0>
-        </localParagraphChoice__type0>
-        <localParagraphChoice__type0Tracker>true</localParagraphChoice__type0Tracker>
-        <localCommentId>NaN</localCommentId>
-        <localCommentIdTracker>false</localCommentIdTracker>
-        <localInternalYn>false</localInternalYn>
-        <localInternalYnTracker>false</localInternalYnTracker>
-        <localCommentTypeTracker>false</localCommentTypeTracker>
-        <localGuestViewable>true</localGuestViewable>
-        </com.micros.ows.reservation.ReservationServiceStub_-ReservationComment>
-        </localComment>*/
 
         log.debug("getUpdateBookingRequestObject", "Exit getUpdateBookingRequestObject method " + objModifyBookingRequest);
         return objModifyBookingRequest;
@@ -315,7 +275,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         log.debug("processSearchReservationData",
 	        AdapterUtility.convertToStreamXML(requestE));
-        FutureBookingSummaryResponseE responseE = service.futureBookingSummary(requestE, getHeaderE());
+        FutureBookingSummaryResponseE responseE = service.futureBookingSummary(requestE, createOGHeaderE());
         log.debug("processSearchReservationData",
 	        AdapterUtility.convertToStreamXML(responseE));
 
@@ -465,9 +425,9 @@ public class OWSReservationProcessor extends OWSBase {
 
                 log.debug("getFutureBookingResponseObject", "Iterating UniqueID list .");
 
-                if (objUniqueID.getType().toString().equalsIgnoreCase(IMicrosConstants.INTERNAL_TYPE)) {
+                if (objUniqueID.getType().equals(UniqueIDType.INTERNAL)) {
 	                if (objUniqueID.getSource() != null) {
-		                if (objUniqueID.getSource().equalsIgnoreCase(IMicrosConstants.RESERVATION_ID_SOURCE)) {
+		                if (objUniqueID.getSource().equalsIgnoreCase(MicrosIds.OWS.RESERVATION_ID_SOURCE)) {
 
 			                objReservation.setPmsReservationId(objUniqueID.getString());
 

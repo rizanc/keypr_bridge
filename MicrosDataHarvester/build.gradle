@@ -1,9 +1,10 @@
 apply plugin:'application'
-mainClassName = 'com.micros.harvester.service.DataHarvesterService'
+mainClassName = 'com.micros.harvester.DataHarvesterApplication'
 
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
+    compile project(':CloudKeyHTDatabase')
     compile project(':MicrosPMSAdapter')
     compile project(':MicrosOWSServices')
     compile project(':MicrosOXIJaxb')

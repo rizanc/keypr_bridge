@@ -44,4 +44,8 @@ public class MicrosIds {
             BILLING
         }
     }
+
+	public static class OWS {
+		public static final String RESERVATION_ID_SOURCE = "RESVID";
+	}
 }

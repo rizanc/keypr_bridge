@@ -1,0 +1,12 @@
+apply plugin:'application'
+
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+//    compile project(':CloudKeyHTWebServices')
+    compile project(':MicrosIds')
+    compile project(':MicrosOWSServices')
+    compile guice
+    compile logback_classic
+    compile logback_core
+}

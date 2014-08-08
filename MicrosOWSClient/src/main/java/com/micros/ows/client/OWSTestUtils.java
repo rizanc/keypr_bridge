@@ -157,7 +157,7 @@ public class OWSTestUtils {
     }
 
     public void HotelInformation() {
-        HotelInformationRequest request = new HotelInformationRequest(HOTEL_CODE);
+        HotelInformationRequest request = new HotelInformationRequest();
 
         try {
             owsInformationProcessor.processHotelInformation(request);

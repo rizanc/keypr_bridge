@@ -5,15 +5,15 @@ import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
+import com.google.inject.Inject;
 import com.micros.harvester.logger.DataHarvesterLogger;
 
-import com.cloudkey.dao.DataBaseHandler;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.micros.harvester.constant.IMicrosHarvester;
-import com.micros.harvester.logger.DataHarvesterLogger;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.Date;
 import java.util.List;
@@ -27,35 +27,8 @@ import java.util.List;
  */
 public class MicrosDAOImpl implements IMicrosDAO {
 
-	/**
-	 * This method reads the database configurations from properties file.
-	 * It connects with database and returns connection .
-	 *
-	 * @return  connection
-	 */
-	public static Connection getConnection() {
-
-		DataHarvesterLogger.logInfo(MicrosDAOImpl.class, " getConnection ", " Enter getConnection method ");
-
-		/* Reference variables to store connection related operation data. */
-		Connection conn = null;
-
-		try {
-
-			conn = DataBaseHandler.getConnection();
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " getConnection", " DataBase connection created " );
-
-		}
-		catch( Exception exc ) {
-
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " getConnection ", exc);
-		}
-
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " getConnection ", " Exit  getConnection method " );
-
-		return  conn;
-
-	}
+	@Inject
+	DataSource dataSource;
 
 /*
 	@Override
@@ -91,7 +64,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			boolean isFound = false;
 			boolean isUploaded = false;
 
-			for( int len = IMicrosHarvester.COUNT_ZERO ; len< objRoomStatusArray.length; len++ ) {
+			for( int len = 0 ; len< objRoomStatusArray.length; len++ ) {
 
 				frontOfficeStatus = objRoomStatusArray[len].getFrontOfficeStatus();
 				houseKeepingStatus = objRoomStatusArray[len].getHouseKeepingStatus();
@@ -130,10 +103,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							pStatement = objConnection.prepareStatement( sqlQuery );
 
-							pStatement.setString( IMicrosHarvester.COUNT_ONE, objRoomDetails.getRoomType().getCode() );
-							pStatement.setString( IMicrosHarvester.COUNT_TWO, objRoomDetails.getFrontOfficeStatus() );
-							pStatement.setString( IMicrosHarvester.COUNT_THREE, objRoomDetails.getHouseKeeepingStatus() );
-							pStatement.setInt( IMicrosHarvester.COUNT_FOUR, objRoomDetails.getRoomNumber() );
+							pStatement.setString( 1, objRoomDetails.getRoomType().getCode() );
+							pStatement.setString( 2, objRoomDetails.getFrontOfficeStatus() );
+							pStatement.setString( 3, objRoomDetails.getHouseKeeepingStatus() );
+							pStatement.setInt( 4, objRoomDetails.getRoomNumber() );
 
 							int rowsUpdated = pStatement.executeUpdate();
 
@@ -234,7 +207,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_DETAILS_SELECT_BY_ROOM_NUMBER ;
 
@@ -242,7 +215,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
-			pStatement.setInt( IMicrosHarvester.COUNT_ONE, objRoomDetails.getRoomNumber());
+			pStatement.setInt(1, objRoomDetails.getRoomNumber());
 			rSet = pStatement.executeQuery();
 
 			if( rSet != null ) {
@@ -319,15 +292,15 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Insert Query " + sqlQuery );
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
-			pStatement.setInt( IMicrosHarvester.COUNT_ONE, (objRoomDetails.getRoomNumber()));
-			pStatement.setString( IMicrosHarvester.COUNT_TWO, objRoomDetails.getRoomType().getCode() );
-			pStatement.setString ( IMicrosHarvester.COUNT_THREE, objRoomDetails.getFrontOfficeStatus() );
-			pStatement.setString( IMicrosHarvester.COUNT_FOUR,  objRoomDetails.getHouseKeeepingStatus() );
+			pStatement.setInt(1, (objRoomDetails.getRoomNumber()));
+			pStatement.setString(2, objRoomDetails.getRoomType().getCode() );
+			pStatement.setString (3, objRoomDetails.getFrontOfficeStatus() );
+			pStatement.setString(4,  objRoomDetails.getHouseKeeepingStatus() );
 
 			int rowInserted = pStatement.executeUpdate();
 
@@ -387,16 +360,16 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Insert Query " + sqlQuery );
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
-			pStatement.setInt( IMicrosHarvester.COUNT_ONE, (objRoomDetails.getRoomNumber()) );
-			pStatement.setString( IMicrosHarvester.COUNT_TWO, objRoomDetails.getRoomType().getCode() );
+			pStatement.setInt(1, (objRoomDetails.getRoomNumber()) );
+			pStatement.setString(2, objRoomDetails.getRoomType().getCode() );
 
-			pStatement.setString ( IMicrosHarvester.COUNT_THREE, objRoomDetails.getFrontOfficeStatus() );
-			pStatement.setString( IMicrosHarvester.COUNT_FOUR,  objRoomDetails.getHouseKeeepingStatus() );
+			pStatement.setString (3, objRoomDetails.getFrontOfficeStatus() );
+			pStatement.setString(4,  objRoomDetails.getHouseKeeepingStatus() );
 
 			int rowInserted = pStatement.executeUpdate();
 
@@ -455,14 +428,14 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_DETAILS_COUNT_RECORD_BY_ROOM_NUMBER;
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Select Query " + sqlQuery );
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
-			pStatement.setInt( IMicrosHarvester.COUNT_ONE, objRoomDetail.getRoomNumber() );
+			pStatement.setInt(1, objRoomDetail.getRoomNumber() );
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Room Number is " + objRoomDetail.getRoomNumber() );
 
@@ -472,7 +445,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 				int num = Integer.parseInt( rSet.getString( IMicrosHarvester.STRING_COUNT ) );
 
-				if( num != IMicrosHarvester.COUNT_ZERO ) {
+				if( num != 0) {
 
 					isFound = true;
 
@@ -531,7 +504,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Inventory has Detail for Calendar days " + calendarArrayLength );
 
-		for ( int len = IMicrosHarvester.COUNT_ZERO; len < calendarArrayLength; len++ ) {
+		for ( int len = 0; len < calendarArrayLength; len++ ) {
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Details for Calendar day " + ( len + 1 ) );
 
@@ -545,7 +518,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Number of room inventory present " + lengthRoomInventory + " for calendar day " +( len + 1 ) );
 
-			for (int k = IMicrosHarvester.COUNT_ZERO; k < lengthRoomInventory ; k++) {
+			for (int k = 0; k < lengthRoomInventory ; k++) {
 
 				com.cloudkey.commons.RoomTypeInventory objRInventory = getRoomTypeInventoryInstance( objRoomTypeInventoryArray[k],currentCalendarDay);
 
@@ -573,7 +546,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							try {
 
-								objConnection = MicrosDAOImpl.getConnection();
+								objConnection = dataSource.getConnection();
 
 								sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_UPDATE_BY_TYPE_CODE;
 
@@ -581,10 +554,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 								pStatement = objConnection.prepareStatement(sqlQuery);
 
-								pStatement.setInt( IMicrosHarvester.COUNT_ONE, objRInventory.getTotalRooms());
+								pStatement.setInt(1, objRInventory.getTotalRooms());
 								//pStatement.setInt(2, objRInventory.getRoomsAvailable());
-								pStatement.setInt( IMicrosHarvester.COUNT_TWO, objRInventory.getTotalRoomsAvailable());
-								pStatement.setString(IMicrosHarvester.COUNT_THREE, objRInventory.getRoomType().getCode());
+								pStatement.setInt(2, objRInventory.getTotalRoomsAvailable());
+								pStatement.setString(3, objRInventory.getRoomType().getCode());
 
 								int rowsUpdated = pStatement.executeUpdate();
 
@@ -613,16 +586,16 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Fresh Record for in room inventory " );
 					try {
 
-						objConnection = MicrosDAOImpl.getConnection();
+						objConnection = dataSource.getConnection();
 
 						sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_INSERT;
 
 						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Insert Query " + sqlQuery );
 
 						pStatement = objConnection.prepareStatement( sqlQuery );
-						pStatement.setString( IMicrosHarvester.COUNT_ONE, objRInventory.getRoomType().getCode() );
-						pStatement.setInt( IMicrosHarvester.COUNT_TWO, objRInventory.getTotalRooms() );
-						pStatement.setInt( IMicrosHarvester.COUNT_THREE, objRInventory.getTotalRoomsAvailable() );
+						pStatement.setString(1, objRInventory.getRoomType().getCode() );
+						pStatement.setInt(2, objRInventory.getTotalRooms() );
+						pStatement.setInt(3, objRInventory.getTotalRoomsAvailable() );
 
 						int rowUpdated = pStatement.executeUpdate();
 
@@ -696,7 +669,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 			roomTypeCode = objRInventory.getRoomType().getCode();
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_SELECT_BY_TYPE_CODE;
@@ -705,7 +678,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
-			pStatement.setString( IMicrosHarvester.COUNT_ONE, roomTypeCode );
+			pStatement.setString(1, roomTypeCode );
 
 			rSet = pStatement.executeQuery();
 
@@ -790,7 +763,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_UPLOAD_INSERT;
 
@@ -798,9 +771,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			pStatement = objConnection.prepareStatement(sqlQuery);
 
-			pStatement.setString( IMicrosHarvester.COUNT_ONE, objRoomInventory.getRoomType().getCode() );
-			pStatement.setInt( IMicrosHarvester.COUNT_TWO, objRoomInventory.getTotalRooms() );
-			pStatement.setInt( IMicrosHarvester.COUNT_THREE, objRoomInventory.getTotalRoomsAvailable() );
+			pStatement.setString(1, objRoomInventory.getRoomType().getCode() );
+			pStatement.setInt(2, objRoomInventory.getTotalRooms() );
+			pStatement.setInt(3, objRoomInventory.getTotalRoomsAvailable() );
 
 			int rowUpdated = pStatement.executeUpdate();
 
@@ -861,14 +834,14 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		try {
 
-			objConnection = MicrosDAOImpl.getConnection();
+			objConnection = dataSource.getConnection();
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_COUNT_RECORD_BY_TYPE_CODE;
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Select Query " + sqlQuery );
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
-			pStatement.setString( IMicrosHarvester.COUNT_ONE, objRoomInventory.getRoomType().getCode() );
+			pStatement.setString(1, objRoomInventory.getRoomType().getCode() );
 
 			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Room Type is " + objRoomInventory.getRoomType().getCode() );
 
@@ -996,7 +969,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String reservationAction = objReservation.getReservationAction();
 
 		try {
-			objConn = MicrosDAOImpl.getConnection();
+			objConn = dataSource.getConnection();
 			objConn.setAutoCommit(false);
 
 			sqlQuery = IMicrosHarvester.QUERY_RESERVATION_UPLOAD_INSERT;
@@ -1042,16 +1015,16 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				ResultSet keys = objPreparedStatement.getGeneratedKeys();
 
 				keys.next();
-				lastInsetedId = keys.getInt( IMicrosHarvester.COUNT_ONE );
+				lastInsetedId = keys.getInt(1);
 
 				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Reservation record saved in database " );
 				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Record Id is " + lastInsetedId );
 
 				roomAllocationListSize = roomAllocList.size();
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " RoomAllocationSize list size " + roomAllocationListSize );
+				DataHarvesterLogger.logInfo(MicrosDAOImpl.class, " persistReservationData ", " RoomAllocationSize list size " + roomAllocationListSize);
 
-				for( int len = IMicrosHarvester.COUNT_ZERO; len < roomAllocationListSize ; len++ ) {
+				for( int len = 0; len < roomAllocationListSize ; len++ ) {
 
 					int currentId = persistRecordInReservationRoomAllocation( lastInsetedId, roomAllocList.get(len), objConn );
 
@@ -1160,10 +1133,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			String roomCode = objRoomAllocation.getRoomType().getCode();
 			String reservationStatusType  = objRoomAllocation.getReservationStatusType();
 
-			objPreparedStatement.setInt( IMicrosHarvester.COUNT_ONE, reservationId );
-			objPreparedStatement.setString( IMicrosHarvester.COUNT_TWO, roomNum );
-			objPreparedStatement.setString( IMicrosHarvester.COUNT_THREE, roomCode );
-			objPreparedStatement.setString( IMicrosHarvester.COUNT_FOUR, reservationStatusType );
+			objPreparedStatement.setInt(1, reservationId );
+			objPreparedStatement.setString(2, roomNum );
+			objPreparedStatement.setString(3, roomCode );
+			objPreparedStatement.setString(4, reservationStatusType );
 
 			rowUpdated = objPreparedStatement.executeUpdate();
 
@@ -1172,7 +1145,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				ResultSet keys = objPreparedStatement.getGeneratedKeys();
 
 				keys.next();
-				recordId = keys.getInt( IMicrosHarvester.COUNT_ONE);
+				recordId = keys.getInt(1);
 
 				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " ReservationRoomAllocatin record saved in datbase " );
 				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Inserted record Id is " + recordId );
@@ -1226,7 +1199,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			try {
 
-				for( int len = IMicrosHarvester.COUNT_ZERO ; len < roomRateListSize ; len++ ) {
+				for( int len = 0; len < roomRateListSize ; len++ ) {
 
 					sqlQuery = IMicrosHarvester.QUERY_RESERVATION_ROOM_RATES_UPLOAD_INSERT;
 
@@ -1235,11 +1208,11 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					objPreparedStatement = conn.prepareStatement(sqlQuery);
 					RoomRate objRoomRate = roomRateList.get(len);
 
-					objPreparedStatement.setInt( IMicrosHarvester.COUNT_ONE, roomAllocationId);
-					objPreparedStatement.setDouble( IMicrosHarvester.COUNT_TWO, objRoomRate.getBaseAmount() );
-					objPreparedStatement.setString( IMicrosHarvester.COUNT_THREE, objRoomRate.getPlanCode() );
-					objPreparedStatement.setString( IMicrosHarvester.COUNT_FOUR, objRoomRate.getEffectiveDate() );
-					objPreparedStatement.setString( IMicrosHarvester.COUNT_FIVE, objRoomRate.getExpirationDate() );
+					objPreparedStatement.setInt(1, roomAllocationId);
+					objPreparedStatement.setDouble(2, objRoomRate.getBaseAmount() );
+					objPreparedStatement.setString(3, objRoomRate.getPlanCode() );
+					objPreparedStatement.setString(4, objRoomRate.getEffectiveDate() );
+					objPreparedStatement.setString(5, objRoomRate.getExpirationDate() );
 
 					int rowInserted = objPreparedStatement.executeUpdate();
 
@@ -1259,15 +1232,15 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							retrievedRows.next();
 
-							int id = retrievedRows.getInt( IMicrosHarvester.COUNT_ONE );
+							int id = retrievedRows.getInt(1);
 
 							sqlQuery = IMicrosHarvester.QUERY_RESERVATION_UPLOAD_UPDATE_BY_ID;
 
 							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Update Query " + sqlQuery );
 
 							objPreparedStatement = conn.prepareStatement(sqlQuery);
-							objPreparedStatement.setString( IMicrosHarvester.COUNT_ONE, IMicrosHarvester.RESERVATON_STATUS_COMPL );
-							objPreparedStatement.setInt( IMicrosHarvester.COUNT_TWO, id);
+							objPreparedStatement.setString(1, IMicrosHarvester.RESERVATON_STATUS_COMPL );
+							objPreparedStatement.setInt(2, id);
 
 							int numRows = objPreparedStatement.executeUpdate();
 

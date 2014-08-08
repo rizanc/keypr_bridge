@@ -1,27 +1,24 @@
 package com.cloudkey.upload.collector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.cloudkey.commons.Reservation;
+import com.cloudkey.commons.ReservationRoomAllocation;
+import com.cloudkey.commons.RoomRate;
+import com.cloudkey.commons.RoomType;
+import com.cloudkey.upload.client.UploadServiceClient;
+import com.cloudkey.upload.constant.IUploadConstants;
+import com.cloudkey.upload.logger.UploadServiceLogger;
+import com.cloudkey.upload.remove.UploadQueueDataRemover;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationRoomAllocation;
-import com.cloudkey.commons.RoomRate;
-import com.cloudkey.commons.RoomType;
-import com.cloudkey.dao.DataBaseHandler;
-import com.cloudkey.upload.client.UploadServiceClient;
-import com.cloudkey.upload.constant.IUploadConstants;
-import com.cloudkey.upload.logger.UploadServiceLogger;
-import com.cloudkey.upload.remove.UploadQueueDataRemover;
-import com.cloudkey.upload.utility.UploadConfigurationReader;
 
 
 /**
@@ -35,14 +32,21 @@ import com.cloudkey.upload.utility.UploadConfigurationReader;
  */
 public class UploadReservationDataRetriever {
 
-	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( IUploadConstants.COUNT_ONE );
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-	int period = Integer.parseInt( UploadConfigurationReader.getProperty( IUploadConstants. RESERVATION_THREAD_INTERVAL ) ) ;
-	int delayTime = Integer.parseInt( UploadConfigurationReader.getProperty( IUploadConstants.RESERVATION_THREAD_DELAY ) ) ;
-	String webResult = null;
+	@Inject
+	@Named("keypr.bridge.upload.reservation.timer.interval")
+	int period;
 
-	// create reference variable to store the database connection object. 
-	private static Connection connection = null;
+	@Inject
+	@Named("keypr.bridge.upload.reservation.timer.delay")
+	int delayTime;
+
+	@Inject
+	protected DataSource dataSource;
+
+	@Inject
+	protected UploadQueueDataRemover uploadQueueDataRemover;
 
 	/**
 	 * This method is used to listen the upload queue as scheduler after every fixed time period and fetch the reservation data from upload queue.
@@ -61,31 +65,21 @@ public class UploadReservationDataRetriever {
 
 			RoomRate roomRate = null;
 			RoomType roomType = null;
-			PreparedStatement stmtOnStartUp = null;
 
 			boolean isRecordFound = false;
 
 			//String status = IUploadConstants.RESERVATON_STATUS_COMPL;
 			String webResult = null;
-			String sqlQuery = null;
 
 			public void run() { 
 
 				try {
+					Connection connection = dataSource.getConnection();
 
-					sqlQuery = IUploadConstants.QUERY_RESERVATION_UPLOAD_SELECT_BY_RESERVATION_STATUS ;
+					String sqlQuery = IUploadConstants.QUERY_RESERVATION_UPLOAD_SELECT_BY_RESERVATION_STATUS;
+					PreparedStatement stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS );
 
 					UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Query to fetch reservation_upload table data " + sqlQuery );
-
-					if ( connection == null ) {
-
-						connection = DataBaseHandler.getConnection();
-						stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS );
-					}
-					else {
-
-						stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS );
-					}
 
 					List<Reservation> reservationList = new ArrayList<Reservation>();
 
@@ -145,7 +139,7 @@ public class UploadReservationDataRetriever {
 							UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Query to fetch reservation_room_allocation_upload data " + sqlQuery );
 
 							stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS );
-							stmtOnStartUp.setInt( IUploadConstants.COUNT_ONE, id );
+							stmtOnStartUp.setInt(1, id );
 
 							ResultSet resvRoomAllocationSet = stmtOnStartUp.executeQuery();
 
@@ -171,7 +165,7 @@ public class UploadReservationDataRetriever {
 									UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Query to fetch reservation_room_rates_upload data " + sqlQuery );
 
 									stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS );
-									stmtOnStartUp.setInt( IUploadConstants.COUNT_ONE, resvUploadId );
+									stmtOnStartUp.setInt(1, resvUploadId );
 
 									ResultSet resvRoomRateSet = stmtOnStartUp.executeQuery();
 
@@ -234,7 +228,7 @@ public class UploadReservationDataRetriever {
 							UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " ResultSet is empty " );
 						}
 
-						if( reservationListSize > IUploadConstants.COUNT_ZERO ) {
+						if( reservationListSize > 0) {
 
 							UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Make call to invoke keypr web service " );	
 
@@ -246,7 +240,7 @@ public class UploadReservationDataRetriever {
 
 								UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Web service result is success " );
 
-								UploadQueueDataRemover.removeReservationData( reservationList );
+								uploadQueueDataRemover.removeReservationData( reservationList );
 							}
 							else {
 
@@ -254,7 +248,7 @@ public class UploadReservationDataRetriever {
 
 								boolean isSuccess = false;
 
-								for( int attempt = IUploadConstants.COUNT_ZERO ; attempt < IUploadConstants.COUNT_THREE ; attempt++ )
+								for( int attempt = 0; attempt < 3; attempt++ )
 								{
 									UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Attemp for web service request " + attempt );
 
@@ -264,7 +258,7 @@ public class UploadReservationDataRetriever {
 
 										UploadServiceLogger.logInfo( UploadReservationDataRetriever.class, " fetchReservationDetails ", " Web service result is suceess on  " + attempt +" attempt" );
 
-										UploadQueueDataRemover.removeReservationData( reservationList );
+										uploadQueueDataRemover.removeReservationData( reservationList );
 										isSuccess = true;
 
 										break;

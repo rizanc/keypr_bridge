@@ -7,16 +7,13 @@ import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.ows.name.*;
 import com.cloudkey.pms.micros.services.NameService;
-import com.cloudkey.pms.micros.services.NameServiceStub;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
-import org.apache.axis2.AxisFault;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -25,20 +22,8 @@ import java.util.ArrayList;
  * Created by crizan2 on 16/07/2014.
  */
 public class OWSNameProcessor extends OWSBase {
-
-	protected NameService service;
-
 	@Inject
-	public OWSNameProcessor(
-		@Named("com.micros.ows.url") String targetEndpoint,
-		@Named("com.micros.ows.name.path") String servicePath
-	) {
-		try {
-			this.service = new NameServiceStub(targetEndpoint + "/" + servicePath);
-		} catch (AxisFault axisFault) {
-			log.error("Could not instantiate service", NameService.class, axisFault);
-		}
-	}
+	protected NameService service;
 
 	public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
         log.debug("processGuestCardList", "Enter processGuestCardList method ");
@@ -49,7 +34,7 @@ public class OWSNameProcessor extends OWSBase {
 	    FetchGuestCardListRequestE requestE = new FetchGuestCardListRequestE();
 		log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(requestE));
 
-        FetchGuestCardListResponseE responseE = service.fetchGuestCardList(requestE, getHeaderE());
+        FetchGuestCardListResponseE responseE = service.fetchGuestCardList(requestE, createOGHeaderE());
         log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(responseE));
 
         FetchGuestCardListResponse objResponse = responseE.getFetchGuestCardListResponse();
@@ -104,7 +89,7 @@ public class OWSNameProcessor extends OWSBase {
         nameLookupCriteriaMembership.setMembershipType(nameIdByMembershipRequest.getMembershipType());
         nameLookupCriteriaMembership.setLastName(nameIdByMembershipRequest.getLastname().toUpperCase());
 
-        OGHeaderE ogh = getHeaderE();
+        OGHeaderE ogh = createOGHeaderE();
 
 	    NameLookupRequestE requestE = new NameLookupRequestE();
 	    requestE.setNameLookupRequest(objRequest);

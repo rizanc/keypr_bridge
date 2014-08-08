@@ -2,11 +2,14 @@
 //
 //import com.cloudkey.commons.Reservation;
 //import com.cloudkey.commons.TimeOutError;
-//import com.cloudkey.pms.request.*;
+//import com.cloudkey.pms.request.reservations.GetFolioRequest;
 //import com.cloudkey.pms.request.reservations.SearchReservationRequest;
-//import com.cloudkey.pms.response.*;
+//import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
+//import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
+//import com.cloudkey.pms.response.reservations.GetFolioResponse;
 //import com.cloudkey.pms.response.reservations.SearchReservationResponse;
-//import com.keypr.webservices.rest.constants.IWebServiceConstants;
+//import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
+//import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 //import com.keypr.web.logger.WebAppLogger;
 //import org.junit.Ignore;
 //import org.junit.Test;

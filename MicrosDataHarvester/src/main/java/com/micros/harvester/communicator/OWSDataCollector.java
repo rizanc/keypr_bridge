@@ -1,25 +1,21 @@
 package com.micros.harvester.communicator;
 
-import com.cloudkey.pms.micros.og.core.EndPoint;
-import com.cloudkey.pms.micros.og.core.OGHeader;
-import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpanChoice_type0;
+import com.cloudkey.pms.micros.ows.OWSTools;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
-import com.cloudkey.pms.micros.services.AvailabilityServiceStub;
-import com.micros.harvester.constant.IMicrosHarvester;
-import com.micros.harvester.dao.MicrosDAOImpl;
+import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
+import com.cloudkey.pms.micros.services.AvailabilityService;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.micros.harvester.dao.IMicrosDAO;
 import com.micros.harvester.logger.DataHarvesterLogger;
-import com.micros.harvester.util.DataUtility;
-import com.micros.harvester.util.HarvesterConfigurationReader;
-import com.micros.pms.transport.MicrosMessageTransport;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -34,21 +30,35 @@ import java.util.concurrent.TimeUnit;
  * @author vinayk2
  *
  */
-public class OWSDataCollector {
+public class OWSDataCollector extends OWSTools {
 
-	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( IMicrosHarvester.COUNT_ONE);
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+	@Inject
+	protected IMicrosDAO microsDAO;
+
+	@Inject
+	@Named("keypr.bridge.micros.harvester.inventory.timer.delay")
+	protected long timerDelay;
+
+	@Inject
+	@Named("keypr.bridge.micros.harvester.inventory.timer.interval")
+	protected long timerInterval;
+
+	@Inject
+	protected AvailabilityService availabilityService;
 
 	/**
 	 * This method will runs at fixed interval to collect room status data 
 	 * from the property management system.
 	 */
-/*
+	/*
 	public void harvestRoomStatusData() {
 
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Enter harvestRoomStatusData method " );
 
-		int delayTime ;
-		int intervalPeriod ;
+		int delayTime;
+		int intervalPeriod;
 
 		final Runnable dataCollerctor = new Runnable() {
 
@@ -95,9 +105,8 @@ public class OWSDataCollector {
 		boolean isProcced = false;
 
 		MicrosMessageTransport objMicrosMessageTransport = null;
-		FetchRoomStatusRequest  objFetchRoomStatusRequest = null;
+		FetchRoomStatusRequest objFetchRoomStatusRequest = null;
 		ResvAdvancedServiceStub objResvAdvancedServiceStub = null;
-		MicrosDAOImpl objMicrosDAOImpl = null;
 
 		final long hoursInMillis = IMicrosHarvester.SIXTY_UNITS * IMicrosHarvester.SIXTY_UNITS * IMicrosHarvester.THOUSAND_UNITS;
 
@@ -106,14 +115,12 @@ public class OWSDataCollector {
 
 			objResvAdvancedServiceStub = new ResvAdvancedServiceStub();
 			objMicrosMessageTransport = new MicrosMessageTransport();
-			objMicrosDAOImpl = new MicrosDAOImpl();
 
 			objFetchRoomStatusRequest = new FetchRoomStatusRequest();
 
 			// Create a OGHeader 
 			OGHeader objOGHeader = new OGHeader();
-			int currentTransactionId  = TransIdGenerator.getTransactionId();
-			objOGHeader.setTransactionID( String.valueOf(currentTransactionId) );
+			objOGHeader.setTransactionID(UUID.randomUUID().toString());
 			objOGHeader.setTimeStamp( DataUtility.getCalender() );
 
 			// Add origin and destination to the OGHeader
@@ -168,13 +175,11 @@ public class OWSDataCollector {
 			FetchRoomStatusResponse objFuture = new FetchRoomStatusResponse();
 			objFuture =(FetchRoomStatusResponse)xstream.fromXML( pmsResponse );
 
-			if( pmsResponse.length() != IMicrosHarvester.COUNT_ZERO ) {
+			if( pmsResponse.length() != 0 ) {
 
 				isProcced = true;
 
-				objMicrosDAOImpl = new MicrosDAOImpl();
-
-				objMicrosDAOImpl.persistRoomStatusDataInBridgeDB( objFuture );
+				microsDAO.persistRoomStatusDataInBridgeDB( objFuture );
 
 				DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " FetchRoomStatusResponse Instance Sent to persist " );
 
@@ -202,14 +207,11 @@ public class OWSDataCollector {
 
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " Enter harvestRoomInventoryData method " );
 
-		int delayTime ;
-		int intervalPeriod ;
+		final Runnable dataCollector = new Runnable() {
 
-		final Runnable dataCollerctor = new Runnable() {
+			public void run() {
 
-			public void run() { 
-
-				boolean success = makeFetcCalendarRequest();
+				boolean success = makeFetchCalendarRequest();
 				DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " FetchCalendar Request Made to the OWS " );
 
 				if(success) {
@@ -223,11 +225,8 @@ public class OWSDataCollector {
 			}
 		};
 
-		delayTime = Integer.parseInt( HarvesterConfigurationReader.getProperty( IMicrosHarvester.ROOM_INVENTORY_THREAD_DELAY) );
-		intervalPeriod  = Integer.parseInt( HarvesterConfigurationReader.getProperty(IMicrosHarvester.ROOM_INVENTORY_THREAD_INTERVAL) );
-
 		@SuppressWarnings("unused")
-		final ScheduledFuture<?> beeperHandle = schedulerInventory.scheduleAtFixedRate( dataCollerctor, delayTime, intervalPeriod , TimeUnit.SECONDS );
+		final ScheduledFuture<?> beeperHandle = schedulerInventory.scheduleAtFixedRate( dataCollector, timerDelay, timerInterval , TimeUnit.SECONDS );
 
 		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " Exit harvestRoomInventoryData method " );
 
@@ -241,55 +240,21 @@ public class OWSDataCollector {
 	 * 
 	 * @return
 	 */
-	private static boolean makeFetcCalendarRequest() {
+	private boolean makeFetchCalendarRequest() {
+		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " Enter makeFetchCalendarRequest method " );
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Enter makeFetcCalendarRequest method " );
+		boolean isProceed = false;
 
-		boolean isProcced = false;
-
-		MicrosMessageTransport objMicrosMessageTransport = null;
-		FetchCalendarRequest objFetchCalendarRequest = null;
-		MicrosDAOImpl objMicrosDAOImpl = null;
-
-		AvailabilityServiceStub objAvailabilityServiceStub = null;
-		OGHeader objOGHeader = null;
+		FetchCalendarRequest objFetchCalendarRequest;
 
 		try {
-
-			objAvailabilityServiceStub = new AvailabilityServiceStub();
-			objMicrosMessageTransport = new MicrosMessageTransport();
-
 			objFetchCalendarRequest = new FetchCalendarRequest();
 
 			// sets the required attribute values to be true 
-			objFetchCalendarRequest.setInventoryMode( true );
-			objFetchCalendarRequest.setRoomTypeCode( HarvesterConfigurationReader.getProperty(IMicrosHarvester.ROOM_TYPE_CODE ));
-			objFetchCalendarRequest.setRestrictedMode( false );
-
-			// prepares the header of soap message.
-			objOGHeader = new OGHeader();
-			objOGHeader.setTransactionID(UUID.randomUUID().toString() );
-			objOGHeader.setTimeStamp( DataUtility.getCalender());
-
-			//prepares origin and destination of the message
-			EndPoint originEndPoint = new EndPoint();
-			originEndPoint.setEntityID( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORIGIN_ID) );
-			originEndPoint.setSystemType( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
-
-			EndPoint destEndPoint = new EndPoint();
-			destEndPoint.setEntityID( HarvesterConfigurationReader.getProperty( IMicrosHarvester.OWS_DESTINATION_ID) );
-			destEndPoint.setSystemType( HarvesterConfigurationReader.getProperty(IMicrosHarvester.OWS_ORI_SYSTEM_TYPE) );
-
-			//add end points to the header.
-			objOGHeader.setOrigin(originEndPoint);
-			objOGHeader.setDestination(destEndPoint);
-
-			// prepares FetchCalendar request
-			HotelReference objHotelReference = null;
-
-			objHotelReference = new HotelReference();
-			objHotelReference.setHotelCode( HarvesterConfigurationReader.getProperty(IMicrosHarvester.HOTEL_CODE));
-			objHotelReference.setChainCode( HarvesterConfigurationReader.getProperty( IMicrosHarvester.CHAIN_CODE) );
+			objFetchCalendarRequest.setInventoryMode(true);
+			objFetchCalendarRequest.setRoomTypeCode(roomTypeCode);
+			objFetchCalendarRequest.setRestrictedMode(false);
+			objFetchCalendarRequest.setHotelReference(getDefaultHotelReference());
 
 			//Creates date range.
 			TimeSpan objTimeSpan = new TimeSpan();
@@ -307,43 +272,30 @@ public class OWSDataCollector {
 			objTimeSpan.setTimeSpanChoice_type0(objTimeSpanAvail);
 			objFetchCalendarRequest.setStayDateRange(objTimeSpan);
 
-			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " makeFetcCalendarRequest Instace created " );
+			FetchCalendarRequestE requestE = new FetchCalendarRequestE();
+			requestE.setFetchCalendarRequest(objFetchCalendarRequest);
+			FetchCalendarResponseE fetchCalendarResponseE = availabilityService.fetchCalendar(requestE, createOGHeaderE());
 
-			XStream objStream = new XStream();
+			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " makeFetchCalendarRequest Instace created " );
 
-			String xmlRequest = objStream.toXML(objFetchCalendarRequest); 
+			FetchCalendarResponse response = fetchCalendarResponseE.getFetchCalendarResponse();
 
-			objMicrosMessageTransport = new MicrosMessageTransport();
-			String pmsResponse = objMicrosMessageTransport.handlePMSRequest(xmlRequest);
+			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " Xml Response Received " + response );
 
-			XStream xstream = null;
-			xstream = new XStream( new DomDriver());
+			if (response.getResult().getResultStatusFlag() == ResultStatusFlag.SUCCESS) {
+				isProceed = true;
 
-			FetchCalendarResponse objFuture = (FetchCalendarResponse) xstream.fromXML( pmsResponse );
+				microsDAO.persistRoomInventoryData(response);
 
-			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Xml Response Received " + pmsResponse );
-
-			if( pmsResponse.length() != IMicrosHarvester.COUNT_ZERO ) {
-
-				isProcced = true;
-
-				objMicrosDAOImpl = new MicrosDAOImpl();
-
-				objMicrosDAOImpl.persistRoomInventoryData( objFuture );
-
-				DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " makeFetcCalendarRequest Instance Sent to persist " );
-
+				DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " makeFetchCalendarRequest Instance Sent to persist " );
 			}
-		}
-		catch( Exception exc) {
-
-			DataHarvesterLogger.logError( OWSDataCollector.class, " makeFetcCalendarRequest ", exc);
+		} catch (Exception exc) {
+			DataHarvesterLogger.logError( OWSDataCollector.class, " makeFetchCalendarRequest ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetcCalendarRequest ", " Exit makeFetcCalendarRequest method " ); 
+		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " Exit makeFetchCalendarRequest method " );
 
-		return isProcced;
-
+		return isProceed;
 	}
 
 }

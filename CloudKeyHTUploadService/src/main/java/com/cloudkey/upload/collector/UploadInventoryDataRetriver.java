@@ -1,10 +1,16 @@
 package com.cloudkey.upload.collector;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import com.cloudkey.commons.RoomType;
+import com.cloudkey.commons.RoomTypeInventory;
+import com.cloudkey.upload.client.UploadServiceClient;
+import com.cloudkey.upload.constant.IUploadConstants;
+import com.cloudkey.upload.logger.UploadServiceLogger;
+import com.cloudkey.upload.remove.UploadQueueDataRemover;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,15 +18,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import com.cloudkey.commons.RoomType;
-import com.cloudkey.commons.RoomTypeInventory;
-import com.cloudkey.dao.DataBaseHandler;
-import com.cloudkey.upload.client.UploadServiceClient;
-import com.cloudkey.upload.constant.IUploadConstants;
-import com.cloudkey.upload.logger.UploadServiceLogger;
-import com.cloudkey.upload.remove.UploadQueueDataRemover;
-import com.cloudkey.upload.utility.UploadConfigurationReader;
 
 /** 
  * This class acts as a listener  to fetch the updated data of RoomInventory from upload queue .
@@ -33,17 +30,25 @@ import com.cloudkey.upload.utility.UploadConfigurationReader;
  */
 public class UploadInventoryDataRetriver {
 
-	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( IUploadConstants.COUNT_ONE ) ;
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1) ;
 
-	int period = Integer.parseInt( UploadConfigurationReader.getProperty( IUploadConstants.ROOM_INVENTORY_THREAD_INTERVAL ) ) ;
-	int delayTime = Integer.parseInt( UploadConfigurationReader.getProperty( IUploadConstants.ROOM_INVENTORY_THREAD_DELAY ) ) ;
+	@Inject
+	@Named("keypr.bridge.upload.inventory.timer.interval")
+	int period;
+
+	@Inject
+	@Named("keypr.bridge.upload.inventory.timer.delay")
+	int delayTime;
 
 	// create reference variable to store the Statement object.
 	Statement inventoryStmt = null ;
 	String webResult = null ;
 
-	// create reference variable to store the database connection object. 
-	private static Connection connection = null ;
+	@Inject
+	protected DataSource dataSource;
+	
+	@Inject
+	protected UploadQueueDataRemover uploadQueueDataRemover;
 
 	//method to listen the upload queue as scheduler after every fixed time period and fetch the updated RoomInventory data from upload queue.
 	public void fetchRoomInventoryDetails() {
@@ -62,7 +67,7 @@ public class UploadInventoryDataRetriver {
 				Date date = new Date() ;
 
 				//start time for scheduler
-				Timestamp startTime = new Timestamp( date.getTime() - ( period * IUploadConstants.COUNT_THOUSAND ) ) ;  
+				Timestamp startTime = new Timestamp( date.getTime() - ( period * 1000) ) ;
 
 				// end time for scheduler
 				Timestamp endTime =  new Timestamp( date.getTime() ) ;  
@@ -71,7 +76,7 @@ public class UploadInventoryDataRetriver {
 
 					List<RoomTypeInventory> roominventorydetailsList = new ArrayList<RoomTypeInventory>() ;
 
-					connection = DataBaseHandler.getConnection() ;
+					Connection connection = dataSource.getConnection();
 					inventoryStmt = connection.createStatement() ;
 
 					String inventoryQuery = "SELECT rinventory. * FROM keypr_bridge_db.room_inventory_upload  as  rinventory "+ 
@@ -128,7 +133,7 @@ public class UploadInventoryDataRetriver {
 							if ( webResult.equalsIgnoreCase(IUploadConstants.KEYPR_SERVICE_STATUS_SUCCESS ) ) {
 
 								UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Web service result is success " );
-								UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
+								uploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 							}
 
 							//on failure  response from the web service to delete the data,resends request three times to client web service
@@ -139,7 +144,7 @@ public class UploadInventoryDataRetriver {
 
 								UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Web service result is failure " );
 
-								for( int attempt = IUploadConstants.COUNT_ZERO; attempt < IUploadConstants.COUNT_THREE; attempt++ ) {
+								for( int attempt = 0; attempt < 3; attempt++ ) {
 
 									UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Attemp for web service request " + attempt );
 
@@ -149,7 +154,7 @@ public class UploadInventoryDataRetriver {
 
 										UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetails ", " Web service result is suceess on  " + attempt + " attempt" );
 
-										UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
+										uploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 										isSuccess = true;
 
 										break;
@@ -191,29 +196,21 @@ public class UploadInventoryDataRetriver {
 	 *  method to invoke on the startup of the upload service to fetch all the updated data of room details from upload queue database 
 	 *  considering Id as unique identifier
 	 */
-	public boolean  fetchRoomInventoryDetailsOnStartup() {
+	public boolean fetchRoomInventoryDetailsOnStartup() {
 
 		UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " enter fetchRoomInventoryDetailsOnStartup method " );
 
 		boolean isResultSetEmpty = true;
 		boolean isCallFetchRoomInventory = false ;
 
-		RoomTypeInventory roominventoryDetails = null;
-		Statement stmtOnStartUp = null;
+		RoomTypeInventory roominventoryDetails;
 
-		String sqlQuery = null;
-		String webResult = null;
+		String sqlQuery;
+		String webResult;
 
 		try {
-
-			if ( connection == null ) {
-
-				connection = DataBaseHandler.getConnection();
-				stmtOnStartUp = connection.createStatement();
-			}
-			else {
-				stmtOnStartUp = connection.createStatement();
-			}
+			Connection connection = dataSource.getConnection();
+			Statement stmtOnStartUp = connection.createStatement();
 
 			List<RoomTypeInventory> roominventorydetailsList = new ArrayList<RoomTypeInventory>();
 
@@ -273,7 +270,7 @@ public class UploadInventoryDataRetriver {
 
 						UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Web service result is success " );
 
-						UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
+						uploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 						isCallFetchRoomInventory = true;
 					}
 					else {
@@ -282,7 +279,7 @@ public class UploadInventoryDataRetriver {
 
 						boolean isSuccess = false;
 
-						for( int attempt = IUploadConstants.COUNT_ZERO ; attempt < IUploadConstants.COUNT_THREE ; attempt++ )
+						for( int attempt = 0; attempt < 3; attempt++ )
 						{
 							UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Attemp for web service request " + attempt );
 
@@ -292,7 +289,7 @@ public class UploadInventoryDataRetriver {
 
 								UploadServiceLogger.logInfo( UploadInventoryDataRetriver.class, " fetchRoomInventoryDetailsOnStartup ", " Web service result is suceess on  " + attempt + " attempt" );
 
-								UploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
+								uploadQueueDataRemover.removeUploadedRoomInventoryDetailsData( roominventorydetailsList );
 								isCallFetchRoomInventory = true;
 								isSuccess = true;
 

@@ -7,9 +7,6 @@ package com.micros.harvester.constant;
  */
 public interface IMicrosHarvester {
 
-	String HOTEL_CODE = "oxi.hotel.code";
-	String CHAIN_CODE = "oxi.chain.code";
-
 	String RESERVATION_TYPE_CHECK_IN = "CHECKIN";
 	String RESERVATION_TYPE_CHECK_OUT = "CHECKOUT";
 	String RESERVATION_TYPE_NEW = "ADD";
@@ -42,42 +39,11 @@ public interface IMicrosHarvester {
 	String RESERVATON_STATUS_COMPL = "COMPLETED";
 	String RESERVATION_STATUS = "IN-PROCESS";
 
-	String ROOM_STATUS_THREAD_DELAY = "room.status.harvester.timer.delay";
-	String ROOM_STATUS_THREAD_INTERVAL = "room.status.harvester.timer.interval";
-	String ROOM_TYPE_CODE = "oxi.room.type.code";
-
-	String ROOM_INVENTORY_THREAD_DELAY = "room.inventory.harvester.timer.delay";
-	String ROOM_INVENTORY_THREAD_INTERVAL = "room.inventory.harvester.timer.interval";
-
-	String RESERVATION_THREAD_DELAY	 = "reservation.harvester.timer.delay";
-	String RESERVATION_THREAD_INTERVAL = "reservation.harvester.timer.interval";
-
-	String OXI_LISTENING_URL = "micros.pms.oxi.listener.url";
-	String OXI_LISTENING_PORT = "micros.pms.oxi.listener.port";
-	String OXI_LISTENER_BUFFER_SIZE = "micros.pms.oxi.listener.buffer.size";
-
-	String OXI_XML_PATH_LOCATION = "micros.pms.oxi.xml.file.location";
 	String OXI_AFFILATE_ID  = "9175e540-b992-447a-846b-e9e5dea82a80";
-
-	String OWS_ORIGIN_ID = "origin.entity.id";
-	String OWS_ORI_SYSTEM_TYPE = "origin.system.type";
-
-	String OWS_DESTINATION_ID = "destination.entity.id";
-	String OWS_ORI_DEST_TYPE = "destination.system.type";
-
-	String OWS_USER_NAME = "auth.user.name";
-	String OWS_USER_PASS = "auth.user.pass";
 
 	String STRING_COUNT = "cont" ;
 
 	Integer ROWS_UPDATED = 0;
-
-	Integer COUNT_ZERO = 0;
-	Integer COUNT_ONE = 1;
-	Integer COUNT_TWO = 2;
-	Integer COUNT_THREE = 3;
-	Integer COUNT_FOUR = 4;
-	Integer COUNT_FIVE = 5;
 
 	Long SIXTY_UNITS = 60L;
 	Long THOUSAND_UNITS = 1000L;

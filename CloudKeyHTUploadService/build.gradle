@@ -1,9 +1,10 @@
 apply plugin:'application'
-mainClassName = 'com.cloudkey.upload.service.UploadServiceInitiater'
+mainClassName = 'com.cloudkey.upload.UploadServiceApplication'
 
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
+    compile project(':CloudKeyHTDatabase')
     compile project(':MicrosPMSAdapter')
 
     // External dependencies

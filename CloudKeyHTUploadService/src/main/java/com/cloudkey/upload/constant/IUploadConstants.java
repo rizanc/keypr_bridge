@@ -1,29 +1,6 @@
 package com.cloudkey.upload.constant;
 
-import java.sql.Timestamp;
-
 public interface IUploadConstants {
-
-	String ROOM_STATUS_THREAD_DELAY = "room.status.upload.timer.delay";
-	String ROOM_STATUS_THREAD_INTERVAL = "room.status.upload.timer.interval";
-
-	String ROOM_STATUS_TIMER_INTERVAL = "room.status.upload.timer.interval";
-
-	String ROOM_INVENTORY_THREAD_DELAY = "room.inventory.upload.timer.delay";
-	String ROOM_INVENTORY_THREAD_INTERVAL = "room.inventory.upload.timer.interval";
-
-	String RESERVATION_THREAD_DELAY	 = "reservation.upload.timer.delay";
-	String RESERVATION_THREAD_INTERVAL = "reservation.upload.timer.interval";
-
-	String KEYPR_RESERVATION_URL = "keypr.reservation.service.url";
-	String KEYPR_ROOM_INVENTORY_URL = "keypr.room.inventory.service.url";
-	String KEYPR_ROOM_STATUS_URL = "keypr.room.status.service.url";
-
-	String KEYPR_ROOM_LIST_KEY = "keypr.room.list.key";
-	String KEYPR_ROOMIN_LIST_KEY = "keypr.roomin.list.key";
-	String KEYPR_RESV_LIST_KEY = "keypr.resv.list.key";
-
-	String KEYPR_SIZE_KEY = "keyypr.size.key";
 
 	String RESERVATON_STATUS_COMPL = "COMPLETED";
 	String RESERVATION_STATUS = "IN-PROCESS";
@@ -49,13 +26,6 @@ public interface IUploadConstants {
 	Integer KEYPR_SERVICE_STATUS_FAILURE_CODE_1 = 400;
 	Integer KEYPR_SERVICE_STATUS_FAILURE_CODE_2 = 409;
 
-	Integer COUNT_ZERO = 0;
-	Integer COUNT_ONE = 1;
-	Integer COUNT_TWO = 2;
-	Integer COUNT_THREE = 3;
-	Integer COUNT_FOUR = 4;
-	Integer COUNT_THOUSAND = 1000;
-	
 	String QUERY_RESERVATION_UPLOAD_DELETE_BY_ID = "DELETE  FROM keypr_bridge_db.reservation_upload  WHERE id = ";
 	
 	String QUERY_ROOM_INVENTORY_UPLOAD_DELETE_BY_ID = "DELETE FROM keypr_bridge_db.room_inventory_upload where id= ";
