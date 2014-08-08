@@ -1,13 +1,12 @@
 package com.cloudkey.upload;
 
-import com.cloudkey.db.DatabaseModule;
 import com.cloudkey.upload.collector.UploadInventoryDataRetriver;
 import com.cloudkey.upload.collector.UploadReservationDataRetriever;
 import com.cloudkey.upload.collector.UploadRoomDataRetriever;
-import com.cloudkey.upload.logger.UploadServiceLogger;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.apache.log4j.xml.DOMConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -16,12 +15,10 @@ import org.apache.log4j.xml.DOMConfigurator;
  */
 public class UploadServiceApplication {
 
-	static {
-		DOMConfigurator.configure(UploadServiceApplication.class.getClassLoader().getResource("log4j.xml"));
-	}
+	protected final static Logger log = LoggerFactory.getLogger(UploadServiceApplication.class);
 
 	public static void main(String[] args) {
-		UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", "enter main method ");
+		log.info(" main ", "enter main method ");
 
 		final Injector injector = Guice.createInjector(new UploadServiceModule());
 
@@ -32,7 +29,7 @@ public class UploadServiceApplication {
 
 			public void run() {
 
-				UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", "enter room details thread ");
+				log.info(" main ", "enter room details thread ");
 
 				int onstartup = 0;
 				boolean isCallFetchRoomStatus = false;
@@ -42,18 +39,18 @@ public class UploadServiceApplication {
 				// TODO: This clearly does not accomplish what they intended.
 				if (onstartup == 0) {
 
-					UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", "enter to call fetchRoomDetailsOnStartup");
+					log.info(" main ", "enter to call fetchRoomDetailsOnStartup");
 
 					isCallFetchRoomStatus = retriever.fetchRoomDetailsOnStartup();
 
-					UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", " fetchRoomDetailsOnStartup status is " + isCallFetchRoomStatus);
+					log.info(" main ", " fetchRoomDetailsOnStartup status is " + isCallFetchRoomStatus);
 
 					onstartup++;
 				}
 
 				if (isCallFetchRoomStatus) {
 
-					UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", "enter to call fetchRoomDetails");
+					log.info(" main ", "enter to call fetchRoomDetails");
 
 					retriever.fetchRoomDetails();
 				}
@@ -70,7 +67,7 @@ public class UploadServiceApplication {
 
 			public void run() {
 
-				UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", "enter room inventory thread ");
+				log.info(" main ", "enter room inventory thread ");
 
 				int onstartup = 0;
 				boolean isCallFetchRoomInventory = false;
@@ -79,18 +76,18 @@ public class UploadServiceApplication {
 
 				if (onstartup == 0) {
 
-					UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", " enter to call fetchRoomInventoryDetailsOnStartup ");
+					log.info(" main ", " enter to call fetchRoomInventoryDetailsOnStartup ");
 
 					isCallFetchRoomInventory = retriever.fetchRoomInventoryDetailsOnStartup();
 
-					UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", " fetchRoomInventoryDetails status is " + isCallFetchRoomInventory);
+					log.info(" main ", " fetchRoomInventoryDetails status is " + isCallFetchRoomInventory);
 
 					onstartup++;
 				}
 
 				if (isCallFetchRoomInventory) {
 
-					UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", "enter to call fetchRoomInventoryDetails");
+					log.info(" main ", "enter to call fetchRoomInventoryDetails");
 
 					retriever.fetchRoomInventoryDetails();
 				}
@@ -107,11 +104,11 @@ public class UploadServiceApplication {
 
 			public void run() {
 
-				UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", " enter in reservation thread ");
+				log.info(" main ", " enter in reservation thread ");
 
 				UploadReservationDataRetriever retriever = injector.getInstance(UploadReservationDataRetriever.class);
 
-				UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", " enter to call fetchReservationDetails ");
+				log.info(" main ", " enter to call fetchReservationDetails ");
 
 				retriever.fetchReservationDetails();
 
@@ -119,7 +116,7 @@ public class UploadServiceApplication {
 		});
 		reservatioThread.start();
 
-		UploadServiceLogger.logInfo(UploadServiceApplication.class, " main ", " exit main method ");
+		log.info(" main ", " exit main method ");
 
 	}
 }

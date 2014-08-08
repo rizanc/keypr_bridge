@@ -4,12 +4,13 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.commons.RoomTypeInventory;
 import com.cloudkey.upload.constant.IUploadConstants;
-import com.cloudkey.upload.logger.UploadServiceLogger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.client.Client;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,106 +25,108 @@ import java.util.List;
 @Singleton
 public class UploadServiceClient {
 
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+
 	private static String result = IUploadConstants.WEB_SERVICE_RESULT_FAILURE;
 
 	@Inject
 	@Named("keypr.bridge.upload.reservation.url")
-	private static String reservationUploadUrl;
+	private String reservationUploadUrl;
 
 	@Inject
 	@Named("keypr.bridge.upload.reservation.key")
-	private static String reservationKey;
+	private String reservationKey;
 
 	@Inject
 	@Named("keypr.bridge.upload.roomstatus.url")
-	private static String roomstatusUploadUrl;
+	private String roomstatusUploadUrl;
 
 	@Inject
 	@Named("keypr.bridge.upload.roomstatus.key")
-	private static String roomstatusKey;
+	private String roomstatusKey;
 
 	@Inject
 	@Named("keypr.bridge.upload.inventory.url")
-	private static String inventoryUploadUrl;
+	private String inventoryUploadUrl;
 
 	@Inject
 	@Named("keypr.bridge.upload.inventory.key")
-	private static String inventoryKey;
+	private String inventoryKey;
 
 	@Inject
 	@Named("keypr.bridge.upload.size.key")
-	private static String sizeKey;
+	private String sizeKey;
 
 	// UploadServiceClient method to invoke the keypr web service for RoomDetails
 	public String invokeRoomdetails(List<RoomDetails> roomdetailsList, int size) {
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, " invokeRoomdetails ", " enter method invokeRoomdetails ");
-		UploadServiceLogger.logInfo(UploadServiceClient.class, " invokeRoomdetails ", " Room Details List Size " + size);
+		log.info(" invokeRoomdetails ", " enter method invokeRoomdetails ");
+		log.info(" invokeRoomdetails ", " Room Details List Size " + size);
 
 		try {
 			int statusCode = makeJSONRequest(roomstatusUploadUrl, roomstatusKey, roomdetailsList, size);
 
-			UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomdetails", " Status Code " + statusCode);
+			log.info("invokeRoomdetails", " Status Code " + statusCode);
 
 			result = getStatus(statusCode);
 
-			UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomdetails ", " keypr web service returns " + result);
+			log.info("invokeRoomdetails ", " keypr web service returns " + result);
 		} catch (Exception exc) {
-			UploadServiceLogger.logError(UploadServiceClient.class, " invokeRoomdetails ", exc);
+			log.error(" invokeRoomdetails ", exc);
 		}
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, " invokeRoomdetails ", " exit method invokeRoomdetails ");
+		log.info(" invokeRoomdetails ", " exit method invokeRoomdetails ");
 
 		return result;
 	}
 
 	// UploadServiceClient method to invoke the keypr web services for invokeRoomInventory .
-	public static String invokeRoomInventory(List<RoomTypeInventory> roominventorydetailsList, int size) {
+	public String invokeRoomInventory(List<RoomTypeInventory> roominventorydetailsList, int size) {
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomInventory", " enter method invokeRoomInventory ");
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomInventory", " Room Inventory List Size " + size);
+		log.info("invokeRoomInventory", " enter method invokeRoomInventory ");
+		log.info("invokeRoomInventory", " Room Inventory List Size " + size);
 
 		try {
 
 			int statusCode = makeJSONRequest(inventoryUploadUrl, inventoryKey, roominventorydetailsList, size);
 
-			UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomInventory", " Status Code " + statusCode);
+			log.info("invokeRoomInventory", " Status Code " + statusCode);
 
 			result = getStatus(statusCode);
 
-			UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomInventory", " keypr web service returns " + result);
+			log.info("invokeRoomInventory", " keypr web service returns " + result);
 		} catch (Exception exc) {
 
-			UploadServiceLogger.logError(UploadServiceClient.class, " invokeRoomInventory ", exc);
+			log.error(" invokeRoomInventory ", exc);
 		}
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeRoomInventory", " exit method invokeRoomInventory ");
+		log.info("invokeRoomInventory", " exit method invokeRoomInventory ");
 
 		return result;
 	}
 
 	// UploadServiceClient method to invoke the keypr web services for reservation .
-	public static String invokeReservation(List<Reservation> reservationList, int size) {
+	public String invokeReservation(List<Reservation> reservationList, int size) {
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeReservation", " enter method invokeReservation ");
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeReservation", " Reservation List Size " + size);
+		log.info("invokeReservation", " enter method invokeReservation ");
+		log.info("invokeReservation", " Reservation List Size " + size);
 
 		try {
 
 			// To make call the keypr service with the reservation data list and list size.
 			int statusCode = makeJSONRequest(reservationUploadUrl, reservationKey, reservationList, size);
 
-			UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeReservation", " Status Code " + statusCode);
+			log.info("invokeReservation", " Status Code " + statusCode);
 
 			result = getStatus(statusCode);
 
-			UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeReservation", " keypr web service returns " + result);
+			log.info("invokeReservation", " keypr web service returns " + result);
 		} catch (Exception exc) {
 
-			UploadServiceLogger.logError(UploadServiceClient.class, " invokeReservation ", exc);
+			log.error(" invokeReservation ", exc);
 		}
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "invokeReservation", " exit method invokeReservation ");
+		log.info("invokeReservation", " exit method invokeReservation ");
 
 		return result;
 	}
@@ -137,8 +140,8 @@ public class UploadServiceClient {
 	 * @param statusCode
 	 * @return String
 	 */
-	private static String getStatus(int statusCode) {
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "getStatus", " enter method getStatus ");
+	private String getStatus(int statusCode) {
+		log.info("getStatus", " enter method getStatus ");
 
 		String status;
 
@@ -162,8 +165,8 @@ public class UploadServiceClient {
 			status = IUploadConstants.KEYPR_SERVICE_STATUS_FAILURE;
 		}
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "getStatus", " Status " + status);
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "getStatus", " exit method getStatus ");
+		log.info("getStatus", " Status " + status);
+		log.info("getStatus", " exit method getStatus ");
 
 		return status;
 	}
@@ -178,9 +181,9 @@ public class UploadServiceClient {
 	 * @return int
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static int makeJSONRequest(String url, String listKey, List list, int size) {
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "makeJSONRequest", " enter method makeJSONRequest ");
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "makeJSONRequest", " URL  " + url);
+	private int makeJSONRequest(String url, String listKey, List list, int size) {
+		log.info("makeJSONRequest", " enter method makeJSONRequest ");
+		log.info("makeJSONRequest", " URL  " + url);
 
 		// create an instance of Web Service Client.
 		Client webClient = Client.create();
@@ -189,14 +192,14 @@ public class UploadServiceClient {
 		jsonObject.put(listKey, list);
 		jsonObject.put(sizeKey, size);
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "makeJSONRequest", " json object created ");
+		log.info("makeJSONRequest", " json object created ");
 
 		Response response = webClient.resource(url)
 			.accept(MediaType.APPLICATION_JSON_TYPE)
 			.type(MediaType.APPLICATION_JSON_TYPE)
 			.post(Response.class, jsonObject.toJSONString());
 
-		UploadServiceLogger.logInfo(UploadServiceClient.class, "makeJSONRequest", "Status Code" + response.getStatus());
+		log.info("makeJSONRequest", "Status Code" + response.getStatus());
 
 		return response.getStatus();
 	}

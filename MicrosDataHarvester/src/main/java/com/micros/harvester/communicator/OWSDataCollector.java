@@ -12,7 +12,8 @@ import com.cloudkey.pms.micros.services.AvailabilityService;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.micros.harvester.dao.IMicrosDAO;
-import com.micros.harvester.logger.DataHarvesterLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 public class OWSDataCollector extends OWSTools {
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	@Inject
 	protected IMicrosDAO microsDAO;
@@ -55,7 +58,7 @@ public class OWSDataCollector extends OWSTools {
 	/*
 	public void harvestRoomStatusData() {
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Enter harvestRoomStatusData method " );
+		log.info(" harvestRoomStatusData ", " Enter harvestRoomStatusData method " );
 
 		int delayTime;
 		int intervalPeriod;
@@ -65,15 +68,15 @@ public class OWSDataCollector extends OWSTools {
 			public void run() { 
 
 				boolean success = makeFetchRoomStatusRequest();
-				DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " FetchRoomStatus Made to the OWS " );
+				log.info(" harvestRoomStatusData ", " FetchRoomStatus Made to the OWS " );
 
 				if(success) {
 
-					DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Request Processed Successfully " );
+					log.info(" harvestRoomStatusData ", " Request Processed Successfully " );
 				}
 				else {
 
-					DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Sorry Request cannot be processed " );
+					log.info(" harvestRoomStatusData ", " Sorry Request cannot be processed " );
 				}
 			}
 		};
@@ -84,7 +87,7 @@ public class OWSDataCollector extends OWSTools {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate( dataCollerctor, delayTime, intervalPeriod , TimeUnit.SECONDS );
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomStatusData ", " Exit harvestRoomStatusData method " );
+		log.info(" harvestRoomStatusData ", " Exit harvestRoomStatusData method " );
 
 	} // ends collectReservationData
 */
@@ -98,9 +101,9 @@ public class OWSDataCollector extends OWSTools {
 	 * @return
 	 */
 /*
-	private static boolean makeFetchRoomStatusRequest() {
+	private boolean makeFetchRoomStatusRequest() {
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " Enter makeFetchRoomStatusRequest method " );
+		log.info(" makeFetchRoomStatusRequest ", " Enter makeFetchRoomStatusRequest method " );
 
 		boolean isProcced = false;
 
@@ -158,7 +161,7 @@ public class OWSDataCollector extends OWSTools {
 
 			//FetchRoomStatusResponse objFStatusResponse = objResvAdvancedServiceStub.fetchRoomStatus(objFetchRoomStatusRequest, objHeaderE);
 
-			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " FetchRoomStatusRequest Instace created " );
+			log.info(" makeFetchRoomStatusRequest ", " FetchRoomStatusRequest Instace created " );
 
 			XStream objStream = new XStream();
 
@@ -167,7 +170,7 @@ public class OWSDataCollector extends OWSTools {
 			objMicrosMessageTransport = new MicrosMessageTransport();
 			String pmsResponse = objMicrosMessageTransport.handlePMSRequest(xmlRequest);
 
-			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " Xml Request Created " + xmlRequest );
+			log.info(" makeFetchRoomStatusRequest ", " Xml Request Created " + xmlRequest );
 
 			XStream xstream = null;
 			xstream = new XStream( new DomDriver());
@@ -181,16 +184,16 @@ public class OWSDataCollector extends OWSTools {
 
 				microsDAO.persistRoomStatusDataInBridgeDB( objFuture );
 
-				DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " FetchRoomStatusResponse Instance Sent to persist " );
+				log.info(" makeFetchRoomStatusRequest ", " FetchRoomStatusResponse Instance Sent to persist " );
 
 			}
 		}
 		catch( Exception exc) {
 
-			DataHarvesterLogger.logError( OWSDataCollector.class, " makeFetchRoomStatusRequest ", exc);
+			log.error(" makeFetchRoomStatusRequest ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchRoomStatusRequest ", " Exit makeFetchRoomStatusRequest method " ); 
+		log.info(" makeFetchRoomStatusRequest ", " Exit makeFetchRoomStatusRequest method " ); 
 
 		return isProcced;
 
@@ -205,22 +208,22 @@ public class OWSDataCollector extends OWSTools {
 	 */
 	public void harvestRoomInventoryData() {
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " Enter harvestRoomInventoryData method " );
+		log.info(" harvestRoomInventoryData ", " Enter harvestRoomInventoryData method " );
 
 		final Runnable dataCollector = new Runnable() {
 
 			public void run() {
 
 				boolean success = makeFetchCalendarRequest();
-				DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " FetchCalendar Request Made to the OWS " );
+				log.info(" harvestRoomInventoryData ", " FetchCalendar Request Made to the OWS " );
 
 				if(success) {
 
-					DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " Request Processed Successfully " );
+					log.info(" harvestRoomInventoryData ", " Request Processed Successfully " );
 				}
 				else {
 
-					DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " Sorry Request cannot be processed " );
+					log.info(" harvestRoomInventoryData ", " Sorry Request cannot be processed " );
 				}
 			}
 		};
@@ -228,7 +231,7 @@ public class OWSDataCollector extends OWSTools {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> beeperHandle = schedulerInventory.scheduleAtFixedRate( dataCollector, timerDelay, timerInterval , TimeUnit.SECONDS );
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " harvestRoomInventoryData ", " Exit harvestRoomInventoryData method " );
+		log.info(" harvestRoomInventoryData ", " Exit harvestRoomInventoryData method " );
 
 	} // ends harvestRoomInventoryData
 
@@ -241,7 +244,7 @@ public class OWSDataCollector extends OWSTools {
 	 * @return
 	 */
 	private boolean makeFetchCalendarRequest() {
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " Enter makeFetchCalendarRequest method " );
+		log.info(" makeFetchCalendarRequest ", " Enter makeFetchCalendarRequest method " );
 
 		boolean isProceed = false;
 
@@ -276,24 +279,24 @@ public class OWSDataCollector extends OWSTools {
 			requestE.setFetchCalendarRequest(objFetchCalendarRequest);
 			FetchCalendarResponseE fetchCalendarResponseE = availabilityService.fetchCalendar(requestE, createOGHeaderE());
 
-			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " makeFetchCalendarRequest Instace created " );
+			log.info(" makeFetchCalendarRequest ", " makeFetchCalendarRequest Instace created " );
 
 			FetchCalendarResponse response = fetchCalendarResponseE.getFetchCalendarResponse();
 
-			DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " Xml Response Received " + response );
+			log.info(" makeFetchCalendarRequest ", " Xml Response Received " + response );
 
 			if (response.getResult().getResultStatusFlag() == ResultStatusFlag.SUCCESS) {
 				isProceed = true;
 
 				microsDAO.persistRoomInventoryData(response);
 
-				DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " makeFetchCalendarRequest Instance Sent to persist " );
+				log.info(" makeFetchCalendarRequest ", " makeFetchCalendarRequest Instance Sent to persist " );
 			}
 		} catch (Exception exc) {
-			DataHarvesterLogger.logError( OWSDataCollector.class, " makeFetchCalendarRequest ", exc);
+			log.error(" makeFetchCalendarRequest ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( OWSDataCollector.class, " makeFetchCalendarRequest ", " Exit makeFetchCalendarRequest method " );
+		log.info(" makeFetchCalendarRequest ", " Exit makeFetchCalendarRequest method " );
 
 		return isProceed;
 	}

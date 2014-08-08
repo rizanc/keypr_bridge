@@ -10,9 +10,10 @@
 //import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 //import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
 //import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
-//import com.keypr.web.logger.WebAppLogger;
 //import org.junit.Ignore;
 //import org.junit.Test;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 //
 //import javax.ws.rs.client.Client;
 //import javax.ws.rs.client.ClientBuilder;
@@ -35,6 +36,8 @@
 //
 //public class KeyprWebServicesTest {
 //
+//	protected final Logger log = LoggerFactory.getLogger(getClass());
+//
 //	/**
 //	 * This method test search reservation request to the web service. It has confirmation number for
 //	 * making search reservation request. The test case expects only one reservation detail in the response.
@@ -43,7 +46,7 @@
 //	//@Test
 //	public void testSearchReservationForConfirmation(){
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForConfirmation ", " Enter method testSearchReservationForConfirmation ");
+//		log.debug(" testSearchReservationForConfirmation ", " Enter method testSearchReservationForConfirmation ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
@@ -63,7 +66,7 @@
 //		}
 //		else {
 //
-//			WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForConfirmation ", " Failure From Server ");
+//			log.debug(" testSearchReservationForConfirmation ", " Failure From Server ");
 //
 //			assertTrue( "Number of reservation",  0 == objSearchReservationResponse.getReservationList().size() );
 //			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
@@ -73,7 +76,7 @@
 //		assertNotNull("SearchReservationResponse Instance must not be null " , objSearchReservationResponse );
 //		assertNotNull( "SearchReservationRequest Instance must not be null ",  objSearchReservationRequest);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForConfirmation ", " Exit method testSearchReservationForConfirmation ");
+//		log.debug(" testSearchReservationForConfirmation ", " Exit method testSearchReservationForConfirmation ");
 //	}
 //
 //	/**
@@ -86,7 +89,7 @@
 //	@Test
 //	public void testSearchReservationForWithoutConfirmation() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForWithoutConfirmation ", " Enter method testSearchReservationForWithoutConfirmation ");
+//		log.debug(" testSearchReservationForWithoutConfirmation ", " Enter method testSearchReservationForWithoutConfirmation ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
@@ -115,7 +118,7 @@
 //			assertEquals( "XXXX-XXXX-XXXX-1234", objSearchReservationResponse.getReservationList().get(0).getCreditCardNumber());
 //		}
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForWithoutConfirmation ", " Exit method testSearchReservationForWithoutConfirmation ");
+//		log.debug(" testSearchReservationForWithoutConfirmation ", " Exit method testSearchReservationForWithoutConfirmation ");
 //	}
 //
 //	/**
@@ -126,7 +129,7 @@
 //	//@Test
 //	public void testSearchReservationForFailure() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForFailure ", " Enter method testSearchReservationForFailure ");
+//		log.debug(" testSearchReservationForFailure ", " Enter method testSearchReservationForFailure ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
@@ -145,7 +148,7 @@
 //
 //		assertTrue("Number of reservation", 0 == numbeOfReservations );
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForFailure ", " Enter method testSearchReservationForFailure ");
+//		log.debug(" testSearchReservationForFailure ", " Enter method testSearchReservationForFailure ");
 //
 //	}
 //
@@ -156,7 +159,7 @@
 //	//@Test
 //	public void testSearchReservationForServerShutdown() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForServerShutdown ", " Enter method testSearchReservationForServerShutdown ");
+//		log.debug(" testSearchReservationForServerShutdown ", " Enter method testSearchReservationForServerShutdown ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -175,7 +178,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testSearchReservationForServerShutdown ", " Exit method testSearchReservationForServerShutdown ");
+//		log.debug(" testSearchReservationForServerShutdown ", " Exit method testSearchReservationForServerShutdown ");
 //
 //	}
 //
@@ -185,9 +188,9 @@
 //	 * @param objSearchReservationRequest
 //	 * @return
 //	 */
-//	private static SearchReservationResponse makeSearchReservationRequest( SearchReservationRequest objSearchReservationRequest) {
+//	private SearchReservationResponse makeSearchReservationRequest( SearchReservationRequest objSearchReservationRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeSearchReservationRequest ", " Enter method makeSearchReservationRequest ");
+//		log.debug(" makeSearchReservationRequest ", " Enter method makeSearchReservationRequest ");
 //
 //		Entity<SearchReservationRequest> entity = Entity.json(objSearchReservationRequest);
 //
@@ -199,7 +202,7 @@
 //
 //		SearchReservationResponse objSearchReservationResponse = response.readEntity(SearchReservationResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeSearchReservationRequest ", " Exit method makeSearchReservationRequest ");
+//		log.debug(" makeSearchReservationRequest ", " Exit method makeSearchReservationRequest ");
 //
 //		return objSearchReservationResponse;
 //
@@ -212,7 +215,7 @@
 //	//@Test
 //	public void testGetFolioRequestServerShutdown()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetFolioRequestServerShutdown ", " Enter method testGetFolioRequestServerShutdown ");
+//		log.debug(" testGetFolioRequestServerShutdown ", " Enter method testGetFolioRequestServerShutdown ");
 //
 //		GetFolioRequest objGetFolioRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -232,7 +235,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetFolioRequestServerShutdown ", " Exit method testGetFolioRequestServerShutdown ");
+//		log.debug(" testGetFolioRequestServerShutdown ", " Exit method testGetFolioRequestServerShutdown ");
 //
 //	}
 //
@@ -244,7 +247,7 @@
 //	//@Test
 //	public void testGetFolioRequest() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetFolioRequest ", " Enter method testGetFolioRequest ");
+//		log.debug(" testGetFolioRequest ", " Enter method testGetFolioRequest ");
 //
 //		GetFolioRequest objGetFolioRequest = null;
 //		GetFolioResponse objGetFolioResponse = null;
@@ -274,7 +277,7 @@
 //
 //			}
 //		}
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetFolioRequest ", " Exit method testGetFolioRequest ");
+//		log.debug(" testGetFolioRequest ", " Exit method testGetFolioRequest ");
 //	}
 //
 //	/**
@@ -286,7 +289,7 @@
 //	//@Test
 //	public void testGetFolioRequestForFailure() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetFolioRequestForFailure ", " Enter method testGetFolioRequestForFailure ");
+//		log.debug(" testGetFolioRequestForFailure ", " Enter method testGetFolioRequestForFailure ");
 //
 //		GetFolioRequest objGetFolioRequest = null;
 //		GetFolioResponse objGetFolioResponse = null;
@@ -301,7 +304,7 @@
 //		assertTrue( "Reservation Instance should null " , objGetFolioResponse.getReservation() == null);
 //		assertEquals( "OrderList Size Zero ", 0, objGetFolioResponse.getReservationOrderList().size());
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetFolioRequestForFailure ", " Exit method testGetFolioRequestForFailure ");
+//		log.debug(" testGetFolioRequestForFailure ", " Exit method testGetFolioRequestForFailure ");
 //	}
 //	/**
 //	 * This method makes get folio request to the web service.
@@ -309,9 +312,9 @@
 //	 * @param objGetFolioRequest
 //	 * @return
 //	 */
-//	private static GetFolioResponse makeGetFolioRequest( GetFolioRequest objGetFolioRequest) {
+//	private GetFolioResponse makeGetFolioRequest( GetFolioRequest objGetFolioRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeGetFolioRequest ", " Enter method makeGetFolioRequest ");
+//		log.debug(" makeGetFolioRequest ", " Enter method makeGetFolioRequest ");
 //
 //		Entity<GetFolioRequest> entity = Entity.json(objGetFolioRequest);
 //
@@ -323,7 +326,7 @@
 //
 //		GetFolioResponse objGetFolioResponse = response.readEntity(GetFolioResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeGetFolioRequest ", " Exit method makeGetFolioRequest ");
+//		log.debug(" makeGetFolioRequest ", " Exit method makeGetFolioRequest ");
 //
 //		return objGetFolioResponse;
 //	}
@@ -335,7 +338,7 @@
 //	//@Test
 //	public void testUpdateBookingRequestServerShutdown()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testUpdateBookingRequestServerShutdown ", " Enter method testUpdateBookingRequestServerShutdown ");
+//		log.debug(" testUpdateBookingRequestServerShutdown ", " Enter method testUpdateBookingRequestServerShutdown ");
 //
 //		UpdateBookingRequest objUpdateBookingRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -356,7 +359,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testUpdateBookingRequestServerShutdown ", " Exit method testUpdateBookingRequestServerShutdown ");
+//		log.debug(" testUpdateBookingRequestServerShutdown ", " Exit method testUpdateBookingRequestServerShutdown ");
 //
 //	}
 //
@@ -368,7 +371,7 @@
 //	//@Ignore
 //	public void testUpdateBookingRequest() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testUpdateBookingRequest ", " Enter method testUpdateBookingRequest ");
+//		log.debug(" testUpdateBookingRequest ", " Enter method testUpdateBookingRequest ");
 //
 //		UpdateBookingRequest objUpdateBookingRequest = null;
 //		UpdateBookingResponse objUpdateBookingResponse = null;
@@ -397,7 +400,7 @@
 //		assertEquals( "First Notes " , "KING SIZE" , messages[0] );
 //		assertEquals( "Second Notes " , "NEAR POOL" , messages[1] );
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testUpdateBookingRequest ", " Exit method testUpdateBookingRequest ");
+//		log.debug(" testUpdateBookingRequest ", " Exit method testUpdateBookingRequest ");
 //	}
 //	/**
 //	 * This method makes update booking request to the web service.
@@ -405,9 +408,9 @@
 //	 * @param objUpdateBookingRequest
 //	 * @return
 //	 */
-//	private static UpdateBookingResponse makeUpdateBookingRequest( UpdateBookingRequest objUpdateBookingRequest) {
+//	private UpdateBookingResponse makeUpdateBookingRequest( UpdateBookingRequest objUpdateBookingRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeUpdateBookingRequest ", " Enter method makeUpdateBookingRequest ");
+//		log.debug(" makeUpdateBookingRequest ", " Enter method makeUpdateBookingRequest ");
 //
 //		Entity<UpdateBookingRequest> entity = Entity.json( objUpdateBookingRequest );
 //
@@ -419,7 +422,7 @@
 //
 //		UpdateBookingResponse objUpdateBookingResponse = response.readEntity(UpdateBookingResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeUpdateBookingRequest ", " Exit method makeUpdateBookingRequest ");
+//		log.debug(" makeUpdateBookingRequest ", " Exit method makeUpdateBookingRequest ");
 //
 //		return objUpdateBookingResponse;
 //
@@ -433,7 +436,7 @@
 //	//@Test
 //	public void testCheckInRequestServerShutdown()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, "testCheckInRequestServerShutdown", "Enter method testCheckInRequestServerShutdown");
+//		log.debug("testCheckInRequestServerShutdown", "Enter method testCheckInRequestServerShutdown");
 //
 //		CheckInRequest objCheckInRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -455,7 +458,7 @@
 //		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
 //		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, "testCheckInRequestServerShutdown", "Exit method for testCheckInRequestServerShutdown");
+//		log.debug("testCheckInRequestServerShutdown", "Exit method for testCheckInRequestServerShutdown");
 //
 //	}
 //	/**
@@ -467,7 +470,7 @@
 //	@Ignore
 //	public void testCheckInRequest() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckInRequest ", " Enter method testCheckInRequest ");
+//		log.debug(" testCheckInRequest ", " Enter method testCheckInRequest ");
 //
 //		CheckInRequest objCheckInRequest = null;
 //		CheckInResponse objCheckInResponse = null;
@@ -492,7 +495,7 @@
 //		assertTrue ( "CheckIn Date should not be null ", objCheckInResponse.getReservation().getCheckinDate() != null );
 //		assertTrue ( "CheckOut Date should not be null ", objCheckInResponse.getReservation().getCheckoutDate() != null );
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckInRequest ", " Exit method testCheckInRequest ");
+//		log.debug(" testCheckInRequest ", " Exit method testCheckInRequest ");
 //	}
 //
 //	/**
@@ -502,7 +505,7 @@
 //	//@Test
 //	public void testCheckInRequestForFailure() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckInRequestForFailure ", " Enter method testCheckInRequestForFailure ");
+//		log.debug(" testCheckInRequestForFailure ", " Enter method testCheckInRequestForFailure ");
 //
 //		CheckInRequest objCheckInRequest = null;
 //		CheckInResponse objCheckInResponse = null;
@@ -518,7 +521,7 @@
 //		assertTrue( "Reservation Instance in response cannot be null ", objCheckInResponse.getReservation() == null );
 //		assertEquals( "Status Must be Success", "FAILURE" , objCheckInResponse.getStatus() );
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckInRequestForFailure ", " Exit method testCheckInRequestForFailure ");
+//		log.debug(" testCheckInRequestForFailure ", " Exit method testCheckInRequestForFailure ");
 //	}
 //
 //	/**
@@ -527,9 +530,9 @@
 //	 * @param objCheckInRequest
 //	 * @return
 //	 */
-//	private static CheckInResponse makeCheckInRequest( CheckInRequest objCheckInRequest) {
+//	private CheckInResponse makeCheckInRequest( CheckInRequest objCheckInRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeCheckInRequest ", " Enter method makeCheckInRequest ");
+//		log.debug(" makeCheckInRequest ", " Enter method makeCheckInRequest ");
 //
 //		Entity<CheckInRequest> entity = Entity.json( objCheckInRequest );
 //
@@ -541,7 +544,7 @@
 //
 //		CheckInResponse objCheckInResponse = response.readEntity(CheckInResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeCheckInRequest ", " Exit method makeCheckInRequest ");
+//		log.debug(" makeCheckInRequest ", " Exit method makeCheckInRequest ");
 //
 //		return objCheckInResponse;
 //
@@ -554,7 +557,7 @@
 //	//@Test
 //	public void testGetAvailabilityRequest() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetAvailabilityRequest ", " Enter method testGetAvailabilityRequest ");
+//		log.debug(" testGetAvailabilityRequest ", " Enter method testGetAvailabilityRequest ");
 //
 //		GetAvailabilityRequest objGetAvailabilityRequest = null;
 //		GetAvailabilityResponse objGetAvailabilityResponse = null;
@@ -581,10 +584,10 @@
 //		}
 //		catch (Exception exc){
 //
-//			WebAppLogger.logError(KeyprWebServicesTest.class, "testGetAvailabilityRequest", exc);
+//			log.error("testGetAvailabilityRequest", exc);
 //		}
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetAvailabilityRequest ", " Exit method testGetAvailabilityRequest ");
+//		log.debug(" testGetAvailabilityRequest ", " Exit method testGetAvailabilityRequest ");
 //
 //	}
 //	/**
@@ -594,7 +597,7 @@
 //	//@Test
 //	public void testGetAvailabilityRequestServerShutdown() {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetAvailabilityRequestServerShutdown ", " Enter method testGetAvailabilityRequestServerShutdown ");
+//		log.debug(" testGetAvailabilityRequestServerShutdown ", " Enter method testGetAvailabilityRequestServerShutdown ");
 //
 //		GetAvailabilityRequest objGetAvailabilityRequest=null;
 //		TimeOutError objTimeOutError=null;
@@ -613,7 +616,7 @@
 //		}
 //		catch (Exception exc){
 //
-//			WebAppLogger.logError(KeyprWebServicesTest.class, "testGetAvailabilityRequestServerShutdown", exc);
+//			log.error("testGetAvailabilityRequestServerShutdown", exc);
 //		}
 //
 //		Entity<GetAvailabilityRequest> entity = Entity.json(objGetAvailabilityRequest);
@@ -627,7 +630,7 @@
 //		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testGetAvailabilityRequestServerShutdown ", " Exit method testGetAvailabilityRequestServerShutdown ");
+//		log.debug(" testGetAvailabilityRequestServerShutdown ", " Exit method testGetAvailabilityRequestServerShutdown ");
 //
 //	}
 //
@@ -637,9 +640,9 @@
 //	 * @param objGetAvailabilityRequest
 //	 * @return
 //	 */
-//	private static GetAvailabilityResponse makeGetAvailabilityRequest( GetAvailabilityRequest objGetAvailabilityRequest) {
+//	private GetAvailabilityResponse makeGetAvailabilityRequest( GetAvailabilityRequest objGetAvailabilityRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeGetAvailabilityRequest ", " Enter method makeGetAvailabilityRequest ");
+//		log.debug(" makeGetAvailabilityRequest ", " Enter method makeGetAvailabilityRequest ");
 //
 //		Entity<GetAvailabilityRequest> entity = Entity.json( objGetAvailabilityRequest );
 //
@@ -651,7 +654,7 @@
 //
 //		GetAvailabilityResponse objGetAvailabilityResponse = response.readEntity(GetAvailabilityResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeGetAvailabilityRequest ", " Exit method makeGetAvailabilityRequest ");
+//		log.debug(" makeGetAvailabilityRequest ", " Exit method makeGetAvailabilityRequest ");
 //
 //		return objGetAvailabilityResponse;
 //
@@ -664,9 +667,9 @@
 //	 * @param objCheckOutRequest
 //	 * @return
 //	 */
-//	private static CheckOutResponse makeCheckOutRequest( CheckOutRequest objCheckOutRequest) {
+//	private CheckOutResponse makeCheckOutRequest( CheckOutRequest objCheckOutRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeCheckInRequest ", " Enter method makeCheckInRequest ");
+//		log.debug(" makeCheckInRequest ", " Enter method makeCheckInRequest ");
 //
 //		Entity<CheckOutRequest> entity = Entity.json( objCheckOutRequest );
 //
@@ -676,7 +679,7 @@
 //
 //		CheckOutResponse objCheckOutResponse = response.readEntity(CheckOutResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeCheckInRequest ", " Enter method makeCheckInRequest ");
+//		log.debug(" makeCheckInRequest ", " Enter method makeCheckInRequest ");
 //
 //		return objCheckOutResponse;
 //	}
@@ -688,7 +691,7 @@
 //	//@Test
 //	public void testCheckOutRequestServerShutdown()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckOutRequestServerShutdown ", " Enter method testCheckOutRequestServerShutdown ");
+//		log.debug(" testCheckOutRequestServerShutdown ", " Enter method testCheckOutRequestServerShutdown ");
 //
 //		CheckOutRequest objCheckOutRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -708,7 +711,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckOutRequestServerShutdown ", " Exit method testCheckOutRequestServerShutdown ");
+//		log.debug(" testCheckOutRequestServerShutdown ", " Exit method testCheckOutRequestServerShutdown ");
 //
 //	}
 //
@@ -722,7 +725,7 @@
 //	//@Ignore
 //	public void testCheckOutRequest(){
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckOutRequest ", " Enter method testCheckOutRequest ");
+//		log.debug(" testCheckOutRequest ", " Enter method testCheckOutRequest ");
 //
 //		CheckOutRequest objCheckOutRequest = null;
 //		CheckOutResponse objCheckOutResponse = null;
@@ -744,7 +747,7 @@
 //		//			assertTrue ( "CheckIn Date should not be null ", objCheckOutResponse.getReservation().getCheckinDate() != null );
 //		//			assertTrue ( "CheckOut Date should not be null ", objCheckOutResponse.getReservation().getCheckoutDate() != null );
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testCheckOutRequest ", " Exit method testCheckOutRequest ");
+//		log.debug(" testCheckOutRequest ", " Exit method testCheckOutRequest ");
 //
 //	}
 //
@@ -755,9 +758,9 @@
 //	 * @param assignRoomRequest
 //	 * @return AssignRoomResponse
 //	 */
-//	private static AssignRoomResponse makeAssignRoomRequest( AssignRoomRequest assignRoomRequest) {
+//	private AssignRoomResponse makeAssignRoomRequest( AssignRoomRequest assignRoomRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Enter method makeAssignRoomRequest ");
+//		log.debug(" makeAssignRoomRequest ", " Enter method makeAssignRoomRequest ");
 //
 //		Entity<AssignRoomRequest> entity = Entity.json( assignRoomRequest );
 //
@@ -767,7 +770,7 @@
 //
 //		AssignRoomResponse objAssignRoomResponse = response.readEntity(AssignRoomResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Exit method makeAssignRoomRequest ");
+//		log.debug(" makeAssignRoomRequest ", " Exit method makeAssignRoomRequest ");
 //
 //		return objAssignRoomResponse;
 //	}
@@ -779,7 +782,7 @@
 //	//@Test
 //	public void testAssignRoomRequestServerShutdown()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testAssignRoomRequestServerShutdown ", " Enter methodtestAssignRoomRequestServerShutdown ");
+//		log.debug(" testAssignRoomRequestServerShutdown ", " Enter methodtestAssignRoomRequestServerShutdown ");
 //
 //		AssignRoomRequest objAssignRoomRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -801,7 +804,7 @@
 //		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
 //		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, "testAssignRoomRequestServerShutdown", "Exit method for testAssignRoomRequestServerShutdown");
+//		log.debug("testAssignRoomRequestServerShutdown", "Exit method for testAssignRoomRequestServerShutdown");
 //
 //	}
 //
@@ -811,7 +814,7 @@
 //	//@Test
 //	public void testAssignRoomRequest(){
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testAssignRoomRequest ", " Enter method testAssignRoomRequest ");
+//		log.debug(" testAssignRoomRequest ", " Enter method testAssignRoomRequest ");
 //
 //		AssignRoomRequest objAssignRoomRequest = null;
 //		AssignRoomResponse objAssignRoomResponse = null;
@@ -834,7 +837,7 @@
 //		assertNotNull( "Assigned Room Number in  in response cannot be null ", objAssignRoomResponse.getAssignRoomNumber());
 //		assertEquals( "Status Must be Success", "SUCCESS" , objAssignRoomResponse.getStatus() );
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testAssignRoomRequest ", " Exit method testAssignRoomRequest ");
+//		log.debug(" testAssignRoomRequest ", " Exit method testAssignRoomRequest ");
 //
 //	}
 //	/**
@@ -842,9 +845,9 @@
 //	 * @param releaseRoomRequest
 //	 * @return ReleaseRoomResponse
 //	 */
-//	private static ReleaseRoomResponse makeReleaseRoomRequest( ReleaseRoomRequest releaseRoomRequest) {
+//	private ReleaseRoomResponse makeReleaseRoomRequest( ReleaseRoomRequest releaseRoomRequest) {
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeReleaseRoomRequest ", " Enter method makeReleaseRoomRequest ");
+//		log.debug(" makeReleaseRoomRequest ", " Enter method makeReleaseRoomRequest ");
 //
 //		Entity<ReleaseRoomRequest> entity = Entity.json( releaseRoomRequest );
 //
@@ -854,7 +857,7 @@
 //
 //		ReleaseRoomResponse objReleaseRoomResponse = response.readEntity(ReleaseRoomResponse.class);
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " makeAssignRoomRequest ", " Exit method makeAssignRoomRequest ");
+//		log.debug(" makeAssignRoomRequest ", " Exit method makeAssignRoomRequest ");
 //
 //		return objReleaseRoomResponse;
 //	}
@@ -864,7 +867,7 @@
 //	//@Test
 //	public void testReleaseRoomRequest()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testReleaseRoomRequest ", " Enter method testReleaseRoomRequest ");
+//		log.debug(" testReleaseRoomRequest ", " Enter method testReleaseRoomRequest ");
 //
 //		ReleaseRoomRequest  objReleaseRoomRequest = null;
 //		ReleaseRoomResponse objReleaseRoomResponse = null;
@@ -878,7 +881,7 @@
 //		assertNotNull( " ReleaseRoomResponse Instance must not be null " , objReleaseRoomResponse );
 //		assertEquals("SUCCESS", objReleaseRoomResponse.getStatus());
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testReleaseRoomRequest ", " Exit method testReleaseRoomRequest ");
+//		log.debug(" testReleaseRoomRequest ", " Exit method testReleaseRoomRequest ");
 //
 //	}
 //	/**
@@ -888,7 +891,7 @@
 //	//@Test
 //	public void testReleseRoomRequestServerShutdown()
 //	{
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, " testReleseRoomRequestServerShutdown ", " Enter testReleseRoomRequestServerShutdown ");
+//		log.debug(" testReleseRoomRequestServerShutdown ", " Enter testReleseRoomRequestServerShutdown ");
 //
 //		ReleaseRoomRequest objReleaseRoomRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -908,7 +911,7 @@
 //		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		WebAppLogger.logInfo(KeyprWebServicesTest.class, "testReleseRoomRequestServerShutdown", "Exit method for testReleseRoomRequestServerShutdown");
+//		log.debug("testReleseRoomRequestServerShutdown", "Exit method for testReleseRoomRequestServerShutdown");
 //
 //
 //	}

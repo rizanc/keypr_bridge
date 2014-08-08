@@ -11,6 +11,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,15 +23,16 @@ import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
 import com.micros.harvester.constant.IMicrosHarvester;
-import com.micros.harvester.logger.DataHarvesterLogger;
 
 /**
  * This class contains the parser logic for reservation using xpath.
- * 
+ *
  * @author niveditat
  *
  */
 public class OXIParserUtility {
+
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * The parsed document
@@ -42,9 +45,9 @@ public class OXIParserUtility {
 	 private Boolean docLoaded = false ;
 
 	/**
-	 * * This method accept xpath expression and reference of xml document. It returns the list 
+	 * * This method accept xpath expression and reference of xml document. It returns the list
 	 * of nodes satisfying the criteria of xpath expression.
-	 * 
+	 *
 	 * @param expression
 	 * @param document
 	 * @return
@@ -52,15 +55,15 @@ public class OXIParserUtility {
 	 */
 	private NodeList retrieveNodeList(String expression , Document document) throws XPathExpressionException {
 
-		XPath xPath =  XPathFactory.newInstance().newXPath();		
-		NodeList nodeList = (NodeList) xPath.compile(expression).evaluate( document, XPathConstants.NODESET );	
+		XPath xPath =  XPathFactory.newInstance().newXPath();
+		NodeList nodeList = (NodeList) xPath.compile(expression).evaluate( document, XPathConstants.NODESET );
 		return nodeList;
 	}
 
 
 	/**
 	 * Parse the OXI xml into a document for further processing.
-	 * 
+	 *
 	 */
 	public void loadDoc( File xmlfile ){
 		try {
@@ -69,14 +72,14 @@ public class OXIParserUtility {
 			DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
 			if ( xmlfile.exists() ) {
 
-				document = docBuilder.parse( xmlfile ); 
+				document = docBuilder.parse( xmlfile );
 				docLoaded = true ;
 				}
-				
+
 		}
 		catch ( Exception exc ){
 
-			DataHarvesterLogger.logError( OXIParserUtility.class," loadDoc ", exc);
+			log.error(" loadDoc ", exc);
 		}
 
 
@@ -86,7 +89,7 @@ public class OXIParserUtility {
 
 	/**
 	 * Return true if document is a Reservation
-	 * 
+	 *
 	 */
 	public Boolean isReservation( ){
 		boolean returnVal = false ;
@@ -97,20 +100,20 @@ public class OXIParserUtility {
 					NodeList nodeList = retrieveNodeList(expression, document );
 					returnVal = (nodeList.getLength() > 0 );
 				}
-				
+
 		}
 		catch ( Exception exc ){
 
-			DataHarvesterLogger.logError( OXIParserUtility.class," isReaservation ", exc);
+			log.error(" isReaservation ", exc);
 		}
-		
+
 		return returnVal ;
 	}
 
 
 	/**
 	 * Return true if document is a Rtav
-	 * 
+	 *
 	 */
 	public Boolean isRtav( ){
 		Boolean returnVal = false ;
@@ -121,13 +124,13 @@ public class OXIParserUtility {
 					NodeList nodeList = retrieveNodeList(expression, document );
 					returnVal = (nodeList.getLength() > 0 );
 				}
-				
+
 		}
 		catch ( Exception exc ){
 
-			DataHarvesterLogger.logError( OXIParserUtility.class," isRtav ", exc);
+			log.error(" isRtav ", exc);
 		}
-		
+
 		return returnVal ;
 	}
 
@@ -136,13 +139,13 @@ public class OXIParserUtility {
 	/**
 	 * This method accepts a reservation xml file, sent from the oxi. It parses the xml file and
 	 * populate the instance of reservation. It returns an instance of reservation.
-	 * 
+	 *
 	 * @param reservationFile
 	 * @return
 	 */
 	public Reservation populateReservation ( File reservationFile ) {
 
-		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Enter populateReservation method. ");
+		log.info(" populateReservation ", " Enter populateReservation method. ");
 
 		ReservationRoomAllocation objRoomAllocation = null ;
 		Reservation objReservation = null;
@@ -164,7 +167,7 @@ public class OXIParserUtility {
 		String loyaltyNumber = "";
 
 		String checkInDate = "";
-		String stayLength = "";	
+		String stayLength = "";
 		String firstName = "";
 		String lastName = "";
 		String fullName = "";
@@ -192,7 +195,7 @@ public class OXIParserUtility {
 			//obRoomRatesList = objRoomAllocation.getRoomRateList();
 			obRoomRatesList = new ArrayList<RoomRate>();
 
-			obRoomAllocationsList = new ArrayList<ReservationRoomAllocation>(); 
+			obRoomAllocationsList = new ArrayList<ReservationRoomAllocation>();
 			objRoomType = new RoomType();
 			objStringBuffer = new StringBuffer();
 
@@ -210,7 +213,7 @@ public class OXIParserUtility {
 
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " ReservationType :: " + reservationAction);
+				log.info( " populateReservation ", " ReservationType :: " + reservationAction);
 
 				/*if( reservationAction.equalsIgnoreCase( "ADD" )) {*/
 				if( reservationAction.equalsIgnoreCase( IMicrosHarvester.RESERVATION_TYPE_NEW ) ) {
@@ -228,14 +231,14 @@ public class OXIParserUtility {
 						confirmationNumber = nodeList.item(i).getFirstChild().getNodeValue();
 					}
 
-					DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Confirmation Number :: " + confirmationNumber );
+					log.info( " populateReservation ", " Confirmation Number :: " + confirmationNumber );
 				}
 
 				// Retrieving room rates
 				expression = "/Reservation/RoomStays/RoomStay/RatePlans/RatePlan";
 				NodeList ratePlanList = retrieveNodeList( expression, document );
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Number of Rate Plans :: " + ratePlanList.getLength() );
+				log.info( " populateReservation ", " Number of Rate Plans :: " + ratePlanList.getLength() );
 
 				for( int k = 0; k < ratePlanList.getLength(); k++ ) {
 
@@ -246,7 +249,7 @@ public class OXIParserUtility {
 
 						planCode = planCodeList.item(i).getFirstChild().getNodeValue();
 
-						DataHarvesterLogger.logInfo( DataUtility.class, " populateReservation ", " Rate Plan Code:: " + planCode );
+						log.info(" populateReservation ", " Rate Plan Code:: " + planCode );
 
 						expression = "/Reservation/RoomStays/RoomStay/RatePlans/RatePlan[ratePlanCode='"+planCode+"']/Rates ";
 
@@ -254,7 +257,7 @@ public class OXIParserUtility {
 
 						NodeList rateList = retrieveNodeList(expr, document);
 
-						DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Number of Rate " + rateList.getLength() + " for plan code " + planCode );
+						log.info( " populateReservation ", " Number of Rate " + rateList.getLength() + " for plan code " + planCode );
 
 						for( int len= 0;len<rateList.getLength(); len++ ) {
 
@@ -297,7 +300,7 @@ public class OXIParserUtility {
 
 				}
 
-				// Retrieving credit card number 
+				// Retrieving credit card number
 				expression = "/Reservation/ResCreditCards/ResCreditCard/profile/CreditCard/creditCardNumber";
 				nodeList = retrieveNodeList( expression,document);
 
@@ -306,7 +309,7 @@ public class OXIParserUtility {
 					creditCardNumber = nodeList.item(i).getFirstChild().getNodeValue();
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Credit card number :: " + creditCardNumber );
+				log.info( " populateReservation ", " Credit card number :: " + creditCardNumber );
 
 				// Retrieving reservationStatusType whether it is reserved, check in or canceled...
 				expression = "Reservation/RoomStays/RoomStay[@reservationStatusType]";
@@ -319,7 +322,7 @@ public class OXIParserUtility {
 					objRoomAllocation.setReservationStatusType(reservationStatusType);
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Room Stay Status Type " + reservationStatusType);
+				log.info( " populateReservation ", " Room Stay Status Type " + reservationStatusType);
 
 				// Retrieving room number
 				expression = "Reservation/RoomStays/RoomStay/roomID";
@@ -332,9 +335,9 @@ public class OXIParserUtility {
 					objRoomAllocation.setRoomNo(Integer.parseInt(roomNumber));
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Room Number " + roomNumber);
+				log.info( " populateReservation ", " Room Number " + roomNumber);
 
-				// Retrieving Reservation Source 
+				// Retrieving Reservation Source
 				expression = "/Reservation/reservationOriginatorCode";
 
 				nodeList = retrieveNodeList( expression,document);
@@ -344,7 +347,7 @@ public class OXIParserUtility {
 					reservationSource = nodeList.item(i).getFirstChild().getNodeValue();
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Reservation Source " + reservationSource);
+				log.info( " populateReservation ", " Reservation Source " + reservationSource);
 
 
 				// Retrieving loyalty number
@@ -356,7 +359,7 @@ public class OXIParserUtility {
 
 					loyaltyNumber = nodeList.item(index).getFirstChild().getNodeValue();
 				}
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Loyalty Number " + loyaltyNumber);
+				log.info( " populateReservation ", " Loyalty Number " + loyaltyNumber);
 
 
 				// Retrieving Comments of the Reservation
@@ -369,12 +372,12 @@ public class OXIParserUtility {
 					objStringBuffer.append(nodeList.item(index).getFirstChild().getNodeValue()).append(" ; ");
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Message Retrieved is " + objStringBuffer);
+				log.info( " populateReservation ", " Message Retrieved is " + objStringBuffer);
 
 				objReservation.setNotes(objStringBuffer.toString());
 				objStringBuffer.delete(0, objStringBuffer.length() );
 
-				// Retrieving CheckIn, CheckOut and StayLength of the Guest        	
+				// Retrieving CheckIn, CheckOut and StayLength of the Guest
 				expression = "/Reservation/StayDateRange/startTime";
 				nodeList = retrieveNodeList( expression,document);
 
@@ -392,12 +395,12 @@ public class OXIParserUtility {
 					stayLength = (nodeList.item(index).getFirstChild().getNodeValue());
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " Check In Date  " + checkInDate);
-				DataHarvesterLogger.logInfo( OXIParserUtility.class, " populateReservation ", " StayLength " + stayLength);
+				log.info( " populateReservation ", " Check In Date  " + checkInDate);
+				log.info( " populateReservation ", " StayLength " + stayLength);
 
 				objStringBuffer.delete(0, objStringBuffer.length());
 
-				// Retrieving notes of the reservation 
+				// Retrieving notes of the reservation
 				expression = "/Reservation/SpecialRequests/SpecialRequest/requestCode";
 				String reqCode = "";
 
@@ -421,7 +424,7 @@ public class OXIParserUtility {
 
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Notes :: " + objStringBuffer);
+				log.info(" populateReservation ", " Notes :: " + objStringBuffer);
 				objReservation.setMessage( objStringBuffer.toString() );
 				objStringBuffer.delete(0, objStringBuffer.length());
 
@@ -437,18 +440,18 @@ public class OXIParserUtility {
 					objRoomAllocation.setRoomType( objRoomType );
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Room code :: " + roomCode);
+				log.info(" populateReservation ", " Room code :: " + roomCode);
 
 				//For Hotel Code.
 				expression = "/Reservation/HotelReference/hotelCode";
 				System.out.println(expression);
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Hotel Code " );
+				log.info(" populateReservation ", " Iterating Hotel Code " );
 
 				nodeList = retrieveNodeList(expression ,document );
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing hotel code.
 
 					hotelCode = nodeList.item(index).getFirstChild().getNodeValue();
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Hotel Code : "+ hotelCode);
+					log.info(" populateReservation ", " Hotel Code : "+ hotelCode);
 
 				}
 
@@ -458,13 +461,13 @@ public class OXIParserUtility {
 
 				expression = "/Reservation/reservationID";
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating ReservationID " );
+				log.info(" populateReservation ", " Iterating ReservationID " );
 
 				nodeList = retrieveNodeList(expression ,document );
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing reservation id.
 
 					pmsId = nodeList.item(index).getFirstChild().getNodeValue();
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " ReswervationID : " + pmsId);
+					log.info(" populateReservation ", " ReswervationID : " + pmsId);
 					//					objReservation.setId( pmsId );
 
 				}
@@ -473,7 +476,7 @@ public class OXIParserUtility {
 
 				//Loyalty Program.
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Loyalty Program. " );
+				log.info(" populateReservation ", " Iterating Loyalty Program. " );
 
 				expression = "/Reservation/SelectedMemberships/SelectedMembership/programCode";
 				System.out.println(expression);
@@ -481,38 +484,38 @@ public class OXIParserUtility {
 				nodeList = retrieveNodeList(expression ,document );
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing loyalty program.
 
-					loyaltyProgram = nodeList.item(index).getFirstChild().getNodeValue();	
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Loyalty Program : "+ loyaltyProgram );
+					loyaltyProgram = nodeList.item(index).getFirstChild().getNodeValue();
+					log.info(" populateReservation ", " Loyalty Program : "+ loyaltyProgram );
 					//					objReservation.setLoyaltyProgram( loyaltyProgram );
-				}	
+				}
 
 				//End Loyalty Program.
 
 
 				// For Guest Count .
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Guest Count " );	
+				log.info(" populateReservation ", " Iterating Guest Count " );
 
-				expression = "/Reservation/GuestCounts/GuestCount/mfCount";   
+				expression = "/Reservation/GuestCounts/GuestCount/mfCount";
 
 				nodeList = retrieveNodeList(expression ,document );
 				for (int index = 0; index < nodeList.getLength(); index++) { // Traversing guest count.
 
 					int guestCount = Integer.parseInt( nodeList.item(index).getFirstChild().getNodeValue() );
-					totalGuest = totalGuest + guestCount;		
+					totalGuest = totalGuest + guestCount;
 
 				}
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Guest Count : "+ totalGuest );
+				log.info(" populateReservation ", " Guest Count : "+ totalGuest );
 				objReservation.setNumberOfGuests( totalGuest );
 
 				// End Guest Count.
 
 				// For Profile.
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Profile. " );
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Full Name. " );
+				log.info(" populateReservation ", " Iterating Profile. " );
+				log.info(" populateReservation ", " Iterating Full Name. " );
 
-				expression = "/Reservation/ResProfiles/ResProfile/Profile"; 
+				expression = "/Reservation/ResProfiles/ResProfile/Profile";
 				String fNameExpression = expression.concat("/IndividualName/nameFirst");
 
 				// For first name.
@@ -520,26 +523,26 @@ public class OXIParserUtility {
 				nodeList = retrieveNodeList(fNameExpression ,document );
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing first name.
 
-					firstName = nodeList.item(index).getFirstChild().getNodeValue();	
+					firstName = nodeList.item(index).getFirstChild().getNodeValue();
 					objReservation.setFirstName( firstName );
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " First Name: " + firstName );
+				log.info(" populateReservation ", " First Name: " + firstName );
 
 				// End First Name.
 
 				// For last Name.
 
-				String	lNameExpression = expression.concat("/IndividualName/nameSur");	
+				String	lNameExpression = expression.concat("/IndividualName/nameSur");
 
-				nodeList = retrieveNodeList( lNameExpression , document );   
+				nodeList = retrieveNodeList( lNameExpression , document );
 				for( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing last name.
 
-					lastName = nodeList.item(index).getFirstChild().getNodeValue();		
+					lastName = nodeList.item(index).getFirstChild().getNodeValue();
 					objReservation.setLastName( lastName );
 				}
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Last Name: "+ lastName);
+				log.info(" populateReservation ", " Last Name: "+ lastName);
 
 				//End Last Name.
 
@@ -548,32 +551,32 @@ public class OXIParserUtility {
 
 					fullName = firstName.concat(lastName);
 
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Full Name: "+ fullName );
+					log.info(" populateReservation ", " Full Name: "+ fullName );
 
 				}
 				else if( firstName != null && firstName.length() > 0) {
 
 					fullName = firstName;
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Full Name: "+ fullName);
+					log.info(" populateReservation ", " Full Name: "+ fullName);
 				}
 				else if(lastName != null && lastName.length() > 0) {
 
 					fullName = lastName;
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Full Name: "+ fullName);
+					log.info(" populateReservation ", " Full Name: "+ fullName);
 				}
 				else {
 
 					fullName = "";
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Full Name: "+ fullName);
+					log.info(" populateReservation ", " Full Name: "+ fullName);
 				}
 
 				//               objReservation.setFullName(fullName);
 
 				// To Traverse the address.
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Address. " );
+				log.info(" populateReservation ", " Iterating Address. " );
 
-				expression = "/Reservation/ResProfiles/ResProfile/Profile"; 
+				expression = "/Reservation/ResProfiles/ResProfile/Profile";
 				String postalAddress = expression.concat("/PostalAddresses/PostalAddress");
 
 				NodeList postAddreessNList = retrieveNodeList( postalAddress , document );
@@ -591,7 +594,7 @@ public class OXIParserUtility {
 
 						for (int index = 0; index < nodeList.getLength(); index++) {// Traverse Postal Address.
 
-							objStringBuffer.append( nodeList.item(index).getFirstChild().getNodeValue() +";" );		
+							objStringBuffer.append( nodeList.item(index).getFirstChild().getNodeValue() +";" );
 						} // End  Postal Address.
 
 					}
@@ -602,21 +605,21 @@ public class OXIParserUtility {
 
 					for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traverse City.
 
-						objStringBuffer.append( nodeList.item(index).getFirstChild().getNodeValue() +";" );	
+						objStringBuffer.append( nodeList.item(index).getFirstChild().getNodeValue() +";" );
 
 						String postalExpression = expression.concat("/PostalAddresses/PostalAddress[@addressType='"+nodeType+"']/postalCode");
 						NodeList  postalCNodeList = retrieveNodeList( postalExpression , document );
 
 						for ( int i = 0; i < postalCNodeList.getLength(); i++ ) { // Traverse Postal Code
 
-							objStringBuffer.append( postalCNodeList.item(i).getFirstChild().getNodeValue() +";" );	
+							objStringBuffer.append( postalCNodeList.item(i).getFirstChild().getNodeValue() +";" );
 
 						}// End Postal Code.
 
 
 					}// End city.
 
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Address "+ objStringBuffer.toString() );
+					log.info(" populateReservation ", " Address "+ objStringBuffer.toString() );
 
 					address =  objStringBuffer.toString() ;
 					objStringBuffer.delete(0, objStringBuffer.length() );
@@ -630,34 +633,34 @@ public class OXIParserUtility {
 
 				// For phone number.
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Phone Number " );
+				log.info(" populateReservation ", " Iterating Phone Number " );
 
-				String phoneExpression = expression.concat("/PhoneNumbers/PhoneNumber/phoneNumber"); 
+				String phoneExpression = expression.concat("/PhoneNumbers/PhoneNumber/phoneNumber");
 
 				nodeList = retrieveNodeList(phoneExpression ,document );
 
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing phone number.
 
 					phoneNumber = nodeList.item(index).getFirstChild().getNodeValue();
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Phone Number : "+ phoneNumber);
+					log.info(" populateReservation ", " Phone Number : "+ phoneNumber);
 					//			        objReservation.setPhoneNumber( phoneNumber );
-				}		
+				}
 
 				//End phone number.
 
 				// For Company Name.
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Iterating Company Name " );
+				log.info(" populateReservation ", " Iterating Company Name " );
 
-				String companyExpression = expression.concat("/mfNationalName/companyName");				
+				String companyExpression = expression.concat("/mfNationalName/companyName");
 
 				nodeList = retrieveNodeList(companyExpression , document );
 
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing loyalty program.
 
 					companyName = nodeList.item(index).getFirstChild().getNodeValue();
-					DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Compnay Name: "+ companyName );
-				}	
+					log.info(" populateReservation ", " Compnay Name: "+ companyName );
+				}
 				//End Company Name
 
 				// To retrieve email address of guest
@@ -678,7 +681,7 @@ public class OXIParserUtility {
 						for( int leng = 0; leng < emailList.getLength(); leng++ ) {
 
 							email = emailList.item(leng).getFirstChild().getNodeValue();
-							DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Email is :: "+ email );
+							log.info(" populateReservation ", " Email is :: "+ email );
 
 						}
 					}
@@ -688,7 +691,7 @@ public class OXIParserUtility {
 				// Populate reservation instance with oxi reservation data.
 				objReservation.setAffilateId(IMicrosHarvester.OXI_AFFILATE_ID);
 				objReservation.setReservationAction(reservationAction);
-				objReservation.setConfirmationNumber( confirmationNumber );                                             
+				objReservation.setConfirmationNumber( confirmationNumber );
 				objReservation.setCreditCardNumber( creditCardNumber );
 				objReservation.setReservationSource( reservationSource );
 				objReservation.setLoyaltyNumber( loyaltyNumber );
@@ -702,7 +705,7 @@ public class OXIParserUtility {
 				objReservation.setAddress( address );System.out.println("Address Set is " + objReservation.getAddress());
 				objReservation.setPhoneNumber( phoneNumber );
 				objReservation.setCompany( companyName );
-				objRoomAllocation.setRoomRateList(obRoomRatesList);					
+				objRoomAllocation.setRoomRateList(obRoomRatesList);
 				obRoomAllocationsList.add(objRoomAllocation);
 				objReservation.setReservationRoomAllocationList(obRoomAllocationsList);
 				objReservation.setEmail(email);
@@ -710,16 +713,16 @@ public class OXIParserUtility {
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Not Reservation ");
+				log.info(" populateReservation ", " Not Reservation ");
 			}
 
 		}
 		catch ( Exception exc ){
 
-			DataHarvesterLogger.logError( OXIParserUtility.class," populateReservation ", exc);
+			log.error(" populateReservation ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateReservation ", " Exit populateReservation method. ");
+		log.info(" populateReservation ", " Exit populateReservation method. ");
 
 		return objReservation;
 
@@ -727,12 +730,12 @@ public class OXIParserUtility {
 
 	/**
 	 * Parses the document if it is Rtav
-	 * 
+	 *
 	 * @return
 	 */
 	public Rtav populateRtav ( ) {
 
-		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateRtav ", " Enter populateRtav method. ");
+		log.info(" populateRtav ", " Enter populateRtav method. ");
 
 		Rtav objRtav = new Rtav();
 		try {
@@ -742,16 +745,16 @@ public class OXIParserUtility {
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( OXIParserUtility.class," populateRtav ", " Not Rtav ");
+				log.info(" populateRtav ", " Not Rtav ");
 			}
 
 		}
 		catch ( Exception exc ){
 
-			DataHarvesterLogger.logError( OXIParserUtility.class," populateRtav ", exc);
+			log.error(" populateRtav ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( OXIParserUtility.class," populateRtav ", " Exit populateRtav method. ");
+		log.info(" populateRtav ", " Exit populateRtav method. ");
 
 		return objRtav;
 

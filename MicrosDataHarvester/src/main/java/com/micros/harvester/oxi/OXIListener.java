@@ -6,12 +6,13 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.micros.harvester.dao.IMicrosDAO;
 import com.micros.harvester.dao.MicrosDAOImpl;
-import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.util.OXIParserUtility;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -25,6 +26,7 @@ import java.net.InetSocketAddress;
  * @author vinayk2
  */
 public class OXIListener implements HttpHandler {
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	@Inject
 	protected IMicrosDAO microsDAO;
@@ -50,7 +52,7 @@ public class OXIListener implements HttpHandler {
 	 * to every request arriving to the url.
 	 */
 	public void connectWithOXI() {
-		DataHarvesterLogger.logInfo(OXIListener.class, " connectWithOXI ", " enter connectWithServer method ");
+		log.info(" connectWithOXI ", " enter connectWithServer method ");
 
 		try {
 			HttpServer oxiListener = HttpServer.create(new InetSocketAddress(listeningPortNum), 0);
@@ -59,10 +61,10 @@ public class OXIListener implements HttpHandler {
 			oxiListener.start();
 		} catch (Exception exc) {
 
-			DataHarvesterLogger.logError(OXIListener.class, " connectWithOXI ", exc);
+			log.error(" connectWithOXI ", exc);
 		}
 
-		DataHarvesterLogger.logInfo(OXIListener.class, " connectWithOXI ", " exit connectWithOXI method ");
+		log.info(" connectWithOXI ", " exit connectWithOXI method ");
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class OXIListener implements HttpHandler {
 	 */
 	@Override
 	public void handle(HttpExchange exchange) {
-		DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " enter handle method ");
+		log.info(" handle ", " enter handle method ");
 
 
 		try {
@@ -80,7 +82,7 @@ public class OXIListener implements HttpHandler {
 			Headers reqHeaders = exchange.getRequestHeaders();
 			String contentType = reqHeaders.getFirst("Content-Type");
 
-			DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " content type " + contentType);
+			log.info(" handle ", " content type " + contentType);
 
 			InputStream objInputStream = exchange.getRequestBody();
 
@@ -96,11 +98,11 @@ public class OXIListener implements HttpHandler {
 			//oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
 			oxiRequest = new String(objByteArray.toByteArray());
 
-			DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " Reservation Received " + oxiRequest);
+			log.info(" handle ", " Reservation Received " + oxiRequest);
 
 			File xmlFile = persistToFile(oxiRequest);
 
-			DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " File Created " + xmlFile.getName());
+			log.info(" handle ", " File Created " + xmlFile.getName());
 
 			OXIParserUtility objDataUtility = new OXIParserUtility();
 
@@ -112,11 +114,11 @@ public class OXIListener implements HttpHandler {
 			if (objDataUtility.isReservation()) {
 				Reservation objReservation = objDataUtility.populateReservation(xmlFile);
 				isPersisted = microsDAO.persistReservationData(objReservation);
-				DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " Reservation Stored in DataBase  " + isPersisted);
+				log.info(" handle ", " Reservation Stored in DataBase  " + isPersisted);
 			} else if (objDataUtility.isRtav()) {
 				Rtav objRtav = objDataUtility.populateRtav();
 				isPersisted = microsDAO.persistRtavData(objRtav);
-				DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " Rtav Stored in DataBase  " + isPersisted);
+				log.info(" handle ", " Rtav Stored in DataBase  " + isPersisted);
 			}
 
 			String response = " Status: SUCCESS code= 200 ok ";
@@ -129,10 +131,10 @@ public class OXIListener implements HttpHandler {
 
 		} catch (Exception exc) {
 
-			DataHarvesterLogger.logError(OXIListener.class, " handle ", exc);
+			log.error(" handle ", exc);
 		}
 
-		DataHarvesterLogger.logInfo(OXIListener.class, " handle ", " exit handle method ");
+		log.info(" handle ", " exit handle method ");
 
 	}
 
@@ -145,7 +147,7 @@ public class OXIListener implements HttpHandler {
 	 */
 	private File persistToFile(String oxiRequest) {
 
-		DataHarvesterLogger.logInfo(OXIListener.class, " persistToFile ", " enter persistToFile method ");
+		log.info(" persistToFile ", " enter persistToFile method ");
 
 		File oxiRev = null;
 		FileOutputStream fout;
@@ -156,15 +158,15 @@ public class OXIListener implements HttpHandler {
 
 			fout.write(oxiRequest.getBytes());
 
-			DataHarvesterLogger.logInfo(OXIListener.class, " persistToFile ", " content written to the file ");
+			log.info(" persistToFile ", " content written to the file ");
 			fout.close();
 
 		} catch (Exception exc) {
 
-			DataHarvesterLogger.logError(OXIListener.class, " persistToFile ", exc);
+			log.error(" persistToFile ", exc);
 		}
 
-		DataHarvesterLogger.logInfo(OXIListener.class, " persistToFile ", " exit persistToFile method ");
+		log.info(" persistToFile ", " exit persistToFile method ");
 
 		return oxiRev;
 	}

@@ -1,17 +1,15 @@
 package com.micros.harvester.dao;
 
 import com.cloudkey.commons.*;
-import com.cloudkey.commons.RoomRate;
-import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail;
-import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
-import com.google.inject.Inject;
-import com.micros.harvester.logger.DataHarvesterLogger;
-
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
-import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory;
+import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
+import com.google.inject.Inject;
 import com.micros.harvester.constant.IMicrosHarvester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -27,14 +25,16 @@ import java.util.List;
  */
 public class MicrosDAOImpl implements IMicrosDAO {
 
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+
 	@Inject
-	DataSource dataSource;
+	protected DataSource dataSource;
 
 /*
 	@Override
 	public boolean persistRoomStatusDataInBridgeDB( FetchRoomStatusResponse objFetchRoomStatusResponse ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Enter persistRoomStatusDataInBridgeDB method " );
+		log.info(" persistRoomStatusDataInBridgeDB ", " Enter persistRoomStatusDataInBridgeDB method " );
 
 		Connection objConnection = null;
 		PreparedStatement pStatement = null;
@@ -55,7 +55,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		com.micros.ows.resvadvanced.ResvAdvancedServiceStub.RoomStatus[] objRoomStatusArray = objFetchRoomStatusResponse.getRoomStatus();
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Number of RoomStatus is " + objRoomStatusArray.length);
+		log.info(" persistRoomStatusDataInBridgeDB ", " Number of RoomStatus is " + objRoomStatusArray.length);
 
 		try {
 
@@ -81,7 +81,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 				objRoomDetails.setRoomType(objRoomType);
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Room Detail object passed to checkExistence " );
+				log.info(" persistRoomStatusDataInBridgeDB ", " Room Detail object passed to checkExistence " );
 
 				isFound = checkExistence( objRoomDetails);
 
@@ -95,11 +95,11 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 						if( isUploaded ) {
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record uploaded in the room_details_upload queue " );
+							log.info(" persistRoomStatusDataInBridgeDB ", " Record uploaded in the room_details_upload queue " );
 
 							sqlQuery = IMicrosHarvester.QUERY_ROOM_DETAILS_UPDATE_BY_ROOM_NUMBER;
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Update Query " + sqlQuery );
+							log.info(" persistRoomStatusDataInBridgeDB ", " Update Query " + sqlQuery );
 
 							pStatement = objConnection.prepareStatement( sqlQuery );
 
@@ -112,50 +112,50 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							if( rowsUpdated != IMicrosHarvester.ROWS_UPDATED ) {
 
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record updated in the room_details " );
+								log.info(" persistRoomStatusDataInBridgeDB ", " Record updated in the room_details " );
 							}
 							else {
 
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record not updated in the room_details " );
+								log.info(" persistRoomStatusDataInBridgeDB ", " Record not updated in the room_details " );
 							}
 
 						}
 						else {
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record not uploaded in the room_details_upload queue " );
+							log.info(" persistRoomStatusDataInBridgeDB ", " Record not uploaded in the room_details_upload queue " );
 						}
 
 					}
 					else { //nothing new in fetched record
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Nothing to be uploaded on upload room status db " );
+						log.info(" persistRoomStatusDataInBridgeDB ", " Nothing to be uploaded on upload room status db " );
 					}
 
 				}
 				else { // fetched record is new
 
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record does not exist in room_details room number " + roomNumber );
+					log.info(" persistRoomStatusDataInBridgeDB ", " Record does not exist in room_details room number " + roomNumber );
 
 					isUploaded = pushDataToUpload( objRoomDetails );
 
 					if( isUploaded ) {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record uploaded in the room_details_upload queue " );
+						log.info(" persistRoomStatusDataInBridgeDB ", " Record uploaded in the room_details_upload queue " );
 						isInserted = persistRecordInBridgeRoomStatus( objRoomDetails);
 					}
 					else {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record not uploaded in the room_details_upload queue " );
+						log.info(" persistRoomStatusDataInBridgeDB ", " Record not uploaded in the room_details_upload queue " );
 					}
 
 					if ( isInserted ) {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record stored in room_details " );
+						log.info(" persistRoomStatusDataInBridgeDB ", " Record stored in room_details " );
 
 					}
 					else {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Record Cannot be stored in room_details " );
+						log.info(" persistRoomStatusDataInBridgeDB ", " Record Cannot be stored in room_details " );
 					}
 
 				}
@@ -163,7 +163,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", exc ) ;
+			log.error(" persistRoomStatusDataInBridgeDB ", exc ) ;
 		}
 
 		finally {
@@ -176,12 +176,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " StatusDataInBridgeDB Connection cannot be closed ", sqe );
+					log.error(" StatusDataInBridgeDB Connection cannot be closed ", sqe );
 				}
 			}
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomStatusDataInBridgeDB ", " Exit persistRoomStatusDataInBridgeDB method " );
+		log.info(" persistRoomStatusDataInBridgeDB ", " Exit persistRoomStatusDataInBridgeDB method " );
 
 		return isInserted;
 	}
@@ -196,7 +196,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private boolean compareRecord( RoomDetails objRoomDetails ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Enter compareRecord method " );
+		log.info(" compareRecord ", " Enter compareRecord method " );
 
 		boolean isNewFiedlValue = false;
 
@@ -211,7 +211,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_DETAILS_SELECT_BY_ROOM_NUMBER ;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Select Query " + sqlQuery );
+			log.info(" compareRecord ", " Select Query " + sqlQuery );
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
@@ -236,25 +236,25 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					if( persistObject.equals( objRoomDetails ) ) {
 
 						isNewFiedlValue = false;
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Duplicate Record Received " );
+						log.info(" compareRecord ", " Duplicate Record Received " );
 					}
 					else {
 
 						isNewFiedlValue = true;
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Unique Record Received " );
+						log.info(" compareRecord ", " Unique Record Received " );
 					}
 				}
 
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " No Record fetched from room_details " );
+				log.info(" compareRecord ", " No Record fetched from room_details " );
 			}
 
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareRecord ", exc ) ;
+			log.error(" compareRecord ", exc ) ;
 		}
 		finally {
 
@@ -266,20 +266,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareRecord Connection cannot be closed ", sqe );
+					log.error(" compareRecord Connection cannot be closed ", sqe );
 				}
 			}
 
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareRecord ", " Exit compareRecord method " );
+		log.info(" compareRecord ", " Exit compareRecord method " );
 
 		return isNewFiedlValue;
 	}
 
 	public boolean persistRecordInBridgeRoomStatus( RoomDetails objRoomDetails ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Enter persistRecordInBridgeRoomStatus method " );
+		log.info(" persistRecordInBridgeRoomStatus ", " Enter persistRecordInBridgeRoomStatus method " );
 
 		boolean isPersisted = false;
 
@@ -294,7 +294,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			objConnection = dataSource.getConnection();
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Insert Query " + sqlQuery );
+			log.info(" persistRecordInBridgeRoomStatus ", " Insert Query " + sqlQuery );
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
 			pStatement.setInt(1, (objRoomDetails.getRoomNumber()));
@@ -308,16 +308,16 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 				isPersisted = true;
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Row inserted in Room_Details " );
+				log.info(" persistRecordInBridgeRoomStatus ", " Row inserted in Room_Details " );
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Row cannot be inserted in Room_Details " );
+				log.info(" persistRecordInBridgeRoomStatus ", " Row cannot be inserted in Room_Details " );
 			}
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", exc) ;
+			log.error(" persistRecordInBridgeRoomStatus ", exc) ;
 		}
 		finally {
 
@@ -329,12 +329,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus Connection cannot be closed ", sqe );
+					log.error(" persistRecordInBridgeRoomStatus Connection cannot be closed ", sqe );
 				}
 			}
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInBridgeRoomStatus ", " Exit persistRecordInBridgeRoomStatus method " );
+		log.info(" persistRecordInBridgeRoomStatus ", " Exit persistRecordInBridgeRoomStatus method " );
 
 		return isPersisted;
 	}
@@ -348,7 +348,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private boolean pushDataToUpload( RoomDetails objRoomDetails ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Enter  pushDataToUpload method " );
+		log.info(" pushDataToUpload ", " Enter  pushDataToUpload method " );
 
 		boolean isPushed = false;
 
@@ -362,7 +362,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			objConnection = dataSource.getConnection();
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Insert Query " + sqlQuery );
+			log.info(" pushDataToUpload ", " Insert Query " + sqlQuery );
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
 			pStatement.setInt(1, (objRoomDetails.getRoomNumber()) );
@@ -375,17 +375,17 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			if ( rowInserted != IMicrosHarvester.ROWS_UPDATED ) {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Row inserted in Room_Details_upload " );
+				log.info(" pushDataToUpload ", " Row inserted in Room_Details_upload " );
 				isPushed = true;
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Row cannot be inserted in Room_Details_upload " );
+				log.info(" pushDataToUpload ", " Row cannot be inserted in Room_Details_upload " );
 			}
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " pushDataToUpload ", exc) ;
+			log.error(" pushDataToUpload ", exc) ;
 		}
 		finally {
 
@@ -397,11 +397,11 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " pushDataToUpload Connection cannot be closed ", sqe );
+					log.error(" pushDataToUpload Connection cannot be closed ", sqe );
 				}
 			}
 		}
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " pushDataToUpload ", " Exit pushDataToUpload method " );
+		log.info(" pushDataToUpload ", " Exit pushDataToUpload method " );
 
 		return isPushed;
 	}
@@ -416,7 +416,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	boolean checkExistence( RoomDetails objRoomDetail) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Enter checkExistence method " );
+		log.info(" checkExistence ", " Enter checkExistence method " );
 
 		boolean isFound = false;
 
@@ -432,12 +432,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_DETAILS_COUNT_RECORD_BY_ROOM_NUMBER;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Select Query " + sqlQuery );
+			log.info(" checkExistence ", " Select Query " + sqlQuery );
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
 			pStatement.setInt(1, objRoomDetail.getRoomNumber() );
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Room Number is " + objRoomDetail.getRoomNumber() );
+			log.info(" checkExistence ", " Room Number is " + objRoomDetail.getRoomNumber() );
 
 			rSet = pStatement.executeQuery();
 
@@ -454,17 +454,17 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			if( isFound ) {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Record already exist in room_details of keypr_bride_db " );
+				log.info(" checkExistence ", " Record already exist in room_details of keypr_bride_db " );
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " New Record for room_details the keypr_bride_db " );
+				log.info(" checkExistence ", " New Record for room_details the keypr_bride_db " );
 
 			}
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistence ", exc) ;
+			log.error(" checkExistence ", exc) ;
 		}
 		finally {
 
@@ -476,19 +476,19 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistence Connection cannot be closed ", sqe );
+					log.error(" checkExistence Connection cannot be closed ", sqe );
 				}
 			}
 		}
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " checkExistence method record exists " + isFound );
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistence ", " Exit checkExistence method " );
+		log.info(" checkExistence ", " checkExistence method record exists " + isFound );
+		log.info(" checkExistence ", " Exit checkExistence method " );
 
 		return isFound;
 	}
 
 	public void persistRoomInventoryData( FetchCalendarResponse objFetchCalendarResponse) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Enter persistRoomInventoryData method " );
+		log.info(" persistRoomInventoryData ", " Enter persistRoomInventoryData method " );
 
 		boolean isExists = false;
 		boolean isDuplicated = true;
@@ -502,11 +502,11 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		CalendarDailyDetail objCalendarDailyDetailArry[] = objCalendar.getCalendarDay();
 		int calendarArrayLength = objCalendarDailyDetailArry.length;
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Inventory has Detail for Calendar days " + calendarArrayLength );
+		log.info(" persistRoomInventoryData ", " Inventory has Detail for Calendar days " + calendarArrayLength );
 
 		for ( int len = 0; len < calendarArrayLength; len++ ) {
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Details for Calendar day " + ( len + 1 ) );
+			log.info(" persistRoomInventoryData ", " Details for Calendar day " + ( len + 1 ) );
 
 			CalendarDailyDetail objCalendarDailyDetail = objCalendarDailyDetailArry[len];
 			Date currentCalendarDay = objCalendarDailyDetail.getDate();
@@ -516,7 +516,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			int lengthRoomInventory = objRoomTypeInventoryArray.length;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Number of room inventory present " + lengthRoomInventory + " for calendar day " +( len + 1 ) );
+			log.info(" persistRoomInventoryData ", " Number of room inventory present " + lengthRoomInventory + " for calendar day " +( len + 1 ) );
 
 			for (int k = 0; k < lengthRoomInventory ; k++) {
 
@@ -526,23 +526,23 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 				if ( isExists ) { // fetched record with given room type code does exist in the room inventory table.
 
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record Already present in room inventory " );
+					log.info(" persistRoomInventoryData ", " Record Already present in room inventory " );
 					isDuplicated = compareInventoryRecord (objRInventory);
 
 					if ( isDuplicated ) {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Duplicate Record for in room inventory " );
+						log.info(" persistRoomInventoryData ", " Duplicate Record for in room inventory " );
 
 					}
 					else {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Updated  Record for in room inventory " );
+						log.info(" persistRoomInventoryData ", " Updated  Record for in room inventory " );
 
 						boolean isPersited = persistDataInRoomInventoryUpload( objRInventory );
 
 						if( isPersited ) {
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record inserted in room_inventory_upload " );
+							log.info(" persistRoomInventoryData ", " Record inserted in room_inventory_upload " );
 
 							try {
 
@@ -550,7 +550,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 								sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_UPDATE_BY_TYPE_CODE;
 
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Update Query " + sqlQuery );
+								log.info(" persistRoomInventoryData ", " Update Query " + sqlQuery );
 
 								pStatement = objConnection.prepareStatement(sqlQuery);
 
@@ -563,11 +563,11 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 								if ( rowsUpdated != IMicrosHarvester.ROWS_UPDATED ) {
 
-									DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record updated in room_inventory " );
+									log.info(" persistRoomInventoryData ", " Record updated in room_inventory " );
 								}
 								else {
 
-									DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record Cannot be updated in room_inventory " );
+									log.info(" persistRoomInventoryData ", " Record Cannot be updated in room_inventory " );
 
 								}
 							}
@@ -577,20 +577,20 @@ public class MicrosDAOImpl implements IMicrosDAO {
 						}
 						else {
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record not inserted in room_inventory_upload " );
+							log.info(" persistRoomInventoryData ", " Record not inserted in room_inventory_upload " );
 						}
 					}
 				}
 				else { // fetched record with given room type code does not exist in the room inventory table.
 
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Fresh Record for in room inventory " );
+					log.info(" persistRoomInventoryData ", " Fresh Record for in room inventory " );
 					try {
 
 						objConnection = dataSource.getConnection();
 
 						sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_INSERT;
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Insert Query " + sqlQuery );
+						log.info(" persistRoomInventoryData ", " Insert Query " + sqlQuery );
 
 						pStatement = objConnection.prepareStatement( sqlQuery );
 						pStatement.setString(1, objRInventory.getRoomType().getCode() );
@@ -601,28 +601,28 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 						if( rowUpdated != IMicrosHarvester.ROWS_UPDATED ) {
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record Inserted in room_inventory with type code  " + objRInventory.getRoomType().getCode());
+							log.info(" persistRoomInventoryData ", " Record Inserted in room_inventory with type code  " + objRInventory.getRoomType().getCode());
 
 							boolean isPersited = persistDataInRoomInventoryUpload(objRInventory);
 
 							if( isPersited ) {
 
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record inserted in room_inventory_upload " );
+								log.info(" persistRoomInventoryData ", " Record inserted in room_inventory_upload " );
 							}
 							else {
 
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record not inserted in room_inventory_upload " );
+								log.info(" persistRoomInventoryData ", " Record not inserted in room_inventory_upload " );
 							}
 						}
 						else {
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Record not inserted in room_inventory " );
+							log.info(" persistRoomInventoryData ", " Record not inserted in room_inventory " );
 						}
 
 					}
 					catch (Exception exc) {
 
-						DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomInventoryData ", exc );
+						log.error(" persistRoomInventoryData ", exc );
 					}
 					finally {
 
@@ -634,7 +634,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 							}
 							catch(SQLException sqe) {
 
-								DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRoomInventoryData Connection cannot be closed ", sqe );
+								log.error(" persistRoomInventoryData Connection cannot be closed ", sqe );
 							}
 						}
 					}
@@ -643,7 +643,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRoomInventoryData ", " Exit persistRoomInventoryData method " );
+		log.info(" persistRoomInventoryData ", " Exit persistRoomInventoryData method " );
 	}
 
 	/**
@@ -655,7 +655,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private boolean compareInventoryRecord( com.cloudkey.commons.RoomTypeInventory objRInventory ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Enter compareInventoryRecord method " );
+		log.info(" compareInventoryRecord ", " Enter compareInventoryRecord method " );
 
 		boolean isDuplicateRow = false;
 		boolean isRecordFound = false;
@@ -674,7 +674,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_SELECT_BY_TYPE_CODE;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Select Query " + sqlQuery );
+			log.info(" compareInventoryRecord ", " Select Query " + sqlQuery );
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
 
@@ -684,7 +684,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			if( rSet != null) {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Record fetched from room_inventory with type code  " + roomTypeCode );
+				log.info(" compareInventoryRecord ", " Record fetched from room_inventory with type code  " + roomTypeCode );
 
 				while( rSet.next()) {
 
@@ -698,30 +698,30 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					if( objRInventory.equals(objRInventoryData) ) {
 
 						isDuplicateRow = true;
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Both Records are same " );
+						log.info(" compareInventoryRecord ", " Both Records are same " );
 					}
 					else {
 
 						isDuplicateRow = false;
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Both Records are unique " );
+						log.info(" compareInventoryRecord ", " Both Records are unique " );
 					}
 				}
 				if ( isRecordFound ) {
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Result set has row " );
+					log.info(" compareInventoryRecord ", " Result set has row " );
 				}
 				else {
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Result set is empty " );
+					log.info(" compareInventoryRecord ", " Result set is empty " );
 				}
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " No Record fetched from room_inventory " );
+				log.info(" compareInventoryRecord ", " No Record fetched from room_inventory " );
 			}
 
 		}
 		catch (Exception exc) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareInventoryRecord ", exc );
+			log.error(" compareInventoryRecord ", exc );
 		}
 		finally {
 
@@ -733,12 +733,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " compareInventoryRecord Connection cannot be closed ", sqe );
+					log.error(" compareInventoryRecord Connection cannot be closed ", sqe );
 				}
 			}
 		}
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Returning from compareInventoryRecord method " + isDuplicateRow );
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " compareInventoryRecord ", " Exit compareInventoryRecord method " );
+		log.info(" compareInventoryRecord ", " Returning from compareInventoryRecord method " + isDuplicateRow );
+		log.info(" compareInventoryRecord ", " Exit compareInventoryRecord method " );
 
 		return isDuplicateRow;
 	}
@@ -752,7 +752,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private boolean persistDataInRoomInventoryUpload ( com.cloudkey.commons.RoomTypeInventory objRoomInventory ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Enter persistDataInRoomInventoryUpload method " );
+		log.info(" persistDataInRoomInventoryUpload ", " Enter persistDataInRoomInventoryUpload method " );
 
 		boolean isInserted = false;
 
@@ -767,7 +767,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_UPLOAD_INSERT;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Insert Query " + sqlQuery);
+			log.info(" persistDataInRoomInventoryUpload ", " Insert Query " + sqlQuery);
 
 			pStatement = objConnection.prepareStatement(sqlQuery);
 
@@ -780,17 +780,17 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			if( rowUpdated != IMicrosHarvester.ROWS_UPDATED ) {
 
 				isInserted = true;
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Record Inserted in room_inventory_upload with type code  " + objRoomInventory.getRoomType().getCode());
+				log.info(" persistDataInRoomInventoryUpload ", " Record Inserted in room_inventory_upload with type code  " + objRoomInventory.getRoomType().getCode());
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Record not inserted in room_inventory_upload " );
+				log.info(" persistDataInRoomInventoryUpload ", " Record not inserted in room_inventory_upload " );
 			}
 
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", exc );
+			log.error(" persistDataInRoomInventoryUpload ", exc );
 		}
 		finally {
 
@@ -802,12 +802,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload Connection cannot be closed ", sqe );
+					log.error(" persistDataInRoomInventoryUpload Connection cannot be closed ", sqe );
 				}
 			}
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistDataInRoomInventoryUpload ", " Exit persistDataInRoomInventoryUpload method " );
+		log.info(" persistDataInRoomInventoryUpload ", " Exit persistDataInRoomInventoryUpload method " );
 
 		return isInserted;
 	}
@@ -822,7 +822,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private boolean checkExistenceInRoomInventory ( com.cloudkey.commons.RoomTypeInventory objRoomInventory  ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Enter checkExistenceInRoomInventory method " );
+		log.info(" checkExistenceInRoomInventory ", " Enter checkExistenceInRoomInventory method " );
 
 		boolean isFound = false;
 
@@ -838,12 +838,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_ROOM_INVENTORY_COUNT_RECORD_BY_TYPE_CODE;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Select Query " + sqlQuery );
+			log.info(" checkExistenceInRoomInventory ", " Select Query " + sqlQuery );
 
 			pStatement = objConnection.prepareStatement( sqlQuery );
 			pStatement.setString(1, objRoomInventory.getRoomType().getCode() );
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Room Type is " + objRoomInventory.getRoomType().getCode() );
+			log.info(" checkExistenceInRoomInventory ", " Room Type is " + objRoomInventory.getRoomType().getCode() );
 
 			rSet = pStatement.executeQuery();
 
@@ -860,17 +860,17 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			if( isFound ) {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Record with Code same keypr_bride_db " );
+				log.info(" checkExistenceInRoomInventory ", " Record with Code same keypr_bride_db " );
 			}
 			else {
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " New Record for room_inventory the keypr_bride_db " );
+				log.info(" checkExistenceInRoomInventory ", " New Record for room_inventory the keypr_bride_db " );
 
 			}
 		}
 		catch ( Exception exc ) {
 
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", exc );
+			log.error(" checkExistenceInRoomInventory ", exc );
 
 		}
 		finally {
@@ -883,12 +883,12 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				}
 				catch(SQLException sqe) {
 
-					DataHarvesterLogger.logError( MicrosDAOImpl.class, " checkExistenceInRoomInventory Connection cannot be closed ", sqe );
+					log.error(" checkExistenceInRoomInventory Connection cannot be closed ", sqe );
 				}
 			}
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " checkExistenceInRoomInventory ", " Exit checkExistenceInRoomInventory method " );
+		log.info(" checkExistenceInRoomInventory ", " Exit checkExistenceInRoomInventory method " );
 
 		return isFound;
 
@@ -904,7 +904,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private com.cloudkey.commons.RoomTypeInventory getRoomTypeInventoryInstance( RoomTypeInventory objRoomTypInventory, Date currentCalendarDay ) {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " getRoomTypeInventoryInstance ", " Enter getRoomTypeInventoryInstance method " );
+		log.info(" getRoomTypeInventoryInstance ", " Enter getRoomTypeInventoryInstance method " );
 
 		// Store the retrieved inventory information in RoomTypeInventory Instance.
 		com.cloudkey.commons.RoomTypeInventory objRInventory = new com.cloudkey.commons.RoomTypeInventory();
@@ -916,7 +916,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		objRInventory.setTotalRoomsAvailable( objRoomTypInventory.getTotalAvailableRooms().intValue() );
 		objRInventory.setTotalRooms( objRoomTypInventory.getTotalRooms().intValue() );
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " getRoomTypeInventoryInstance ", " Exit getRoomTypeInventoryInstance method " );
+		log.info(" getRoomTypeInventoryInstance ", " Exit getRoomTypeInventoryInstance method " );
 
 		return objRInventory;
 	}
@@ -924,7 +924,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	@Override
 	public boolean persistReservationData( Reservation objReservation ) throws SQLException {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Enter persistReservationData method " );
+		log.info(" persistReservationData ", " Enter persistReservationData method " );
 
 		boolean isStored = false;
 
@@ -974,7 +974,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_RESERVATION_UPLOAD_INSERT;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Insert Query " + sqlQuery );
+			log.info(" persistReservationData ", " Insert Query " + sqlQuery );
 
 			objPreparedStatement = objConn.prepareStatement(sqlQuery , Statement.RETURN_GENERATED_KEYS);
 
@@ -1017,32 +1017,32 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				keys.next();
 				lastInsetedId = keys.getInt(1);
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Reservation record saved in database " );
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Record Id is " + lastInsetedId );
+				log.info(" persistReservationData ", " Reservation record saved in database " );
+				log.info(" persistReservationData ", " Record Id is " + lastInsetedId );
 
 				roomAllocationListSize = roomAllocList.size();
 
-				DataHarvesterLogger.logInfo(MicrosDAOImpl.class, " persistReservationData ", " RoomAllocationSize list size " + roomAllocationListSize);
+				log.info(" persistReservationData ", " RoomAllocationSize list size " + roomAllocationListSize);
 
 				for( int len = 0; len < roomAllocationListSize ; len++ ) {
 
 					int currentId = persistRecordInReservationRoomAllocation( lastInsetedId, roomAllocList.get(len), objConn );
 
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Reservation Room Allocation id " + currentId );
+					log.info(" persistReservationData ", " Reservation Room Allocation id " + currentId );
 
 					List<RoomRate> roomRateList = roomAllocList.get(len).getRoomRateList();
 					boolean isRecordSaved = persistRecordInReservationRoomRates( currentId, roomRateList ,objConn );
 
 					if( isRecordSaved ) {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Roomrate records saved in the database" );
+						log.info(" persistReservationData ", " Roomrate records saved in the database" );
 
 						isStored = true;
 					}
 					else {
 
 						objConn.rollback();
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Sorry Roomrate records not saved " );
+						log.info(" persistReservationData ", " Sorry Roomrate records not saved " );
 					}
 
 				}
@@ -1052,17 +1052,17 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			else {
 
 				objConn.rollback();
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Sorry, Reservation record cannot be inserted " );
+				log.info(" persistReservationData ", " Sorry, Reservation record cannot be inserted " );
 			}
 
 		}
 		catch( Exception exc ){
 
 			objConn.rollback();
-			DataHarvesterLogger.logError(MicrosDAOImpl.class, " persistReservationData ", exc );
+			log.error(" persistReservationData ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistReservationData ", " Exit persistReservationData method " );
+		log.info(" persistReservationData ", " Exit persistReservationData method " );
 
 		return isStored;
 	}
@@ -1070,7 +1070,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	@Override
 	public boolean persistRtavData( Rtav objRtav ) throws SQLException {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRtavData ", " Enter persistRtavData method " );
+		log.info(" persistRtavData ", " Enter persistRtavData method " );
 
 		boolean isStored = false;
 
@@ -1089,10 +1089,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		catch( Exception exc ){
 
 			objConn.rollback();
-			DataHarvesterLogger.logError(MicrosDAOImpl.class, " persistRtavData ", exc );
+			log.error(" persistRtavData ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRtavData ", " Exit persistRtavData method " );
+		log.info(" persistRtavData ", " Exit persistRtavData method " );
 
 		return isStored;
 	}
@@ -1108,9 +1108,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private int persistRecordInReservationRoomAllocation( int reservationId , ReservationRoomAllocation objRoomAllocation ,Connection objConn) throws SQLException {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Enter persistRecordInReservationRoomAllocation method " );
+		log.info(" persistRecordInReservationRoomAllocation ", " Enter persistRecordInReservationRoomAllocation method " );
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Reservation Id received :: " + reservationId );
+		log.info(" persistRecordInReservationRoomAllocation ", " Reservation Id received :: " + reservationId );
 
 		int recordId = 0;
 		int rowUpdated = 0;
@@ -1125,7 +1125,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 			sqlQuery = IMicrosHarvester.QUERY_RESERVATION_ROOM_ALLOCATION_UPLOAD_INSERT;
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Insert Query " + sqlQuery );
+			log.info(" persistRecordInReservationRoomAllocation ", " Insert Query " + sqlQuery );
 
 			objPreparedStatement = conn.prepareStatement( sqlQuery, Statement.RETURN_GENERATED_KEYS );
 
@@ -1147,23 +1147,23 @@ public class MicrosDAOImpl implements IMicrosDAO {
 				keys.next();
 				recordId = keys.getInt(1);
 
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " ReservationRoomAllocatin record saved in datbase " );
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Inserted record Id is " + recordId );
+				log.info(" persistRecordInReservationRoomAllocation ", " ReservationRoomAllocatin record saved in datbase " );
+				log.info(" persistRecordInReservationRoomAllocation ", " Inserted record Id is " + recordId );
 
 			}
 			else {
 				conn.rollback();
-				DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Sorry, Record cannot be inserted " );
+				log.info(" persistRecordInReservationRoomAllocation ", " Sorry, Record cannot be inserted " );
 			}
 
 		}
 		catch( Exception exc ) {
 
 			conn.rollback();
-			DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", exc);
+			log.error(" persistRecordInReservationRoomAllocation ", exc);
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomAllocation ", " Exit persistRecordInReservationRoomAllocation method " );
+		log.info(" persistRecordInReservationRoomAllocation ", " Exit persistRecordInReservationRoomAllocation method " );
 
 		return recordId;
 
@@ -1179,9 +1179,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 */
 	private boolean persistRecordInReservationRoomRates( int roomAllocationId, List<RoomRate> roomRateList, Connection objConn ) throws SQLException {
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Enter persistRecordInReservationRoomRates method " );
+		log.info(" persistRecordInReservationRoomRates ", " Enter persistRecordInReservationRoomRates method " );
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " RoomAllocation Record Id " + roomAllocationId );
+		log.info(" persistRecordInReservationRoomRates ", " RoomAllocation Record Id " + roomAllocationId );
 
 		boolean isPersisted = false;
 
@@ -1203,7 +1203,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 					sqlQuery = IMicrosHarvester.QUERY_RESERVATION_ROOM_RATES_UPLOAD_INSERT;
 
-					DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Insert Query " + sqlQuery );
+					log.info(" persistRecordInReservationRoomRates ", " Insert Query " + sqlQuery );
 
 					objPreparedStatement = conn.prepareStatement(sqlQuery);
 					RoomRate objRoomRate = roomRateList.get(len);
@@ -1218,7 +1218,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 					if( rowInserted != IMicrosHarvester.ROWS_UPDATED ) {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " RoomRate saved" );
+						log.info(" persistRecordInReservationRoomRates ", " RoomRate saved" );
 						isPersisted = true;
 
 						sqlQuery = IMicrosHarvester.QUERY_RESERVATION_ROOM_ALLOCATION_UPLOAD_SELECT_BY_ID;
@@ -1236,7 +1236,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							sqlQuery = IMicrosHarvester.QUERY_RESERVATION_UPLOAD_UPDATE_BY_ID;
 
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Update Query " + sqlQuery );
+							log.info(" persistRecordInReservationRoomRates ", " Update Query " + sqlQuery );
 
 							objPreparedStatement = conn.prepareStatement(sqlQuery);
 							objPreparedStatement.setString(1, IMicrosHarvester.RESERVATON_STATUS_COMPL );
@@ -1246,25 +1246,25 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 							if( numRows != IMicrosHarvester.ROWS_UPDATED ) {
 
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Status updated in Reservation Upload " );
+								log.info(" persistRecordInReservationRoomRates ", " Status updated in Reservation Upload " );
 							}
 							else {
 
 								conn.rollback();
-								DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Sorry Status cannot be updated." );
+								log.info(" persistRecordInReservationRoomRates ", " Sorry Status cannot be updated." );
 							}
 
 						}
 						else {
 
 							conn.rollback();
-							DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Reservation Id not Collected " );
+							log.info(" persistRecordInReservationRoomRates ", " Reservation Id not Collected " );
 						}
 
 					}
 					else {
 
-						DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " RoomRate not saved " );
+						log.info(" persistRecordInReservationRoomRates ", " RoomRate not saved " );
 
 						conn.rollback();
 						isPersisted = false;
@@ -1276,16 +1276,16 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			catch( Exception exc ) {
 
 				conn.rollback();
-				DataHarvesterLogger.logError( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", exc );
+				log.error(" persistRecordInReservationRoomRates ", exc );
 			}
 
 		}
 		else {
 
-			DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " RoomRateList is Empty " );
+			log.info(" persistRecordInReservationRoomRates ", " RoomRateList is Empty " );
 		}
 
-		DataHarvesterLogger.logInfo( MicrosDAOImpl.class, " persistRecordInReservationRoomRates ", " Exit persistRecordInReservationRoomRates method " );
+		log.info(" persistRecordInReservationRoomRates ", " Exit persistRecordInReservationRoomRates method " );
 
 		return isPersisted;
 

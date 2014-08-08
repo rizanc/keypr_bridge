@@ -1,11 +1,11 @@
 package com.micros.harvester;
 
-import com.cloudkey.db.DatabaseModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.micros.harvester.communicator.OWSDataCollector;
-import com.micros.harvester.logger.DataHarvesterLogger;
 import com.micros.harvester.oxi.OXIListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class acts as a service to collect data from the micros property management system.
@@ -17,10 +17,10 @@ import com.micros.harvester.oxi.OXIListener;
  */
 
 public class DataHarvesterApplication {
+	protected static final Logger log = LoggerFactory.getLogger(DataHarvesterApplication.class);
 
 	public static void main( String[] args ) {
-
-		DataHarvesterLogger.logInfo( DataHarvesterApplication.class, " main ", " Enter main method " );
+		log.debug(" main ", " Enter main method " );
 
 		Injector injector = Guice.createInjector(new DataHarvesterModule());
 
@@ -31,7 +31,7 @@ public class DataHarvesterApplication {
         OXIListener objOxiListener = injector.getInstance(OXIListener.class);
 		objOxiListener.connectWithOXI();
 
-		DataHarvesterLogger.logInfo( DataHarvesterApplication.class, " main ", " Exit main method " );
+		log.debug(" main ", " Exit main method " );
 	}
 
 }
