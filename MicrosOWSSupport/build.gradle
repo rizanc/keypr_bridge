@@ -1,5 +1,3 @@
-apply plugin:'application'
-
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
