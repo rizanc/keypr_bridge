@@ -17,6 +17,7 @@ ext {
     dropwizard_validation = 'io.dropwizard:dropwizard-validation:0.7.1'
     dropwizard_swagger = 'io.federecio:dropwizard-swagger:0.5.1'
     guice = 'com.google.inject.extensions:guice-servlet:3.0'
+    groovy = 'org.codehaus.groovy:groovy:2.3.6'
     httpcomponents_httpclient = 'org.apache.httpcomponents:httpclient:4.3.4'
     httpcomponents_httpcore = 'org.apache.httpcomponents:httpcore:4.3.2'
     jaxb_api = 'javax.xml:jaxb-api:2.1'

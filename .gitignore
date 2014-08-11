@@ -28,3 +28,5 @@ MicrosPMSAdapter/src/main/resources/operademo3.configuration.properties
 samples/
 
 CloudKeyHTWebServices/logs
+CloudKeyHTUploadService/logs
+MicrosDataHarvester/logs

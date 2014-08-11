@@ -11,4 +11,5 @@ dependencies {
     compile dropwizard
     compile json_simple
     compile jersey_client
+    runtime groovy
 }

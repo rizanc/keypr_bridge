@@ -15,4 +15,5 @@ dependencies {
     compile jaxb_impl
     compile jaxb_xjc
     compile xstream
+    runtime groovy
 }
