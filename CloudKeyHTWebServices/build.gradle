@@ -1,18 +1,5 @@
-apply plugin:'gradle-one-jar'
 apply plugin:'application'
-// The main class of the application
 mainClassName = 'com.keypr.webservices.WebServicesApplication'
-
-// Add Gradle OneJar Plugin, see https://github.com/rholder/gradle-one-jar
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
-    }
-}
 
 dependencies {
     // Local dependencies
@@ -28,16 +15,7 @@ dependencies {
     testCompile junit
 }
 
-// Configure the oneJar task
-task oneJar(type: OneJar) {
-    mainClass = mainClassName
-}
-
 // Configure the run task to start the Dropwizard service
 run {
     args 'server', './configuration.yml'
-}
-
-artifacts {
-    oneJar
 }
