@@ -33,7 +33,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	protected ResvAdvancedService service;
 
 	public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest request) throws RemoteException {
-        log.debug("postCharge", "Enter in postCharge method.");
+        log.debug("postCharge: Enter in postCharge method.");
 
 	    PostChargeRequest microsRequest = getPostChargeRequestObject(request);
 	    PostChargeRequestE microsRequestE = new PostChargeRequestE();
@@ -49,7 +49,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	    com.cloudkey.pms.response.reservations.PostChargeResponse response = getPostChargeResponseObject(responseE.getPostChargeResponse());
 	    log.debug("postCharge", AdapterUtility.convertToStreamXML(response));
 
-        log.debug("postCharge", "Exit postCharge method ");
+        log.debug("postCharge: Exit postCharge method ");
 
         return response;
     }
@@ -80,12 +80,12 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     }
 
     private com.cloudkey.pms.response.reservations.PostChargeResponse getPostChargeResponseObject(PostChargeResponse microsResponse) {
-        log.debug("getPostChargeResponseObject", "Enter method");
+        log.debug("getPostChargeResponseObject: Enter method");
 	    return new com.cloudkey.pms.response.reservations.PostChargeResponse();
     }
 
     public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest request) throws RemoteException {
-        log.debug("processRetrieveFolioInfo", "Enter in processRetrieveFolioInfo method.");
+        log.debug("processRetrieveFolioInfo: Enter in processRetrieveFolioInfo method.");
 
 	    InvoiceRequest microsRequest = getFolioRequestObject(request);
         InvoiceRequestE microsRequestE = new InvoiceRequestE();
@@ -98,13 +98,13 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
 	    errorIfFailure(responseE.getInvoiceResponse().getResult());
 
-        log.debug("processRetrieveFolioInfo", "Exit processRetrieveFolioInfo method ");
+        log.debug("processRetrieveFolioInfo: Exit processRetrieveFolioInfo method ");
 
         return getFolioResponseObject(responseE.getInvoiceResponse());
     }
 
     private GetFolioResponse getFolioResponseObject(InvoiceResponse objResponse) {
-        log.debug("getFolioResponseObject", "Enter method");
+        log.debug("getFolioResponseObject: Enter method");
 
         GetFolioResponse objFolioResponse = new GetFolioResponse();
 
@@ -128,7 +128,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         if (arrBillHeader != null) {
             for (BillHeader objBillHeader : arrBillHeader) { // Traversing Bill Header
 
-                log.debug("getFolioResponseObject", "Enter to traverse Bill Header ");
+                log.debug("getFolioResponseObject: Enter to traverse Bill Header ");
 
                 addressType = objBillHeader.getAddress().getAddressType();
                 countryCode = objBillHeader.getAddress().getCountryCode();
@@ -162,7 +162,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
                 if (arrBillItem != null) {
                     for (int i = 0; i < arrBillItem.length; i++) { // Traversing bill Items.
 
-                        log.debug("getFolioResponseObject", "Enter to traverse Bill Items ");
+                        log.debug("getFolioResponseObject: Enter to traverse Bill Items ");
                         OrderDetails objOrderDetails = new OrderDetails();
 
                         unitPrice = arrBillItem[i].getAmount().get_double();
@@ -172,7 +172,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
                         objOrderDetails.setItemDescription(description);
                         objDetails.add(objOrderDetails);
 
-                        log.debug("getFolioResponseObject", "Exit to traverse Bill Items ");
+                        log.debug("getFolioResponseObject: Exit to traverse Bill Items ");
 
                     } // End bill items traversing loop.
                 }
@@ -200,21 +200,21 @@ public class OWSResvAdvancedProcessor extends OWSBase {
                     objReservation.setPmsReservationId(confirmationNumber);
                 }
 */
-                log.debug("getFolioResponseObject", "Exit to traverse Bill Header ");
+                log.debug("getFolioResponseObject: Exit to traverse Bill Header ");
 
             } // End Bill Header loop.
         }
 
         objFolioResponse.setReservation(objReservation);
 
-        log.debug("getFolioResponseObject", "Exit  getFolioResponseObject method ");
+        log.debug("getFolioResponseObject: Exit  getFolioResponseObject method ");
 
         return objFolioResponse;
     }
 
     private InvoiceRequest getFolioRequestObject(GetFolioRequest folioRequest) {
 
-        log.debug("getFolioRequestObject", "Enter getFolioRequestObject method ");
+        log.debug("getFolioRequestObject: Enter getFolioRequestObject method ");
 
 		/* To get the request parameters. */
         InvoiceRequest objInvoiceRequest = null;
@@ -241,14 +241,14 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         }
 
-        log.debug("getFolioRequestObject", "Exit getFolioRequestObject method ");
+        log.debug("getFolioRequestObject: Exit getFolioRequestObject method ");
 
         return objInvoiceRequest;
 
     }
 
     public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) throws RemoteException {
-        log.debug("processCheckOut", "Enter in processCheckOut method. ");
+        log.debug("processCheckOut: Enter in processCheckOut method. ");
 
 	    CheckOutRequest req = getCheckOutRequestObject(request);
         CheckOutRequestE requestE = new CheckOutRequestE();
@@ -272,7 +272,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     }
 
     private CheckOutRequest getCheckOutRequestObject(com.cloudkey.pms.request.reservations.CheckOutRequest checkOutRequest) {
-        log.debug("getCheckOutRequestObject", "Enter getCheckOutRequestObject method.");
+        log.debug("getCheckOutRequestObject: Enter getCheckOutRequestObject method.");
 
         CheckOutRequest objCheckOutRequest = new CheckOutRequest();
 
@@ -283,14 +283,14 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         objReservationRequestBase.setReservationID(arrayOf(internalReservationId(checkOutRequest.getPmsReservationId())));
         objReservationRequestBase.setHotelReference(getDefaultHotelReference());
 
-        log.debug("getCheckOutRequestObject", "Exit getCheckOutRequestObject method ");
+        log.debug("getCheckOutRequestObject: Exit getCheckOutRequestObject method ");
 
         return objCheckOutRequest;
     }
 
     private com.cloudkey.pms.response.reservations.CheckOutResponse getCheckOutResponseObject(CheckOutResponse checkOutResponse) {
 
-        log.debug("getCheckOutResponseObject", "Enter getCheckOutResponseObject method ");
+        log.debug("getCheckOutResponseObject: Enter getCheckOutResponseObject method ");
 
 	    com.cloudkey.pms.response.reservations.CheckOutResponse objCheckOutResponse = new com.cloudkey.pms.response.reservations.CheckOutResponse();
         Reservation objReservation = new Reservation();
@@ -300,7 +300,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         String lastName;
         StringBuffer objStringBuffer;
 
-        log.debug("getCheckOutResponseObject", "Status Set ");
+        log.debug("getCheckOutResponseObject: Status Set ");
 
         CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
         ArrayOfUniqueID objArrayOfUniqueID = objCheckOutComplete.getReservationID();
@@ -314,7 +314,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             objReservation.setConfirmationNumber(confirmationNumber);
             objReservation.setPmsReservationId(confirmationNumber);
 
-            log.debug("getCheckOutResponseObject", "confirmation Number is  Set ");
+            log.debug("getCheckOutResponseObject: confirmation Number is  Set ");
         }
 
         Profile objProfile = checkOutResponse.getProfile();
@@ -341,20 +341,20 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             }
             objReservation.setFullName(objStringBuffer.toString());
 
-            log.debug("getCheckOutResponseObject", "Full Name is set.");
+            log.debug("getCheckOutResponseObject: Full Name is set.");
 
             objStringBuffer.setLength(0);
         }
 
-        log.debug("getCheckOutResponseObject", "Exit Profile.");
+        log.debug("getCheckOutResponseObject: Exit Profile.");
         objCheckOutResponse.setReservation(objReservation);
-        log.debug("getCheckOutResponseObject", "Exit getCheckOutResponseObject method");
+        log.debug("getCheckOutResponseObject: Exit getCheckOutResponseObject method");
 
         return objCheckOutResponse;
     }
 
     public String getNextAvailableRoom(String roomType) throws RemoteException {
-        log.debug("processFetchRoomStatus", "Enter in processSearchReservationData method.");
+        log.debug("processFetchRoomStatus: Enter in processSearchReservationData method.");
 
 	    FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
         FetchRoomStatusRequestE requestE = new FetchRoomStatusRequestE();
@@ -380,7 +380,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     }
 
     public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
-        log.debug("processCheckIn", "Enter in processSearchReservationData method. ");
+        log.debug("processCheckIn: Enter in processSearchReservationData method. ");
 
 	    CheckInRequest req = getCheckInRequestObject(request);
 
@@ -402,7 +402,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
     }
 
     private CheckInRequest getCheckInRequestObject(com.cloudkey.pms.request.reservations.CheckInRequest checkInRequest) {
-        log.debug("getCheckInRequestObject", "Enter in getCheckInRequestObject method");
+        log.debug("getCheckInRequestObject: Enter in getCheckInRequestObject method");
 
         /* To get the request parameters from the keypr client */
 
@@ -444,7 +444,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         objCheckInRequest.setReservationRequest(objReservationRequestBase);
         //objCheckInRequest.setCreditCardInfo( objCreditCardInfo );
 
-        log.debug("getCheckInRequestObject", "Exit getCheckInRequestObject method.");
+        log.debug("getCheckInRequestObject: Exit getCheckInRequestObject method.");
 
         return objCheckInRequest;
 
@@ -452,7 +452,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
     private com.cloudkey.pms.response.reservations.CheckInResponse getCheckInResponseObject(CheckInResponse objResponse) {
 
-        log.debug("getCheckInResponseObject", "Enter in getCheckInResponseObject method.");
+        log.debug("getCheckInResponseObject: Enter in getCheckInResponseObject method.");
 
 		/* Populate response into Reservation instance */
 	    com.cloudkey.pms.response.reservations.CheckInResponse objCheckInResponse = new com.cloudkey.pms.response.reservations.CheckInResponse();
@@ -550,11 +550,11 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             if (arrNameCreditCard != null) {
                 for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
 
-                    log.debug("getCheckInResponseObject", "Iterating NameCreditCard  Array.");
+                    log.debug("getCheckInResponseObject: Iterating NameCreditCard  Array.");
 
                     objReservation.setCreditCardNumber(objNameCreditCard.getCreditCardChoice_type0().getCardNumber());
 
-                    log.debug("getCheckInResponseObject", "Credit Card Number is set.");
+                    log.debug("getCheckInResponseObject: Credit Card Number is set.");
                 } // End loop for name credit card.
             }
         }
@@ -582,15 +582,15 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
             objReservation.setFullName(objStringBuffer.toString());
 
-            log.debug("getCheckInResponseObject", "Full Name is set.");
+            log.debug("getCheckInResponseObject: Full Name is set.");
 
             objStringBuffer.setLength(0);
         }
 
-        log.debug("getCheckInResponseObject", "Exit Profile.");
+        log.debug("getCheckInResponseObject: Exit Profile.");
         objCheckInResponse.setReservation(objReservation);
 
-        log.debug("getCheckInResponseObject", "Enter in getCheckInResponseObject method.");
+        log.debug("getCheckInResponseObject: Enter in getCheckInResponseObject method.");
 
         return objCheckInResponse;
     }

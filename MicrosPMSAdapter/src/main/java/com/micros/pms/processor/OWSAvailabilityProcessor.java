@@ -29,7 +29,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
 	protected AvailabilityService service;
 
 	public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest request) throws RemoteException {
-        log.debug("processAvailability", "Enter checkAvailability method.");
+        log.debug("processAvailability: Enter checkAvailability method.");
 
         FetchCalendarRequest microsRequest = getAvailabilityRequestObject(request);
 		log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsRequest));
@@ -46,7 +46,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
     }
 
 	private FetchCalendarRequest getAvailabilityRequestObject(GetAvailabilityRequest availabilityRequest) {
-        log.debug("getAvailabilityRequestObject", "Enter getAvailabilityRequestObject method.");
+        log.debug("getAvailabilityRequestObject: Enter getAvailabilityRequestObject method.");
 
 		/*To create the request for availability.*/
 	    FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
@@ -64,13 +64,13 @@ public class OWSAvailabilityProcessor extends OWSBase {
 		/*To set time span in fetch calendar request.*/
         objFetchCalendarRequest.setStayDateRange(objTimeSpan);
 
-        log.debug("getAvailabilityRequestObject", "Exit getAvailabilityRequestObject method. ");
+        log.debug("getAvailabilityRequestObject: Exit getAvailabilityRequestObject method. ");
 
         return objFetchCalendarRequest;
     }
 
     private GetAvailabilityResponse getAvailabilityResponseObject(FetchCalendarResponse objResponse) {
-        log.debug("getAvailabilityResponseObject", "Enter getAvailabilityResponseObject method.");
+        log.debug("getAvailabilityResponseObject: Enter getAvailabilityResponseObject method.");
 
         GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
 
@@ -82,7 +82,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
 
         for (CalendarDailyDetail objCalendarDailyDetail : arrCalendarDailyDetail) { // To traverse calendar daily detail.
 
-            log.debug("getAvailabilityResponseObject", "Enter for traversing calendar details.");
+            log.debug("getAvailabilityResponseObject: Enter for traversing calendar details.");
 
 			/*To set the date in response.*/
             Availability objAvailability = new Availability();
@@ -95,7 +95,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
 
             for (RoomTypeInventory objRTypeInventory : arrRoomTypeInventories) { // To traverse room type inventory.
 
-                log.debug("getAvailabilityResponseObject", "Traversing room type inventory. ");
+                log.debug("getAvailabilityResponseObject: Traversing room type inventory. ");
 
                 com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();
 
@@ -112,7 +112,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
 				/*To add roomtype inventory in inventory list.*/
                 objLInventories.add(objRoomTypeInventory);
 
-                log.debug("getAvailabilityResponseObject", "Exit loop for room type inventory. ");
+                log.debug("getAvailabilityResponseObject: Exit loop for room type inventory. ");
 
             }// End room type inventory loop.
             objAvailability.setRoomTypeInventoryList(objLInventories);
@@ -120,12 +120,12 @@ public class OWSAvailabilityProcessor extends OWSBase {
 			/*To add availability object into list.*/
             availabilities.add(objAvailability);
 
-            log.debug("getAvailabilityResponseObject", "Exit traversing calendar details. ");
+            log.debug("getAvailabilityResponseObject: Exit traversing calendar details. ");
         } // End loop for calendar details.
 
         objAvailabilityResponse.setAvailList(availabilities);
 
-        log.debug("getAvailabilityResponseObject", "Exit getAvailabilityResponseObject method. ");
+        log.debug("getAvailabilityResponseObject: Exit getAvailabilityResponseObject method. ");
 
         return objAvailabilityResponse;
     }

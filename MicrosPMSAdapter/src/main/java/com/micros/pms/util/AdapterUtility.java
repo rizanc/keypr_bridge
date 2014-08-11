@@ -30,7 +30,7 @@ public class AdapterUtility {
 	 * @return
 	 */
 	public static String getCreditCardNumber(String creditCardNumber) {
-		log.debug("getCreditCardNumber", "Enter method");
+		log.debug("getCreditCardNumber: Enter method");
 
 		StringBuilder strBuilder = new StringBuilder();
 
@@ -46,7 +46,7 @@ public class AdapterUtility {
 		}
 
 		String result = strBuilder.toString();
-		log.debug("getCreditCardNumber", "Return value", result);
+		log.debug("getCreditCardNumber: Return value", result);
 
 		return result;
 	}
@@ -59,7 +59,7 @@ public class AdapterUtility {
 	 * @throws IOException
 	 */
 	public static String getStringFromResponse(InputStream objInputStream) throws IOException {
-		log.debug("getStringFromResponse", "Enter method");
+		log.debug("getStringFromResponse: Enter method");
 
 		String response = null;
 
@@ -74,7 +74,7 @@ public class AdapterUtility {
 		}
 
 		String result = strBuilder.toString();
-		log.debug("getStringFromResponse", "Return value", result);
+		log.debug("getStringFromResponse: Return value", result);
 
 		return result;
 	}
@@ -87,7 +87,7 @@ public class AdapterUtility {
 	 */
 	public static XMLGregorianCalendar getGregorianDate() {
 
-		log.debug("getGregorianDate", "Enter method");
+		log.debug("getGregorianDate: Enter method");
 
 		GregorianCalendar gregorianCalendar = null;
 		DatatypeFactory datatypeFactory = null;
@@ -106,9 +106,9 @@ public class AdapterUtility {
 
 		now = datatypeFactory.newXMLGregorianCalendar(gregorianCalendar);
 
-		log.debug("getGregorianDate", "Current date" + now);
+		log.debug("getGregorianDate: Current date: {}", now);
 
-		log.debug("getGregorianDate", "Exit getGregorianDate method");
+		log.debug("getGregorianDate: Exit getGregorianDate method");
 
 		return now.normalize();
 	}
@@ -121,12 +121,12 @@ public class AdapterUtility {
 	 * @return
 	 */
 	public static String convertToStreamXML(Object object) {
-		log.debug("convertToStreamXML", "Enter convertToStreamXML method");
+		log.debug("convertToStreamXML: Enter convertToStreamXML method");
 
 		XStream objStream = new XStream(new DomDriver());
 		String xmlString = objStream.toXML(object);
 
-		log.debug("convertToStreamXML", "Exit convertToStreamXML method");
+		log.debug("convertToStreamXML: Exit convertToStreamXML method");
 
 		return xmlString;
 	}

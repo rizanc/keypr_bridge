@@ -36,7 +36,7 @@ public class HttpClientRequest {
 	 * @return
 	 */
 	public String getHttpPostResponse( String url, String xmlString ) {
-		log.debug("getHttpPostResponse", "Enter getHttpPostResponse method");
+		log.debug("getHttpPostResponse: Enter getHttpPostResponse method");
 
 		String response = null;
 
@@ -57,7 +57,7 @@ public class HttpClientRequest {
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			long latency = System.currentTimeMillis()- requestTime;
 			
-			log.debug("getHttpPostResponse", "PMS Latency at MessageReceiver End in milliseconds " + latency);
+			log.debug("getHttpPostResponse: PMS Latency at MessageReceiver End in milliseconds: {}", latency);
 			
 			HttpEntity httpEntity = httpResponse.getEntity();
 
@@ -71,7 +71,7 @@ public class HttpClientRequest {
 			log.error("getHttpPostResponse", exc);
 		}
 
-		log.debug("getHttpPostResponse", "Exit getHttpPostResponse method ", response);
+		log.debug("getHttpPostResponse: Exit getHttpPostResponse method ", response);
 		
 		return response;
 	}

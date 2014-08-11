@@ -37,7 +37,7 @@ public class OWSReservationProcessor extends OWSBase {
 	protected ReservationService service;
 
     public FetchBookingResponse fetchBooking(String pmsReservationId) throws RemoteException {
-        log.debug("fetchBooking", "Enter method");
+        log.debug("fetchBooking: Enter method");
 
         FetchBookingRequest request = new FetchBookingRequest();
 
@@ -60,7 +60,7 @@ public class OWSReservationProcessor extends OWSBase {
     }
 
     public com.cloudkey.pms.response.roomassignments.AssignRoomResponse processAssignRoom(com.cloudkey.pms.request.roomassignments.AssignRoomRequest request) throws RemoteException {
-        log.debug("processAssignRoom", "Enter in processSearchReservationData method.");
+        log.debug("processAssignRoom: Enter in processSearchReservationData method.");
 
 	    AssignRoomRequest req = getAssignRoomRequestObject(request);
 
@@ -80,7 +80,7 @@ public class OWSReservationProcessor extends OWSBase {
     }
 
     public com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse processReleaseRoom(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest request) throws RemoteException {
-        log.debug("processReleaseRoom", "Enter in processReleaseRoom method. ");
+        log.debug("processReleaseRoom: Enter in processReleaseRoom method. ");
 
 	    ReleaseRoomRequest req =
                 getReleaseRoomRequestObject(request);
@@ -101,7 +101,7 @@ public class OWSReservationProcessor extends OWSBase {
 
     public com.cloudkey.pms.response.reservations.UpdateBookingResponse processUpdateBooking(com.cloudkey.pms.request.reservations.UpdateBookingRequest updateBookingRequest) throws RemoteException {
 
-        log.debug("processUpdateBooking", "Enter method");
+        log.debug("processUpdateBooking: Enter method");
 
 	    ModifyBookingRequest req =
                 getUpdateBookingRequestObject(updateBookingRequest);
@@ -126,11 +126,11 @@ public class OWSReservationProcessor extends OWSBase {
      * @return UpdateBookingResponse
      */
     private UpdateBookingResponse getUpdateBookingResponseObject(ModifyBookingResponse objResponse) {
-        log.debug("getUpdateBookingResponseObject", "Enter getUpdateBookingResponseObject method ");
+        log.debug("getUpdateBookingResponseObject: Enter getUpdateBookingResponseObject method ");
 
         UpdateBookingResponse objUpdateBookingResponse = new UpdateBookingResponse();
 
-        log.debug("getUpdateBookingResponseObject", "Exit  getUpdateBookingResponseObject method ");
+        log.debug("getUpdateBookingResponseObject: Exit  getUpdateBookingResponseObject method ");
 
         return objUpdateBookingResponse;
     }
@@ -145,7 +145,7 @@ public class OWSReservationProcessor extends OWSBase {
      */
     private ModifyBookingRequest getUpdateBookingRequestObject(UpdateBookingRequest updateBookingRequest) {
 
-        log.debug("getUpdateBookingRequestObject", "Enter getUpdateBookingRequestObject method ");
+        log.debug("getUpdateBookingRequestObject: Enter getUpdateBookingRequestObject method ");
 
 		/* To set the request parameters. */
         ModifyBookingRequest objModifyBookingRequest = new ModifyBookingRequest();
@@ -194,24 +194,24 @@ public class OWSReservationProcessor extends OWSBase {
             }
         }
 
-        log.debug("getUpdateBookingRequestObject", "Exit getUpdateBookingRequestObject method " + objModifyBookingRequest);
+        log.debug("getUpdateBookingRequestObject: Exit getUpdateBookingRequestObject method: {}", objModifyBookingRequest);
         return objModifyBookingRequest;
     }
 
     private com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse getReleaseRoomResponseObject(ReleaseRoomResponse objReleaseRoomResponse) {
 
-        log.debug("getReleaseRoomResponseObject", "Enter getReleaseRoomResponseObject method ");
+        log.debug("getReleaseRoomResponseObject: Enter getReleaseRoomResponseObject method ");
 
         com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse objReleaseRoomRespons = new com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse();
 
-        log.debug("getReleaseRoomResponseObject", "Exit getReleaseRoomResponseObject method ");
+        log.debug("getReleaseRoomResponseObject: Exit getReleaseRoomResponseObject method ");
 
         return objReleaseRoomRespons;
     }
 
     private ReleaseRoomRequest getReleaseRoomRequestObject(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest releaseRoomRequest) {
 
-        log.debug("getReleaseRoomRequestObject", "Enter getReleaseRoomRequestObject method ");
+        log.debug("getReleaseRoomRequestObject: Enter getReleaseRoomRequestObject method ");
 
 	    ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
 
@@ -220,7 +220,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         objReleaseRoomRequest.setHotelReference(getDefaultHotelReference());
 
-        log.debug("getReleaseRoomRequestObject", "Exit getReleaseRoomRequestObject method ");
+        log.debug("getReleaseRoomRequestObject: Exit getReleaseRoomRequestObject method ");
 
         return objReleaseRoomRequest;
 
@@ -228,19 +228,19 @@ public class OWSReservationProcessor extends OWSBase {
 
     private com.cloudkey.pms.response.roomassignments.AssignRoomResponse getAssignRoomResponseObject(AssignRoomResponse objResponse) {
 
-        log.debug("getAssignRoomResponseObject", "Enter getAssignRoomResponseObject method ");
+        log.debug("getAssignRoomResponseObject: Enter getAssignRoomResponseObject method ");
 
 	    com.cloudkey.pms.response.roomassignments.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.roomassignments.AssignRoomResponse();
 
         objAssignRoomResponse.setAssignRoomNumber(objResponse.getRoomNoAssigned());
-        log.debug("getAssignRoomResponseObject", "Exit getAssignRoomResponseObject method ");
+        log.debug("getAssignRoomResponseObject: Exit getAssignRoomResponseObject method ");
 
         return objAssignRoomResponse;
     }
 
     private AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest) throws RemoteException {
 
-        log.debug("getAssignRoomRequestObject", "Enter getAssignRoomRequestObject method ");
+        log.debug("getAssignRoomRequestObject: Enter getAssignRoomRequestObject method ");
 
         String roomTypeCode = assignRoomRequest.getRoomTypeCode();
 
@@ -258,7 +258,7 @@ public class OWSReservationProcessor extends OWSBase {
 
             objAssignRoomRequest.setStationID(stationId);
 
-            log.debug("getAssignRoomRequestObject", "Exit getAssignRoomRequestObject method ");
+            log.debug("getAssignRoomRequestObject: Exit getAssignRoomRequestObject method ");
         }
 
         return objAssignRoomRequest;
@@ -266,7 +266,7 @@ public class OWSReservationProcessor extends OWSBase {
 
     public SearchReservationResponse processSearchReservationData(SearchReservationRequest searchReservationRequest) throws RemoteException {
 
-        log.debug("processSearchReservationData", "Enter in processSearchReservationData method. ");
+        log.debug("processSearchReservationData: Enter in processSearchReservationData method. ");
 
 	    FutureBookingSummaryRequest req =
                 getFutureBookingRequestObject(searchReservationRequest);
@@ -286,7 +286,7 @@ public class OWSReservationProcessor extends OWSBase {
 
 	private FutureBookingSummaryRequest getFutureBookingRequestObject(SearchReservationRequest searchReservationRequest) {
 
-        log.debug("getFutureBookingRequestObject", "Enter getFutureBookingRequestObject method ");
+        log.debug("getFutureBookingRequestObject: Enter getFutureBookingRequestObject method ");
 
         String pmsReservationId = searchReservationRequest.getPmsReservationId();
         String creditCardNumber = searchReservationRequest.getCreditCardNumber();
@@ -371,7 +371,7 @@ public class OWSReservationProcessor extends OWSBase {
         filters.setHotelReference(getDefaultHotelReference());
 */
 
-        log.debug("getFutureBookingRequestObject", "Exit getFutureBookingRequestObject method ");
+        log.debug("getFutureBookingRequestObject: Exit getFutureBookingRequestObject method ");
 
         return objFutureBookingSummaryRequest;
 
@@ -379,7 +379,7 @@ public class OWSReservationProcessor extends OWSBase {
 
     private SearchReservationResponse getFutureBookingResponseObject(FutureBookingSummaryResponse objResponse) {
 
-        log.debug("getFutureBookingResponseObject", "Enter getFutureBookingResponseObject method.");
+        log.debug("getFutureBookingResponseObject: Enter getFutureBookingResponseObject method.");
 
         if (objResponse == null) {
             return null;
@@ -397,7 +397,7 @@ public class OWSReservationProcessor extends OWSBase {
          */
         objSearchReservationResponse.setReservationList(objLReservations);
 
-        log.debug("getFutureBookingResponseObject", "Exit getFutureBookingResponseObject method.");
+        log.debug("getFutureBookingResponseObject: Exit getFutureBookingResponseObject method.");
 
         return objSearchReservationResponse;
 
@@ -412,7 +412,7 @@ public class OWSReservationProcessor extends OWSBase {
 
         for (HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
 
-            log.debug("getFutureBookingResponseObject", "Enter in Hotel Reservation Loop.");
+            log.debug("getFutureBookingResponseObject: Enter in Hotel Reservation Loop.");
 
             objReservation = new Reservation();
             objLReservations.add(objReservation);
@@ -423,7 +423,7 @@ public class OWSReservationProcessor extends OWSBase {
 
             for (UniqueID objUniqueID : arrUniqueID) { // To traverse Unique Id list.
 
-                log.debug("getFutureBookingResponseObject", "Iterating UniqueID list .");
+                log.debug("getFutureBookingResponseObject: Iterating UniqueID list .");
 
                 if (objUniqueID.getType().equals(UniqueIDType.INTERNAL)) {
 	                if (objUniqueID.getSource() != null) {
@@ -431,7 +431,7 @@ public class OWSReservationProcessor extends OWSBase {
 
 			                objReservation.setPmsReservationId(objUniqueID.getString());
 
-			                log.debug("getFutureBookingResponseObject", "PmsReservationId is set.");
+			                log.debug("getFutureBookingResponseObject: PmsReservationId is set.");
 		                }
 	                } else {
 		                objReservation.setConfirmationNumber(objUniqueID.getString());
@@ -447,13 +447,13 @@ public class OWSReservationProcessor extends OWSBase {
 
             for (ResGuest objResGuest : arrGuest) { // To traverse ResGuest.
 
-                log.debug("getFutureBookingResponseObject", "Iterating ResGuest Array.");
+                log.debug("getFutureBookingResponseObject: Iterating ResGuest Array.");
 
                 Profile[] arrProfiles = objResGuest.getProfiles().getProfile();
 
                 for (Profile objProfile : arrProfiles) { // To traverse profile .
 
-                    log.debug("getFutureBookingResponseObject", "Iterating Profile Array.");
+                    log.debug("getFutureBookingResponseObject: Iterating Profile Array.");
 
                     PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
 
@@ -480,17 +480,17 @@ public class OWSReservationProcessor extends OWSBase {
                         }
                         objReservation.setFullName(objBuilder.toString());
 
-                        log.debug("getFutureBookingResponseObject", "Full Name is set.");
+                        log.debug("getFutureBookingResponseObject: Full Name is set.");
                     }
 
                     if (arrNameCreditCard != null) {
                         for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
 
-                            log.debug("getFutureBookingResponseObject", "Iterating NameCreditCard  Array.");
+                            log.debug("getFutureBookingResponseObject: Iterating NameCreditCard  Array.");
 
                             objReservation.setCreditCardNumber(objNameCreditCard.getCreditCardChoice_type0().getCardNumber());
 
-                            log.debug("getFutureBookingResponseObject", "Credit Card Number is set.");
+                            log.debug("getFutureBookingResponseObject: Credit Card Number is set.");
                         } // End loop for name credit card.
                     }
 
@@ -532,7 +532,7 @@ public class OWSReservationProcessor extends OWSBase {
                         } // End loop for Email.
                     }
 
-                    log.debug("getFutureBookingResponseObject", "Exit Profile .");
+                    log.debug("getFutureBookingResponseObject: Exit Profile .");
 
                 } // End loop for Profile.
             } // End loop for Res Guest.
@@ -659,7 +659,7 @@ public class OWSReservationProcessor extends OWSBase {
             // Set the reservation into response.
             objLReservations.add(objReservation);
 
-            log.debug("getFutureBookingResponseObject", "Exit from Hotel Reservation loop.");
+            log.debug("getFutureBookingResponseObject: Exit from Hotel Reservation loop.");
 
         } // End loop for Hotel Reservation.
 

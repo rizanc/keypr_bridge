@@ -18,7 +18,7 @@ public class UploadServiceApplication {
 	protected final static Logger log = LoggerFactory.getLogger(UploadServiceApplication.class);
 
 	public static void main(String[] args) {
-		log.info(" main ", "enter main method ");
+		log.debug("main: enter main method ");
 
 		final Injector injector = Guice.createInjector(new UploadServiceModule());
 
@@ -29,7 +29,7 @@ public class UploadServiceApplication {
 
 			public void run() {
 
-				log.info(" main ", "enter room details thread ");
+				log.debug("main: enter room details thread ");
 
 				int onstartup = 0;
 				boolean isCallFetchRoomStatus = false;
@@ -39,18 +39,18 @@ public class UploadServiceApplication {
 				// TODO: This clearly does not accomplish what they intended.
 				if (onstartup == 0) {
 
-					log.info(" main ", "enter to call fetchRoomDetailsOnStartup");
+					log.debug("main: enter to call fetchRoomDetailsOnStartup");
 
 					isCallFetchRoomStatus = retriever.fetchRoomDetailsOnStartup();
 
-					log.info(" main ", " fetchRoomDetailsOnStartup status is " + isCallFetchRoomStatus);
+					log.debug("main: fetchRoomDetailsOnStartup status is: {}", isCallFetchRoomStatus);
 
 					onstartup++;
 				}
 
 				if (isCallFetchRoomStatus) {
 
-					log.info(" main ", "enter to call fetchRoomDetails");
+					log.debug("main: enter to call fetchRoomDetails");
 
 					retriever.fetchRoomDetails();
 				}
@@ -67,7 +67,7 @@ public class UploadServiceApplication {
 
 			public void run() {
 
-				log.info(" main ", "enter room inventory thread ");
+				log.debug("main: enter room inventory thread ");
 
 				int onstartup = 0;
 				boolean isCallFetchRoomInventory = false;
@@ -76,18 +76,18 @@ public class UploadServiceApplication {
 
 				if (onstartup == 0) {
 
-					log.info(" main ", " enter to call fetchRoomInventoryDetailsOnStartup ");
+					log.debug("main: enter to call fetchRoomInventoryDetailsOnStartup ");
 
 					isCallFetchRoomInventory = retriever.fetchRoomInventoryDetailsOnStartup();
 
-					log.info(" main ", " fetchRoomInventoryDetails status is " + isCallFetchRoomInventory);
+					log.debug("main: fetchRoomInventoryDetails status is: {}", isCallFetchRoomInventory);
 
 					onstartup++;
 				}
 
 				if (isCallFetchRoomInventory) {
 
-					log.info(" main ", "enter to call fetchRoomInventoryDetails");
+					log.debug("main: enter to call fetchRoomInventoryDetails");
 
 					retriever.fetchRoomInventoryDetails();
 				}
@@ -104,11 +104,11 @@ public class UploadServiceApplication {
 
 			public void run() {
 
-				log.info(" main ", " enter in reservation thread ");
+				log.debug("main: enter in reservation thread ");
 
 				UploadReservationDataRetriever retriever = injector.getInstance(UploadReservationDataRetriever.class);
 
-				log.info(" main ", " enter to call fetchReservationDetails ");
+				log.debug("main: enter to call fetchReservationDetails ");
 
 				retriever.fetchReservationDetails();
 
@@ -116,7 +116,7 @@ public class UploadServiceApplication {
 		});
 		reservatioThread.start();
 
-		log.info(" main ", " exit main method ");
+		log.debug("main: exit main method ");
 
 	}
 }

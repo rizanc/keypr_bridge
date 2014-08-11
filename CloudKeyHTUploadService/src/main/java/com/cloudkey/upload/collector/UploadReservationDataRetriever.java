@@ -59,7 +59,7 @@ public class UploadReservationDataRetriever {
 	 */
 	public void fetchReservationDetails() {
 
-		log.info(" fetchReservationDetails ", " enter method fetchReservationDetails ");
+		log.debug("fetchReservationDetails: enter method fetchReservationDetails ");
 
 		final Runnable schedulerTask = new Runnable() {
 
@@ -85,7 +85,7 @@ public class UploadReservationDataRetriever {
 					String sqlQuery = IUploadConstants.QUERY_RESERVATION_UPLOAD_SELECT_BY_RESERVATION_STATUS;
 					PreparedStatement stmtOnStartUp = connection.prepareStatement( sqlQuery , Statement.RETURN_GENERATED_KEYS );
 
-					log.info(" fetchReservationDetails ", " Query to fetch reservation_upload table data " + sqlQuery);
+					log.debug("fetchReservationDetails: Query to fetch reservation_upload table data: {}", sqlQuery);
 
 					List<Reservation> reservationList = new ArrayList<Reservation>();
 
@@ -136,13 +136,13 @@ public class UploadReservationDataRetriever {
 							//reservationSet.getString( "status" );
 							// reservation.setPropertyImage(reservationSet.getBlob( "property_image" ));
 
-							log.info(" fetchReservationDetails ", " Data fetched from reservation_upload table with id " + id + " , PMS ID " + pmsId);
+							log.debug("fetchReservationDetails: Data fetched from reservation_upload table with id: {}, PMS ID: {}", id, pmsId);
 
 							// To select data from reservation room allocation table.
 
 							sqlQuery = IUploadConstants.QUERY_RESERVATION_ROOM_ALLOCATION_UPLOAD_BY_RESERVATION_UPLOAD_ID;
 
-							log.info(" fetchReservationDetails ", " Query to fetch reservation_room_allocation_upload data " + sqlQuery);
+							log.debug("fetchReservationDetails: Query to fetch reservation_room_allocation_upload data: {}", sqlQuery);
 
 							stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS );
 							stmtOnStartUp.setInt(1, id );
@@ -164,11 +164,11 @@ public class UploadReservationDataRetriever {
 
 									roomType.setCode(resvRoomAllocationSet.getString( "resvalloc.room_type_code" ) );
 
-									log.info(" fetchReservationDetails ", " Data fetched from reservation_room_allocation_upload table with upload id " + resvUploadId);
+									log.debug("fetchReservationDetails: Data fetched from reservation_room_allocation_upload table with upload id: {}", resvUploadId);
 
 									sqlQuery = IUploadConstants.QUERY_RESERVATION_ROOM_RATES_UPLOAD_BY_RESERVATION_ROOM_ALLOCATION_ID;
 
-									log.info(" fetchReservationDetails ", " Query to fetch reservation_room_rates_upload data " + sqlQuery);
+									log.debug("fetchReservationDetails: Query to fetch reservation_room_rates_upload data: {}", sqlQuery);
 
 									stmtOnStartUp = connection.prepareStatement( sqlQuery  , Statement.RETURN_GENERATED_KEYS );
 									stmtOnStartUp.setInt(1, resvUploadId );
@@ -192,51 +192,51 @@ public class UploadReservationDataRetriever {
 									}
 									else {
 
-										log.info(" fetchReservationDetails ", " ResultSet for Room Rate is null ");
+										log.debug("fetchReservationDetails: ResultSet for Room Rate is null ");
 									}
 
-									log.info(" fetchReservationDetails ", " Data fetched from reservation_room_rates_upload table ");
+									log.debug("fetchReservationDetails: Data fetched from reservation_room_rates_upload table ");
 
 									reservationRoomAllocation.setRoomRateList( roomRateList );
 
-									log.info(" fetchReservationDetails ", " Room Rate List is added on resv room allocation ");
+									log.debug("fetchReservationDetails: Room Rate List is added on resv room allocation ");
 
 									roomAllocationList.add( reservationRoomAllocation );
 
-									log.info(" fetchReservationDetails ", " Resv Room Alloocation is added on room allocation list ");
+									log.debug("fetchReservationDetails: Resv Room Alloocation is added on room allocation list ");
 
 								}
 							}
 							else {
 
-								log.info(" fetchReservationDetails ", " ResultSet for Room Alloocation is null");
+								log.debug("fetchReservationDetails: ResultSet for Room Alloocation is null");
 							}
 							reservation.setReservationRoomAllocationList( roomAllocationList );
 
-							log.info(" fetchReservationDetails ", " Room Allocation List is added in to  reservation ");
+							log.debug("fetchReservationDetails: Room Allocation List is added in to  reservation ");
 
 							reservationList.add( reservation );
 
-							log.info(" fetchReservationDetails ", " Reservation is added in to  reservation list ");
+							log.debug("fetchReservationDetails: Reservation is added in to  reservation list ");
 
 						}
 
 						int reservationListSize = reservationList.size();
 
-						log.info(" fetchReservationDetails ", " size of reservation list " + reservationListSize);
+						log.debug("fetchReservationDetails: size of reservation list: {}", reservationListSize);
 
 						if( isRecordFound ) {
 
-							log.info(" fetchReservationDetails ", " ResultSet Contain Data ");
+							log.debug("fetchReservationDetails: ResultSet Contain Data ");
 						}
 						else {
 
-							log.info(" fetchReservationDetails ", " ResultSet is empty ");
+							log.debug("fetchReservationDetails: ResultSet is empty ");
 						}
 
 						if( reservationListSize > 0) {
 
-							log.info(" fetchReservationDetails ", " Make call to invoke keypr web service ");
+							log.debug("fetchReservationDetails: Make call to invoke keypr web service ");
 
 							//invoke the web service client for call the web service 
 							webResult = uploadServiceClient.invokeReservation( reservationList, reservationListSize );
@@ -244,25 +244,25 @@ public class UploadReservationDataRetriever {
 							//on the basis of getting the response from the client web service call the method to delete the data from upload queue
 							if( webResult.equalsIgnoreCase( IUploadConstants.KEYPR_SERVICE_STATUS_SUCCESS ) ) {
 
-								log.info(" fetchReservationDetails ", " Web service result is success ");
+								log.debug("fetchReservationDetails: Web service result is success ");
 
 								uploadQueueDataRemover.removeReservationData( reservationList );
 							}
 							else {
 
-								log.info(" fetchReservationDetails ", " Web service result is failure ");
+								log.debug("fetchReservationDetails: Web service result is failure ");
 
 								boolean isSuccess = false;
 
 								for( int attempt = 0; attempt < 3; attempt++ )
 								{
-									log.info(" fetchReservationDetails ", " Attemp for web service request " + attempt);
+									log.debug("fetchReservationDetails: Attempt for web service request: {}", attempt);
 
 									webResult = uploadServiceClient.invokeReservation(reservationList, reservationListSize);
 
 									if( webResult.equalsIgnoreCase(IUploadConstants.KEYPR_SERVICE_STATUS_SUCCESS) ) {
 
-										log.info(" fetchReservationDetails ", " Web service result is suceess on  " + attempt + " attempt");
+										log.debug("fetchReservationDetails: Web service result is success on: {}", attempt + " attempt");
 
 										uploadQueueDataRemover.removeReservationData( reservationList );
 										isSuccess = true;
@@ -272,7 +272,7 @@ public class UploadReservationDataRetriever {
 								}
 								if( !isSuccess ) {
 
-									log.info(" fetchReservationDetails ", " Recall for fetchRservation Details ");
+									log.debug("fetchReservationDetails: Recall for fetchRservation Details ");
 
 									// to fetch the reservation details , and process again .
 									fetchReservationDetails();
@@ -281,13 +281,13 @@ public class UploadReservationDataRetriever {
 						}
 						else {
 
-							log.info(" fetchReservationDetails ", " Nothing to push since Room Detail List is Empty");
+							log.debug("fetchReservationDetails: Nothing to push since Room Detail List is Empty");
 
 						}
 					}
 					else {
 
-						log.info(" fetchReservationDetails ", " reservationSet is null");
+						log.debug("fetchReservationDetails: reservationSet is null");
 					}
 
 				} catch ( SQLException exc ) {
@@ -295,7 +295,7 @@ public class UploadReservationDataRetriever {
 					log.error("fetchReservationDetails", exc);
 				}
 
-				log.info(" fetchReservationDetails ", " exit fetchReservationDetails method ");
+				log.debug("fetchReservationDetails: exit fetchReservationDetails method ");
 			}
 
 		};	
@@ -304,7 +304,7 @@ public class UploadReservationDataRetriever {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> schedulerHandle = scheduler.scheduleAtFixedRate( schedulerTask, delayTime, period, TimeUnit.SECONDS );
 
-		log.info(" fetchReservationDetails ", " exit method fetchReservationDetails ");
+		log.debug("fetchReservationDetails: exit method fetchReservationDetails ");
 	}
 
 }

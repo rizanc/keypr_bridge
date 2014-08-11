@@ -24,7 +24,7 @@ public class GuiceUtils {
 
 			Names.bindProperties(binder, properties);
 		} catch (IOException e) {
-			log.error("Could not load property file", propFile, e);
+			log.error("Could not load property file {}", propFile, e);
 		}
 
 	}

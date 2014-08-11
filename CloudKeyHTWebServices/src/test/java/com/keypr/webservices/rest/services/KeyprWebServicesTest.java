@@ -46,7 +46,7 @@
 //	//@Test
 //	public void testSearchReservationForConfirmation(){
 //
-//		log.debug(" testSearchReservationForConfirmation ", " Enter method testSearchReservationForConfirmation ");
+//		log.debug("testSearchReservationForConfirmation: Enter method testSearchReservationForConfirmation ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
@@ -66,7 +66,7 @@
 //		}
 //		else {
 //
-//			log.debug(" testSearchReservationForConfirmation ", " Failure From Server ");
+//			log.debug("testSearchReservationForConfirmation: Failure From Server ");
 //
 //			assertTrue( "Number of reservation",  0 == objSearchReservationResponse.getReservationList().size() );
 //			assertEquals( "SUCCESS" , objSearchReservationResponse.getStatus() );
@@ -76,7 +76,7 @@
 //		assertNotNull("SearchReservationResponse Instance must not be null " , objSearchReservationResponse );
 //		assertNotNull( "SearchReservationRequest Instance must not be null ",  objSearchReservationRequest);
 //
-//		log.debug(" testSearchReservationForConfirmation ", " Exit method testSearchReservationForConfirmation ");
+//		log.debug("testSearchReservationForConfirmation: Exit method testSearchReservationForConfirmation ");
 //	}
 //
 //	/**
@@ -89,7 +89,7 @@
 //	@Test
 //	public void testSearchReservationForWithoutConfirmation() {
 //
-//		log.debug(" testSearchReservationForWithoutConfirmation ", " Enter method testSearchReservationForWithoutConfirmation ");
+//		log.debug("testSearchReservationForWithoutConfirmation: Enter method testSearchReservationForWithoutConfirmation ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
@@ -118,7 +118,7 @@
 //			assertEquals( "XXXX-XXXX-XXXX-1234", objSearchReservationResponse.getReservationList().get(0).getCreditCardNumber());
 //		}
 //
-//		log.debug(" testSearchReservationForWithoutConfirmation ", " Exit method testSearchReservationForWithoutConfirmation ");
+//		log.debug("testSearchReservationForWithoutConfirmation: Exit method testSearchReservationForWithoutConfirmation ");
 //	}
 //
 //	/**
@@ -129,7 +129,7 @@
 //	//@Test
 //	public void testSearchReservationForFailure() {
 //
-//		log.debug(" testSearchReservationForFailure ", " Enter method testSearchReservationForFailure ");
+//		log.debug("testSearchReservationForFailure: Enter method testSearchReservationForFailure ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		SearchReservationResponse objSearchReservationResponse = null;
@@ -148,7 +148,7 @@
 //
 //		assertTrue("Number of reservation", 0 == numbeOfReservations );
 //
-//		log.debug(" testSearchReservationForFailure ", " Enter method testSearchReservationForFailure ");
+//		log.debug("testSearchReservationForFailure: Enter method testSearchReservationForFailure ");
 //
 //	}
 //
@@ -159,7 +159,7 @@
 //	//@Test
 //	public void testSearchReservationForServerShutdown() {
 //
-//		log.debug(" testSearchReservationForServerShutdown ", " Enter method testSearchReservationForServerShutdown ");
+//		log.debug("testSearchReservationForServerShutdown: Enter method testSearchReservationForServerShutdown ");
 //
 //		SearchReservationRequest objSearchReservationRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -178,7 +178,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		log.debug(" testSearchReservationForServerShutdown ", " Exit method testSearchReservationForServerShutdown ");
+//		log.debug("testSearchReservationForServerShutdown: Exit method testSearchReservationForServerShutdown ");
 //
 //	}
 //
@@ -190,7 +190,7 @@
 //	 */
 //	private SearchReservationResponse makeSearchReservationRequest( SearchReservationRequest objSearchReservationRequest) {
 //
-//		log.debug(" makeSearchReservationRequest ", " Enter method makeSearchReservationRequest ");
+//		log.debug("makeSearchReservationRequest: Enter method makeSearchReservationRequest ");
 //
 //		Entity<SearchReservationRequest> entity = Entity.json(objSearchReservationRequest);
 //
@@ -202,7 +202,7 @@
 //
 //		SearchReservationResponse objSearchReservationResponse = response.readEntity(SearchReservationResponse.class);
 //
-//		log.debug(" makeSearchReservationRequest ", " Exit method makeSearchReservationRequest ");
+//		log.debug("makeSearchReservationRequest: Exit method makeSearchReservationRequest ");
 //
 //		return objSearchReservationResponse;
 //
@@ -215,7 +215,7 @@
 //	//@Test
 //	public void testGetFolioRequestServerShutdown()
 //	{
-//		log.debug(" testGetFolioRequestServerShutdown ", " Enter method testGetFolioRequestServerShutdown ");
+//		log.debug("testGetFolioRequestServerShutdown: Enter method testGetFolioRequestServerShutdown ");
 //
 //		GetFolioRequest objGetFolioRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -235,7 +235,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		log.debug(" testGetFolioRequestServerShutdown ", " Exit method testGetFolioRequestServerShutdown ");
+//		log.debug("testGetFolioRequestServerShutdown: Exit method testGetFolioRequestServerShutdown ");
 //
 //	}
 //
@@ -247,7 +247,7 @@
 //	//@Test
 //	public void testGetFolioRequest() {
 //
-//		log.debug(" testGetFolioRequest ", " Enter method testGetFolioRequest ");
+//		log.debug("testGetFolioRequest: Enter method testGetFolioRequest ");
 //
 //		GetFolioRequest objGetFolioRequest = null;
 //		GetFolioResponse objGetFolioResponse = null;
@@ -277,7 +277,7 @@
 //
 //			}
 //		}
-//		log.debug(" testGetFolioRequest ", " Exit method testGetFolioRequest ");
+//		log.debug("testGetFolioRequest: Exit method testGetFolioRequest ");
 //	}
 //
 //	/**
@@ -289,7 +289,7 @@
 //	//@Test
 //	public void testGetFolioRequestForFailure() {
 //
-//		log.debug(" testGetFolioRequestForFailure ", " Enter method testGetFolioRequestForFailure ");
+//		log.debug("testGetFolioRequestForFailure: Enter method testGetFolioRequestForFailure ");
 //
 //		GetFolioRequest objGetFolioRequest = null;
 //		GetFolioResponse objGetFolioResponse = null;
@@ -304,7 +304,7 @@
 //		assertTrue( "Reservation Instance should null " , objGetFolioResponse.getReservation() == null);
 //		assertEquals( "OrderList Size Zero ", 0, objGetFolioResponse.getReservationOrderList().size());
 //
-//		log.debug(" testGetFolioRequestForFailure ", " Exit method testGetFolioRequestForFailure ");
+//		log.debug("testGetFolioRequestForFailure: Exit method testGetFolioRequestForFailure ");
 //	}
 //	/**
 //	 * This method makes get folio request to the web service.
@@ -314,7 +314,7 @@
 //	 */
 //	private GetFolioResponse makeGetFolioRequest( GetFolioRequest objGetFolioRequest) {
 //
-//		log.debug(" makeGetFolioRequest ", " Enter method makeGetFolioRequest ");
+//		log.debug("makeGetFolioRequest: Enter method makeGetFolioRequest ");
 //
 //		Entity<GetFolioRequest> entity = Entity.json(objGetFolioRequest);
 //
@@ -326,7 +326,7 @@
 //
 //		GetFolioResponse objGetFolioResponse = response.readEntity(GetFolioResponse.class);
 //
-//		log.debug(" makeGetFolioRequest ", " Exit method makeGetFolioRequest ");
+//		log.debug("makeGetFolioRequest: Exit method makeGetFolioRequest ");
 //
 //		return objGetFolioResponse;
 //	}
@@ -338,7 +338,7 @@
 //	//@Test
 //	public void testUpdateBookingRequestServerShutdown()
 //	{
-//		log.debug(" testUpdateBookingRequestServerShutdown ", " Enter method testUpdateBookingRequestServerShutdown ");
+//		log.debug("testUpdateBookingRequestServerShutdown: Enter method testUpdateBookingRequestServerShutdown ");
 //
 //		UpdateBookingRequest objUpdateBookingRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -359,7 +359,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		log.debug(" testUpdateBookingRequestServerShutdown ", " Exit method testUpdateBookingRequestServerShutdown ");
+//		log.debug("testUpdateBookingRequestServerShutdown: Exit method testUpdateBookingRequestServerShutdown ");
 //
 //	}
 //
@@ -371,7 +371,7 @@
 //	//@Ignore
 //	public void testUpdateBookingRequest() {
 //
-//		log.debug(" testUpdateBookingRequest ", " Enter method testUpdateBookingRequest ");
+//		log.debug("testUpdateBookingRequest: Enter method testUpdateBookingRequest ");
 //
 //		UpdateBookingRequest objUpdateBookingRequest = null;
 //		UpdateBookingResponse objUpdateBookingResponse = null;
@@ -400,7 +400,7 @@
 //		assertEquals( "First Notes " , "KING SIZE" , messages[0] );
 //		assertEquals( "Second Notes " , "NEAR POOL" , messages[1] );
 //
-//		log.debug(" testUpdateBookingRequest ", " Exit method testUpdateBookingRequest ");
+//		log.debug("testUpdateBookingRequest: Exit method testUpdateBookingRequest ");
 //	}
 //	/**
 //	 * This method makes update booking request to the web service.
@@ -410,7 +410,7 @@
 //	 */
 //	private UpdateBookingResponse makeUpdateBookingRequest( UpdateBookingRequest objUpdateBookingRequest) {
 //
-//		log.debug(" makeUpdateBookingRequest ", " Enter method makeUpdateBookingRequest ");
+//		log.debug("makeUpdateBookingRequest: Enter method makeUpdateBookingRequest ");
 //
 //		Entity<UpdateBookingRequest> entity = Entity.json( objUpdateBookingRequest );
 //
@@ -422,7 +422,7 @@
 //
 //		UpdateBookingResponse objUpdateBookingResponse = response.readEntity(UpdateBookingResponse.class);
 //
-//		log.debug(" makeUpdateBookingRequest ", " Exit method makeUpdateBookingRequest ");
+//		log.debug("makeUpdateBookingRequest: Exit method makeUpdateBookingRequest ");
 //
 //		return objUpdateBookingResponse;
 //
@@ -436,7 +436,7 @@
 //	//@Test
 //	public void testCheckInRequestServerShutdown()
 //	{
-//		log.debug("testCheckInRequestServerShutdown", "Enter method testCheckInRequestServerShutdown");
+//		log.debug("testCheckInRequestServerShutdown: Enter method testCheckInRequestServerShutdown");
 //
 //		CheckInRequest objCheckInRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -458,7 +458,7 @@
 //		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
 //		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
 //
-//		log.debug("testCheckInRequestServerShutdown", "Exit method for testCheckInRequestServerShutdown");
+//		log.debug("testCheckInRequestServerShutdown: Exit method for testCheckInRequestServerShutdown");
 //
 //	}
 //	/**
@@ -470,7 +470,7 @@
 //	@Ignore
 //	public void testCheckInRequest() {
 //
-//		log.debug(" testCheckInRequest ", " Enter method testCheckInRequest ");
+//		log.debug("testCheckInRequest: Enter method testCheckInRequest ");
 //
 //		CheckInRequest objCheckInRequest = null;
 //		CheckInResponse objCheckInResponse = null;
@@ -495,7 +495,7 @@
 //		assertTrue ( "CheckIn Date should not be null ", objCheckInResponse.getReservation().getCheckinDate() != null );
 //		assertTrue ( "CheckOut Date should not be null ", objCheckInResponse.getReservation().getCheckoutDate() != null );
 //
-//		log.debug(" testCheckInRequest ", " Exit method testCheckInRequest ");
+//		log.debug("testCheckInRequest: Exit method testCheckInRequest ");
 //	}
 //
 //	/**
@@ -505,7 +505,7 @@
 //	//@Test
 //	public void testCheckInRequestForFailure() {
 //
-//		log.debug(" testCheckInRequestForFailure ", " Enter method testCheckInRequestForFailure ");
+//		log.debug("testCheckInRequestForFailure: Enter method testCheckInRequestForFailure ");
 //
 //		CheckInRequest objCheckInRequest = null;
 //		CheckInResponse objCheckInResponse = null;
@@ -521,7 +521,7 @@
 //		assertTrue( "Reservation Instance in response cannot be null ", objCheckInResponse.getReservation() == null );
 //		assertEquals( "Status Must be Success", "FAILURE" , objCheckInResponse.getStatus() );
 //
-//		log.debug(" testCheckInRequestForFailure ", " Exit method testCheckInRequestForFailure ");
+//		log.debug("testCheckInRequestForFailure: Exit method testCheckInRequestForFailure ");
 //	}
 //
 //	/**
@@ -532,7 +532,7 @@
 //	 */
 //	private CheckInResponse makeCheckInRequest( CheckInRequest objCheckInRequest) {
 //
-//		log.debug(" makeCheckInRequest ", " Enter method makeCheckInRequest ");
+//		log.debug("makeCheckInRequest: Enter method makeCheckInRequest ");
 //
 //		Entity<CheckInRequest> entity = Entity.json( objCheckInRequest );
 //
@@ -544,7 +544,7 @@
 //
 //		CheckInResponse objCheckInResponse = response.readEntity(CheckInResponse.class);
 //
-//		log.debug(" makeCheckInRequest ", " Exit method makeCheckInRequest ");
+//		log.debug("makeCheckInRequest: Exit method makeCheckInRequest ");
 //
 //		return objCheckInResponse;
 //
@@ -557,7 +557,7 @@
 //	//@Test
 //	public void testGetAvailabilityRequest() {
 //
-//		log.debug(" testGetAvailabilityRequest ", " Enter method testGetAvailabilityRequest ");
+//		log.debug("testGetAvailabilityRequest: Enter method testGetAvailabilityRequest ");
 //
 //		GetAvailabilityRequest objGetAvailabilityRequest = null;
 //		GetAvailabilityResponse objGetAvailabilityResponse = null;
@@ -587,7 +587,7 @@
 //			log.error("testGetAvailabilityRequest", exc);
 //		}
 //
-//		log.debug(" testGetAvailabilityRequest ", " Exit method testGetAvailabilityRequest ");
+//		log.debug("testGetAvailabilityRequest: Exit method testGetAvailabilityRequest ");
 //
 //	}
 //	/**
@@ -597,7 +597,7 @@
 //	//@Test
 //	public void testGetAvailabilityRequestServerShutdown() {
 //
-//		log.debug(" testGetAvailabilityRequestServerShutdown ", " Enter method testGetAvailabilityRequestServerShutdown ");
+//		log.debug("testGetAvailabilityRequestServerShutdown: Enter method testGetAvailabilityRequestServerShutdown ");
 //
 //		GetAvailabilityRequest objGetAvailabilityRequest=null;
 //		TimeOutError objTimeOutError=null;
@@ -630,7 +630,7 @@
 //		assertEquals( "Server Respone Code is 504", "504", objTimeOutError.getCode());
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
-//		log.debug(" testGetAvailabilityRequestServerShutdown ", " Exit method testGetAvailabilityRequestServerShutdown ");
+//		log.debug("testGetAvailabilityRequestServerShutdown: Exit method testGetAvailabilityRequestServerShutdown ");
 //
 //	}
 //
@@ -642,7 +642,7 @@
 //	 */
 //	private GetAvailabilityResponse makeGetAvailabilityRequest( GetAvailabilityRequest objGetAvailabilityRequest) {
 //
-//		log.debug(" makeGetAvailabilityRequest ", " Enter method makeGetAvailabilityRequest ");
+//		log.debug("makeGetAvailabilityRequest: Enter method makeGetAvailabilityRequest ");
 //
 //		Entity<GetAvailabilityRequest> entity = Entity.json( objGetAvailabilityRequest );
 //
@@ -654,7 +654,7 @@
 //
 //		GetAvailabilityResponse objGetAvailabilityResponse = response.readEntity(GetAvailabilityResponse.class);
 //
-//		log.debug(" makeGetAvailabilityRequest ", " Exit method makeGetAvailabilityRequest ");
+//		log.debug("makeGetAvailabilityRequest: Exit method makeGetAvailabilityRequest ");
 //
 //		return objGetAvailabilityResponse;
 //
@@ -669,7 +669,7 @@
 //	 */
 //	private CheckOutResponse makeCheckOutRequest( CheckOutRequest objCheckOutRequest) {
 //
-//		log.debug(" makeCheckInRequest ", " Enter method makeCheckInRequest ");
+//		log.debug("makeCheckInRequest: Enter method makeCheckInRequest ");
 //
 //		Entity<CheckOutRequest> entity = Entity.json( objCheckOutRequest );
 //
@@ -679,7 +679,7 @@
 //
 //		CheckOutResponse objCheckOutResponse = response.readEntity(CheckOutResponse.class);
 //
-//		log.debug(" makeCheckInRequest ", " Enter method makeCheckInRequest ");
+//		log.debug("makeCheckInRequest: Enter method makeCheckInRequest ");
 //
 //		return objCheckOutResponse;
 //	}
@@ -691,7 +691,7 @@
 //	//@Test
 //	public void testCheckOutRequestServerShutdown()
 //	{
-//		log.debug(" testCheckOutRequestServerShutdown ", " Enter method testCheckOutRequestServerShutdown ");
+//		log.debug("testCheckOutRequestServerShutdown: Enter method testCheckOutRequestServerShutdown ");
 //
 //		CheckOutRequest objCheckOutRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -711,7 +711,7 @@
 //		assertEquals( " Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		log.debug(" testCheckOutRequestServerShutdown ", " Exit method testCheckOutRequestServerShutdown ");
+//		log.debug("testCheckOutRequestServerShutdown: Exit method testCheckOutRequestServerShutdown ");
 //
 //	}
 //
@@ -725,7 +725,7 @@
 //	//@Ignore
 //	public void testCheckOutRequest(){
 //
-//		log.debug(" testCheckOutRequest ", " Enter method testCheckOutRequest ");
+//		log.debug("testCheckOutRequest: Enter method testCheckOutRequest ");
 //
 //		CheckOutRequest objCheckOutRequest = null;
 //		CheckOutResponse objCheckOutResponse = null;
@@ -747,7 +747,7 @@
 //		//			assertTrue ( "CheckIn Date should not be null ", objCheckOutResponse.getReservation().getCheckinDate() != null );
 //		//			assertTrue ( "CheckOut Date should not be null ", objCheckOutResponse.getReservation().getCheckoutDate() != null );
 //
-//		log.debug(" testCheckOutRequest ", " Exit method testCheckOutRequest ");
+//		log.debug("testCheckOutRequest: Exit method testCheckOutRequest ");
 //
 //	}
 //
@@ -760,7 +760,7 @@
 //	 */
 //	private AssignRoomResponse makeAssignRoomRequest( AssignRoomRequest assignRoomRequest) {
 //
-//		log.debug(" makeAssignRoomRequest ", " Enter method makeAssignRoomRequest ");
+//		log.debug("makeAssignRoomRequest: Enter method makeAssignRoomRequest ");
 //
 //		Entity<AssignRoomRequest> entity = Entity.json( assignRoomRequest );
 //
@@ -770,7 +770,7 @@
 //
 //		AssignRoomResponse objAssignRoomResponse = response.readEntity(AssignRoomResponse.class);
 //
-//		log.debug(" makeAssignRoomRequest ", " Exit method makeAssignRoomRequest ");
+//		log.debug("makeAssignRoomRequest: Exit method makeAssignRoomRequest ");
 //
 //		return objAssignRoomResponse;
 //	}
@@ -782,7 +782,7 @@
 //	//@Test
 //	public void testAssignRoomRequestServerShutdown()
 //	{
-//		log.debug(" testAssignRoomRequestServerShutdown ", " Enter methodtestAssignRoomRequestServerShutdown ");
+//		log.debug("testAssignRoomRequestServerShutdown: Enter methodtestAssignRoomRequestServerShutdown ");
 //
 //		AssignRoomRequest objAssignRoomRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -804,7 +804,7 @@
 //		assertEquals("ServerResponseCode is 504", "504" ,objTimeOutError.getCode());
 //		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
 //
-//		log.debug("testAssignRoomRequestServerShutdown", "Exit method for testAssignRoomRequestServerShutdown");
+//		log.debug("testAssignRoomRequestServerShutdown: Exit method for testAssignRoomRequestServerShutdown");
 //
 //	}
 //
@@ -814,7 +814,7 @@
 //	//@Test
 //	public void testAssignRoomRequest(){
 //
-//		log.debug(" testAssignRoomRequest ", " Enter method testAssignRoomRequest ");
+//		log.debug("testAssignRoomRequest: Enter method testAssignRoomRequest ");
 //
 //		AssignRoomRequest objAssignRoomRequest = null;
 //		AssignRoomResponse objAssignRoomResponse = null;
@@ -837,7 +837,7 @@
 //		assertNotNull( "Assigned Room Number in  in response cannot be null ", objAssignRoomResponse.getAssignRoomNumber());
 //		assertEquals( "Status Must be Success", "SUCCESS" , objAssignRoomResponse.getStatus() );
 //
-//		log.debug(" testAssignRoomRequest ", " Exit method testAssignRoomRequest ");
+//		log.debug("testAssignRoomRequest: Exit method testAssignRoomRequest ");
 //
 //	}
 //	/**
@@ -847,7 +847,7 @@
 //	 */
 //	private ReleaseRoomResponse makeReleaseRoomRequest( ReleaseRoomRequest releaseRoomRequest) {
 //
-//		log.debug(" makeReleaseRoomRequest ", " Enter method makeReleaseRoomRequest ");
+//		log.debug("makeReleaseRoomRequest: Enter method makeReleaseRoomRequest ");
 //
 //		Entity<ReleaseRoomRequest> entity = Entity.json( releaseRoomRequest );
 //
@@ -857,7 +857,7 @@
 //
 //		ReleaseRoomResponse objReleaseRoomResponse = response.readEntity(ReleaseRoomResponse.class);
 //
-//		log.debug(" makeAssignRoomRequest ", " Exit method makeAssignRoomRequest ");
+//		log.debug("makeAssignRoomRequest: Exit method makeAssignRoomRequest ");
 //
 //		return objReleaseRoomResponse;
 //	}
@@ -867,7 +867,7 @@
 //	//@Test
 //	public void testReleaseRoomRequest()
 //	{
-//		log.debug(" testReleaseRoomRequest ", " Enter method testReleaseRoomRequest ");
+//		log.debug("testReleaseRoomRequest: Enter method testReleaseRoomRequest ");
 //
 //		ReleaseRoomRequest  objReleaseRoomRequest = null;
 //		ReleaseRoomResponse objReleaseRoomResponse = null;
@@ -881,7 +881,7 @@
 //		assertNotNull( " ReleaseRoomResponse Instance must not be null " , objReleaseRoomResponse );
 //		assertEquals("SUCCESS", objReleaseRoomResponse.getStatus());
 //
-//		log.debug(" testReleaseRoomRequest ", " Exit method testReleaseRoomRequest ");
+//		log.debug("testReleaseRoomRequest: Exit method testReleaseRoomRequest ");
 //
 //	}
 //	/**
@@ -891,7 +891,7 @@
 //	//@Test
 //	public void testReleseRoomRequestServerShutdown()
 //	{
-//		log.debug(" testReleseRoomRequestServerShutdown ", " Enter testReleseRoomRequestServerShutdown ");
+//		log.debug("testReleseRoomRequestServerShutdown: Enter testReleseRoomRequestServerShutdown ");
 //
 //		ReleaseRoomRequest objReleaseRoomRequest = null;
 //		TimeOutError objTimeOutError = null;
@@ -911,7 +911,7 @@
 //		assertEquals(" Time Out Error From Server ", objTimeOutError.getMessage());
 //
 //
-//		log.debug("testReleseRoomRequestServerShutdown", "Exit method for testReleseRoomRequestServerShutdown");
+//		log.debug("testReleseRoomRequestServerShutdown: Exit method for testReleseRoomRequestServerShutdown");
 //
 //
 //	}

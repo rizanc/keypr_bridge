@@ -26,7 +26,7 @@ public class OWSNameProcessor extends OWSBase {
 	protected NameService service;
 
 	public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
-        log.debug("processGuestCardList", "Enter processGuestCardList method ");
+        log.debug("processGuestCardList: Enter processGuestCardList method ");
 
         FetchGuestCardListRequest request = new FetchGuestCardListRequest();
         request.setNameID(uniqueID(guestMembershipsRequest.getPmsNameId(), UniqueIDType.INTERNAL, null));
@@ -72,7 +72,7 @@ public class OWSNameProcessor extends OWSBase {
     }
 
     public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
-        log.debug("processNameLookupByMembership", "Enter processNameLookupByMembership method ");
+        log.debug("processNameLookupByMembership: Enter processNameLookupByMembership method ");
 
         NameLookupRequest objRequest = new NameLookupRequest();
 

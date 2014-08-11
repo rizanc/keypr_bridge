@@ -29,7 +29,7 @@ public class DataUtility {
 	 * @return XMLGregorianCalendar
 	 */
 	public static XMLGregorianCalendar getGregorianDate() {
-		log.debug(" getGregorianDate ", " Enter in getGregorianDate method. ");
+		log.debug("getGregorianDate: Enter in getGregorianDate method. ");
 
 		GregorianCalendar gregorianCalendar = null;
 		DatatypeFactory datatypeFactory = null;
@@ -43,8 +43,8 @@ public class DataUtility {
 			log.error(" getGregorianDate ", exc);
 		}
 
-		log.debug(" getGregorianDate ", " Current date . " + now);
-		log.debug(" getGregorianDate ", " Exit getGregorianDate method. ");
+		log.debug("getGregorianDate: Current date: {}", now);
+		log.debug("getGregorianDate: Exit getGregorianDate method. ");
 
 		return now;
 	}
@@ -66,7 +66,7 @@ public class DataUtility {
 	 */
 	public static String getEndDate(String startDate, int noOfUnits, String type) throws ParseException {
 
-		log.debug(" getEndDate ", " Enter in getEndDate method ");
+		log.debug("getEndDate: Enter in getEndDate method ");
 		String endDate = "";
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
@@ -97,13 +97,13 @@ public class DataUtility {
 				objCalendar.add(Calendar.WEEK_OF_MONTH, 1);
 				break;
 			default:
-				log.debug(" getEndDate ", " In Default.");
+				log.debug("getEndDate: In Default.");
 
 		}
 
 		endDate = dateFormat.format(objCalendar.getTime());
 
-		log.debug(" getEndDate ", " Exit getEndDate method " + endDate);
+		log.debug("getEndDate: Exit getEndDate method: {}", endDate);
 
 		return endDate;
 

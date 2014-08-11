@@ -58,7 +58,7 @@ public class OWSDataCollector extends OWSTools {
 	/*
 	public void harvestRoomStatusData() {
 
-		log.info(" harvestRoomStatusData ", " Enter harvestRoomStatusData method " );
+		log.debug("harvestRoomStatusData: Enter harvestRoomStatusData method " );
 
 		int delayTime;
 		int intervalPeriod;
@@ -68,15 +68,15 @@ public class OWSDataCollector extends OWSTools {
 			public void run() { 
 
 				boolean success = makeFetchRoomStatusRequest();
-				log.info(" harvestRoomStatusData ", " FetchRoomStatus Made to the OWS " );
+				log.debug("harvestRoomStatusData: FetchRoomStatus Made to the OWS " );
 
 				if(success) {
 
-					log.info(" harvestRoomStatusData ", " Request Processed Successfully " );
+					log.debug("harvestRoomStatusData: Request Processed Successfully " );
 				}
 				else {
 
-					log.info(" harvestRoomStatusData ", " Sorry Request cannot be processed " );
+					log.debug("harvestRoomStatusData: Sorry Request cannot be processed " );
 				}
 			}
 		};
@@ -87,7 +87,7 @@ public class OWSDataCollector extends OWSTools {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate( dataCollerctor, delayTime, intervalPeriod , TimeUnit.SECONDS );
 
-		log.info(" harvestRoomStatusData ", " Exit harvestRoomStatusData method " );
+		log.debug("harvestRoomStatusData: Exit harvestRoomStatusData method " );
 
 	} // ends collectReservationData
 */
@@ -103,7 +103,7 @@ public class OWSDataCollector extends OWSTools {
 /*
 	private boolean makeFetchRoomStatusRequest() {
 
-		log.info(" makeFetchRoomStatusRequest ", " Enter makeFetchRoomStatusRequest method " );
+		log.debug("makeFetchRoomStatusRequest: Enter makeFetchRoomStatusRequest method " );
 
 		boolean isProcced = false;
 
@@ -161,7 +161,7 @@ public class OWSDataCollector extends OWSTools {
 
 			//FetchRoomStatusResponse objFStatusResponse = objResvAdvancedServiceStub.fetchRoomStatus(objFetchRoomStatusRequest, objHeaderE);
 
-			log.info(" makeFetchRoomStatusRequest ", " FetchRoomStatusRequest Instace created " );
+			log.debug("makeFetchRoomStatusRequest: FetchRoomStatusRequest Instace created " );
 
 			XStream objStream = new XStream();
 
@@ -170,7 +170,7 @@ public class OWSDataCollector extends OWSTools {
 			objMicrosMessageTransport = new MicrosMessageTransport();
 			String pmsResponse = objMicrosMessageTransport.handlePMSRequest(xmlRequest);
 
-			log.info(" makeFetchRoomStatusRequest ", " Xml Request Created " + xmlRequest );
+			log.debug("makeFetchRoomStatusRequest: Xml Request Created: {}", xmlRequest );
 
 			XStream xstream = null;
 			xstream = new XStream( new DomDriver());
@@ -184,7 +184,7 @@ public class OWSDataCollector extends OWSTools {
 
 				microsDAO.persistRoomStatusDataInBridgeDB( objFuture );
 
-				log.info(" makeFetchRoomStatusRequest ", " FetchRoomStatusResponse Instance Sent to persist " );
+				log.debug("makeFetchRoomStatusRequest: FetchRoomStatusResponse Instance Sent to persist " );
 
 			}
 		}
@@ -193,7 +193,7 @@ public class OWSDataCollector extends OWSTools {
 			log.error(" makeFetchRoomStatusRequest ", exc);
 		}
 
-		log.info(" makeFetchRoomStatusRequest ", " Exit makeFetchRoomStatusRequest method " ); 
+		log.debug("makeFetchRoomStatusRequest: Exit makeFetchRoomStatusRequest method " );
 
 		return isProcced;
 
@@ -208,22 +208,22 @@ public class OWSDataCollector extends OWSTools {
 	 */
 	public void harvestRoomInventoryData() {
 
-		log.info(" harvestRoomInventoryData ", " Enter harvestRoomInventoryData method " );
+		log.debug("harvestRoomInventoryData: Enter harvestRoomInventoryData method " );
 
 		final Runnable dataCollector = new Runnable() {
 
 			public void run() {
 
 				boolean success = makeFetchCalendarRequest();
-				log.info(" harvestRoomInventoryData ", " FetchCalendar Request Made to the OWS " );
+				log.debug("harvestRoomInventoryData: FetchCalendar Request Made to the OWS " );
 
 				if(success) {
 
-					log.info(" harvestRoomInventoryData ", " Request Processed Successfully " );
+					log.debug("harvestRoomInventoryData: Request Processed Successfully " );
 				}
 				else {
 
-					log.info(" harvestRoomInventoryData ", " Sorry Request cannot be processed " );
+					log.debug("harvestRoomInventoryData: Sorry Request cannot be processed " );
 				}
 			}
 		};
@@ -231,7 +231,7 @@ public class OWSDataCollector extends OWSTools {
 		@SuppressWarnings("unused")
 		final ScheduledFuture<?> beeperHandle = schedulerInventory.scheduleAtFixedRate( dataCollector, timerDelay, timerInterval , TimeUnit.SECONDS );
 
-		log.info(" harvestRoomInventoryData ", " Exit harvestRoomInventoryData method " );
+		log.debug("harvestRoomInventoryData: Exit harvestRoomInventoryData method " );
 
 	} // ends harvestRoomInventoryData
 
@@ -244,7 +244,7 @@ public class OWSDataCollector extends OWSTools {
 	 * @return
 	 */
 	private boolean makeFetchCalendarRequest() {
-		log.info(" makeFetchCalendarRequest ", " Enter makeFetchCalendarRequest method " );
+		log.debug("makeFetchCalendarRequest: Enter makeFetchCalendarRequest method " );
 
 		boolean isProceed = false;
 
@@ -279,24 +279,24 @@ public class OWSDataCollector extends OWSTools {
 			requestE.setFetchCalendarRequest(objFetchCalendarRequest);
 			FetchCalendarResponseE fetchCalendarResponseE = availabilityService.fetchCalendar(requestE, createOGHeaderE());
 
-			log.info(" makeFetchCalendarRequest ", " makeFetchCalendarRequest Instace created " );
+			log.debug("makeFetchCalendarRequest: makeFetchCalendarRequest Instace created " );
 
 			FetchCalendarResponse response = fetchCalendarResponseE.getFetchCalendarResponse();
 
-			log.info(" makeFetchCalendarRequest ", " Xml Response Received " + response );
+			log.debug("makeFetchCalendarRequest: Xml Response Received: {}", response );
 
 			if (response.getResult().getResultStatusFlag() == ResultStatusFlag.SUCCESS) {
 				isProceed = true;
 
 				microsDAO.persistRoomInventoryData(response);
 
-				log.info(" makeFetchCalendarRequest ", " makeFetchCalendarRequest Instance Sent to persist " );
+				log.debug("makeFetchCalendarRequest: makeFetchCalendarRequest Instance Sent to persist " );
 			}
 		} catch (Exception exc) {
 			log.error(" makeFetchCalendarRequest ", exc);
 		}
 
-		log.info(" makeFetchCalendarRequest ", " Exit makeFetchCalendarRequest method " );
+		log.debug("makeFetchCalendarRequest: Exit makeFetchCalendarRequest method " );
 
 		return isProceed;
 	}

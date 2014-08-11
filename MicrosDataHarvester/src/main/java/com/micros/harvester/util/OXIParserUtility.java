@@ -145,7 +145,7 @@ public class OXIParserUtility {
 	 */
 	public Reservation populateReservation ( File reservationFile ) {
 
-		log.info(" populateReservation ", " Enter populateReservation method. ");
+		log.debug("populateReservation: Enter populateReservation method. ");
 
 		ReservationRoomAllocation objRoomAllocation = null ;
 		Reservation objReservation = null;
@@ -213,7 +213,7 @@ public class OXIParserUtility {
 
 				}
 
-				log.info( " populateReservation ", " ReservationType :: " + reservationAction);
+				log.debug( " populateReservation ", " ReservationType ::: {}", reservationAction);
 
 				/*if( reservationAction.equalsIgnoreCase( "ADD" )) {*/
 				if( reservationAction.equalsIgnoreCase( IMicrosHarvester.RESERVATION_TYPE_NEW ) ) {
@@ -231,14 +231,14 @@ public class OXIParserUtility {
 						confirmationNumber = nodeList.item(i).getFirstChild().getNodeValue();
 					}
 
-					log.info( " populateReservation ", " Confirmation Number :: " + confirmationNumber );
+					log.debug( " populateReservation ", " Confirmation Number ::: {}", confirmationNumber );
 				}
 
 				// Retrieving room rates
 				expression = "/Reservation/RoomStays/RoomStay/RatePlans/RatePlan";
 				NodeList ratePlanList = retrieveNodeList( expression, document );
 
-				log.info( " populateReservation ", " Number of Rate Plans :: " + ratePlanList.getLength() );
+				log.debug( " populateReservation ", " Number of Rate Plans ::: {}", ratePlanList.getLength() );
 
 				for( int k = 0; k < ratePlanList.getLength(); k++ ) {
 
@@ -249,7 +249,7 @@ public class OXIParserUtility {
 
 						planCode = planCodeList.item(i).getFirstChild().getNodeValue();
 
-						log.info(" populateReservation ", " Rate Plan Code:: " + planCode );
+						log.debug("populateReservation: Rate Plan Code::: {}", planCode );
 
 						expression = "/Reservation/RoomStays/RoomStay/RatePlans/RatePlan[ratePlanCode='"+planCode+"']/Rates ";
 
@@ -257,7 +257,7 @@ public class OXIParserUtility {
 
 						NodeList rateList = retrieveNodeList(expr, document);
 
-						log.info( " populateReservation ", " Number of Rate " + rateList.getLength() + " for plan code " + planCode );
+						log.debug("populateReservation: Number of Rate: {} for plan code {}", rateList.getLength(), planCode);
 
 						for( int len= 0;len<rateList.getLength(); len++ ) {
 
@@ -309,7 +309,7 @@ public class OXIParserUtility {
 					creditCardNumber = nodeList.item(i).getFirstChild().getNodeValue();
 				}
 
-				log.info( " populateReservation ", " Credit card number :: " + creditCardNumber );
+				log.debug( " populateReservation ", " Credit card number ::: {}", creditCardNumber );
 
 				// Retrieving reservationStatusType whether it is reserved, check in or canceled...
 				expression = "Reservation/RoomStays/RoomStay[@reservationStatusType]";
@@ -322,7 +322,7 @@ public class OXIParserUtility {
 					objRoomAllocation.setReservationStatusType(reservationStatusType);
 				}
 
-				log.info( " populateReservation ", " Room Stay Status Type " + reservationStatusType);
+				log.debug( " populateReservation ", " Room Stay Status Type: {}", reservationStatusType);
 
 				// Retrieving room number
 				expression = "Reservation/RoomStays/RoomStay/roomID";
@@ -335,7 +335,7 @@ public class OXIParserUtility {
 					objRoomAllocation.setRoomNo(Integer.parseInt(roomNumber));
 				}
 
-				log.info( " populateReservation ", " Room Number " + roomNumber);
+				log.debug( " populateReservation ", " Room Number: {}", roomNumber);
 
 				// Retrieving Reservation Source
 				expression = "/Reservation/reservationOriginatorCode";
@@ -347,7 +347,7 @@ public class OXIParserUtility {
 					reservationSource = nodeList.item(i).getFirstChild().getNodeValue();
 				}
 
-				log.info( " populateReservation ", " Reservation Source " + reservationSource);
+				log.debug( " populateReservation ", " Reservation Source: {}", reservationSource);
 
 
 				// Retrieving loyalty number
@@ -359,7 +359,7 @@ public class OXIParserUtility {
 
 					loyaltyNumber = nodeList.item(index).getFirstChild().getNodeValue();
 				}
-				log.info( " populateReservation ", " Loyalty Number " + loyaltyNumber);
+				log.debug( " populateReservation ", " Loyalty Number: {}", loyaltyNumber);
 
 
 				// Retrieving Comments of the Reservation
@@ -372,7 +372,7 @@ public class OXIParserUtility {
 					objStringBuffer.append(nodeList.item(index).getFirstChild().getNodeValue()).append(" ; ");
 				}
 
-				log.info( " populateReservation ", " Message Retrieved is " + objStringBuffer);
+				log.debug( " populateReservation ", " Message Retrieved is: {}", objStringBuffer);
 
 				objReservation.setNotes(objStringBuffer.toString());
 				objStringBuffer.delete(0, objStringBuffer.length() );
@@ -395,8 +395,8 @@ public class OXIParserUtility {
 					stayLength = (nodeList.item(index).getFirstChild().getNodeValue());
 				}
 
-				log.info( " populateReservation ", " Check In Date  " + checkInDate);
-				log.info( " populateReservation ", " StayLength " + stayLength);
+				log.debug( " populateReservation ", " Check In Date: {}", checkInDate);
+				log.debug( " populateReservation ", " StayLength: {}", stayLength);
 
 				objStringBuffer.delete(0, objStringBuffer.length());
 
@@ -424,7 +424,7 @@ public class OXIParserUtility {
 
 				}
 
-				log.info(" populateReservation ", " Notes :: " + objStringBuffer);
+				log.debug("populateReservation: Notes ::: {}", objStringBuffer);
 				objReservation.setMessage( objStringBuffer.toString() );
 				objStringBuffer.delete(0, objStringBuffer.length());
 
@@ -440,18 +440,18 @@ public class OXIParserUtility {
 					objRoomAllocation.setRoomType( objRoomType );
 				}
 
-				log.info(" populateReservation ", " Room code :: " + roomCode);
+				log.debug("populateReservation: Room code ::: {}", roomCode);
 
 				//For Hotel Code.
 				expression = "/Reservation/HotelReference/hotelCode";
 				System.out.println(expression);
-				log.info(" populateReservation ", " Iterating Hotel Code " );
+				log.debug("populateReservation: Iterating Hotel Code " );
 
 				nodeList = retrieveNodeList(expression ,document );
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing hotel code.
 
 					hotelCode = nodeList.item(index).getFirstChild().getNodeValue();
-					log.info(" populateReservation ", " Hotel Code : "+ hotelCode);
+					log.debug("populateReservation: Hotel Code :: {}", hotelCode);
 
 				}
 
@@ -461,13 +461,13 @@ public class OXIParserUtility {
 
 				expression = "/Reservation/reservationID";
 
-				log.info(" populateReservation ", " Iterating ReservationID " );
+				log.debug("populateReservation: Iterating ReservationID " );
 
 				nodeList = retrieveNodeList(expression ,document );
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing reservation id.
 
 					pmsId = nodeList.item(index).getFirstChild().getNodeValue();
-					log.info(" populateReservation ", " ReswervationID : " + pmsId);
+					log.debug("populateReservation: ReswervationID :: {}", pmsId);
 					//					objReservation.setId( pmsId );
 
 				}
@@ -476,7 +476,7 @@ public class OXIParserUtility {
 
 				//Loyalty Program.
 
-				log.info(" populateReservation ", " Iterating Loyalty Program. " );
+				log.debug("populateReservation: Iterating Loyalty Program. " );
 
 				expression = "/Reservation/SelectedMemberships/SelectedMembership/programCode";
 				System.out.println(expression);
@@ -485,7 +485,7 @@ public class OXIParserUtility {
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing loyalty program.
 
 					loyaltyProgram = nodeList.item(index).getFirstChild().getNodeValue();
-					log.info(" populateReservation ", " Loyalty Program : "+ loyaltyProgram );
+					log.debug("populateReservation: Loyalty Program :: {}", loyaltyProgram );
 					//					objReservation.setLoyaltyProgram( loyaltyProgram );
 				}
 
@@ -494,7 +494,7 @@ public class OXIParserUtility {
 
 				// For Guest Count .
 
-				log.info(" populateReservation ", " Iterating Guest Count " );
+				log.debug("populateReservation: Iterating Guest Count " );
 
 				expression = "/Reservation/GuestCounts/GuestCount/mfCount";
 
@@ -505,15 +505,15 @@ public class OXIParserUtility {
 					totalGuest = totalGuest + guestCount;
 
 				}
-				log.info(" populateReservation ", " Guest Count : "+ totalGuest );
+				log.debug("populateReservation: Guest Count :: {}", totalGuest );
 				objReservation.setNumberOfGuests( totalGuest );
 
 				// End Guest Count.
 
 				// For Profile.
 
-				log.info(" populateReservation ", " Iterating Profile. " );
-				log.info(" populateReservation ", " Iterating Full Name. " );
+				log.debug("populateReservation: Iterating Profile. " );
+				log.debug("populateReservation: Iterating Full Name. " );
 
 				expression = "/Reservation/ResProfiles/ResProfile/Profile";
 				String fNameExpression = expression.concat("/IndividualName/nameFirst");
@@ -527,7 +527,7 @@ public class OXIParserUtility {
 					objReservation.setFirstName( firstName );
 				}
 
-				log.info(" populateReservation ", " First Name: " + firstName );
+				log.debug("populateReservation: First Name:: {}", firstName );
 
 				// End First Name.
 
@@ -542,7 +542,7 @@ public class OXIParserUtility {
 					objReservation.setLastName( lastName );
 				}
 
-				log.info(" populateReservation ", " Last Name: "+ lastName);
+				log.debug("populateReservation: Last Name:: {}", lastName);
 
 				//End Last Name.
 
@@ -551,30 +551,30 @@ public class OXIParserUtility {
 
 					fullName = firstName.concat(lastName);
 
-					log.info(" populateReservation ", " Full Name: "+ fullName );
+					log.debug("populateReservation: Full Name:: {}", fullName );
 
 				}
 				else if( firstName != null && firstName.length() > 0) {
 
 					fullName = firstName;
-					log.info(" populateReservation ", " Full Name: "+ fullName);
+					log.debug("populateReservation: Full Name:: {}", fullName);
 				}
 				else if(lastName != null && lastName.length() > 0) {
 
 					fullName = lastName;
-					log.info(" populateReservation ", " Full Name: "+ fullName);
+					log.debug("populateReservation: Full Name:: {}", fullName);
 				}
 				else {
 
 					fullName = "";
-					log.info(" populateReservation ", " Full Name: "+ fullName);
+					log.debug("populateReservation: Full Name:: {}", fullName);
 				}
 
 				//               objReservation.setFullName(fullName);
 
 				// To Traverse the address.
 
-				log.info(" populateReservation ", " Iterating Address. " );
+				log.debug("populateReservation: Iterating Address. " );
 
 				expression = "/Reservation/ResProfiles/ResProfile/Profile";
 				String postalAddress = expression.concat("/PostalAddresses/PostalAddress");
@@ -619,7 +619,7 @@ public class OXIParserUtility {
 
 					}// End city.
 
-					log.info(" populateReservation ", " Address "+ objStringBuffer.toString() );
+					log.debug("populateReservation: Address: {}", objStringBuffer.toString() );
 
 					address =  objStringBuffer.toString() ;
 					objStringBuffer.delete(0, objStringBuffer.length() );
@@ -633,7 +633,7 @@ public class OXIParserUtility {
 
 				// For phone number.
 
-				log.info(" populateReservation ", " Iterating Phone Number " );
+				log.debug("populateReservation: Iterating Phone Number " );
 
 				String phoneExpression = expression.concat("/PhoneNumbers/PhoneNumber/phoneNumber");
 
@@ -642,7 +642,7 @@ public class OXIParserUtility {
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing phone number.
 
 					phoneNumber = nodeList.item(index).getFirstChild().getNodeValue();
-					log.info(" populateReservation ", " Phone Number : "+ phoneNumber);
+					log.debug("populateReservation: Phone Number :: {}", phoneNumber);
 					//			        objReservation.setPhoneNumber( phoneNumber );
 				}
 
@@ -650,7 +650,7 @@ public class OXIParserUtility {
 
 				// For Company Name.
 
-				log.info(" populateReservation ", " Iterating Company Name " );
+				log.debug("populateReservation: Iterating Company Name " );
 
 				String companyExpression = expression.concat("/mfNationalName/companyName");
 
@@ -659,7 +659,7 @@ public class OXIParserUtility {
 				for ( int index = 0; index < nodeList.getLength(); index++ ) { // Traversing loyalty program.
 
 					companyName = nodeList.item(index).getFirstChild().getNodeValue();
-					log.info(" populateReservation ", " Compnay Name: "+ companyName );
+					log.debug("populateReservation: Compnay Name:: {}", companyName );
 				}
 				//End Company Name
 
@@ -681,7 +681,7 @@ public class OXIParserUtility {
 						for( int leng = 0; leng < emailList.getLength(); leng++ ) {
 
 							email = emailList.item(leng).getFirstChild().getNodeValue();
-							log.info(" populateReservation ", " Email is :: "+ email );
+							log.debug("populateReservation: Email is ::: {}", email );
 
 						}
 					}
@@ -713,7 +713,7 @@ public class OXIParserUtility {
 			}
 			else {
 
-				log.info(" populateReservation ", " Not Reservation ");
+				log.debug("populateReservation: Not Reservation ");
 			}
 
 		}
@@ -722,7 +722,7 @@ public class OXIParserUtility {
 			log.error(" populateReservation ", exc);
 		}
 
-		log.info(" populateReservation ", " Exit populateReservation method. ");
+		log.debug("populateReservation: Exit populateReservation method. ");
 
 		return objReservation;
 
@@ -735,7 +735,7 @@ public class OXIParserUtility {
 	 */
 	public Rtav populateRtav ( ) {
 
-		log.info(" populateRtav ", " Enter populateRtav method. ");
+		log.debug("populateRtav: Enter populateRtav method. ");
 
 		Rtav objRtav = new Rtav();
 		try {
@@ -745,7 +745,7 @@ public class OXIParserUtility {
 			}
 			else {
 
-				log.info(" populateRtav ", " Not Rtav ");
+				log.debug("populateRtav: Not Rtav ");
 			}
 
 		}
@@ -754,7 +754,7 @@ public class OXIParserUtility {
 			log.error(" populateRtav ", exc);
 		}
 
-		log.info(" populateRtav ", " Exit populateRtav method. ");
+		log.debug("populateRtav: Exit populateRtav method. ");
 
 		return objRtav;
 

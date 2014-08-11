@@ -20,7 +20,7 @@ public class DataHarvesterApplication {
 	protected static final Logger log = LoggerFactory.getLogger(DataHarvesterApplication.class);
 
 	public static void main( String[] args ) {
-		log.debug(" main ", " Enter main method " );
+		log.debug("main: Enter main method " );
 
 		Injector injector = Guice.createInjector(new DataHarvesterModule());
 
@@ -31,7 +31,7 @@ public class DataHarvesterApplication {
         OXIListener objOxiListener = injector.getInstance(OXIListener.class);
 		objOxiListener.connectWithOXI();
 
-		log.debug(" main ", " Exit main method " );
+		log.debug("main: Exit main method " );
 	}
 
 }

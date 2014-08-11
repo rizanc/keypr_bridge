@@ -55,7 +55,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
-        log.debug("retrieveFolioInfo", "Enter method.");
+        log.debug("retrieveFolioInfo: Enter method.");
 
         try {
             return resvAdvancedProcessor.processRetrieveFolioInfo(getFolioRequest);
@@ -66,7 +66,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException {
-        log.debug("releaseRoom", "Enter method.");
+        log.debug("releaseRoom: Enter method.");
 
         try {
             return reservationProcessor.processReleaseRoom(releaseRoomRequest);
@@ -77,7 +77,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) throws PMSInterfaceException {
-        log.debug("guestCheckIn", "Enter method.");
+        log.debug("guestCheckIn: Enter method.");
 
         try {
             return resvAdvancedProcessor.processCheckIn(checkInRequest);
@@ -88,7 +88,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) throws PMSInterfaceException {
-        log.debug("assignRoom", "Enter method.");
+        log.debug("assignRoom: Enter method.");
 
         try {
             return reservationProcessor.processAssignRoom(assignRoomRequest);
@@ -99,7 +99,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) throws PMSInterfaceException {
-        log.debug("guestCheckOut", "Enter method.");
+        log.debug("guestCheckOut: Enter method.");
 
         try {
             return resvAdvancedProcessor.processCheckOut(checkOutRequest);
@@ -110,7 +110,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) throws PMSInterfaceException {
-        log.debug("updateBooking", "Enter method.");
+        log.debug("updateBooking: Enter method.");
 
         try {
             return reservationProcessor.processUpdateBooking(updateBookingRequest);
@@ -121,7 +121,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Override
 	public PostChargeResponse postCharge(PostChargeRequest request) throws PMSInterfaceException {
-		log.debug("postCharge", "Enter method.");
+		log.debug("postCharge: Enter method.");
 
 		try {
 			return resvAdvancedProcessor.postCharge(request);
@@ -132,7 +132,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public MakePaymentResponse makePayment(MakePaymentRequest request) throws PMSInterfaceException {
-	    log.debug("makePayment", "Enter method.");
+	    log.debug("makePayment: Enter method.");
 
 	    // TODO
         throw new NotImplementedException("TODO");
@@ -140,14 +140,14 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public UpdatePaymentResponse updatePayment(UpdatePaymentRequest updatePaymentRequest) throws PMSInterfaceException {
-	    log.debug("updatePayment", "Enter method.");
+	    log.debug("updatePayment: Enter method.");
 
 	    throw new NotImplementedException("TODO");
     }
 
     @Override
     public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
-	    log.debug("checkAvailability", "Enter method.");
+	    log.debug("checkAvailability: Enter method.");
 
         try {
 	        return availabilityProcessor.processAvailability(getAvailabilityRequest);
@@ -158,7 +158,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public SearchReservationResponse searchReservationData(SearchReservationRequest searchReservationRequest) throws PMSInterfaceException {
-	    log.debug("searchReservationData", "Enter method.");
+	    log.debug("searchReservationData: Enter method.");
 
         SearchReservationResponse response;
 
@@ -174,14 +174,14 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) throws PMSInterfaceException  {
-	    log.debug("getMeetingInformation", "Enter method.");
+	    log.debug("getMeetingInformation: Enter method.");
 
 	    throw new NotImplementedException("Not yet implemented");
     }
 
     @Override
     public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) throws PMSInterfaceException {
-	    log.debug("getMembershipInformation", "Enter method.");
+	    log.debug("getMembershipInformation: Enter method.");
 
         try {
             return nameProcessor.processGuestCardList(guestMembershipsRequest);
@@ -192,7 +192,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) throws PMSInterfaceException {
-        log.debug("getNameIdInformation", "Enter method.");
+        log.debug("getNameIdInformation: Enter method.");
 
         try {
             return nameProcessor.processNameLookupByMembership(nameIdByMembershipRequest);
@@ -203,7 +203,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) throws PMSInterfaceException {
-        log.debug("hotelInformationQuery", "Enter method.");
+        log.debug("hotelInformationQuery: Enter method.");
 
         try {
             return informationProcessor.processHotelInformation(hotelInformationRequest);
@@ -214,7 +214,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
-	    log.debug("memberPointsQuery", "Enter method.");
+	    log.debug("memberPointsQuery: Enter method.");
 
 	    MemberPointsResponse response = new MemberPointsResponse();
 

@@ -27,7 +27,7 @@ public class OWSInformationProcessor extends OWSBase {
 	protected Information service;
 
 	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
-        log.debug("processHotelInformation", "Enter processHotelInformation method. ");
+        log.debug("processHotelInformation: Enter processHotelInformation method. ");
 
 	    HotelInformationRequest req = getHotelInformationRequestObject(hotelInformationRequest);
 	    HotelInformationRequestE requestE = new HotelInformationRequestE();
@@ -57,7 +57,7 @@ public class OWSInformationProcessor extends OWSBase {
 
     private com.cloudkey.pms.response.hotels.HotelInformationResponse _getHotelInformationResponseObject(HotelInformationResponse objHotelInformationResponse) {
 
-        log.debug("getHotelInformationResponseObject", "Enter getHotelInformationResponseObject method ");
+        log.debug("getHotelInformationResponseObject: Enter getHotelInformationResponseObject method ");
 
 	    com.cloudkey.pms.response.hotels.HotelInformationResponse objHotelInformationResponse2 = null;
 
@@ -145,7 +145,7 @@ public class OWSInformationProcessor extends OWSBase {
         objHotelInformationResponse2.setCountry(countryCode);
         objHotelInformationResponse2.setPostalCode(postalCode);
 
-        log.debug("getHotelInformationResponseObject", "Hotel Contact added to the Hotel Information property ");
+        log.debug("getHotelInformationResponseObject: Hotel Contact added to the Hotel Information property ");
 
         //TODO: Fix
         /*populate attraction details for note */
@@ -171,7 +171,7 @@ public class OWSInformationProcessor extends OWSBase {
 
         objHotelInformationResponse2.setNotes(notes);
 
-        log.debug("getHotelInformationResponseObject", "NOTES added to the sucessfully " );*/
+        log.debug("getHotelInformationResponseObject: NOTES added to the sucessfully " );*/
 
 		/* populate check in and checkout info details.*/
         //TODO: Fix
@@ -215,7 +215,7 @@ public class OWSInformationProcessor extends OWSBase {
         objHotelInformationResponse2.setCheckInTime(checkinTime);
         objHotelInformationResponse2.setCheckOutTime(checkoutTime);
 
-        log.debug("getHotelInformationResponseObject", "CHECKININFO AND CHECKOUTINFO added to the sucessfully ");
+        log.debug("getHotelInformationResponseObject: CHECKININFO AND CHECKOUTINFO added to the sucessfully ");
 
         //TODO: FIx
         /*  populate details information of restaurants type */
@@ -279,7 +279,7 @@ public class OWSInformationProcessor extends OWSBase {
 
         objHotelInformationResponse2.setRestaurantsList(restaurantList);
 
-        log.debug("getHotelInformationResponseObject", "RESTAURANTLIST added to the sucessfully " );
+        log.debug("getHotelInformationResponseObject: RESTAURANTLIST added to the sucessfully " );
 */
 
 		/* populate guestRoom information */
@@ -319,8 +319,8 @@ public class OWSInformationProcessor extends OWSBase {
         objHotelInformationResponse2.setRoomTypeList(roomList);
 */
 
-        log.debug("getHotelInformationResponseObject", "ROOMLIST added to the sucessfully ");
-        log.debug("getHotelInformationResponseObject", "Exit getHotelInformationResponseObject method ");
+        log.debug("getHotelInformationResponseObject: ROOMLIST added to the sucessfully ");
+        log.debug("getHotelInformationResponseObject: Exit getHotelInformationResponseObject method ");
 
         return objHotelInformationResponse2;
     }

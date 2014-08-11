@@ -52,7 +52,7 @@ public class OXIListener implements HttpHandler {
 	 * to every request arriving to the url.
 	 */
 	public void connectWithOXI() {
-		log.info(" connectWithOXI ", " enter connectWithServer method ");
+		log.debug("connectWithOXI: enter connectWithServer method ");
 
 		try {
 			HttpServer oxiListener = HttpServer.create(new InetSocketAddress(listeningPortNum), 0);
@@ -64,7 +64,7 @@ public class OXIListener implements HttpHandler {
 			log.error(" connectWithOXI ", exc);
 		}
 
-		log.info(" connectWithOXI ", " exit connectWithOXI method ");
+		log.debug("connectWithOXI: exit connectWithOXI method ");
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class OXIListener implements HttpHandler {
 	 */
 	@Override
 	public void handle(HttpExchange exchange) {
-		log.info(" handle ", " enter handle method ");
+		log.debug("handle: enter handle method ");
 
 
 		try {
@@ -82,7 +82,7 @@ public class OXIListener implements HttpHandler {
 			Headers reqHeaders = exchange.getRequestHeaders();
 			String contentType = reqHeaders.getFirst("Content-Type");
 
-			log.info(" handle ", " content type " + contentType);
+			log.debug("handle: content type: {}", contentType);
 
 			InputStream objInputStream = exchange.getRequestBody();
 
@@ -98,11 +98,11 @@ public class OXIListener implements HttpHandler {
 			//oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
 			oxiRequest = new String(objByteArray.toByteArray());
 
-			log.info(" handle ", " Reservation Received " + oxiRequest);
+			log.debug("handle: Reservation Received: {}", oxiRequest);
 
 			File xmlFile = persistToFile(oxiRequest);
 
-			log.info(" handle ", " File Created " + xmlFile.getName());
+			log.debug("handle: File Created: {}", xmlFile.getName());
 
 			OXIParserUtility objDataUtility = new OXIParserUtility();
 
@@ -114,11 +114,11 @@ public class OXIListener implements HttpHandler {
 			if (objDataUtility.isReservation()) {
 				Reservation objReservation = objDataUtility.populateReservation(xmlFile);
 				isPersisted = microsDAO.persistReservationData(objReservation);
-				log.info(" handle ", " Reservation Stored in DataBase  " + isPersisted);
+				log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
 			} else if (objDataUtility.isRtav()) {
 				Rtav objRtav = objDataUtility.populateRtav();
 				isPersisted = microsDAO.persistRtavData(objRtav);
-				log.info(" handle ", " Rtav Stored in DataBase  " + isPersisted);
+				log.debug("handle: Rtav Stored in DataBase: {}", isPersisted);
 			}
 
 			String response = " Status: SUCCESS code= 200 ok ";
@@ -134,7 +134,7 @@ public class OXIListener implements HttpHandler {
 			log.error(" handle ", exc);
 		}
 
-		log.info(" handle ", " exit handle method ");
+		log.debug("handle: exit handle method ");
 
 	}
 
@@ -147,7 +147,7 @@ public class OXIListener implements HttpHandler {
 	 */
 	private File persistToFile(String oxiRequest) {
 
-		log.info(" persistToFile ", " enter persistToFile method ");
+		log.debug("persistToFile: enter persistToFile method ");
 
 		File oxiRev = null;
 		FileOutputStream fout;
@@ -158,7 +158,7 @@ public class OXIListener implements HttpHandler {
 
 			fout.write(oxiRequest.getBytes());
 
-			log.info(" persistToFile ", " content written to the file ");
+			log.debug("persistToFile: content written to the file ");
 			fout.close();
 
 		} catch (Exception exc) {
@@ -166,7 +166,7 @@ public class OXIListener implements HttpHandler {
 			log.error(" persistToFile ", exc);
 		}
 
-		log.info(" persistToFile ", " exit persistToFile method ");
+		log.debug("persistToFile: exit persistToFile method ");
 
 		return oxiRev;
 	}
