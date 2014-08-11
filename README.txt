@@ -5,7 +5,6 @@ A. Software Tools requirement
 	* gradle 1.11+
 	* jdk 1.7
 	* jre 7.0
-	* Tomcat 7
 	* MySQL 5.5
 
 B. Steps to run the implementation:
