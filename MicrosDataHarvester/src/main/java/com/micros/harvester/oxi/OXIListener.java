@@ -116,7 +116,8 @@ public class OXIListener implements HttpHandler {
 				isPersisted = microsDAO.persistReservationData(objReservation);
 				log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
 			} else if (objDataUtility.isRtav()) {
-				Rtav objRtav = objDataUtility.populateRtav();
+				Rtav objRtav = objDataUtility.populateRtav(oxiRequest);
+
 				isPersisted = microsDAO.persistRtavData(objRtav);
 				log.debug("handle: Rtav Stored in DataBase: {}", isPersisted);
 			}
