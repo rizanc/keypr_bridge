@@ -30,12 +30,13 @@ logging:
     - type: console
 
 server:
-#  type: simple
-#
-#  connector:
-#    type: http
-#
-#    port: 8080
+  applicationConnectors:
+  - type: http
+    port: 8080
+
+  adminConnectors:
+  - type: http
+    port: 8081
 
   requestLog:
     # The timezone used to format dates.
