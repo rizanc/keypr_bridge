@@ -3,6 +3,8 @@ package com.keypr.webservices;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.sun.jersey.api.container.filter.LoggingFilter;
 import com.sun.jersey.api.core.ResourceConfig;
+import com.wordnik.swagger.config.ConfigFactory;
+import com.wordnik.swagger.config.SwaggerConfig;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -57,6 +59,9 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
         environment.jersey().property(ResourceConfig.PROPERTY_CONTAINER_REQUEST_FILTERS, LoggingFilter.class.getName());
         environment.jersey().property(ResourceConfig.PROPERTY_CONTAINER_RESPONSE_FILTERS, LoggingFilter.class.getName());
 
-        swaggerDropwizard.onRun(config, environment);
+	    swaggerDropwizard.onRun(config, environment);
+
+	    SwaggerConfig swaggerConfig = ConfigFactory.config();
+	    swaggerConfig.setBasePath("/");
     }
 }
