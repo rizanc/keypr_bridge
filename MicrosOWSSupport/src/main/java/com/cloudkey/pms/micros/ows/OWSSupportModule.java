@@ -19,7 +19,7 @@ import java.net.URL;
 
 /**
  * Guice module which provides the properties in ows.properties to {@link com.google.inject.name.Named} injections
- * and enables injection of the services in {@link com.cloudkey.pms.micros.services}.
+ * and enables injection of the CXF clients in {@link com.cloudkey.pms.micros.services}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
