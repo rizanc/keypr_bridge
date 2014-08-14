@@ -2,7 +2,10 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
-import com.cloudkey.pms.micros.og.common.*;
+import com.cloudkey.pms.micros.og.common.Membership;
+import com.cloudkey.pms.micros.og.common.PersonName;
+import com.cloudkey.pms.micros.og.common.UniqueID;
+import com.cloudkey.pms.micros.og.common.UniqueIDType;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.og.reservation.ExternalReference;
@@ -10,7 +13,7 @@ import com.cloudkey.pms.micros.og.reservation.FetchBookingFilters;
 import com.cloudkey.pms.micros.og.reservation.HotelReservation;
 import com.cloudkey.pms.micros.og.reservation.ResGuest;
 import com.cloudkey.pms.micros.ows.reservation.*;
-import com.cloudkey.pms.micros.services.ReservationService;
+import com.cloudkey.pms.micros.services.ReservationServiceSoap;
 import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
@@ -19,11 +22,11 @@ import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
-import org.apache.axis2.AxisFault;
-import org.apache.axis2.databinding.types.NormalizedString;
+import com.micros.pms.util.ParagraphHelper;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,335 +37,302 @@ public class OWSReservationProcessor extends OWSBase {
 	protected OWSResvAdvancedProcessor resvAdvancedProcessor;
 
 	@Inject
-	protected ReservationService service;
+	protected ReservationServiceSoap service;
 
-    public FetchBookingResponse fetchBooking(String pmsReservationId) throws RemoteException {
-        log.debug("fetchBooking: Enter method");
+	public FetchBookingResponse fetchBooking(String pmsReservationId) throws RemoteException {
+		log.debug("fetchBooking: Enter method");
 
-        FetchBookingRequest request = new FetchBookingRequest();
+		FetchBookingRequest request = new FetchBookingRequest();
 
-	    request.setResvNameId(internalReservationId(pmsReservationId));
-        request.setHotelReference(getDefaultHotelReference());
+		request.setResvNameId(internalReservationId(pmsReservationId));
+		request.setHotelReference(getDefaultHotelReference());
 
-	    FetchBookingRequestE requestE = new FetchBookingRequestE();
-	    requestE.setFetchBookingRequest(request);
+		log.debug("fetchBooking",
+			AdapterUtility.convertToStreamXML(request));
 
-        log.debug("fetchBooking",
-	        AdapterUtility.convertToStreamXML(requestE));
+		FetchBookingResponse response = service.fetchBooking(request, createOGHeaderE());
+		log.debug("fetchBooking",
+			AdapterUtility.convertToStreamXML(response));
 
-	    FetchBookingResponseE responseE = service.fetchBooking(requestE, createOGHeaderE());
-        log.debug("fetchBooking",
-	        AdapterUtility.convertToStreamXML(responseE));
+		errorIfFailure(response.getResult());
 
-	    errorIfFailure(responseE.getFetchBookingResponse().getResult());
+		return response;
+	}
 
-        return responseE.getFetchBookingResponse();
-    }
+	public com.cloudkey.pms.response.roomassignments.AssignRoomResponse processAssignRoom(com.cloudkey.pms.request.roomassignments.AssignRoomRequest request) throws RemoteException {
+		log.debug("processAssignRoom: Enter in processSearchReservationData method.");
 
-    public com.cloudkey.pms.response.roomassignments.AssignRoomResponse processAssignRoom(com.cloudkey.pms.request.roomassignments.AssignRoomRequest request) throws RemoteException {
-        log.debug("processAssignRoom: Enter in processSearchReservationData method.");
+		AssignRoomRequest req = getAssignRoomRequestObject(request);
 
-	    AssignRoomRequest req = getAssignRoomRequestObject(request);
+		log.debug("processAssignRoom",
+			AdapterUtility.convertToStreamXML(req));
+		AssignRoomResponse response = service.assignRoom(req, createOGHeaderE());
 
-	    AssignRoomRequestE requestE = new AssignRoomRequestE();
-	    requestE.setAssignRoomRequest(req);
+		log.debug("processAssignRoom",
+			AdapterUtility.convertToStreamXML(response));
 
-        log.debug("processAssignRoom",
-	        AdapterUtility.convertToStreamXML(requestE));
-        AssignRoomResponseE responseE = service.assignRoom(requestE, createOGHeaderE());
+		errorIfFailure(response.getResult());
 
-        log.debug("processAssignRoom",
-	        AdapterUtility.convertToStreamXML(responseE));
+		return getAssignRoomResponseObject(response);
+	}
 
-	    errorIfFailure(responseE.getAssignRoomResponse().getResult());
+	public com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse processReleaseRoom(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest request) throws RemoteException {
+		log.debug("processReleaseRoom: Enter in processReleaseRoom method. ");
 
-	    return getAssignRoomResponseObject(responseE.getAssignRoomResponse());
-    }
+		ReleaseRoomRequest req = getReleaseRoomRequestObject(request);
 
-    public com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse processReleaseRoom(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest request) throws RemoteException {
-        log.debug("processReleaseRoom: Enter in processReleaseRoom method. ");
+		log.debug("processReleaseRoom",
+			AdapterUtility.convertToStreamXML(req));
+		ReleaseRoomResponse response = service.releaseRoom(req, createOGHeaderE());
+		log.debug("processReleaseRoom",
+			AdapterUtility.convertToStreamXML(response));
 
-	    ReleaseRoomRequest req =
-                getReleaseRoomRequestObject(request);
+		errorIfFailure(response.getResult());
 
-	    ReleaseRoomRequestE requestE = new ReleaseRoomRequestE();
-	    requestE.setReleaseRoomRequest(req);
+		return getReleaseRoomResponseObject(response);
+	}
 
-        log.debug("processReleaseRoom",
-	        AdapterUtility.convertToStreamXML(requestE));
-        ReleaseRoomResponseE responseE = service.releaseRoom(requestE, createOGHeaderE());
-        log.debug("processReleaseRoom",
-	        AdapterUtility.convertToStreamXML(responseE));
+	public com.cloudkey.pms.response.reservations.UpdateBookingResponse processUpdateBooking(com.cloudkey.pms.request.reservations.UpdateBookingRequest updateBookingRequest) throws RemoteException {
 
-	    errorIfFailure(responseE.getReleaseRoomResponse().getResult());
+		log.debug("processUpdateBooking: Enter method");
 
-	    return getReleaseRoomResponseObject(responseE.getReleaseRoomResponse());
-    }
+		ModifyBookingRequest req =
+			getUpdateBookingRequestObject(updateBookingRequest);
 
-    public com.cloudkey.pms.response.reservations.UpdateBookingResponse processUpdateBooking(com.cloudkey.pms.request.reservations.UpdateBookingRequest updateBookingRequest) throws RemoteException {
+		log.debug("processUpdateBooking",
+			AdapterUtility.convertToStreamXML(req));
+		ModifyBookingResponse response = service.modifyBooking(req, createOGHeaderE());
+		log.debug("processUpdateBooking",
+			AdapterUtility.convertToStreamXML(response));
 
-        log.debug("processUpdateBooking: Enter method");
+		errorIfFailure(response.getResult());
 
-	    ModifyBookingRequest req =
-                getUpdateBookingRequestObject(updateBookingRequest);
+		return getUpdateBookingResponseObject(response);
 
-        ModifyBookingRequestE requestE = new ModifyBookingRequestE();
-	    requestE.setModifyBookingRequest(req);
+	}
 
-        log.debug("processUpdateBooking",
-	        AdapterUtility.convertToStreamXML(requestE));
-        ModifyBookingResponseE responseE = service.modifyBooking(requestE, createOGHeaderE());
-        log.debug("processUpdateBooking",
-	        AdapterUtility.convertToStreamXML(responseE));
+	/**
+	 * @param objResponse
+	 * @return UpdateBookingResponse
+	 */
+	private UpdateBookingResponse getUpdateBookingResponseObject(ModifyBookingResponse objResponse) {
+		log.debug("getUpdateBookingResponseObject: Enter getUpdateBookingResponseObject method ");
 
-	    errorIfFailure(responseE.getModifyBookingResponse().getResult());
+		UpdateBookingResponse objUpdateBookingResponse = new UpdateBookingResponse();
 
-	    return getUpdateBookingResponseObject(responseE.getModifyBookingResponse());
+		log.debug("getUpdateBookingResponseObject: Exit  getUpdateBookingResponseObject method ");
 
-    }
+		return objUpdateBookingResponse;
+	}
 
-    /**
-     * @param objResponse
-     * @return UpdateBookingResponse
-     */
-    private UpdateBookingResponse getUpdateBookingResponseObject(ModifyBookingResponse objResponse) {
-        log.debug("getUpdateBookingResponseObject: Enter getUpdateBookingResponseObject method ");
+	/**
+	 * This method is used to make the request for update the booking (pre -
+	 * checkin.
+	 *
+	 * @param updateBookingRequest
+	 * @return
+	 * @throws AxisFault
+	 */
+	private ModifyBookingRequest getUpdateBookingRequestObject(UpdateBookingRequest updateBookingRequest) {
 
-        UpdateBookingResponse objUpdateBookingResponse = new UpdateBookingResponse();
-
-        log.debug("getUpdateBookingResponseObject: Exit  getUpdateBookingResponseObject method ");
-
-        return objUpdateBookingResponse;
-    }
-
-    /**
-     * This method is used to make the request for update the booking (pre -
-     * checkin.
-     *
-     * @param updateBookingRequest
-     * @return
-     * @throws AxisFault
-     */
-    private ModifyBookingRequest getUpdateBookingRequestObject(UpdateBookingRequest updateBookingRequest) {
-
-        log.debug("getUpdateBookingRequestObject: Enter getUpdateBookingRequestObject method ");
+		log.debug("getUpdateBookingRequestObject: Enter getUpdateBookingRequestObject method ");
 
 		/* To set the request parameters. */
-        ModifyBookingRequest objModifyBookingRequest = new ModifyBookingRequest();
+		ModifyBookingRequest objModifyBookingRequest = new ModifyBookingRequest();
 
-        HotelReference objHotelReference = getDefaultHotelReference();
+		HotelReference objHotelReference = getDefaultHotelReference();
 
-        HotelReservation hotelReservation = new HotelReservation();
-        objModifyBookingRequest.setHotelReservation(hotelReservation);
+		HotelReservation hotelReservation = new HotelReservation();
+		objModifyBookingRequest.setHotelReservation(hotelReservation);
 
-        hotelReservation.setUniqueIDList(arrayOf(internalReservationId(updateBookingRequest.getPmsReservationId())));
+		hotelReservation.setUniqueIDList(Arrays.asList(internalReservationId(updateBookingRequest.getPmsReservationId())));
 
-        ArrayOfRoomStay roomStays = new ArrayOfRoomStay();
-        hotelReservation.setRoomStays(roomStays);
+		RoomStay roomStay = new RoomStay();
+		hotelReservation.getRoomStays().add(roomStay);
 
-        RoomStay roomStay = new RoomStay();
-        roomStays.addRoomStay(roomStay);
+		roomStay.setHotelReference(objHotelReference);
 
-        roomStay.setHotelReference(objHotelReference);
+		if (updateBookingRequest.getNotes() != null && !updateBookingRequest.getNotes().isEmpty()) {
+			// Update Comments
+			List<ReservationComment> comments = roomStay.getComments();
 
-        if (updateBookingRequest.getNotes() != null && !updateBookingRequest.getNotes().isEmpty()) {
-            // Update Comments
-	        ArrayOfReservationComment comments = new ArrayOfReservationComment();
-            roomStay.setComments(comments);
+			for (String commentValue : updateBookingRequest.getNotes()) {
+				ReservationComment comment = new ReservationComment();
+				comments.add(comment);
+				comment.setCommentType("RESERVATION");
+				comment.setGuestViewable(false);
 
-            for (String commentValue : updateBookingRequest.getNotes()) {
-                ReservationComment comment = new ReservationComment();
-                comments.addComment(comment);
-                comment.setCommentType("RESERVATION");
-                comment.setGuestViewable(false);
+				if (entityId != null && !entityId.isEmpty()) {
+					comment.setCommentOriginatorCode(entityId);
+				}
 
-                if (entityId != null && !entityId.isEmpty()) {
-                    comment.setCommentOriginatorCode(entityId);
-                }
+				comment.getImagesAndURLSAndTexts().add(
+					ParagraphHelper.createParagraph(commentValue)
+				);
+			}
+		}
 
-	            ParagraphChoice_type0 paragraphChoice_type0 = new ParagraphChoice_type0();
-	            comment.addParagraphChoice_type0(paragraphChoice_type0);
+		log.debug("getUpdateBookingRequestObject: Exit getUpdateBookingRequestObject method: {}", objModifyBookingRequest);
+		return objModifyBookingRequest;
+	}
 
-                Text text = new Text();
-	            paragraphChoice_type0.setText(text);
+	private com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse getReleaseRoomResponseObject(ReleaseRoomResponse objReleaseRoomResponse) {
 
-                NormalizedString normalizedString = new NormalizedString();
-                normalizedString.setValue(commentValue);
+		log.debug("getReleaseRoomResponseObject: Enter getReleaseRoomResponseObject method ");
 
-                text.setNormalizedString(normalizedString);
-                text.setFormatted(false);
-            }
-        }
+		com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse objReleaseRoomRespons = new com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse();
 
-        log.debug("getUpdateBookingRequestObject: Exit getUpdateBookingRequestObject method: {}", objModifyBookingRequest);
-        return objModifyBookingRequest;
-    }
+		log.debug("getReleaseRoomResponseObject: Exit getReleaseRoomResponseObject method ");
 
-    private com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse getReleaseRoomResponseObject(ReleaseRoomResponse objReleaseRoomResponse) {
+		return objReleaseRoomRespons;
+	}
 
-        log.debug("getReleaseRoomResponseObject: Enter getReleaseRoomResponseObject method ");
+	private ReleaseRoomRequest getReleaseRoomRequestObject(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest releaseRoomRequest) {
 
-        com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse objReleaseRoomRespons = new com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse();
+		log.debug("getReleaseRoomRequestObject: Enter getReleaseRoomRequestObject method ");
 
-        log.debug("getReleaseRoomResponseObject: Exit getReleaseRoomResponseObject method ");
-
-        return objReleaseRoomRespons;
-    }
-
-    private ReleaseRoomRequest getReleaseRoomRequestObject(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest releaseRoomRequest) {
-
-        log.debug("getReleaseRoomRequestObject: Enter getReleaseRoomRequestObject method ");
-
-	    ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
+		ReleaseRoomRequest objReleaseRoomRequest = new ReleaseRoomRequest();
 
 		/*To set the reservation number.*/
-        objReleaseRoomRequest.setResvNameId(internalReservationId(releaseRoomRequest.getPmsReservationId()));
+		objReleaseRoomRequest.setResvNameId(internalReservationId(releaseRoomRequest.getPmsReservationId()));
 
-        objReleaseRoomRequest.setHotelReference(getDefaultHotelReference());
+		objReleaseRoomRequest.setHotelReference(getDefaultHotelReference());
 
-        log.debug("getReleaseRoomRequestObject: Exit getReleaseRoomRequestObject method ");
+		log.debug("getReleaseRoomRequestObject: Exit getReleaseRoomRequestObject method ");
 
-        return objReleaseRoomRequest;
+		return objReleaseRoomRequest;
 
-    }
+	}
 
-    private com.cloudkey.pms.response.roomassignments.AssignRoomResponse getAssignRoomResponseObject(AssignRoomResponse objResponse) {
+	private com.cloudkey.pms.response.roomassignments.AssignRoomResponse getAssignRoomResponseObject(AssignRoomResponse objResponse) {
 
-        log.debug("getAssignRoomResponseObject: Enter getAssignRoomResponseObject method ");
+		log.debug("getAssignRoomResponseObject: Enter getAssignRoomResponseObject method ");
 
-	    com.cloudkey.pms.response.roomassignments.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.roomassignments.AssignRoomResponse();
+		com.cloudkey.pms.response.roomassignments.AssignRoomResponse objAssignRoomResponse = new com.cloudkey.pms.response.roomassignments.AssignRoomResponse();
 
-        objAssignRoomResponse.setAssignRoomNumber(objResponse.getRoomNoAssigned());
-        log.debug("getAssignRoomResponseObject: Exit getAssignRoomResponseObject method ");
+		objAssignRoomResponse.setAssignRoomNumber(objResponse.getRoomNoAssigned());
+		log.debug("getAssignRoomResponseObject: Exit getAssignRoomResponseObject method ");
 
-        return objAssignRoomResponse;
-    }
+		return objAssignRoomResponse;
+	}
 
-    private AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest) throws RemoteException {
+	private AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest) throws RemoteException {
 
-        log.debug("getAssignRoomRequestObject: Enter getAssignRoomRequestObject method ");
+		log.debug("getAssignRoomRequestObject: Enter getAssignRoomRequestObject method ");
 
-        String roomTypeCode = assignRoomRequest.getRoomTypeCode();
+		String roomTypeCode = assignRoomRequest.getRoomTypeCode();
 
-	    AssignRoomRequest objAssignRoomRequest = null;
+		AssignRoomRequest objAssignRoomRequest = null;
 
-        String nextAvailableRoom = resvAdvancedProcessor.getNextAvailableRoom(roomTypeCode);
-        if (nextAvailableRoom != null) {
-            objAssignRoomRequest = new AssignRoomRequest();
-            objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);
+		String nextAvailableRoom = resvAdvancedProcessor.getNextAvailableRoom(roomTypeCode);
+		if (nextAvailableRoom != null) {
+			objAssignRoomRequest = new AssignRoomRequest();
+			objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);
 
-            objAssignRoomRequest.setResvNameId(internalReservationId(assignRoomRequest.getPmsReservationId()));
+			objAssignRoomRequest.setResvNameId(internalReservationId(assignRoomRequest.getPmsReservationId()));
 
-            HotelReference objHotelReference = getDefaultHotelReference();
-            objAssignRoomRequest.setHotelReference(objHotelReference);
+			HotelReference objHotelReference = getDefaultHotelReference();
+			objAssignRoomRequest.setHotelReference(objHotelReference);
 
-            objAssignRoomRequest.setStationID(stationId);
+			objAssignRoomRequest.setStationID(stationId);
 
-            log.debug("getAssignRoomRequestObject: Exit getAssignRoomRequestObject method ");
-        }
+			log.debug("getAssignRoomRequestObject: Exit getAssignRoomRequestObject method ");
+		}
 
-        return objAssignRoomRequest;
-    }
+		return objAssignRoomRequest;
+	}
 
-    public SearchReservationResponse processSearchReservationData(SearchReservationRequest searchReservationRequest) throws RemoteException {
+	public SearchReservationResponse processSearchReservationData(SearchReservationRequest searchReservationRequest) throws RemoteException {
 
-        log.debug("processSearchReservationData: Enter in processSearchReservationData method. ");
+		log.debug("processSearchReservationData: Enter in processSearchReservationData method. ");
 
-	    FutureBookingSummaryRequest req =
-                getFutureBookingRequestObject(searchReservationRequest);
-	    FutureBookingSummaryRequestE requestE = new FutureBookingSummaryRequestE();
-	    requestE.setFutureBookingSummaryRequest(req);
+		FutureBookingSummaryRequest req =
+			getFutureBookingRequestObject(searchReservationRequest);
 
-        log.debug("processSearchReservationData",
-	        AdapterUtility.convertToStreamXML(requestE));
-        FutureBookingSummaryResponseE responseE = service.futureBookingSummary(requestE, createOGHeaderE());
-        log.debug("processSearchReservationData",
-	        AdapterUtility.convertToStreamXML(responseE));
+		log.debug("processSearchReservationData",
+			AdapterUtility.convertToStreamXML(req));
+		FutureBookingSummaryResponse response = service.futureBookingSummary(req, createOGHeaderE());
+		log.debug("processSearchReservationData",
+			AdapterUtility.convertToStreamXML(response));
 
-	    errorIfFailure(responseE.getFutureBookingSummaryResponse().getResult());
+		errorIfFailure(response.getResult());
 
-	    return getFutureBookingResponseObject(responseE.getFutureBookingSummaryResponse());
-    }
+		return getFutureBookingResponseObject(response);
+	}
 
 	private FutureBookingSummaryRequest getFutureBookingRequestObject(SearchReservationRequest searchReservationRequest) {
 
-        log.debug("getFutureBookingRequestObject: Enter getFutureBookingRequestObject method ");
+		log.debug("getFutureBookingRequestObject: Enter getFutureBookingRequestObject method ");
 
-        String pmsReservationId = searchReservationRequest.getPmsReservationId();
-        String creditCardNumber = searchReservationRequest.getCreditCardNumber();
-        String firstName = searchReservationRequest.getFirstName();
-        String lastName = searchReservationRequest.getLastName();
+		String pmsReservationId = searchReservationRequest.getPmsReservationId();
+		String creditCardNumber = searchReservationRequest.getCreditCardNumber();
+		String firstName = searchReservationRequest.getFirstName();
+		String lastName = searchReservationRequest.getLastName();
 
-        String memebershipNumber = searchReservationRequest.getMembershipNumber();
-        String membershipType = searchReservationRequest.getMembershipType();
-        String hotelCode = searchReservationRequest.getHotelCode();
+		String memebershipNumber = searchReservationRequest.getMembershipNumber();
+		String membershipType = searchReservationRequest.getMembershipType();
+		String hotelCode = searchReservationRequest.getHotelCode();
 
-        String extRefLegNumber = searchReservationRequest.getExtRefLegNumber();
-        String extReferenceNumber = searchReservationRequest.getExtReferenceNumber();
-        String extReferenceType = searchReservationRequest.getExtReferenceType();
+		String extRefLegNumber = searchReservationRequest.getExtRefLegNumber();
+		String extReferenceNumber = searchReservationRequest.getExtReferenceNumber();
+		String extReferenceType = searchReservationRequest.getExtReferenceType();
 
-        /**
-         * Creates an instance of FutureBookingSummaryRequest and populates the
-         * data members.
-         */
-        FutureBookingSummaryRequest objFutureBookingSummaryRequest = new FutureBookingSummaryRequest();
-        FetchBookingFilters objBookingFilters = new FetchBookingFilters();
-        objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
+		/**
+		 * Creates an instance of FutureBookingSummaryRequest and populates the
+		 * data members.
+		 */
+		FutureBookingSummaryRequest objFutureBookingSummaryRequest = new FutureBookingSummaryRequest();
+		FetchBookingFilters objBookingFilters = new FetchBookingFilters();
+		objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
 
-        if (hotelCode != null) {
-            objBookingFilters.setHotelReference(getDefaultHotelReference());
-            objBookingFilters.getHotelReference().setHotelCode(hotelCode);
-        }
+		if (hotelCode != null) {
+			objBookingFilters.setHotelReference(getDefaultHotelReference());
+			objBookingFilters.getHotelReference().setHotelCode(hotelCode);
+		}
 
-        if (extReferenceNumber != null && extReferenceType != null) {
-            if (extRefLegNumber == null) {
-                extRefLegNumber = "1";
-            }
-            ExternalReference ext = new ExternalReference();
-            ext.setLegNumber(Integer.parseInt(extReferenceNumber));
-            ext.setReferenceNumber(extReferenceNumber);
-            ext.setReferenceType(extReferenceType);
-            objBookingFilters.setExternalSystemNumber(ext);
-        }
+		if (extReferenceNumber != null && extReferenceType != null) {
+			if (extRefLegNumber == null) {
+				extRefLegNumber = "1";
+			}
+			ExternalReference ext = new ExternalReference();
+			ext.setLegNumber(Integer.parseInt(extReferenceNumber));
+			ext.setReferenceNumber(extReferenceNumber);
+			ext.setReferenceType(extReferenceType);
+			objBookingFilters.setExternalSystemNumber(ext);
+		}
 
 		/* Sets pmsReservationId to the request */
-        if (pmsReservationId != null) {
-            objBookingFilters.setResvNameId(internalReservationId(pmsReservationId));
-        }
+		if (pmsReservationId != null) {
+			objBookingFilters.setResvNameId(internalReservationId(pmsReservationId));
+		}
 
-        if (membershipType != null && memebershipNumber != null) {
-            Membership membership = new Membership();
-            membership.setMembershipNumber(memebershipNumber);
-            membership.setMembershipType(membershipType);
-            objBookingFilters.setMembership(membership);
-        }
-        /* Set the credit card number . */
-        if (creditCardNumber != null) {
+		if (membershipType != null && memebershipNumber != null) {
+			Membership membership = new Membership();
+			membership.setMembershipNumber(memebershipNumber);
+			membership.setMembershipType(membershipType);
+			objBookingFilters.setMembership(membership);
+		}
+	    /* Set the credit card number . */
+		if (creditCardNumber != null) {
+			objFutureBookingSummaryRequest.setCreditCardNumber(creditCardNumber);
+		}
 
-            final FutureBookingSummaryRequestChoice_type1 objFuChoice_type01 = new FutureBookingSummaryRequestChoice_type1();
-            objFuChoice_type01.setCreditCardNumber(creditCardNumber);
+		if (firstName != null) {
+			objFutureBookingSummaryRequest.setFirstName(firstName);
+		}
 
-            objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type1(objFuChoice_type01);
+		if (lastName != null) {
 
-        }
+			objFutureBookingSummaryRequest.setLastName(lastName);
+		}
 
-        if (firstName != null) {
-
-            objFutureBookingSummaryRequest.setFirstName(firstName);
-        }
-
-        if (lastName != null) {
-
-            objFutureBookingSummaryRequest.setLastName(lastName);
-        }
-
-        FutureBookingSummaryRequestChoice_type0 type0 = new FutureBookingSummaryRequestChoice_type0();
-
-        objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type0(type0);
-
-        if (objFutureBookingSummaryRequest.getFutureBookingSummaryRequestChoice_type1() == null) {
-            objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type1(new FutureBookingSummaryRequestChoice_type1());
-        }
+//		FutureBookingSummaryRequestChoice_type0 type0 = new FutureBookingSummaryRequestChoice_type0();
+//
+//		objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type0(type0);
+//
+//		if (objFutureBookingSummaryRequest.getFutureBookingSummaryRequestChoice_type1() == null) {
+//			objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type1(new FutureBookingSummaryRequestChoice_type1());
+//		}
 
 /*
         FetchBookingFilters filters = new FetchBookingFilters();
@@ -371,299 +341,257 @@ public class OWSReservationProcessor extends OWSBase {
         filters.setHotelReference(getDefaultHotelReference());
 */
 
-        log.debug("getFutureBookingRequestObject: Exit getFutureBookingRequestObject method ");
+		log.debug("getFutureBookingRequestObject: Exit getFutureBookingRequestObject method ");
 
-        return objFutureBookingSummaryRequest;
+		return objFutureBookingSummaryRequest;
 
-    }
+	}
 
-    private SearchReservationResponse getFutureBookingResponseObject(FutureBookingSummaryResponse objResponse) {
+	private SearchReservationResponse getFutureBookingResponseObject(FutureBookingSummaryResponse objResponse) {
 
-        log.debug("getFutureBookingResponseObject: Enter getFutureBookingResponseObject method.");
+		log.debug("getFutureBookingResponseObject: Enter getFutureBookingResponseObject method.");
 
-        if (objResponse == null) {
-            return null;
-        }
+		if (objResponse == null) {
+			return null;
+		}
 
 		/* Populate response into Reservation instance */
-        SearchReservationResponse objSearchReservationResponse = new SearchReservationResponse();
+		SearchReservationResponse objSearchReservationResponse = new SearchReservationResponse();
 
-	    HotelReservation[] arrHotelReservation = objResponse.getHotelReservations().getHotelReservation();
+		List<HotelReservation> arrHotelReservation = objResponse.getHotelReservations();
 
-	    List<Reservation> objLReservations = parseHotelReservation(arrHotelReservation);
+		List<Reservation> objLReservations = parseHotelReservation(arrHotelReservation);
 
-        /**
-         * To set the reservation list and status on the response.
-         */
-        objSearchReservationResponse.setReservationList(objLReservations);
+		/**
+		 * To set the reservation list and status on the response.
+		 */
+		objSearchReservationResponse.setReservationList(objLReservations);
 
-        log.debug("getFutureBookingResponseObject: Exit getFutureBookingResponseObject method.");
+		log.debug("getFutureBookingResponseObject: Exit getFutureBookingResponseObject method.");
 
-        return objSearchReservationResponse;
+		return objSearchReservationResponse;
 
-    }
+	}
 
-    private List<Reservation> parseHotelReservation(HotelReservation[] arrHotelReservation) {
+	private List<Reservation> parseHotelReservation(List<HotelReservation> arrHotelReservation) {
 
-        List<Reservation> objLReservations = new ArrayList<>();
-        Reservation objReservation;
-        String firstName;
-        String lastName;
+		List<Reservation> objLReservations = new ArrayList<>();
+		Reservation objReservation;
+		String firstName;
+		String lastName;
 
-        for (HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
+		for (HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
 
-            log.debug("getFutureBookingResponseObject: Enter in Hotel Reservation Loop.");
+			log.debug("getFutureBookingResponseObject: Enter in Hotel Reservation Loop.");
 
-            objReservation = new Reservation();
-            objLReservations.add(objReservation);
+			objReservation = new Reservation();
+			objLReservations.add(objReservation);
 
-            StringBuilder objBuilder = new StringBuilder();
+			StringBuilder objBuilder = new StringBuilder();
 
-            UniqueID[] arrUniqueID = objHotelReservation.getUniqueIDList().getUniqueID();
+			List<UniqueID> arrUniqueID = objHotelReservation.getUniqueIDList();
 
-            for (UniqueID objUniqueID : arrUniqueID) { // To traverse Unique Id list.
+			for (UniqueID objUniqueID : arrUniqueID) { // To traverse Unique Id list.
 
-                log.debug("getFutureBookingResponseObject: Iterating UniqueID list .");
+				log.debug("getFutureBookingResponseObject: Iterating UniqueID list .");
 
-                if (objUniqueID.getType().equals(UniqueIDType.INTERNAL)) {
-	                if (objUniqueID.getSource() != null) {
-		                if (objUniqueID.getSource().equalsIgnoreCase(MicrosIds.OWS.RESERVATION_ID_SOURCE)) {
+				if (objUniqueID.getType().equals(UniqueIDType.INTERNAL)) {
+					if (objUniqueID.getSource() != null) {
+						if (objUniqueID.getSource().equalsIgnoreCase(MicrosIds.OWS.RESERVATION_ID_SOURCE)) {
 
-			                objReservation.setPmsReservationId(objUniqueID.getString());
+							objReservation.setPmsReservationId(objUniqueID.getValue());
 
-			                log.debug("getFutureBookingResponseObject: PmsReservationId is set.");
-		                }
-	                } else {
-		                objReservation.setConfirmationNumber(objUniqueID.getString());
-	                }
-                }
-            } // End loop for Unique ID .
-            String status = objHotelReservation.getReservationStatus().getValue();
-            objReservation.setReservationStatus(status);
+							log.debug("getFutureBookingResponseObject: PmsReservationId is set.");
+						}
+					} else {
+						objReservation.setConfirmationNumber(objUniqueID.getValue());
+					}
+				}
+			} // End loop for Unique ID .
+			String status = objHotelReservation.getReservationStatus().value();
+			objReservation.setReservationStatus(status);
 
-            String group = objHotelReservation.getGroup();
-            objReservation.setGroup(group);
-            ResGuest[] arrGuest = objHotelReservation.getResGuests().getResGuest();
+			String group = objHotelReservation.getGroup();
+			objReservation.setGroup(group);
+			List<ResGuest> arrGuest = objHotelReservation.getResGuests();
 
-            for (ResGuest objResGuest : arrGuest) { // To traverse ResGuest.
+			for (ResGuest objResGuest : arrGuest) { // To traverse ResGuest.
 
-                log.debug("getFutureBookingResponseObject: Iterating ResGuest Array.");
+				log.debug("getFutureBookingResponseObject: Iterating ResGuest Array.");
 
-                Profile[] arrProfiles = objResGuest.getProfiles().getProfile();
+				List<Profile> arrProfiles = objResGuest.getProfiles();
 
-                for (Profile objProfile : arrProfiles) { // To traverse profile .
+				for (Profile objProfile : arrProfiles) { // To traverse profile .
 
-                    log.debug("getFutureBookingResponseObject: Iterating Profile Array.");
+					log.debug("getFutureBookingResponseObject: Iterating Profile Array.");
 
-                    PersonName objPersonName = objProfile.getProfileChoice_type0().getCustomer().getPersonName();
+					PersonName objPersonName = objProfile.getCustomer().getPersonName();
 
-                    NameCreditCard[] arrNameCreditCard = null;
-                    if (objProfile.getCreditCards() != null) {
-                        arrNameCreditCard = objProfile.getCreditCards().getNameCreditCard();
-                    }
+					List<NameCreditCard> arrNameCreditCard = null;
+					if (objProfile.getCreditCards() != null) {
+						arrNameCreditCard = objProfile.getCreditCards();
+					}
 
 					/* To set the first name and last name . */
-                    firstName = objPersonName.getFirstName();
-                    lastName = objPersonName.getLastName();
+					firstName = objPersonName.getFirstName();
+					lastName = objPersonName.getLastName();
 
-                    if (firstName != null || lastName != null) {
+					if (firstName != null || lastName != null) {
 
-                        if (firstName != null) {
+						if (firstName != null) {
 
-                            objBuilder.append(firstName);
-                            objReservation.setFirstName(firstName);
-                        }
-                        if (lastName != null) {
+							objBuilder.append(firstName);
+							objReservation.setFirstName(firstName);
+						}
+						if (lastName != null) {
 
-                            objBuilder.append(" ").append(lastName);
-                            objReservation.setLastName(lastName);
-                        }
-                        objReservation.setFullName(objBuilder.toString());
+							objBuilder.append(" ").append(lastName);
+							objReservation.setLastName(lastName);
+						}
+						objReservation.setFullName(objBuilder.toString());
 
-                        log.debug("getFutureBookingResponseObject: Full Name is set.");
-                    }
+						log.debug("getFutureBookingResponseObject: Full Name is set.");
+					}
 
-                    if (arrNameCreditCard != null) {
-                        for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
+					if (arrNameCreditCard != null) {
+						for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
 
-                            log.debug("getFutureBookingResponseObject: Iterating NameCreditCard  Array.");
+							log.debug("getFutureBookingResponseObject: Iterating NameCreditCard  Array.");
 
-                            objReservation.setCreditCardNumber(objNameCreditCard.getCreditCardChoice_type0().getCardNumber());
+							objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
 
-                            log.debug("getFutureBookingResponseObject: Credit Card Number is set.");
-                        } // End loop for name credit card.
-                    }
+							log.debug("getFutureBookingResponseObject: Credit Card Number is set.");
+						} // End loop for name credit card.
+					}
 
-                    ArrayOfNameAddress arrNameAddresses = objProfile.getAddresses();
-                    if (arrNameAddresses != null) {
-                        for (NameAddress objAddress : arrNameAddresses.getNameAddress()) {// To traverse Name Address.
+					for (NameAddress objAddress : objProfile.getAddresses()) {// To traverse Name Address.
+						log.debug(
+							" getFutureBookingResponseObject ",
+							" Iterating NameAddress Array.");
+						objReservation.setAddress(objAddress.getCountryCode());
+						log.debug(
+							" getFutureBookingResponseObject ",
+							" Address is Set in response.");
 
-                            log.debug(
-                                    " getFutureBookingResponseObject ",
-                                    " Iterating NameAddress Array.");
-                            objReservation.setAddress(objAddress.getCountryCode());
-                            log.debug(
-                                    " getFutureBookingResponseObject ",
-                                    " Address is Set in response.");
+					} // end loop for Name Address.
 
-                        } // end loop for Name Address.
-                    }
+					for (NamePhone objNamePhone : objProfile.getPhones()) { // To traverse Name Phone.
+						if (objNamePhone.getPhoneRole().equalsIgnoreCase("PHONE")) {
+							objReservation.setPhoneNumber(objNamePhone.getPhoneNumber());
 
-                    ArrayOfNamePhone arrNamePhones = objProfile.getPhones();
-                    if (arrNamePhones != null) {
-                        for (NamePhone objNamePhone : arrNamePhones.getNamePhone()) { // To traverse Name Phone.
-                            if (objNamePhone.getPhoneRole().equalsIgnoreCase("PHONE")) {
-                                objReservation.setPhoneNumber(objNamePhone.getPhoneChoice_type0().getPhoneNumber());
+							log.debug(
+								" getFutureBookingResponseObject ",
+								" Phone Number  is Set in response.");
 
-                                log.debug(
-                                        " getFutureBookingResponseObject ",
-                                        " Phone Number  is Set in response.");
+						}
+					} // End loop for Phone.
 
-                            }
-                        } // End loop for Phone.
-                    }
+					for (NameEmail objNameEmail : objProfile.getEMails()) {// To traverse Name Email.
+						objReservation.setEmail(objNameEmail.getValue());
+						log.debug(
+							" getFutureBookingResponseObject ", "Email is Set in response.");
+					} // End loop for Email.
 
-                    ArrayOfNameEmail arrNameEmails = objProfile.getEMails();
-                    if (arrNameEmails != null) {
-                        for (NameEmail objNameEmail : arrNameEmails.getNameEmail()) {// To traverse Name Email.
-                            objReservation.setEmail(objNameEmail.getString());
-                            log.debug(
-                                    " getFutureBookingResponseObject ", "Email is Set in response.");
-                        } // End loop for Email.
-                    }
+					log.debug("getFutureBookingResponseObject: Exit Profile .");
 
-                    log.debug("getFutureBookingResponseObject: Exit Profile .");
+				} // End loop for Profile.
+			} // End loop for Res Guest.
 
-                } // End loop for Profile.
-            } // End loop for Res Guest.
+			List<RoomDetails> objRDetailList = objReservation.getRoomDetailList();
+			if (objRDetailList == null) {
+				objRDetailList = new ArrayList<>();
+			}
 
-            List<RoomDetails> objRDetailList = objReservation.getRoomDetailList();
-            if (objRDetailList == null) {
-                objRDetailList = new ArrayList<>();
-            }
+			objReservation.setRoomDetailList(objRDetailList);
 
-            objReservation.setRoomDetailList(objRDetailList);
+			for (RoomStay objRoomStay : objHotelReservation.getRoomStays()) { // To traverse room stay array.
 
-            ArrayOfRoomStay arrRoomStay = objHotelReservation.getRoomStays();
+				log.debug(
+					" getFutureBookingResponseObject ", "Enter Room Stay Array.");
 
-            for (RoomStay objRoomStay : arrRoomStay.getRoomStay()) { // To traverse room stay array.
+				for (RoomType objRType : objRoomStay.getRoomTypes()) {  // To traverse room type
 
-                log.debug(
-                        " getFutureBookingResponseObject ", "Enter Room Stay Array.");
+					log.debug(
+						" getFutureBookingResponseObject ",
+						" Iterating Room Type Array.");
 
-	            ArrayOfRoomType arrRoomType = objRoomStay.getRoomTypes();
+					RoomDetails obRoomDetails = new RoomDetails();
 
-                for (RoomType objRType : arrRoomType.getRoomType()) {  // To traverse room type
+					com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
+					objRoomType.setCode(objRType.getRoomTypeCode());
 
-                    log.debug(
-                            " getFutureBookingResponseObject ",
-                            " Iterating Room Type Array.");
+					log.debug(
+						" getFutureBookingResponseObject ",
+						" Room Type Code is Set in response.");
 
-	                RoomDetails obRoomDetails = new RoomDetails();
+					List<String> arrRoomNumber = objRType.getRoomNumbers();
 
-                    com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
-                    objRoomType.setCode(objRType.getRoomTypeCode());
+					if (arrRoomNumber != null) {
+						for (String roomNumber : arrRoomNumber) {
+							obRoomDetails.setRoomNumber(Integer.parseInt(roomNumber));
+						}
+					}
 
-                    log.debug(
-                            " getFutureBookingResponseObject ",
-                            " Room Type Code is Set in response.");
+					objBuilder = new StringBuilder();
+					StringBuilder objStringBuilder2 = new StringBuilder();
 
-                    ArrayOfRoomFeature arrRoomFeature =
-                            objRType.getRoomFeatures();
+					for (RoomFeature objRFeature : objRType.getRoomFeatures()) {
+						log.debug(
+							" getFutureBookingResponseObject ",
+							" Iterating Room Feature Array.");
+						objBuilder.append(objRFeature.getFeature()).append(";");
+						objStringBuilder2.append(objRFeature.getDescription()).append(";");
 
-                    String[] arrRoomNumber = objRType.getRoomNumber();
+					}
+					objRoomType.setFeatures(objBuilder.toString());
 
-                    if (arrRoomNumber != null) {
-                        for (String roomNumber : arrRoomNumber) {
-                            obRoomDetails.setRoomNumber(Integer.parseInt(roomNumber));
-                        }
-                    }
+					objRoomType.setDescription(objStringBuilder2.toString());
+					log.debug(
+						" getFutureBookingResponseObject ",
+						" Features and Description are Set in response.");
+					objStringBuilder2.setLength(0);
+					obRoomDetails.setRoomType(objRoomType);
+					objRDetailList.add(obRoomDetails);
 
-                    objBuilder = new StringBuilder();
-                    StringBuilder objStringBuilder2 = new StringBuilder();
+					log.debug(
+						" getFutureBookingResponseObject ", "Exit Room Type .");
 
-                    if (arrRoomFeature != null) {
-                        RoomFeature[] features = arrRoomFeature.getFeatures();
-                        if (features != null) {
-	                        for (RoomFeature objRFeature : features) {
-		                        log.debug(
-			                        " getFutureBookingResponseObject ",
-			                        " Iterating Room Feature Array.");
-		                        objBuilder.append(objRFeature.getFeature()).append(";");
-		                        objStringBuilder2.append(objRFeature.getDescription()).append(";");
+				} // End loop for room Type.
 
-	                        }
-                        }
-                    }
-                    objRoomType.setFeatures(objBuilder.toString());
+				objReservation.setNumberOfGuests(arrGuest.size());
 
-                    objRoomType.setDescription(objStringBuilder2.toString());
-                    log.debug(
-                            " getFutureBookingResponseObject ",
-                            " Features and Description are Set in response.");
-                    objStringBuilder2.setLength(0);
-                    obRoomDetails.setRoomType(objRoomType);
-                    objRDetailList.add(obRoomDetails);
+				TimeSpan objTimeSpan = objRoomStay.getTimeSpan();
+				if (objTimeSpan != null) {
 
-                    log.debug(
-                            " getFutureBookingResponseObject ", "Exit Room Type .");
+					objReservation.setCheckinDate(AdapterUtility.getDate(objTimeSpan.getStartDate()));
+					log.debug(
+						" getFutureBookingResponseObject ",
+						" CheckIn Date is Set in response.");
 
-                } // End loop for room Type.
+					objReservation.setCheckoutDate(AdapterUtility
+						.getDate(objTimeSpan.getEndDate()));
+					log.debug(
+						" getFutureBookingResponseObject ",
+						" CheckOut Date is Set in response.");
+				}
 
-                GuestCount[] arrGuestCount = objRoomStay.getGuestCounts()
-                        .getGuestCount();
-                int guestCount = 0;
-                for (GuestCount objGuestCount : arrGuestCount) { // To traverse Guest Count.
-                    log.debug(
-                            " getFutureBookingResponseObject ",
-                            " Iterating Guest Count Array.");
-                    guestCount = guestCount + objGuestCount.getCount();
+				log.debug(
+					" getFutureBookingResponseObject ", "Notes are Set in response.");
+				objBuilder.setLength(0);
 
-                    objReservation.setNumberOfGuests(guestCount);
-                    log.debug(
-                            " getFutureBookingResponseObject ",
-                            " Guest Count is Set in response.");
-                } // End loop for Guest Count.
+				log.debug(
+					" getFutureBookingResponseObject ", "Exit Room Stay .");
 
-                TimeSpan objTimeSpan = objRoomStay.getTimeSpan();
-                if (objTimeSpan != null) {
+			} // End loop for room Stay.
 
-                    objReservation.setCheckinDate(AdapterUtility
-                            .getDate(objTimeSpan.getStartDate()));
-                    log.debug(
-                            " getFutureBookingResponseObject ",
-                            " CheckIn Date is Set in response.");
+			// Set the reservation into response.
+			objLReservations.add(objReservation);
 
-                    TimeSpanChoice_type0 objTimeSpanChoice_type0 = objTimeSpan
-                            .getTimeSpanChoice_type0();
+			log.debug("getFutureBookingResponseObject: Exit from Hotel Reservation loop.");
 
-                    if (objTimeSpanChoice_type0 != null) {
+		} // End loop for Hotel Reservation.
 
-                        objReservation.setCheckoutDate(AdapterUtility
-                                .getDate(objTimeSpanChoice_type0.getEndDate()));
-                        log.debug(
-                                " getFutureBookingResponseObject ",
-                                " CheckOut Date is Set in response.");
-                    }
-                }
-
-                log.debug(
-                        " getFutureBookingResponseObject ", "Notes are Set in response.");
-                objBuilder.setLength(0);
-
-                log.debug(
-                        " getFutureBookingResponseObject ", "Exit Room Stay .");
-
-            } // End loop for room Stay.
-
-            // Set the reservation into response.
-            objLReservations.add(objReservation);
-
-            log.debug("getFutureBookingResponseObject: Exit from Hotel Reservation loop.");
-
-        } // End loop for Hotel Reservation.
-
-        return objLReservations;
-    }
+		return objLReservations;
+	}
 
 }

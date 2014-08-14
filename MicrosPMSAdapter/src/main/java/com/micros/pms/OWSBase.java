@@ -23,5 +23,4 @@ public class OWSBase extends OWSTools {
 			throw pmsError;
 		}
 	}
-
 }

@@ -3,7 +3,7 @@ dependencies {
     compile project(':CloudKeyHTBase')
 //    compile project(':CloudKeyHTWebServices')
     compile project(':MicrosIds')
-    compile project(':MicrosOWSServices')
+    compile project(':MicrosOWSCxfClient')
     compile guice
     compile logback_classic
     compile logback_core

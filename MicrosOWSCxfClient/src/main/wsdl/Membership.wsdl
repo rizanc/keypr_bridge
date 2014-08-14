@@ -1,0 +1,2513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s3="http://webservices.micros.com/og/4.3/HotelCommon/" xmlns:s2="http://webservices.micros.com/og/4.3/Name/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s5="http://webservices.micros.com/og/4.3/Core/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://webservices.micros.com/og/4.3/Common/" xmlns:s0="http://webservices.micros.com/ows/5.1/Membership.wsdl" xmlns:s4="http://webservices.micros.com/og/4.3/Membership/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/ows/5.1/Membership.wsdl">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/HotelCommon/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Membership/" />
+      <s:element name="FetchMembershipTransactionsRequest" type="s0:FetchMembershipTransactionsRequest" />
+      <s:complexType name="FetchMembershipTransactionsRequest">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipID" type="s1:UniqueID" />
+            <s:element minOccurs="0" maxOccurs="1" name="Membership" type="s1:Membership" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" name="PostingDateRange" type="s3:TimeSpan" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchMembershipTransactionsResponse" type="s0:FetchMembershipTransactionsResponse" />
+      <s:complexType name="FetchMembershipTransactionsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipTransactionList" type="s4:MembershipTransactionList" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchStatementRefsRequest" type="s0:FetchStatementRefsRequest" />
+      <s:complexType name="FetchStatementRefsRequest">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Membership" type="s1:Membership" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipID" type="s1:UniqueID" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchStatementRefsResponse" type="s0:FetchStatementRefsResponse" />
+      <s:complexType name="FetchStatementRefsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatementRefs" type="s4:ArrayOfStatementReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchStatementRequest" type="s0:FetchStatementRequest" />
+      <s:complexType name="FetchStatementRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StatementRef" type="s4:StatementReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchStatementResponse" type="s0:FetchStatementResponse" />
+      <s:complexType name="FetchStatementResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Statement" type="s4:Statement" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchRateAwardsRequest" type="s0:FetchRateAwardsRequest" />
+      <s:complexType name="FetchRateAwardsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StayDateRange" type="s3:TimeSpan" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfRooms" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfAdults" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsBelow" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsAbove" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReferences" type="s3:ArrayOfHotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchRateAwardsResponse" type="s0:FetchRateAwardsResponse" />
+      <s:complexType name="FetchRateAwardsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateAwardList" type="s4:ArrayOfRateAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchUpgradeAwardsRequest" type="s0:FetchUpgradeAwardsRequest" />
+      <s:complexType name="FetchUpgradeAwardsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StayDateRange" type="s3:TimeSpan" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfRooms" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchUpgradeAwardsResponse" type="s0:FetchUpgradeAwardsResponse" />
+      <s:complexType name="FetchUpgradeAwardsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="UpgradeAwardList" type="s4:ArrayOfUpgradeAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchProductAwardsRequest" type="s0:FetchProductAwardsRequest" />
+      <s:complexType name="FetchProductAwardsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StayDateRange" type="s3:TimeSpan" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfRooms" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchProductAwardsResponse" type="s0:FetchProductAwardsResponse" />
+      <s:complexType name="FetchProductAwardsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductAwardList" type="s4:ArrayOfProductAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsumePointsRequest" type="s0:ConsumePointsRequest" />
+      <s:complexType name="ConsumePointsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsRequired" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResortId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PmsResvNo" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="CrsResvNo" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StayRecordId" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="StayDates" type="s3:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FromRoomLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToRoomLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Product" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueKeyRaw" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsumePointsResponse" type="s0:ConsumePointsResponse" />
+      <s:complexType name="ConsumePointsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="transactionId" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsumePointsOthersRequest" type="s0:ConsumePointsOthersRequest" />
+      <s:complexType name="ConsumePointsOthersRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsRequired" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Product" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsumePointsOthersResponse" type="s0:ConsumePointsOthersResponse" />
+      <s:complexType name="ConsumePointsOthersResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="transactionId" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchPromoSubscriptionsRequest" type="s0:FetchPromoSubscriptionsRequest" />
+      <s:complexType name="FetchPromoSubscriptionsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s1:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchPromoSubscriptionsResponse" type="s0:FetchPromoSubscriptionsResponse" />
+      <s:complexType name="FetchPromoSubscriptionsResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionSubscriptions" type="s4:PromotionSubscriptionList" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddPromoSubscriptionRequest" type="s0:AddPromoSubscriptionRequest" />
+      <s:complexType name="AddPromoSubscriptionRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PromoSubscription" type="s4:PromotionSubscription" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddPromoSubscriptionResponse" type="s0:AddPromoSubscriptionResponse" />
+      <s:complexType name="AddPromoSubscriptionResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeletePromoSubscriptionRequest" type="s0:DeletePromoSubscriptionRequest" />
+      <s:complexType name="DeletePromoSubscriptionRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PromoSubscription" type="s4:PromotionSubscription" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeletePromoSubscriptionResponse" type="s0:DeletePromoSubscriptionResponse" />
+      <s:complexType name="DeletePromoSubscriptionResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchNextCardNumberRequest" type="s0:FetchNextCardNumberRequest" />
+      <s:complexType name="FetchNextCardNumberRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipCardType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchNextCardNumberResponse" type="s0:FetchNextCardNumberResponse" />
+      <s:complexType name="FetchNextCardNumberResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchEnrollmentCodeRequest" type="s0:FetchEnrollmentCodeRequest" />
+      <s:complexType name="FetchEnrollmentCodeRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s1:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchEnrollmentCodeResponse" type="s0:FetchEnrollmentCodeResponse" />
+      <s:complexType name="FetchEnrollmentCodeResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnrollmentCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateEnrollmentCodeRequest" type="s0:UpdateEnrollmentCodeRequest" />
+      <s:complexType name="UpdateEnrollmentCodeRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnrollmentCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateEnrollmentCodeResponse" type="s0:UpdateEnrollmentCodeResponse" />
+      <s:complexType name="UpdateEnrollmentCodeResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchPointsExchangeRequest" type="s0:FetchPointsExchangeRequest" />
+      <s:complexType name="FetchPointsExchangeRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FromMembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToMembershipType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Points" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchPointsExchangeResponse" type="s0:FetchPointsExchangeResponse" />
+      <s:complexType name="FetchPointsExchangeResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToMembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Points" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TransferPointsRequest" type="s0:TransferPointsRequest" />
+      <s:complexType name="TransferPointsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsToReceive" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsToTransfer" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TransferPointsResponse" type="s0:TransferPointsResponse" />
+      <s:complexType name="TransferPointsResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="MemberPointsList" type="s4:ArrayOfMembership" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IssueECertificateRequest" type="s0:IssueECertificateRequest" />
+      <s:complexType name="IssueECertificateRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NameID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s3:HotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IssueECertificateResponse" type="s0:IssueECertificateResponse" />
+      <s:complexType name="IssueECertificateResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ECertificate" type="s4:ECertificate" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsumeECertificateRequest" type="s0:ConsumeECertificateRequest" />
+      <s:complexType name="ConsumeECertificateRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ECertificate" type="s4:ECertificate" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConsumeECertificateResponse" type="s0:ConsumeECertificateResponse" />
+      <s:complexType name="ConsumeECertificateResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchECertificatesRequest" type="s0:FetchECertificatesRequest" />
+      <s:complexType name="FetchECertificatesRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NameID" type="s1:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchECertificatesResponse" type="s0:FetchECertificatesResponse" />
+      <s:complexType name="FetchECertificatesResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ECertificateList" type="s4:ArrayOfECertificate" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FavoriteGuestRequest" type="s0:FavoriteGuestRequest" />
+      <s:complexType name="FavoriteGuestRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NameID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestNameID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="FavoriteGuestList" type="s4:ArrayOfFavoriteGuest" />
+        </s:sequence>
+        <s:attribute name="actionType" type="s4:ActionType" use="required" />
+      </s:complexType>
+      <s:element name="FavoriteGuestResponse" type="s0:FavoriteGuestResponse" />
+      <s:complexType name="FavoriteGuestResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="FavoriteGuestList" type="s4:ArrayOfFavoriteGuest" />
+        </s:sequence>
+        <s:attribute name="actionType" type="s4:ActionType" use="required" />
+      </s:complexType>
+      <s:element name="FetchAvailableECertificatesRequest" type="s0:FetchAvailableECertificatesRequest" />
+      <s:complexType name="FetchAvailableECertificatesRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s3:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchAvailableECertificatesResponse" type="s0:FetchAvailableECertificatesResponse" />
+      <s:complexType name="FetchAvailableECertificatesResponse">
+        <s:annotation>
+          <s:appinfo>
+            <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+          </s:appinfo>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ECertificateList" type="s4:ArrayOfECertificate" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchMemberPointsRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s1:UniqueID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchMemberPointsResponse">
+        <s:complexType>
+          <s:annotation>
+            <s:appinfo>
+              <keepNamespaceDeclarations>xsn</keepNamespaceDeclarations>
+            </s:appinfo>
+          </s:annotation>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberInfo" type="s1:Membership" />
+            <s:element minOccurs="0" maxOccurs="1" name="PointsInfo" type="s4:PointsInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="AvailableECertificates" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReIssueMemberCardRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipId" type="s1:UniqueID" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipLevel" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReIssueMemberCardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelECertificateRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CertificateID" type="s1:UniqueID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelECertificateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchTransactionAwardsRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipLevel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:date" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:date" />
+            <s:element minOccurs="0" maxOccurs="1" name="NumberOfRooms" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NumberOfAdults" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="HotelReferences" type="s3:HotelReference" />
+            <s:element minOccurs="0" maxOccurs="1" name="BillingAmount" type="s1:Amount" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchTransactionAwardsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionAwardList" type="s4:ArrayOfTransactionAward" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IssueTransactionAwardRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IssueTransactionAwardDetails" type="s4:IssueTransactionAwardDetails" />
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipID" type="s1:UniqueID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IssueTransactionAwardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="AwardIssueId" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelConsumedPointsRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MembershipID" type="s1:UniqueID" />
+            <s:element minOccurs="1" maxOccurs="1" name="TransactionId" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="CancellationNumber" type="s1:UniqueID" />
+            <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s3:HotelReference" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelConsumedPointsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Common/">
+      <s:complexType name="UniqueID">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="type" type="s1:UniqueIDType" use="required" />
+            <s:attribute name="source" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="UniqueIDType">
+        <s:restriction base="s:string">
+          <s:enumeration value="EXTERNAL" />
+          <s:enumeration value="INTERNAL" />
+          <s:enumeration value="CANCELLATIONEXTERNAL" />
+          <s:enumeration value="CANCELLATIONINTERNAL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Membership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="membershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipNextLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="memberName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="effectiveDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="expirationDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="currentPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollmentCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResvNameId" type="s1:ArrayOfUniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipid" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="transferPoints" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollmentSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrolledAt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="awardPointsToExpires" type="s1:ArrayOfAwardPointsToExpire" />
+          <s:element minOccurs="0" maxOccurs="1" name="inactive" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUniqueID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UniqueID" type="s1:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAwardPointsToExpire">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AwardPointsToExpire" type="s1:AwardPointsToExpire" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AwardPointsToExpire">
+        <s:attribute name="expirationDate" type="s:date" use="required" />
+        <s:attribute name="totalToExpire" type="s:double" use="required" />
+        <s:attribute name="expireByDate" type="s:double" />
+      </s:complexType>
+      <s:complexType name="ResultStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s1:ArrayOfText" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDs" type="s1:ArrayOfIDPair" />
+          <s:element minOccurs="0" maxOccurs="1" name="OperaErrorCode" type="s:string" />
+        </s:sequence>
+        <s:attribute name="resultStatusFlag" type="s1:ResultStatusFlag" />
+      </s:complexType>
+      <s:complexType name="ArrayOfText">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TextElement" type="s1:Text" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Text">
+        <s:simpleContent>
+          <s:extension base="s:normalizedString">
+            <s:attribute name="formatted" type="s:boolean" />
+            <s:attribute name="language" type="s:language" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfIDPair">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IDPair" type="s1:IDPair" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IDPair">
+        <s:attribute name="idType" type="s:string" />
+        <s:attribute name="operaId" type="s:long" />
+        <s:attribute name="externalId" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="ResultStatusFlag">
+        <s:restriction base="s:string">
+          <s:enumeration value="FAIL" />
+          <s:enumeration value="SUCCESS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PersonName">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="nameTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="middleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="nameSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="accountName2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="accountName3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="profession" type="s:string" />
+        </s:sequence>
+        <s:attribute name="nameOrdered" type="s:string" />
+        <s:attribute name="familiarName" type="s:string" />
+        <s:attribute name="active" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="Amount">
+        <s:simpleContent>
+          <s:extension base="s:double">
+            <s:attribute name="currencyCode" type="s:string" />
+            <s:attribute name="decimals" type="s:short" />
+            <s:attribute name="currencyText" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="DescriptiveText">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:anyURI" />
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s1:ArrayOfTextElement" />
+            <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:string" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTextElement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TextElement" nillable="true" type="s1:TextElement" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TextElement">
+        <s:simpleContent>
+          <s:extension base="s1:Text" />
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressLine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cityName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="stateProv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="postalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="barCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cityExtension" type="s:string" />
+        </s:sequence>
+        <s:attribute name="addressType" type="s:string" />
+        <s:attribute name="otherAddressType" type="s:string" />
+        <s:attribute name="languageCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfUserDefinedValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserDefinedValue" type="s1:UserDefinedValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserDefinedValue">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="1" maxOccurs="1" name="NumericValue" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="CharacterValue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DateValue" type="s:dateTime" />
+          </s:choice>
+        </s:sequence>
+        <s:attribute name="valueName" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Phone">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneData" type="s1:PhonePhoneData" />
+          </s:choice>
+        </s:sequence>
+        <s:attribute name="phoneType" type="s:string" />
+        <s:attribute name="phoneRole" type="s:string" />
+        <s:attribute name="primaryPhone" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="PhonePhoneData">
+        <s:attribute name="countryAccessCode" type="s:string" />
+        <s:attribute name="areaCode" type="s:string" />
+        <s:attribute name="phoneNumber" type="s:string" />
+        <s:attribute name="extension" type="s:string" />
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Name/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:complexType name="NameMembership">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Membership">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="preferred" type="s:boolean" />
+            <s:attribute name="central" type="s:boolean" />
+            <s:attribute name="membershipClass" type="s:string" />
+            <s:attribute name="pointsLabel" type="s:string" />
+            <s:attribute name="status" type="s:string" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="usedInReservation" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NativeName">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:PersonName">
+            <s:attribute name="languageCode" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Comment">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:DescriptiveText">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="commentTitle" type="s:string" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="commentType" type="s:string" />
+            <s:attribute name="globalYn" type="s:string" />
+            <s:attribute name="internalYn" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NameAddress">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Address">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NamePhone">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Phone">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="extension" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/HotelCommon/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:complexType name="TimeSpan">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Duration" type="s:duration" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GDSResultStatus">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:ResultStatus">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="GDSError" type="s3:GDSError" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GDSError">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="errorCode" type="s:string" />
+            <s:attribute name="elementId" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfHotelReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HotelReference" type="s3:HotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HotelReference">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="chainCode" type="s:string" />
+            <s:attribute name="hotelCode" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="HotelInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:DescriptiveText">
+            <s:attribute name="hotelInfoType" type="s3:HotelInfoType" use="required" />
+            <s:attribute name="otherHotelInfoType" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="HotelInfoType">
+        <s:restriction base="s:string">
+          <s:enumeration value="DIRECTIONS" />
+          <s:enumeration value="CHECKININFO" />
+          <s:enumeration value="CHECKOUTINFO" />
+          <s:enumeration value="OTHER" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Membership/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Name/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/HotelCommon/" />
+      <s:complexType name="MembershipTransactionList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CardInfo" type="s2:NameMembership" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MembershipTransaction" type="s4:MembershipTransaction" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MembershipTransaction">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Points" type="s4:Points" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tsc" type="s4:Tsc" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransferDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserNotes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointsBreakups" type="s4:ArrayOfPointsBreakup" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProfileList" type="s4:ArrayOfFavoriteGuest" />
+        </s:sequence>
+        <s:attribute name="postingDate" type="s:date" />
+        <s:attribute name="transactionTypeCode" type="s:string" />
+        <s:attribute name="source" type="s:string" />
+        <s:attribute name="referenceNumber" type="s:string" />
+        <s:attribute name="startDate" type="s:date" />
+        <s:attribute name="endDate" type="s:date" />
+        <s:attribute name="pointsCalculated" type="s:boolean" />
+        <s:attribute name="statementId" type="s:string" />
+        <s:attribute name="transactionId" type="s:string" />
+        <s:attribute name="crsReferenceNumber" type="s:string" />
+        <s:attribute name="adjustment" type="s:boolean" />
+        <s:attribute name="resort" type="s:string" />
+        <s:attribute name="posCode" type="s:string" />
+        <s:attribute name="stayRecord" type="s:boolean" />
+        <s:attribute name="transactionDate" type="s:date" />
+      </s:complexType>
+      <s:complexType name="Points">
+        <s:simpleContent>
+          <s:extension base="s:double">
+            <s:attribute name="basePoints" type="s:double" />
+            <s:attribute name="bonusPoints" type="s:double" />
+            <s:attribute name="miscPoints" type="s:double" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="Tsc">
+        <s:attribute name="baseRevenue" type="s:double" />
+        <s:attribute name="bonusRevenue" type="s:double" />
+        <s:attribute name="baseNights" type="s:int" />
+        <s:attribute name="bonusNights" type="s:int" />
+        <s:attribute name="baseStay" type="s:int" />
+        <s:attribute name="bonusStay" type="s:int" />
+      </s:complexType>
+      <s:complexType name="ArrayOfPointsBreakup">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PointsBreakup" type="s4:PointsBreakup" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PointsBreakup">
+        <s:attribute name="pointsType" type="s:string" />
+        <s:attribute name="points" type="s:double" use="required" />
+        <s:attribute name="pointsDescription" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfFavoriteGuest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FavoriteGuestInfo" type="s4:FavoriteGuest" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FavoriteGuest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GuestID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestNameID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonName" type="s1:PersonName" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+        </s:sequence>
+        <s:attribute name="inactive" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="Statement">
+        <s:complexContent mixed="false">
+          <s:extension base="s4:MembershipTransactionList">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="noticeText" type="s1:ArrayOfText" />
+              <s:element minOccurs="0" maxOccurs="1" name="AwardPointsToExpires" type="s1:ArrayOfAwardPointsToExpire" />
+              <s:element minOccurs="0" maxOccurs="1" name="UDFsList" type="s4:ArrayOfUDFs" />
+            </s:sequence>
+            <s:attribute name="statementDate" type="s:date" />
+            <s:attribute name="statementID" type="s:integer" />
+            <s:attribute name="startDate" type="s:date" />
+            <s:attribute name="endDate" type="s:date" />
+            <s:attribute name="beginningBalance" type="s:float" use="required" />
+            <s:attribute name="endingBalance" type="s:float" />
+            <s:attribute name="membershipYear" type="s:int" />
+            <s:attribute name="awardPointsEarned" type="s:double" />
+            <s:attribute name="awardPointsUsed" type="s:double" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfUDFs">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UDFsInfo" type="s4:UDFs" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UDFs">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UDFC" type="s4:UDFCharacter" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UDFN" type="s4:UDFNumeric" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UDFD" type="s4:UDFDate" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UDFCharacter">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="description" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="UDFNumeric">
+        <s:simpleContent>
+          <s:extension base="s:double">
+            <s:attribute name="description" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="UDFDate">
+        <s:simpleContent>
+          <s:extension base="s:date">
+            <s:attribute name="description" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfStatementReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StatementReferenceInfo" type="s4:StatementReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StatementReference">
+        <s:attribute name="statementId" type="s:integer" />
+        <s:attribute name="statementDate" type="s:date" use="required" />
+        <s:attribute name="membershipID" type="s:int" use="required" />
+        <s:attribute name="locked" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="ArrayOfRateAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RateAwardInfo" type="s4:RateAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RateAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="membershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="awardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="resort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="rateCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="points_required" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="roomCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="beginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="endDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyDays" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyCharge" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueKeyRaw" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DailyPoints" type="s4:ArrayOfPointsChange" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPointsChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PointsChange" type="s4:PointsChange" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PointsChange">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EffectiveDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="Points" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUpgradeAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UpgradeAwardInfo" type="s4:UpgradeAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UpgradeAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="membershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="awardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="resort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fromRoomCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="toRoomCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fromRoomCategoryLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="toRoomCategoryLabel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="points_required" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="beginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="endDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyDays" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyCharge" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueKeyRaw" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProductAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductAwardInfo" type="s4:ProductAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="membershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="awardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="resort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="product" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="shortDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="points_required" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="beginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="endDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyDays" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyCharge" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="cancelPenaltyPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="issueKeyRaw" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PromotionSubscriptionList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PromotionSubscription" type="s4:Promotion" />
+        </s:sequence>
+        <s:attribute name="MembershipId" type="s:int" use="required" />
+      </s:complexType>
+      <s:complexType name="Promotion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dates" type="s3:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s4:PromotionSubscriptionStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueType" type="s4:PromotionIssueType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PromotionSubscriptionStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ACTIVE" />
+          <s:enumeration value="INACTIVE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PromotionIssueType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ASSIGNED" />
+          <s:enumeration value="OPTIN" />
+          <s:enumeration value="PURCHASED" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PromotionSubscription">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MembershipId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Promotion" type="s4:Promotion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMembership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MemberPointsInfo" type="s1:Membership" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ECertificate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="VoucherNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s3:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShortDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LongDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExpirationDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReservationCertificateYN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateValue" type="s1:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateCost" type="s1:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumedAt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerMiddleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumerEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumptionDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumedHotelReference" type="s3:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumptionRefNo" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumptionRefType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsumptionLegNo" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserNotes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrintStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipAwardID" type="s1:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="InActiveDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateBeginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateEndDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertificateExpriyMonths" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebAllowed" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PMSConsumed" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebConsumed" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Awards" type="s4:Award" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Promotions" type="s4:PromotionDetails" />
+          <s:element minOccurs="0" maxOccurs="1" name="Scope" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Award">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AwardCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointsRequired" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RuleSchedule" type="s4:RuleSchedule" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RuleSchedule">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s1:DescriptiveText" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PointsSchedule" type="s4:PointsSchedule" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PointsSchedule">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="PointsRequired" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PromotionDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PromotionName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookingDate" type="s3:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="StayDate" type="s3:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RateCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfECertificate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ECertificateInfo" type="s4:ECertificate" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ActionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ADD" />
+          <s:enumeration value="DELETE" />
+          <s:enumeration value="FETCH" />
+          <s:enumeration value="REACTIVATE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="FetchMemberTierWizardRequest" type="s4:FetchMemberTierWizardRequest" />
+      <s:complexType name="FetchMemberTierWizardRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipID" type="s1:UniqueID" />
+        </s:sequence>
+        <s:attribute name="evaluationDate" type="s:date" use="required" />
+        <s:attribute name="evaluationType" type="s4:EvaluationTypes" use="required" />
+      </s:complexType>
+      <s:simpleType name="EvaluationTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="UPGRADE" />
+          <s:enumeration value="DOWNGRADE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="FetchMemberTierWizardResponse" type="s4:FetchMemberTierWizardResponse" />
+      <s:complexType name="FetchMemberTierWizardResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TierWizards" type="s4:TierWizard" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TierWizard">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SequenceNumber" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MessageCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TranslatedMessage" type="s1:Text" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AddBenefitRequest" type="s4:AddBenefitRequest" />
+      <s:complexType name="AddBenefitRequest">
+        <s:attribute name="benefitCode" type="s:string" />
+        <s:attribute name="membershipID" type="s:int" use="required" />
+        <s:attribute name="membershipType" type="s:string" />
+      </s:complexType>
+      <s:element name="AddBenefitResponse" type="s4:AddBenefitResponse" />
+      <s:complexType name="AddBenefitResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProcessingMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchBenefitsRequest" type="s4:FetchBenefitsRequest" />
+      <s:complexType name="FetchBenefitsRequest">
+        <s:attribute name="membershipID" type="s:int" use="required" />
+        <s:attribute name="membershipType" type="s:string" />
+      </s:complexType>
+      <s:element name="FetchBenefitsResponse" type="s4:FetchBenefitsResponse" />
+      <s:complexType name="FetchBenefitsResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s1:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Beneifits" type="s4:Benefit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Benefit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BenefitCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProcessingMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BenefitActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramBeginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramEndDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgramActive" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PointsInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AwardPointsInfo" type="s4:AwardPointsInfo" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TierPointsInfo" type="s4:TierPointsInfo" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StayPointsInfo" type="s4:StayPointsInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AwardPointsInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TotalPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BasePoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiscPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalPointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BasePointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusPointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="MiscPointsRange" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TierPointsInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BaseStayPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaseNightsPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaseRevenuePoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusStayPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusNightsPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusRevenuePoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="NextTierPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaseStayPointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaseNightsPointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaseRevenuePointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusStayPointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusNightsPointsRange" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="BonusRevenuePointsRange" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StayPointsInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipTotalNights" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipTotalStays" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestTotalNights" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestTotalStays" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipTotalNightsRange" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipTotalStaysRange" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestTotalNightsRange" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestTotalStaysRange" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTransactionAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionAwardInfo" type="s4:TransactionAward" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransactionAward">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s3:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="DisplaySet" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CancelPenaltyCharge" type="s1:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="CancelPenaltyDays" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CancelPenaltyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IgnoreFinancialTransaction" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueKeyRaw" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="LongDescription" type="s1:DescriptiveText" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShortDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaxPercentAllowed" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CentralCurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalPointsRequired" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointsRequired" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelCurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SellBeginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="SellEndDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExchangeRateType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ComputedPointsRequired" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelTotalBillAmount" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelTotalBillAmountAllowed" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CentralBillAmount" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CentralBillAmountAllowed" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IssueTransactionAwardDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AwardType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s3:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointsRequired" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SellBeginDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="SellEndDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelCurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CentralCurrencyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExchangeRateType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonName" type="s1:PersonName" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s1:Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="UDFsList" type="s1:ArrayOfUserDefinedValue" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IssueKeyRaw" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s1:Phone" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumberOfRooms" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumberOfAdults" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelTotalBillAmount" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Core/">
+      <s:element name="OGHeader" type="s5:OGHeader" />
+      <s:complexType name="OGHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Origin" type="s5:EndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destination" type="s5:EndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Intermediaries" type="s5:ArrayOfEndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Authentication" type="s5:OGHeaderAuthentication" />
+        </s:sequence>
+        <s:attribute name="transactionID" type="s:string" />
+        <s:attribute name="authToken" type="s:string" />
+        <s:attribute name="timeStamp" type="s:dateTime" />
+        <s:attribute name="primaryLangID" type="s:string" />
+        <s:attribute name="channelValidation" type="s:boolean" />
+        <s:attribute name="terminalID" type="s:string" />
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="EndPoint">
+        <s:complexContent mixed="false">
+          <s:extension base="s5:SystemID">
+            <s:attribute name="systemType" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SystemID">
+        <s:attribute name="entityID" type="s:string" />
+        <s:attribute name="organizationID" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfEndPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EndPoint" type="s5:EndPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthentication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserCredentials" type="s5:OGHeaderAuthenticationUserCredentials" />
+          <s:element minOccurs="0" maxOccurs="1" name="Licence" type="s5:OGHeaderAuthenticationLicence" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthenticationUserCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthenticationLicence">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FetchMembershipTransactionsSoapIn">
+    <wsdl:part name="FetchMembershipTransactionsRequest" element="s0:FetchMembershipTransactionsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchMembershipTransactionsSoapOut">
+    <wsdl:part name="FetchMembershipTransactionsResult" element="s0:FetchMembershipTransactionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchMembershipTransactionsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchStatementRefsSoapIn">
+    <wsdl:part name="FetchStatementRefsRequest" element="s0:FetchStatementRefsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchStatementRefsSoapOut">
+    <wsdl:part name="FetchStatementRefsResult" element="s0:FetchStatementRefsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchStatementRefsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchStatementSoapIn">
+    <wsdl:part name="FetchStatementRequest" element="s0:FetchStatementRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchStatementSoapOut">
+    <wsdl:part name="FetchStatementResult" element="s0:FetchStatementResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchStatementOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchRateAwardsSoapIn">
+    <wsdl:part name="FetchRateAwardsRequest" element="s0:FetchRateAwardsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchRateAwardsSoapOut">
+    <wsdl:part name="FetchRateAwardsResult" element="s0:FetchRateAwardsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchRateAwardsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchUpgradeAwardsSoapIn">
+    <wsdl:part name="FetchUpgradeAwardsRequest" element="s0:FetchUpgradeAwardsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchUpgradeAwardsSoapOut">
+    <wsdl:part name="FetchUpgradeAwardsResult" element="s0:FetchUpgradeAwardsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchUpgradeAwardsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchProductAwardsSoapIn">
+    <wsdl:part name="FetchProductAwardsRequest" element="s0:FetchProductAwardsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchProductAwardsSoapOut">
+    <wsdl:part name="FetchProductAwardsResult" element="s0:FetchProductAwardsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchProductAwardsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConsumePointsSoapIn">
+    <wsdl:part name="ConsumePointsRequest" element="s0:ConsumePointsRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsumePointsSoapOut">
+    <wsdl:part name="ConsumePointsResult" element="s0:ConsumePointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsumePointsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConsumePointsOthersSoapIn">
+    <wsdl:part name="ConsumePointsOthersRequest" element="s0:ConsumePointsOthersRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsumePointsOthersSoapOut">
+    <wsdl:part name="ConsumePointsOthersResult" element="s0:ConsumePointsOthersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsumePointsOthersOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchPromoSubscriptionsSoapIn">
+    <wsdl:part name="FetchPromoSubscriptionsRequest" element="s0:FetchPromoSubscriptionsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchPromoSubscriptionsSoapOut">
+    <wsdl:part name="FetchPromoSubscriptionsResult" element="s0:FetchPromoSubscriptionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchPromoSubscriptionsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="AddPromoSubscriptionSoapIn">
+    <wsdl:part name="AddPromoSubscriptionRequest" element="s0:AddPromoSubscriptionRequest" />
+  </wsdl:message>
+  <wsdl:message name="AddPromoSubscriptionSoapOut">
+    <wsdl:part name="AddPromoSubscriptionResult" element="s0:AddPromoSubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPromoSubscriptionOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="DeletePromoSubscriptionSoapIn">
+    <wsdl:part name="DeletePromoSubscriptionRequest" element="s0:DeletePromoSubscriptionRequest" />
+  </wsdl:message>
+  <wsdl:message name="DeletePromoSubscriptionSoapOut">
+    <wsdl:part name="DeletePromoSubscriptionResult" element="s0:DeletePromoSubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePromoSubscriptionOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchNextCardNumberSoapIn">
+    <wsdl:part name="FetchNextCardNumberRequest" element="s0:FetchNextCardNumberRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchNextCardNumberSoapOut">
+    <wsdl:part name="FetchNextCardNumberResult" element="s0:FetchNextCardNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchNextCardNumberOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchEnrollmentCodeSoapIn">
+    <wsdl:part name="FetchEnrollmentCodeRequest" element="s0:FetchEnrollmentCodeRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchEnrollmentCodeSoapOut">
+    <wsdl:part name="FetchEnrollmentCodeResult" element="s0:FetchEnrollmentCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchEnrollmentCodeOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEnrollmentCodeSoapIn">
+    <wsdl:part name="UpdateEnrollmentCodeRequest" element="s0:UpdateEnrollmentCodeRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEnrollmentCodeSoapOut">
+    <wsdl:part name="UpdateEnrollmentCodeResult" element="s0:UpdateEnrollmentCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEnrollmentCodeOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchPointsExchangeSoapIn">
+    <wsdl:part name="FetchPointsExchangeRequest" element="s0:FetchPointsExchangeRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchPointsExchangeSoapOut">
+    <wsdl:part name="FetchPointsExchangeResult" element="s0:FetchPointsExchangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchPointsExchangeOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="TransferPointsSoapIn">
+    <wsdl:part name="TransferPointsRequest" element="s0:TransferPointsRequest" />
+  </wsdl:message>
+  <wsdl:message name="TransferPointsSoapOut">
+    <wsdl:part name="TransferPointsResult" element="s0:TransferPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="TransferPointsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="IssueECertificateSoapIn">
+    <wsdl:part name="IssueECertificateRequest" element="s0:IssueECertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="IssueECertificateSoapOut">
+    <wsdl:part name="IssueECertificateResult" element="s0:IssueECertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IssueECertificateOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConsumeECertificateSoapIn">
+    <wsdl:part name="ConsumeECertificateRequest" element="s0:ConsumeECertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsumeECertificateSoapOut">
+    <wsdl:part name="ConsumeECertificateResult" element="s0:ConsumeECertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsumeECertificateOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchECertificatesSoapIn">
+    <wsdl:part name="FetchECertificatesRequest" element="s0:FetchECertificatesRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchECertificatesSoapOut">
+    <wsdl:part name="FetchECertificatesResult" element="s0:FetchECertificatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchECertificatesOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FavoriteGuestSoapIn">
+    <wsdl:part name="FavoriteGuestRequest" element="s0:FavoriteGuestRequest" />
+  </wsdl:message>
+  <wsdl:message name="FavoriteGuestSoapOut">
+    <wsdl:part name="FavoriteGuestResult" element="s0:FavoriteGuestResponse" />
+  </wsdl:message>
+  <wsdl:message name="FavoriteGuestOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchMemberTierWizardSoapIn">
+    <wsdl:part name="FetchMemberTierWizardRequest" element="s4:FetchMemberTierWizardRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchMemberTierWizardSoapOut">
+    <wsdl:part name="FetchMemberTierWizardResult" element="s4:FetchMemberTierWizardResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchMemberTierWizardOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="AddBenefitSoapIn">
+    <wsdl:part name="AddBenefitRequest" element="s4:AddBenefitRequest" />
+  </wsdl:message>
+  <wsdl:message name="AddBenefitSoapOut">
+    <wsdl:part name="AddBenefitResult" element="s4:AddBenefitResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddBenefitOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchBenefitsSoapIn">
+    <wsdl:part name="FetchBenefitsRequest" element="s4:FetchBenefitsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchBenefitsSoapOut">
+    <wsdl:part name="FetchBenefitsResult" element="s4:FetchBenefitsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchBenefitsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchAvailableECertificatesSoapIn">
+    <wsdl:part name="FetchAvailableECertificatesRequest" element="s0:FetchAvailableECertificatesRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchAvailableECertificatesSoapOut">
+    <wsdl:part name="FetchAvailableECertificatesResult" element="s0:FetchAvailableECertificatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchAvailableECertificatesOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchMemberPointsSoapIn">
+    <wsdl:part name="FetchMemberPointsRequest" element="s0:FetchMemberPointsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchMemberPointsSoapOut">
+    <wsdl:part name="FetchMemberPointsResult" element="s0:FetchMemberPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchMemberPointsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReIssueMemberCardSoapIn">
+    <wsdl:part name="ReIssueMemberCardRequest" element="s0:ReIssueMemberCardRequest" />
+  </wsdl:message>
+  <wsdl:message name="ReIssueMemberCardSoapOut">
+    <wsdl:part name="ReIssueMemberCardResult" element="s0:ReIssueMemberCardResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReIssueMemberCardOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelECertificateSoapIn">
+    <wsdl:part name="CancelECertificateRequest" element="s0:CancelECertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="CancelECertificateSoapOut">
+    <wsdl:part name="CancelECertificateResult" element="s0:CancelECertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelECertificateOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchTransactionAwardsSoapIn">
+    <wsdl:part name="FetchTransactionAwardsRequest" element="s0:FetchTransactionAwardsRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchTransactionAwardsSoapOut">
+    <wsdl:part name="FetchTransactionAwardsResult" element="s0:FetchTransactionAwardsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchTransactionAwardsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="IssueTransactionAwardSoapIn">
+    <wsdl:part name="IssueTransactionAwardRequest" element="s0:IssueTransactionAwardRequest" />
+  </wsdl:message>
+  <wsdl:message name="IssueTransactionAwardSoapOut">
+    <wsdl:part name="IssueTransactionAwardResult" element="s0:IssueTransactionAwardResponse" />
+  </wsdl:message>
+  <wsdl:message name="IssueTransactionAwardOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelConsumedPointsSoapIn">
+    <wsdl:part name="CancelConsumedPointsRequest" element="s0:CancelConsumedPointsRequest" />
+  </wsdl:message>
+  <wsdl:message name="CancelConsumedPointsSoapOut">
+    <wsdl:part name="CancelConsumedPointsResult" element="s0:CancelConsumedPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelConsumedPointsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:portType name="MembershipServiceSoap">
+    <wsdl:operation name="FetchMembershipTransactions">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Allows members to submit their unique profile identification number and optional begin and end dates.</wsdl:documentation>
+      <wsdl:input message="tns:FetchMembershipTransactionsSoapIn" />
+      <wsdl:output message="tns:FetchMembershipTransactionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchStatementRefs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves a list of references associated with a membership card.</wsdl:documentation>
+      <wsdl:input message="tns:FetchStatementRefsSoapIn" />
+      <wsdl:output message="tns:FetchStatementRefsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchStatement">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve a hotel loyalty program statement.</wsdl:documentation>
+      <wsdl:input message="tns:FetchStatementSoapIn" />
+      <wsdl:output message="tns:FetchStatementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchRateAwards">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Affiliation information about awards based on a rate.</wsdl:documentation>
+      <wsdl:input message="tns:FetchRateAwardsSoapIn" />
+      <wsdl:output message="tns:FetchRateAwardsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchUpgradeAwards">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Affiliation information about awards based on an upgrade.</wsdl:documentation>
+      <wsdl:input message="tns:FetchUpgradeAwardsSoapIn" />
+      <wsdl:output message="tns:FetchUpgradeAwardsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchProductAwards">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Affiliation information about awards based on a product.</wsdl:documentation>
+      <wsdl:input message="tns:FetchProductAwardsSoapIn" />
+      <wsdl:output message="tns:FetchProductAwardsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsumePoints">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Accumulates customers points for certain rate/product for a loyalty program.</wsdl:documentation>
+      <wsdl:input message="tns:ConsumePointsSoapIn" />
+      <wsdl:output message="tns:ConsumePointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsumePointsOthers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Accumulates customers points for other hotel defined programs.</wsdl:documentation>
+      <wsdl:input message="tns:ConsumePointsOthersSoapIn" />
+      <wsdl:output message="tns:ConsumePointsOthersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchPromoSubscriptions">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve a list of promotional subscriptions.</wsdl:documentation>
+      <wsdl:input message="tns:FetchPromoSubscriptionsSoapIn" />
+      <wsdl:output message="tns:FetchPromoSubscriptionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPromoSubscription">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Insert a promotional subscription.</wsdl:documentation>
+      <wsdl:input message="tns:AddPromoSubscriptionSoapIn" />
+      <wsdl:output message="tns:AddPromoSubscriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePromoSubscription">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a promotional subscription.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePromoSubscriptionSoapIn" />
+      <wsdl:output message="tns:DeletePromoSubscriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchNextCardNumber">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieve the next credit card number.</wsdl:documentation>
+      <wsdl:input message="tns:FetchNextCardNumberSoapIn" />
+      <wsdl:output message="tns:FetchNextCardNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchEnrollmentCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves the Enrollment Code for the membership id passed in.</wsdl:documentation>
+      <wsdl:input message="tns:FetchEnrollmentCodeSoapIn" />
+      <wsdl:output message="tns:FetchEnrollmentCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEnrollmentCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates/Inserts the Enrollment Code based on membership id passed in.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateEnrollmentCodeSoapIn" />
+      <wsdl:output message="tns:UpdateEnrollmentCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchPointsExchange">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves the membership type points based on the exchange rate setup between the two membership types.</wsdl:documentation>
+      <wsdl:input message="tns:FetchPointsExchangeSoapIn" />
+      <wsdl:output message="tns:FetchPointsExchangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TransferPoints">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Transfer points from one membership type to another membership type.</wsdl:documentation>
+      <wsdl:input message="tns:TransferPointsSoapIn" />
+      <wsdl:output message="tns:TransferPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IssueECertificate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Issue ecertificate to a profile.</wsdl:documentation>
+      <wsdl:input message="tns:IssueECertificateSoapIn" />
+      <wsdl:output message="tns:IssueECertificateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsumeECertificate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consume a issued ecertificate.</wsdl:documentation>
+      <wsdl:input message="tns:ConsumeECertificateSoapIn" />
+      <wsdl:output message="tns:ConsumeECertificateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchECertificates">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetch all ecertificates issued to a profile.</wsdl:documentation>
+      <wsdl:input message="tns:FetchECertificatesSoapIn" />
+      <wsdl:output message="tns:FetchECertificatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FavoriteGuest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add/Delete/Fetch favoriteguest to/from a profile.</wsdl:documentation>
+      <wsdl:input message="tns:FavoriteGuestSoapIn" />
+      <wsdl:output message="tns:FavoriteGuestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchMemberTierWizard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns information on the members upgrade requirements or the membership level on downgrade which will be evaluated based on the inputs of a future evaluation date and membership ID.</wsdl:documentation>
+      <wsdl:input message="tns:FetchMemberTierWizardSoapIn" />
+      <wsdl:output message="tns:FetchMemberTierWizardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBenefit">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Applies benefits to the member who will be automatically upgraded to the level associated with the benefit code, given the membership ID.</wsdl:documentation>
+      <wsdl:input message="tns:AddBenefitSoapIn" />
+      <wsdl:output message="tns:AddBenefitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchBenefits">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns all benefit codes that are applied to a member.</wsdl:documentation>
+      <wsdl:input message="tns:FetchBenefitsSoapIn" />
+      <wsdl:output message="tns:FetchBenefitsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchAvailableECertificates">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns all configured E-Certificates for a date range.</wsdl:documentation>
+      <wsdl:input message="tns:FetchAvailableECertificatesSoapIn" />
+      <wsdl:output message="tns:FetchAvailableECertificatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchMemberPoints">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns member points information.</wsdl:documentation>
+      <wsdl:input message="tns:FetchMemberPointsSoapIn" />
+      <wsdl:output message="tns:FetchMemberPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReIssueMemberCard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Member will be scheduled for next fulfillment export for code REISSUE NEW CARD.</wsdl:documentation>
+      <wsdl:input message="tns:ReIssueMemberCardSoapIn" />
+      <wsdl:output message="tns:ReIssueMemberCardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelECertificate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancel a ECertificate.</wsdl:documentation>
+      <wsdl:input message="tns:CancelECertificateSoapIn" />
+      <wsdl:output message="tns:CancelECertificateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchTransactionAwards">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetch Transaction AwardCodes.</wsdl:documentation>
+      <wsdl:input message="tns:FetchTransactionAwardsSoapIn" />
+      <wsdl:output message="tns:FetchTransactionAwardsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IssueTransactionAward">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Issue or Redeem Transaction Awards points.</wsdl:documentation>
+      <wsdl:input message="tns:IssueTransactionAwardSoapIn" />
+      <wsdl:output message="tns:IssueTransactionAwardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelConsumedPoints">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Cancel Consumed Points.</wsdl:documentation>
+      <wsdl:input message="tns:CancelConsumedPointsSoapIn" />
+      <wsdl:output message="tns:CancelConsumedPointsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MembershipServiceSoap" type="tns:MembershipServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FetchMembershipTransactions">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchMembershipTransactions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchMembershipTransactionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchMembershipTransactionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchStatementRefs">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchStatementRefs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchStatementRefsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchStatementRefsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchStatement">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchStatement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchStatementOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchStatementOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchRateAwards">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchRateAwards" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchRateAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchRateAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchUpgradeAwards">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchUpgradeAwards" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchUpgradeAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchUpgradeAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchProductAwards">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchProductAwards" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchProductAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchProductAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumePoints">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ConsumePoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsumePointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsumePointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumePointsOthers">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ConsumePointsOthers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsumePointsOthersOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsumePointsOthersOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchPromoSubscriptions">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchPromoSubscriptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchPromoSubscriptionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchPromoSubscriptionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPromoSubscription">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#AddPromoSubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddPromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddPromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePromoSubscription">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#DeletePromoSubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DeletePromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:DeletePromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchNextCardNumber">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchNextCardNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchNextCardNumberOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchNextCardNumberOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchEnrollmentCode">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchEnrollmentCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEnrollmentCode">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#UpdateEnrollmentCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchPointsExchange">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchPointsExchange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchPointsExchangeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchPointsExchangeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferPoints">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#TransferPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:TransferPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:TransferPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IssueECertificate">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#IssueECertificate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:IssueECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:IssueECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumeECertificate">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ConsumeECertificate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsumeECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ConsumeECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchECertificates">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchECertificates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FavoriteGuest">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FavoriteGuest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FavoriteGuestOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FavoriteGuestOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchMemberTierWizard">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchMemberTierWizard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchMemberTierWizardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchMemberTierWizardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBenefit">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#AddBenefit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddBenefitOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddBenefitOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchBenefits">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchBenefits" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchBenefitsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchBenefitsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchAvailableECertificates">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchAvailableECertificates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchAvailableECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchAvailableECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchMemberPoints">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchMemberPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchMemberPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchMemberPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReIssueMemberCard">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ReIssueMemberCard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReIssueMemberCardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReIssueMemberCardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelECertificate">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#CancelECertificate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchTransactionAwards">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership#FetchTransactionAwards" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchTransactionAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchTransactionAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IssueTransactionAward">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership#IssueTransactionAward" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:IssueTransactionAwardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:IssueTransactionAwardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelConsumedPoints">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/Membership#CancelConsumedPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelConsumedPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelConsumedPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MembershipServiceSoap12" type="tns:MembershipServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FetchMembershipTransactions">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchMembershipTransactions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchMembershipTransactionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchMembershipTransactionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchStatementRefs">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchStatementRefs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchStatementRefsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchStatementRefsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchStatement">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchStatement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchStatementOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchStatementOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchRateAwards">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchRateAwards" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchRateAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchRateAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchUpgradeAwards">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchUpgradeAwards" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchUpgradeAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchUpgradeAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchProductAwards">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchProductAwards" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchProductAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchProductAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumePoints">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ConsumePoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsumePointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsumePointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumePointsOthers">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ConsumePointsOthers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsumePointsOthersOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsumePointsOthersOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchPromoSubscriptions">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchPromoSubscriptions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchPromoSubscriptionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchPromoSubscriptionsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPromoSubscription">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#AddPromoSubscription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddPromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddPromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePromoSubscription">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#DeletePromoSubscription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DeletePromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DeletePromoSubscriptionOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchNextCardNumber">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchNextCardNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchNextCardNumberOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchNextCardNumberOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchEnrollmentCode">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchEnrollmentCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateEnrollmentCode">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#UpdateEnrollmentCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateEnrollmentCodeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchPointsExchange">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchPointsExchange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchPointsExchangeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchPointsExchangeOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TransferPoints">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#TransferPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:TransferPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:TransferPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IssueECertificate">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#IssueECertificate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IssueECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IssueECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsumeECertificate">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ConsumeECertificate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsumeECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ConsumeECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchECertificates">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchECertificates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FavoriteGuest">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FavoriteGuest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FavoriteGuestOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FavoriteGuestOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchMemberTierWizard">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchMemberTierWizard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchMemberTierWizardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchMemberTierWizardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBenefit">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#AddBenefit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddBenefitOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddBenefitOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchBenefits">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchBenefits" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchBenefitsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchBenefitsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchAvailableECertificates">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchAvailableECertificates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchAvailableECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchAvailableECertificatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchMemberPoints">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#FetchMemberPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchMemberPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchMemberPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReIssueMemberCard">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#ReIssueMemberCard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReIssueMemberCardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReIssueMemberCardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelECertificate">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership.wsdl#CancelECertificate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelECertificateOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchTransactionAwards">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership#FetchTransactionAwards" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchTransactionAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchTransactionAwardsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IssueTransactionAward">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership#IssueTransactionAward" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IssueTransactionAwardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IssueTransactionAwardOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelConsumedPoints">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/Membership#CancelConsumedPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelConsumedPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelConsumedPointsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MembershipService">
+    <wsdl:port name="MembershipServiceSoap" binding="tns:MembershipServiceSoap">
+      <soap:address location="http://operademo3.microsdc.us:4300/ows_ws_51/Membership.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MembershipServiceSoap12" binding="tns:MembershipServiceSoap12">
+      <soap12:address location="http://operademo3.microsdc.us:4300/ows_ws_51/Membership.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

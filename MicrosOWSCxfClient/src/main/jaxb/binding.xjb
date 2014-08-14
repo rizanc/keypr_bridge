@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd">
+
+    <jaxb:globalBindings generateElementProperty="false" fixedAttributeAsConstantProperty="true" choiceContentProperty="true">
+        <xjc:simple/>
+        <!-- Use java.util.Date instead of javax.xml.datatype.XMLGregorianCalendar for xs:dateTime -->
+        <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime"
+                printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime" />
+
+        <!-- Use java.util.Date instead of javax.xml.datatype.XMLGregorianCalendar for xs:date -->
+        <jaxb:javaType name="java.util.Date" xmlType="xs:date"
+                parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDate"
+                printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDate" />
+
+        <!-- Use java.util.Date instead of javax.xml.datatype.XMLGregorianCalendar for xs:time -->
+        <jaxb:javaType name="java.util.Date" xmlType="xs:time"
+                parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseTime"
+                printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printTime" />
+     </jaxb:globalBindings>
+
+</jaxb:bindings>
+

@@ -1,0 +1,2795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s3="http://webservices.micros.com/og/4.3/Common/" xmlns:s2="http://webservices.micros.com/og/4.3/Availability/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s5="http://webservices.micros.com/og/4.3/Core/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://webservices.micros.com/og/4.3/HotelCommon/" xmlns:s0="http://webservices.micros.com/og/4.3/MeetingRoom/" xmlns:s4="http://webservices.micros.com/og/4.3/Name/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/MeetingRoom/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/HotelCommon/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Availability/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Name/" />
+      <s:element name="MeetingMultiPropertyAvailabilityRequest" type="s0:MeetingMultiPropertyAvailabilityRequest" />
+      <s:complexType name="MeetingMultiPropertyAvailabilityRequest">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="HotelReferences" type="s0:ArrayOfHotelReference" />
+            <s:element minOccurs="0" maxOccurs="1" name="RegionalSearchCode" type="s2:RegionalSearchCode" />
+            <s:element minOccurs="0" maxOccurs="1" name="GeographicSearch" type="s2:RegionalSearch" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingDates" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateRange" type="s1:MinMaxRate" />
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingSearchCretria" type="s1:MeetingSearch" />
+          <s:element minOccurs="0" maxOccurs="1" name="PropertySearchCretria" type="s1:PropertySearch" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfHotelReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HotelReference" nillable="true" type="s1:HotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingMultiPropertyAvailabilityResponse" type="s0:MeetingMultiPropertyAvailabilityResponse" />
+      <s:complexType name="MeetingMultiPropertyAvailabilityResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AvailableProperties" type="s0:AvailableProperty" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AvailableProperty">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="PropertyStatus" type="s2:PropertyStatusCode" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FunctionSpace" type="s0:AvailablePropertyFunctionSpace" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelContact" type="s1:HotelContact" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelExtendedInformation" type="s1:ExtendedHotelInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarketingText" type="s:string" />
+        </s:sequence>
+        <s:attribute name="propertyType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="AvailablePropertyFunctionSpace">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:FunctionSpace">
+            <s:attribute name="avaliablityString" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FunctionSpace">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Room" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomDescription" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateRange" type="s1:MinMaxRate" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RateDetails" type="s0:CateringRateCode" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SetupStyles" type="s0:SetupStyle" />
+          <s:element minOccurs="0" maxOccurs="1" name="WebBookable" type="s0:WebBookableType" />
+        </s:sequence>
+        <s:attribute name="locationType" type="s:string" />
+        <s:attribute name="locationDescription" type="s:string" />
+        <s:attribute name="spaceType" type="s:string" />
+        <s:attribute name="spaceDescription" type="s:string" />
+        <s:attribute name="floor" type="s:string" />
+        <s:attribute name="floorDescription" type="s:string" />
+        <s:attribute name="shortDescription" type="s:string" />
+        <s:attribute name="handicapFacility" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="CateringRateCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RateCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateDescription" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rate" type="s0:CateringRate" />
+          <s:element minOccurs="0" maxOccurs="1" name="MinimumRevenue" type="s3:Amount" />
+        </s:sequence>
+        <s:attribute name="rateType" type="s:string" />
+        <s:attribute name="hourlyRate" type="s:boolean" />
+        <s:attribute name="participateInMinimumRevenue" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="CateringRate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RevenueTypes" type="s0:RevenueType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalRate" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalTaxesAndFees" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RevenueType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BaseRate" type="s1:Charge" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TaxesAndFees" type="s1:Charge" />
+        </s:sequence>
+        <s:attribute name="taxInclusive" type="s:boolean" use="required" />
+        <s:attribute name="revenueCode" type="s:string" />
+        <s:attribute name="revenueName" type="s:string" />
+        <s:attribute name="contributeToMinimumRevenuew" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="SetupStyle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SetupStyleCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SetupStyleDescription" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="InternalBookedID" type="s3:InternalID" />
+        </s:sequence>
+        <s:attribute name="minimumOccupancy" type="s:int" />
+        <s:attribute name="maximumOccupancy" type="s:int" />
+        <s:attribute name="setUpMinutes" type="s:int" />
+        <s:attribute name="setDownMinutes" type="s:int" />
+      </s:complexType>
+      <s:complexType name="WebBookableType">
+        <s:attribute name="isWebBookable" type="s:boolean" use="required" />
+        <s:attribute name="marketingText" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingAvailabilityRequest" type="s0:MeetingAvailabilityRequest" />
+      <s:complexType name="MeetingAvailabilityRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingDates" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateRange" type="s1:MinMaxRate" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+        </s:sequence>
+        <s:attribute name="numberOfAttendees" type="s:int" use="required" />
+        <s:attribute name="rateCode" type="s:string" />
+        <s:attribute name="room" type="s:string" />
+        <s:attribute name="summaryOnly" type="s:boolean" use="required" />
+        <s:attribute name="alternateInventory" type="s:boolean" use="required" />
+        <s:attribute name="setupStyleCode" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingAvailabilityResponse" type="s0:MeetingAvailabilityResponse" />
+      <s:complexType name="MeetingAvailabilityResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailableProperties" type="s0:AvailableProperty" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingPackageAvailabilityRequest" type="s0:MeetingPackageAvailabilityRequest" />
+      <s:complexType name="MeetingPackageAvailabilityRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingDates" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateRange" type="s1:MinMaxRate" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageID" type="s3:UniqueID" />
+        </s:sequence>
+        <s:attribute name="numberOfAttendees" type="s:int" use="required" />
+        <s:attribute name="summaryOnly" type="s:boolean" use="required" />
+        <s:attribute name="template" type="s:boolean" use="required" />
+        <s:attribute name="packageDays" type="s:int" />
+        <s:attribute name="checkAllDays" type="s:boolean" />
+        <s:attribute name="sameSpace" type="s:boolean" />
+      </s:complexType>
+      <s:element name="MeetingPackageAvailabilityResponse" type="s0:MeetingPackageAvailabilityResponse" />
+      <s:complexType name="MeetingPackageAvailabilityResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Packages" type="s0:Package" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Package">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PackageID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Events" type="s0:PackageEvents" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PackageRateCodes" type="s0:PackageRateCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="InternalBookedID" type="s3:InternalID" />
+        </s:sequence>
+        <s:attribute name="template" type="s:boolean" use="required" />
+        <s:attribute name="packageCode" type="s:string" />
+        <s:attribute name="numberOfDays" type="s:int" />
+      </s:complexType>
+      <s:complexType name="PackageEvents">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:Event">
+            <s:attribute name="eventType" type="s:string" />
+            <s:attribute name="eventName" type="s:string" />
+            <s:attribute name="masterEvent" type="s:boolean" />
+            <s:attribute name="masterEventID" type="s:int" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Event">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MiscellaneousItems" type="s0:MiscellaneousItem" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Menus" type="s0:Menu" />
+          <s:element minOccurs="0" maxOccurs="1" name="FunctionSpace" type="s0:FunctionSpace" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:InternalID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventDate" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Delegates" type="s0:Delegate" />
+        </s:sequence>
+        <s:attribute name="registrationRequired" type="s:boolean" />
+        <s:attribute name="openForRegistration" type="s:boolean" />
+        <s:attribute name="numberOfAttendees" type="s:int" />
+        <s:attribute name="numberOfRegisteredAttendees" type="s:int" />
+      </s:complexType>
+      <s:complexType name="MiscellaneousItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemClassID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RateCodes" type="s0:CateringRateCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="InternalBookedID" type="s3:InternalID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PackageAddonMiscellaneousItems">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:MiscellaneousItem">
+            <s:attribute name="quantity" type="s:int" use="required" />
+            <s:attribute name="eventID" type="s:int" use="required" />
+            <s:attribute name="bookedEventID" type="s:int" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MeetingEventBaseMiscellaneousItems">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:MiscellaneousItem">
+            <s:attribute name="quantity" type="s:int" use="required" />
+            <s:attribute name="addon" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Menu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MenuID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventMenuID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="Charges" type="s0:CateringRate" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MenuItems" type="s0:MenuItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventDate" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="InternalBookedID" type="s3:InternalID" />
+        </s:sequence>
+        <s:attribute name="name" type="s:string" />
+        <s:attribute name="restriction" type="s:string" />
+        <s:attribute name="beverage" type="s:boolean" />
+        <s:attribute name="consumption" type="s:boolean" />
+        <s:attribute name="servingType" type="s:string" />
+        <s:attribute name="className" type="s:string" />
+      </s:complexType>
+      <s:complexType name="MenuItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MenuItemID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="Charges" type="s0:CateringRate" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InternalBookedID" type="s3:InternalID" />
+        </s:sequence>
+        <s:attribute name="name1" type="s:string" />
+        <s:attribute name="name2" type="s:string" />
+        <s:attribute name="name3" type="s:string" />
+        <s:attribute name="restriction" type="s:string" />
+        <s:attribute name="beverage" type="s:boolean" />
+        <s:attribute name="priceIncluded" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="MeetingEventBaseMenuItems">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:MenuItem">
+            <s:attribute name="menuID" type="s:int" use="required" />
+            <s:attribute name="quantity" type="s:int" use="required" />
+            <s:attribute name="bookedMenuID" type="s:int" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PackageAddonMenuItems">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:MenuItem">
+            <s:attribute name="menuID" type="s:int" use="required" />
+            <s:attribute name="eventID" type="s:int" use="required" />
+            <s:attribute name="quantity" type="s:int" use="required" />
+            <s:attribute name="bookedEventID" type="s:int" />
+            <s:attribute name="bookedMenuID" type="s:int" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MeetingEventBaseMenus">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:Menu">
+            <s:attribute name="quantity" type="s:int" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PackageAddonMenus">
+        <s:complexContent mixed="false">
+          <s:extension base="s0:Menu">
+            <s:attribute name="quantity" type="s:int" use="required" />
+            <s:attribute name="eventID" type="s:int" use="required" />
+            <s:attribute name="bookedEventID" type="s:int" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Delegate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProfileID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventAttendeeStatus" type="s0:ArrayOfAttendeeStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAttendeeStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AttendeeStatus" nillable="true" type="s0:AttendeeStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AttendeeStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PackageRateCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RateCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RateDescription" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PackageEventRates" type="s0:EventRate" />
+        </s:sequence>
+        <s:attribute name="rateType" type="s:string" />
+        <s:attribute name="hourlyRate" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="EventRate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rate" type="s0:CateringRate" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingCreateEventRequest" type="s0:MeetingCreateEventRequest" />
+      <s:complexType name="MeetingCreateEventRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Event" type="s0:MeetingEvent" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+        <s:attribute name="onSiteContact" type="s:string" />
+        <s:attribute name="depositOnly" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="MeetingEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Profile" type="s4:Profile" />
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingDates" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventDetails" type="s0:MeetingEventBase" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SleepingRooms" type="s0:SleepingRoom" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockData" type="s0:EventBlockData" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MeetingEventBase">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EventDate" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:InternalID" />
+          <s:element minOccurs="0" maxOccurs="1" name="FunctionSpace" type="s0:FunctionSpace" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MiscellaneousItems" type="s0:MeetingEventBaseMiscellaneousItems" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Menus" type="s0:MeetingEventBaseMenus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MenuItems" type="s0:MeetingEventBaseMenuItems" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Delegates" type="s0:Delegate" />
+        </s:sequence>
+        <s:attribute name="eventType" type="s:string" />
+        <s:attribute name="numberOfAttendees" type="s:int" use="required" />
+        <s:attribute name="registrationRequired" type="s:boolean" />
+        <s:attribute name="openForRegistration" type="s:boolean" />
+        <s:attribute name="numberOfRegisteredAttendees" type="s:int" />
+      </s:complexType>
+      <s:complexType name="SleepingRoom">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RoomDates" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenueTax" type="s3:Amount" />
+        </s:sequence>
+        <s:attribute name="roomType" type="s:string" />
+        <s:attribute name="quantity" type="s:int" />
+        <s:attribute name="actionType" type="s0:SleepingRoomActionType" />
+        <s:attribute name="occupancy1" type="s:int" />
+        <s:attribute name="occupancy2" type="s:int" />
+        <s:attribute name="occupancy3" type="s:int" />
+        <s:attribute name="occupancy4" type="s:int" />
+      </s:complexType>
+      <s:simpleType name="SleepingRoomActionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="INCREASE" />
+          <s:enumeration value="DECREASE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="EventBlockData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BlockNotes" type="s1:Note" />
+        </s:sequence>
+        <s:attribute name="blockName" type="s:string" />
+        <s:attribute name="blockCode" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingCreateEventResponse" type="s0:MeetingCreateEventResponse" />
+      <s:complexType name="MeetingCreateEventResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookId" type="s0:BookId" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepositAmount" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BookId">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventIDs" type="s0:EventIdData" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PackageIDs" type="s0:PackageIdData" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockID" type="s3:UniqueID" />
+        </s:sequence>
+        <s:attribute name="blockCode" type="s:string" />
+        <s:attribute name="groupNameID" type="s:long" />
+        <s:attribute name="contactNameID" type="s:long" />
+        <s:attribute name="companyNameID" type="s:long" />
+        <s:attribute name="travelAgentNameID" type="s:long" />
+        <s:attribute name="returnDelegates" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="EventIdData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventDate" type="s1:TimeSpan" />
+        </s:sequence>
+        <s:attribute name="room" type="s:string" />
+      </s:complexType>
+      <s:complexType name="PackageIdData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PackageID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageDate" type="s1:TimeSpan" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingCreatePackageEventRequest" type="s0:MeetingCreatePackageEventRequest" />
+      <s:complexType name="MeetingCreatePackageEventRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PackageEvent" type="s0:PackageEvent" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+        <s:attribute name="onSiteContact" type="s:string" />
+        <s:attribute name="depositOnly" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="PackageEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Profile" type="s4:Profile" />
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingDates" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PackageDetails" type="s0:PackageDetails" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SleepingRooms" type="s0:SleepingRoom" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockData" type="s0:EventBlockData" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+        </s:sequence>
+        <s:attribute name="numberOfAttendees" type="s:int" use="required" />
+      </s:complexType>
+      <s:complexType name="PackageDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Package" type="s0:Package" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageAddon" type="s0:PackageAddon" />
+          <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PackageAddon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MiscellaneousItems" type="s0:PackageAddonMiscellaneousItems" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Menus" type="s0:PackageAddonMenus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MenuItems" type="s0:PackageAddonMenuItems" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingCreatePackageEventResponse" type="s0:MeetingCreatePackageEventResponse" />
+      <s:complexType name="MeetingCreatePackageEventResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookId" type="s0:BookId" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepositAmount" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingModifyPackageEventRequest" type="s0:MeetingModifyPackageEventRequest" />
+      <s:complexType name="MeetingModifyPackageEventRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PackageEvent" type="s0:PackageEvent" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+        <s:attribute name="onSiteContact" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingModifyPackageEventResponse" type="s0:MeetingModifyPackageEventResponse" />
+      <s:complexType name="MeetingModifyPackageEventResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookId" type="s0:BookId" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingModifyEventRequest" type="s0:MeetingModifyEventRequest" />
+      <s:complexType name="MeetingModifyEventRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Event" type="s0:MeetingEvent" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+        <s:attribute name="onSiteContact" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingModifyEventResponse" type="s0:MeetingModifyEventResponse" />
+      <s:complexType name="MeetingModifyEventResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookId" type="s0:BookId" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchEventRequest" type="s0:MeetingFetchEventRequest" />
+      <s:complexType name="MeetingFetchEventRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookId" type="s0:BookId" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchEventResponse" type="s0:MeetingFetchEventResponse" />
+      <s:complexType name="MeetingFetchEventResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Event" type="s0:MeetingEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchPackageEventRequest" type="s0:MeetingFetchPackageEventRequest" />
+      <s:complexType name="MeetingFetchPackageEventRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookId" type="s0:BookId" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchPackageEventResponse" type="s0:MeetingFetchPackageEventResponse" />
+      <s:complexType name="MeetingFetchPackageEventResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageEvent" type="s0:PackageEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchMenuRequest" type="s0:MeetingFetchMenuRequest" />
+      <s:complexType name="MeetingFetchMenuRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="MenuID" type="s3:UniqueID" />
+        </s:sequence>
+        <s:attribute name="eventType" type="s:string" />
+        <s:attribute default="true" name="getMenuItems" type="s:boolean" />
+      </s:complexType>
+      <s:element name="MeetingFetchMenuResponse" type="s0:MeetingFetchMenuResponse" />
+      <s:complexType name="MeetingFetchMenuResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Menus" type="s0:Menu" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchMenuItemRequest" type="s0:MeetingFetchMenuItemRequest" />
+      <s:complexType name="MeetingFetchMenuItemRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="MenuID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="MenuItemID" type="s3:UniqueID" />
+        </s:sequence>
+        <s:attribute name="eventType" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingFetchMenuItemResponse" type="s0:MeetingFetchMenuItemResponse" />
+      <s:complexType name="MeetingFetchMenuItemResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MenuItems" type="s0:MenuItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchMiscellaneousItemRequest" type="s0:MeetingFetchMiscellaneousItemRequest" />
+      <s:complexType name="MeetingFetchMiscellaneousItemRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemID" type="s3:UniqueID" />
+        </s:sequence>
+        <s:attribute name="itemClassID" type="s:string" />
+      </s:complexType>
+      <s:element name="MeetingFetchMiscellaneousItemResponse" type="s0:MeetingFetchMiscellaneousItemResponse" />
+      <s:complexType name="MeetingFetchMiscellaneousItemResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MiscellaneousItems" type="s0:MiscellaneousItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchContractRequest" type="s0:MeetingFetchContractRequest" />
+      <s:complexType name="MeetingFetchContractRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="1" maxOccurs="1" name="LetterType" type="s0:LetterType" />
+        </s:sequence>
+        <s:attribute name="eventID" type="s:string" />
+        <s:attribute name="packageID" type="s:string" />
+        <s:attribute name="blockID" type="s:string" />
+        <s:attribute name="emailContract" type="s:boolean" use="required" />
+        <s:attribute name="emailAddress" type="s:string" />
+        <s:attribute name="currencyCode" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="LetterType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CONTRACT" />
+          <s:enumeration value="INQUIRY" />
+          <s:enumeration value="BEO" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="MeetingFetchContractResponse" type="s0:MeetingFetchContractResponse" />
+      <s:complexType name="MeetingFetchContractResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateBlockRequest" type="s0:CreateBlockRequest" />
+      <s:complexType name="CreateBlockRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="Block" type="s0:BlockType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SleepingRooms" type="s0:SleepingRoom" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+        <s:attribute name="onSiteContact" type="s:string" />
+        <s:attribute name="depositOnly" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="BlockType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Profile" type="s4:Profile" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockDate" type="s1:TimeSpan" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockId" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BlockNotes" type="s1:Note" />
+        </s:sequence>
+        <s:attribute name="blockName" type="s:string" />
+        <s:attribute name="blockCode" type="s:string" />
+        <s:attribute name="blockStatus" type="s:string" />
+        <s:attribute name="marketSegment" type="s:string" />
+        <s:attribute name="sourceCode" type="s:string" />
+        <s:attribute name="rateCode" type="s:string" />
+        <s:attribute name="attendees" type="s:long" />
+        <s:attribute name="currencyCode" type="s:string" />
+        <s:attribute name="guaranteeCode" type="s:string" />
+        <s:attribute name="elastic" type="s:boolean" />
+        <s:attribute name="cutoffDate" type="s:date" />
+      </s:complexType>
+      <s:element name="CreateBlockResponse" type="s0:CreateBlockResponse" />
+      <s:complexType name="CreateBlockResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockId" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepositAmount" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ModifyBlockRequest" type="s0:ModifyBlockRequest" />
+      <s:complexType name="ModifyBlockRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="Block" type="s0:BlockType" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SleepingRooms" type="s0:SleepingRoom" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+        <s:attribute name="onSiteContact" type="s:string" />
+      </s:complexType>
+      <s:element name="ModifyBlockResponse" type="s0:ModifyBlockResponse" />
+      <s:complexType name="ModifyBlockResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockId" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRoomFetchMyBlocksRequest" type="s0:MeetingRoomFetchMyBlocksRequest" />
+      <s:complexType name="MeetingRoomFetchMyBlocksRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactNameID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountNameID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockDate" type="s1:TimeSpan" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRoomFetchMyBlocksResponse" type="s0:MeetingRoomFetchMyBlocksResponse" />
+      <s:complexType name="MeetingRoomFetchMyBlocksResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Blocks" type="s0:ArrayOfBlockType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBlockType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Block" type="s0:BlockType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRoomFetchBlockRequest" type="s0:MeetingRoomFetchBlockRequest" />
+      <s:complexType name="MeetingRoomFetchBlockRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockCode" type="s:string" />
+        </s:sequence>
+        <s:attribute name="contactNameID" type="s:long" />
+        <s:attribute name="returnDelegates" type="s:boolean" />
+      </s:complexType>
+      <s:element name="MeetingRoomFetchBlockResponse" type="s0:MeetingRoomFetchBlockResponse" />
+      <s:complexType name="MeetingRoomFetchBlockResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Block" type="s0:BlockDetails" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BlockDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BlockData" type="s0:BlockType" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BookedPackageEvent" type="s0:BookedPackageEvent" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SleepingRooms" type="s0:SleepingRoom" />
+          <s:element minOccurs="0" maxOccurs="1" name="RevenueSummary" type="s0:Revenue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BookedPackageEvent">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Event" type="s0:MeetingEventBase" />
+            <s:element minOccurs="0" maxOccurs="1" name="BookedPackage" type="s0:BookedPackage" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BookedPackage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Packages" type="s0:Package" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageAddons" type="s0:PackageAddon" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Revenue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TotalCharges" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="DepositAmount" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaidAmount" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="Balance" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRevenue" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="CateringRevenue" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRoomCopyBlockRequest" type="s0:MeetingRoomCopyBlockRequest" />
+      <s:complexType name="MeetingRoomCopyBlockRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="SourceBlockID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewBlockData" type="s0:NewBlockDataType" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="s1:CreditCardPayment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NewBlockDataType">
+        <s:attribute name="blockName" type="s:string" />
+        <s:attribute name="blockCode" type="s:string" />
+        <s:attribute name="startDate" type="s:dateTime" />
+        <s:attribute name="bookAsInquiry" type="s:boolean" />
+      </s:complexType>
+      <s:element name="MeetingRoomCopyBlockResponse" type="s0:MeetingRoomCopyBlockResponse" />
+      <s:complexType name="MeetingRoomCopyBlockResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="Block" type="s0:BookId" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardApproval" type="s1:CreditCardPayment" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRoomCreateRelationshipRequest" type="s0:MeetingRoomCreateRelationshipRequest" />
+      <s:complexType name="MeetingRoomCreateRelationshipRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="From" type="s0:ProfileData" />
+          <s:element minOccurs="0" maxOccurs="1" name="To" type="s0:ProfileData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProfileData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NameId" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="NameType" type="s3:ProfileType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRoomCreateRelationshipResponse" type="s0:MeetingRoomCreateRelationshipResponse" />
+      <s:complexType name="MeetingRoomCreateRelationshipResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchMyRegisteredEventsRequest" type="s0:MeetingFetchMyRegisteredEventsRequest" />
+      <s:complexType name="MeetingFetchMyRegisteredEventsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProfileID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateRange" type="s1:TimeSpan" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchMyRegisteredEventsResponse" type="s0:MeetingFetchMyRegisteredEventsResponse" />
+      <s:complexType name="MeetingFetchMyRegisteredEventsResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Events" type="s0:MeetingEventBase" />
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchBlockDelegatesRequest" type="s0:MeetingFetchBlockDelegatesRequest" />
+      <s:complexType name="MeetingFetchBlockDelegatesRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactProfileID" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockId" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventID" type="s3:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingFetchBlockDelegatesResponse" type="s0:MeetingFetchBlockDelegatesResponse" />
+      <s:complexType name="MeetingFetchBlockDelegatesResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Delegates" type="s0:Delegate" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MeetingRegisterEventAttendeesRequest" type="s0:MeetingRegisterEventAttendeesRequest" />
+      <s:complexType name="MeetingRegisterEventAttendeesRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventAttendees" type="s0:EventAttendee" />
+          <s:element minOccurs="0" maxOccurs="1" name="BlockID" type="s3:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventAttendee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Profile" type="s4:Profile" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EventID" type="s3:UniqueID" />
+        </s:sequence>
+        <s:attribute name="ActionType" type="s0:EventAttendeeActionType" use="required" />
+      </s:complexType>
+      <s:simpleType name="EventAttendeeActionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Add" />
+          <s:enumeration value="Remove" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="MeetingRegisterEventAttendeesResponse" type="s0:MeetingRegisterEventAttendeesResponse" />
+      <s:complexType name="MeetingRegisterEventAttendeesResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Delegates" type="s0:Delegate" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/HotelCommon/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:complexType name="HotelReference">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="chainCode" type="s:string" />
+            <s:attribute name="hotelCode" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="RegionalSearchCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="CITY" />
+          <s:enumeration value="CHAIN" />
+          <s:enumeration value="CRO" />
+          <s:enumeration value="REGION" />
+          <s:enumeration value="OTHER" />
+          <s:enumeration value="AIRPORT" />
+          <s:enumeration value="ATTRACTION" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="GeoPosition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Radius" type="s1:VectorDistance" />
+          <s:element minOccurs="0" maxOccurs="1" name="Position" type="s1:GeoCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VectorDistance">
+        <s:simpleContent>
+          <s:extension base="s:double">
+            <s:attribute name="distanceUnit" type="s1:DistanceUnitType" use="required" />
+            <s:attribute name="otherDistanceUnit" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="DistanceUnitType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Km" />
+          <s:enumeration value="Mi" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="GeoCode">
+        <s:attribute name="latitude" type="s:string" />
+        <s:attribute name="longitude" type="s:string" />
+        <s:attribute name="altitude" type="s:string" />
+      </s:complexType>
+      <s:complexType name="TimeSpan">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Duration" type="s:duration" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MinMaxRate">
+        <s:attribute name="minimumRate" type="s:double" />
+        <s:attribute name="maximumRate" type="s:double" />
+        <s:attribute name="currencyCode" type="s:string" />
+        <s:attribute name="decimals" type="s:short" />
+        <s:attribute name="commissionCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="MeetingSearch">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FunctionSpaceArea" type="s1:Area" />
+        </s:sequence>
+        <s:attribute name="meetingFeature" type="s:string" />
+        <s:attribute name="numberOfAttendees" type="s:int" use="required" />
+        <s:attribute name="setupStyle" type="s:string" />
+        <s:attribute name="numberOfSleepingRooms" type="s:int" />
+        <s:attribute name="numberOfFunctionSpace" type="s:int" />
+      </s:complexType>
+      <s:complexType name="Area">
+        <s:attribute name="areaValue" type="s:long" use="required" />
+        <s:attribute name="areaType" type="s1:AreaAreaType" use="required" />
+      </s:complexType>
+      <s:simpleType name="AreaAreaType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Sq.Feet" />
+          <s:enumeration value="Sq.Meter" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PropertySearch">
+        <s:attribute name="propertyType" type="s:string" />
+        <s:attribute name="propertyFeatures" type="s:string" />
+      </s:complexType>
+      <s:complexType name="GDSResultStatus">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:ResultStatus">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="GDSError" type="s1:GDSError" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GDSError">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="errorCode" type="s:string" />
+            <s:attribute name="elementId" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="PropertyStatusCodeType">
+        <s:restriction base="s:string">
+          <s:enumeration value="OPEN" />
+          <s:enumeration value="CLOSED" />
+          <s:enumeration value="ALTERNATE" />
+          <s:enumeration value="REQUESTED" />
+          <s:enumeration value="UNKNOWN" />
+          <s:enumeration value="OTHER" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Paragraph">
+        <s:sequence>
+          <s:choice minOccurs="0" maxOccurs="unbounded">
+            <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:anyURI" />
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s3:Text" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ReservationComment">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Paragraph">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CommentId" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="InternalYn" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="CommentType" type="s:string" />
+            </s:sequence>
+            <s:attribute name="commentOriginatorCode" type="s:string" />
+            <s:attribute name="guestViewable" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SpecialRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Paragraph">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SpecialRequestId" type="s:double" />
+            </s:sequence>
+            <s:attribute name="requestCode" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Charge">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s3:Amount" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodeType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HotelContact">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="s1:ArrayOfAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactEmails" type="s1:ArrayOfEmail" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPhones" type="s1:ArrayOfPhone" />
+          <s:element minOccurs="0" maxOccurs="1" name="HotelInformation" type="s1:ArrayOfHotelInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="URIs" type="s1:ArrayOfAnyURI" />
+          <s:element minOccurs="0" maxOccurs="1" name="Vector" type="s1:Vector" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Address" type="s3:Address" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEmail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ContactEmail" type="s1:Email" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Email">
+        <s:simpleContent>
+          <s:extension base="s:string" />
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPhone">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Phone" type="s3:Phone" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfHotelInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HotelInfo" type="s1:HotelInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HotelInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:DescriptiveText">
+            <s:attribute name="hotelInfoType" type="s1:HotelInfoType" use="required" />
+            <s:attribute name="otherHotelInfoType" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AttractionInfo">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:DescriptiveText">
+            <s:attribute name="attractionInfoType" type="s1:AttractionInfoType" use="required" />
+            <s:attribute name="otherAttractionInfoType" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="AttractionInfoType">
+        <s:restriction base="s:string">
+          <s:enumeration value="DIRECTIONS" />
+          <s:enumeration value="OTHER" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="HotelInfoType">
+        <s:restriction base="s:string">
+          <s:enumeration value="DIRECTIONS" />
+          <s:enumeration value="CHECKININFO" />
+          <s:enumeration value="CHECKOUTINFO" />
+          <s:enumeration value="OTHER" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAnyURI">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="URI" type="s:anyURI" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Vector">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Direction" type="s1:VectorDirection" />
+          <s:element minOccurs="0" maxOccurs="1" name="Distance" type="s1:VectorDistance" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VectorDirection">
+        <s:attribute name="vectorDirection" type="s1:VectorDirectionType" use="required" />
+        <s:attribute name="otherVectorDirection" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="VectorDirectionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="North" />
+          <s:enumeration value="NorthEast" />
+          <s:enumeration value="East" />
+          <s:enumeration value="SouthEast" />
+          <s:enumeration value="South" />
+          <s:enumeration value="SouthWest" />
+          <s:enumeration value="West" />
+          <s:enumeration value="NorthWest" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ExtendedHotelInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelInformation" type="s1:ArrayOfHotelInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentMethods" type="s1:ArrayOfPaymentType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AmenityInfo" type="s1:AmenityInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Position" type="s1:GeoCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="FacilityInfo" type="s1:FacilityInfoType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AlternateProperties" type="s1:ArrayOfHotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentType" type="s1:PaymentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentCard" type="s3:CreditCard" />
+            <s:element minOccurs="0" maxOccurs="1" name="OtherPayment" type="s1:OtherPaymentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentVoucher" type="s1:Voucher" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCardPayment">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:CreditCard">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CIDNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Address" type="s3:Address" />
+              <s:element minOccurs="0" maxOccurs="1" name="IssueNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ApprovalCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DepositAmount" type="s3:Amount" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OtherPaymentType">
+        <s:attribute name="type" type="s:string" />
+        <s:attribute name="value" type="s:string" />
+        <s:attribute name="source" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Voucher">
+        <s:attribute name="voucherNumber" type="s:string" />
+        <s:attribute name="voucherIssuedBy" type="s:string" />
+        <s:attribute name="voucherValidDate" type="s:dateTime" />
+      </s:complexType>
+      <s:complexType name="AmenityInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Amenities" type="s1:ArrayOfAmenity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAmenity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Amenity" type="s1:Amenity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Amenity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="amenityDescription" type="s:string" />
+        </s:sequence>
+        <s:attribute name="amenityCode" type="s:string" />
+        <s:attribute name="amenityType" type="s1:AmenityAmenityType" />
+        <s:attribute name="otherType" type="s:string" />
+        <s:attribute name="availabilityFlag" type="s1:AmenityAvailabilityFlag" />
+        <s:attribute name="otherFlag" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="AmenityAmenityType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Property" />
+          <s:enumeration value="Room" />
+          <s:enumeration value="Both" />
+          <s:enumeration value="Nearby" />
+          <s:enumeration value="Exists" />
+          <s:enumeration value="Other" />
+          <s:enumeration value="Parking" />
+          <s:enumeration value="WheelChairAccess" />
+          <s:enumeration value="Gymnasium" />
+          <s:enumeration value="ConferenceRoom" />
+          <s:enumeration value="BusinessCentre" />
+          <s:enumeration value="Pets" />
+          <s:enumeration value="RoomService" />
+          <s:enumeration value="Restaurant" />
+          <s:enumeration value="SwimingPool" />
+          <s:enumeration value="Internet" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="AmenityAvailabilityFlag">
+        <s:restriction base="s:string">
+          <s:enumeration value="ConfirmableComplimentary" />
+          <s:enumeration value="ConfirmableCost" />
+          <s:enumeration value="OnRequestComplimentary" />
+          <s:enumeration value="OnRequestCost" />
+          <s:enumeration value="Exists" />
+          <s:enumeration value="Other" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="FacilityInfoType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GuestRooms" type="s1:FacilityInfoTypeGuestRooms" />
+          <s:element minOccurs="0" maxOccurs="1" name="Restaurants" type="s1:ArrayOfRestaurantsTypeRestaurant" />
+          <s:element minOccurs="0" maxOccurs="1" name="MeetingRooms" type="s1:MeetingRoomsType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Attractions" type="s1:ArrayOfAttractionsTypeAttraction" />
+        </s:sequence>
+        <s:attribute name="dateOpened" type="s:date" />
+        <s:attribute name="dateRennovated" type="s:date" />
+      </s:complexType>
+      <s:complexType name="FacilityInfoTypeGuestRooms">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GuestRoom" type="s1:FacilityInfoTypeGuestRoomsGuestRoom" />
+        </s:sequence>
+        <s:attribute name="totalRooms" type="s:string" />
+      </s:complexType>
+      <s:complexType name="FacilityInfoTypeGuestRoomsGuestRoom">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RoomDescription" type="s3:DescriptiveText" />
+          <s:element minOccurs="0" maxOccurs="1" name="AmenityInfo" type="s1:AmenityInfo" />
+        </s:sequence>
+        <s:attribute name="code" type="s:string" />
+        <s:attribute name="maxOccupancy" type="s:integer" />
+      </s:complexType>
+      <s:complexType name="ArrayOfRestaurantsTypeRestaurant">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Restaurant" type="s1:RestaurantsTypeRestaurant" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RestaurantsTypeRestaurant">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RestaurantDescription" type="s1:Paragraph" />
+          <s:element minOccurs="0" maxOccurs="1" name="RelativePosition" type="s1:Vector" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuisines" type="s1:ArrayOfRestaurantsTypeRestaurantCuisine" />
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantContacts" type="s1:ArrayOfAddress" />
+        </s:sequence>
+        <s:attribute name="RestaurantName" type="s:string" />
+        <s:attribute name="MaxSeatingCapacity" type="s:nonNegativeInteger" />
+        <s:attribute name="MaxSingleParty" type="s:nonNegativeInteger" />
+        <s:attribute name="OfferBreakfast" type="s:boolean" />
+        <s:attribute name="OfferLunch" type="s:boolean" />
+        <s:attribute name="OfferDinner" type="s:boolean" />
+        <s:attribute name="OfferBrunch" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="ArrayOfRestaurantsTypeRestaurantCuisine">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cuisine" type="s1:RestaurantsTypeRestaurantCuisine" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RestaurantsTypeRestaurantCuisine">
+        <s:attribute name="Code" type="s:string" />
+        <s:attribute name="Description" type="s:string" />
+      </s:complexType>
+      <s:complexType name="MeetingRoomsType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MeetingRoom" type="s1:MeetingRoomsTypeMeetingRoom" />
+        </s:sequence>
+        <s:attribute name="MeetingRoomCount" type="s:nonNegativeInteger" />
+        <s:attribute name="SmallestRoomSpace" type="s:nonNegativeInteger" />
+        <s:attribute name="LargestRoomSpace" type="s:nonNegativeInteger" />
+        <s:attribute name="TotalRoomSpace" type="s:nonNegativeInteger" />
+        <s:attribute name="LargestSeatingCapacity" type="s:nonNegativeInteger" />
+        <s:attribute name="SecondLargestSeatingCapacity" type="s:nonNegativeInteger" />
+        <s:attribute name="SmallestSeatingCapacity" type="s:nonNegativeInteger" />
+      </s:complexType>
+      <s:complexType name="MeetingRoomsTypeMeetingRoom">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Codes" type="s1:ArrayOfMeetingRoomsTypeMeetingRoomCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s1:Paragraph" />
+        </s:sequence>
+        <s:attribute name="Irregular" type="s:boolean" />
+        <s:attribute name="PropertySystemName" type="s:string" />
+        <s:attribute name="RoomName" type="s:string" />
+        <s:attribute name="Sort" type="s:nonNegativeInteger" />
+        <s:attribute name="MeetingRoomCapacity" type="s:nonNegativeInteger" />
+      </s:complexType>
+      <s:complexType name="ArrayOfMeetingRoomsTypeMeetingRoomCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Code" type="s1:MeetingRoomsTypeMeetingRoomCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MeetingRoomsTypeMeetingRoomCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Charge" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Description" type="s1:Paragraph" />
+        </s:sequence>
+        <s:attribute name="Code" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfAttractionsTypeAttraction">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attraction">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="AttractionCode" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="AttractionName" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="AttractionType" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="AttractionInformation" type="s1:ArrayOfAttractionInfo" />
+                <s:element minOccurs="0" maxOccurs="1" name="Distance" type="s:double" />
+                <s:element minOccurs="0" maxOccurs="1" name="DistanceType" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="DrivingTime" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="HoursOfOperation" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="Latitude" type="s:double" />
+                <s:element minOccurs="0" maxOccurs="1" name="Longitude" type="s:double" />
+                <s:element minOccurs="0" maxOccurs="1" name="PriceRange" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="DisplaySequence" type="s:int" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAttractionInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AttractionInfo" type="s1:AttractionInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfHotelReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HotelReference" type="s1:HotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRoomFeature">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Features" type="s1:RoomFeature" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RoomFeature">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FeatureID" type="s:double" />
+        </s:sequence>
+        <s:attribute name="Feature" type="s:string" />
+        <s:attribute name="Description" type="s:string" />
+        <s:attribute name="AttachPreferenceToProfile" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="Note">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NoteText" type="s3:DescriptiveText" />
+          <s:element minOccurs="0" maxOccurs="1" name="NoteID" type="s3:InternalID" />
+        </s:sequence>
+        <s:attribute name="noteTitle" type="s:string" />
+        <s:attribute name="internalNote" type="s:boolean" use="required" />
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Availability/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/HotelCommon/" />
+      <s:complexType name="RegionalSearchCode">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="regionalSearchCodeType" type="s1:RegionalSearchCodeType" use="required" />
+            <s:attribute name="otherRegionalSearchCodeType" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="RegionalSearch">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="CitySearch" type="s2:CityCode" />
+            <s:element minOccurs="0" maxOccurs="1" name="GeoSearch" type="s1:GeoPosition" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CityCode">
+        <s:attribute name="countryCode" type="s:string" />
+        <s:attribute name="stateCode" type="s:string" />
+        <s:attribute name="cityCode" type="s:string" />
+        <s:attribute name="sameCityIndicator" type="s:boolean" />
+        <s:attribute name="regionCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="PropertyStatusCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PropertyLevelError" type="s:string" />
+        </s:sequence>
+        <s:attribute name="propertyStatusCode" type="s1:PropertyStatusCodeType" use="required" />
+        <s:attribute name="otherPropertyStatusCode" type="s:string" />
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Common/">
+      <s:complexType name="ResultStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s3:ArrayOfText" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDs" type="s3:ArrayOfIDPair" />
+          <s:element minOccurs="0" maxOccurs="1" name="OperaErrorCode" type="s:string" />
+        </s:sequence>
+        <s:attribute name="resultStatusFlag" type="s3:ResultStatusFlag" />
+      </s:complexType>
+      <s:complexType name="ArrayOfText">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TextElement" type="s3:Text" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Text">
+        <s:simpleContent>
+          <s:extension base="s:normalizedString">
+            <s:attribute name="formatted" type="s:boolean" />
+            <s:attribute name="language" type="s:language" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="TextElement">
+        <s:simpleContent>
+          <s:extension base="s3:Text" />
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfIDPair">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IDPair" type="s3:IDPair" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IDPair">
+        <s:attribute name="idType" type="s:string" />
+        <s:attribute name="operaId" type="s:long" />
+        <s:attribute name="externalId" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="ResultStatusFlag">
+        <s:restriction base="s:string">
+          <s:enumeration value="FAIL" />
+          <s:enumeration value="SUCCESS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Amount">
+        <s:simpleContent>
+          <s:extension base="s:double">
+            <s:attribute name="currencyCode" type="s:string" />
+            <s:attribute name="decimals" type="s:short" />
+            <s:attribute name="currencyText" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="InternalID">
+        <s:simpleContent>
+          <s:extension base="s3:UniqueID">
+            <s:attribute name="actionType" type="s3:RequestActionType" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="UniqueID">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="type" type="s3:UniqueIDType" use="required" />
+            <s:attribute name="source" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="UniqueIDType">
+        <s:restriction base="s:string">
+          <s:enumeration value="EXTERNAL" />
+          <s:enumeration value="INTERNAL" />
+          <s:enumeration value="CANCELLATIONEXTERNAL" />
+          <s:enumeration value="CANCELLATIONINTERNAL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="RequestActionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ADD" />
+          <s:enumeration value="DELETE" />
+          <s:enumeration value="UPDATE" />
+          <s:enumeration value="FETCH" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressLine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cityName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="stateProv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="postalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="barCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cityExtension" type="s:string" />
+        </s:sequence>
+        <s:attribute name="addressType" type="s:string" />
+        <s:attribute name="otherAddressType" type="s:string" />
+        <s:attribute name="languageCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Phone">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneData" type="s3:PhonePhoneData" />
+          </s:choice>
+        </s:sequence>
+        <s:attribute name="phoneType" type="s:string" />
+        <s:attribute name="phoneRole" type="s:string" />
+        <s:attribute name="primaryPhone" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="PhonePhoneData">
+        <s:attribute name="countryAccessCode" type="s:string" />
+        <s:attribute name="areaCode" type="s:string" />
+        <s:attribute name="phoneNumber" type="s:string" />
+        <s:attribute name="extension" type="s:string" />
+      </s:complexType>
+      <s:complexType name="DescriptiveText">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:anyURI" />
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s3:ArrayOfTextElement" />
+            <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:string" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTextElement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TextElement" nillable="true" type="s3:TextElement" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cardCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cardHolderName" type="s:string" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="cardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VaultedCardData" type="s3:VaultedCardType" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" name="seriesCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="effectiveDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="expirationDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="EncryptedSwipe" type="s3:EncryptedSwipe" />
+        </s:sequence>
+        <s:attribute name="cardType" type="s:string" />
+        <s:attribute name="otherCardType" type="s:string" />
+        <s:attribute name="chipAndPin" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="VaultedCardType">
+        <s:attribute name="vaultedCardID" type="s:string" />
+        <s:attribute name="lastFourDigits" type="s:string" />
+      </s:complexType>
+      <s:complexType name="EncryptedSwipe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TrackIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SwiperType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SwiperID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaskedPAN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeySerialNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUniqueID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UniqueID" type="s3:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PersonName">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="nameTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="middleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="nameSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="accountName2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="accountName3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="profession" type="s:string" />
+        </s:sequence>
+        <s:attribute name="nameOrdered" type="s:string" />
+        <s:attribute name="familiarName" type="s:string" />
+        <s:attribute name="active" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="ArrayOfGovernmentID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GovernmentID" type="s3:GovernmentID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GovernmentID">
+        <s:attribute name="documentType" type="s:string" />
+        <s:attribute name="documentNumber" type="s:string" />
+        <s:attribute name="effectiveDate" type="s:date" />
+        <s:attribute name="expirationDate" type="s:date" />
+        <s:attribute name="placeOfIssue" type="s:string" />
+        <s:attribute name="countryOfIssue" type="s:string" />
+        <s:attribute name="documentID" type="s:int" />
+        <s:attribute name="resort" type="s:string" />
+        <s:attribute name="primary" type="s:boolean" />
+        <s:attribute name="displaySequence" type="s:int" />
+      </s:complexType>
+      <s:simpleType name="Gender">
+        <s:restriction base="s:string">
+          <s:enumeration value="UNKNOWN" />
+          <s:enumeration value="FEMALE" />
+          <s:enumeration value="MALE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="BlackListFlag">
+        <s:restriction base="s:string">
+          <s:enumeration value="REMOVE" />
+          <s:enumeration value="SET" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Membership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="membershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipNextLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="memberName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="effectiveDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="expirationDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="currentPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollmentCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResvNameId" type="s3:ArrayOfUniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipid" type="s3:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="transferPoints" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollmentSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrolledAt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="awardPointsToExpires" type="s3:ArrayOfAwardPointsToExpire" />
+          <s:element minOccurs="0" maxOccurs="1" name="inactive" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAwardPointsToExpire">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AwardPointsToExpire" type="s3:AwardPointsToExpire" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AwardPointsToExpire">
+        <s:attribute name="expirationDate" type="s:date" use="required" />
+        <s:attribute name="totalToExpire" type="s:double" use="required" />
+        <s:attribute name="expireByDate" type="s:double" />
+      </s:complexType>
+      <s:complexType name="ArrayOfUserDefinedValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserDefinedValue" type="s3:UserDefinedValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserDefinedValue">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="1" maxOccurs="1" name="NumericValue" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="CharacterValue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DateValue" type="s:dateTime" />
+          </s:choice>
+        </s:sequence>
+        <s:attribute name="valueName" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="ProfileType">
+        <s:restriction base="s:string">
+          <s:enumeration value="INDIVIDUAL" />
+          <s:enumeration value="TRAVEL_AGENT" />
+          <s:enumeration value="COMPANY" />
+          <s:enumeration value="SOURCE" />
+          <s:enumeration value="GROUP" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Name/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/HotelCommon/" />
+      <s:complexType name="NameAddress">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:Address">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NamePhone">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:Phone">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="extension" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Comment">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:DescriptiveText">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="commentTitle" type="s:string" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="commentType" type="s:string" />
+            <s:attribute name="globalYn" type="s:string" />
+            <s:attribute name="internalYn" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NameCreditCard">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:CreditCard">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Profile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProfileIDs" type="s3:ArrayOfUniqueID" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Company" type="s4:Company" />
+            <s:element minOccurs="0" maxOccurs="1" name="Customer" type="s4:Customer" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCards" type="s4:ArrayOfNameCreditCard" />
+          <s:element minOccurs="0" maxOccurs="1" name="Addresses" type="s4:ArrayOfNameAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="Blacklist" type="s4:BlackList" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phones" type="s4:ArrayOfNamePhone" />
+          <s:element minOccurs="0" maxOccurs="1" name="Preferences" type="s4:ArrayOfPreference" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMails" type="s4:ArrayOfNameEmail" />
+          <s:element minOccurs="0" maxOccurs="1" name="Memberships" type="s4:ArrayOfNameMembership" />
+          <s:element minOccurs="0" maxOccurs="1" name="NegotiatedRates" type="s4:ArrayOfNegotiatedRate" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s4:ArrayOfComment" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserDefinedValues" type="s3:ArrayOfUserDefinedValue" />
+          <s:element minOccurs="0" maxOccurs="1" name="Privacy" type="s4:ArrayOfPrivacyOptionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserGroup" type="s4:ProfileUserGroup" />
+          <s:element minOccurs="0" maxOccurs="1" name="StayHistory" type="s4:StayHistoryData" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s3:GovernmentID" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeyWord" type="s4:ArrayOfKeyWord" />
+          <s:element minOccurs="0" maxOccurs="1" name="Features" type="s1:ArrayOfRoomFeature" />
+        </s:sequence>
+        <s:attribute name="nameType" type="s:string" />
+        <s:attribute name="protected" type="s:boolean" />
+        <s:attribute name="languageCode" type="s:string" />
+        <s:attribute name="nationality" type="s:string" />
+        <s:attribute name="vipCode" type="s:string" />
+        <s:attribute name="taxExempt" type="s:boolean" />
+        <s:attribute name="insertUser" type="s:string" />
+        <s:attribute name="insertDate" type="s:dateTime" />
+        <s:attribute name="updateUser" type="s:string" />
+        <s:attribute name="updateDate" type="s:dateTime" />
+        <s:attribute name="inactiveDate" type="s:date" />
+        <s:attribute name="active" type="s:boolean" />
+        <s:attribute name="yieldMarketCode" type="s:string" />
+        <s:attribute name="customerValue" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Company">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyType" type="s4:CompanyCompanyType" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyID" type="s:string" />
+        </s:sequence>
+        <s:attribute name="commissionCode" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="CompanyCompanyType">
+        <s:restriction base="s:string">
+          <s:enumeration value="TRAVEL_AGENT" />
+          <s:enumeration value="COMPANY" />
+          <s:enumeration value="SOURCE" />
+          <s:enumeration value="GROUP" />
+          <s:enumeration value="CONTACT" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Customer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PersonName" type="s3:PersonName" />
+          <s:element minOccurs="0" maxOccurs="1" name="NativeName" type="s4:NativeName" />
+          <s:element minOccurs="0" maxOccurs="1" name="BusinessTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GovernmentIDList" type="s3:ArrayOfGovernmentID" />
+        </s:sequence>
+        <s:attribute name="gender" type="s3:Gender" />
+        <s:attribute name="birthDate" type="s:date" />
+        <s:attribute name="profileType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="NativeName">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:PersonName">
+            <s:attribute name="languageCode" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfNameCreditCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NameCreditCard" type="s4:NameCreditCard" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfNameAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NameAddress" type="s4:NameAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BlackList">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="flag" type="s3:BlackListFlag" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfNamePhone">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NamePhone" type="s4:NamePhone" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPreference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Preference" type="s4:Preference" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Preference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PreferenceDescription" type="s3:DescriptiveText" />
+        </s:sequence>
+        <s:attribute name="resortCode" type="s:string" />
+        <s:attribute name="preferenceType" type="s:string" />
+        <s:attribute name="otherPreferenceType" type="s:string" />
+        <s:attribute name="preferenceValue" type="s:string" />
+        <s:attribute name="insertUser" type="s:string" />
+        <s:attribute name="insertDate" type="s:dateTime" />
+        <s:attribute name="updateUser" type="s:string" />
+        <s:attribute name="updateDate" type="s:dateTime" />
+        <s:attribute name="inactiveDate" type="s:date" />
+      </s:complexType>
+      <s:complexType name="ArrayOfNameEmail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NameEmail" type="s4:NameEmail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NameEmail">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="emailType" type="s:string" />
+            <s:attribute name="emailFormat" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfNameMembership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NameMembership" type="s4:NameMembership" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NameMembership">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:Membership">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="preferred" type="s:boolean" />
+            <s:attribute name="central" type="s:boolean" />
+            <s:attribute name="membershipClass" type="s:string" />
+            <s:attribute name="pointsLabel" type="s:string" />
+            <s:attribute name="status" type="s:string" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="usedInReservation" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfNegotiatedRate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NegotiatedRate" type="s4:NegotiatedRate" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NegotiatedRate">
+        <s:attribute name="operaId" type="s:long" />
+        <s:attribute name="resortCode" type="s:string" />
+        <s:attribute name="rateCode" type="s:string" />
+        <s:attribute name="commissionCode" type="s:string" />
+        <s:attribute name="beginDate" type="s:date" />
+        <s:attribute name="endDate" type="s:date" />
+        <s:attribute name="displaySequence" type="s:int" />
+        <s:attribute name="insertUser" type="s:string" />
+        <s:attribute name="insertDate" type="s:dateTime" />
+        <s:attribute name="updateUser" type="s:string" />
+        <s:attribute name="updateDate" type="s:dateTime" />
+        <s:attribute name="inactiveDate" type="s:date" />
+      </s:complexType>
+      <s:complexType name="ArrayOfComment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Comment" type="s4:Comment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPrivacyOptionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PrivacyOption" type="s4:PrivacyOptionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PrivacyOptionType">
+        <s:attribute name="OptionType" type="s4:PrivacyOptionTypeOptionType" use="required" />
+        <s:attribute name="OptionValue" type="s4:PrivacyOptionTypeOptionValue" use="required" />
+      </s:complexType>
+      <s:simpleType name="PrivacyOptionTypeOptionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Promotions" />
+          <s:enumeration value="MarketResearch" />
+          <s:enumeration value="ThirdParties" />
+          <s:enumeration value="LoyaltyProgram" />
+          <s:enumeration value="Privacy" />
+          <s:enumeration value="Email" />
+          <s:enumeration value="Mail" />
+          <s:enumeration value="Phone" />
+          <s:enumeration value="SMS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PrivacyOptionTypeOptionValue">
+        <s:restriction base="s:string">
+          <s:enumeration value="YES" />
+          <s:enumeration value="NO" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ProfileUserGroup">
+        <s:attribute name="groupType" type="s4:UserGroupType" use="required" />
+      </s:complexType>
+      <s:simpleType name="UserGroupType">
+        <s:restriction base="s:string">
+          <s:enumeration value="TAM" />
+          <s:enumeration value="BOOKER" />
+          <s:enumeration value="BOOKER2" />
+          <s:enumeration value="COMPANY" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="StayHistoryData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LastStay" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalNumberOfStays" type="s:unsignedInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastRoomNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastRate" type="s3:Amount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfKeyWord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KeyWord" type="s4:KeyWord" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KeyWord">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Core/">
+      <s:element name="OGHeader" type="s5:OGHeader" />
+      <s:complexType name="OGHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Origin" type="s5:EndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destination" type="s5:EndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Intermediaries" type="s5:ArrayOfEndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Authentication" type="s5:OGHeaderAuthentication" />
+        </s:sequence>
+        <s:attribute name="transactionID" type="s:string" />
+        <s:attribute name="authToken" type="s:string" />
+        <s:attribute name="timeStamp" type="s:dateTime" />
+        <s:attribute name="primaryLangID" type="s:string" />
+        <s:attribute name="channelValidation" type="s:boolean" />
+        <s:attribute name="terminalID" type="s:string" />
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="EndPoint">
+        <s:complexContent mixed="false">
+          <s:extension base="s5:SystemID">
+            <s:attribute name="systemType" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SystemID">
+        <s:attribute name="entityID" type="s:string" />
+        <s:attribute name="organizationID" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfEndPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EndPoint" type="s5:EndPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthentication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserCredentials" type="s5:OGHeaderAuthenticationUserCredentials" />
+          <s:element minOccurs="0" maxOccurs="1" name="Licence" type="s5:OGHeaderAuthenticationLicence" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthenticationUserCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthenticationLicence">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="MeetingMultiPropertyAvailabilitySoapIn">
+    <wsdl:part name="MeetingMultiPropertyAvailabilityRequest" element="s0:MeetingMultiPropertyAvailabilityRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingMultiPropertyAvailabilitySoapOut">
+    <wsdl:part name="MeetingMultiPropertyAvailabilityResult" element="s0:MeetingMultiPropertyAvailabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingMultiPropertyAvailabilityOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingAvailabilitySoapIn">
+    <wsdl:part name="MeetingAvailabilityRequest" element="s0:MeetingAvailabilityRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingAvailabilitySoapOut">
+    <wsdl:part name="MeetingAvailabilityResult" element="s0:MeetingAvailabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingAvailabilityOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingPackageAvailabilitySoapIn">
+    <wsdl:part name="MeetingPackageAvailabilityRequest" element="s0:MeetingPackageAvailabilityRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingPackageAvailabilitySoapOut">
+    <wsdl:part name="MeetingPackageAvailabilityResult" element="s0:MeetingPackageAvailabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingPackageAvailabilityOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingCreateEventSoapIn">
+    <wsdl:part name="MeetingCreateEventRequest" element="s0:MeetingCreateEventRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingCreateEventSoapOut">
+    <wsdl:part name="MeetingCreateEventResult" element="s0:MeetingCreateEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingCreateEventOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingCreatePackageEventSoapIn">
+    <wsdl:part name="MeetingCreatePackageEventRequest" element="s0:MeetingCreatePackageEventRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingCreatePackageEventSoapOut">
+    <wsdl:part name="MeetingCreatePackageEventResult" element="s0:MeetingCreatePackageEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingCreatePackageEventOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingModifyPackageEventSoapIn">
+    <wsdl:part name="MeetingModifyPackageEventRequest" element="s0:MeetingModifyPackageEventRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingModifyPackageEventSoapOut">
+    <wsdl:part name="MeetingModifyPackageEventResult" element="s0:MeetingModifyPackageEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingModifyPackageEventOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingModifyEventSoapIn">
+    <wsdl:part name="MeetingModifyEventRequest" element="s0:MeetingModifyEventRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingModifyEventSoapOut">
+    <wsdl:part name="MeetingModifyEventResult" element="s0:MeetingModifyEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingModifyEventOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchEventSoapIn">
+    <wsdl:part name="MeetingFetchEventRequest" element="s0:MeetingFetchEventRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchEventSoapOut">
+    <wsdl:part name="MeetingFetchEventResult" element="s0:MeetingFetchEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchEventOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchPackageEventSoapIn">
+    <wsdl:part name="MeetingFetchPackageEventRequest" element="s0:MeetingFetchPackageEventRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchPackageEventSoapOut">
+    <wsdl:part name="MeetingFetchPackageEventResult" element="s0:MeetingFetchPackageEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchPackageEventOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMenuSoapIn">
+    <wsdl:part name="MeetingFetchMenuRequest" element="s0:MeetingFetchMenuRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMenuSoapOut">
+    <wsdl:part name="MeetingFetchMenuResult" element="s0:MeetingFetchMenuResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMenuOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMenuItemSoapIn">
+    <wsdl:part name="MeetingFetchMenuItemRequest" element="s0:MeetingFetchMenuItemRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMenuItemSoapOut">
+    <wsdl:part name="MeetingFetchMenuItemResult" element="s0:MeetingFetchMenuItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMenuItemOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMiscellaneousItemSoapIn">
+    <wsdl:part name="MeetingFetchMiscellaneousItemRequest" element="s0:MeetingFetchMiscellaneousItemRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMiscellaneousItemSoapOut">
+    <wsdl:part name="MeetingFetchMiscellaneousItemResult" element="s0:MeetingFetchMiscellaneousItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMiscellaneousItemOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchContractSoapIn">
+    <wsdl:part name="MeetingFetchContractRequest" element="s0:MeetingFetchContractRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchContractSoapOut">
+    <wsdl:part name="MeetingFetchContractResult" element="s0:MeetingFetchContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchContractOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="CreateBlockSoapIn">
+    <wsdl:part name="CreateBlockRequest" element="s0:CreateBlockRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateBlockSoapOut">
+    <wsdl:part name="CreateBlockResult" element="s0:CreateBlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateBlockOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="ModifyBlockSoapIn">
+    <wsdl:part name="ModifyBlockRequest" element="s0:ModifyBlockRequest" />
+  </wsdl:message>
+  <wsdl:message name="ModifyBlockSoapOut">
+    <wsdl:part name="ModifyBlockResult" element="s0:ModifyBlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModifyBlockOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomFetchMyBlocksSoapIn">
+    <wsdl:part name="MeetingRoomFetchMyBlocksRequest" element="s0:MeetingRoomFetchMyBlocksRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomFetchMyBlocksSoapOut">
+    <wsdl:part name="MeetingRoomFetchMyBlocksResult" element="s0:MeetingRoomFetchMyBlocksResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomFetchMyBlocksOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomFetchBlockSoapIn">
+    <wsdl:part name="MeetingRoomFetchBlockRequest" element="s0:MeetingRoomFetchBlockRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomFetchBlockSoapOut">
+    <wsdl:part name="MeetingRoomFetchBlockResult" element="s0:MeetingRoomFetchBlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomFetchBlockOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomCopyBlockSoapIn">
+    <wsdl:part name="MeetingRoomCopyBlockRequest" element="s0:MeetingRoomCopyBlockRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomCopyBlockSoapOut">
+    <wsdl:part name="MeetingRoomCopyBlockResult" element="s0:MeetingRoomCopyBlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomCopyBlockOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomCreateRelationshipSoapIn">
+    <wsdl:part name="MeetingRoomCreateRelationshipRequest" element="s0:MeetingRoomCreateRelationshipRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomCreateRelationshipSoapOut">
+    <wsdl:part name="MeetingRoomCreateRelationshipResult" element="s0:MeetingRoomCreateRelationshipResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRoomCreateRelationshipOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMyRegisteredEventsSoapIn">
+    <wsdl:part name="MeetingFetchMyRegisteredEventsRequest" element="s0:MeetingFetchMyRegisteredEventsRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMyRegisteredEventsSoapOut">
+    <wsdl:part name="MeetingFetchMyRegisteredEventsResult" element="s0:MeetingFetchMyRegisteredEventsResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchMyRegisteredEventsOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchBlockDelegatesSoapIn">
+    <wsdl:part name="MeetingFetchBlockDelegatesRequest" element="s0:MeetingFetchBlockDelegatesRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchBlockDelegatesSoapOut">
+    <wsdl:part name="MeetingFetchBlockDelegatesResult" element="s0:MeetingFetchBlockDelegatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingFetchBlockDelegatesOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRegisterEventAttendeesSoapIn">
+    <wsdl:part name="MeetingRegisterEventAttendeesRequest" element="s0:MeetingRegisterEventAttendeesRequest" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRegisterEventAttendeesSoapOut">
+    <wsdl:part name="MeetingRegisterEventAttendeesResult" element="s0:MeetingRegisterEventAttendeesResponse" />
+  </wsdl:message>
+  <wsdl:message name="MeetingRegisterEventAttendeesOGHeader">
+    <wsdl:part name="OGHeader" element="s5:OGHeader" />
+  </wsdl:message>
+  <wsdl:portType name="MeetingRoomServiceSoap">
+    <wsdl:operation name="MeetingMultiPropertyAvailability">
+      <wsdl:input message="tns:MeetingMultiPropertyAvailabilitySoapIn" />
+      <wsdl:output message="tns:MeetingMultiPropertyAvailabilitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingAvailability">
+      <wsdl:input message="tns:MeetingAvailabilitySoapIn" />
+      <wsdl:output message="tns:MeetingAvailabilitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingPackageAvailability">
+      <wsdl:input message="tns:MeetingPackageAvailabilitySoapIn" />
+      <wsdl:output message="tns:MeetingPackageAvailabilitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingCreateEvent">
+      <wsdl:input message="tns:MeetingCreateEventSoapIn" />
+      <wsdl:output message="tns:MeetingCreateEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingCreatePackageEvent">
+      <wsdl:input message="tns:MeetingCreatePackageEventSoapIn" />
+      <wsdl:output message="tns:MeetingCreatePackageEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingModifyPackageEvent">
+      <wsdl:input message="tns:MeetingModifyPackageEventSoapIn" />
+      <wsdl:output message="tns:MeetingModifyPackageEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingModifyEvent">
+      <wsdl:input message="tns:MeetingModifyEventSoapIn" />
+      <wsdl:output message="tns:MeetingModifyEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchEvent">
+      <wsdl:input message="tns:MeetingFetchEventSoapIn" />
+      <wsdl:output message="tns:MeetingFetchEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchPackageEvent">
+      <wsdl:input message="tns:MeetingFetchPackageEventSoapIn" />
+      <wsdl:output message="tns:MeetingFetchPackageEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMenu">
+      <wsdl:input message="tns:MeetingFetchMenuSoapIn" />
+      <wsdl:output message="tns:MeetingFetchMenuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMenuItem">
+      <wsdl:input message="tns:MeetingFetchMenuItemSoapIn" />
+      <wsdl:output message="tns:MeetingFetchMenuItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMiscellaneousItem">
+      <wsdl:input message="tns:MeetingFetchMiscellaneousItemSoapIn" />
+      <wsdl:output message="tns:MeetingFetchMiscellaneousItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchContract">
+      <wsdl:input message="tns:MeetingFetchContractSoapIn" />
+      <wsdl:output message="tns:MeetingFetchContractSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBlock">
+      <wsdl:input message="tns:CreateBlockSoapIn" />
+      <wsdl:output message="tns:CreateBlockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyBlock">
+      <wsdl:input message="tns:ModifyBlockSoapIn" />
+      <wsdl:output message="tns:ModifyBlockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomFetchMyBlocks">
+      <wsdl:input message="tns:MeetingRoomFetchMyBlocksSoapIn" />
+      <wsdl:output message="tns:MeetingRoomFetchMyBlocksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomFetchBlock">
+      <wsdl:input message="tns:MeetingRoomFetchBlockSoapIn" />
+      <wsdl:output message="tns:MeetingRoomFetchBlockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomCopyBlock">
+      <wsdl:input message="tns:MeetingRoomCopyBlockSoapIn" />
+      <wsdl:output message="tns:MeetingRoomCopyBlockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomCreateRelationship">
+      <wsdl:input message="tns:MeetingRoomCreateRelationshipSoapIn" />
+      <wsdl:output message="tns:MeetingRoomCreateRelationshipSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMyRegisteredEvents">
+      <wsdl:input message="tns:MeetingFetchMyRegisteredEventsSoapIn" />
+      <wsdl:output message="tns:MeetingFetchMyRegisteredEventsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchBlockDelegates">
+      <wsdl:input message="tns:MeetingFetchBlockDelegatesSoapIn" />
+      <wsdl:output message="tns:MeetingFetchBlockDelegatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRegisterEventAttendees">
+      <wsdl:input message="tns:MeetingRegisterEventAttendeesSoapIn" />
+      <wsdl:output message="tns:MeetingRegisterEventAttendeesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MeetingRoomServiceSoap" type="tns:MeetingRoomServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="MeetingMultiPropertyAvailability">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingMultiPropertyAvailability" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingMultiPropertyAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingMultiPropertyAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingAvailability">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingAvailability" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingPackageAvailability">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingPackageAvailability" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingPackageAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingPackageAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingCreateEvent">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingCreateEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingCreateEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingCreateEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingCreatePackageEvent">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingCreatePackageEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingCreatePackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingCreatePackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingModifyPackageEvent">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingModifyPackageEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingModifyPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingModifyPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingModifyEvent">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingModifyEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingModifyEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingModifyEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchEvent">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchPackageEvent">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchPackageEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMenu">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMenu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMenuOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMenuOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMenuItem">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMenuItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMenuItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMenuItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMiscellaneousItem">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMiscellaneousItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMiscellaneousItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMiscellaneousItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchContract">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchContractOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchContractOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBlock">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#CreateBlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CreateBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:CreateBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyBlock">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#ModifyBlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ModifyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ModifyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomFetchMyBlocks">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomFetchMyBlocks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomFetchMyBlocksOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomFetchMyBlocksOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomFetchBlock">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomFetchBlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomFetchBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomFetchBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomCopyBlock">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomCopyBlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomCopyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomCopyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomCreateRelationship">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomCreateRelationship" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomCreateRelationshipOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRoomCreateRelationshipOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMyRegisteredEvents">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMyRegisteredEvents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMyRegisteredEventsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchMyRegisteredEventsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchBlockDelegates">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchBlockDelegates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchBlockDelegatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingFetchBlockDelegatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRegisterEventAttendees">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRegisterEventAttendees" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRegisterEventAttendeesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:MeetingRegisterEventAttendeesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MeetingRoomServiceSoap12" type="tns:MeetingRoomServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="MeetingMultiPropertyAvailability">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingMultiPropertyAvailability" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingMultiPropertyAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingMultiPropertyAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingAvailability">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingAvailability" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingPackageAvailability">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingPackageAvailability" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingPackageAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingPackageAvailabilityOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingCreateEvent">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingCreateEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingCreateEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingCreateEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingCreatePackageEvent">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingCreatePackageEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingCreatePackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingCreatePackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingModifyPackageEvent">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingModifyPackageEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingModifyPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingModifyPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingModifyEvent">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingModifyEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingModifyEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingModifyEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchEvent">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchPackageEvent">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchPackageEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchPackageEventOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMenu">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMenu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMenuOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMenuOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMenuItem">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMenuItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMenuItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMenuItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMiscellaneousItem">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMiscellaneousItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMiscellaneousItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMiscellaneousItemOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchContract">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchContract" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchContractOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchContractOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBlock">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#CreateBlock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CreateBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CreateBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyBlock">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#ModifyBlock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ModifyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ModifyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomFetchMyBlocks">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomFetchMyBlocks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomFetchMyBlocksOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomFetchMyBlocksOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomFetchBlock">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomFetchBlock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomFetchBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomFetchBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomCopyBlock">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomCopyBlock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomCopyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomCopyBlockOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRoomCreateRelationship">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRoomCreateRelationship" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomCreateRelationshipOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRoomCreateRelationshipOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchMyRegisteredEvents">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchMyRegisteredEvents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMyRegisteredEventsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchMyRegisteredEventsOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingFetchBlockDelegates">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingFetchBlockDelegates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchBlockDelegatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingFetchBlockDelegatesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MeetingRegisterEventAttendees">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/MeetingRoom.wsdl#MeetingRegisterEventAttendees" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRegisterEventAttendeesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:MeetingRegisterEventAttendeesOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MeetingRoomService">
+    <wsdl:port name="MeetingRoomServiceSoap" binding="tns:MeetingRoomServiceSoap">
+      <soap:address location="http://operademo3.microsdc.us:4300/ows_ws_51/MeetingRoom.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MeetingRoomServiceSoap12" binding="tns:MeetingRoomServiceSoap12">
+      <soap12:address location="http://operademo3.microsdc.us:4300/ows_ws_51/MeetingRoom.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

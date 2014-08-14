@@ -1,7 +1,12 @@
 package com.cloudkey.pms.micros.ows;
 
-import com.cloudkey.pms.micros.og.common.*;
-import com.cloudkey.pms.micros.og.core.*;
+import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.common.UniqueID;
+import com.cloudkey.pms.micros.og.common.UniqueIDType;
+import com.cloudkey.pms.micros.og.core.EndPoint;
+import com.cloudkey.pms.micros.og.core.OGHeader;
+import com.cloudkey.pms.micros.og.core.OGHeaderAuthentication;
+import com.cloudkey.pms.micros.og.core.OGHeaderAuthenticationUserCredentials;
 import com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
 import com.google.inject.Inject;
@@ -10,7 +15,8 @@ import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Calendar;
+import javax.xml.ws.Holder;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -71,12 +77,12 @@ public class OWSTools {
 		hotelReference.setChainCode(chainCode);
 
 		// If not set, exception raised: org.apache.axis2.databinding.ADBException: string cannot be null!!
-		hotelReference.setString("");
+		hotelReference.setValue("");
 
 		return hotelReference;
 	}
 
-	protected OGHeaderE createOGHeaderE() {
+	protected Holder<OGHeader> createOGHeaderE() {
 		OGHeader ogHeader = new OGHeader();
 
 		// Sets Transaction Identifier
@@ -97,7 +103,7 @@ public class OWSTools {
 		ogHeader.setDestination(destination);
 
 		// sets time stamp
-		ogHeader.setTimeStamp(Calendar.getInstance());
+		ogHeader.setTimeStamp(new Date());
 
 		if (authUsername != null && authPassword != null && !authUsername.isEmpty() && !authPassword.isEmpty()) {
 
@@ -111,41 +117,19 @@ public class OWSTools {
 			cred.setUserPassword(authPassword);
 		}
 
-		OGHeaderE ogHeaderE = new OGHeaderE();
-		ogHeaderE.setOGHeader(ogHeader);
-		return ogHeaderE;
+		return new Holder<>(ogHeader);
 	}
 
 	protected String getErrorMessage(ResultStatus resultStatus) {
 		String message = "";
 
-		if (resultStatus instanceof GDSResultStatus && ((GDSResultStatus) resultStatus).isGDSErrorSpecified()) {
+		if (resultStatus instanceof GDSResultStatus && ((GDSResultStatus) resultStatus).getGDSError() != null) {
 			message = ((GDSResultStatus) resultStatus).getGDSError().toString();
-		} else if (resultStatus.getText() != null &&
-			resultStatus.getText().getTextElement() != null &&
-			resultStatus.getText().getTextElement().length > 0
-			) {
-			message = resultStatus.getText().getTextElement()[0].toString();
+		} else if (resultStatus.getText() != null && !resultStatus.getText().isEmpty()) {
+			message = resultStatus.getText().iterator().next().toString();
 		}
 
 		return message;
-	}
-
-	protected UniqueID uniqueID(String value, UniqueIDType type, String source) {
-		UniqueID uniqueID = new UniqueID();
-		if (value != null) {
-			uniqueID.setString(value);
-		}
-
-		if (type != null) {
-			uniqueID.setType(type);
-		}
-
-		if (source != null) {
-			uniqueID.setSource(source);
-		}
-
-		return uniqueID;
 	}
 
 	/**
@@ -155,21 +139,7 @@ public class OWSTools {
 	 * @return
 	 */
 	protected UniqueID internalReservationId(String pmsReservationId) {
-		return uniqueID(pmsReservationId, UniqueIDType.INTERNAL, MicrosIds.OWS.RESERVATION_ID_SOURCE);
-	}
-
-	/**
-	 * Helper for creating an {@link ArrayOfUniqueID}.
-	 *
-	 * @param uniqueIDs
-	 * @return
-	 */
-	protected ArrayOfUniqueID arrayOf(UniqueID... uniqueIDs) {
-		ArrayOfUniqueID list = new ArrayOfUniqueID();
-		for (UniqueID uniqueID : uniqueIDs) {
-			list.addUniqueID(uniqueID);
-		}
-		return list;
+		return new UniqueID(pmsReservationId, UniqueIDType.INTERNAL, MicrosIds.OWS.RESERVATION_ID_SOURCE);
 	}
 
 }

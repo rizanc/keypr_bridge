@@ -6,7 +6,7 @@ dependencies {
     compile project(':CloudKeyHTBase')
     compile project(':CloudKeyHTDatabase')
     compile project(':MicrosPMSAdapter')
-    compile project(':MicrosOWSServices')
+    compile project(':MicrosOWSCxfClient')
     compile project(':MicrosOXIJaxb')
 
     // External dependencies

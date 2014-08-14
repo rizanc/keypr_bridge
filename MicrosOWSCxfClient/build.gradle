@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+project.ext {
+    generatedSources = "$buildDir/generated-sources"
+    wsdlDir = file("${projectDir}/src/main/wsdl")
+    bindingDir = file("${projectDir}/src/main/jaxb")
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs generatedSources
+        }
+    }
+}
+
+dependencies {
+    compile guava
+    compile cxf_jaxws_frontend
+    compile jaxws
+    compile cxf_xjc_utils
+    compile cxf_http_jetty
+}
+
+task mvnGenerateSources(type: Exec) {
+    inputs.dir wsdlDir
+    inputs.dir bindingDir
+    outputs.dir generatedSources
+
+    commandLine 'mvn', 'clean', 'generate-sources'
+}
+
+compileJava.dependsOn mvnGenerateSources
+
+idea {
+    module {
+        excludeDirs = []
+        ["classes", "docs", "dependency-cache", "libs", "reports", "resources", "test-results", "tmp"].each {
+            excludeDirs << file("$buildDir/$it")
+        }
+    }
+}

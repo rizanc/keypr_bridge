@@ -6,6 +6,7 @@ import com.cloudkey.commons.Response;
 import com.cloudkey.commons.Restaurants;
 import com.cloudkey.commons.RoomType;
 import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
 
 /**
  * This Class has information of Hotel. 
@@ -28,8 +29,8 @@ public class HotelInformationResponse extends Response {
     private String checkInTime;
     private String checkOutTime;
     private String notes;
-    private List<RoomType> roomTypeList;
-    private List<Restaurants> restaurantsList;
+    private List<RoomType> roomTypeList = Lists.newArrayList();
+    private List<Restaurants> restaurantsList = Lists.newArrayList();
 
 
     /*generate getter setter for hotel information response. */

@@ -4,12 +4,9 @@ import com.cloudkey.commons.Availability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
-import com.cloudkey.pms.micros.og.hotelcommon.TimeSpanChoice_type0;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
-import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
-import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
-import com.cloudkey.pms.micros.services.AvailabilityService;
+import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.google.inject.Inject;
@@ -26,7 +23,7 @@ import java.util.List;
 public class OWSAvailabilityProcessor extends OWSBase {
 
 	@Inject
-	protected AvailabilityService service;
+	protected AvailabilityServiceSoap service;
 
 	public com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse processAvailability(com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest request) throws RemoteException {
         log.debug("processAvailability: Enter checkAvailability method.");
@@ -34,15 +31,12 @@ public class OWSAvailabilityProcessor extends OWSBase {
         FetchCalendarRequest microsRequest = getAvailabilityRequestObject(request);
 		log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsRequest));
 
-		FetchCalendarRequestE microsRequestE = new FetchCalendarRequestE();
-		microsRequestE.setFetchCalendarRequest(microsRequest);
+		FetchCalendarResponse microsResponse = service.fetchCalendar(microsRequest, createOGHeaderE());
+        log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsResponse));
 
-		FetchCalendarResponseE microsResponseE = service.fetchCalendar(microsRequestE, createOGHeaderE());
-        log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsResponseE));
+	    errorIfFailure(microsResponse.getResult());
 
-	    errorIfFailure(microsResponseE.getFetchCalendarResponse().getResult());
-
-	    return getAvailabilityResponseObject(microsResponseE.getFetchCalendarResponse());
+	    return getAvailabilityResponseObject(microsResponse);
     }
 
 	private FetchCalendarRequest getAvailabilityRequestObject(GetAvailabilityRequest availabilityRequest) {
@@ -55,11 +49,8 @@ public class OWSAvailabilityProcessor extends OWSBase {
 		/*To set start and end date.*/
 	    TimeSpan objTimeSpan = new TimeSpan();
 
-	    objTimeSpan.setStartDate(availabilityRequest.getStartDate().toDateTimeAtStartOfDay().toGregorianCalendar());
-        TimeSpanChoice_type0 objType0 = new TimeSpanChoice_type0();
-
-        objType0.setEndDate(availabilityRequest.getEndDate().toDateTimeAtStartOfDay().toGregorianCalendar());
-        objTimeSpan.setTimeSpanChoice_type0(objType0);
+	    objTimeSpan.setStartDate(availabilityRequest.getStartDate().toDateTimeAtStartOfDay().toDate());
+		objTimeSpan.setEndDate(availabilityRequest.getEndDate().toDateTimeAtStartOfDay().toDate());
 
 		/*To set time span in fetch calendar request.*/
         objFetchCalendarRequest.setStayDateRange(objTimeSpan);
@@ -78,7 +69,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
         List<Availability> availabilities = new ArrayList<>();
 
         /*To get the calendar daily detail array from response.*/
-        CalendarDailyDetail[] arrCalendarDailyDetail = objResponse.getCalendar().getCalendarDay();
+        List<CalendarDailyDetail> arrCalendarDailyDetail = objResponse.getCalendar();
 
         for (CalendarDailyDetail objCalendarDailyDetail : arrCalendarDailyDetail) { // To traverse calendar daily detail.
 
@@ -91,7 +82,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
 			/*To set the roomInventory in response.*/
             List<com.cloudkey.commons.RoomTypeInventory> objLInventories = new ArrayList<>();
 
-            RoomTypeInventory[] arrRoomTypeInventories = objCalendarDailyDetail.getOccupancy().getRoomTypeInventory();
+            List<RoomTypeInventory> arrRoomTypeInventories = objCalendarDailyDetail.getOccupancy();
 
             for (RoomTypeInventory objRTypeInventory : arrRoomTypeInventories) { // To traverse room type inventory.
 
@@ -109,7 +100,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
                 objRoomTypeInventory.setTotalRoomsAvailable(objRTypeInventory.getTotalAvailableRooms().intValue());
                 objRoomTypeInventory.setTotalRooms(objRTypeInventory.getTotalRooms().intValue());
 
-				/*To add roomtype inventory in inventory list.*/
+	            //To add roomtype inventory in inventory list.
                 objLInventories.add(objRoomTypeInventory);
 
                 log.debug("getAvailabilityResponseObject: Exit loop for room type inventory. ");
@@ -117,7 +108,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
             }// End room type inventory loop.
             objAvailability.setRoomTypeInventoryList(objLInventories);
 
-			/*To add availability object into list.*/
+	        //To add availability object into list.
             availabilities.add(objAvailability);
 
             log.debug("getAvailabilityResponseObject: Exit traversing calendar details. ");

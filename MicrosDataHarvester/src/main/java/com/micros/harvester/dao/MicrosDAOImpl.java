@@ -1,9 +1,7 @@
 package com.micros.harvester.dao;
 
 import com.cloudkey.commons.*;
-import com.cloudkey.pms.micros.og.availability.ArrayOfCalendarDailyDetail;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
-import com.cloudkey.pms.micros.og.hotelcommon.ArrayOfRoomTypeInventory;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.google.inject.Inject;
@@ -498,29 +496,15 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		String sqlQuery = null;
 
-		ArrayOfCalendarDailyDetail objCalendar = objFetchCalendarResponse.getCalendar();
-		CalendarDailyDetail objCalendarDailyDetailArry[] = objCalendar.getCalendarDay();
-		int calendarArrayLength = objCalendarDailyDetailArry.length;
+		log.debug("persistRoomInventoryData: Inventory has Detail for Calendar days: {}", objFetchCalendarResponse.getCalendar().size());
 
-		log.debug("persistRoomInventoryData: Inventory has Detail for Calendar days: {}", calendarArrayLength );
+		for (CalendarDailyDetail objCalendarDailyDetail : objFetchCalendarResponse.getCalendar()) {
+			log.debug("persistRoomInventoryData: Details for Calendar day: {}", objCalendarDailyDetail.getDate());
 
-		for ( int len = 0; len < calendarArrayLength; len++ ) {
+			log.debug("persistRoomInventoryData: Number of room inventory present: {} for calendar day {}", objCalendarDailyDetail.getOccupancy().size(), objCalendarDailyDetail.getDate());
 
-			log.debug("persistRoomInventoryData: Details for Calendar day: {}", len + 1 );
-
-			CalendarDailyDetail objCalendarDailyDetail = objCalendarDailyDetailArry[len];
-			Date currentCalendarDay = objCalendarDailyDetail.getDate();
-
-			ArrayOfRoomTypeInventory objRoomInventoryList = objCalendarDailyDetail.getOccupancy();
-			com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory[] objRoomTypeInventoryArray = objRoomInventoryList.getRoomTypeInventory();
-
-			int lengthRoomInventory = objRoomTypeInventoryArray.length;
-
-			log.debug("persistRoomInventoryData: Number of room inventory present: {} for calendar day {}", lengthRoomInventory, (len + 1) );
-
-			for (int k = 0; k < lengthRoomInventory ; k++) {
-
-				com.cloudkey.commons.RoomTypeInventory objRInventory = getRoomTypeInventoryInstance( objRoomTypeInventoryArray[k],currentCalendarDay);
+			for (RoomTypeInventory roomTypeInventory : objCalendarDailyDetail.getOccupancy()) {
+				com.cloudkey.commons.RoomTypeInventory objRInventory = getRoomTypeInventoryInstance( roomTypeInventory, objCalendarDailyDetail.getDate());
 
 				isExists = checkExistenceInRoomInventory( objRInventory );
 

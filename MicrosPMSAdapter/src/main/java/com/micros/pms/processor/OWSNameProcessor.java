@@ -3,10 +3,13 @@ package com.micros.pms.processor;
 import com.cloudkey.commons.Membership;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
-import com.cloudkey.pms.micros.og.core.OGHeaderE;
 import com.cloudkey.pms.micros.og.name.*;
-import com.cloudkey.pms.micros.ows.name.*;
+import com.cloudkey.pms.micros.ows.name.FetchGuestCardListRequest;
+import com.cloudkey.pms.micros.ows.name.FetchGuestCardListResponse;
+import com.cloudkey.pms.micros.ows.name.NameLookupRequest;
+import com.cloudkey.pms.micros.ows.name.NameLookupResponse;
 import com.cloudkey.pms.micros.services.NameService;
+import com.cloudkey.pms.micros.services.NameServiceSoap;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
@@ -23,45 +26,40 @@ import java.util.ArrayList;
  */
 public class OWSNameProcessor extends OWSBase {
 	@Inject
-	protected NameService service;
+	protected NameServiceSoap service;
 
 	public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
         log.debug("processGuestCardList: Enter processGuestCardList method ");
 
         FetchGuestCardListRequest request = new FetchGuestCardListRequest();
-        request.setNameID(uniqueID(guestMembershipsRequest.getPmsNameId(), UniqueIDType.INTERNAL, null));
+        request.setNameID(new UniqueID(guestMembershipsRequest.getPmsNameId(), UniqueIDType.INTERNAL, null));
 
-	    FetchGuestCardListRequestE requestE = new FetchGuestCardListRequestE();
-		log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(requestE));
+		log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(request));
 
-        FetchGuestCardListResponseE responseE = service.fetchGuestCardList(requestE, createOGHeaderE());
-        log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(responseE));
+        FetchGuestCardListResponse objResponse = service.fetchGuestCardList(request, createOGHeaderE());
+        log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(objResponse));
 
-        FetchGuestCardListResponse objResponse = responseE.getFetchGuestCardListResponse();
 	    errorIfFailure(objResponse.getResult());
 
 	    GuestMembershipResponse response = new GuestMembershipResponse();
 
         ArrayList<Membership> memberships = new ArrayList<Membership>();
-        if (objResponse.getGuestCardList() != null && objResponse.getGuestCardList().getNameMembership() != null) {
-            for (NameMembership nameMembership : objResponse.getGuestCardList().getNameMembership()) {
+        for (NameMembership nameMembership : objResponse.getGuestCardList()) {
 
-                Membership membership = new Membership();
-                memberships.add(membership);
+            Membership membership = new Membership();
+            memberships.add(membership);
 
-                membership.setMembershipNumber(nameMembership.getMembershipNumber());
-                membership.setMembershipType(nameMembership.getMembershipType());
-                membership.setMemberName(nameMembership.getMemberName());
-                membership.setMembershipLevel(nameMembership.getMembershipLevel());
-                membership.setPointsLabel(nameMembership.getPointsLabel());
-                membership.setExternalId(nameMembership.getExternalId());
-                membership.setCurrentPoints(nameMembership.getCurrentPoints());
-                membership.setEffectiveDate(nameMembership.getEffectiveDate());
-                membership.setExpirationDate(nameMembership.getExpirationDate());
-                membership.setExternalId(nameMembership.getExternalId());
-                membership.setOperaId(Long.toString(nameMembership.getOperaId()));
-
-            }
+            membership.setMembershipNumber(nameMembership.getMembershipNumber());
+            membership.setMembershipType(nameMembership.getMembershipType());
+            membership.setMemberName(nameMembership.getMemberName());
+            membership.setMembershipLevel(nameMembership.getMembershipLevel());
+            membership.setPointsLabel(nameMembership.getPointsLabel());
+            membership.setExternalId(nameMembership.getExternalId());
+            membership.setCurrentPoints(nameMembership.getCurrentPoints());
+            membership.setEffectiveDate(nameMembership.getEffectiveDate());
+            membership.setExpirationDate(nameMembership.getExpirationDate());
+            membership.setExternalId(nameMembership.getExternalId());
+            membership.setOperaId(Long.toString(nameMembership.getOperaId()));
         }
 
         if (!memberships.isEmpty()) {
@@ -79,44 +77,33 @@ public class OWSNameProcessor extends OWSBase {
         NameLookupInput nameLookupInput = new NameLookupInput();
         objRequest.setNameLookupCriteria(nameLookupInput);
 
-	    NameLookupInputChoice_type0 nameLookupInputChoice = new NameLookupInputChoice_type0();
-	    nameLookupInput.setNameLookupInputChoice_type0(nameLookupInputChoice);
+        NameLookupCriteriaMembership criteriaMembership = new NameLookupCriteriaMembership();
 
-        NameLookupCriteriaMembership nameLookupCriteriaMembership = new NameLookupCriteriaMembership();
-	    nameLookupInputChoice.setMembership(nameLookupCriteriaMembership);
+        criteriaMembership.setMembershipNumber(nameIdByMembershipRequest.getMembershipNumber());
+        criteriaMembership.setMembershipType(nameIdByMembershipRequest.getMembershipType());
+        criteriaMembership.setLastName(nameIdByMembershipRequest.getLastname().toUpperCase());
 
-        nameLookupCriteriaMembership.setMembershipNumber(nameIdByMembershipRequest.getMembershipNumber());
-        nameLookupCriteriaMembership.setMembershipType(nameIdByMembershipRequest.getMembershipType());
-        nameLookupCriteriaMembership.setLastName(nameIdByMembershipRequest.getLastname().toUpperCase());
-
-        OGHeaderE ogh = createOGHeaderE();
-
-	    NameLookupRequestE requestE = new NameLookupRequestE();
-	    requestE.setNameLookupRequest(objRequest);
+	    nameLookupInput.setMembership(criteriaMembership);
 
         log.debug("processNameLookupByMembership",
-	        AdapterUtility.convertToStreamXML(requestE));
-        NameLookupResponseE resp = service.nameLookup(requestE, ogh);
+	        AdapterUtility.convertToStreamXML(objRequest));
+        NameLookupResponse objResponse = service.nameLookup(objRequest, createOGHeaderE());
         log.debug("processNameLookupByMembership",
-	        AdapterUtility.convertToStreamXML(resp));
+	        AdapterUtility.convertToStreamXML(objResponse));
 
-        NameLookupResponse objResponse = resp.getNameLookupResponse();
 	    errorIfFailure(objResponse.getResult());
 
 	    NameIdByMembershipResponse response = new NameIdByMembershipResponse();
 
-        ArrayOfProfile profiles = objResponse.getProfiles();
-        if (profiles.getProfile().length > 0) {
-            Profile profile = profiles.getProfile()[0];
-            if (profile.getProfileIDs() != null && profile.getProfileIDs().getUniqueID() != null) {
-                for (UniqueID uniqueID : profile.getProfileIDs().getUniqueID()) {
-                    if (uniqueID.getType() == UniqueIDType.INTERNAL) {
-	                    response.setNameId(uniqueID.getString());
-                        break;
-                    }
-                }
-            }
-        }
+	    if (!objResponse.getProfiles().isEmpty()) {
+		    Profile profile = objResponse.getProfiles().get(0);
+		    for (UniqueID uniqueID : profile.getProfileIDs()) {
+			    if (uniqueID.getType() == UniqueIDType.INTERNAL) {
+				    response.setNameId(uniqueID.getValue());
+				    break;
+			    }
+		    }
+	    }
 
         log.debug("processNameLookupByMembership",
 	        AdapterUtility.convertToStreamXML(response));

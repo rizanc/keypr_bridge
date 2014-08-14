@@ -1,0 +1,1 @@
+com.cloudkey.pms.micros.og.hotelcommon.Paragraph

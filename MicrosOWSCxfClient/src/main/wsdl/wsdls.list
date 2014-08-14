@@ -1,0 +1,7 @@
+src/main/resources/wsdl/Availability.wsdl
+src/main/resources/wsdl/Information.wsdl
+src/main/resources/wsdl/MeetingRoom.wsdl
+src/main/resources/wsdl/Membership.wsdl
+src/main/resources/wsdl/Name.wsdl
+src/main/resources/wsdl/Reservation.wsdl
+src/main/resources/wsdl/ResvAdvanced.wsdl

@@ -1,7 +1,7 @@
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
-    compile project(':MicrosOWSServices')
+    compile project(':MicrosOWSCxfClient')
     compile project(':MicrosOWSSupport')
 
     // External dependencies
@@ -9,8 +9,6 @@ dependencies {
     compile httpcomponents_httpcore
     compile dropwizard_logging
     compile dropwizard_guice
-    compile axis2_adb
-    compile axis2_kernel
     compile commons_lang
     compile xstream
 }

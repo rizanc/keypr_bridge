@@ -2,21 +2,17 @@ package com.micros.harvester.communicator;
 
 import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
-import com.cloudkey.pms.micros.og.hotelcommon.TimeSpanChoice_type0;
 import com.cloudkey.pms.micros.ows.OWSTools;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
-import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequestE;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
-import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponseE;
-import com.cloudkey.pms.micros.services.AvailabilityService;
+import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.micros.harvester.dao.IMicrosDAO;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -49,7 +45,7 @@ public class OWSDataCollector extends OWSTools {
 	protected long timerInterval;
 
 	@Inject
-	protected AvailabilityService availabilityService;
+	protected AvailabilityServiceSoap availabilityService;
 
 	/**
 	 * This method will runs at fixed interval to collect room status data 
@@ -260,28 +256,15 @@ public class OWSDataCollector extends OWSTools {
 			objFetchCalendarRequest.setHotelReference(getDefaultHotelReference());
 
 			//Creates date range.
-			TimeSpan objTimeSpan = new TimeSpan();
+			objFetchCalendarRequest.setStayDateRange(new TimeSpan(
+				new DateTime().withTimeAtStartOfDay().toDate(),
+				new DateTime().withHourOfDay(24).toDate(),
+				null
+			));
 
-			Calendar currentCalendar = Calendar.getInstance();
-			currentCalendar.setTime(new Date()); 
-			currentCalendar.add(Calendar.HOUR_OF_DAY, 24); 
-			Date updatedDate = currentCalendar.getTime();
-			Calendar updatedCal = Calendar.getInstance();
-			updatedCal.setTime(updatedDate);
+			FetchCalendarResponse response = availabilityService.fetchCalendar(objFetchCalendarRequest, createOGHeaderE());
 
-			objTimeSpan.setStartDate( currentCalendar );
-			TimeSpanChoice_type0 objTimeSpanAvail = new TimeSpanChoice_type0();
-			objTimeSpanAvail.setEndDate( updatedCal );
-			objTimeSpan.setTimeSpanChoice_type0(objTimeSpanAvail);
-			objFetchCalendarRequest.setStayDateRange(objTimeSpan);
-
-			FetchCalendarRequestE requestE = new FetchCalendarRequestE();
-			requestE.setFetchCalendarRequest(objFetchCalendarRequest);
-			FetchCalendarResponseE fetchCalendarResponseE = availabilityService.fetchCalendar(requestE, createOGHeaderE());
-
-			log.debug("makeFetchCalendarRequest: makeFetchCalendarRequest Instace created " );
-
-			FetchCalendarResponse response = fetchCalendarResponseE.getFetchCalendarResponse();
+			log.debug("makeFetchCalendarRequest: makeFetchCalendarRequest Instace created ");
 
 			log.debug("makeFetchCalendarRequest: Xml Response Received: {}", response );
 

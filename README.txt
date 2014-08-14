@@ -6,6 +6,7 @@ A. Software Tools requirement
 	* jdk 1.7
 	* jre 7.0
 	* MySQL 5.5
+	* Maven 3+
 
 B. Steps to run the implementation:
 	Pull https://github.com/Keypr/keypr_bridge.git using git.

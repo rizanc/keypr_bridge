@@ -6,6 +6,6 @@ dependencies {
     compile project(':CloudKeyHTBase')
     compile project(':CloudKeyHTWebServices')
     compile project(':MicrosPMSAdapter')
-    compile project(':MicrosOWSServices')
+    compile project(':MicrosOWSCxfClient')
     compile junit
 }

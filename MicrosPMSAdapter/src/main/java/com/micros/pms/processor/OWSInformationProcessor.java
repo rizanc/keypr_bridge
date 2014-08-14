@@ -4,15 +4,17 @@ import com.cloudkey.commons.Restaurants;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.micros.og.common.Address;
 import com.cloudkey.pms.micros.og.common.DescriptiveText;
-import com.cloudkey.pms.micros.og.common.DescriptiveTextChoice_type0;
 import com.cloudkey.pms.micros.og.common.Phone;
-import com.cloudkey.pms.micros.og.core.OGHeaderE;
+import com.cloudkey.pms.micros.og.common.Text;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
-import com.cloudkey.pms.micros.ows.information.*;
-import com.cloudkey.pms.micros.services.Information;
+import com.cloudkey.pms.micros.ows.information.HotelInformationRequest;
+import com.cloudkey.pms.micros.ows.information.HotelInformationResponse;
+import com.cloudkey.pms.micros.ows.information.HotelInformationResponseHotelInformation;
+import com.cloudkey.pms.micros.services.InformationSoap;
 import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
+import com.micros.pms.util.ParagraphHelper;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -24,26 +26,22 @@ import java.util.List;
 public class OWSInformationProcessor extends OWSBase {
 
 	@Inject
-	protected Information service;
+	protected InformationSoap service;
 
 	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
         log.debug("processHotelInformation: Enter processHotelInformation method. ");
 
 	    HotelInformationRequest req = getHotelInformationRequestObject(hotelInformationRequest);
-	    HotelInformationRequestE requestE = new HotelInformationRequestE();
-	    requestE.setHotelInformationRequest(req);
-
-        OGHeaderE ogh = createOGHeaderE();
 
         log.debug("processHotelInformation",
 	        AdapterUtility.convertToStreamXML(req));
-        HotelInformationResponseE responseE = service.queryHotelInformation(requestE, ogh);
+
+		HotelInformationResponse response = service.queryHotelInformation(req, createOGHeaderE());
         log.debug("processHotelInformation",
-	        AdapterUtility.convertToStreamXML(responseE));
+	        AdapterUtility.convertToStreamXML(response));
 
-	    errorIfFailure(responseE.getHotelInformationResponse().getResult());
-
-	    return getHotelInformationResponseObject(responseE.getHotelInformationResponse());
+	    errorIfFailure(response.getResult());
+	    return getHotelInformationResponseObject(response);
     }
 
     //TODO: Chain required.
@@ -76,7 +74,7 @@ public class OWSInformationProcessor extends OWSBase {
 
         objHotelInformationResponse2 = new com.cloudkey.pms.response.hotels.HotelInformationResponse();
 
-        hotelName = objHotelInformationResponse.getHotelInformation().getHotelInformation().getString();
+        hotelName = objHotelInformationResponse.getHotelInformation().getHotelInformation().getValue();
 
         //objHotelInformationResponse2.setResult(result);
         objHotelInformationResponse2.setHotelName(hotelName);
@@ -85,13 +83,11 @@ public class OWSInformationProcessor extends OWSBase {
 	    HotelContact objContact = hotelInformation.getHotelContactInformation();
 
         //populate  contactEmail details
-        ArrayOfEmail objEmailList = objContact.getContactEmails();
-        Email[] emailObj = objEmailList.getContactEmail();
+	    List<Email> emailList = objContact.getContactEmails();
 
-        int emailLength = emailObj.length;
         String emails = "";
 
-	    for (Email mail : emailObj) {
+	    for (Email mail : emailList) {
 
 		    contactEmail = mail.toString();
 		    emails.concat(" ").concat(contactEmail);
@@ -99,9 +95,8 @@ public class OWSInformationProcessor extends OWSBase {
         objHotelInformationResponse2.setContactEmails(emails);
 
 		/* populate  contact phone list */
-        Phone[] phoneObj = objContact.getContactPhones().getPhone();
+        List<Phone> phoneObj = objContact.getContactPhones();
 
-        int phoneLength = phoneObj.length;
         String phoneNumbers = " ";
         String faxs = " ";
 
@@ -131,12 +126,11 @@ public class OWSInformationProcessor extends OWSBase {
         objHotelInformationResponse2.setContactPhones(phoneNumbers);
 
 		/* populate addresslist  */
-        Address[] objAddress = objContact.getAddresses().getAddress();
+        List<Address> objAddress = objContact.getAddresses();
 
 	    for (Address objAdd : objAddress) {
-
 		    cityName = objAdd.getCityName();
-		    addressLine = objAdd.getAddressLine()[0];
+		    addressLine = objAdd.getAddressLines().get(0);
 		    countryCode = objAdd.getCountryCode();
 		    postalCode = objAdd.getPostalCode();
 	    }
@@ -342,131 +336,103 @@ public class OWSInformationProcessor extends OWSBase {
 	        ArrayList<RoomType> rooms = new ArrayList<>();
             response.setRoomTypeList(rooms);
 
-	        FacilityInfoTypeGuestRoomsGuestRoom[] roomList = guestRooms.getGuestRoom();
-	        if (roomList != null && roomList.length > 0) {
+	        for (FacilityInfoTypeGuestRoomsGuestRoom room_item : guestRooms.getGuestRooms()) {
+                RoomType roomType = new RoomType();
+                rooms.add(roomType);
 
-                for (FacilityInfoTypeGuestRoomsGuestRoom room_item : roomList) {
-                    RoomType roomType = new RoomType();
-                    rooms.add(roomType);
+                roomType.setCode(room_item.getCode());
 
-                    roomType.setCode(room_item.getCode());
+                //TODO: Test with real data
+                if (room_item.getAmenityInfo() != null) {
+                    AmenityInfo amenities = room_item.getAmenityInfo();
+                    String features = "";
+                    for (Amenity amenity : amenities.getAmenities()) {
+                        if (!features.equals(""))
+                            features += " '";
 
-                    //TODO: Test with real data
-                    if (room_item.getAmenityInfo() != null &&
-                            room_item.getAmenityInfo().getAmenities() != null &&
-                            room_item.getAmenityInfo().getAmenities().getAmenity() != null &&
-                            room_item.getAmenityInfo().getAmenities().getAmenity().length > 0){
-	                    AmenityInfo amenities = room_item.getAmenityInfo();
-	                    amenities.getAmenities();
-                        String features = "";
-                        for (Amenity amenity : amenities.getAmenities().getAmenity())
-                        {
-                            if (!features.equals(""))
-                            {
-                                features += " '";
-                            }
-
-                            features += amenity.getAmenityCode();
-                        }
-                        roomType.setFeatures(features);
+                        features += amenity.getAmenityCode();
                     }
 
-                    DescriptiveText descriptiveText = room_item.getRoomDescription();
-                    if (descriptiveText != null &&
-                            descriptiveText.getDescriptiveTextChoice_type0() != null) {
+	                if (!features.isEmpty()) {
+		                roomType.setFeatures(features);
+	                }
+                }
 
-	                    DescriptiveTextChoice_type0 text = descriptiveText.getDescriptiveTextChoice_type0();
-	                    if (text.getText() != null && text.getText().getTextElement() != null && text.getText().getTextElement().length > 0) {
-                            roomType.setDescription(text.getText().getTextElement()[0].toString());
-                        }
+                DescriptiveText descriptiveText = room_item.getRoomDescription();
+                if (descriptiveText != null &&
+                        descriptiveText.getText() != null) {
+
+	                if (!descriptiveText.getText().isEmpty()) {
+                        roomType.setDescription(descriptiveText.getText().get(0).getValue());
                     }
                 }
             }
         }
 	    
         if (hotelExtendedInformation != null &&
-                hotelExtendedInformation.getFacilityInfo() != null &&
-                hotelExtendedInformation.getFacilityInfo().getRestaurants() != null) {
+                hotelExtendedInformation.getFacilityInfo() != null) {
 
-            ArrayOfRestaurantsTypeRestaurant restaurants = hotelExtendedInformation.getFacilityInfo().getRestaurants();
+	        List<RestaurantsTypeRestaurant> restaurants = hotelExtendedInformation.getFacilityInfo().getRestaurants();
 
-            List<Restaurants> restaurant_list = new ArrayList<Restaurants>();
-            response.setRestaurantsList(restaurant_list);
-
-            for (RestaurantsTypeRestaurant restaurant : restaurants.getRestaurant()) {
+	        for (RestaurantsTypeRestaurant restaurant : restaurants) {
 
                 Restaurants restaurant_item = new Restaurants();
-                restaurant_list.add(restaurant_item);
+                response.getRestaurantsList().add(restaurant_item);
                 restaurant_item.setName(restaurant.getRestaurantName());
 
-	            ArrayOfRestaurantsTypeRestaurantCuisine cuisines = restaurant.getCuisines();
-	            if (cuisines != null) {
-                    String cuisine_all = "";
-                    for (RestaurantsTypeRestaurantCuisine cuisine : cuisines.getCuisine()) {
-                        if (!cuisine_all.equals("")) {
-                            cuisine_all += "|";
-                        }
-                        cuisine_all += cuisine.getDescription();
+		        List<RestaurantsTypeRestaurantCuisine> cuisines = restaurant.getCuisines();
+                String cuisine_all = "";
+                for (RestaurantsTypeRestaurantCuisine cuisine : cuisines) {
+                    if (!cuisine_all.equals("")) {
+                        cuisine_all += "|";
                     }
-                    restaurant_item.setCuisine(cuisine_all);
+                    cuisine_all += cuisine.getDescription();
                 }
+                restaurant_item.setCuisine(cuisine_all);
 
-                Paragraph[] description = restaurant.getRestaurantDescription();
-                if (description != null && description.length > 0) {
-                    Paragraph paragraph = description[0];
-                    if (paragraph != null) {
-	                    ParagraphChoice_type0[] pchoice = paragraph.getParagraphChoice_type0();
-	                    if (pchoice != null && pchoice.length > 0) {
-		                    ParagraphChoice_type0 p1 = pchoice[0];
-		                    restaurant_item.setDescription(p1.getText().toString());
-                        }
+                List<Paragraph> description = restaurant.getRestaurantDescriptions();
+                if (!description.isEmpty()) {
+                    Paragraph paragraph = description.get(0);
+	                List<Text> textList = ParagraphHelper.getTextList(paragraph);
+
+	                if (!textList.isEmpty()) {
+	                    paragraph.getImagesAndURLSAndTexts().get(0);
+	                    restaurant_item.setDescription(textList.get(0).getValue());
                     }
                 }
             }
         }
 
-        response.setHotelName(hotelInformation1.getString());
-        ArrayOfPhone phones = hotelContactInformation.getContactPhones();
-        if (phones != null && phones.getPhone() != null) {
-            for (Phone phone : phones.getPhone()) {
-                if (phone.getPhoneChoice_type0() != null &&
-                        phone.getPhoneChoice_type0().getPhoneNumber() != null) {
-                    response.setContactPhones(phone.getPhoneChoice_type0().getPhoneNumber());
-                    break;
-                }
+        response.setHotelName(hotelInformation1.getValue());
+	    for (Phone phone : hotelContactInformation.getContactPhones()) {
+            if (phone.getPhoneNumber() != null) {
+                response.setContactPhones(phone.getPhoneNumber());
             }
         }
 
-	    ArrayOfEmail emails = hotelContactInformation.getContactEmails();
-	    if (emails != null && emails.getContactEmail() != null) {
-		    // TODO: This surely doesn't do what we want
-            for (Email email : emails.getContactEmail()) {
-                response.setContactEmails(email.getString());
-                break;
-            }
+        for (Email email : hotelContactInformation.getContactEmails()) {
+            response.setContactEmails(email.getValue());
+            break;
         }
 
-        ArrayOfAddress addresses = hotelContactInformation.getAddresses();
-        if (addresses != null && addresses.getAddress() != null && addresses.getAddress().length > 0) {
+        if (!hotelContactInformation.getAddresses().isEmpty()) {
             String addressLine = "";
-            Address address = addresses.getAddress()[0];
+            Address address = hotelContactInformation.getAddresses().get(0);
             if (address != null) {
 
-                if (address.getAddressLine() != null) {
-                    for (String line : address.getAddressLine()) {
-                        if (!addressLine.isEmpty()) {
-                            addressLine += "</br>";
-                        }
-                        addressLine += line;
+                for (String line : address.getAddressLines()) {
+                    if (!addressLine.isEmpty()) {
+                        addressLine += "</br>";
                     }
+                    addressLine += line;
                 }
-            response.setAddress(addressLine);
+
+	            response.setAddress(addressLine);
 
                 if (address.getCityName() != null) {
                     response.setCity(address.getCityName());
                 }
 
-                //TODO: Add State/Prov
                 if (address.getStateProv() != null) {
                     response.setState(address.getStateProv());
                 }

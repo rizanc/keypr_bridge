@@ -12,6 +12,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -141,6 +142,17 @@ public class AdapterUtility {
 		DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
 
 		return df.format(objCalendar.getTime());
+	}
+
+	/**
+	 *
+	 * @param date
+	 * @return
+	 */
+	public static String getDate(Date date) {
+		DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+
+		return df.format(date);
 	}
 
 }
