@@ -247,7 +247,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
                 response.setMembershipType(membership.getMembershipType());
                 response.setMembershipId(membership.getMembershipId());
                 response.setEffectiveDate(membership.getEffectiveDate());
-                response.setTotalPoints(Double.toString(membership.getCurrentPoints()));
+                response.setTotalPoints(membership.getCurrentPoints().toString());
                 response.setExpireDate(membership.getExpirationDate());
                     break;
                 }

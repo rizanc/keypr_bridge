@@ -14,6 +14,15 @@ public class RoomType {
 	private String description;
 	private String features;
 
+	public RoomType() {
+	}
+
+	public RoomType(String code, String description, String features) {
+		this.code = code;
+		this.description = description;
+		this.features = features;
+	}
+
 	// Getter and Setter.
 	public String getCode() {
 		

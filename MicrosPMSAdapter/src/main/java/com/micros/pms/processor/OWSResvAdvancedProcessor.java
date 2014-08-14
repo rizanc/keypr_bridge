@@ -141,7 +141,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             List<ReservationOrders> objReservationOrders = objFolioResponse.getReservationOrderList();
 
             if (objReservationOrders == null) {
-                objReservationOrders = new ArrayList<ReservationOrders>();
+                objReservationOrders = new ArrayList<>();
             }
 
             ReservationOrders objOrders = new ReservationOrders();
@@ -149,7 +149,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             List<OrderDetails> objDetails = objOrders.getOrderDetailList();
 
             if (objDetails == null) {
-                objDetails = new ArrayList<OrderDetails>();
+                objDetails = new ArrayList<>();
             }
 
             List<BillItem> arrBillItem = objBillHeader.getBillItems();
@@ -314,7 +314,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             }
             if (lastName != null) {
 
-                objStringBuffer.append(" " + lastName);
+                objStringBuffer.append(" ").append(lastName);
                 objReservation.setLastName(lastName);
             }
             objReservation.setFullName(objStringBuffer.toString());

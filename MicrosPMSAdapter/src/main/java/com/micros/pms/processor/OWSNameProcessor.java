@@ -3,12 +3,14 @@ package com.micros.pms.processor;
 import com.cloudkey.commons.Membership;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
-import com.cloudkey.pms.micros.og.name.*;
+import com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership;
+import com.cloudkey.pms.micros.og.name.NameLookupInput;
+import com.cloudkey.pms.micros.og.name.NameMembership;
+import com.cloudkey.pms.micros.og.name.Profile;
 import com.cloudkey.pms.micros.ows.name.FetchGuestCardListRequest;
 import com.cloudkey.pms.micros.ows.name.FetchGuestCardListResponse;
 import com.cloudkey.pms.micros.ows.name.NameLookupRequest;
 import com.cloudkey.pms.micros.ows.name.NameLookupResponse;
-import com.cloudkey.pms.micros.services.NameService;
 import com.cloudkey.pms.micros.services.NameServiceSoap;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
@@ -43,7 +45,7 @@ public class OWSNameProcessor extends OWSBase {
 
 	    GuestMembershipResponse response = new GuestMembershipResponse();
 
-        ArrayList<Membership> memberships = new ArrayList<Membership>();
+        ArrayList<Membership> memberships = new ArrayList<>();
         for (NameMembership nameMembership : objResponse.getGuestCardList()) {
 
             Membership membership = new Membership();
@@ -59,7 +61,7 @@ public class OWSNameProcessor extends OWSBase {
             membership.setEffectiveDate(nameMembership.getEffectiveDate());
             membership.setExpirationDate(nameMembership.getExpirationDate());
             membership.setExternalId(nameMembership.getExternalId());
-            membership.setOperaId(Long.toString(nameMembership.getOperaId()));
+            membership.setOperaId(nameMembership.getOperaId().toString());
         }
 
         if (!memberships.isEmpty()) {

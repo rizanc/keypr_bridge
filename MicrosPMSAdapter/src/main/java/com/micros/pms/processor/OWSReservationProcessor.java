@@ -18,6 +18,7 @@ import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
+import com.google.common.base.Joiner;
 import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
@@ -131,7 +132,6 @@ public class OWSReservationProcessor extends OWSBase {
 	 *
 	 * @param updateBookingRequest
 	 * @return
-	 * @throws AxisFault
 	 */
 	private ModifyBookingRequest getUpdateBookingRequestObject(UpdateBookingRequest updateBookingRequest) {
 
@@ -387,8 +387,6 @@ public class OWSReservationProcessor extends OWSBase {
 			objReservation = new Reservation();
 			objLReservations.add(objReservation);
 
-			StringBuilder objBuilder = new StringBuilder();
-
 			List<UniqueID> arrUniqueID = objHotelReservation.getUniqueIDList();
 
 			for (UniqueID objUniqueID : arrUniqueID) { // To traverse Unique Id list.
@@ -437,18 +435,7 @@ public class OWSReservationProcessor extends OWSBase {
 					lastName = objPersonName.getLastName();
 
 					if (firstName != null || lastName != null) {
-
-						if (firstName != null) {
-
-							objBuilder.append(firstName);
-							objReservation.setFirstName(firstName);
-						}
-						if (lastName != null) {
-
-							objBuilder.append(" ").append(lastName);
-							objReservation.setLastName(lastName);
-						}
-						objReservation.setFullName(objBuilder.toString());
+						objReservation.setFullName(Joiner.on(" ").skipNulls().join(firstName, lastName));
 
 						log.debug("getFutureBookingResponseObject: Full Name is set.");
 					}
@@ -532,7 +519,7 @@ public class OWSReservationProcessor extends OWSBase {
 						}
 					}
 
-					objBuilder = new StringBuilder();
+					StringBuilder objBuilder = new StringBuilder();
 					StringBuilder objStringBuilder2 = new StringBuilder();
 
 					for (RoomFeature objRFeature : objRType.getRoomFeatures()) {
@@ -577,7 +564,6 @@ public class OWSReservationProcessor extends OWSBase {
 
 				log.debug(
 					" getFutureBookingResponseObject ", "Notes are Set in response.");
-				objBuilder.setLength(0);
 
 				log.debug(
 					" getFutureBookingResponseObject ", "Exit Room Stay .");
