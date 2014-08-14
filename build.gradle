@@ -6,6 +6,7 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven'
+    apply plugin: 'idea'
 
     sourceCompatibility = '1.7'
     targetCompatibility = '1.7'
@@ -13,6 +14,12 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
+    }
+
+    idea {
+        module {
+            sourceDirs << "$projectDir/src/resources"
+        }
     }
 
     apply from: "$rootDir/dependencies.gradle", to: dependencies
