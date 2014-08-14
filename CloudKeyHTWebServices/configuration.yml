@@ -9,7 +9,9 @@ logging:
     com.sun.jersey.api.container.filter.LoggingFilter: INFO
 
     # Logs MICROS OWS SOAP requests and responses when DEBUG
-    httpclient.wire.content: DEBUG
+    org.apache.cxf: INFO
+    org.apache.cxf.services: INFO
+    org.apache.cxf.interceptor: INFO
 
   appenders:
     - type: file

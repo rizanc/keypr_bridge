@@ -7,10 +7,13 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.jaxws.JaxWsClientFactoryBean;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.interceptor.LoggingInInterceptor;
+import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.ws.BindingProvider;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -29,6 +32,20 @@ public class OWSSupportModule extends AbstractModule {
 		GuiceUtils.bindProperties(binder(), getClass().getResourceAsStream("ows.properties"));
 	}
 
+	private <T> T configureService(T soap, URL url) {
+		// Add in/out interceptors to the client to log the SOAP requests and responses
+		Client client = ClientProxy.getClient(soap);
+		client.getInInterceptors().add(new LoggingInInterceptor());
+		client.getOutInterceptors().add(new LoggingOutInterceptor());
+
+		// The WSDL may not point to the correct service port.
+		// demoserver3's wsdls, for example, pointed at port 4301 instead of 4300, which was false.
+		BindingProvider bindingProvider = (BindingProvider) soap;
+		bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url.toString());
+
+		return soap;
+	}
+
 	@Provides
 	@Singleton
 	public AvailabilityServiceSoap provideAvailabilityService(
@@ -36,7 +53,10 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.availability.path") String servicePath
 	) {
 		try {
-			return new AvailabilityService(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getAvailabilityServiceSoap12();
+			return configureService(
+				new AvailabilityService().getAvailabilityServiceSoap12(),
+				new URL(new URL(targetEndpoint), servicePath)
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +71,9 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.information.path") String servicePath
 	) {
 		try {
-			return new Information(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getInformationSoap12();
+			return configureService(
+				new Information().getInformationSoap12(),
+				new URL(new URL(targetEndpoint), servicePath));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -66,7 +88,10 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.meetingroom.path") String servicePath
 	) {
 		try {
-			return new MeetingRoomService(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getMeetingRoomServiceSoap12();
+			return configureService(
+				new MeetingRoomService().getMeetingRoomServiceSoap12(), 
+				new URL(new URL(targetEndpoint), servicePath)
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +106,10 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.membership.path") String servicePath
 	) {
 		try {
-			return new MembershipService(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getMembershipServiceSoap12();
+			return configureService(
+				new MembershipService().getMembershipServiceSoap12(),
+				new URL(new URL(targetEndpoint), servicePath)
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -96,7 +124,10 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.name.path") String servicePath
 	) {
 		try {
-			return new NameService(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getNameServiceSoap12();
+			return configureService(
+				new NameService().getNameServiceSoap12(),
+				new URL(new URL(targetEndpoint), servicePath)
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -111,7 +142,10 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.reservation.path") String servicePath
 	) {
 		try {
-			return new ReservationService(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getReservationServiceSoap12();
+			return configureService(
+				new ReservationService().getReservationServiceSoap12(),
+				new URL(new URL(targetEndpoint), servicePath)
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +160,10 @@ public class OWSSupportModule extends AbstractModule {
 		@Named("keypr.bridge.micros.ows.resvadvanced.path") String servicePath
 	) {
 		try {
-			return new ResvAdvancedService(new URL(targetEndpoint + "/" + servicePath + "?wsdl")).getResvAdvancedServiceSoap12();
+			return configureService(
+				new ResvAdvancedService().getResvAdvancedServiceSoap12(),
+				new URL(new URL(targetEndpoint), servicePath)
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
