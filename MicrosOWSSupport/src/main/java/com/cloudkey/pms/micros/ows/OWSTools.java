@@ -124,9 +124,9 @@ public class OWSTools {
 		String message = "";
 
 		if (resultStatus instanceof GDSResultStatus && ((GDSResultStatus) resultStatus).getGDSError() != null) {
-			message = ((GDSResultStatus) resultStatus).getGDSError().toString();
+			message = ((GDSResultStatus) resultStatus).getGDSError().getValue();
 		} else if (resultStatus.getText() != null && !resultStatus.getText().isEmpty()) {
-			message = resultStatus.getText().iterator().next().toString();
+			message = resultStatus.getText().iterator().next().getValue();
 		}
 
 		return message;
