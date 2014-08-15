@@ -6,6 +6,7 @@
 /.idea
 intellij/
 intellij_project_settings/
+/logs
 
 *.swp
 test*.xml
