@@ -79,10 +79,10 @@ public interface IParserInterface {
      * It uses confirmation number and notes details of the guest for making request. It returns
      * guest reservation detail as response.
      *
-     * @param upBookingRequest
+     * @param request
      * @return UpdateBookingResponse
      */
-    UpdateBookingResponse updateBooking(UpdateBookingRequest upBookingRequest) throws PMSInterfaceException;
+    AddReservationNotesResponse addReservationNotes(AddReservationNotesRequest request) throws PMSInterfaceException;
 
 	/**
 	 * Adds charges to a guest account

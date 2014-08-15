@@ -2,10 +2,7 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
-import com.cloudkey.pms.micros.og.common.Membership;
-import com.cloudkey.pms.micros.og.common.PersonName;
-import com.cloudkey.pms.micros.og.common.UniqueID;
-import com.cloudkey.pms.micros.og.common.UniqueIDType;
+import com.cloudkey.pms.micros.og.common.*;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.og.reservation.ExternalReference;
@@ -15,19 +12,22 @@ import com.cloudkey.pms.micros.og.reservation.ResGuest;
 import com.cloudkey.pms.micros.ows.reservation.*;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
 import com.cloudkey.pms.request.reservations.SearchReservationRequest;
-import com.cloudkey.pms.request.reservations.UpdateBookingRequest;
+import com.cloudkey.pms.request.reservations.AddReservationNotesRequest;
+import com.cloudkey.pms.response.reservations.AddReservationNotesResponse;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
-import com.cloudkey.pms.response.reservations.UpdateBookingResponse;
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.ParagraphHelper;
 
+import javax.annotation.Nullable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -93,87 +93,52 @@ public class OWSReservationProcessor extends OWSBase {
 		return getReleaseRoomResponseObject(response);
 	}
 
-	public com.cloudkey.pms.response.reservations.UpdateBookingResponse processUpdateBooking(com.cloudkey.pms.request.reservations.UpdateBookingRequest updateBookingRequest) throws RemoteException {
+	public AddReservationNotesResponse processAddNotes(AddReservationNotesRequest addReservationNotesRequest) throws RemoteException {
 
-		log.debug("processUpdateBooking: Enter method");
+//		log.debug("processAddNotes: Enter method");
 
-		ModifyBookingRequest req =
-			getUpdateBookingRequestObject(updateBookingRequest);
+		GuestRequestsRequest microsReq = new GuestRequestsRequest()
+			.withHotelReference(getDefaultHotelReference())
+			.withActionType(RequestActionType.ADD)
+			.withResvNameId(internalReservationId(addReservationNotesRequest.getPmsReservationId()))
+			.withRequestType("COMMENTS")
+			.withGuestRequests(new GuestRequests().withComments(
+				Lists.transform(addReservationNotesRequest.getNotes(), new Function<String, ReservationComment>() {
+					@Nullable
+					@Override
+					public ReservationComment apply(@Nullable String s) {
+						return new ReservationComment()
+							.withImagesAndURLSAndTexts(ParagraphHelper.createParagraph(s))
+							.withGuestViewable(false);
+					}
+				})));
 
-		log.debug("processUpdateBooking",
-			AdapterUtility.convertToStreamXML(req));
-		ModifyBookingResponse response = service.modifyBooking(req, createOGHeaderE());
-		log.debug("processUpdateBooking",
-			AdapterUtility.convertToStreamXML(response));
+//				log.debug("processAddNotes",
+//					AdapterUtility.convertToStreamXML(microsReq));
+		GuestRequestsResponse response = service.guestRequests(microsReq, createOGHeaderE());
+//		log.debug("processAddNotes",
+//			AdapterUtility.convertToStreamXML(response));
 
 		errorIfFailure(response.getResult());
 
-		return getUpdateBookingResponseObject(response);
-
-	}
-
-	/**
-	 * @param objResponse
-	 * @return UpdateBookingResponse
-	 */
-	private UpdateBookingResponse getUpdateBookingResponseObject(ModifyBookingResponse objResponse) {
-		log.debug("getUpdateBookingResponseObject: Enter getUpdateBookingResponseObject method ");
-
-		UpdateBookingResponse objUpdateBookingResponse = new UpdateBookingResponse();
-
-		log.debug("getUpdateBookingResponseObject: Exit  getUpdateBookingResponseObject method ");
-
-		return objUpdateBookingResponse;
-	}
-
-	/**
-	 * This method is used to make the request for update the booking (pre -
-	 * checkin.
-	 *
-	 * @param updateBookingRequest
-	 * @return
-	 */
-	private ModifyBookingRequest getUpdateBookingRequestObject(UpdateBookingRequest updateBookingRequest) {
-
-		log.debug("getUpdateBookingRequestObject: Enter getUpdateBookingRequestObject method ");
-
-		/* To set the request parameters. */
-		ModifyBookingRequest objModifyBookingRequest = new ModifyBookingRequest();
-
-		HotelReference objHotelReference = getDefaultHotelReference();
-
-		HotelReservation hotelReservation = new HotelReservation();
-		objModifyBookingRequest.setHotelReservation(hotelReservation);
-
-		hotelReservation.setUniqueIDList(Arrays.asList(internalReservationId(updateBookingRequest.getPmsReservationId())));
-
-		RoomStay roomStay = new RoomStay();
-		hotelReservation.getRoomStays().add(roomStay);
-
-		roomStay.setHotelReference(objHotelReference);
-
-		if (updateBookingRequest.getNotes() != null && !updateBookingRequest.getNotes().isEmpty()) {
-			// Update Comments
-			List<ReservationComment> comments = roomStay.getComments();
-
-			for (String commentValue : updateBookingRequest.getNotes()) {
-				ReservationComment comment = new ReservationComment();
-				comments.add(comment);
-				comment.setCommentType("RESERVATION");
-				comment.setGuestViewable(false);
-
-				if (entityId != null && !entityId.isEmpty()) {
-					comment.setCommentOriginatorCode(entityId);
-				}
-
-				comment.getImagesAndURLSAndTexts().add(
-					ParagraphHelper.createParagraph(commentValue)
-				);
-			}
-		}
-
-		log.debug("getUpdateBookingRequestObject: Exit getUpdateBookingRequestObject method: {}", objModifyBookingRequest);
-		return objModifyBookingRequest;
+		return new AddReservationNotesResponse(
+			FluentIterable.from(response.getGuestRequests().getComments())
+				.transformAndConcat(new Function<ReservationComment, List<Text>>() {
+					@Nullable
+					@Override
+					public List<Text> apply(@Nullable ReservationComment reservationComment) {
+						return ParagraphHelper.getTextList(reservationComment);
+					}
+				})
+				.transform(new Function<Text, String>() {
+					@Nullable
+					@Override
+					public String apply(@Nullable Text text) {
+						return text.getValue();
+					}
+				})
+				.toList()
+		);
 	}
 
 	private com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse getReleaseRoomResponseObject(ReleaseRoomResponse objReleaseRoomResponse) {

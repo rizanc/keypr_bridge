@@ -128,15 +128,15 @@ public class ReservationsResource extends AbstractResource {
     @POST
     @ApiOperation(
         value = "Adds staff-viewable notes to a reservation",
-        response = UpdateBookingResponse.class
+        response = AddReservationNotesResponse.class
     )
     @ApiResponses({
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public UpdateBookingResponse updateBookingRequest(@Valid UpdateBookingRequest request) {
-        return messageParser.updateBooking(request);
+    public AddReservationNotesResponse updateBookingRequest(@Valid AddReservationNotesRequest request) {
+        return messageParser.addReservationNotes(request);
     }
 
 //    @Path("/folio/pay")

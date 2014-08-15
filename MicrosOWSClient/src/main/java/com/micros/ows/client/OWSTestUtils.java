@@ -135,10 +135,10 @@ public class OWSTestUtils {
         //owsReservationProcessor.fetchBooking("11900");
 
         List<String> notes = Arrays.asList("Comment 1", "Comment 2", "Comment 3");
-        UpdateBookingRequest updateBookingRequest = new UpdateBookingRequest(PMS_RESERVATION_ID, notes);
+        AddReservationNotesRequest addReservationNotesRequest = new AddReservationNotesRequest(PMS_RESERVATION_ID, notes);
 
         try {
-            owsReservationProcessor.processUpdateBooking(updateBookingRequest);
+            owsReservationProcessor.processAddNotes(addReservationNotesRequest);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

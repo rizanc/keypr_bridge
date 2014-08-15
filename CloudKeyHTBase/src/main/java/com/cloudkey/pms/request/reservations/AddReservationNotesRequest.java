@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author vinayk2
  */
-public class UpdateBookingRequest {
+public class AddReservationNotesRequest {
 
     @NotBlank
     @ApiModelProperty(required = true)
@@ -26,9 +26,9 @@ public class UpdateBookingRequest {
     @ApiModelProperty(required = true)
     private List<String> notes = Lists.newArrayList();
 
-	protected UpdateBookingRequest() { /* For serialization */ }
+	protected AddReservationNotesRequest() { /* For serialization */ }
 
-	public UpdateBookingRequest(String pmsReservationId, List<String> notes) {
+	public AddReservationNotesRequest(String pmsReservationId, List<String> notes) {
         this.pmsReservationId = pmsReservationId;
         this.notes.addAll(notes);
     }

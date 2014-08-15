@@ -109,11 +109,11 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     }
 
     @Override
-    public UpdateBookingResponse updateBooking(UpdateBookingRequest updateBookingRequest) throws PMSInterfaceException {
-        log.debug("updateBooking: Enter method.");
+    public AddReservationNotesResponse addReservationNotes(AddReservationNotesRequest request) throws PMSInterfaceException {
+        log.debug("addReservationNotes: Enter method.");
 
         try {
-            return reservationProcessor.processUpdateBooking(updateBookingRequest);
+            return reservationProcessor.processAddNotes(request);
         } catch (RemoteException e) {
             throw new PMSInterfaceException(e);
         }
