@@ -39,7 +39,7 @@
         </jaxb:bindings>
 
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile.version3"/>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile_3_0"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
@@ -55,7 +55,23 @@
         </jaxb:bindings>
 
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile"/>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile_4_0"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/profile.fidelio.5.0.xsd">
+        <!-- See MicrosIds#PhoneNumberType -->
+        <jaxb:bindings node="//xs:simpleType [@name='phoneNumberType']">
+            <jaxb:typesafeEnumClass map="false" />
+        </jaxb:bindings>
+
+        <!-- See MicrosIds#AddressType -->
+        <jaxb:bindings node="//xs:simpleType [@name='addressType']">
+            <jaxb:typesafeEnumClass map="false" />
+        </jaxb:bindings>
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile_5_0"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
@@ -71,9 +87,15 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
-    <jaxb:bindings schemaLocation="../xsd/reservation.fidelio.4.0.xsd">
+    <jaxb:bindings schemaLocation="../xsd/reservation.fidelio.5.0.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.reservation"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/ecertificate.fidelio.1.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.ecertificate"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 

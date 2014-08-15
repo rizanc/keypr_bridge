@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="profile.fidelio.5.0" xmlns="profile.fidelio.5.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:udf="udf.fidelio.2.0" xmlns:udfdefinition="udfdefinition.fidelio.2.0" xmlns:relationship="relationship.fidelio.3.0" xmlns:ecertificate="ecertificate.fidelio.1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="udf.fidelio.2.0" schemaLocation="udf.fidelio.2.0.xsd"/>
+	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="udfdefinition.fidelio.2.0.xsd"/>
+	<xs:import namespace="relationship.fidelio.3.0" schemaLocation="relationship.fidelio.3.0.xsd"/>
+	<xs:import namespace="ecertificate.fidelio.1.0" schemaLocation="ecertificate.fidelio.1.0.xsd"/>
+	<xs:element name="Profile" type = "Profile">
+		<xs:annotation>
+			<xs:documentation>Profile schema</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CreditCard" type = "CreditCard"/>
+	<xs:complexType name="Profile">
+		<xs:sequence>
+			<xs:element name="profileID" type="xs:string" minOccurs="0"/>
+			<xs:element name="creatorCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="createdDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="lastUpdaterCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="lastUpdated" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="consortiumCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="commissionPlanCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfCommissionCurrencyCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="preferredRatePlanCode" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="preferredRoomType" type="xs:string" minOccurs="0"/>
+			<xs:element name="genericName" type="xs:string" minOccurs="0"/>
+			<xs:element name="IndividualName" type="IndividualName"/>
+			<xs:element name="corporatePosition" type="xs:string" minOccurs="0"/>
+			<xs:element name="pin" type="xs:string" minOccurs="0"/>
+			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0"/>
+			<xs:element name="expirationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="CreditLimit" type="CreditLimit" minOccurs="0"/>
+			<xs:element name="primaryLanguageID" type="xs:string" minOccurs="0"/>
+			<xs:element name="alternateLanguageIDs" type="xs:string" minOccurs="0"/>
+			<xs:element name="Documents" type="Documents" minOccurs="0"/>
+			<xs:element name="CreditCards" type="CreditCards" minOccurs="0"/>
+			<xs:element name="ElectronicAddresses" type="ElectronicAddresses" minOccurs="0"/>
+			<xs:element name="Memberships" type="Memberships" minOccurs="0"/>
+			<xs:element name="PostalAddresses" type="PostalAddresses" minOccurs="0"/>
+			<xs:element name="PhoneNumbers" type="PhoneNumbers" minOccurs="0"/>
+			<xs:element name="ProfileCertifications" type="ProfileCertifications" minOccurs="0"/>
+			<xs:element name="SpecialRequests" type="SpecialRequests" minOccurs="0"/>
+			<xs:element name="Comments" type="Comments" minOccurs="0"/>
+			<xs:element name="mfResort" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfResortProfileID" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfNameCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfVipStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfARNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfMasterAccount" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfBlacklist" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfBlacklistMessage" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfOccupation" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfContactLast" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfContactFirst" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAllowMail" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAllowEMail" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfGuestPriv" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfLookupTranId" type="xs:string" minOccurs="0"/>
+			<xs:element name="Udfs" type="Udfs" minOccurs="0"/>
+			<xs:element name="mfNationalName" type="mfNationalName" minOccurs="0"/>
+			<xs:element name="mfNegotiatedRates" type="mfNegotiatedRates" minOccurs="0"/>
+			<xs:element name="mfContactYn" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfExternalLanguage" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfContactAccount" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAllowPhone" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowSMS" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="YieldAdjustments" type="YieldAdjustments" minOccurs="0"/>
+			<xs:element name="Relationships" type="Relationships" minOccurs="0"/>
+			<xs:element name="mfNameCodeType" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfCreditRating" type="xs:string" minOccurs="0"/>
+			<xs:element name="Keywords" type="Keywords" minOccurs="0"/>
+			<xs:element name="MergedIDs" type="MergedIDs" minOccurs="0"/>
+			<xs:element name="SalesExtention" type="SalesExtention" minOccurs="0"/>
+			<xs:element name="PrivacyOption" type="PrivacyOption" minOccurs="0"/>
+			<xs:element name="ChannelAccessCodes" type="ChannelAccessCodes" minOccurs="0"/>
+			<xs:element name="ResortData" type="ResortData" minOccurs="0"/>
+			<xs:element name="PseudoCityCodes" type="PseudoCityCodes" minOccurs="0"/>
+			<xs:element name="ProfRoutingInstructions" type="ProfRoutingInstructions" minOccurs="0"/>
+			<xs:element name="sfaAttachments" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="department" type="xs:string" minOccurs="0"/>
+			<xs:element name="DepartmentNotes" type="DepartmentNotes" minOccurs="0"/>
+			<xs:element name="ResortList" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="MultiResortEntities" type="MultiResortEntities" minOccurs="0"/>
+			<xs:element name="ResortComments" type="ResortComments" minOccurs="0"/>
+			<xs:element name="ResortSpecialRequests" type="ResortSpecialRequests" minOccurs="0"/>
+			<xs:element name="WebAccounts" type="WebAccounts" minOccurs="0"/>
+			<xs:element name="ProfileCertificates" type="ProfileCertificates" minOccurs="0"/>
+			<xs:element name="ProfileGuests" type="ProfileGuests" minOccurs="0"/>
+			<xs:element name="ResortARs" type="ResortARs" minOccurs="0"/>
+			<xs:element name="ResortNegotiatedRates" type="ResortNegotiatedRates" minOccurs="0"/>
+			<xs:element name="ProfileHosts" type="ProfileHosts" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="profileType" type="profileType" use="optional" default="GUEST"/>
+		<xs:attribute name="gender" type="gender" use="optional" default="UNKNOWN"/>
+		<xs:attribute name="multiProperty" type="xs:boolean" use="optional" default="0"/>
+		<xs:attribute name="miniProfile" type="xs:boolean" use="optional" default="0"/>
+		<xs:attribute name="pseudoProfile" type="xs:boolean" use="optional" default="0"/>
+		<xs:attribute name="protectedBy" type="xs:string" use="optional"/>
+		<xs:attribute name="replaceAddress" type="xs:boolean" use="optional" default="0"/>
+	</xs:complexType>
+	<xs:simpleType name="profileType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="GUEST"/>
+			<xs:enumeration value="CORPORATE"/>
+			<xs:enumeration value="TRAVEL"/>
+			<xs:enumeration value="WHOLESALER"/>
+			<xs:enumeration value="GROUP"/>
+			<xs:enumeration value="TOUR"/>
+			<xs:enumeration value="CRO"/>
+			<xs:enumeration value="CONTACT"/>
+			<xs:enumeration value="AIRLINE"/>
+			<xs:enumeration value="REPCOMPANY"/>
+			<xs:enumeration value="INTERNET"/>
+			<xs:enumeration value="HOTEL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="gender">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UNKNOWN"/>
+			<xs:enumeration value="MALE"/>
+			<xs:enumeration value="FEMALE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="IndividualName">
+		<xs:sequence>
+			<xs:element name="namePrefix" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameFirst" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameMiddle" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameSur" type="xs:string"/>
+			<xs:element name="nameSuffix" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameTitle" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameOrdered" type="xs:string" minOccurs="0"/>
+			<xs:element name="name2" type="xs:string" minOccurs="0"/>
+			<xs:element name="name3" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreditLimit">
+		<xs:sequence>
+			<xs:element name="valueNum" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="currencyCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="fixed144">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="14"/>
+			<xs:fractionDigits value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Documents">
+		<xs:sequence>
+			<xs:element name="Document" type="Document" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Document">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="0"/>
+			<xs:element name="docNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="countryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="nationality" type="xs:string" minOccurs="0"/>
+			<xs:element name="effectiveDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="expirationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="documentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="placeOfIssue" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfPlaceOfBirth" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="CreditCards">
+		<xs:sequence>
+			<xs:element name="CreditCard" type="CreditCard" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreditCard">
+		<xs:sequence>
+			<xs:element name="creditCardCode" type="xs:string"/>
+			<xs:element name="creditCardHolderName" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditCardNumber" type="xs:string"/>
+			<xs:element name="creditCardBeginDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="creditCardExpire" type="xs:date" minOccurs="0"/>
+			<xs:element name="mfPrimaryYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditCardVault" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditCardUniqueId" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditCardFourDigits" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditCardOperaId" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditCardOperaEncryptedNo" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ElectronicAddresses">
+		<xs:sequence>
+			<xs:element name="ElectronicAddress" type="ElectronicAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ElectronicAddress">
+		<xs:sequence>
+			<xs:element name="eAddress" type="xs:string"/>
+			<xs:element name="mfPrimaryYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="confirmation" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="electronicAddressType" type="electronicAddressType" use="required"/>
+		<xs:attribute name="communicationRPH" type="xs:unsignedInt" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="electronicAddressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EMAIL"/>
+			<xs:enumeration value="PAGER"/>
+			<xs:enumeration value="WEBPAGE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Memberships">
+		<xs:sequence>
+			<xs:element name="Membership" type="Membership" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Membership">
+		<xs:sequence>
+			<xs:element name="programCode" type="xs:string"/>
+			<xs:element name="accountID" type="xs:string"/>
+			<xs:element name="levelCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="membershipCategoryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="expireDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="startDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="mfPrimaryAirlineYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAwardAvailable" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfAwardCredits" type="xs:int" minOccurs="0"/>
+			<xs:element name="mfTotalStays" type="xs:int" minOccurs="0"/>
+			<xs:element name="nameOnCard" type="xs:string" minOccurs="0"/>
+			<xs:element name="membershipStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="displaySequence" type="xs:int" minOccurs="0"/>
+			<xs:element name="enrollmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="pointIndicator" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="enrollmentSource" type="xs:string" minOccurs="0"/>
+			<xs:element name="enrolledAt" type="xs:string" minOccurs="0"/>
+			<xs:element name="deviceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="deviceDisableDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="deviceType" type="xs:string" minOccurs="0"/>
+			<xs:element name="rankValue" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="PostalAddresses">
+		<xs:sequence>
+			<xs:element name="PostalAddress" type="PostalAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PostalAddress">
+		<xs:sequence>
+			<xs:element name="address1" type="xs:string" minOccurs="0"/>
+			<xs:element name="address2" type="xs:string" minOccurs="0"/>
+			<xs:element name="address3" type="xs:string" minOccurs="0"/>
+			<xs:element name="address4" type="xs:string" minOccurs="0"/>
+			<xs:element name="city" type="xs:string" minOccurs="0"/>
+			<xs:element name="stateCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="postalCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="countryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfPrimaryYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAddressLanguage" type="xs:string" minOccurs="0"/>
+			<xs:element name="cleansed" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="postalCodeExt" type="xs:string" minOccurs="0"/>
+			<xs:element name="barCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="addressType" type="addressType" use="optional" default="HOME"/>
+		<xs:attribute name="addressRPH" type="xs:unsignedInt" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="addressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HOME"/>
+			<xs:enumeration value="BUSINESS"/>
+			<xs:enumeration value="MAILING"/>
+			<xs:enumeration value="SHIPPING"/>
+			<xs:enumeration value="BILLING"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PhoneNumbers">
+		<xs:sequence>
+			<xs:element name="PhoneNumber" type="PhoneNumber" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PhoneNumber">
+		<xs:sequence>
+			<xs:element name="countryAccessNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="cityCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="phoneNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="phoneExtension" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfPrimaryYN" type="xs:string" minOccurs="0"/>
+			<xs:element name="confirmation" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="phoneNumberType" type="phoneNumberType" use="optional" default="HOME"/>
+		<xs:attribute name="communicationRPH" type="xs:unsignedInt" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="phoneNumberType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OTHER"/>
+			<xs:enumeration value="HOME"/>
+			<xs:enumeration value="BUSINESS"/>
+			<xs:enumeration value="MOBILE"/>
+			<xs:enumeration value="HOMEFAX"/>
+			<xs:enumeration value="BUSINESSFAX"/>
+			<xs:enumeration value="PAGER"/>
+			<xs:enumeration value="TELEX"/>
+			<xs:enumeration value="TTY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProfileCertifications">
+		<xs:sequence>
+			<xs:element name="ProfileCertification" type="ProfileCertification" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileCertification">
+		<xs:sequence>
+			<xs:element name="certificationID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="certificationType" type="certificationType" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="certificationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IATA"/>
+			<xs:enumeration value="ARC"/>
+			<xs:enumeration value="OTHER"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SpecialRequests">
+		<xs:sequence>
+			<xs:element name="SpecialRequest" type="SpecialRequest" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpecialRequest">
+		<xs:sequence>
+			<xs:element name="specialRequestRPH" type="xs:int" minOccurs="0"/>
+			<xs:element name="requestCode" type="xs:string"/>
+			<xs:element name="requestComments" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfResort" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="reservationActionType" type="reservationActionType" use="optional"/>
+		<xs:attribute name="mfSpecialRequestType" type="mfSpecialRequestType" use="optional" default="FEA"/>
+	</xs:complexType>
+	<xs:simpleType name="reservationActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA"/>
+			<xs:enumeration value="NEW"/>
+			<xs:enumeration value="CHANGE"/>
+			<xs:enumeration value="DELETE"/>
+			<xs:enumeration value="SYNC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mfSpecialRequestType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPE"/>
+			<xs:enumeration value="FEA"/>
+			<xs:enumeration value="INT"/>
+			<xs:enumeration value="PRS"/>
+			<xs:enumeration value="PRV"/>
+			<xs:enumeration value="NEW"/>
+			<xs:enumeration value="RES"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Comments">
+		<xs:sequence>
+			<xs:element name="Comment" type="Comment" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Comment">
+		<xs:sequence>
+			<xs:element name="commentOriginatorCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="guestViewable" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="lastUpdated" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="commentStr" type="xs:string"/>
+			<xs:element name="commentType" type="xs:string" minOccurs="0"/>
+			<xs:element name="commentTitle" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Udfs">
+		<xs:sequence>
+			<xs:element ref="udf:Udf" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mfNationalName">
+		<xs:sequence>
+			<xs:element name="nameLast" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameFirst" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameTitle" type="xs:string" minOccurs="0"/>
+			<xs:element name="greeting" type="xs:string" minOccurs="0"/>
+			<xs:element name="companyName" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mfNegotiatedRates">
+		<xs:sequence>
+			<xs:element name="NegotiatedRate" type="NegotiatedRate" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NegotiatedRate">
+		<xs:sequence>
+			<xs:element name="mfResort" type="xs:string"/>
+			<xs:element name="rateCode" type="xs:string"/>
+			<xs:element name="rateBeginDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="rateEndDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="commissionPlanCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="YieldAdjustments">
+		<xs:sequence>
+			<xs:element name="Adjustment" type="Adjustment" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Adjustment">
+		<xs:sequence>
+			<xs:element name="adjustmentCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="AdjustmentAmount" type="AdjustmentAmount" minOccurs="0"/>
+			<xs:element name="mfResort" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdjustmentAmount">
+		<xs:sequence>
+			<xs:element name="valueNum" type="fixed144" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="currencyCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Relationships">
+		<xs:sequence>
+			<xs:element ref="relationship:Relationship" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Keywords">
+		<xs:sequence>
+			<xs:element name="Keyword" type="Keyword" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Keyword">
+		<xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="optional"/>
+		<xs:attribute name="action" type="action" use="required"/>
+		<xs:attribute name="allowUserUpdate" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="action">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KEEP"/>
+			<xs:enumeration value="DELETE"/>
+			<xs:enumeration value="UPDATE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MergedIDs">
+		<xs:sequence>
+			<xs:element name="MergedID" type="MergedID" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MergedID">
+		<xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="destinationProfileID" type="xs:string" use="required"/>
+		<xs:attribute name="sourceProfileID" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="SalesExtention">
+		<xs:sequence>
+			<xs:element name="priorityCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="roomsPotential" type="xs:string" minOccurs="0"/>
+			<xs:element name="scope" type="xs:string" minOccurs="0"/>
+			<xs:element name="scopeCity" type="xs:string" minOccurs="0"/>
+			<xs:element name="actionCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="businessSegment" type="xs:string" minOccurs="0"/>
+			<xs:element name="accountType" type="xs:string" minOccurs="0"/>
+			<xs:element name="source" type="xs:string" minOccurs="0"/>
+			<xs:element name="industryCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="competitionCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="influenceCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="territory" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrivacyOption">
+		<xs:sequence>
+			<xs:element name="mfAllowMail" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAllowEMail" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfAllowPhone" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowSMS" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowHistory" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowMarketResearch" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowThirdParty" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowPromotion" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="mfAllowLoyaltyProgram" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChannelAccessCodes">
+		<xs:sequence>
+			<xs:element name="ChannelAccessCode" type="ChannelAccessCode" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChannelAccessCode">
+		<xs:sequence>
+			<xs:element name="rateCode" type="xs:string"/>
+			<xs:element name="channelCode" type="xs:string"/>
+			<xs:element name="accessCode" type="xs:string"/>
+			<xs:element name="accessChannelCode" type="xs:string"/>
+			<xs:element name="ResortList" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="mfAllResorts" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ResortData">
+		<xs:sequence>
+			<xs:element name="ResortDatum" type="ResortDatum" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResortDatum">
+		<xs:sequence>
+			<xs:element name="mfResort" type="xs:string"/>
+			<xs:element name="mfARNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="paymentMethod" type="xs:string" minOccurs="0"/>
+			<xs:element name="sfaAttachments" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PseudoCityCodes">
+		<xs:sequence>
+			<xs:element name="PseudoCityCode" type="PseudoCityCode" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PseudoCityCode">
+		<xs:sequence>
+			<xs:element name="channelCode" type="xs:string"/>
+			<xs:element name="pcCode" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ProfRoutingInstructions">
+		<xs:sequence>
+			<xs:element name="ProfRoutingInstruction" type="ProfRoutingInstruction" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfRoutingInstruction">
+		<xs:sequence>
+			<xs:element name="mfResort" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="transactionCode" type="xs:string" use="optional"/>
+		<xs:attribute name="routingCode" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="DepartmentNotes">
+		<xs:sequence>
+			<xs:element name="DepartmentNote" type="DepartmentNote" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DepartmentNote">
+		<xs:sequence>
+			<xs:element name="noteCode" type="xs:string"/>
+			<xs:element name="shortNote" type="xs:string"/>
+			<xs:element name="updatedByResort" type="xs:string"/>
+			<xs:element name="approvalDate" type="xs:dateTime"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="MultiResortEntities">
+		<xs:sequence>
+			<xs:element name="MultiResortEntity" type="MultiResortEntity" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MultiResortEntity">
+		<xs:sequence>
+			<xs:element name="entity" type="xs:string"/>
+		</xs:sequence>
+		<xs:attribute name="included" type="xs:boolean" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ResortComments">
+		<xs:sequence>
+			<xs:element name="ResortComment" type="ResortComment" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResortComment">
+		<xs:sequence>
+			<xs:element name="mfResort" type="xs:string" minOccurs="0"/>
+			<xs:element name="Comment" type="Comment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResortSpecialRequests">
+		<xs:sequence>
+			<xs:element name="SpecialRequest" type="SpecialRequest" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WebAccounts">
+		<xs:sequence>
+			<xs:element name="WebAccount" type="WebAccount" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WebAccount">
+		<xs:sequence>
+			<xs:element name="loginName" type="xs:string"/>
+			<xs:element name="password" type="xs:string"/>
+			<xs:element name="secQuestion" type="xs:string" minOccurs="0"/>
+			<xs:element name="secAnswer" type="xs:string" minOccurs="0"/>
+			<xs:element name="lastLoginDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="insertSource" type="xs:string" minOccurs="0"/>
+			<xs:element name="comments" type="xs:string" minOccurs="0"/>
+			<xs:element name="passwordChangeDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="pwdSystemGenerated" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="accountLocked" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ProfileCertificates">
+		<xs:sequence>
+			<xs:element ref="ecertificate:ECertificate" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileGuests">
+		<xs:sequence>
+			<xs:element name="ProfileGuest" type="ProfileGuest" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileGuest">
+		<xs:sequence>
+			<xs:element name="nameLast" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameFirst" type="xs:string" minOccurs="0"/>
+			<xs:element name="nameMiddle" type="xs:string" minOccurs="0"/>
+			<xs:element name="eAddress" type="xs:string" minOccurs="0"/>
+			<xs:element name="displaySequence" type="xs:int" minOccurs="0"/>
+			<xs:element name="profileID" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfResortProfileID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ResortARs">
+		<xs:sequence>
+			<xs:element name="ResortAR" type="ResortAR" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResortAR">
+		<xs:sequence>
+			<xs:element name="mfResort" type="xs:string"/>
+			<xs:element name="mfARNumber" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="ResortNegotiatedRates">
+		<xs:sequence>
+			<xs:element name="NegotiatedRate" type="NegotiatedRate" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileHosts">
+		<xs:sequence>
+			<xs:element name="ProfileHost" type="ProfileHost" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfileHost">
+		<xs:sequence>
+			<xs:element name="profileID" type="xs:string" minOccurs="0"/>
+			<xs:element name="mfResortProfileID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="mfInactiveDate" type="xs:dateTime" use="optional"/>
+	</xs:complexType>
+</xs:schema>
