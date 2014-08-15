@@ -28,6 +28,7 @@ ext {
     jaxb_impl = 'com.sun.xml.bind:jaxb-impl:2.1.13'
     jaxb_xjc = 'com.sun.xml.bind:jaxb-xjc:2.1.13'
     jersey_client = 'com.sun.jersey:jersey-client:1.18.1'
+    jackson_joda = 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.4.1'
     json_simple = 'com.googlecode.json-simple:json-simple:1.1.1'
     junit = 'junit:junit:4.11'
     jaxws = 'javax.xml.ws:jaxws-api:2.2.11'

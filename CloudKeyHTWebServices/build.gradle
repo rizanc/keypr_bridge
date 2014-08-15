@@ -10,6 +10,7 @@ dependencies {
     compile dropwizard
     compile dropwizard_guice
     compile dropwizard_jackson
+    compile jackson_joda
     compile dropwizard_swagger
     compile swagger
     testCompile junit
