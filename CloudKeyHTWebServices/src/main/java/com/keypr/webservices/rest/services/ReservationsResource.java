@@ -38,9 +38,8 @@ public class ReservationsResource extends AbstractResource {
             @QueryParam("creditCardNumber") String creditCardNumber,
             @QueryParam("membershipNumber") String membershipNumber,
 		    @QueryParam("membershipType") String membershipType,
-		    @QueryParam("hotelCode") String hotelCode,
-		    @QueryParam("extRefLegNumber") String extRefLegNumber,
 		    @QueryParam("extReferenceNumber") String extReferenceNumber,
+		    @QueryParam("extRefLegNumber") Integer extRefLegNumber,
 		    @QueryParam("extReferenceType") String extReferenceType
             ) {
         SearchReservationRequest request = new SearchReservationRequest(
@@ -50,9 +49,8 @@ public class ReservationsResource extends AbstractResource {
             creditCardNumber,
             membershipNumber,
 	        membershipType,
-	        hotelCode,
-	        extRefLegNumber,
 	        extReferenceNumber,
+	        extRefLegNumber,
 	        extReferenceType
         );
         validate(request);

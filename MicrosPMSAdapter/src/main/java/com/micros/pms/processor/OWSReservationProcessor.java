@@ -207,109 +207,47 @@ public class OWSReservationProcessor extends OWSBase {
 		return objAssignRoomRequest;
 	}
 
-	public SearchReservationResponse processSearchReservationData(SearchReservationRequest searchReservationRequest) throws RemoteException {
+	public SearchReservationResponse processSearchReservationData(SearchReservationRequest request) throws RemoteException {
 
 		log.debug("processSearchReservationData: Enter in processSearchReservationData method. ");
 
-		FutureBookingSummaryRequest req =
-			getFutureBookingRequestObject(searchReservationRequest);
+		FutureBookingSummaryRequest microsRequest = new FutureBookingSummaryRequest()
+			.withAdditionalFilters(new FetchBookingFilters()
+				.withHotelReference(getDefaultHotelReference()));
 
-		log.debug("processSearchReservationData",
-			AdapterUtility.convertToStreamXML(req));
-		FutureBookingSummaryResponse response = service.futureBookingSummary(req, createOGHeaderE());
-		log.debug("processSearchReservationData",
-			AdapterUtility.convertToStreamXML(response));
+		if (request.getCreditCardNumber() != null) {
+			microsRequest.setCreditCardNumber(request.getCreditCardNumber());
+		}
+
+		if (request.getExtReferenceNumber() != null || request.getExtReferenceType() != null || request.getExtRefLegNumber() != null) {
+			microsRequest.getAdditionalFilters().setExternalSystemNumber(new ExternalReference(
+				request.getExtReferenceNumber(),
+				request.getExtRefLegNumber(),
+				request.getExtReferenceType()
+			));
+		}
+
+		if (request.getFirstName() != null) {
+			microsRequest.setFirstName(request.getFirstName());
+		}
+
+		if (request.getLastName() != null) {
+			microsRequest.setLastName(request.getLastName());
+		}
+
+		if (request.getMembershipType() != null || request.getMembershipNumber() != null) {
+			microsRequest.getAdditionalFilters().setMembership(
+				new Membership()
+					.withMembershipNumber(request.getMembershipNumber())
+					.withMembershipType(request.getMembershipType())
+			);
+		}
+
+		FutureBookingSummaryResponse response = service.futureBookingSummary(microsRequest, createOGHeaderE());
 
 		errorIfFailure(response.getResult());
 
 		return getFutureBookingResponseObject(response);
-	}
-
-	private FutureBookingSummaryRequest getFutureBookingRequestObject(SearchReservationRequest searchReservationRequest) {
-
-		log.debug("getFutureBookingRequestObject: Enter getFutureBookingRequestObject method ");
-
-		String pmsReservationId = searchReservationRequest.getPmsReservationId();
-		String creditCardNumber = searchReservationRequest.getCreditCardNumber();
-		String firstName = searchReservationRequest.getFirstName();
-		String lastName = searchReservationRequest.getLastName();
-
-		String memebershipNumber = searchReservationRequest.getMembershipNumber();
-		String membershipType = searchReservationRequest.getMembershipType();
-		String hotelCode = searchReservationRequest.getHotelCode();
-
-		String extRefLegNumber = searchReservationRequest.getExtRefLegNumber();
-		String extReferenceNumber = searchReservationRequest.getExtReferenceNumber();
-		String extReferenceType = searchReservationRequest.getExtReferenceType();
-
-		/**
-		 * Creates an instance of FutureBookingSummaryRequest and populates the
-		 * data members.
-		 */
-		FutureBookingSummaryRequest objFutureBookingSummaryRequest = new FutureBookingSummaryRequest();
-		FetchBookingFilters objBookingFilters = new FetchBookingFilters();
-		objFutureBookingSummaryRequest.setAdditionalFilters(objBookingFilters);
-
-		if (hotelCode != null) {
-			objBookingFilters.setHotelReference(getDefaultHotelReference());
-			objBookingFilters.getHotelReference().setHotelCode(hotelCode);
-		}
-
-		if (extReferenceNumber != null && extReferenceType != null) {
-			if (extRefLegNumber == null) {
-				extRefLegNumber = "1";
-			}
-			ExternalReference ext = new ExternalReference();
-			ext.setLegNumber(Integer.parseInt(extReferenceNumber));
-			ext.setReferenceNumber(extReferenceNumber);
-			ext.setReferenceType(extReferenceType);
-			objBookingFilters.setExternalSystemNumber(ext);
-		}
-
-		/* Sets pmsReservationId to the request */
-		if (pmsReservationId != null) {
-			objBookingFilters.setResvNameId(internalReservationId(pmsReservationId));
-		}
-
-		if (membershipType != null && memebershipNumber != null) {
-			Membership membership = new Membership();
-			membership.setMembershipNumber(memebershipNumber);
-			membership.setMembershipType(membershipType);
-			objBookingFilters.setMembership(membership);
-		}
-	    /* Set the credit card number . */
-		if (creditCardNumber != null) {
-			objFutureBookingSummaryRequest.setCreditCardNumber(creditCardNumber);
-		}
-
-		if (firstName != null) {
-			objFutureBookingSummaryRequest.setFirstName(firstName);
-		}
-
-		if (lastName != null) {
-
-			objFutureBookingSummaryRequest.setLastName(lastName);
-		}
-
-//		FutureBookingSummaryRequestChoice_type0 type0 = new FutureBookingSummaryRequestChoice_type0();
-//
-//		objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type0(type0);
-//
-//		if (objFutureBookingSummaryRequest.getFutureBookingSummaryRequestChoice_type1() == null) {
-//			objFutureBookingSummaryRequest.setFutureBookingSummaryRequestChoice_type1(new FutureBookingSummaryRequestChoice_type1());
-//		}
-
-/*
-        FetchBookingFilters filters = new FetchBookingFilters();
-        objFutureBookingSummaryRequest.setAdditionalFilters(filters);
-
-        filters.setHotelReference(getDefaultHotelReference());
-*/
-
-		log.debug("getFutureBookingRequestObject: Exit getFutureBookingRequestObject method ");
-
-		return objFutureBookingSummaryRequest;
-
 	}
 
 	private SearchReservationResponse getFutureBookingResponseObject(FutureBookingSummaryResponse objResponse) {

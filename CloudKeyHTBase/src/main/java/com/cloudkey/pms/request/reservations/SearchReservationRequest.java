@@ -24,27 +24,39 @@ public class SearchReservationRequest {
 
 	private String membershipType;
 
-	private String hotelCode;
-
-	private String extRefLegNumber;
-
 	private String extReferenceNumber;
+
+	private Integer extRefLegNumber;
 
 	private String extReferenceType;
 
 	protected SearchReservationRequest() { /* For serialization */ }
 
-	public SearchReservationRequest(String pmsReservationId, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String hotelCode, String extRefLegNumber, String extReferenceNumber, String extReferenceType) {
+	public SearchReservationRequest(String pmsReservationId, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String extReferenceNumber, Integer extRefLegNumber, String extReferenceType) {
 		this.pmsReservationId = pmsReservationId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.creditCardNumber = creditCardNumber;
 		this.membershipNumber = membershipNumber;
 		this.membershipType = membershipType;
-		this.hotelCode = hotelCode;
-		this.extRefLegNumber = extRefLegNumber;
 		this.extReferenceNumber = extReferenceNumber;
+		this.extRefLegNumber = extRefLegNumber;
 		this.extReferenceType = extReferenceType;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("pmsReservationId", pmsReservationId)
+			.add("firstName", firstName)
+			.add("lastName", lastName)
+			.add("creditCardNumber", creditCardNumber)
+			.add("membershipNumber", membershipNumber)
+			.add("membershipType", membershipType)
+			.add("extRefLegNumber", extRefLegNumber)
+			.add("extReferenceNumber", extReferenceNumber)
+			.add("extReferenceType", extReferenceType)
+			.toString();
 	}
 
 	@AssertTrue(message = "At least one criteria must be specified")
@@ -56,7 +68,6 @@ public class SearchReservationRequest {
 			|| creditCardNumber != null
 			|| membershipNumber != null
 			|| membershipType != null
-			|| hotelCode != null
 			|| extRefLegNumber != null
 			|| extReferenceNumber != null
 			|| extReferenceType != null);
@@ -86,11 +97,7 @@ public class SearchReservationRequest {
 		return membershipType;
 	}
 
-	public String getHotelCode() {
-		return hotelCode;
-	}
-
-	public String getExtRefLegNumber() {
+	public Integer getExtRefLegNumber() {
 		return extRefLegNumber;
 	}
 
@@ -102,20 +109,5 @@ public class SearchReservationRequest {
 		return extReferenceType;
 	}
 
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("pmsReservationId", pmsReservationId)
-			.add("firstName", firstName)
-			.add("lastName", lastName)
-			.add("creditCardNumber", creditCardNumber)
-			.add("membershipNumber", membershipNumber)
-			.add("membershipType", membershipType)
-			.add("hotelCode", hotelCode)
-			.add("extRefLegNumber", extRefLegNumber)
-			.add("extReferenceNumber", extReferenceNumber)
-			.add("extReferenceType", extReferenceType)
-			.toString();
-	}
 }
 

@@ -71,7 +71,6 @@ public class OWSTestUtils {
 	        null,
 	        null,
 	        null,
-	        null,
 	        null
         );
         try {
