@@ -32,11 +32,11 @@ public class OWSSupportModule extends AbstractModule {
 		GuiceUtils.bindProperties(binder(), getClass().getResourceAsStream("ows.properties"));
 	}
 
-	private <T> T configureService(T soap, URL url) {
+	private <T> T configureService(T soap, URL url, Integer loggingLimit) {
 		// Add in/out interceptors to the client to log the SOAP requests and responses
 		Client client = ClientProxy.getClient(soap);
-		client.getInInterceptors().add(new LoggingInInterceptor());
-		client.getOutInterceptors().add(new LoggingOutInterceptor());
+		client.getInInterceptors().add(new LoggingInInterceptor(loggingLimit));
+		client.getOutInterceptors().add(new LoggingOutInterceptor(loggingLimit));
 
 		// The WSDL may not point to the correct service port.
 		// demoserver3's wsdls, for example, pointed at port 4301 instead of 4300, which was false.
@@ -50,12 +50,14 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public AvailabilityServiceSoap provideAvailabilityService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.availability.path") String servicePath
+		@Named("keypr.bridge.micros.ows.availability.path") String servicePath,
+	    @Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new AvailabilityService().getAvailabilityServiceSoap12(),
-				new URL(new URL(targetEndpoint), servicePath)
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
 			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -68,12 +70,15 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public InformationSoap provideInformationService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.information.path") String servicePath
+		@Named("keypr.bridge.micros.ows.information.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new Information().getInformationSoap12(),
-				new URL(new URL(targetEndpoint), servicePath));
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
+			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -85,12 +90,14 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public MeetingRoomServiceSoap provideMeetingroomService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.meetingroom.path") String servicePath
+		@Named("keypr.bridge.micros.ows.meetingroom.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new MeetingRoomService().getMeetingRoomServiceSoap12(), 
-				new URL(new URL(targetEndpoint), servicePath)
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
 			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -103,12 +110,14 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public MembershipServiceSoap provideMembershipService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.membership.path") String servicePath
+		@Named("keypr.bridge.micros.ows.membership.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new MembershipService().getMembershipServiceSoap12(),
-				new URL(new URL(targetEndpoint), servicePath)
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
 			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -121,12 +130,14 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public NameServiceSoap provideNameService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.name.path") String servicePath
+		@Named("keypr.bridge.micros.ows.name.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new NameService().getNameServiceSoap12(),
-				new URL(new URL(targetEndpoint), servicePath)
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
 			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -139,12 +150,14 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public ReservationServiceSoap provideReservationService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.reservation.path") String servicePath
+		@Named("keypr.bridge.micros.ows.reservation.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new ReservationService().getReservationServiceSoap12(),
-				new URL(new URL(targetEndpoint), servicePath)
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
 			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -157,12 +170,14 @@ public class OWSSupportModule extends AbstractModule {
 	@Singleton
 	public ResvAdvancedServiceSoap provideResvAdvancedService(
 		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
-		@Named("keypr.bridge.micros.ows.resvadvanced.path") String servicePath
+		@Named("keypr.bridge.micros.ows.resvadvanced.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
 	) {
 		try {
 			return configureService(
 				new ResvAdvancedService().getResvAdvancedServiceSoap12(),
-				new URL(new URL(targetEndpoint), servicePath)
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
 			);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
