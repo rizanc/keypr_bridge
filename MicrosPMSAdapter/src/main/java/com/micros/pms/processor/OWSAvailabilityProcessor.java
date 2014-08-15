@@ -1,6 +1,7 @@
 package com.micros.pms.processor;
 
-import com.cloudkey.commons.Availability;
+import com.cloudkey.commons.DayRoomAvailability;
+import com.cloudkey.commons.RoomTypeAvailability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
@@ -9,13 +10,15 @@ import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
 import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
+import org.joda.time.LocalDate;
 
+import javax.annotation.Nullable;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author crizan2
@@ -43,17 +46,13 @@ public class OWSAvailabilityProcessor extends OWSBase {
         log.debug("getAvailabilityRequestObject: Enter getAvailabilityRequestObject method.");
 
 		/*To create the request for availability.*/
-	    FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest();
-        objFetchCalendarRequest.setHotelReference(getDefaultHotelReference());
-
-		/*To set start and end date.*/
-	    TimeSpan objTimeSpan = new TimeSpan();
-
-	    objTimeSpan.setStartDate(availabilityRequest.getStartDate().toDateTimeAtStartOfDay().toDate());
-		objTimeSpan.setEndDate(availabilityRequest.getEndDate().toDateTimeAtStartOfDay().toDate());
-
-		/*To set time span in fetch calendar request.*/
-        objFetchCalendarRequest.setStayDateRange(objTimeSpan);
+	    FetchCalendarRequest objFetchCalendarRequest = new FetchCalendarRequest()
+		    .withStayDateRange(
+			    new TimeSpan()
+				    .withStartDate(availabilityRequest.getStartDate().toDateTimeAtStartOfDay().toDate())
+				    .withEndDate(availabilityRequest.getEndDate().toDateTimeAtStartOfDay().toDate())
+		    )
+		    .withHotelReference(getDefaultHotelReference());
 
         log.debug("getAvailabilityRequestObject: Exit getAvailabilityRequestObject method. ");
 
@@ -63,62 +62,30 @@ public class OWSAvailabilityProcessor extends OWSBase {
     private GetAvailabilityResponse getAvailabilityResponseObject(FetchCalendarResponse objResponse) {
         log.debug("getAvailabilityResponseObject: Enter getAvailabilityResponseObject method.");
 
-        GetAvailabilityResponse objAvailabilityResponse = new GetAvailabilityResponse();
-
-		/*To get the list from availability response.*/
-        List<Availability> availabilities = new ArrayList<>();
-
-        /*To get the calendar daily detail array from response.*/
-        List<CalendarDailyDetail> arrCalendarDailyDetail = objResponse.getCalendar();
-
-        for (CalendarDailyDetail objCalendarDailyDetail : arrCalendarDailyDetail) { // To traverse calendar daily detail.
-
-            log.debug("getAvailabilityResponseObject: Enter for traversing calendar details.");
-
-			/*To set the date in response.*/
-            Availability objAvailability = new Availability();
-            objAvailability.setDate(objCalendarDailyDetail.getDate());
-
-			/*To set the roomInventory in response.*/
-            List<com.cloudkey.commons.RoomTypeInventory> objLInventories = new ArrayList<>();
-
-            List<RoomTypeInventory> arrRoomTypeInventories = objCalendarDailyDetail.getOccupancy();
-
-            for (RoomTypeInventory objRTypeInventory : arrRoomTypeInventories) { // To traverse room type inventory.
-
-                log.debug("getAvailabilityResponseObject: Traversing room type inventory. ");
-
-                com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();
-
-				/*To set room type on room inventory.*/
-                com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
-
-                objRoomType.setCode(objRTypeInventory.getRoomTypeCode());
-                objRoomTypeInventory.setRoomType(objRoomType);
-
-                //objRoomTypeInventory.setRoomDescription( objRTypeInventory.get );
-                objRoomTypeInventory.setTotalRoomsAvailable(objRTypeInventory.getTotalAvailableRooms().intValue());
-                objRoomTypeInventory.setTotalRooms(objRTypeInventory.getTotalRooms().intValue());
-
-	            //To add roomtype inventory in inventory list.
-                objLInventories.add(objRoomTypeInventory);
-
-                log.debug("getAvailabilityResponseObject: Exit loop for room type inventory. ");
-
-            }// End room type inventory loop.
-            objAvailability.setRoomTypeInventoryList(objLInventories);
-
-	        //To add availability object into list.
-            availabilities.add(objAvailability);
-
-            log.debug("getAvailabilityResponseObject: Exit traversing calendar details. ");
-        } // End loop for calendar details.
-
-        objAvailabilityResponse.setAvailList(availabilities);
-
-        log.debug("getAvailabilityResponseObject: Exit getAvailabilityResponseObject method. ");
-
-        return objAvailabilityResponse;
+	    return new GetAvailabilityResponse(
+		    Lists.transform(objResponse.getCalendar(), new Function<CalendarDailyDetail, DayRoomAvailability>() {
+				    @Nullable
+				    @Override
+				    public DayRoomAvailability apply(@Nullable CalendarDailyDetail calendarDailyDetail) {
+					    return new DayRoomAvailability(
+						    new LocalDate(calendarDailyDetail.getDate()),
+						    Lists.transform(calendarDailyDetail.getOccupancy(), new Function<RoomTypeInventory, RoomTypeAvailability>() {
+								    @Nullable
+								    @Override
+								    public RoomTypeAvailability apply(@Nullable RoomTypeInventory roomTypeInventory) {
+									    return new RoomTypeAvailability(
+										    roomTypeInventory.getRoomTypeCode(),
+										    roomTypeInventory.getTotalRooms().intValue(),
+										    roomTypeInventory.getTotalAvailableRooms().intValue(),
+										    roomTypeInventory.getOverBookingLimit().intValue()
+										    );
+								    }
+							    }
+						    )
+					    );
+				    }
+			    })
+	    );
     }
 
 }
