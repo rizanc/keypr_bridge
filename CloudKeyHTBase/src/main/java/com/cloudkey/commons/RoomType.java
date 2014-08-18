@@ -1,5 +1,11 @@
 package com.cloudkey.commons;
 
+import com.cloudkey.pms.common.HotelAmenity;
+import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
+
+import java.util.List;
+
 /**
  * Class stores room type information.It has information of room code,
  * with all the features and descriptions.
@@ -12,51 +18,57 @@ public class RoomType {
 	//Reference Variables.
 	private String code;
 	private String description;
-	private String features;
+	private List<HotelAmenity> amenities;
+	private Integer maxOccupancy;
 
-	public RoomType() {
-	}
+	public RoomType() {}
 
-	public RoomType(String code, String description, String features) {
+	public RoomType(String code, String description, List<HotelAmenity> amenities, Integer maxOccupancy) {
 		this.code = code;
 		this.description = description;
-		this.features = features;
+		this.amenities = ImmutableList.copyOf(amenities);
+		this.maxOccupancy = maxOccupancy;
 	}
 
-	// Getter and Setter.
 	public String getCode() {
-		
 		return code;
 	}
-	
+
 	public void setCode(String code) {
-		
 		this.code = code;
 	}
-	
+
 	public String getDescription() {
-		
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
-		
 		this.description = description;
 	}
-	
-	public String getFeatures() {
-		
-		return features;
+
+	public List<HotelAmenity> getAmenities() {
+		return amenities;
 	}
-	
-	public void setFeatures(String features) {
-		
-		this.features = features;
+
+	public void setAmenities(List<HotelAmenity> amenities) {
+		this.amenities = amenities;
 	}
-	
+
+	public Integer getMaxOccupancy() {
+		return maxOccupancy;
+	}
+
+	public void setMaxOccupancy(Integer maxOccupancy) {
+		this.maxOccupancy = maxOccupancy;
+	}
+
 	@Override
 	public String toString() {
-		return "RoomType [code=" + code + ", description=" + description
-				+ ", features=" + features + "]";
+		return Objects.toStringHelper(this)
+			.add("code", code)
+			.add("description", description)
+			.add("amenities", amenities)
+			.add("maxOccupancy", maxOccupancy)
+			.toString();
 	}
 }

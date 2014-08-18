@@ -6,6 +6,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class AddReservationNotesRequest {
 
     @NotEmpty
     @ApiModelProperty(required = true)
-    private List<String> notes = Lists.newArrayList();
+    private List<String> notes = new ArrayList<>();
 
 	protected AddReservationNotesRequest() { /* For serialization */ }
 

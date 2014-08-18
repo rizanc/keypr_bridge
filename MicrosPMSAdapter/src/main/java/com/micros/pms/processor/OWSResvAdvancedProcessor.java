@@ -17,10 +17,15 @@ import com.cloudkey.pms.micros.og.reservation.advanced.*;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
 import com.cloudkey.pms.response.reservations.GetFolioResponse;
+import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
+import com.micros.pms.util.HotelInformationConverter;
+import com.micros.pms.util.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
+import com.sun.tools.corba.se.idl.toJavaPortable.Helper;
+import com.sun.tools.javac.util.Convert;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -396,7 +401,6 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         Reservation objReservation = new Reservation();
         objCheckInResponse.setReservation(objReservation);
 
-        String confirmationNumber;
         String roomTypeCode;
         String feature;
         String roomNumber;
@@ -406,22 +410,16 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
 
-	    List<UniqueID> arrUniqueIDs = objCheckInComplete.getReservationID();
-        for (UniqueID objUniqueID : arrUniqueIDs) {
-	        // TODO: parse these correctly
-            if (objUniqueID.getType() == UniqueIDType.EXTERNAL) {
-                confirmationNumber = objUniqueID.getValue();
-                objReservation.setConfirmationNumber(confirmationNumber);
-                objReservation.setPmsReservationId(confirmationNumber);
-            }
-        }
+	    Optional<String> pmsReservationIdOpt = IdUtils.findPmsReservationId(objCheckInComplete.getReservationID());
+
+	    if (pmsReservationIdOpt.isPresent()) {
+		    objReservation.setPmsReservationId(pmsReservationIdOpt.get());
+	    }
 
         ReservationRoomAllocation objReservationRoomAllocation = new ReservationRoomAllocation();
 
-        objReservation.setReservationRoomAllocationList((new ArrayList<ReservationRoomAllocation>()));
+        objReservation.setReservationRoomAllocationList(new ArrayList<ReservationRoomAllocation>());
         objReservation.getReservationRoomAllocationList().add(objReservationRoomAllocation);
-
-        com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
 
         Room objRoom = objCheckInComplete.getRoom();
 
@@ -447,16 +445,16 @@ public class OWSResvAdvancedProcessor extends OWSBase {
             objStringBuffer.append(feature).append(";");
         }
 
-        objRoomType.setFeatures(objStringBuffer.toString());
+	    com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType(
+		    roomTypeCode,
+		    ParagraphHelper.getFirstStringOfParagraphs(Arrays.asList(objRoom.getRoomDescription())).orNull(),
+		    HotelInformationConverter.convertAmenities(obRoomType.getAmenityInfo().getAmenities()),
+		    null
+	    );
 
-        // set value in room type object.
-        objRoomType.setCode(roomTypeCode);
-        objRoomType.setDescription(roomDescription);
-        objRoomType.setFeatures(feature);
-
-        //TODO: Room number shouldn't be int. Should be string to accomodated hotels
+	    //TODO: Room number shouldn't be int. Should be string to accomodated hotels
         // with room numbers that contain dashes/characters etc...
-        objReservationRoomAllocation.setRoomNo(Integer.parseInt(roomNumber));
+        objReservationRoomAllocation.setRoomNo(roomNumber);
         objReservationRoomAllocation.setRoomType(objRoomType);
         //		objReservationRoomAllocation.setRoomRateList( objRoomRateList );
 

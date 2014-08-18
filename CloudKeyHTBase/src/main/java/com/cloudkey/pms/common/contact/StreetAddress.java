@@ -1,6 +1,8 @@
-package com.cloudkey.pms.common;
+package com.cloudkey.pms.common.contact;
 
 import com.google.common.base.Objects;
+
+import java.util.List;
 
 /**
  * Street address
@@ -9,7 +11,7 @@ import com.google.common.base.Objects;
  */
 public class StreetAddress {
 
-    private String[] addressLine;
+    private List<String> addressLine;
 
     private String cityName;
 
@@ -31,7 +33,7 @@ public class StreetAddress {
 
 	protected StreetAddress() { /* For serialization */ }
 
-	public StreetAddress(String[] addressLine, String cityName, String stateProv, String countryCode, String postalCode, String barCode, String cityExtension, String addressType, String otherAddressType, String languageCode) {
+	public StreetAddress(List<String> addressLine, String cityName, String stateProv, String countryCode, String postalCode, String barCode, String cityExtension, String addressType, String otherAddressType, String languageCode) {
 		this.addressLine = addressLine;
 		this.cityName = cityName;
 		this.stateProv = stateProv;
@@ -44,7 +46,7 @@ public class StreetAddress {
 		this.languageCode = languageCode;
 	}
 
-	public String[] getAddressLine() {
+	public List<String> getAddressLine() {
 		return addressLine;
 	}
 

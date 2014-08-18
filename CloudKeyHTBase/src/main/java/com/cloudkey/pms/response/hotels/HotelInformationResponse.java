@@ -1,168 +1,164 @@
 package com.cloudkey.pms.response.hotels;
 
 import java.util.List;
+import java.util.TimeZone;
 
 import com.cloudkey.commons.Response;
-import com.cloudkey.commons.Restaurants;
+import com.cloudkey.commons.Restaurant;
 import com.cloudkey.commons.RoomType;
+import com.cloudkey.pms.common.GeoCode;
+import com.cloudkey.pms.common.HotelAmenity;
+import com.cloudkey.pms.common.contact.StreetAddress;
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import org.joda.time.LocalTime;
 
 /**
- * This Class has information of Hotel. 
  * @author
  */
 public class HotelInformationResponse extends Response {
-	
-	/* Reference variable to store the hotel information */
-
     private String hotelName;
-    //private List<Address> addressList ;
-    private String address;
-    private String city;
-    private String state;
-    private String country;
-    private String postalCode;
-    private String contactEmails;
-    private String contactPhones;
-    private String fax;
-    private String checkInTime;
-    private String checkOutTime;
-    private String notes;
-    private List<RoomType> roomTypeList = Lists.newArrayList();
-    private List<Restaurants> restaurantsList = Lists.newArrayList();
+    private List<StreetAddress> addresses;
+	private Optional<GeoCode> hotelPosition;
+	private Optional<String> directions;
+    private List<String> contactEmails;
+    private List<String> phoneNumbers;
+    private List<String> faxNumbers;
+    private Optional<LocalTime> checkInTime;
+    private Optional<LocalTime> checkOutTime;
+	private List<HotelAmenity> amenities;
+	private Integer totalRooms;
+    private List<RoomType> roomTypeList;
+    private List<Restaurant> restaurantList;
+	private Optional<String> website;
+	private Optional<String> grade;
+	private Optional<String> hotelDescription;
+	private Optional<String> passportRules;
+	private Optional<TimeZone> timeZone;
+	private List<String> acceptedCreditCards;
 
-
-    /*generate getter setter for hotel information response. */
-    public String getHotelName() {
-
-        return hotelName;
-    }
-    public void setHotelName(String hotelName) {
-
-        this.hotelName = hotelName;
-    }
-    public String getAddress() {
-
-        return address;
-    }
-    public void setAddress(String address) {
-
-        this.address = address;
-    }
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-
-        this.city = city;
-    }
-
-	public String getState() {
-		return state;
+	public HotelInformationResponse(String hotelName, List<StreetAddress> addresses, Optional<GeoCode> hotelPosition, Optional<String> directions, List<String> contactEmails, List<String> phoneNumbers, List<String> faxNumbers, Optional<LocalTime> checkInTime, Optional<LocalTime> checkOutTime, List<HotelAmenity> amenities, Integer totalRooms, List<RoomType> roomTypeList, List<Restaurant> restaurantList, Optional<String> website, Optional<String> grade, Optional<String> hotelDescription, Optional<String> passportRules, Optional<TimeZone> timeZone, List<String> acceptedCreditCards) {
+		this.hotelName = hotelName;
+		this.addresses = ImmutableList.copyOf(addresses);
+		this.hotelPosition = hotelPosition;
+		this.directions = directions;
+		this.contactEmails = ImmutableList.copyOf(contactEmails);
+		this.phoneNumbers = ImmutableList.copyOf(phoneNumbers);
+		this.faxNumbers = ImmutableList.copyOf(faxNumbers);
+		this.checkInTime = checkInTime;
+		this.checkOutTime = checkOutTime;
+		this.amenities = ImmutableList.copyOf(amenities);
+		this.totalRooms = totalRooms;
+		this.roomTypeList = roomTypeList;
+		this.restaurantList = restaurantList;
+		this.website = website;
+		this.grade = grade;
+		this.hotelDescription = hotelDescription;
+		this.passportRules = passportRules;
+		this.timeZone = timeZone;
+		this.acceptedCreditCards = ImmutableList.copyOf(acceptedCreditCards);
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public String getHotelName() {
+		return hotelName;
 	}
 
-	public String getCountry() {
+	public List<StreetAddress> getAddresses() {
+		return addresses;
+	}
 
-        return country;
-    }
-    public void setCountry(String country) {
+	public Optional<GeoCode> getHotelPosition() {
+		return hotelPosition;
+	}
 
-        this.country = country;
-    }
-    public String getPostalCode() {
-        return postalCode;
-    }
-    public void setPostalCode(String postalCode) {
+	public Optional<String> getDirections() {
+		return directions;
+	}
 
-        this.postalCode = postalCode;
-    }
-    public String getContactEmails() {
+	public List<String> getContactEmails() {
+		return contactEmails;
+	}
 
-        return contactEmails;
-    }
-    public void setContactEmails(String contactEmails) {
+	public List<String> getPhoneNumbers() {
+		return phoneNumbers;
+	}
 
-        this.contactEmails = contactEmails;
-    }
-    public String getContactPhones() {
+	public List<String> getFaxNumbers() {
+		return faxNumbers;
+	}
 
-        return contactPhones;
-    }
-    public void setContactPhones(String contactPhones) {
+	public Optional<LocalTime> getCheckInTime() {
+		return checkInTime;
+	}
 
-        this.contactPhones = contactPhones;
-    }
-    public String getFax() {
+	public Optional<LocalTime> getCheckOutTime() {
+		return checkOutTime;
+	}
 
-        return fax;
-    }
-    public void setFax(String fax) {
+	public List<HotelAmenity> getAmenities() {
+		return amenities;
+	}
 
-        this.fax = fax;
-    }
-    public String getCheckInTime() {
+	public Integer getTotalRooms() {
+		return totalRooms;
+	}
 
-        return checkInTime;
-    }
-    public void setCheckInTime(String checkInTime) {
+	public List<RoomType> getRoomTypeList() {
+		return roomTypeList;
+	}
 
-        this.checkInTime = checkInTime;
-    }
-    public String getCheckOutTime() {
+	public List<Restaurant> getRestaurantList() {
+		return restaurantList;
+	}
 
-        return checkOutTime;
-    }
-    public void setCheckOutTime(String checkOutTime) {
+	public Optional<String> getWebsite() {
+		return website;
+	}
 
-        this.checkOutTime = checkOutTime;
-    }
-    public String getNotes() {
+	public Optional<String> getGrade() {
+		return grade;
+	}
 
-        return notes;
-    }
-    public void setNotes(String notes) {
+	public Optional<String> getHotelDescription() {
+		return hotelDescription;
+	}
 
-        this.notes = notes;
-    }
-    public List<RoomType> getRoomTypeList() {
+	public Optional<String> getPassportRules() {
+		return passportRules;
+	}
 
-        return roomTypeList;
-    }
-    public void setRoomTypeList(List<RoomType> roomTypeList) {
+	public Optional<TimeZone> getTimeZone() {
+		return timeZone;
+	}
 
-        this.roomTypeList = roomTypeList;
-    }
-    public List<Restaurants> getRestaurantsList() {
-
-        return restaurantsList;
-    }
-    public void setRestaurantsList(List<Restaurants> restaurantsList) {
-
-        this.restaurantsList = restaurantsList;
-    }
+	public List<String> getAcceptedCreditCards() {
+		return acceptedCreditCards;
+	}
 
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
 			.add("hotelName", hotelName)
-			.add("address", address)
-			.add("city", city)
-			.add("state", state)
-			.add("country", country)
-			.add("postalCode", postalCode)
+			.add("addresses", addresses)
+			.add("hotelPosition", hotelPosition)
+			.add("directions", directions)
 			.add("contactEmails", contactEmails)
-			.add("contactPhones", contactPhones)
-			.add("fax", fax)
+			.add("phoneNumbers", phoneNumbers)
+			.add("faxNumbers", faxNumbers)
 			.add("checkInTime", checkInTime)
 			.add("checkOutTime", checkOutTime)
-			.add("notes", notes)
+			.add("amenities", amenities)
+			.add("totalRooms", totalRooms)
 			.add("roomTypeList", roomTypeList)
-			.add("restaurantsList", restaurantsList)
+			.add("restaurantList", restaurantList)
+			.add("website", website)
+			.add("grade", grade)
+			.add("hotelDescription", hotelDescription)
+			.add("passportRules", passportRules)
+			.add("timeZone", timeZone)
+			.add("acceptedCreditCards", acceptedCreditCards)
 			.toString();
 	}
 }

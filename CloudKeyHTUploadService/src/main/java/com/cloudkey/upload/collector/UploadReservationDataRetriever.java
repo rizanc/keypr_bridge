@@ -158,7 +158,7 @@ public class UploadReservationDataRetriever {
 
 									int resvUploadId = resvRoomAllocationSet.getInt( "resvalloc.reservation_upload_id" );
 
-									reservationRoomAllocation.setRoomNo(Integer.parseInt(resvRoomAllocationSet.getString( "resvalloc.room_number" ) ) );
+									reservationRoomAllocation.setRoomNo(resvRoomAllocationSet.getString( "resvalloc.room_number" ) );
 									reservationRoomAllocation.setReservationStatusType( "resvalloc.reservation_status_type" );
 									reservationRoomAllocation.setRoomType( roomType );
 

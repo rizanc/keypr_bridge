@@ -47,5 +47,28 @@ public class MicrosIds {
 
 	public static class OWS {
 		public static final String RESERVATION_ID_SOURCE = "RESVID";
+
+		public enum PhoneNumberRole {
+			PHONE,
+			FAX
+		}
+
+		public enum OtherHotelInfoType {
+			WEBADDRESS("PROPERTY_WEBADDRESS"),
+			TIMEZONE("PROPERTY_TIMEZONE"),
+			GRADE("GRADE"),
+			HOTEL_DESCRIPTION("Property Description"),
+			PASSPORT_RULES("Passport Rules");
+
+			private String typeValue;
+
+			public String getTypeValue() {
+				return typeValue;
+			}
+
+			OtherHotelInfoType(String typeValue) {
+				this.typeValue = typeValue;
+			}
+		}
 	}
 }

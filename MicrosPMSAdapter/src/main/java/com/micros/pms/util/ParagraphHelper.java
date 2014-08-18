@@ -1,8 +1,11 @@
 package com.micros.pms.util;
 
 import com.cloudkey.pms.micros.og.common.Text;
+import com.cloudkey.pms.micros.og.common.TextElement;
 import com.cloudkey.pms.micros.og.hotelcommon.ObjectFactory;
 import com.cloudkey.pms.micros.og.hotelcommon.Paragraph;
+import com.google.common.base.Optional;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 import javax.xml.bind.JAXBElement;
@@ -30,7 +33,7 @@ public class ParagraphHelper {
 	}
 
 	public static List<Text> getTextList(List<JAXBElement<?>> elements) {
-		List<Text> textList = Lists.newArrayList();
+		List<Text> textList = new ArrayList<>();
 
 		for (JAXBElement<?> jaxbElement : elements) {
 			if (jaxbElement.getDeclaredType().equals(Text.class)) {
@@ -39,6 +42,24 @@ public class ParagraphHelper {
 		}
 
 		return textList;
+	}
+
+	public static Optional<String> getFirstString(List<? extends Text> elements) {
+		if (!elements.isEmpty()) {
+			return Optional.of(elements.get(0).getValue());
+		} else {
+			return Optional.absent();
+		}
+	}
+
+	public static Optional<String> getFirstStringOfParagraphs(List<? extends Paragraph> paragraphs) {
+		if (!paragraphs.isEmpty()) {
+			List<Text> textList = getTextList(paragraphs.get(0));
+
+			return getFirstString(textList);
+		}
+
+		return Optional.absent();
 	}
 
 	/**

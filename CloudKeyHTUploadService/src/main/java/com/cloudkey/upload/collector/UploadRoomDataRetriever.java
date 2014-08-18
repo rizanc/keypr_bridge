@@ -116,7 +116,7 @@ public class UploadRoomDataRetriever {
 							int id = roomdetailsSet.getInt( IUploadConstants.ROOM_DETAILS_ID );
 
 							roomDetails.setId( id );
-							roomDetails.setRoomNumber( roomdetailsSet.getInt( IUploadConstants.ROOM_DETAILS_ROOM_NUMBER ) );
+							roomDetails.setRoomNumber( roomdetailsSet.getString( IUploadConstants.ROOM_DETAILS_ROOM_NUMBER ) );
 							roomDetails.setFrontOfficeStatus( roomdetailsSet.getString( IUploadConstants.ROOM_DETAILS_FRONT_OFFICE_STATUS ) );
 
 							roomDetails.setRoomStatus( roomdetailsSet.getString( IUploadConstants.ROOM_DETAILS_ROOM_STATUS ) );
@@ -252,7 +252,7 @@ public class UploadRoomDataRetriever {
 					int id = roomDetailSet.getInt( IUploadConstants.ROOM_DETAILS_ID) ;
 
 					roomDetails.setId( id );
-					roomDetails.setRoomNumber( roomDetailSet.getInt( IUploadConstants.ROOM_DETAILS_ROOM_NUMBER ) );
+					roomDetails.setRoomNumber( roomDetailSet.getString( IUploadConstants.ROOM_DETAILS_ROOM_NUMBER ) );
 
 					roomDetails.setFrontOfficeStatus( roomDetailSet.getString( IUploadConstants.ROOM_DETAILS_FRONT_OFFICE_STATUS ) );
 					roomDetails.setRoomStatus( roomDetailSet.getString( IUploadConstants.ROOM_DETAILS_ROOM_STATUS ) );

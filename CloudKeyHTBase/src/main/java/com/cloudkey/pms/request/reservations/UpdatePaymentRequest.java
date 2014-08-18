@@ -7,6 +7,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class UpdatePaymentRequest {
 
     @NotEmpty
     @ApiModelProperty(required = true)
-    private List<Payments> payments = Lists.newArrayList();
+    private List<Payments> payments = new ArrayList<>();
 
 	protected UpdatePaymentRequest() { /* For serialization */ }
 

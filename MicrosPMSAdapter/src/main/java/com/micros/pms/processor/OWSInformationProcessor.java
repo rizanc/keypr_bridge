@@ -1,24 +1,33 @@
 package com.micros.pms.processor;
 
-import com.cloudkey.commons.Restaurants;
+import com.cloudkey.commons.Restaurant;
 import com.cloudkey.commons.RoomType;
-import com.cloudkey.pms.micros.og.common.Address;
-import com.cloudkey.pms.micros.og.common.DescriptiveText;
+import com.cloudkey.pms.common.Cuisine;
+import com.cloudkey.pms.common.HotelAmenity;
 import com.cloudkey.pms.micros.og.common.Phone;
-import com.cloudkey.pms.micros.og.common.Text;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.ows.information.HotelInformationRequest;
 import com.cloudkey.pms.micros.ows.information.HotelInformationResponse;
 import com.cloudkey.pms.micros.ows.information.HotelInformationResponseHotelInformation;
 import com.cloudkey.pms.micros.services.InformationSoap;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
-import com.micros.pms.util.AdapterUtility;
-import com.micros.pms.util.ParagraphHelper;
+import com.micros.pms.util.HotelInformationConverter;
 
+import javax.annotation.Nullable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
+
+import static com.micros.pms.util.HotelInformationConverter.*;
+import static com.micros.pms.util.ParagraphHelper.getFirstString;
+import static com.micros.pms.util.ParagraphHelper.getFirstStringOfParagraphs;
 
 /**
  * Created by crizan2 on 16/07/2014.
@@ -31,150 +40,140 @@ public class OWSInformationProcessor extends OWSBase {
 	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
         log.debug("processHotelInformation: Enter processHotelInformation method. ");
 
-	    HotelInformationRequest req = getHotelInformationRequestObject(hotelInformationRequest);
+		HotelInformationRequest req = new HotelInformationRequest(getDefaultHotelReference());
 		HotelInformationResponse response = service.queryHotelInformation(req, createOGHeaderE());
 
 	    errorIfFailure(response.getResult());
-	    return getHotelInformationResponseObject(response);
+	    return createHotelInformationResponse(response.getHotelInformation());
     }
 
-    //TODO: Chain required.
-    private HotelInformationRequest getHotelInformationRequestObject(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) {
-	    HotelInformationRequest request = new HotelInformationRequest();
+	private com.cloudkey.pms.response.hotels.HotelInformationResponse createHotelInformationResponse(HotelInformationResponseHotelInformation info) {
+		// Emails
+		List<String> contactEmails = new ArrayList<>();
+		for (Email email : info.getHotelContactInformation().getContactEmails()) {
+			contactEmails.add(email.getValue());
+		}
 
-	    request.setHotelInformationQuery(getDefaultHotelReference());
+		// Phone numbers
+		List<String> phoneNumbers = new ArrayList<>();
+		List<String> faxNumbers = new ArrayList<>();
 
-        return request;
-    }
+		for (Phone phone : info.getHotelContactInformation().getContactPhones()) {
+			if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.toString())) {
+				phoneNumbers.add(phone.getPhoneNumber());
+			} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.toString())) {
+				faxNumbers.add(phone.getPhoneNumber());
+			}
+		}
 
-	private com.cloudkey.pms.response.hotels.HotelInformationResponse getHotelInformationResponseObject(HotelInformationResponse hotelInformationResponse) {
+		ExtendedHotelInfo extended = info.getHotelExtendedInformation();
 
-        com.cloudkey.pms.response.hotels.HotelInformationResponse response = new com.cloudkey.pms.response.hotels.HotelInformationResponse();
+		// Various details that may be found in the hotel info element
+		List<HotelInfo> hotelInfos = extended.getHotelInformation();
 
-	    HotelInformationResponseHotelInformation hotelInformation = hotelInformationResponse.getHotelInformation();
-	    HotelReference hotelInformation1 = hotelInformation.getHotelInformation();
-        HotelContact hotelContactInformation = hotelInformation.getHotelContactInformation();
-        ExtendedHotelInfo hotelExtendedInformation = hotelInformation.getHotelExtendedInformation();
+		Optional<String> checkInInfo = getInfoTextIfPresent(hotelInfos, new HotelInfoByType(HotelInfoType.CHECKININFO));
+		Optional<String> checkOutInfo = getInfoTextIfPresent(hotelInfos, new HotelInfoByType(HotelInfoType.CHECKOUTINFO));
+		Optional<String> directions = getInfoTextIfPresent(hotelInfos, new HotelInfoByType(HotelInfoType.DIRECTIONS));
+		Optional<String> website = getInfoTextIfPresent(hotelInfos, new HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.WEBADDRESS));
+		Optional<String> grade = getInfoTextIfPresent(hotelInfos, new HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.GRADE));
+		Optional<String> hotelDescription = getInfoTextIfPresent(hotelInfos, new HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.HOTEL_DESCRIPTION));
+		Optional<String> passportRules = getInfoTextIfPresent(hotelInfos, new HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.PASSPORT_RULES));
+		final Optional<String> timeZone = getInfoTextIfPresent(hotelInfos, new HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.TIMEZONE));
 
-        if (hotelExtendedInformation != null &&
-                hotelExtendedInformation.getFacilityInfo() != null &&
-                hotelExtendedInformation.getFacilityInfo().getGuestRooms() != null) {
-	        FacilityInfoTypeGuestRooms guestRooms = hotelExtendedInformation.getFacilityInfo().getGuestRooms();
+		// Accepted payment methods
+		List<String> acceptedCreditCards = new ArrayList<>();
+		for (PaymentType paymentType : extended.getPaymentMethods()) {
+			String value = paymentType.getOtherPayment().getValue();
 
-	        ArrayList<RoomType> rooms = new ArrayList<>();
-            response.setRoomTypeList(rooms);
+			if (value != null) {
+				acceptedCreditCards.add(value);
+			}
+		}
 
-	        for (FacilityInfoTypeGuestRoomsGuestRoom room_item : guestRooms.getGuestRooms()) {
-                RoomType roomType = new RoomType();
-                rooms.add(roomType);
+		Optional<com.cloudkey.pms.common.GeoCode> hotelPosition = Optional.fromNullable(extended.getPosition())
+			.transform(new Function<GeoCode, com.cloudkey.pms.common.GeoCode>() {
+				@Nullable
+				@Override
+				public com.cloudkey.pms.common.GeoCode apply(@Nullable GeoCode geoCode) {
+					return new com.cloudkey.pms.common.GeoCode(geoCode.getLongitude(), geoCode.getLatitude(), geoCode.getAltitude());
+				}
+			});
 
-                roomType.setCode(room_item.getCode());
+		// Guest rooms
+		Integer totalRooms = null;
+		List<RoomType> roomTypes = new ArrayList<>();
 
-                //TODO: Test with real data
-                if (room_item.getAmenityInfo() != null) {
-                    AmenityInfo amenities = room_item.getAmenityInfo();
-                    String features = "";
-                    for (Amenity amenity : amenities.getAmenities()) {
-                        if (!features.equals(""))
-                            features += " '";
+		if (extended.getFacilityInfo() != null) {
+			FacilityInfoType facilityInfo = extended.getFacilityInfo();
+			if (facilityInfo.getGuestRooms() != null) {
+				if (facilityInfo.getGuestRooms().getTotalRooms() != null) {
+					totalRooms = Integer.parseInt(facilityInfo.getGuestRooms().getTotalRooms());
+				}
 
-                        features += amenity.getAmenityCode();
-                    }
+				for (FacilityInfoTypeGuestRoomsGuestRoom guestRoom : facilityInfo.getGuestRooms().getGuestRooms()) {
+					roomTypes.add(new RoomType(
+						guestRoom.getCode(),
+						guestRoom.getRoomDescription() == null ? null : getFirstString(guestRoom.getRoomDescription().getText()).orNull(),
+						guestRoom.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(guestRoom.getAmenityInfo().getAmenities()),
+						guestRoom.getMaxOccupancy() == null ? null : guestRoom.getMaxOccupancy().intValue()
+					));
+				}
+			}
+		}
 
-	                if (!features.isEmpty()) {
-		                roomType.setFeatures(features);
-	                }
-                }
+		// Restaurants
+		List<Restaurant> restaurants = new ArrayList<>();
+		for (RestaurantsTypeRestaurant restaurant : extended.getFacilityInfo().getRestaurants()) {
+			Optional<String> description = getFirstStringOfParagraphs(restaurant.getRestaurantDescriptions());
 
-                DescriptiveText descriptiveText = room_item.getRoomDescription();
-                if (descriptiveText != null &&
-                        descriptiveText.getText() != null) {
+			List<Cuisine> cuisines = new ArrayList<>();
+			for (RestaurantsTypeRestaurantCuisine cuisine : restaurant.getCuisines()){
+				cuisines.add(new Cuisine(
+					cuisine.getCode(),
+					cuisine.getDescription()
+				));
+			}
 
-	                if (!descriptiveText.getText().isEmpty()) {
-                        roomType.setDescription(descriptiveText.getText().get(0).getValue());
-                    }
-                }
-            }
-        }
-	    
-        if (hotelExtendedInformation != null &&
-                hotelExtendedInformation.getFacilityInfo() != null) {
+			restaurants.add(new Restaurant(
+				restaurant.getRestaurantName(),
+				description.orNull(),
+				cuisines,
+				convertAddresses(restaurant.getRestaurantContacts()),
+				restaurant.isOfferBreakfast(),
+				restaurant.isOfferBrunch(),
+				restaurant.isOfferLunch(),
+				restaurant.isOfferDinner(),
+				restaurant.getMaxSeatingCapacity() == null ? null : restaurant.getMaxSeatingCapacity().intValue(),
+				restaurant.getMaxSingleParty() == null ? null : restaurant.getMaxSingleParty().intValue()
+			));
+		}
 
-	        List<RestaurantsTypeRestaurant> restaurants = hotelExtendedInformation.getFacilityInfo().getRestaurants();
-
-	        for (RestaurantsTypeRestaurant restaurant : restaurants) {
-
-                Restaurants restaurant_item = new Restaurants();
-                response.getRestaurantsList().add(restaurant_item);
-                restaurant_item.setName(restaurant.getRestaurantName());
-
-		        List<RestaurantsTypeRestaurantCuisine> cuisines = restaurant.getCuisines();
-                String cuisine_all = "";
-                for (RestaurantsTypeRestaurantCuisine cuisine : cuisines) {
-                    if (!cuisine_all.equals("")) {
-                        cuisine_all += "|";
-                    }
-                    cuisine_all += cuisine.getDescription();
-                }
-                restaurant_item.setCuisine(cuisine_all);
-
-                List<Paragraph> description = restaurant.getRestaurantDescriptions();
-                if (!description.isEmpty()) {
-                    Paragraph paragraph = description.get(0);
-	                List<Text> textList = ParagraphHelper.getTextList(paragraph);
-
-	                if (!textList.isEmpty()) {
-	                    paragraph.getImagesAndURLSAndTexts().get(0);
-	                    restaurant_item.setDescription(textList.get(0).getValue());
-                    }
-                }
-            }
-        }
-
-        response.setHotelName(hotelInformation1.getValue());
-	    for (Phone phone : hotelContactInformation.getContactPhones()) {
-            if (phone.getPhoneNumber() != null) {
-                response.setContactPhones(phone.getPhoneNumber());
-            }
-        }
-
-        for (Email email : hotelContactInformation.getContactEmails()) {
-            response.setContactEmails(email.getValue());
-            break;
-        }
-
-        if (!hotelContactInformation.getAddresses().isEmpty()) {
-            String addressLine = "";
-            Address address = hotelContactInformation.getAddresses().get(0);
-            if (address != null) {
-
-                for (String line : address.getAddressLines()) {
-                    if (!addressLine.isEmpty()) {
-                        addressLine += "</br>";
-                    }
-                    addressLine += line;
-                }
-
-	            response.setAddress(addressLine);
-
-                if (address.getCityName() != null) {
-                    response.setCity(address.getCityName());
-                }
-
-                if (address.getStateProv() != null) {
-                    response.setState(address.getStateProv());
-                }
-
-                if (address.getPostalCode() != null) {
-                    response.setPostalCode(address.getPostalCode());
-                }
-
-                if (address.getCountryCode() != null) {
-                    response.setCountry(address.getCountryCode());
-                }
-            }
-        }
-
-        return response;
-    }
+		return new com.cloudkey.pms.response.hotels.HotelInformationResponse(
+			info.getHotelInformation().getValue(),
+			convertAddresses(info.getHotelContactInformation().getAddresses()),
+			hotelPosition,
+			directions,
+			contactEmails,
+			phoneNumbers,
+			faxNumbers,
+			checkInInfo.transform(toLocalTime),
+			checkOutInfo.transform(toLocalTime),
+			convertAmenities(extended.getAmenityInfo().getAmenities()),
+			totalRooms,
+			roomTypes,
+			restaurants,
+			website,
+			grade,
+			hotelDescription,
+			passportRules,
+			timeZone.transform(new Function<String, TimeZone>() {
+				@Nullable
+				@Override
+				public TimeZone apply(@Nullable String s) {
+					return TimeZone.getTimeZone(s);
+				}
+			}),
+			acceptedCreditCards
+		);
+	}
 }

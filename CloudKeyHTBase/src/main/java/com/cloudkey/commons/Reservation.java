@@ -41,6 +41,7 @@ public class Reservation {
 	private List<RoomDetails> roomDetailList ;
 
 	/* variable to store the confirmation number of the reservation. */
+	// TODO: Remove this. It is an arbitrary ID. pmsReservationId should be sufficient.
 	private String confirmationNumber ;
 	/* variable to store the check in date of the guest. */
 	private String checkinDate ;

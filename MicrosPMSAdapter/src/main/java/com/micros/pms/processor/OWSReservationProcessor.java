@@ -23,6 +23,7 @@ import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
+import com.micros.pms.util.HotelInformationConverter;
 import com.micros.pms.util.ParagraphHelper;
 
 import javax.annotation.Nullable;
@@ -388,9 +389,6 @@ public class OWSReservationProcessor extends OWSBase {
 
 					RoomDetails obRoomDetails = new RoomDetails();
 
-					com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType();
-					objRoomType.setCode(objRType.getRoomTypeCode());
-
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" Room Type Code is Set in response.");
@@ -399,29 +397,21 @@ public class OWSReservationProcessor extends OWSBase {
 
 					if (arrRoomNumber != null) {
 						for (String roomNumber : arrRoomNumber) {
-							obRoomDetails.setRoomNumber(Integer.parseInt(roomNumber));
+							obRoomDetails.setRoomNumber(roomNumber);
 						}
 					}
 
-					StringBuilder objBuilder = new StringBuilder();
-					StringBuilder objStringBuilder2 = new StringBuilder();
-
-					for (RoomFeature objRFeature : objRType.getRoomFeatures()) {
-						log.debug(
-							" getFutureBookingResponseObject ",
-							" Iterating Room Feature Array.");
-						objBuilder.append(objRFeature.getFeature()).append(";");
-						objStringBuilder2.append(objRFeature.getDescription()).append(";");
-
-					}
-					objRoomType.setFeatures(objBuilder.toString());
-
-					objRoomType.setDescription(objStringBuilder2.toString());
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" Features and Description are Set in response.");
-					objStringBuilder2.setLength(0);
-					obRoomDetails.setRoomType(objRoomType);
+
+					obRoomDetails.setRoomType(new com.cloudkey.commons.RoomType(
+						objRType.getRoomTypeCode(),
+						ParagraphHelper.getFirstString(ParagraphHelper.getTextList(objRType.getRoomTypeDescription())).orNull(),
+						HotelInformationConverter.convertAmenities(objRType.getAmenityInfo().getAmenities()),
+						null
+					));
+
 					objRDetailList.add(obRoomDetails);
 
 					log.debug(

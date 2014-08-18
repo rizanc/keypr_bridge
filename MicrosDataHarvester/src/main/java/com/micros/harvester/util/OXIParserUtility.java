@@ -324,7 +324,7 @@ public class OXIParserUtility {
                 for (int i = 0; i < nodeList.getLength(); i++) {
 
                     roomNumber = nodeList.item(i).getFirstChild().getNodeValue();
-                    objRoomAllocation.setRoomNo(Integer.parseInt(roomNumber));
+                    objRoomAllocation.setRoomNo(roomNumber);
                 }
 
                 log.debug(" populateReservation ", " Room Number: {}", roomNumber);
@@ -482,7 +482,6 @@ public class OXIParserUtility {
                 }
 
                 //End Loyalty Program.
-
 
                 // For Guest Count .
 

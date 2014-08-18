@@ -1,5 +1,7 @@
 package com.cloudkey.commons;
 
+import com.google.common.base.Objects;
+
 import java.util.List;
 
 /* @author ektas */
@@ -7,7 +9,7 @@ import java.util.List;
 public class ReservationRoomAllocation {
 
 	// Reference variable to store the room details with rate. 
-	private int roomNo;
+	private String roomNo;
 	private List<RoomRate> roomRateList;
 	private RoomType roomType;
 	private String reservationStatusType; // For status as chcekin , reservaed , canceled.
@@ -40,21 +42,21 @@ public class ReservationRoomAllocation {
 		this.roomRateList = roomRateList;
 	}
 
-	public int getRoomNo() {
-
+	public String getRoomNo() {
 		return roomNo;
 	}
 
-	public void setRoomNo(int roomNo) {
-
+	public void setRoomNo(String roomNo) {
 		this.roomNo = roomNo;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservationRoomAllocation [roomNo=" + roomNo
-				+ ", roomRateList=" + roomRateList + ", roomType=" + roomType
-				+ "]";
+		return Objects.toStringHelper(this)
+			.add("roomNo", roomNo)
+			.add("roomRateList", roomRateList)
+			.add("roomType", roomType)
+			.add("reservationStatusType", reservationStatusType)
+			.toString();
 	}
-
 }
