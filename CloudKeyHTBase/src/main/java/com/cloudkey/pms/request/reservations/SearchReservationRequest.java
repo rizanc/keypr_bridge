@@ -59,20 +59,6 @@ public class SearchReservationRequest {
 			.toString();
 	}
 
-	@AssertTrue(message = "At least one criteria must be specified")
-    private boolean isValid() {
-		// At least one criteria must be specified
-		return (pmsReservationId != null
-			|| firstName != null
-			|| lastName != null
-			|| creditCardNumber != null
-			|| membershipNumber != null
-			|| membershipType != null
-			|| extRefLegNumber != null
-			|| extReferenceNumber != null
-			|| extReferenceType != null);
-	}
-
     public String getPmsReservationId() {
         return pmsReservationId;
     }
