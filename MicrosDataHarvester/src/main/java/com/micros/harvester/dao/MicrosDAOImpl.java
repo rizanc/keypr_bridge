@@ -919,7 +919,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 
 		PreparedStatement objPreparedStatement = null;
 
-		String pmsId = objReservation.getPmsId();
+		String pmsId = objReservation.getPmsReservationId();
 		int stayLength = objReservation.getStayLength();
 		//String fullName = objReservation.getFullName();
 		String firstName = objReservation.getFirstName();

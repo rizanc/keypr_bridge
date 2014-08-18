@@ -2,6 +2,7 @@ package com.micros.pms.processor;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.pms.common.HotelAmenity;
 import com.cloudkey.pms.micros.og.common.*;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
@@ -29,6 +30,7 @@ import com.micros.pms.util.ParagraphHelper;
 import javax.annotation.Nullable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -225,6 +227,10 @@ public class OWSReservationProcessor extends OWSBase {
 			);
 		}
 
+		if (request.getPmsReservationId() != null) {
+			microsRequest.getAdditionalFilters().setResvNameId(internalReservationId(request.getPmsReservationId()));
+		}
+
 		FutureBookingSummaryResponse response = service.futureBookingSummary(microsRequest, createOGHeaderE());
 
 		errorIfFailure(response.getResult());
@@ -243,9 +249,7 @@ public class OWSReservationProcessor extends OWSBase {
 		/* Populate response into Reservation instance */
 		SearchReservationResponse objSearchReservationResponse = new SearchReservationResponse();
 
-		List<HotelReservation> arrHotelReservation = objResponse.getHotelReservations();
-
-		List<Reservation> objLReservations = parseHotelReservation(arrHotelReservation);
+		List<Reservation> objLReservations = parseHotelReservation(objResponse.getHotelReservations());
 
 		/**
 		 * To set the reservation list and status on the response.
@@ -262,8 +266,6 @@ public class OWSReservationProcessor extends OWSBase {
 
 		List<Reservation> objLReservations = new ArrayList<>();
 		Reservation objReservation;
-		String firstName;
-		String lastName;
 
 		for (HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
 
@@ -308,33 +310,29 @@ public class OWSReservationProcessor extends OWSBase {
 
 					log.debug("getFutureBookingResponseObject: Iterating Profile Array.");
 
-					PersonName objPersonName = objProfile.getCustomer().getPersonName();
-
-					List<NameCreditCard> arrNameCreditCard = null;
-					if (objProfile.getCreditCards() != null) {
-						arrNameCreditCard = objProfile.getCreditCards();
-					}
 
 					/* To set the first name and last name . */
-					firstName = objPersonName.getFirstName();
-					lastName = objPersonName.getLastName();
 
-					if (firstName != null || lastName != null) {
-						objReservation.setFullName(Joiner.on(" ").skipNulls().join(firstName, lastName));
+					if (objProfile.getCustomer() != null && objProfile.getCustomer().getPersonName() != null
+							&& (
+								objProfile.getCustomer().getPersonName().getFirstName() != null
+								|| objProfile.getCustomer().getPersonName().getLastName() != null)
+						) {
+						PersonName objPersonName = objProfile.getCustomer().getPersonName();
+
+						objReservation.setFullName(Joiner.on(" ").skipNulls().join(objPersonName.getFirstName(), objPersonName.getLastName()));
 
 						log.debug("getFutureBookingResponseObject: Full Name is set.");
 					}
 
-					if (arrNameCreditCard != null) {
-						for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
+					for (NameCreditCard objNameCreditCard : objProfile.getCreditCards()) { // To traverse name credit card.
 
-							log.debug("getFutureBookingResponseObject: Iterating NameCreditCard  Array.");
+						log.debug("getFutureBookingResponseObject: Iterating NameCreditCard  Array.");
 
-							objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
+						objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
 
-							log.debug("getFutureBookingResponseObject: Credit Card Number is set.");
-						} // End loop for name credit card.
-					}
+						log.debug("getFutureBookingResponseObject: Credit Card Number is set.");
+					} // End loop for name credit card.
 
 					for (NameAddress objAddress : objProfile.getAddresses()) {// To traverse Name Address.
 						log.debug(
@@ -407,8 +405,8 @@ public class OWSReservationProcessor extends OWSBase {
 
 					obRoomDetails.setRoomType(new com.cloudkey.commons.RoomType(
 						objRType.getRoomTypeCode(),
-						ParagraphHelper.getFirstString(ParagraphHelper.getTextList(objRType.getRoomTypeDescription())).orNull(),
-						HotelInformationConverter.convertAmenities(objRType.getAmenityInfo().getAmenities()),
+						objRType.getRoomTypeDescription() == null ? null : ParagraphHelper.getFirstString(ParagraphHelper.getTextList(objRType.getRoomTypeDescription())).orNull(),
+						objRType.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(objRType.getAmenityInfo().getAmenities()),
 						null
 					));
 

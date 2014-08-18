@@ -15,10 +15,11 @@ import java.util.List;
 public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
+	// TODO: This ID should not be here.
 	private int id ;// PK of database.
 
 	/* variable to store pms id. */
-	private String pmsId; // pms_id
+	private String pmsReservationId; // pms_id
 	/* variable to store the number of days to be stayed at hotel. */
 	/*	private String stayLength ;*/
 	private int stayLength ;
@@ -73,7 +74,6 @@ public class Reservation {
 	/*
 	 * Getter and Setter for each data member.
 	 */
-
 
 	public String getReservationAction() {
 		return reservationAction;
@@ -336,12 +336,12 @@ public class Reservation {
 		this.notes = notes;
 	}
 
-	public String getPmsId() {
-		return pmsId;
+	public String getPmsReservationId() {
+		return pmsReservationId;
 	}
 
-	public void setPmsReservationId(String pmsId) {
-		this.pmsId = pmsId;
+	public void setPmsReservationId(String pmsReservationId) {
+		this.pmsReservationId = pmsReservationId;
 	}
 
 	public List<ReservationRoomAllocation> getReservationRoomAllocationList() {
@@ -363,7 +363,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", pmsId=" + pmsId + ", stayLength="
+		return "Reservation [id=" + id + ", pmsReservationId=" + pmsReservationId + ", stayLength="
 				+ stayLength + ", fullName=" + fullName + ", company="
 				+ company + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + ", email=" + email + ", loyaltyNumber="
