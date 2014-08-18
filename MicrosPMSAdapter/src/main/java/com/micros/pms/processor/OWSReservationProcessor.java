@@ -189,7 +189,7 @@ public class OWSReservationProcessor extends OWSBase {
 
 		AssignRoomRequest objAssignRoomRequest = null;
 
-		String nextAvailableRoom = resvAdvancedProcessor.getNextAvailableRoom(roomTypeCode);
+		String nextAvailableRoom = resvAdvancedProcessor.getNextAvailableRoomNumber(roomTypeCode);
 		if (nextAvailableRoom != null) {
 			objAssignRoomRequest = new AssignRoomRequest();
 			objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);

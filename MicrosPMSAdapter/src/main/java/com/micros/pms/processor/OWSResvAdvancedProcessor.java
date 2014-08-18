@@ -331,25 +331,22 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         return objCheckOutResponse;
     }
 
-    public String getNextAvailableRoom(String roomType) throws RemoteException {
-        log.debug("processFetchRoomStatus: Enter in processSearchReservationData method.");
+    public String getNextAvailableRoomNumber(String roomType) throws RemoteException {
+        log.debug("getNextAvailableRoomNumber: Enter.");
 
-	    FetchRoomStatusRequest req = getRoomStatusRequest(roomType);
+	    FetchRoomStatusRequest req = new FetchRoomStatusRequest()
+	        .withHotelReference(getDefaultHotelReference())
+	        .withRoomType(roomType);
 
-        log.debug("processFetchRoomStatus",
-                AdapterUtility.convertToStreamXML(req));
         FetchRoomStatusResponse microsResponse = service.fetchRoomStatus(req, createOGHeaderE());
-
-        log.debug("processFetchRoomStatus",
-                AdapterUtility.convertToStreamXML(microsResponse));
 
 	    errorIfFailure(microsResponse.getResult());
 
-	    String nextAvailableRoom = microsResponse.getRoomStatuses().get(0).getRoomNumber();
+	    String roomNumber = microsResponse.getRoomStatuses().get(0).getRoomNumber();
 
-	    log.debug("processFetchRoomStatus", nextAvailableRoom);
+	    log.debug("getNextAvailableRoomNumber", roomNumber);
 
-        return nextAvailableRoom;
+        return roomNumber;
     }
 
     public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
