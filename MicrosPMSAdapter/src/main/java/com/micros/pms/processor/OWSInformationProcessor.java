@@ -37,7 +37,7 @@ public class OWSInformationProcessor extends OWSBase {
 	@Inject
 	protected InformationSoap service;
 
-	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) throws RemoteException {
+	public com.cloudkey.pms.response.hotels.HotelInformationResponse processHotelInformation(com.cloudkey.pms.request.hotels.HotelInformationRequest hotelInformationRequest) {
         log.debug("processHotelInformation: Enter processHotelInformation method. ");
 
 		HotelInformationRequest req = new HotelInformationRequest(getDefaultHotelReference());

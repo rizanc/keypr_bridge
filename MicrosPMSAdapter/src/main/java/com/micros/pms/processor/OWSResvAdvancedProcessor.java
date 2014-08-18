@@ -41,7 +41,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	@Inject
 	protected ResvAdvancedServiceSoap service;
 
-	public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest request) throws RemoteException {
+	public com.cloudkey.pms.response.reservations.PostChargeResponse postCharge(com.cloudkey.pms.request.reservations.PostChargeRequest request) {
         log.debug("postCharge: Enter in postCharge method.");
 
 	    PostChargeRequest microsRequest = getPostChargeRequestObject(request);
@@ -84,7 +84,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 	    return new com.cloudkey.pms.response.reservations.PostChargeResponse();
     }
 
-    public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest request) throws RemoteException {
+    public GetFolioResponse processRetrieveFolioInfo(com.cloudkey.pms.request.reservations.GetFolioRequest request) {
         log.debug("processRetrieveFolioInfo: Enter in processRetrieveFolioInfo method.");
 
 	    InvoiceRequest microsRequest = getFolioRequestObject(request);
@@ -224,7 +224,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         return objInvoiceRequest;
     }
 
-    public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) throws RemoteException {
+    public com.cloudkey.pms.response.reservations.CheckOutResponse processCheckOut(com.cloudkey.pms.request.reservations.CheckOutRequest request) {
         log.debug("processCheckOut: Enter in processCheckOut method. ");
 
 	    CheckOutRequest req = getCheckOutRequestObject(request);
@@ -318,7 +318,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         return objCheckOutResponse;
     }
 
-    public String getNextAvailableRoomNumber(String roomType) throws RemoteException {
+    public String getNextAvailableRoomNumber(String roomType) {
         log.debug("getNextAvailableRoomNumber: Enter.");
 
 	    FetchRoomStatusRequest req = new FetchRoomStatusRequest()
@@ -336,7 +336,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         return roomNumber;
     }
 
-    public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) throws RemoteException {
+    public com.cloudkey.pms.response.reservations.CheckInResponse processCheckIn(com.cloudkey.pms.request.reservations.CheckInRequest request) {
         log.debug("processCheckIn: Enter in processSearchReservationData method. ");
 
 	    CheckInRequest req = getCheckInRequestObject(request);

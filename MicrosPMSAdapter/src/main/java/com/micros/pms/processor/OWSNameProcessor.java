@@ -30,7 +30,7 @@ public class OWSNameProcessor extends OWSBase {
 	@Inject
 	protected NameServiceSoap service;
 
-	public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) throws RemoteException {
+	public GuestMembershipResponse processGuestCardList(GuestMembershipsRequest guestMembershipsRequest) {
         log.debug("processGuestCardList: Enter processGuestCardList method ");
 
         FetchGuestCardListRequest request = new FetchGuestCardListRequest();
@@ -67,7 +67,7 @@ public class OWSNameProcessor extends OWSBase {
         return response;
     }
 
-    public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) throws RemoteException {
+    public NameIdByMembershipResponse processNameLookupByMembership(NameIdByMembershipRequest nameIdByMembershipRequest) {
         log.debug("processNameLookupByMembership: Enter processNameLookupByMembership method ");
 
         NameLookupRequest objRequest = new NameLookupRequest();

@@ -51,13 +51,8 @@ public class OWSTestUtils {
 	public void Availability() {
         GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE, null);
 
-        try {
-            GetAvailabilityResponse response =
-                    owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        GetAvailabilityResponse response =
+                owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
     }
 
     public void FutureBookingSummary() {
@@ -73,47 +68,26 @@ public class OWSTestUtils {
 	        null,
 	        null
         );
-        try {
-            owsReservationProcessor.processSearchReservationData(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
-
+	    
+        owsReservationProcessor.processSearchReservationData(request);
     }
 
     public void AssignRoom() {
         AssignRoomRequest request = new AssignRoomRequest(PMS_RESERVATION_ID, ROOM_TYPE_DEFAULT);
 
-        try {
-            owsReservationProcessor.processAssignRoom(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
-
+        owsReservationProcessor.processAssignRoom(request);
     }
 
     public void ReleaseRoom() {
         ReleaseRoomRequest request = new ReleaseRoomRequest(PMS_RESERVATION_ID);
 
-        try {
-            owsReservationProcessor.processReleaseRoom(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsReservationProcessor.processReleaseRoom(request);
     }
 
     public void CheckIn() {
         CheckInRequest request = new CheckInRequest(PMS_RESERVATION_ID, CREDIT_CARD_NO);
 
-        try {
-            owsResvAdvancedProcessor.processCheckIn(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsResvAdvancedProcessor.processCheckIn(request);
     }
 
 
@@ -121,12 +95,7 @@ public class OWSTestUtils {
 
         CheckOutRequest request = new CheckOutRequest(PMS_RESERVATION_ID);
 
-        try {
-            owsResvAdvancedProcessor.processCheckOut(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsResvAdvancedProcessor.processCheckOut(request);
     }
 
     public void ModifyBooking() {
@@ -136,46 +105,26 @@ public class OWSTestUtils {
         List<String> notes = Arrays.asList("Comment 1", "Comment 2", "Comment 3");
         AddReservationNotesRequest addReservationNotesRequest = new AddReservationNotesRequest(PMS_RESERVATION_ID, notes);
 
-        try {
-            owsReservationProcessor.processAddNotes(addReservationNotesRequest);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        owsReservationProcessor.processAddNotes(addReservationNotesRequest);
     }
 
     public void Folio() {
-
         GetFolioRequest request = new GetFolioRequest(PMS_RESERVATION_ID);
 
-        try {
-            owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
     }
 
     public void HotelInformation() {
         HotelInformationRequest request = new HotelInformationRequest();
 
-        try {
-            owsInformationProcessor.processHotelInformation(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsInformationProcessor.processHotelInformation(request);
     }
 
     public void NameLookupByMembership() {
 
         NameIdByMembershipRequest request = new NameIdByMembershipRequest("OR", "1166666666", "REWARDS");
 
-        try {
-            owsNameProcessor.processNameLookupByMembership(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsNameProcessor.processNameLookupByMembership(request);
     }
 
     public void GetCardList() {
@@ -187,11 +136,6 @@ public class OWSTestUtils {
 
         GuestMembershipsRequest request = new GuestMembershipsRequest("220080");
 
-        try {
-            owsNameProcessor.processGuestCardList(request);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-
+        owsNameProcessor.processGuestCardList(request);
     }
 }

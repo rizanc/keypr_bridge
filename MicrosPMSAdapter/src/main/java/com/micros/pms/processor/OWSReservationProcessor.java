@@ -41,7 +41,7 @@ public class OWSReservationProcessor extends OWSBase {
 	@Inject
 	protected ReservationServiceSoap service;
 
-	public FetchBookingResponse fetchBooking(String pmsReservationId) throws RemoteException {
+	public FetchBookingResponse fetchBooking(String pmsReservationId) {
 		log.debug("fetchBooking: Enter method");
 
 		FetchBookingRequest request = new FetchBookingRequest();
@@ -56,7 +56,7 @@ public class OWSReservationProcessor extends OWSBase {
 		return response;
 	}
 
-	public com.cloudkey.pms.response.roomassignments.AssignRoomResponse processAssignRoom(com.cloudkey.pms.request.roomassignments.AssignRoomRequest request) throws RemoteException {
+	public com.cloudkey.pms.response.roomassignments.AssignRoomResponse processAssignRoom(com.cloudkey.pms.request.roomassignments.AssignRoomRequest request) {
 		log.debug("processAssignRoom: Enter in processSearchReservationData method.");
 
 		AssignRoomRequest req = getAssignRoomRequestObject(request);
@@ -68,7 +68,7 @@ public class OWSReservationProcessor extends OWSBase {
 		return getAssignRoomResponseObject(response);
 	}
 
-	public com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse processReleaseRoom(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest request) throws RemoteException {
+	public com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse processReleaseRoom(com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest request) {
 		log.debug("processReleaseRoom: Enter in processReleaseRoom method. ");
 
 		ReleaseRoomRequest req = getReleaseRoomRequestObject(request);
@@ -79,7 +79,7 @@ public class OWSReservationProcessor extends OWSBase {
 		return getReleaseRoomResponseObject(response);
 	}
 
-	public AddReservationNotesResponse processAddNotes(AddReservationNotesRequest addReservationNotesRequest) throws RemoteException {
+	public AddReservationNotesResponse processAddNotes(AddReservationNotesRequest addReservationNotesRequest) {
 
 //		log.debug("processAddNotes: Enter method");
 
@@ -163,7 +163,7 @@ public class OWSReservationProcessor extends OWSBase {
 		return objAssignRoomResponse;
 	}
 
-	private AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest) throws RemoteException {
+	private AssignRoomRequest getAssignRoomRequestObject(com.cloudkey.pms.request.roomassignments.AssignRoomRequest assignRoomRequest) {
 
 		log.debug("getAssignRoomRequestObject: Enter getAssignRoomRequestObject method ");
 
@@ -189,7 +189,7 @@ public class OWSReservationProcessor extends OWSBase {
 		return objAssignRoomRequest;
 	}
 
-	public SearchReservationResponse processSearchReservationData(SearchReservationRequest request) throws RemoteException {
+	public SearchReservationResponse processSearchReservationData(SearchReservationRequest request) {
 
 		log.debug("processSearchReservationData: Enter in processSearchReservationData method. ");
 
