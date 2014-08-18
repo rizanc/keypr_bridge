@@ -49,7 +49,7 @@ public class OWSTestUtils {
 	OWSInformationProcessor owsInformationProcessor;
 
 	public void Availability() {
-        GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE);
+        GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE, null);
 
         try {
             GetAvailabilityResponse response =

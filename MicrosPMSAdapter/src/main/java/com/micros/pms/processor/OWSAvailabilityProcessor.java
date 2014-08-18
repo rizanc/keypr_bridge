@@ -52,7 +52,8 @@ public class OWSAvailabilityProcessor extends OWSBase {
 				    .withStartDate(availabilityRequest.getStartDate().toDateTimeAtStartOfDay().toDate())
 				    .withEndDate(availabilityRequest.getEndDate().toDateTimeAtStartOfDay().toDate())
 		    )
-		    .withHotelReference(getDefaultHotelReference());
+		    .withHotelReference(getDefaultHotelReference())
+		    .withInventoryMode(availabilityRequest.getAvailableOnly() == null ? false : availabilityRequest.getAvailableOnly());
 
         log.debug("getAvailabilityRequestObject: Exit getAvailabilityRequestObject method. ");
 

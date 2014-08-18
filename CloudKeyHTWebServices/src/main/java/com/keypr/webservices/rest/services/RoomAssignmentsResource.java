@@ -63,10 +63,12 @@ public class RoomAssignmentsResource extends AbstractResource {
     })
     public GetAvailabilityResponse getAvailability(
             @QueryParam("startDate") LocalDateParam startDate,
-            @QueryParam("endDate") LocalDateParam endDate) {
+            @QueryParam("endDate") LocalDateParam endDate,
+            @QueryParam("availableOnly") Boolean availableOnly) {
         GetAvailabilityRequest request = new GetAvailabilityRequest(
                 startDate == null ? null : startDate.get(),
-                endDate == null ? null : endDate.get()
+                endDate == null ? null : endDate.get(),
+                availableOnly
         );
 
         validate(request);

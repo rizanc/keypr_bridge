@@ -1,5 +1,6 @@
 package com.cloudkey.pms.request.roomassignments;
 
+import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.joda.time.LocalDate;
 
@@ -22,12 +23,22 @@ public class GetAvailabilityRequest {
     @ApiModelProperty(required = true)
     private LocalDate endDate;
 
+	/**
+	 * If true, only available inventory will be included in the results.
+	 */
+	@NotNull
+	private Boolean availableOnly = false;
+
 	protected GetAvailabilityRequest() { /* For serialization */ }
 
-	public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+	public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+
+		if (availableOnly != null) {
+			this.availableOnly = availableOnly;
+		}
+	}
 
 	@AssertTrue(message = "Start date must be before end date")
 	private boolean isValid() {
@@ -42,10 +53,16 @@ public class GetAvailabilityRequest {
         return endDate;
     }
 
-    @Override
-	public String toString() {
-		return "GetAvailabilityRequest [startDate=" + startDate + ", endDate="
-				+ endDate + "]";
+	public Boolean getAvailableOnly() {
+		return availableOnly;
 	}
-	
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("startDate", startDate)
+			.add("endDate", endDate)
+			.add("availableOnly", availableOnly)
+			.toString();
+	}
 }
