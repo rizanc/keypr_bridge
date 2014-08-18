@@ -32,10 +32,7 @@ public class OWSAvailabilityProcessor extends OWSBase {
         log.debug("processAvailability: Enter checkAvailability method.");
 
         FetchCalendarRequest microsRequest = getAvailabilityRequestObject(request);
-		log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsRequest));
-
 		FetchCalendarResponse microsResponse = service.fetchCalendar(microsRequest, createOGHeaderE());
-        log.debug("processAvailability", AdapterUtility.convertToStreamXML(microsResponse));
 
 	    errorIfFailure(microsResponse.getResult());
 

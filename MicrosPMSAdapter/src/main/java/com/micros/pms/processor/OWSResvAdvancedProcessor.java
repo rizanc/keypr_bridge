@@ -40,17 +40,10 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         log.debug("postCharge: Enter in postCharge method.");
 
 	    PostChargeRequest microsRequest = getPostChargeRequestObject(request);
-
-	    log.debug("postCharge", AdapterUtility.convertToStreamXML(microsRequest));
-
         PostChargeResponse microsResponse = service.postCharge(microsRequest, createOGHeaderE());
-        log.debug("postCharge", AdapterUtility.convertToStreamXML(microsResponse));
-
 	    errorIfFailure(microsResponse.getResult());
 
 	    com.cloudkey.pms.response.reservations.PostChargeResponse response = getPostChargeResponseObject(microsResponse);
-	    log.debug("postCharge", AdapterUtility.convertToStreamXML(response));
-
         log.debug("postCharge: Exit postCharge method ");
 
         return response;
@@ -90,11 +83,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         log.debug("processRetrieveFolioInfo: Enter in processRetrieveFolioInfo method.");
 
 	    InvoiceRequest microsRequest = getFolioRequestObject(request);
-        log.debug("processRetrieveFolioInfo", AdapterUtility.convertToStreamXML(microsRequest));
-
         InvoiceResponse microsResponse = service.invoice(microsRequest, createOGHeaderE());
-        log.debug("processRetrieveFolioInfo", AdapterUtility.convertToStreamXML(microsResponse));
-
 	    errorIfFailure(microsResponse.getResult());
 
         log.debug("processRetrieveFolioInfo: Exit processRetrieveFolioInfo method ");
@@ -234,17 +223,10 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         log.debug("processCheckOut: Enter in processCheckOut method. ");
 
 	    CheckOutRequest req = getCheckOutRequestObject(request);
-
-        log.debug("processCheckOut",
-                AdapterUtility.convertToStreamXML(req));
         CheckOutResponse resp = service.checkOut(req, createOGHeaderE());
-        log.debug("processCheckOut",
-                AdapterUtility.convertToStreamXML(resp));
 	    errorIfFailure(resp.getResult());
 
 	    com.cloudkey.pms.response.reservations.CheckOutResponse response = getCheckOutResponseObject(resp);
-        log.debug("processCheckOut",
-                AdapterUtility.convertToStreamXML(response));
 
         return response;
 
@@ -353,18 +335,10 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         log.debug("processCheckIn: Enter in processSearchReservationData method. ");
 
 	    CheckInRequest req = getCheckInRequestObject(request);
-
-        log.debug("processCheckIn",
-        AdapterUtility.convertToStreamXML(req));
-
 	    CheckInResponse microsResponse = service.checkIn(req, createOGHeaderE());
-        log.debug("processCheckIn",
-                AdapterUtility.convertToStreamXML(microsResponse));
 	    errorIfFailure(microsResponse.getResult());
 
 	    com.cloudkey.pms.response.reservations.CheckInResponse response = getCheckInResponseObject(microsResponse);
-        log.debug("processFetchRoomStatus",
-                AdapterUtility.convertToStreamXML(response));
 
         return response;
     }

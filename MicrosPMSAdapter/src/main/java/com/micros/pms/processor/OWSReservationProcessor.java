@@ -48,12 +48,7 @@ public class OWSReservationProcessor extends OWSBase {
 		request.setResvNameId(internalReservationId(pmsReservationId));
 		request.setHotelReference(getDefaultHotelReference());
 
-		log.debug("fetchBooking",
-			AdapterUtility.convertToStreamXML(request));
-
 		FetchBookingResponse response = service.fetchBooking(request, createOGHeaderE());
-		log.debug("fetchBooking",
-			AdapterUtility.convertToStreamXML(response));
 
 		errorIfFailure(response.getResult());
 
@@ -65,12 +60,7 @@ public class OWSReservationProcessor extends OWSBase {
 
 		AssignRoomRequest req = getAssignRoomRequestObject(request);
 
-		log.debug("processAssignRoom",
-			AdapterUtility.convertToStreamXML(req));
 		AssignRoomResponse response = service.assignRoom(req, createOGHeaderE());
-
-		log.debug("processAssignRoom",
-			AdapterUtility.convertToStreamXML(response));
 
 		errorIfFailure(response.getResult());
 
@@ -81,12 +71,7 @@ public class OWSReservationProcessor extends OWSBase {
 		log.debug("processReleaseRoom: Enter in processReleaseRoom method. ");
 
 		ReleaseRoomRequest req = getReleaseRoomRequestObject(request);
-
-		log.debug("processReleaseRoom",
-			AdapterUtility.convertToStreamXML(req));
 		ReleaseRoomResponse response = service.releaseRoom(req, createOGHeaderE());
-		log.debug("processReleaseRoom",
-			AdapterUtility.convertToStreamXML(response));
 
 		errorIfFailure(response.getResult());
 
@@ -113,11 +98,7 @@ public class OWSReservationProcessor extends OWSBase {
 					}
 				})));
 
-//				log.debug("processAddNotes",
-//					AdapterUtility.convertToStreamXML(microsReq));
 		GuestRequestsResponse response = service.guestRequests(microsReq, createOGHeaderE());
-//		log.debug("processAddNotes",
-//			AdapterUtility.convertToStreamXML(response));
 
 		errorIfFailure(response.getResult());
 

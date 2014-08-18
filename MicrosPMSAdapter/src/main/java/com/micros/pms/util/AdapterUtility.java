@@ -116,24 +116,6 @@ public class AdapterUtility {
 
 
 	/**
-	 * This method is used to convert the object into xml using xstram .
-	 *
-	 * @param object
-	 * @return
-	 */
-	public static String convertToStreamXML(Object object) {
-		log.debug("convertToStreamXML: Enter convertToStreamXML method");
-
-		XStream objStream = new XStream(new DomDriver());
-		String xmlString = objStream.toXML(object);
-
-		log.debug("convertToStreamXML: Exit convertToStreamXML method");
-
-		return xmlString;
-	}
-
-
-	/**
 	 * @param objCalendar
 	 * @return String
 	 */

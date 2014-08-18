@@ -36,11 +36,7 @@ public class OWSNameProcessor extends OWSBase {
         FetchGuestCardListRequest request = new FetchGuestCardListRequest();
         request.setNameID(new UniqueID(guestMembershipsRequest.getPmsNameId(), UniqueIDType.INTERNAL, null));
 
-		log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(request));
-
         FetchGuestCardListResponse objResponse = service.fetchGuestCardList(request, createOGHeaderE());
-        log.debug("processGuestCardList", AdapterUtility.convertToStreamXML(objResponse));
-
 	    errorIfFailure(objResponse.getResult());
 
 	    GuestMembershipResponse response = new GuestMembershipResponse();
@@ -87,11 +83,7 @@ public class OWSNameProcessor extends OWSBase {
 
 	    nameLookupInput.setMembership(criteriaMembership);
 
-        log.debug("processNameLookupByMembership",
-	        AdapterUtility.convertToStreamXML(objRequest));
         NameLookupResponse objResponse = service.nameLookup(objRequest, createOGHeaderE());
-        log.debug("processNameLookupByMembership",
-	        AdapterUtility.convertToStreamXML(objResponse));
 
 	    errorIfFailure(objResponse.getResult());
 
@@ -106,9 +98,6 @@ public class OWSNameProcessor extends OWSBase {
 			    }
 		    }
 	    }
-
-        log.debug("processNameLookupByMembership",
-	        AdapterUtility.convertToStreamXML(response));
 
         return response;
     }

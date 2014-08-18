@@ -32,13 +32,7 @@ public class OWSInformationProcessor extends OWSBase {
         log.debug("processHotelInformation: Enter processHotelInformation method. ");
 
 	    HotelInformationRequest req = getHotelInformationRequestObject(hotelInformationRequest);
-
-        log.debug("processHotelInformation",
-	        AdapterUtility.convertToStreamXML(req));
-
 		HotelInformationResponse response = service.queryHotelInformation(req, createOGHeaderE());
-        log.debug("processHotelInformation",
-	        AdapterUtility.convertToStreamXML(response));
 
 	    errorIfFailure(response.getResult());
 	    return getHotelInformationResponseObject(response);
