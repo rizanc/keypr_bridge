@@ -20,14 +20,10 @@ import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
-import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.HotelInformationConverter;
 import com.micros.pms.util.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
-import com.sun.tools.corba.se.idl.toJavaPortable.Helper;
-import com.sun.tools.javac.util.Convert;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;

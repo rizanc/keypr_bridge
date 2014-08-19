@@ -248,7 +248,7 @@ public class OXIParserUtility {
                     reservationSource = roomStay.getMfsourceCode();
 
                     if (roomStay.getRoomID() != null) {
-                        objRoomAllocation.setRoomNo(Integer.parseInt(roomStay.getRoomID()));
+                        objRoomAllocation.setRoomNo(roomStay.getRoomID());
                     }
                 }
 
