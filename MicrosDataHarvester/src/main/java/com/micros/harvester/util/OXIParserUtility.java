@@ -53,8 +53,6 @@ public class OXIParserUtility {
      */
     private Boolean docLoaded = false;
 
-	private ObjectMapper objectMapper = new ObjectMapper();
-
     /**
      * * This method accept xpath expression and reference of xml document. It returns the list
      * of nodes satisfying the criteria of xpath expression.
@@ -363,7 +361,8 @@ public class OXIParserUtility {
                 objReservation.setNumberOfGuests(totalGuest);
                 objReservation.setNumberOfAdults(totalAdults);
                 objReservation.setNumberOfChildren(totalChildren);
-                objReservation.setAddress(objectMapper.readValue(address, StreetAddress.class));
+	            // TODO: Re-enable address parsing once reservation model is re-done
+//                objReservation.setAddress(objectMapper.readValue(address, StreetAddress.class));
                 objReservation.setPhoneNumber(phoneNumber);
                 objReservation.setCompany(companyName);
                 objRoomAllocation.setRoomRateList(obRoomRatesList);
@@ -375,9 +374,7 @@ public class OXIParserUtility {
                 objReservation.setLastName(lastName);
                 objReservation.setReservationStatus(reservationStatusType);
                 objReservation.setGroup(groupCode);
-
             } else {
-
                 log.debug("populateReservation: Not Reservation ");
             }
 

@@ -59,8 +59,6 @@ public class UploadReservationDataRetriever {
 	@Inject
 	protected UploadServiceClient uploadServiceClient;
 
-	protected ObjectMapper objectMapper = new ObjectMapper();
-
 	/**
 	 * This method is used to listen the upload queue as scheduler after every fixed time period and fetch the reservation data from upload queue.
 	 */
@@ -122,7 +120,8 @@ public class UploadReservationDataRetriever {
 							reservation.setLastName( reservationSet.getString( "reservation.last_name" ) );
 							reservation.setCompany( reservationSet.getString( "reservation.company_name" ) );
 
-							reservation.setAddress( objectMapper.readValue(reservationSet.getString( "reservation.address" ), StreetAddress.class));
+							// TODO: Re-enable address parsing once reservation model is re-done
+//							reservation.setAddress( objectMapper.readValue(reservationSet.getString( "reservation.address" ), StreetAddress.class));
 							reservation.setLoyaltyNumber( reservationSet.getString( "reservation.loyalty_number" ) );
 							reservation.setPhoneNumber( reservationSet.getString( "reservation.phone" ) );
 							reservation.setConfirmationNumber( reservationSet.getString( "reservation.confirmation_number" ) );
@@ -134,10 +133,10 @@ public class UploadReservationDataRetriever {
 							reservation.setPropertyId( reservationSet.getString( "reservation.property_id" ) );
 							reservation.setCreditCardNumber( reservationSet.getString( "reservation.credit_card_no" ) );
 
-							reservation.setReservationSource( reservationSet.getString( "reservation.reservation_source" ) );
-							reservation.setAffilateId( reservationSet.getString( "reservation.affiliate_id" ) );
-							reservation.setMessage( reservationSet.getString( "reservation.messages" ) );
-							reservation.setEmail( reservationSet.getString( "reservation.email_id" ) ) ;
+							reservation.setReservationSource(reservationSet.getString("reservation.reservation_source"));
+							reservation.setAffilateId(reservationSet.getString("reservation.affiliate_id"));
+							reservation.setMessage(reservationSet.getString("reservation.messages"));
+							reservation.setEmail(reservationSet.getString("reservation.email_id")) ;
 
 							//reservationSet.getString( "status" );
 							// reservation.setPropertyImage(reservationSet.getBlob( "property_image" ));
@@ -290,9 +289,7 @@ public class UploadReservationDataRetriever {
 					} else {
 						log.debug("fetchReservationDetails: reservationSet is null");
 					}
-				} catch (SQLException | JsonMappingException | JsonParseException e) {
-					log.error("fetchReservationDetails", e);
-				} catch (IOException e) {
+				} catch (SQLException e) {
 					log.error("fetchReservationDetails", e);
 				}
 

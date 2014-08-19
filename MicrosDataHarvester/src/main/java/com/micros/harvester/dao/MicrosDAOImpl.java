@@ -30,7 +30,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	@Inject
 	protected DataSource dataSource;
 
-	protected ObjectMapper objectMapper = new ObjectMapper();
 /*
 	@Override
 	public boolean persistRoomStatusDataInBridgeDB( FetchRoomStatusResponse objFetchRoomStatusResponse ) {
@@ -967,7 +966,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objPreparedStatement.setString( 4, lastName );
 			objPreparedStatement.setString( 5, companyName );
 
-			objPreparedStatement.setString( 6, objectMapper.writeValueAsString(address));
+			// TODO: Re-enable address parsing once reservation model is re-done
+			objPreparedStatement.setString( 6, "");
+//			objPreparedStatement.setString( 6, objectMapper.writeValueAsString(address));
 			objPreparedStatement.setString( 7, loyaltyNumber );
 			objPreparedStatement.setString( 8,phoneNumber );
 			objPreparedStatement.setInt( 9,numberOfGuest );
