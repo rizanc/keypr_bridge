@@ -99,8 +99,6 @@ public class OXIListener implements HttpHandler {
 
             objDataUtility.loadDoc(xmlFile);
 
-            microsDAO = new MicrosDAOImpl();
-
 	        boolean isPersisted;
 
             if (objDataUtility.isReservation()) {

@@ -1041,7 +1041,10 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		}
 		catch( Exception exc ){
 
-			objConn.rollback();
+			if (objConn != null) {
+				objConn.rollback();
+			}
+
 			log.error(" persistReservationData ", exc);
 		}
 
