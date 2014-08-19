@@ -83,8 +83,6 @@ public class OXIListener implements HttpHandler {
             Headers reqHeaders = exchange.getRequestHeaders();
             String contentType = reqHeaders.getFirst("Content-Type");
 
-            log.debug("handle: content type: {}", contentType);
-
             InputStream objInputStream = exchange.getRequestBody();
 
             ByteArrayOutputStream objByteArray = new ByteArrayOutputStream();
@@ -98,8 +96,6 @@ public class OXIListener implements HttpHandler {
 
             //oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
             oxiRequest = new String(objByteArray.toByteArray());
-
-            log.debug("handle: Reservation Received: {}", oxiRequest);
 
             File xmlFile = persistToFile(oxiRequest);
 

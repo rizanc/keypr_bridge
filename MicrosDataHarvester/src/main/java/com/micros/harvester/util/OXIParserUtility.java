@@ -13,7 +13,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.bind.JAXBContext;
@@ -170,14 +169,13 @@ public class OXIParserUtility {
         String loyaltyProgram = "";
         String pmsId = "";
         String email = "";
+        String groupCode = "";
         int totalGuest = 0;
         int totalAdults = 0;
         int totalChildren = 0;
 
         String planCode = "";
         String reservationStatusType = "";
-
-        boolean isFirst = true;
 
         try {
 
@@ -209,6 +207,9 @@ public class OXIParserUtility {
                 if (oxiReservation.getRoomStays() != null &&
                         oxiReservation.getRoomStays().getRoomStay() != null) {
                     RoomStay roomStay = oxiReservation.getRoomStays().getRoomStay().get(0);
+                    if (roomStay.getInventoryBlockCode() != null){
+                        groupCode = roomStay.getInventoryBlockCode();
+                    }
                     if (roomStay.getRatePlans() != null) {
                         List<RatePlan> ratePlan = roomStay.getRatePlans().getRatePlan();
                         if (ratePlan != null) {
@@ -272,12 +273,11 @@ public class OXIParserUtility {
                 // not any requests that are on the Profile and OPERA has not bought over to the reservation.
                 String specialRequests = "";
                 if (oxiReservation.getSpecialRequests() != null &&
-                        oxiReservation.getSpecialRequests().getSpecialRequest() != null){
-                    for (SpecialRequest reservationSpecialRequest : oxiReservation.getSpecialRequests().getSpecialRequest()){
+                        oxiReservation.getSpecialRequests().getSpecialRequest() != null) {
+                    for (SpecialRequest reservationSpecialRequest : oxiReservation.getSpecialRequests().getSpecialRequest()) {
                         if (specialRequests.equals("")) {
                             specialRequests = reservationSpecialRequest.getRequestCode() + "-" + reservationSpecialRequest.getRequestComments();
-                        }else
-                        {
+                        } else {
                             specialRequests += ";" + reservationSpecialRequest.getRequestCode() + "-" + reservationSpecialRequest.getRequestComments();
                         }
                     }
@@ -310,88 +310,34 @@ public class OXIParserUtility {
                 }
 
                 totalGuest = totalAdults + totalChildren;
+                boolean guestProfileFound = false;
 
                 for (ResProfile mainProfile : oxiReservation.getResProfiles().getResProfile()) {
+
                     Profile profile = mainProfile.getProfile();
-                    if (profile != null) {
-                        if (profile.getIndividualName() != null) {
-                            lastName = profile.getIndividualName().getNameSur();
-                            firstName = profile.getIndividualName().getNameFirst();
-                        }
+                    if (profile == null)
+                        continue;
 
-                        if (profile.getPostalAddresses() != null) {
-                            List<PostalAddress> postalAddresses = profile.getPostalAddresses().getPostalAddress();
-                            if (postalAddresses.size() > 0) {
-                                for (PostalAddress postalAddress : postalAddresses) {
-                                    if (postalAddress.getMfPrimaryYN().equals("Y")) {
+                    if (profile.getProfileType() == ProfileType.GUEST &&
+                            !guestProfileFound) {
 
-                                        String address_lines = postalAddress.getAddress1();
-                                        if (postalAddress.getAddress2() != null) {
-                                            address_lines += ',' + postalAddress.getAddress2();
-                                        }
+                        guestProfileFound = true;
 
-                                        if (postalAddress.getAddress3() != null) {
-                                            address_lines += ',' + postalAddress.getAddress3();
-                                        }
-
-                                        address = postalAddress.getAddressType()
-                                                + ";" + address_lines
-                                                + ";" + postalAddress.getCity()
-                                                + ";" + postalAddress.getStateCode()
-                                                + ";" + postalAddress.getPostalCode()
-                                                + ";" + postalAddress.getPostalCodeExt()
-                                                + ";" + postalAddress.getCountryCode();
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    // To set full name.
-                    if (firstName != null && lastName != null ) {
-                        fullName = firstName.concat(","+lastName);
-                    } else if (firstName != null) {
-                        fullName = firstName;
-                    } else if (lastName != null) {
-                        fullName = lastName;
-                    } else {
-                        fullName = "";
-                    }
-
-                    if (profile.getMemberships() != null &&
-                            profile.getMemberships().getMembership() != null) {
-
-                        //TODO: Perhaps need to allow for more than one membership here.
-                        for (Membership membership : profile.getMemberships().getMembership()) {
-                            if (membership.getDisplaySequence() == 1) {
-                                loyaltyProgram = membership.getProgramCode();
-                                loyaltyNumber = membership.getAccountID();
-                                break;
-                            }
-                        }
-                    }
-
-                    if (profile.getPhoneNumbers() != null &&
-                            profile.getPhoneNumbers().getPhoneNumber() != null){
-                        for (PhoneNumber oxiPhone : profile.getPhoneNumbers().getPhoneNumber())
+                        GuestProfileParser guestProfileParser = new GuestProfileParser(loyaltyNumber, firstName, lastName, address, phoneNumber, loyaltyProgram, email, profile).invoke();
+                        loyaltyNumber = guestProfileParser.getLoyaltyNumber();
+                        loyaltyProgram = guestProfileParser.getLoyaltyProgram();
+                        fullName = guestProfileParser.getFullName();
+                        address = guestProfileParser.getAddress();
+                        phoneNumber = guestProfileParser.getPhoneNumber();
+                        email = guestProfileParser.getEmail();
+                        firstName = guestProfileParser.getFirstName();
+                        lastName = guestProfileParser.getLastName();
+                    } else if (profile.getProfileType() == ProfileType.CORPORATE){
+                        if (profile.getIndividualName() != null )
                         {
-                            if (phoneNumber.equals("")){
-                                phoneNumber += oxiPhone.getPhoneNumber();
-                            }else
+                            if (profile.getIndividualName().getNameSur() != null)
                             {
-                                phoneNumber += ";"+oxiPhone.getPhoneNumber();
-                            }
-                        }
-                    }
-
-                    if (profile.getElectronicAddresses() != null &&
-                            profile.getElectronicAddresses().getElectronicAddress() != null) {
-                        for (ElectronicAddress electronicAddress : profile.getElectronicAddresses().getElectronicAddress()) {
-                            if (email.equals("")) {
-                                email = electronicAddress.getEAddress();
-                            } else {
-                                email += ";" + electronicAddress.getEAddress();
+                                companyName = profile.getIndividualName().getNameSur();
                             }
                         }
                     }
@@ -426,6 +372,7 @@ public class OXIParserUtility {
                 objReservation.setFirstName(firstName);
                 objReservation.setLastName(lastName);
                 objReservation.setReservationStatus(reservationStatusType);
+                objReservation.setGroup(groupCode);
 
             } else {
 
@@ -517,4 +464,141 @@ public class OXIParserUtility {
     }
 
 
+    private class GuestProfileParser {
+        private String loyaltyNumber;
+        private String firstName;
+        private String lastName;
+        private String address;
+        private String phoneNumber;
+        private String loyaltyProgram;
+        private String email;
+        private Profile profile;
+        private String fullName;
+
+        public GuestProfileParser(String loyaltyNumber, String firstName, String lastName, String address, String phoneNumber, String loyaltyProgram, String email, Profile profile) {
+            this.loyaltyNumber = loyaltyNumber;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
+            this.loyaltyProgram = loyaltyProgram;
+            this.email = email;
+            this.profile = profile;
+        }
+
+        public String getLoyaltyNumber() {
+            return loyaltyNumber;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public String getLoyaltyProgram() {
+            return loyaltyProgram;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public GuestProfileParser invoke() {
+            if (profile.getIndividualName() != null) {
+                lastName = profile.getIndividualName().getNameSur();
+                firstName = profile.getIndividualName().getNameFirst();
+            }
+
+            if (profile.getPostalAddresses() != null) {
+                List<PostalAddress> postalAddresses = profile.getPostalAddresses().getPostalAddress();
+                if (postalAddresses.size() > 0) {
+                    for (PostalAddress postalAddress : postalAddresses) {
+                        if (postalAddress.getMfPrimaryYN().equals("Y")) {
+
+                            String address_lines = postalAddress.getAddress1();
+                            if (postalAddress.getAddress2() != null) {
+                                address_lines += ',' + postalAddress.getAddress2();
+                            }
+
+                            if (postalAddress.getAddress3() != null) {
+                                address_lines += ',' + postalAddress.getAddress3();
+                            }
+
+                            address = postalAddress.getAddressType()
+                                    + ";" + address_lines
+                                    + ";" + postalAddress.getCity()
+                                    + ";" + postalAddress.getStateCode()
+                                    + ";" + postalAddress.getPostalCode()
+                                    + ";" + postalAddress.getPostalCodeExt()
+                                    + ";" + postalAddress.getCountryCode();
+                        }
+                        break;
+                    }
+                }
+            }
+
+
+            // To set full name.
+            if (firstName != null && lastName != null) {
+                fullName = firstName.concat("," + lastName);
+            } else if (firstName != null) {
+                fullName = firstName;
+            } else if (lastName != null) {
+                fullName = lastName;
+            } else {
+                fullName = "";
+            }
+
+            if (profile.getMemberships() != null &&
+                    profile.getMemberships().getMembership() != null) {
+
+                //TODO: Perhaps need to allow for more than one membership here.
+                for (Membership membership : profile.getMemberships().getMembership()) {
+                    if (membership.getDisplaySequence() == 1) {
+                        loyaltyProgram = membership.getProgramCode();
+                        loyaltyNumber = membership.getAccountID();
+                        break;
+                    }
+                }
+            }
+
+            if (profile.getPhoneNumbers() != null &&
+                    profile.getPhoneNumbers().getPhoneNumber() != null) {
+                for (PhoneNumber oxiPhone : profile.getPhoneNumbers().getPhoneNumber()) {
+                    if (phoneNumber.equals("")) {
+                        phoneNumber += oxiPhone.getPhoneNumber();
+                    } else {
+                        phoneNumber += ";" + oxiPhone.getPhoneNumber();
+                    }
+                }
+            }
+
+            if (profile.getElectronicAddresses() != null &&
+                    profile.getElectronicAddresses().getElectronicAddress() != null) {
+                for (ElectronicAddress electronicAddress : profile.getElectronicAddresses().getElectronicAddress()) {
+                    if (email.equals("")) {
+                        email = electronicAddress.getEAddress();
+                    } else {
+                        email += ";" + electronicAddress.getEAddress();
+                    }
+                }
+            }
+            return this;
+        }
+    }
 }
