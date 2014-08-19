@@ -1,9 +1,11 @@
 package com.micros.harvester.dao;
 
 import com.cloudkey.commons.*;
+import com.cloudkey.pms.common.contact.StreetAddress;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.micros.harvester.constant.IMicrosHarvester;
 import org.slf4j.Logger;
@@ -28,6 +30,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	@Inject
 	protected DataSource dataSource;
 
+	protected ObjectMapper objectMapper = new ObjectMapper();
 /*
 	@Override
 	public boolean persistRoomStatusDataInBridgeDB( FetchRoomStatusResponse objFetchRoomStatusResponse ) {
@@ -926,7 +929,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String lastName = objReservation.getLastName();
 
 		String companyName = objReservation.getCompany();
-		String address = objReservation.getAddress();
+		StreetAddress address = objReservation.getAddress();
 		String phoneNumber = objReservation.getPhoneNumber();
 		//String emailAddr = objReservation.getEmail();
 		String loyaltyNumber = objReservation.getLoyaltyNumber();
@@ -948,8 +951,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		String affiliateId = objReservation.getAffilateId();
 		String message = objReservation.getMessage();
 
-		String reservationAction = objReservation.getReservationAction();
-
 		try {
 			objConn = dataSource.getConnection();
 			objConn.setAutoCommit(false);
@@ -966,7 +967,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objPreparedStatement.setString( 4, lastName );
 			objPreparedStatement.setString( 5, companyName );
 
-			objPreparedStatement.setString( 6, address );
+			objPreparedStatement.setString( 6, objectMapper.writeValueAsString(address));
 			objPreparedStatement.setString( 7, loyaltyNumber );
 			objPreparedStatement.setString( 8,phoneNumber );
 			objPreparedStatement.setInt( 9,numberOfGuest );
@@ -988,7 +989,6 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objPreparedStatement.setString( 19, message);
 			objPreparedStatement.setString( 20, "email" );
 			objPreparedStatement.setString( 21, IMicrosHarvester.RESERVATION_STATUS );
-			objPreparedStatement.setString( 22, reservationAction );
 
 			rowUpdated = objPreparedStatement.executeUpdate();
 

@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
  * 
  * @author vinayk2
  */
-
 public class DataHarvesterApplication {
 	protected static final Logger log = LoggerFactory.getLogger(DataHarvesterApplication.class);
 

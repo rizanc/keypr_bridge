@@ -3,7 +3,10 @@ package com.micros.pms.processor;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.common.HotelAmenity;
-import com.cloudkey.pms.micros.og.common.*;
+import com.cloudkey.pms.micros.og.common.Membership;
+import com.cloudkey.pms.micros.og.common.PersonName;
+import com.cloudkey.pms.micros.og.common.RequestActionType;
+import com.cloudkey.pms.micros.og.common.Text;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.og.name.*;
 import com.cloudkey.pms.micros.og.reservation.ExternalReference;
@@ -12,23 +15,28 @@ import com.cloudkey.pms.micros.og.reservation.HotelReservation;
 import com.cloudkey.pms.micros.og.reservation.ResGuest;
 import com.cloudkey.pms.micros.ows.reservation.*;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
-import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.request.reservations.AddReservationNotesRequest;
+import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 import com.cloudkey.pms.response.reservations.AddReservationNotesResponse;
 import com.cloudkey.pms.response.reservations.SearchReservationResponse;
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.OWSBase;
 import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.HotelInformationConverter;
+import com.micros.pms.util.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import javax.annotation.Nullable;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -262,124 +270,147 @@ public class OWSReservationProcessor extends OWSBase {
 
 	}
 
-	private List<Reservation> parseHotelReservation(List<HotelReservation> arrHotelReservation) {
+	/**
+	 * Converts OWS {@link com.cloudkey.pms.micros.og.reservation.HotelReservation} objects into
+	 * PMS-agnostic {@link com.cloudkey.commons.Reservation}s.
+	 *
+	 * @param microsReservations
+	 * @return
+	 */
+	private List<Reservation> parseHotelReservation(List<HotelReservation> microsReservations) {
+		List<Reservation> reservations = new ArrayList<>();
 
-		List<Reservation> objLReservations = new ArrayList<>();
-		Reservation objReservation;
-
-		for (HotelReservation objHotelReservation : arrHotelReservation) { // To traverse the hotel reservation.
-
+		for (HotelReservation microsReservation : microsReservations) { // To traverse the hotel reservation.
 			log.debug("getFutureBookingResponseObject: Enter in Hotel Reservation Loop.");
 
-			objReservation = new Reservation();
-			objLReservations.add(objReservation);
+			Reservation reservation = new Reservation();
 
-			List<UniqueID> arrUniqueID = objHotelReservation.getUniqueIDList();
+			reservation.setNumberOfGuests(microsReservation.getResGuests().size());
 
-			for (UniqueID objUniqueID : arrUniqueID) { // To traverse Unique Id list.
+			Integer numberOfAdults = 0;
+			Integer numberOfChildren = 0;
 
-				log.debug("getFutureBookingResponseObject: Iterating UniqueID list .");
+			Optional<String> pmsReservationIdOpt = IdUtils.findPmsReservationId(microsReservation.getUniqueIDList());
+			if (pmsReservationIdOpt.isPresent()) {
+				reservation.setPmsReservationId(pmsReservationIdOpt.get());
+			}
 
-				if (objUniqueID.getType().equals(UniqueIDType.INTERNAL)) {
-					if (objUniqueID.getSource() != null) {
-						if (objUniqueID.getSource().equalsIgnoreCase(MicrosIds.OWS.RESERVATION_ID_SOURCE)) {
+			reservation.setReservationStatus(microsReservation.getReservationStatus().value());
+			reservation.setGroup(microsReservation.getGroup());
 
-							objReservation.setPmsReservationId(objUniqueID.getValue());
-
-							log.debug("getFutureBookingResponseObject: PmsReservationId is set.");
-						}
-					} else {
-						objReservation.setConfirmationNumber(objUniqueID.getValue());
-					}
-				}
-			} // End loop for Unique ID .
-			String status = objHotelReservation.getReservationStatus().value();
-			objReservation.setReservationStatus(status);
-
-			String group = objHotelReservation.getGroup();
-			objReservation.setGroup(group);
-			List<ResGuest> arrGuest = objHotelReservation.getResGuests();
-
-			for (ResGuest objResGuest : arrGuest) { // To traverse ResGuest.
-
+			for (ResGuest resGuest : microsReservation.getResGuests()) { // To traverse ResGuest.
 				log.debug("getFutureBookingResponseObject: Iterating ResGuest Array.");
 
-				List<Profile> arrProfiles = objResGuest.getProfiles();
+				if (resGuest.getGuestCounts() != null) {
+					for (GuestCount guestCount : resGuest.getGuestCounts().getGuestCounts()) {
+						switch (guestCount.getAgeQualifyingCode()) {
 
-				for (Profile objProfile : arrProfiles) { // To traverse profile .
+							case ADULT:
+								numberOfAdults += guestCount.getCount();
+								break;
+							case CHILD:
+								numberOfChildren += guestCount.getCount();
+								break;
+							case OTHER:
+								break;
+							case CHILDBUCKET_1:
+								break;
+							case CHILDBUCKET_2:
+								break;
+							case CHILDBUCKET_3:
+								break;
+						}
+					}
+				}
 
+				List<Profile> arrProfiles = resGuest.getProfiles();
+
+				for (Profile profile : arrProfiles) { // To traverse profile .
 					log.debug("getFutureBookingResponseObject: Iterating Profile Array.");
 
+					if (profile.getCustomer() != null) {
+						// Customer profile
+						// Set the first name and last name
+						if (profile.getCustomer().getPersonName() != null) {
+							PersonName personName = profile.getCustomer().getPersonName();
 
-					/* To set the first name and last name . */
+							reservation.setFirstName(personName.getFirstName());
+							reservation.setLastName(personName.getLastName());
 
-					if (objProfile.getCustomer() != null && objProfile.getCustomer().getPersonName() != null
-							&& (
-								objProfile.getCustomer().getPersonName().getFirstName() != null
-								|| objProfile.getCustomer().getPersonName().getLastName() != null)
-						) {
-						PersonName objPersonName = objProfile.getCustomer().getPersonName();
+							log.debug("getFutureBookingResponseObject: Full Name is set.");
+						}
 
-						objReservation.setFullName(Joiner.on(" ").skipNulls().join(objPersonName.getFirstName(), objPersonName.getLastName()));
+						Optional<NameCreditCard> firstCreditCardOpt = FluentIterable.from(profile.getCreditCards()).first();
+						if (firstCreditCardOpt.isPresent()) {
+							reservation.setCreditCardNumber(firstCreditCardOpt.get().getCardNumber());
+						}
 
-						log.debug("getFutureBookingResponseObject: Full Name is set.");
+						Optional<NameAddress> firstAddressOpt = FluentIterable.from(profile.getAddresses()).first();
+
+						if (firstAddressOpt.isPresent()) {
+							reservation.setAddress(HotelInformationConverter.convertAddress(firstAddressOpt.get()));
+						}
+
+						Optional<NamePhone> phoneOpt = Iterables.tryFind(profile.getPhones(), new Predicate<NamePhone>() {
+							@Override
+							public boolean apply(@Nullable NamePhone namePhone) {
+								return Objects.equal(namePhone.getPhoneRole(), MicrosIds.OWS.PhoneNumberRole.PHONE.toString());
+							}
+						});
+						if (phoneOpt.isPresent()) {
+							reservation.setPhoneNumber(phoneOpt.get().getPhoneNumber());
+						}
+
+						Optional<NameEmail> emailOpt = Iterables.tryFind(profile.getEMails(), new Predicate<NameEmail>() {
+							@Override
+							public boolean apply(@Nullable NameEmail nameEmail) {
+								return nameEmail.isPrimary() != null && nameEmail.isPrimary();
+							}
+						}).or(FluentIterable.from(profile.getEMails()).first());
+
+						if (emailOpt.isPresent()) {
+							reservation.setEmail(emailOpt.get().getValue());
+						}
 					}
 
-					for (NameCreditCard objNameCreditCard : objProfile.getCreditCards()) { // To traverse name credit card.
+					if (profile.getCompany() != null) {
+						Company company = profile.getCompany();
 
-						log.debug("getFutureBookingResponseObject: Iterating NameCreditCard  Array.");
+						switch (company.getCompanyType()) {
 
-						objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
-
-						log.debug("getFutureBookingResponseObject: Credit Card Number is set.");
-					} // End loop for name credit card.
-
-					for (NameAddress objAddress : objProfile.getAddresses()) {// To traverse Name Address.
-						log.debug(
-							" getFutureBookingResponseObject ",
-							" Iterating NameAddress Array.");
-						objReservation.setAddress(objAddress.getCountryCode());
-						log.debug(
-							" getFutureBookingResponseObject ",
-							" Address is Set in response.");
-
-					} // end loop for Name Address.
-
-					for (NamePhone objNamePhone : objProfile.getPhones()) { // To traverse Name Phone.
-						if (objNamePhone.getPhoneRole().equalsIgnoreCase("PHONE")) {
-							objReservation.setPhoneNumber(objNamePhone.getPhoneNumber());
-
-							log.debug(
-								" getFutureBookingResponseObject ",
-								" Phone Number  is Set in response.");
-
+							case TRAVEL_AGENT:
+								break;
+							case COMPANY:
+								reservation.setCompany(company.getCompanyName());
+								break;
+							case SOURCE:
+								break;
+							case GROUP:
+								break;
+							case CONTACT:
+								break;
 						}
-					} // End loop for Phone.
-
-					for (NameEmail objNameEmail : objProfile.getEMails()) {// To traverse Name Email.
-						objReservation.setEmail(objNameEmail.getValue());
-						log.debug(
-							" getFutureBookingResponseObject ", "Email is Set in response.");
-					} // End loop for Email.
+					}
 
 					log.debug("getFutureBookingResponseObject: Exit Profile .");
-
 				} // End loop for Profile.
 			} // End loop for Res Guest.
 
-			List<RoomDetails> objRDetailList = objReservation.getRoomDetailList();
-			if (objRDetailList == null) {
-				objRDetailList = new ArrayList<>();
-			}
+			List<RoomDetails> roomDetailsList = new ArrayList<>();
 
-			objReservation.setRoomDetailList(objRDetailList);
+			reservation.setRoomDetailList(roomDetailsList);
 
-			for (RoomStay objRoomStay : objHotelReservation.getRoomStays()) { // To traverse room stay array.
+			for (RoomStay roomStay : microsReservation.getRoomStays()) { // To traverse room stay array.
 
 				log.debug(
 					" getFutureBookingResponseObject ", "Enter Room Stay Array.");
 
-				for (RoomType objRType : objRoomStay.getRoomTypes()) {  // To traverse room type
+				if (roomStay.getHotelReference() != null) {
+					reservation.setHotelCode(roomStay.getHotelReference().getHotelCode());
+					reservation.setChainCode(roomStay.getHotelReference().getChainCode());
+				}
+
+				for (RoomType roomType : roomStay.getRoomTypes()) {  // To traverse room type
 
 					log.debug(
 						" getFutureBookingResponseObject ",
@@ -391,12 +422,8 @@ public class OWSReservationProcessor extends OWSBase {
 						" getFutureBookingResponseObject ",
 						" Room Type Code is Set in response.");
 
-					List<String> arrRoomNumber = objRType.getRoomNumbers();
-
-					if (arrRoomNumber != null) {
-						for (String roomNumber : arrRoomNumber) {
-							obRoomDetails.setRoomNumber(roomNumber);
-						}
+					for (String roomNumber : roomType.getRoomNumbers()) {
+						obRoomDetails.setRoomNumber(roomNumber);
 					}
 
 					log.debug(
@@ -404,34 +431,40 @@ public class OWSReservationProcessor extends OWSBase {
 						" Features and Description are Set in response.");
 
 					obRoomDetails.setRoomType(new com.cloudkey.commons.RoomType(
-						objRType.getRoomTypeCode(),
-						objRType.getRoomTypeDescription() == null ? null : ParagraphHelper.getFirstString(ParagraphHelper.getTextList(objRType.getRoomTypeDescription())).orNull(),
-						objRType.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(objRType.getAmenityInfo().getAmenities()),
+						roomType.getRoomTypeCode(),
+						roomType.getRoomTypeDescription() == null ? null : ParagraphHelper.getFirstString(ParagraphHelper.getTextList(roomType.getRoomTypeDescription())).orNull(),
+						roomType.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(roomType.getAmenityInfo().getAmenities()),
 						null
 					));
 
-					objRDetailList.add(obRoomDetails);
+					roomDetailsList.add(obRoomDetails);
+
+					if (roomStay.getMemberAwardInfo() != null) {
+						reservation.setLoyaltyNumber(String.valueOf(roomStay.getMemberAwardInfo().getMembershipID()));
+					}
 
 					log.debug(
 						" getFutureBookingResponseObject ", "Exit Room Type .");
 
 				} // End loop for room Type.
 
-				objReservation.setNumberOfGuests(arrGuest.size());
-
-				TimeSpan objTimeSpan = objRoomStay.getTimeSpan();
-				if (objTimeSpan != null) {
-
-					objReservation.setCheckinDate(AdapterUtility.getDate(objTimeSpan.getStartDate()));
+				TimeSpan timeSpan = roomStay.getTimeSpan();
+				if (timeSpan != null) {
+					reservation.setCheckinDate(AdapterUtility.getDate(timeSpan.getStartDate()));
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" CheckIn Date is Set in response.");
 
-					objReservation.setCheckoutDate(AdapterUtility
-						.getDate(objTimeSpan.getEndDate()));
+					reservation.setCheckoutDate(AdapterUtility
+						.getDate(timeSpan.getEndDate()));
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" CheckOut Date is Set in response.");
+
+					reservation.setStayLength(
+						Days.daysBetween(new DateTime(timeSpan.getStartDate()), new DateTime(timeSpan.getEndDate()))
+							.getDays()
+					);
 				}
 
 				log.debug(
@@ -442,14 +475,17 @@ public class OWSReservationProcessor extends OWSBase {
 
 			} // End loop for room Stay.
 
+			reservation.setNumberOfAdults(numberOfAdults);
+			reservation.setNumberOfChildren(numberOfChildren);
+
 			// Set the reservation into response.
-			objLReservations.add(objReservation);
+			reservations.add(reservation);
 
 			log.debug("getFutureBookingResponseObject: Exit from Hotel Reservation loop.");
 
 		} // End loop for Hotel Reservation.
 
-		return objLReservations;
+		return reservations;
 	}
 
 }

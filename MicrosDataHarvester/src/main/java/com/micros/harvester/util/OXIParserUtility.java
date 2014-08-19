@@ -6,6 +6,9 @@ import com.keypr.pms.micros.ows.jaxb.profile_5_0.*;
 import com.keypr.pms.micros.ows.jaxb.profile_5_0.Membership;
 import com.keypr.pms.micros.ows.jaxb.reservation.*;
 import com.keypr.pms.micros.ows.jaxb.reservation.SpecialRequest;
+import com.cloudkey.pms.common.contact.StreetAddress;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keypr.pms.micros.ows.jaxb.rtav.ObjectFactory;
 import com.keypr.pms.micros.ows.jaxb.rtav.RoomTypeInventory;
 import com.keypr.pms.micros.ows.jaxb.rtav.RtavMessage;
 import com.micros.harvester.constant.IMicrosHarvester;
@@ -49,6 +52,8 @@ public class OXIParserUtility {
      * The parsed document
      */
     private Boolean docLoaded = false;
+
+	private ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * * This method accept xpath expression and reference of xml document. It returns the list
@@ -178,7 +183,6 @@ public class OXIParserUtility {
         String reservationStatusType = "";
 
         try {
-
             objReservation = new Reservation();
             objRoomAllocation = new ReservationRoomAllocation();
             obRoomRatesList = new ArrayList<>();
@@ -347,7 +351,6 @@ public class OXIParserUtility {
                 objReservation.setAffilateId(IMicrosHarvester.OXI_AFFILATE_ID);
                 objReservation.setHotelCode(hotelCode);
                 objReservation.setChainCode(chainCode);
-                objReservation.setReservationAction(reservationAction);
                 objReservation.setConfirmationNumber(confirmationNumber);
                 objReservation.setCreditCardNumber(creditCardNumber);
                 objReservation.setReservationSource(reservationSource);
@@ -360,8 +363,7 @@ public class OXIParserUtility {
                 objReservation.setNumberOfGuests(totalGuest);
                 objReservation.setNumberOfAdults(totalAdults);
                 objReservation.setNumberOfChildren(totalChildren);
-                objReservation.setFullName(fullName);
-                objReservation.setAddress(address);
+                objReservation.setAddress(objectMapper.readValue(address, StreetAddress.class));
                 objReservation.setPhoneNumber(phoneNumber);
                 objReservation.setCompany(companyName);
                 objRoomAllocation.setRoomRateList(obRoomRatesList);

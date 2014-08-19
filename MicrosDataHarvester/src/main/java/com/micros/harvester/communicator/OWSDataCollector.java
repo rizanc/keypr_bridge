@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
  * queue , from where in data will be send to the keypr.
  * 
  * @author vinayk2
- *
  */
 public class OWSDataCollector extends OWSTools {
 

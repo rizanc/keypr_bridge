@@ -98,9 +98,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         GetFolioResponse objFolioResponse = new GetFolioResponse();
 
 		/* Populate response into Reservation instance */
-        String addressType;
-        String countryCode;
-        String firstName;
+	    String firstName;
         String lastName;
         String description;
 
@@ -115,18 +113,13 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
             log.debug("getFolioResponseObject: Enter to traverse Bill Header ");
 
-            addressType = objBillHeader.getAddress().getAddressType();
-            countryCode = objBillHeader.getAddress().getCountryCode();
-
-            objReservation.setAddress(addressType + ":" + countryCode);
+		    objReservation.setAddress(HotelInformationConverter.convertAddress(objBillHeader.getAddress()));
 
             firstName = objBillHeader.getName().getFirstName();
             lastName = objBillHeader.getName().getLastName();
 
             objReservation.setFirstName(firstName);
             objReservation.setLastName(lastName);
-
-            objReservation.setFullName(firstName + " " + lastName);
 
             List<ReservationOrders> objReservationOrders = objFolioResponse.getReservationOrderList();
 
@@ -250,68 +243,39 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         return objCheckOutRequest;
     }
 
-    private com.cloudkey.pms.response.reservations.CheckOutResponse getCheckOutResponseObject(CheckOutResponse checkOutResponse) {
+    private com.cloudkey.pms.response.reservations.CheckOutResponse getCheckOutResponseObject(CheckOutResponse microsResponse) {
 
         log.debug("getCheckOutResponseObject: Enter getCheckOutResponseObject method ");
 
-	    com.cloudkey.pms.response.reservations.CheckOutResponse objCheckOutResponse = new com.cloudkey.pms.response.reservations.CheckOutResponse();
-        Reservation objReservation = new Reservation();
+	    com.cloudkey.pms.response.reservations.CheckOutResponse response = new com.cloudkey.pms.response.reservations.CheckOutResponse();
 
-        String confirmationNumber;
-	    String firstName;
-        String lastName;
-        StringBuffer objStringBuffer;
+        Reservation reservation = new Reservation();
 
         log.debug("getCheckOutResponseObject: Status Set ");
 
-        CheckOutComplete objCheckOutComplete = checkOutResponse.getCheckOutComplete();
-	    List<UniqueID> arrUniqueIDs = objCheckOutComplete.getReservationID();
+        CheckOutComplete checkOutComplete = microsResponse.getCheckOutComplete();
 
-		/*To set the confirmation number.*/
-        for (UniqueID objUniqueID : arrUniqueIDs) {
+	    // To set the confirmation number
+	    Optional<String> pmsReservationIdOpt = IdUtils.findPmsReservationId(checkOutComplete.getReservationID());
+	    if (pmsReservationIdOpt.isPresent()) {
+		    reservation.setPmsReservationId(pmsReservationIdOpt.get());
+	    }
 
-	        // TODO: Parse these correctly
-            confirmationNumber = objUniqueID.getValue();
-            objReservation.setConfirmationNumber(confirmationNumber);
-            objReservation.setPmsReservationId(confirmationNumber);
+        Profile objProfile = microsResponse.getProfile();
 
-            log.debug("getCheckOutResponseObject: confirmation Number is  Set ");
-        }
+	    if (objProfile.getCustomer() != null && objProfile.getCustomer().getPersonName() != null) {
+		    PersonName objPersonName = objProfile.getCustomer().getPersonName();
 
-        Profile objProfile = checkOutResponse.getProfile();
-
-        PersonName objPersonName = objProfile.getCustomer().getPersonName();
-
-        objStringBuffer = new StringBuffer();
-
-		/* To set the first name and last name . */
-        firstName = objPersonName.getFirstName();
-        lastName = objPersonName.getLastName();
-
-        if (firstName != null || lastName != null) {
-
-            if (firstName != null) {
-
-                objStringBuffer.append(firstName);
-                objReservation.setFirstName(firstName);
-            }
-            if (lastName != null) {
-
-                objStringBuffer.append(" ").append(lastName);
-                objReservation.setLastName(lastName);
-            }
-            objReservation.setFullName(objStringBuffer.toString());
-
-            log.debug("getCheckOutResponseObject: Full Name is set.");
-
-            objStringBuffer.setLength(0);
-        }
+		    // Set the first name and last name
+		    reservation.setFirstName(objPersonName.getFirstName());
+		    reservation.setLastName(objPersonName.getLastName());
+	    }
 
         log.debug("getCheckOutResponseObject: Exit Profile.");
-        objCheckOutResponse.setReservation(objReservation);
+        response.setReservation(reservation);
         log.debug("getCheckOutResponseObject: Exit getCheckOutResponseObject method");
 
-        return objCheckOutResponse;
+        return response;
     }
 
     public String getNextAvailableRoomNumber(String roomType) {
@@ -400,9 +364,7 @@ public class OWSResvAdvancedProcessor extends OWSBase {
         String roomTypeCode;
         String feature;
         String roomNumber;
-        String firstName;
-        String lastName;
-        StringBuffer objStringBuffer;
+	    StringBuffer objStringBuffer;
 
         CheckInComplete objCheckInComplete = objResponse.getCheckInComplete();
 
@@ -448,8 +410,6 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 		    null
 	    );
 
-	    //TODO: Room number shouldn't be int. Should be string to accomodated hotels
-        // with room numbers that contain dashes/characters etc...
         objReservationRoomAllocation.setRoomNo(roomNumber);
         objReservationRoomAllocation.setRoomType(objRoomType);
         //		objReservationRoomAllocation.setRoomRateList( objRoomRateList );
@@ -458,10 +418,8 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         Profile objProfile = objResponse.getProfile();
 
-        List<NameCreditCard> arrNameCreditCard = objProfile.getCreditCards();
-        //TODO: Check if credit cards are wanted.
-        for (NameCreditCard objNameCreditCard : arrNameCreditCard) { // To traverse name credit card.
-            log.debug("getCheckInResponseObject: Iterating NameCreditCard  Array.");
+	    for (NameCreditCard objNameCreditCard : objProfile.getCreditCards()) { // To traverse name credit card.
+            log.debug("getCheckInResponseObject: Iterating NameCreditCard Array.");
 
             objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
 
@@ -470,31 +428,9 @@ public class OWSResvAdvancedProcessor extends OWSBase {
 
         PersonName objPersonName = objProfile.getCustomer().getPersonName();
 
-        objStringBuffer = new StringBuffer();
-
-		/* To set the first name and last name . */
-        firstName = objPersonName.getFirstName();
-        lastName = objPersonName.getLastName();
-
-        if (firstName != null || lastName != null) {
-
-            if (firstName != null) {
-
-                objStringBuffer.append(firstName);
-                objReservation.setFirstName(firstName);
-            }
-            if (lastName != null) {
-
-                objStringBuffer.append(" ").append(lastName);
-                objReservation.setLastName(lastName);
-            }
-
-            objReservation.setFullName(objStringBuffer.toString());
-
-            log.debug("getCheckInResponseObject: Full Name is set.");
-
-            objStringBuffer.setLength(0);
-        }
+	    // Set the first name and last name
+	    objReservation.setFirstName(objPersonName.getFirstName());
+	    objReservation.setLastName(objPersonName.getLastName());
 
         log.debug("getCheckInResponseObject: Exit Profile.");
         objCheckInResponse.setReservation(objReservation);

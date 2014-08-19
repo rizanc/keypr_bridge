@@ -1,6 +1,9 @@
 package com.cloudkey.commons;
 
-import java.util.Arrays;
+import com.cloudkey.pms.common.contact.StreetAddress;
+import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,116 +11,243 @@ import java.util.List;
  * Class stores details of reservation.It has information of check in date,
  * check out date, room type and all guest and room information related with
  * reservation.
- * 
+ *
  * @author vinayk2
- * 
  */
 public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
-	// TODO: This ID should not be here.
-	private int id ;// PK of database.
+	// TODO: This ID should not be here, unless it's for our local MYSQL instance
+	private int id;// PK of database.
 
     private String chainCode;
     private String hotelCode;
 
 	/* variable to store pms id. */
-	private String pmsReservationId; // pms_id
+	private String pmsReservationId;
+
 	/* variable to store the number of days to be stayed at hotel. */
 	/*	private String stayLength ;*/
-	private int stayLength ;
-	/* variable to store full name of the guest. */
-	private String fullName ;// first+last
+	private int stayLength;
+
 	/* variable to store the company name of the guest. */
-	private String company ;
+	private String company;
+
 	/* variable to store the address information of the guest. */
-	private String address ;
+	private StreetAddress address;
+
 	/* variable to store the phone number of the guest. */
-	private String phoneNumber ;
+	private String phoneNumber;
+
 	/* variable to store email address of the guest. */
-	private String email ;
+	private String email;
+
 	/* variable to store loyalty number of the guest. */
-	private String loyaltyNumber ;
+	private String loyaltyNumber;
+
 	/* variable to store the number of guests. */
-	private int numberOfGuests ;
+	private int numberOfGuests;
     private int numberOfAdults;
     private int numberOfChildren;
+	
 	/* variable to store the details of the reservation. */
 	private List<ReservationRoomAllocation> reservationRoomAllocationList;
-	private List<RoomDetails> roomDetailList ;
+
+	private List<RoomDetails> roomDetailList;
 
 	/* variable to store the confirmation number of the reservation. */
 	// TODO: Remove this. It is an arbitrary ID. pmsReservationId should be sufficient.
-	private String confirmationNumber ;
+	private String confirmationNumber;
+
 	/* variable to store the check in date of the guest. */
-	private String checkinDate ;
+	private String checkinDate;
+
 	/* variable to store check out data of the guest. */
-	private String checkoutDate ;
+	private String checkoutDate;
+
 	/* variable to store first name*/
-	private String firstName ;
+	private String firstName;
+
 	/*Variable to store last name.*/
-	private String lastName ;
+	private String lastName;
+
 	/* variable to store the guest special notes for the reservation. */
-	private String notes ;
+	private String notes;
+
 	private String loyaltyProgram;
+
 	private String propertyId;
+
 	private String creditCardNumber;
+
 	private String reservationSource;
-	private byte [] propertyImage;
+
+	private byte[] propertyImage;
+
 	private String affilateId;
+
 	private String message;
-	private String reservationAction ; // to store reservation action as checkin , add , share
+
 	private Date dateModified;
+
 	private Date dateCreated;
+
 	private List<ReservationOrders> reservationOrderList;
 
 	private String reservationStatus;
+
 	private String arrivalTime;
+
 	private String departureTime;
+
 	private String group;
 
-	/*
-	 * Getter and Setter for each data member.
-	 */
-
-	public String getReservationAction() {
-		return reservationAction;
+	public String getFullName() {
+		return Joiner.on(" ").skipNulls().join(firstName, lastName);
 	}
 
-	public String getReservationStatus() {
-		return reservationStatus;
+	public int getId() {
+		return id;
 	}
 
-	public void setReservationStatus(String reservationStatus) {
-		this.reservationStatus = reservationStatus;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getArrivalTime() {
-		return arrivalTime;
+	public String getChainCode() {
+		return chainCode;
 	}
 
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
+	public void setChainCode(String chainCode) {
+		this.chainCode = chainCode;
 	}
 
-	public String getDepartureTime() {
-		return departureTime;
+	public String getHotelCode() {
+		return hotelCode;
 	}
 
-	public void setDepartureTime(String departureTime) {
-		this.departureTime = departureTime;
+	public void setHotelCode(String hotelCode) {
+		this.hotelCode = hotelCode;
 	}
 
-	public String getGroup() {
-		return group;
+	public String getPmsReservationId() {
+		return pmsReservationId;
 	}
 
-	public void setGroup(String group) {
-		this.group = group;
+	public void setPmsReservationId(String pmsReservationId) {
+		this.pmsReservationId = pmsReservationId;
 	}
 
-	public void setReservationAction(String reservationAction) {
-		this.reservationAction = reservationAction;
+	public int getStayLength() {
+		return stayLength;
+	}
+
+	public void setStayLength(int stayLength) {
+		this.stayLength = stayLength;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public StreetAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(StreetAddress address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLoyaltyNumber() {
+		return loyaltyNumber;
+	}
+
+	public void setLoyaltyNumber(String loyaltyNumber) {
+		this.loyaltyNumber = loyaltyNumber;
+	}
+
+	public int getNumberOfGuests() {
+		return numberOfGuests;
+	}
+
+	public void setNumberOfGuests(int numberOfGuests) {
+		this.numberOfGuests = numberOfGuests;
+	}
+
+	public int getNumberOfAdults() {
+		return numberOfAdults;
+	}
+
+	public void setNumberOfAdults(int numberOfAdults) {
+		this.numberOfAdults = numberOfAdults;
+	}
+
+	public int getNumberOfChildren() {
+		return numberOfChildren;
+	}
+
+	public void setNumberOfChildren(int numberOfChildren) {
+		this.numberOfChildren = numberOfChildren;
+	}
+
+	public List<ReservationRoomAllocation> getReservationRoomAllocationList() {
+		return reservationRoomAllocationList;
+	}
+
+	public void setReservationRoomAllocationList(List<ReservationRoomAllocation> reservationRoomAllocationList) {
+		this.reservationRoomAllocationList = reservationRoomAllocationList;
+	}
+
+	public List<RoomDetails> getRoomDetailList() {
+		return roomDetailList;
+	}
+
+	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
+		this.roomDetailList = roomDetailList;
+	}
+
+	public String getConfirmationNumber() {
+		return confirmationNumber;
+	}
+
+	public void setConfirmationNumber(String confirmationNumber) {
+		this.confirmationNumber = confirmationNumber;
+	}
+
+	public String getCheckinDate() {
+		return checkinDate;
+	}
+
+	public void setCheckinDate(String checkinDate) {
+		this.checkinDate = checkinDate;
+	}
+
+	public String getCheckoutDate() {
+		return checkoutDate;
+	}
+
+	public void setCheckoutDate(String checkoutDate) {
+		this.checkoutDate = checkoutDate;
 	}
 
 	public String getFirstName() {
@@ -135,103 +265,13 @@ public class Reservation {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public List<ReservationOrders> getReservationOrderList() {
-		return reservationOrderList;
+
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setReservationOrderList(List<ReservationOrders> reservationOrderList) {
-		this.reservationOrderList = reservationOrderList;
-	}
-
-	public int getId() {
-
-		return id;
-	}
-
-	public void setId(int id) {
-
-		this.id = id;
-	}
-
-	public String getFullName() {
-
-		return fullName;
-	}
-
-	public void setFullName( String fullName ) {
-
-		this.fullName = fullName;
-	}
-
-	public String getCompany() {
-
-		return company;
-	}
-
-	public void setCompany( String company ) {
-
-		this.company = company;
-	}
-
-	public String getAddress() {
-
-		return address;
-	}
-
-	public void setAddress( String address ) {
-
-		this.address = address;
-	}
-
-	public String getPhoneNumber() {
-
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber( String phoneNumber ) {
-
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getEmail() {
-
-		return email;
-	}
-
-	public void setEmail( String email ) {
-
-		this.email = email;
-	}
-
-	public String getLoyaltyNumber() {
-
-		return loyaltyNumber;
-	}
-
-	public void setLoyaltyNumber( String loyaltyNumber ) {
-
-		this.loyaltyNumber = loyaltyNumber;
-	}
-
-	public String getConfirmationNumber() {
-
-		return confirmationNumber;
-	}
-
-	public int getStayLength() {
-		return stayLength;
-	}
-
-	public void setStayLength(int stayLength) {
-		this.stayLength = stayLength;
-	}
-
-	public int getNumberOfGuests() {
-		return numberOfGuests;
-	}
-
-	public void setNumberOfGuests(int numberOfGuests) {
-		this.numberOfGuests = numberOfGuests;
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	public String getLoyaltyProgram() {
@@ -306,121 +346,84 @@ public class Reservation {
 		this.dateCreated = dateCreated;
 	}
 
-	public void setConfirmationNumber( String confirmationNumber ) {
-
-		this.confirmationNumber = confirmationNumber;
+	public List<ReservationOrders> getReservationOrderList() {
+		return reservationOrderList;
 	}
 
-	public String getCheckinDate() {
-
-		return checkinDate;
+	public void setReservationOrderList(List<ReservationOrders> reservationOrderList) {
+		this.reservationOrderList = reservationOrderList;
 	}
 
-	public void setCheckinDate( String checkinDate ) {
-
-		this.checkinDate = checkinDate;
+	public String getReservationStatus() {
+		return reservationStatus;
 	}
 
-	public String getCheckoutDate() {
-
-		return checkoutDate;
+	public void setReservationStatus(String reservationStatus) {
+		this.reservationStatus = reservationStatus;
 	}
 
-	public void setCheckoutDate( String checkoutDate ) {
-
-		this.checkoutDate = checkoutDate;
+	public String getArrivalTime() {
+		return arrivalTime;
 	}
 
-	public String getNotes() {
-
-		return notes;
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
-	public void setNotes( String notes ) {
-
-		this.notes = notes;
+	public String getDepartureTime() {
+		return departureTime;
 	}
 
-	public String getPmsReservationId() {
-		return pmsReservationId;
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
 	}
 
-	public void setPmsReservationId(String pmsReservationId) {
-		this.pmsReservationId = pmsReservationId;
+	public String getGroup() {
+		return group;
 	}
 
-	public List<ReservationRoomAllocation> getReservationRoomAllocationList() {
-		return reservationRoomAllocationList;
-	}
-
-	public void setReservationRoomAllocationList(
-			List<ReservationRoomAllocation> reservationRoomAllocationList) {
-		this.reservationRoomAllocationList = reservationRoomAllocationList;
-	}
-	public List<RoomDetails> getRoomDetailList() {
-
-		return roomDetailList;
-	}
-
-	public void setRoomDetailList(List<RoomDetails> roomDetailList) {
-		this.roomDetailList = roomDetailList;
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", pmsReservationId=" + pmsReservationId + ", stayLength="
-				+ stayLength + ", fullName=" + fullName + ", company="
-				+ company + ", address=" + address + ", phoneNumber="
-				+ phoneNumber + ", email=" + email + ", loyaltyNumber="
-				+ loyaltyNumber + ", numberOfGuests=" + numberOfGuests
-				+ ", reservationRoomAllocationList="
-				+ reservationRoomAllocationList + ", roomDetailList="
-				+ roomDetailList + ", confirmationNumber=" + confirmationNumber
-				+ ", checkinDate=" + checkinDate + ", checkoutDate="
-				+ checkoutDate + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", notes=" + notes + ", loyaltyProgram="
-				+ loyaltyProgram + ", propertyId=" + propertyId
-				+ ", creditCardNumber=" + creditCardNumber
-				+ ", reservationSource=" + reservationSource
-				+ ", propertyImage=" + Arrays.toString(propertyImage)
-				+ ", affilateId=" + affilateId + ", message=" + message
-				+ ", reservationAction=" + reservationAction
-				+ ", dateModified=" + dateModified + ", dateCreated="
-				+ dateCreated + ", reservationOrderList="
-				+ reservationOrderList + ", reservationStatus="
-				+ reservationStatus + ", arrivalTime=" + arrivalTime
-				+ ", departureTime=" + departureTime + ", group=" + group + "]";
+		return Objects.toStringHelper(this)
+			.add("id", id)
+			.add("chainCode", chainCode)
+			.add("hotelCode", hotelCode)
+			.add("pmsReservationId", pmsReservationId)
+			.add("stayLength", stayLength)
+			.add("company", company)
+			.add("address", address)
+			.add("phoneNumber", phoneNumber)
+			.add("email", email)
+			.add("loyaltyNumber", loyaltyNumber)
+			.add("numberOfGuests", numberOfGuests)
+			.add("numberOfAdults", numberOfAdults)
+			.add("numberOfChildren", numberOfChildren)
+			.add("reservationRoomAllocationList", reservationRoomAllocationList)
+			.add("roomDetailList", roomDetailList)
+			.add("confirmationNumber", confirmationNumber)
+			.add("checkinDate", checkinDate)
+			.add("checkoutDate", checkoutDate)
+			.add("firstName", firstName)
+			.add("lastName", lastName)
+			.add("notes", notes)
+			.add("loyaltyProgram", loyaltyProgram)
+			.add("propertyId", propertyId)
+			.add("creditCardNumber", creditCardNumber)
+			.add("reservationSource", reservationSource)
+			.add("propertyImage", propertyImage)
+			.add("affilateId", affilateId)
+			.add("message", message)
+			.add("dateModified", dateModified)
+			.add("dateCreated", dateCreated)
+			.add("reservationOrderList", reservationOrderList)
+			.add("reservationStatus", reservationStatus)
+			.add("arrivalTime", arrivalTime)
+			.add("departureTime", departureTime)
+			.add("group", group)
+			.toString();
 	}
-
-    public String getChainCode() {
-        return chainCode;
-    }
-
-    public void setChainCode(String chainCode) {
-        this.chainCode = chainCode;
-    }
-
-    public String getHotelCode() {
-        return hotelCode;
-    }
-
-    public void setHotelCode(String hotelCode) {
-        this.hotelCode = hotelCode;
-    }
-
-    public int getNumberOfAdults() {
-        return numberOfAdults;
-    }
-
-    public void setNumberOfAdults(int numberOfAdults) {
-        this.numberOfAdults = numberOfAdults;
-    }
-
-    public int getNumberOfChildren() {
-        return numberOfChildren;
-    }
-
-    public void setNumberOfChildren(int numberOfChildren) {
-        this.numberOfChildren = numberOfChildren;
-    }
 }

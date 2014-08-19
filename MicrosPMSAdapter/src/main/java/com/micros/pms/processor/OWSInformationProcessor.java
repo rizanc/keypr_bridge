@@ -19,7 +19,6 @@ import com.micros.pms.OWSBase;
 import com.micros.pms.util.HotelInformationConverter;
 
 import javax.annotation.Nullable;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -138,7 +137,7 @@ public class OWSInformationProcessor extends OWSBase {
 				restaurant.getRestaurantName(),
 				description.orNull(),
 				cuisines,
-				convertAddresses(restaurant.getRestaurantContacts()),
+				Lists.transform(restaurant.getRestaurantContacts(), convertAddress),
 				restaurant.isOfferBreakfast(),
 				restaurant.isOfferBrunch(),
 				restaurant.isOfferLunch(),
@@ -150,7 +149,7 @@ public class OWSInformationProcessor extends OWSBase {
 
 		return new com.cloudkey.pms.response.hotels.HotelInformationResponse(
 			info.getHotelInformation().getValue(),
-			convertAddresses(info.getHotelContactInformation().getAddresses()),
+			Lists.transform(info.getHotelContactInformation().getAddresses(), convertAddress),
 			hotelPosition,
 			directions,
 			contactEmails,

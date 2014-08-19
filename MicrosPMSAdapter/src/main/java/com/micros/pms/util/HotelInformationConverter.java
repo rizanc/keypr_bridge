@@ -115,31 +115,33 @@ public class HotelInformationConverter {
 		return amenities;
 	}
 
+	public static final Function<Address, StreetAddress> convertAddress = new Function<Address, StreetAddress>() {
+		@Nullable
+		@Override
+		public StreetAddress apply(@Nullable Address address) {
+			return convertAddress(address);
+		}
+	};
+
 	/**
-	 * Converts OWS {@link Address}s into PMS-agnostic {@link StreetAddress}es.
+	 * Converts an OWS {@link Address} into a PMS-agnostic {@link StreetAddress}.
 	 *
-	 * @param from
+	 * @param address
 	 * @return
 	 */
-	public static List<StreetAddress> convertAddresses(List<Address> from) {
-		return Lists.transform(from, new Function<Address, StreetAddress>() {
-			@Nullable
-			@Override
-			public StreetAddress apply(@Nullable Address address) {
-				return new StreetAddress(
-					ImmutableList.copyOf(address.getAddressLines()),
-					address.getCityName(),
-					address.getStateProv(),
-					address.getCountryCode(),
-					address.getPostalCode(),
-					address.getBarCode(),
-					address.getCityExtension(),
-					address.getAddressType(),
-					address.getOtherAddressType(),
-					address.getLanguageCode()
-				);
-			}
-		});
+	public static StreetAddress convertAddress(Address address) {
+		return new StreetAddress(
+			ImmutableList.copyOf(address.getAddressLines()),
+			address.getCityName(),
+			address.getStateProv(),
+			address.getCountryCode(),
+			address.getPostalCode(),
+			address.getBarCode(),
+			address.getCityExtension(),
+			address.getAddressType(),
+			address.getOtherAddressType(),
+			address.getLanguageCode()
+		);
 	}
 
 	/**

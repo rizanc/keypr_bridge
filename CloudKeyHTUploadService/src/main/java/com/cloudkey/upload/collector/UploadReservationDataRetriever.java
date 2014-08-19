@@ -4,15 +4,20 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationRoomAllocation;
 import com.cloudkey.commons.RoomRate;
 import com.cloudkey.commons.RoomType;
+import com.cloudkey.pms.common.contact.StreetAddress;
 import com.cloudkey.upload.client.UploadServiceClient;
 import com.cloudkey.upload.constant.IUploadConstants;
 import com.cloudkey.upload.remove.UploadQueueDataRemover;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +58,8 @@ public class UploadReservationDataRetriever {
 
 	@Inject
 	protected UploadServiceClient uploadServiceClient;
+
+	protected ObjectMapper objectMapper = new ObjectMapper();
 
 	/**
 	 * This method is used to listen the upload queue as scheduler after every fixed time period and fetch the reservation data from upload queue.
@@ -115,7 +122,7 @@ public class UploadReservationDataRetriever {
 							reservation.setLastName( reservationSet.getString( "reservation.last_name" ) );
 							reservation.setCompany( reservationSet.getString( "reservation.company_name" ) );
 
-							reservation.setAddress( reservationSet.getString( "reservation.address" ) );
+							reservation.setAddress( objectMapper.readValue(reservationSet.getString( "reservation.address" ), StreetAddress.class));
 							reservation.setLoyaltyNumber( reservationSet.getString( "reservation.loyalty_number" ) );
 							reservation.setPhoneNumber( reservationSet.getString( "reservation.phone" ) );
 							reservation.setConfirmationNumber( reservationSet.getString( "reservation.confirmation_number" ) );
@@ -131,7 +138,6 @@ public class UploadReservationDataRetriever {
 							reservation.setAffilateId( reservationSet.getString( "reservation.affiliate_id" ) );
 							reservation.setMessage( reservationSet.getString( "reservation.messages" ) );
 							reservation.setEmail( reservationSet.getString( "reservation.email_id" ) ) ;
-							reservation.setReservationAction( "reservation.reservation_action" );
 
 							//reservationSet.getString( "status" );
 							// reservation.setPropertyImage(reservationSet.getBlob( "property_image" ));
@@ -278,21 +284,16 @@ public class UploadReservationDataRetriever {
 									fetchReservationDetails();
 								}
 							}
-						}
-						else {
-
+						} else {
 							log.debug("fetchReservationDetails: Nothing to push since Room Detail List is Empty");
-
 						}
-					}
-					else {
-
+					} else {
 						log.debug("fetchReservationDetails: reservationSet is null");
 					}
-
-				} catch ( SQLException exc ) {
-
-					log.error("fetchReservationDetails", exc);
+				} catch (SQLException | JsonMappingException | JsonParseException e) {
+					log.error("fetchReservationDetails", e);
+				} catch (IOException e) {
+					log.error("fetchReservationDetails", e);
 				}
 
 				log.debug("fetchReservationDetails: exit fetchReservationDetails method ");
