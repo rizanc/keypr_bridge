@@ -2,7 +2,6 @@ package com.micros.harvester;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.micros.harvester.communicator.OWSDataCollector;
 import com.micros.harvester.oxi.OXIListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +21,6 @@ public class DataHarvesterApplication {
 		log.debug("main: Enter main method " );
 
 		Injector injector = Guice.createInjector(new DataHarvesterModule());
-
-		OWSDataCollector owsDataCollector = injector.getInstance(OWSDataCollector.class);
-		//owsDataCollector.harvestRoomStatusData();
-		owsDataCollector.harvestRoomInventoryData();
 
         OXIListener objOxiListener = injector.getInstance(OXIListener.class);
 		objOxiListener.connectWithOXI();
