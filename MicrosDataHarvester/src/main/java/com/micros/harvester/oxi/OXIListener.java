@@ -77,7 +77,6 @@ public class OXIListener implements HttpHandler {
         OutputStream os;
 
         try {
-
             String oxiRequest;
 
             Headers reqHeaders = exchange.getRequestHeaders();
@@ -90,7 +89,6 @@ public class OXIListener implements HttpHandler {
             byte objInputArray[] = new byte[bufferSize];
 
             for (int n = objInputStream.read(objInputArray); n > 0; n = objInputStream.read(objInputArray)) {
-
                 objByteArray.write(objInputArray, 0, n);
             }
 
@@ -110,8 +108,9 @@ public class OXIListener implements HttpHandler {
 
             if (objDataUtility.isReservation()) {
                 Reservation objReservation = objDataUtility.populateReservation(oxiRequest);
-                //isPersisted = microsDAO.persistReservationData(objReservation);
-                //log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
+	            
+                isPersisted = microsDAO.persistReservationData(objReservation);
+                log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
             } else if (objDataUtility.isRtav()) {
                 Rtav objRtav = objDataUtility.populateRtav(oxiRequest);
 
@@ -126,7 +125,6 @@ public class OXIListener implements HttpHandler {
             os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
-
         } catch (Exception exc) {
             log.error(" handle ", exc);
             response = " Status: ERROR code= 500 Internal Server Error ";
@@ -148,7 +146,6 @@ public class OXIListener implements HttpHandler {
      * @return
      */
     private File persistToFile(String oxiRequest) {
-
         log.debug("persistToFile: enter persistToFile method ");
 
         File oxiRev = null;
@@ -164,7 +161,6 @@ public class OXIListener implements HttpHandler {
             fout.close();
 
         } catch (Exception exc) {
-
             log.error(" persistToFile ", exc);
         }
 
