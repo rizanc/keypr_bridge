@@ -77,11 +77,6 @@ public class OXIListener implements HttpHandler {
         OutputStream os;
 
         try {
-            String oxiRequest;
-
-            Headers reqHeaders = exchange.getRequestHeaders();
-            String contentType = reqHeaders.getFirst("Content-Type");
-
             InputStream objInputStream = exchange.getRequestBody();
 
             ByteArrayOutputStream objByteArray = new ByteArrayOutputStream();
@@ -93,7 +88,8 @@ public class OXIListener implements HttpHandler {
             }
 
             //oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
-            oxiRequest = new String(objByteArray.toByteArray());
+	        String oxiRequest = new String(objByteArray.toByteArray());
+	        log.info("Received OXI message: {}", oxiRequest);
 
             File xmlFile = persistToFile(oxiRequest);
 
@@ -104,11 +100,12 @@ public class OXIListener implements HttpHandler {
             objDataUtility.loadDoc(xmlFile);
 
             microsDAO = new MicrosDAOImpl();
-            boolean isPersisted;
+
+	        boolean isPersisted;
 
             if (objDataUtility.isReservation()) {
                 Reservation objReservation = objDataUtility.populateReservation(oxiRequest);
-	            
+
                 isPersisted = microsDAO.persistReservationData(objReservation);
                 log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
             } else if (objDataUtility.isRtav()) {
