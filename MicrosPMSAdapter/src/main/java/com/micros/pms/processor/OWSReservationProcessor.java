@@ -231,6 +231,12 @@ public class OWSReservationProcessor extends OWSBase {
 			microsRequest.getAdditionalFilters().setResvNameId(internalReservationId(request.getPmsReservationId()));
 		}
 
+        microsRequest.getAdditionalFilters().setHotelReference(
+                new HotelReference()
+                .withChainCode("CHA")
+                .withHotelCode("OWS")
+        );
+
 		FutureBookingSummaryResponse response = service.futureBookingSummary(microsRequest, createOGHeaderE());
 
 		errorIfFailure(response.getResult());

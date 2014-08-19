@@ -66,35 +66,34 @@ public class DataUtility {
 	 */
 	public static String getEndDate(String startDate, int noOfUnits, String type) throws ParseException {
 
-		log.debug("getEndDate: Enter in getEndDate method ");
 		String endDate = "";
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-		Date d = dateFormat.parse(startDate);
+		dateFormat.parse(startDate);
 		Calendar objCalendar = dateFormat.getCalendar();
 
 		switch (type) {
 
 			case "MONTH":
-				objCalendar.add(Calendar.MONTH, 3); // 0-23
+				objCalendar.add(Calendar.MONTH, noOfUnits); // 0-23
 				break;
 			case "DAY":
-				objCalendar.add(Calendar.DAY_OF_MONTH, 2); // For Date
+				objCalendar.add(Calendar.DAY_OF_MONTH, noOfUnits);
 				break;
 			case "YEAR":
-				objCalendar.add(Calendar.YEAR, 1);
+				objCalendar.add(Calendar.YEAR, noOfUnits);
 				break;
 			case "HOUR":
-				objCalendar.add(Calendar.HOUR, 2);
+				objCalendar.add(Calendar.HOUR, noOfUnits);
 				break;
 			case "MINUTE":
-				objCalendar.add(Calendar.MINUTE, 3);
+				objCalendar.add(Calendar.MINUTE, noOfUnits);
 				break;
 			case "SECOND":
-				objCalendar.add(Calendar.SECOND, 3);
+				objCalendar.add(Calendar.SECOND, noOfUnits);
 				break;
 			case "WEEK":
-				objCalendar.add(Calendar.WEEK_OF_MONTH, 1);
+				objCalendar.add(Calendar.WEEK_OF_MONTH, noOfUnits);
 				break;
 			default:
 				log.debug("getEndDate: In Default.");
@@ -103,11 +102,13 @@ public class DataUtility {
 
 		endDate = dateFormat.format(objCalendar.getTime());
 
-		log.debug("getEndDate: Exit getEndDate method: {}", endDate);
-
 		return endDate;
-
 	}
 
+    public static String parseDate(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        String stringFormat = dateFormat.format(date);
+        return stringFormat;
+    }
 
 }

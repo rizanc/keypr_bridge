@@ -26,150 +26,155 @@ import java.net.InetSocketAddress;
  * @author vinayk2
  */
 public class OXIListener implements HttpHandler {
-	protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
-	@Inject
-	protected IMicrosDAO microsDAO;
+    @Inject
+    protected IMicrosDAO microsDAO;
 
-	@Inject
-	@Named("keypr.bridge.micros.harvester.oxi.listener.port")
-	protected int listeningPortNum;
+    @Inject
+    @Named("keypr.bridge.micros.harvester.oxi.listener.port")
+    protected int listeningPortNum;
 
-	@Inject
-	@Named("keypr.bridge.micros.harvester.oxi.listener.url")
-	protected String listeningURL;
+    @Inject
+    @Named("keypr.bridge.micros.harvester.oxi.listener.url")
+    protected String listeningURL;
 
-	@Inject
-	@Named("keypr.bridge.micros.harvester.oxi.listener.size")
-	protected int bufferSize;
+    @Inject
+    @Named("keypr.bridge.micros.harvester.oxi.listener.size")
+    protected int bufferSize;
 
-	@Inject
-	@Named("keypr.bridge.micros.harvester.oxi.file.location")
-	protected String filePath;
+    @Inject
+    @Named("keypr.bridge.micros.harvester.oxi.file.location")
+    protected String filePath;
 
-	/**
-	 * This method connects with the specified address and with specific port. It keeps listening
-	 * to every request arriving to the url.
-	 */
-	public void connectWithOXI() {
-		log.debug("connectWithOXI: enter connectWithServer method ");
+    /**
+     * This method connects with the specified address and with specific port. It keeps listening
+     * to every request arriving to the url.
+     */
+    public void connectWithOXI() {
+        log.debug("connectWithOXI: enter connectWithServer method ");
 
-		try {
-			HttpServer oxiListener = HttpServer.create(new InetSocketAddress(listeningPortNum), 0);
-			oxiListener.createContext(listeningURL, this);
-			oxiListener.setExecutor(null);
-			oxiListener.start();
-		} catch (Exception exc) {
+        try {
+            HttpServer oxiListener = HttpServer.create(new InetSocketAddress(listeningPortNum), 0);
+            oxiListener.createContext(listeningURL, this);
+            oxiListener.setExecutor(null);
+            oxiListener.start();
+        } catch (Exception exc) {
 
-			log.error(" connectWithOXI ", exc);
-		}
+            log.error(" connectWithOXI ", exc);
+        }
 
-		log.debug("connectWithOXI: exit connectWithOXI method ");
-	}
+        log.debug("connectWithOXI: exit connectWithOXI method ");
+    }
 
-	/**
-	 * This method is called to collect reservation data from the property management system.
-	 */
-	@Override
-	public void handle(HttpExchange exchange) {
-		log.debug("handle: enter handle method ");
+    /**
+     * This method is called to collect reservation data from the property management system.
+     */
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        log.debug("handle: enter handle method ");
+        String response = "";
+        OutputStream os;
 
+        try {
 
-		try {
+            String oxiRequest;
 
-			String oxiRequest;
+            Headers reqHeaders = exchange.getRequestHeaders();
+            String contentType = reqHeaders.getFirst("Content-Type");
 
-			Headers reqHeaders = exchange.getRequestHeaders();
-			String contentType = reqHeaders.getFirst("Content-Type");
+            log.debug("handle: content type: {}", contentType);
 
-			log.debug("handle: content type: {}", contentType);
+            InputStream objInputStream = exchange.getRequestBody();
 
-			InputStream objInputStream = exchange.getRequestBody();
+            ByteArrayOutputStream objByteArray = new ByteArrayOutputStream();
 
-			ByteArrayOutputStream objByteArray = new ByteArrayOutputStream();
+            byte objInputArray[] = new byte[bufferSize];
 
-			byte objInputArray[] = new byte[bufferSize];
+            for (int n = objInputStream.read(objInputArray); n > 0; n = objInputStream.read(objInputArray)) {
 
-			for (int n = objInputStream.read(objInputArray); n > 0; n = objInputStream.read(objInputArray)) {
+                objByteArray.write(objInputArray, 0, n);
+            }
 
-				objByteArray.write(objInputArray, 0, n);
-			}
+            //oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
+            oxiRequest = new String(objByteArray.toByteArray());
 
-			//oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
-			oxiRequest = new String(objByteArray.toByteArray());
+            log.debug("handle: Reservation Received: {}", oxiRequest);
 
-			log.debug("handle: Reservation Received: {}", oxiRequest);
+            File xmlFile = persistToFile(oxiRequest);
 
-			File xmlFile = persistToFile(oxiRequest);
+            log.debug("handle: File Created: {}", xmlFile.getName());
 
-			log.debug("handle: File Created: {}", xmlFile.getName());
+            OXIParserUtility objDataUtility = new OXIParserUtility();
 
-			OXIParserUtility objDataUtility = new OXIParserUtility();
+            objDataUtility.loadDoc(xmlFile);
 
-			objDataUtility.loadDoc(xmlFile);
+            microsDAO = new MicrosDAOImpl();
+            boolean isPersisted;
 
-			microsDAO = new MicrosDAOImpl();
-			boolean isPersisted;
+            if (objDataUtility.isReservation()) {
+                Reservation objReservation = objDataUtility.populateReservation(oxiRequest);
+                //isPersisted = microsDAO.persistReservationData(objReservation);
+                //log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
+            } else if (objDataUtility.isRtav()) {
+                Rtav objRtav = objDataUtility.populateRtav(oxiRequest);
 
-			if (objDataUtility.isReservation()) {
-				Reservation objReservation = objDataUtility.populateReservation(xmlFile);
-				isPersisted = microsDAO.persistReservationData(objReservation);
-				log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
-			} else if (objDataUtility.isRtav()) {
-				Rtav objRtav = objDataUtility.populateRtav(oxiRequest);
+                isPersisted = microsDAO.persistRtavData(objRtav);
+                log.debug("handle: Rtav Stored in DataBase: {}", isPersisted);
+            }
 
-				isPersisted = microsDAO.persistRtavData(objRtav);
-				log.debug("handle: Rtav Stored in DataBase: {}", isPersisted);
-			}
+            response = " Status: SUCCESS code= 200 ok ";
 
-			String response = " Status: SUCCESS code= 200 ok ";
+            exchange.sendResponseHeaders(200, response.length());
 
-			exchange.sendResponseHeaders(200, response.length());
+            os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
 
-			OutputStream os = exchange.getResponseBody();
-			os.write(response.getBytes());
-			os.close();
+        } catch (Exception exc) {
+            log.error(" handle ", exc);
+            response = " Status: ERROR code= 500 Internal Server Error ";
+            exchange.sendResponseHeaders(500, response.length());
+        } finally {
+            os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
 
-		} catch (Exception exc) {
+        log.debug("handle: exit handle method ");
+    }
 
-			log.error(" handle ", exc);
-		}
+    /**
+     * This method accepts the oxi reservation data from the property management system as string.
+     * It creates file and returns it for further processing.
+     *
+     * @param oxiRequest
+     * @return
+     */
+    private File persistToFile(String oxiRequest) {
 
-		log.debug("handle: exit handle method ");
+        log.debug("persistToFile: enter persistToFile method ");
 
-	}
+        File oxiRev = null;
+        FileOutputStream fout;
+        try {
 
-	/**
-	 * This method accepts the oxi reservation data from the property management system as string.
-	 * It creates file and returns it for further processing.
-	 *
-	 * @param oxiRequest
-	 * @return
-	 */
-	private File persistToFile(String oxiRequest) {
+            oxiRev = new File(filePath);
+            fout = new FileOutputStream(oxiRev);
 
-		log.debug("persistToFile: enter persistToFile method ");
+            fout.write(oxiRequest.getBytes());
 
-		File oxiRev = null;
-		FileOutputStream fout;
-		try {
+            log.debug("persistToFile: content written to the file ");
+            fout.close();
 
-			oxiRev = new File(filePath);
-			fout = new FileOutputStream(oxiRev);
+        } catch (Exception exc) {
 
-			fout.write(oxiRequest.getBytes());
+            log.error(" persistToFile ", exc);
+        }
 
-			log.debug("persistToFile: content written to the file ");
-			fout.close();
+        log.debug("persistToFile: exit persistToFile method ");
 
-		} catch (Exception exc) {
-
-			log.error(" persistToFile ", exc);
-		}
-
-		log.debug("persistToFile: exit persistToFile method ");
-
-		return oxiRev;
-	}
+        return oxiRev;
+    }
 
 }

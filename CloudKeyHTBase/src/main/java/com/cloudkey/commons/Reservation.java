@@ -18,6 +18,9 @@ public class Reservation {
 	// TODO: This ID should not be here.
 	private int id ;// PK of database.
 
+    private String chainCode;
+    private String hotelCode;
+
 	/* variable to store pms id. */
 	private String pmsReservationId; // pms_id
 	/* variable to store the number of days to be stayed at hotel. */
@@ -37,6 +40,8 @@ public class Reservation {
 	private String loyaltyNumber ;
 	/* variable to store the number of guests. */
 	private int numberOfGuests ;
+    private int numberOfAdults;
+    private int numberOfChildren;
 	/* variable to store the details of the reservation. */
 	private List<ReservationRoomAllocation> reservationRoomAllocationList;
 	private List<RoomDetails> roomDetailList ;
@@ -387,4 +392,35 @@ public class Reservation {
 				+ ", departureTime=" + departureTime + ", group=" + group + "]";
 	}
 
+    public String getChainCode() {
+        return chainCode;
+    }
+
+    public void setChainCode(String chainCode) {
+        this.chainCode = chainCode;
+    }
+
+    public String getHotelCode() {
+        return hotelCode;
+    }
+
+    public void setHotelCode(String hotelCode) {
+        this.hotelCode = hotelCode;
+    }
+
+    public int getNumberOfAdults() {
+        return numberOfAdults;
+    }
+
+    public void setNumberOfAdults(int numberOfAdults) {
+        this.numberOfAdults = numberOfAdults;
+    }
+
+    public int getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(int numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }
 }

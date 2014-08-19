@@ -21,17 +21,18 @@ import java.util.List;
  */
 public class OWSTestUtils {
 
-    private static final String PMS_RESERVATION_ID = "11900";
+    private static final String PMS_RESERVATION_ID = "893542";
     private static final LocalDate START_DATE = new LocalDate(2014, 10, 5);
     private static final LocalDate END_DATE = new LocalDate(2014, 10, 11);
     private static final String ROOM_TYPE_DEFAULT = "SKN";
     private static final String CREDIT_CARD_NO = "4111111111111111";
     private static final String EMAIL = "errory@lollison.com";
-    private static final String LAST_NAME = "Ellison";
-    private static final String FIRST_NAME = "LARRY";
+    private static final String LAST_NAME = "Smith";
+    private static final String FIRST_NAME = "John";
     private static final String HOTEL_CODE = "GSDH";
     private static final String MEMBER_ID = "223123123123123212";
     private static final String MEMBER_TYPE = "IB";
+
 
 	@Inject
 	OWSAvailabilityProcessor owsAvailabilityProcessor;
@@ -61,7 +62,7 @@ public class OWSTestUtils {
 	        PMS_RESERVATION_ID,
 	        FIRST_NAME,
 	        LAST_NAME,
-	        CREDIT_CARD_NO,
+	        null, //CREDIT_CARD_NO,
 	        null,
 	        null,
 	        null,

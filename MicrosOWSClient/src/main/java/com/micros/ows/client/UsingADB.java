@@ -12,7 +12,7 @@ public class UsingADB extends junit.framework.TestCase {
 	    OWSTestUtils testUtils = injector.getInstance(OWSTestUtils.class);
 	    //testUtils.AssignRoom();
 
-        //testUtils.FutureBookingSummary();
+        testUtils.FutureBookingSummary();
 
         //testUtils.CheckIn();
 
@@ -40,7 +40,7 @@ public class UsingADB extends junit.framework.TestCase {
 
         //testUtils.NameLookupByMembership();
 
-        testUtils.GetCardList();
+        //testUtils.GetCardList();
     }
 
 }
