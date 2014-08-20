@@ -30,17 +30,11 @@ public class PostChargeRequest extends PMSRequest {
 
 	private String userId;
 
-	private int folioViewNo;
-
-	private String account;
-
-	// TODO: This may need to be removed. If set, this must be an identifier which OPERA already knows.
-	//       It's not clear what this field is for or how we would find out which article identifiers are available.
-	private String article;
+	private Integer folioViewNo;
 
 	protected PostChargeRequest() { /* For serialization */ }
 
-	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, DateTime postDateTime, String shortInfo, String longInfo, String stationId, String userId, int folioViewNo, String account, String article) {
+	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, DateTime postDateTime, String shortInfo, String longInfo, String stationId, String userId, Integer folioViewNo, String account, String article) {
 		this.pmsReservationId = pmsReservationId;
 		this.chargeAmount = chargeAmount;
 		this.postDateTime = postDateTime;
@@ -48,8 +42,6 @@ public class PostChargeRequest extends PMSRequest {
 		this.longInfo = longInfo;
 		this.userId = userId;
 		this.folioViewNo = folioViewNo;
-		this.account = account;
-		this.article = article;
 	}
 
 	public String getPmsReservationId() {
@@ -100,34 +92,17 @@ public class PostChargeRequest extends PMSRequest {
 		this.userId = userId;
 	}
 
-	public int getFolioViewNo() {
+	public Integer getFolioViewNo() {
 		return folioViewNo;
 	}
 
-	public void setFolioViewNo(int folioViewNo) {
+	public void setFolioViewNo(Integer folioViewNo) {
 		this.folioViewNo = folioViewNo;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public String getArticle() {
-		return article;
-	}
-
-	public void setArticle(String article) {
-		this.article = article;
 	}
 
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("article", article)
 			.add("pmsReservationId", pmsReservationId)
 			.add("chargeAmount", chargeAmount)
 			.add("postDateTime", postDateTime)
@@ -135,7 +110,6 @@ public class PostChargeRequest extends PMSRequest {
 			.add("longInfo", longInfo)
 			.add("userId", userId)
 			.add("folioViewNo", folioViewNo)
-			.add("account", account)
 			.toString();
 	}
 }

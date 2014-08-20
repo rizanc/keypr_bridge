@@ -10,7 +10,6 @@ import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.google.inject.Inject;
 import com.micros.pms.MicrosOWSParser;
-import com.micros.pms.processor.*;
 import org.joda.time.LocalDate;
 
 import java.util.Arrays;
