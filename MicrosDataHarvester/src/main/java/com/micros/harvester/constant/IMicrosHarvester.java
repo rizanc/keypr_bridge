@@ -73,8 +73,8 @@ public interface IMicrosHarvester {
 
 	String QUERY_RESERVATION_UPLOAD_INSERT =  "insert into keypr_bridge_db.reservation_upload ( pms_id, stay_length, first_name, last_name, company_name, address, loyalty_number, "
 			+ "phone, number_of_guest, confirmation_number, check_in_date, check_out_date, notes, loyalty_program, property_id, credit_card_no, "
-			+ "reservation_source, affiliate_id, date_created, messages, email_id, status , reservation_action ) values "
-			+ "( ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,now(),?, ?,?,?) ";
+			+ "reservation_source, affiliate_id, date_created, messages, email_id, status ) values "
+			+ "( ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,?,?,  ?,?,?,now(),?, ?,?) ";
 
 	String QUERY_RESERVATION_ROOM_ALLOCATION_UPLOAD_INSERT = " insert into keypr_bridge_db.reservation_room_allocation_upload ( reservation_upload_id, room_number, room_type_code,  reservation_status_type ,date_created) values"
 			+ "( ?, ?, ?, ? ,now())";
