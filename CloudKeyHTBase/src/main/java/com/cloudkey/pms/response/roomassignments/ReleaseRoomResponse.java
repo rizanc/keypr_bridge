@@ -9,6 +9,7 @@ import com.cloudkey.commons.Response;
  *
  */
 public class ReleaseRoomResponse extends Response {
-
+	public ReleaseRoomResponse() {
+	}
 }
 

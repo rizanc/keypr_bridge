@@ -1,6 +1,7 @@
 package com.keypr.webservices;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.sun.jersey.api.container.filter.LoggingFilter;
@@ -42,6 +43,7 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
         bootstrap.addBundle(guiceBundle);
 
 	    bootstrap.getObjectMapper().setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+	    bootstrap.getObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
         // Swagger UI
         swaggerDropwizard.onInitialize(bootstrap);
