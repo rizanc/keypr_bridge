@@ -38,14 +38,6 @@ public class OXIListener implements HttpHandler {
     @Named("keypr.bridge.micros.harvester.oxi.listener.url")
     protected String listeningURL;
 
-    @Inject
-    @Named("keypr.bridge.micros.harvester.oxi.listener.size")
-    protected int bufferSize;
-
-    @Inject
-    @Named("keypr.bridge.micros.harvester.oxi.file.location")
-    protected String filePath;
-
     /**
      * This method connects with the specified address and with specific port. It keeps listening
      * to every request arriving to the url.
@@ -110,37 +102,6 @@ public class OXIListener implements HttpHandler {
         }
 
         log.debug("handle: exit handle method ");
-    }
-
-    /**
-     * This method accepts the oxi reservation data from the property management system as string.
-     * It creates file and returns it for further processing.
-     *
-     * @param oxiRequest
-     * @return
-     */
-    private File persistToFile(String oxiRequest) {
-        log.debug("persistToFile: enter persistToFile method ");
-
-        File oxiRev = null;
-        FileOutputStream fout;
-        try {
-
-            oxiRev = new File(filePath);
-            fout = new FileOutputStream(oxiRev);
-
-            fout.write(oxiRequest.getBytes());
-
-            log.debug("persistToFile: content written to the file ");
-            fout.close();
-
-        } catch (Exception exc) {
-            log.error(" persistToFile ", exc);
-        }
-
-        log.debug("persistToFile: exit persistToFile method ");
-
-        return oxiRev;
     }
 
 }
