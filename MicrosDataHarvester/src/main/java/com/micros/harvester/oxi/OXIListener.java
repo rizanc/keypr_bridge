@@ -5,12 +5,11 @@ import com.cloudkey.commons.Rtav;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.micros.harvester.dao.IMicrosDAO;
-import com.micros.harvester.dao.MicrosDAOImpl;
-import com.micros.harvester.util.OXIParserUtility;
-import com.sun.net.httpserver.Headers;
+import com.micros.harvester.util.OXIParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import org.apache.cxf.helpers.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,32 +72,16 @@ public class OXIListener implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         log.debug("handle: enter handle method ");
-        String response = "";
-        OutputStream os;
+	    String response = "";
 
         try {
-            InputStream objInputStream = exchange.getRequestBody();
+            InputStream inputStream = exchange.getRequestBody();
+	        String oxiRequest = IOUtils.toString(inputStream);
+	        inputStream.close();
 
-            ByteArrayOutputStream objByteArray = new ByteArrayOutputStream();
-
-            byte objInputArray[] = new byte[bufferSize];
-
-            for (int n = objInputStream.read(objInputArray); n > 0; n = objInputStream.read(objInputArray)) {
-                objByteArray.write(objInputArray, 0, n);
-            }
-
-            //oxiRequest = new String(objByteArray.toByteArray(),"UTF-8");
-	        String oxiRequest = new String(objByteArray.toByteArray());
 	        log.info("Received OXI message: {}", oxiRequest);
 
-            File xmlFile = persistToFile(oxiRequest);
-
-            log.debug("handle: File Created: {}", xmlFile.getName());
-
-            OXIParserUtility objDataUtility = new OXIParserUtility();
-
-            objDataUtility.loadDoc(xmlFile);
-
+            OXIParser objDataUtility = new OXIParser(oxiRequest);
 	        boolean isPersisted;
 
             if (objDataUtility.isReservation()) {
@@ -116,18 +99,14 @@ public class OXIListener implements HttpHandler {
             response = " Status: SUCCESS code= 200 ok ";
 
             exchange.sendResponseHeaders(200, response.length());
-
-            os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
         } catch (Exception exc) {
             log.error(" handle ", exc);
             response = " Status: ERROR code= 500 Internal Server Error ";
             exchange.sendResponseHeaders(500, response.length());
         } finally {
-            os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+	        OutputStream responseBody = exchange.getResponseBody();
+	        responseBody.write(response.getBytes());
+	        responseBody.close();
         }
 
         log.debug("handle: exit handle method ");
