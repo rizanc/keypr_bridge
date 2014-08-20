@@ -1,5 +1,6 @@
 package com.cloudkey.pms.request.reservations;
 
+import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
@@ -9,7 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author vinayk2
  */
-public class CheckOutRequest {
+public class CheckOutRequest extends PMSRequest {
     @NotBlank
     @ApiModelProperty(required = true)
     private String pmsReservationId;

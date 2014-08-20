@@ -12,7 +12,7 @@ import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
-import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.cloudkey.pms.response.reservations.*;
@@ -140,7 +140,7 @@ public interface IParserInterface {
      * @param objGuestMembershipsRequest
      * @return
      */
-    GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest objGuestMembershipsRequest) throws PMSInterfaceException;
+    GuestMembershipsResponse getMembershipInformation(GuestMembershipsRequest objGuestMembershipsRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for Name Id. It returns name id to guest.

@@ -1,6 +1,7 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.commons.Payments;
+import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.wordnik.swagger.annotations.ApiModelProperty;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author vinayk2
  */
-public class UpdatePaymentRequest {
+public class UpdatePaymentRequest extends PMSRequest {
 
     @NotBlank
     @ApiModelProperty(required = true)

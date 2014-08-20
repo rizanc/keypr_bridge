@@ -3,7 +3,7 @@ package com.cloudkey.pms.response.roomassignments;
 import java.util.List;
 
 import com.cloudkey.commons.DayRoomAvailability;
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 
@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableList;
  * @author vinayk2
  *
  */
-public class GetAvailabilityResponse extends Response {
+public class GetAvailabilityResponse extends PMSResponse {
 
     /* Reference variable to store the room availability. */
     private List<DayRoomAvailability> availabilityList;

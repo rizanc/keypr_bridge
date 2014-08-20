@@ -1,4 +1,4 @@
-package com.micros.pms.parser;
+package com.micros.pms;
 
 import com.cloudkey.commons.Membership;
 import com.cloudkey.exceptions.PMSInterfaceException;
@@ -14,20 +14,25 @@ import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
-import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
-import com.micros.pms.processor.*;
+import com.micros.pms.processors.hotels.HotelInformationProcessor;
+import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
+import com.micros.pms.processors.memberships.NameIdByMembershipProcessor;
+import com.micros.pms.processors.reservations.*;
+import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
+import com.micros.pms.processors.roomassignments.GetAvailabilityProcessor;
+import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
 import org.apache.commons.lang3.NotImplementedException;
-
-import javax.xml.ws.WebServiceException;
-import java.util.List;
 
 /**
  *
@@ -35,99 +40,88 @@ import java.util.List;
  */
 public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
+	// Reservations
 	@Inject
-	OWSAvailabilityProcessor availabilityProcessor;
+	PostChargeProcessor postChargeProcessor;
 
 	@Inject
-	OWSInformationProcessor informationProcessor;
+	AddReservationNotesProcessor addReservationNotesProcessor;
 
 	@Inject
-	OWSMeetingRoomProcessor meetingRoomProcessor;
-	
-	@Inject
-	OWSNameProcessor nameProcessor;
+	CheckInProcessor checkInProcessor;
 
 	@Inject
-	OWSReservationProcessor reservationProcessor;
+	CheckOutProcessor checkOutProcessor;
 
 	@Inject
-	OWSResvAdvancedProcessor resvAdvancedProcessor;
+	GetFolioProcessor getFolioProcessor;
+
+	@Inject
+	SearchReservationProcessor searchReservationProcessor;
+
+	// Room assignments
+	@Inject
+	AssignRoomProcessor assignRoomProcessor;
+
+	@Inject
+	ReleaseRoomProcessor releaseRoomProcessor;
+
+	@Inject
+	GetAvailabilityProcessor getAvailabilityProcessor;
+
+	// Hotels
+	@Inject
+	HotelInformationProcessor hotelInformationProcessor;
+
+	// Memberships
+	@Inject
+	NameIdByMembershipProcessor nameIdByMembershipProcessor;
+
+	@Inject
+	GuestMembershipsProcessor guestMembershipsProcessor;
 
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
         log.debug("retrieveFolioInfo: Enter method.");
-
-        try {
-            return resvAdvancedProcessor.processRetrieveFolioInfo(getFolioRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+		return getFolioProcessor.process(getFolioRequest);
     }
 
     @Override
     public ReleaseRoomResponse releaseRoom(ReleaseRoomRequest releaseRoomRequest) throws PMSInterfaceException {
         log.debug("releaseRoom: Enter method.");
-
-        try {
-            return reservationProcessor.processReleaseRoom(releaseRoomRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+	    return releaseRoomProcessor.process(releaseRoomRequest);
     }
 
     @Override
     public CheckInResponse guestCheckIn(CheckInRequest checkInRequest) throws PMSInterfaceException {
         log.debug("guestCheckIn: Enter method.");
-
-        try {
-            return resvAdvancedProcessor.processCheckIn(checkInRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+        return checkInProcessor.process(checkInRequest);
     }
 
     @Override
     public AssignRoomResponse assignRoom(AssignRoomRequest assignRoomRequest) throws PMSInterfaceException {
         log.debug("assignRoom: Enter method.");
-
-        try {
-            return reservationProcessor.processAssignRoom(assignRoomRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+	    return assignRoomProcessor.process(assignRoomRequest);
     }
 
     @Override
     public CheckOutResponse guestCheckOut(CheckOutRequest checkOutRequest) throws PMSInterfaceException {
         log.debug("guestCheckOut: Enter method.");
-
-        try {
-            return resvAdvancedProcessor.processCheckOut(checkOutRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+        return checkOutProcessor.process(checkOutRequest);
     }
 
     @Override
     public AddReservationNotesResponse addReservationNotes(AddReservationNotesRequest request) throws PMSInterfaceException {
         log.debug("addReservationNotes: Enter method.");
 
-        try {
-            return reservationProcessor.processAddNotes(request);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+        return addReservationNotesProcessor.process(request);
     }
 
 	@Override
 	public PostChargeResponse postCharge(PostChargeRequest request) throws PMSInterfaceException {
 		log.debug("postCharge: Enter method.");
 
-		try {
-			return resvAdvancedProcessor.postCharge(request);
-		} catch (WebServiceException e) {
-			throw new PMSInterfaceException(e);
-		}
+		return postChargeProcessor.process(request);
 	}
 
     @Override
@@ -148,28 +142,13 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     @Override
     public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
 	    log.debug("checkAvailability: Enter method.");
-
-        try {
-	        return availabilityProcessor.processAvailability(getAvailabilityRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+	    return getAvailabilityProcessor.process(getAvailabilityRequest);
     }
 
     @Override
     public SearchReservationResponse searchReservationData(SearchReservationRequest searchReservationRequest) throws PMSInterfaceException {
 	    log.debug("searchReservationData: Enter method.");
-
-        SearchReservationResponse response;
-
-        try {
-        response = reservationProcessor.processSearchReservationData(searchReservationRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
-
-        return response;
-
+	    return searchReservationProcessor.process(searchReservationRequest);
     }
 
     @Override
@@ -180,77 +159,63 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     }
 
     @Override
-    public GuestMembershipResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) throws PMSInterfaceException {
+    public GuestMembershipsResponse getMembershipInformation(GuestMembershipsRequest guestMembershipsRequest) throws PMSInterfaceException {
 	    log.debug("getMembershipInformation: Enter method.");
-
-        try {
-            return nameProcessor.processGuestCardList(guestMembershipsRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+	    return guestMembershipsProcessor.process(guestMembershipsRequest);
     }
 
     @Override
     public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) throws PMSInterfaceException {
         log.debug("getNameIdInformation: Enter method.");
-
-        try {
-            return nameProcessor.processNameLookupByMembership(nameIdByMembershipRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+	    return nameIdByMembershipProcessor.process(nameIdByMembershipRequest);
     }
 
     @Override
     public HotelInformationResponse hotelInformationQuery(HotelInformationRequest hotelInformationRequest) throws PMSInterfaceException {
         log.debug("hotelInformationQuery: Enter method.");
-
-        try {
-            return informationProcessor.processHotelInformation(hotelInformationRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+		return hotelInformationProcessor.process(hotelInformationRequest);
     }
 
+	/**
+	 * Fetch member points by membership type, number and last name.
+	 *
+	 * To accomplish this, we use two OWS calls:
+	 * 1. NameByIdMembership, to lookup the internal member ID by their membership type, number and last name.
+	 * 2. GuestMemberships, to lookup the membership points by the internal member ID.
+	 *
+	 * @param memberPointsRequest
+	 * @return
+	 * @throws PMSInterfaceException
+	 */
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
 	    log.debug("memberPointsQuery: Enter method.");
 
-	    MemberPointsResponse response = new MemberPointsResponse();
-
+	    // GuestMembershipsRequest cannot be looked up by membership last name, membership and num.
         // Get the name id for the member
         String membershipLastName = memberPointsRequest.getMemberLastName();
         String membershipType = memberPointsRequest.getMembershipType();
         String membershipNumber = memberPointsRequest.getMembershipNumber();
 
-        NameIdByMembershipRequest nameIdByMembershipRequest = new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName);
+	    NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName));
 
-        NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(nameIdByMembershipRequest);
+	    // Get the membership request
+	    GuestMembershipsResponse guestMembershipsResponse = guestMembershipsProcessor.process(new GuestMembershipsRequest(nameIdByMembershipResponse.getNameId()));
 
-        String nameID = nameIdByMembershipResponse.getNameId();
+	    MemberPointsResponse response = new MemberPointsResponse();
 
-        // Get the membership request
-        GuestMembershipsRequest guestMembershipRequest = new GuestMembershipsRequest(nameID);
-        GuestMembershipResponse guestMembershipResponse;
-        try {
-            guestMembershipResponse = nameProcessor.processGuestCardList(guestMembershipRequest);
-        } catch (WebServiceException e) {
-            throw new PMSInterfaceException(e);
-        }
+	    Optional<Membership> firstMembershipOpt = FluentIterable.from(guestMembershipsResponse.getMembershipList()).first();
 
-        List<Membership> memberships = guestMembershipResponse.getMembershipList();
-        if (memberships != null) {
+	    if (firstMembershipOpt.isPresent()) {
+		    Membership membership = firstMembershipOpt.get();
 
-            for (Membership membership : memberships) {
-                if (membership.getMembershipType().equalsIgnoreCase(membershipType)) {
+		    if (membership.getMembershipType().equalsIgnoreCase(membershipType)) {
                 response.setMembershipNumber(membership.getMembershipNumber());
                 response.setMembershipType(membership.getMembershipType());
                 response.setMembershipId(membership.getMembershipId());
                 response.setEffectiveDate(membership.getEffectiveDate());
                 response.setTotalPoints(membership.getCurrentPoints().toString());
                 response.setExpireDate(membership.getExpirationDate());
-                    break;
-                }
             }
         }
 

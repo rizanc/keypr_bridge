@@ -3,7 +3,7 @@ package com.keypr.webservices.rest.services;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
-import com.cloudkey.pms.response.memberships.GuestMembershipResponse;
+import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.reservations.MakePaymentResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
@@ -28,14 +28,14 @@ public class MembershipsResource extends AbstractResource {
     @GET
     @ApiOperation(
         value = "Fetches guest membership details related to a 'name id'",
-        response = GuestMembershipResponse.class
+        response = GuestMembershipsResponse.class
     )
     @ApiResponses({
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public GuestMembershipResponse guestMemberships(@QueryParam("nameId") String nameId) {
+    public GuestMembershipsResponse guestMemberships(@QueryParam("nameId") String nameId) {
 	    GuestMembershipsRequest request = new GuestMembershipsRequest(nameId);
 	    validate(request);
 

@@ -1,5 +1,6 @@
 package com.cloudkey.pms.request.roomassignments;
 
+import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.joda.time.LocalDate;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @author vinayk2
  *
  */
-public class GetAvailabilityRequest {
+public class GetAvailabilityRequest extends PMSRequest {
 
     @NotNull
     @ApiModelProperty(required = true)

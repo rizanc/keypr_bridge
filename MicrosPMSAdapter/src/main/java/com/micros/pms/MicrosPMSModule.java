@@ -4,7 +4,6 @@ import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.micros.ows.OWSSupportModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import com.micros.pms.parser.MicrosOWSParser;
 
 /**
  * Binds {@link IParserInterface} to the Micros-specific implementation.

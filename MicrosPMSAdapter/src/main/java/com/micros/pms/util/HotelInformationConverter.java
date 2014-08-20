@@ -18,6 +18,7 @@ import org.joda.time.LocalTime;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -131,7 +132,7 @@ public class HotelInformationConverter {
 	 */
 	public static StreetAddress convertAddress(Address address) {
 		return new StreetAddress(
-			ImmutableList.copyOf(address.getAddressLines()),
+			address.getAddressLines() == null ? Collections.<String>emptyList() : ImmutableList.copyOf(address.getAddressLines()),
 			address.getCityName(),
 			address.getStateProv(),
 			address.getCountryCode(),

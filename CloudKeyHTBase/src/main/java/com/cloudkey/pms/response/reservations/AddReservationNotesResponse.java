@@ -1,9 +1,7 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
  *
  * @author vinayk2
  */
-public class AddReservationNotesResponse extends Response {
+public class AddReservationNotesResponse extends PMSResponse {
 
     /* Reference variable to store the reservation data */
     private List<String> currentNotes;

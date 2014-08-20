@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.cloudkey.pms.request.reservations.MakePaymentRequest;
 import com.keypr.pms.micros.oxi.ids.PmsReservationId;
 
@@ -9,7 +9,7 @@ import com.keypr.pms.micros.oxi.ids.PmsReservationId;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class MakePaymentResponse extends Response {
+public class MakePaymentResponse extends PMSResponse {
     private PmsReservationId pmsReservationId;
 
     public MakePaymentResponse(PmsReservationId pmsReservationId) {

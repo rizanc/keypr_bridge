@@ -3,7 +3,7 @@ package com.cloudkey.pms.response.hotels;
 import java.util.List;
 import java.util.TimeZone;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.cloudkey.commons.Restaurant;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.common.GeoCode;
@@ -12,13 +12,12 @@ import com.cloudkey.pms.common.contact.StreetAddress;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import org.joda.time.LocalTime;
 
 /**
  * @author
  */
-public class HotelInformationResponse extends Response {
+public class HotelInformationResponse extends PMSResponse {
     private String hotelName;
     private List<StreetAddress> addresses;
 	private Optional<GeoCode> hotelPosition;

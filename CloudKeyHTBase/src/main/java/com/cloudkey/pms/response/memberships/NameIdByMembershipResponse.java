@@ -1,12 +1,12 @@
 package com.cloudkey.pms.response.memberships;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 
 /*
  * This class hold information of name id.
  */
-public class NameIdByMembershipResponse extends Response {
+public class NameIdByMembershipResponse extends PMSResponse {
 
     private String nameId;
 

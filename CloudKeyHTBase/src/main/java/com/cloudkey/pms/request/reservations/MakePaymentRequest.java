@@ -2,6 +2,7 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.common.payment.CreditCardApproval;
 import com.cloudkey.pms.common.payment.CreditCardInfo;
+import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.keypr.pms.micros.oxi.ids.PmsReservationId;
 import com.keypr.pms.micros.oxi.ids.StationId;
@@ -17,7 +18,7 @@ import java.util.Date;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class MakePaymentRequest {
+public class MakePaymentRequest extends PMSRequest {
     /**
      * The {@link com.keypr.pms.micros.oxi.ids.PmsReservationId} of the reservation to which payment was applied
      */

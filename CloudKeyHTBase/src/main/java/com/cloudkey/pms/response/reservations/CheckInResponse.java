@@ -1,7 +1,7 @@
 package com.cloudkey.pms.response.reservations;
 
 import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 
 /**
@@ -11,7 +11,7 @@ import com.google.common.base.Objects;
  * @author vinayk2
  *
  */
-public class CheckInResponse extends Response {
+public class CheckInResponse extends PMSResponse {
 
     /* Reference variable to store the reservation data. */
     private Reservation reservation ;

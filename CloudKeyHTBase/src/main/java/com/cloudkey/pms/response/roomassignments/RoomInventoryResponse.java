@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.roomassignments;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.cloudkey.commons.RoomDetails;
 import com.google.common.base.Objects;
 
@@ -11,7 +11,7 @@ import com.google.common.base.Objects;
  * @author vinayk2
  *
  */
-public class RoomInventoryResponse extends Response {
+public class RoomInventoryResponse extends PMSResponse {
 
     // Variables to store data.
     RoomDetails roomDetailList;

@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 
 /**
  * This class stores the response of update payment request made by the guest. It has 
@@ -8,6 +8,6 @@ import com.cloudkey.commons.Response;
  *
  * @author vinayk2
  */
-public class UpdatePaymentResponse extends Response {
+public class UpdatePaymentResponse extends PMSResponse {
 
 }

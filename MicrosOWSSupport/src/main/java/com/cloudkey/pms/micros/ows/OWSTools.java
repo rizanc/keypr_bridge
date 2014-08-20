@@ -9,6 +9,7 @@ import com.cloudkey.pms.micros.og.core.OGHeaderAuthentication;
 import com.cloudkey.pms.micros.og.core.OGHeaderAuthenticationUserCredentials;
 import com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
+import com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
@@ -142,4 +143,15 @@ public class OWSTools {
 		return new UniqueID(pmsReservationId, UniqueIDType.INTERNAL, MicrosIds.OWS.RESERVATION_ID_SOURCE);
 	}
 
+	/**
+	 * Creates a {@link ReservationRequestBase} with the given pmsReservationId and the default hotel reference.
+	 *
+	 * @param pmsReservationId
+	 * @return
+	 */
+	protected ReservationRequestBase createReservationRequest(String pmsReservationId) {
+		return new ReservationRequestBase()
+			.withHotelReference(getDefaultHotelReference())
+			.withReservationID(internalReservationId(pmsReservationId));
+	}
 }

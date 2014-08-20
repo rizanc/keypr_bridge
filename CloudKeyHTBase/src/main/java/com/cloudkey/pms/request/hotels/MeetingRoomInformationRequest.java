@@ -1,5 +1,6 @@
 package com.cloudkey.pms.request.hotels;
 
+import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @author vinayk2
  *
  */
-public class MeetingRoomInformationRequest {
+public class MeetingRoomInformationRequest extends PMSRequest {
 
 	@NotNull
 	@ApiModelProperty(required = true)

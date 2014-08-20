@@ -1,5 +1,6 @@
 package com.cloudkey.pms.request.reservations;
 
+import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 
 import javax.validation.constraints.AssertTrue;
@@ -10,7 +11,7 @@ import javax.validation.constraints.AssertTrue;
  *
  * @author vinayk2
  */
-public class SearchReservationRequest {
+public class SearchReservationRequest extends PMSRequest {
 
     private String pmsReservationId;
 

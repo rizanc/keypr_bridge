@@ -8,10 +8,10 @@ package com.cloudkey.pms.response.memberships;
 
 import java.util.Date;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 
-public class MemberPointsResponse extends Response {
+public class MemberPointsResponse extends PMSResponse {
 
     /* reference variable to store member points response*/
     private String membershipId;

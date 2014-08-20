@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.roomassignments;
 
-import com.cloudkey.commons.Response;
+import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 
 /**
@@ -9,20 +9,19 @@ import com.google.common.base.Objects;
  * @author niveditat
  *
  */
-public class AssignRoomResponse extends Response {
+public class AssignRoomResponse extends PMSResponse {
 
-    /*Variable to store the response.*/
     private String assignRoomNumber;
 
-	/*setter and getters.*/
+	protected AssignRoomResponse() { /* For Serialization */ }
 
-    public String getAssignRoomNumber() {
-        return assignRoomNumber;
-    }
+	public AssignRoomResponse(String assignRoomNumber) {
+		this.assignRoomNumber = assignRoomNumber;
+	}
 
-    public void setAssignRoomNumber(String assignRoomNumber) {
-        this.assignRoomNumber = assignRoomNumber;
-    }
+	public String getAssignRoomNumber() {
+		return assignRoomNumber;
+	}
 
 	@Override
 	public String toString() {

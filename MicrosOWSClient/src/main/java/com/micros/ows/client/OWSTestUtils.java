@@ -9,10 +9,10 @@ import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
 import com.google.inject.Inject;
+import com.micros.pms.MicrosOWSParser;
 import com.micros.pms.processor.*;
 import org.joda.time.LocalDate;
 
-import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,27 +33,14 @@ public class OWSTestUtils {
     private static final String MEMBER_ID = "223123123123123212";
     private static final String MEMBER_TYPE = "IB";
 
-
 	@Inject
-	OWSAvailabilityProcessor owsAvailabilityProcessor;
-
-	@Inject
-	OWSReservationProcessor owsReservationProcessor;
-
-	@Inject
-	OWSResvAdvancedProcessor owsResvAdvancedProcessor;
-
-	@Inject
-	OWSNameProcessor owsNameProcessor;
-
-	@Inject
-	OWSInformationProcessor owsInformationProcessor;
+	MicrosOWSParser microsOWSParser;
 
 	public void Availability() {
         GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE, null);
 
         GetAvailabilityResponse response =
-                owsAvailabilityProcessor.processAvailability(getAvailabilityRequest);
+                microsOWSParser.checkAvailability(getAvailabilityRequest);
     }
 
     public void FutureBookingSummary() {
@@ -70,33 +57,32 @@ public class OWSTestUtils {
 	        null
         );
 	    
-        owsReservationProcessor.processSearchReservationData(request);
+        microsOWSParser.searchReservationData(request);
     }
 
     public void AssignRoom() {
         AssignRoomRequest request = new AssignRoomRequest(PMS_RESERVATION_ID, ROOM_TYPE_DEFAULT);
 
-        owsReservationProcessor.processAssignRoom(request);
+	    microsOWSParser.assignRoom(request);
     }
 
     public void ReleaseRoom() {
         ReleaseRoomRequest request = new ReleaseRoomRequest(PMS_RESERVATION_ID);
 
-        owsReservationProcessor.processReleaseRoom(request);
+	    microsOWSParser.releaseRoom(request);
     }
 
     public void CheckIn() {
         CheckInRequest request = new CheckInRequest(PMS_RESERVATION_ID, CREDIT_CARD_NO);
 
-        owsResvAdvancedProcessor.processCheckIn(request);
+	    microsOWSParser.guestCheckIn(request);
     }
 
 
     public void CheckOut() {
-
         CheckOutRequest request = new CheckOutRequest(PMS_RESERVATION_ID);
 
-        owsResvAdvancedProcessor.processCheckOut(request);
+	    microsOWSParser.guestCheckOut(request);
     }
 
     public void ModifyBooking() {
@@ -106,26 +92,26 @@ public class OWSTestUtils {
         List<String> notes = Arrays.asList("Comment 1", "Comment 2", "Comment 3");
         AddReservationNotesRequest addReservationNotesRequest = new AddReservationNotesRequest(PMS_RESERVATION_ID, notes);
 
-        owsReservationProcessor.processAddNotes(addReservationNotesRequest);
+	    microsOWSParser.addReservationNotes(addReservationNotesRequest);
     }
 
     public void Folio() {
         GetFolioRequest request = new GetFolioRequest(PMS_RESERVATION_ID);
 
-        owsResvAdvancedProcessor.processRetrieveFolioInfo(request);
+	    microsOWSParser.retrieveFolioInfo(request);
     }
 
     public void HotelInformation() {
         HotelInformationRequest request = new HotelInformationRequest();
 
-        owsInformationProcessor.processHotelInformation(request);
+	    microsOWSParser.hotelInformationQuery(request);
     }
 
     public void NameLookupByMembership() {
 
         NameIdByMembershipRequest request = new NameIdByMembershipRequest("OR", "1166666666", "REWARDS");
 
-        owsNameProcessor.processNameLookupByMembership(request);
+	    microsOWSParser.getNameIdInformation(request);
     }
 
     public void GetCardList() {
@@ -137,6 +123,6 @@ public class OWSTestUtils {
 
         GuestMembershipsRequest request = new GuestMembershipsRequest("220080");
 
-        owsNameProcessor.processGuestCardList(request);
+	    microsOWSParser.getMembershipInformation(request);
     }
 }
