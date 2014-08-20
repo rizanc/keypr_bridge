@@ -1,5 +1,8 @@
 package com.cloudkey.commons;
 
+import com.google.common.base.Objects;
+import org.joda.time.DateTime;
+
 /**
  * Class stores details of room rate.It has information of base Amount,
  * efeectiveDate, expiration Date , occurrence Type , roomTypeID with  dateModified and dateCredted.
@@ -10,54 +13,50 @@ package com.cloudkey.commons;
 public class RoomRate {
 
 	// Reference Variables.
-	private String ratePlanCode;
+	private String planCode;
 	private double baseAmount;
-	private String effectiveDate;
-	private String expirationDate;
+	private DateTime effectiveDate;
+	private DateTime expirationDate;
 
-	// Getter and Setter
 	public String getPlanCode() {
-		return ratePlanCode;
+		return planCode;
 	}
 
-	public void setPlanCode(String planCode) {
-		this.ratePlanCode = planCode;
+	public void setPlanCode(String ratePlanCode) {
+		this.planCode = ratePlanCode;
 	}
 
 	public double getBaseAmount() {
-
 		return baseAmount;
 	}
 
 	public void setBaseAmount(double baseAmount) {
-
 		this.baseAmount = baseAmount;
 	}
 
-	public String getEffectiveDate() {
-
+	public DateTime getEffectiveDate() {
 		return effectiveDate;
 	}
 
-	public void setEffectiveDate(String effectiveDate) {
-
+	public void setEffectiveDate(DateTime effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
 
-	public String getExpirationDate() {
-
+	public DateTime getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(String expirationDate) {
-
+	public void setExpirationDate(DateTime expirationDate) {
 		this.expirationDate = expirationDate;
 	}
+
 	@Override
 	public String toString() {
-		return "RoomRate [planCode=" + ratePlanCode + ", baseAmount=" + baseAmount
-				+ ", effectiveDate=" + effectiveDate + ", expirationDate="
-				+ expirationDate + "]";
+		return Objects.toStringHelper(this)
+			.add("planCode", planCode)
+			.add("baseAmount", baseAmount)
+			.add("effectiveDate", effectiveDate)
+			.add("expirationDate", expirationDate)
+			.toString();
 	}
-
-}	
+}

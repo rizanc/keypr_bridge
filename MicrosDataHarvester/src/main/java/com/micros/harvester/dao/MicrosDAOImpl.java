@@ -5,9 +5,9 @@ import com.cloudkey.pms.common.contact.StreetAddress;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.micros.harvester.constant.IMicrosHarvester;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -937,9 +937,9 @@ public class MicrosDAOImpl implements IMicrosDAO {
 		//List<RoomDetails> listRoomDetails = objReservation.getRoomDetailList();
 		List<ReservationRoomAllocation> roomAllocList = objReservation.getReservationRoomAllocationList();
 		String confirmationNumber = objReservation.getConfirmationNumber();
-		String checkInDate = objReservation.getCheckinDate();
+		LocalDate checkInDate = objReservation.getCheckinDate();
 
-		String checkOutDate = objReservation.getCheckoutDate();
+		LocalDate checkOutDate = objReservation.getCheckoutDate();
 		String notes = objReservation.getNotes();
 		String loyaltyProgram = objReservation.getLoyaltyProgram();
 		String propertyId = objReservation.getPropertyId();
@@ -974,8 +974,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 			objPreparedStatement.setInt( 9,numberOfGuest );
 			objPreparedStatement.setString( 10, confirmationNumber );
 
-			objPreparedStatement.setString( 11, checkInDate );
-			objPreparedStatement.setString( 12, checkOutDate );
+			objPreparedStatement.setDate(11, new java.sql.Date(checkInDate.toDate().getTime()));
+			objPreparedStatement.setDate(12, new java.sql.Date(checkOutDate.toDate().getTime()));
 			objPreparedStatement.setString( 13,notes );
 			objPreparedStatement.setString( 14,loyaltyProgram );
 			objPreparedStatement.setString( 15, propertyId );
@@ -1197,8 +1197,8 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					objPreparedStatement.setInt(1, roomAllocationId);
 					objPreparedStatement.setDouble(2, objRoomRate.getBaseAmount() );
 					objPreparedStatement.setString(3, objRoomRate.getPlanCode() );
-					objPreparedStatement.setString(4, objRoomRate.getEffectiveDate() );
-					objPreparedStatement.setString(5, objRoomRate.getExpirationDate() );
+					objPreparedStatement.setDate(4, new java.sql.Date(objRoomRate.getEffectiveDate().getMillis()));
+					objPreparedStatement.setDate(5, new java.sql.Date(objRoomRate.getExpirationDate().getMillis()));
 
 					int rowInserted = objPreparedStatement.executeUpdate();
 

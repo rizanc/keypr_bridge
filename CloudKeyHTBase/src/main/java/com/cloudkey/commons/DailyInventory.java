@@ -1,28 +1,29 @@
 package com.cloudkey.commons;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
+
 import java.util.List;
 
 /**
  * Created by crizan2 on 12/08/2014.
  */
 public class DailyInventory {
-    private Date inventoryDate;
+    private LocalDate inventoryDate;
     private int physicalRooms;
     private int houseOverbook;
     private int outOfOrder;
 
     private List<RoomTypeInventory> roomTypeInventories;
 
-    public Date getInventoryDate() {
-        return inventoryDate;
-    }
+	public LocalDate getInventoryDate() {
+		return inventoryDate;
+	}
 
-    public void setInventoryDate(Date inventoryDate) {
-        this.inventoryDate = inventoryDate;
-    }
+	public void setInventoryDate(LocalDate inventoryDate) {
+		this.inventoryDate = inventoryDate;
+	}
 
-    public int getPhysicalRooms() {
+	public int getPhysicalRooms() {
         return physicalRooms;
     }
 

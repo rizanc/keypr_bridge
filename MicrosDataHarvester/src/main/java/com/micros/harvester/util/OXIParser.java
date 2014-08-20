@@ -11,6 +11,8 @@ import com.keypr.pms.micros.ows.jaxb.rtav.RtavMessage;
 import com.micros.harvester.constant.IMicrosHarvester;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -129,8 +131,8 @@ public class OXIParser {
         String reservationSource = "";
         String loyaltyNumber = "";
 
-        String checkInDate = "";
-        String stayLength = "";
+        LocalDate checkInDate;
+        Integer stayLength;
         String firstName = "";
         String lastName = "";
 
@@ -206,8 +208,8 @@ public class OXIParser {
 	                                log.debug("populateReservation: Unknown time unit::: {}", rate.getTimeSpan().getTimeUnitType().toString());
 	                            }
 
-	                            objRoomRate.setEffectiveDate(effectiveDate.toString());
-	                            objRoomRate.setExpirationDate(endDate.toString());
+	                            objRoomRate.setEffectiveDate(new DateTime(effectiveDate));
+	                            objRoomRate.setExpirationDate(new DateTime(endDate));
 	                        }
 	                    }
 	                }
@@ -238,8 +240,8 @@ public class OXIParser {
 	                objStringBuffer.delete(0, objStringBuffer.length());
 	            }
 
-	            checkInDate = DataUtility.parseDate(oxiReservation.getStayDateRange().getStartTime().toGregorianCalendar().getTime());
-	            stayLength = oxiReservation.getStayDateRange().getNumberOfTimeUnits().toString();
+	            checkInDate = new LocalDate(oxiReservation.getStayDateRange().getStartTime().toGregorianCalendar().getTimeInMillis());
+	            stayLength = oxiReservation.getStayDateRange().getNumberOfTimeUnits();
 
 	            // Processes the 'Reservation' special requests. Only reservation special requests are processed
 	            // not any requests that are on the Profile and OPERA has not bought over to the reservation.
@@ -324,8 +326,8 @@ public class OXIParser {
 	            objReservation.setLoyaltyNumber(loyaltyNumber);
 	            objReservation.setLoyaltyProgram(loyaltyProgram);
 	            objReservation.setCheckinDate(checkInDate);
-	            objReservation.setCheckoutDate(DataUtility.getEndDate(checkInDate, Integer.parseInt(stayLength), "DAY"));
-	            objReservation.setStayLength(Integer.parseInt(stayLength));
+	            objReservation.setCheckoutDate(checkInDate.plusDays(stayLength));
+	            objReservation.setStayLength(stayLength);
 	            objReservation.setPmsReservationId(pmsId);
 	            objReservation.setNumberOfGuests(totalGuest);
 	            objReservation.setNumberOfAdults(totalAdults);
@@ -387,7 +389,7 @@ public class OXIParser {
                         DailyInventory objDailyInventory = new DailyInventory();
                         objRtav.getDailyInventories().add(objDailyInventory);
 
-                        objDailyInventory.setInventoryDate(dailyInventory.getDatum().toGregorianCalendar().getTime());
+                        objDailyInventory.setInventoryDate(new LocalDate(dailyInventory.getDatum().toGregorianCalendar().getTimeInMillis()));
                         objDailyInventory.setHouseOverbook(dailyInventory.getHouseOverbook());
                         objDailyInventory.setOutOfOrder(dailyInventory.getOutOfOrder());
                         objDailyInventory.setPhysicalRooms(dailyInventory.getPhysicalRooms());

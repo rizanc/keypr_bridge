@@ -1,11 +1,8 @@
 package com.cloudkey.commons;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
 import org.joda.time.LocalDate;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 

@@ -4,8 +4,7 @@ package com.cloudkey.commons;
 import com.google.common.base.Objects;
 
 /**
- * Class stores details of room.It has information of room number, roomTypeID,
- * dateModified and dateCredted.
+ * Class stores details of room.
  *
  * @author vinayk2
  */

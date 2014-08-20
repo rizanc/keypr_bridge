@@ -3,8 +3,8 @@ package com.cloudkey.commons;
 import com.cloudkey.pms.common.contact.StreetAddress;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
+import org.joda.time.LocalDate;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,10 +60,10 @@ public class Reservation {
 	private String confirmationNumber;
 
 	/* variable to store the check in date of the guest. */
-	private String checkinDate;
+	private LocalDate checkinDate;
 
 	/* variable to store check out data of the guest. */
-	private String checkoutDate;
+	private LocalDate checkoutDate;
 
 	/* variable to store first name*/
 	private String firstName;
@@ -87,10 +87,6 @@ public class Reservation {
 	private String affilateId;
 
 	private String message;
-
-	private Date dateModified;
-
-	private Date dateCreated;
 
 	private List<ReservationOrders> reservationOrderList;
 
@@ -234,19 +230,19 @@ public class Reservation {
 		this.confirmationNumber = confirmationNumber;
 	}
 
-	public String getCheckinDate() {
+	public LocalDate getCheckinDate() {
 		return checkinDate;
 	}
 
-	public void setCheckinDate(String checkinDate) {
+	public void setCheckinDate(LocalDate checkinDate) {
 		this.checkinDate = checkinDate;
 	}
 
-	public String getCheckoutDate() {
+	public LocalDate getCheckoutDate() {
 		return checkoutDate;
 	}
 
-	public void setCheckoutDate(String checkoutDate) {
+	public void setCheckoutDate(LocalDate checkoutDate) {
 		this.checkoutDate = checkoutDate;
 	}
 
@@ -330,22 +326,6 @@ public class Reservation {
 		this.message = message;
 	}
 
-	public Date getDateModified() {
-		return dateModified;
-	}
-
-	public void setDateModified(Date dateModified) {
-		this.dateModified = dateModified;
-	}
-
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
 	public List<ReservationOrders> getReservationOrderList() {
 		return reservationOrderList;
 	}
@@ -417,8 +397,6 @@ public class Reservation {
 			.add("propertyImage", propertyImage)
 			.add("affilateId", affilateId)
 			.add("message", message)
-			.add("dateModified", dateModified)
-			.add("dateCreated", dateCreated)
 			.add("reservationOrderList", reservationOrderList)
 			.add("reservationStatus", reservationStatus)
 			.add("arrivalTime", arrivalTime)

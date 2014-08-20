@@ -1,6 +1,8 @@
 package com.cloudkey.commons;
 
-import java.util.Date;
+import com.google.common.base.Objects;
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 /**
@@ -13,44 +15,39 @@ public class ReservationOrders {
 
 	// reference variables.
 	private double totalAmount;
-	private Date orderDate;
+	private DateTime orderDateTime;
 	private List <OrderDetails> orderDetailList;
 
-	//setter getters.
-	public Date getOrderDate() {
-
-		return orderDate;
-	}
-
 	public double getTotalAmount() {
-
 		return totalAmount;
 	}
 
 	public void setTotalAmount(double totalAmount) {
-
 		this.totalAmount = totalAmount;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public DateTime getOrderDateTime() {
+		return orderDateTime;
+	}
 
-		this.orderDate = orderDate;
+	public void setOrderDateTime(DateTime orderDateTime) {
+		this.orderDateTime = orderDateTime;
 	}
 
 	public List<OrderDetails> getOrderDetailList() {
-
 		return orderDetailList;
 	}
 
 	public void setOrderDetailList(List<OrderDetails> orderDetailList) {
-
 		this.orderDetailList = orderDetailList;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservationOrders [totalAmount=" + totalAmount + ", orderDate="
-				+ orderDate + ", orderDetailList=" + orderDetailList + "]";
+		return Objects.toStringHelper(this)
+			.add("totalAmount", totalAmount)
+			.add("orderDateTime", orderDateTime)
+			.add("orderDetailList", orderDetailList)
+			.toString();
 	}
-
 }

@@ -1,16 +1,14 @@
 package com.cloudkey.pms.response.memberships;
 
+import com.cloudkey.pms.response.PMSResponse;
+import com.google.common.base.Objects;
+import org.joda.time.LocalDate;
+
 /**
  * This Class has information about member points. It has details of membership points.
  *
  * @author
  */
-
-import java.util.Date;
-
-import com.cloudkey.pms.response.PMSResponse;
-import com.google.common.base.Objects;
-
 public class MemberPointsResponse extends PMSResponse {
 
     /* reference variable to store member points response*/
@@ -19,8 +17,8 @@ public class MemberPointsResponse extends PMSResponse {
     private String membershipLevel;
     private String memberName;
     private String membershipNumber;
-    private Date expireDate;
-    private Date effectiveDate;
+    private LocalDate expireDate;
+    private LocalDate effectiveDate;
     private String inactive;
     private String resvnameId;
     private String totalPoints;
@@ -28,115 +26,109 @@ public class MemberPointsResponse extends PMSResponse {
     private String guestTotalNights;
     private String guestTotalStay;
 
-    /*
-     * Generate getter and setter for data member.
-     */
-    public Date getExpireDate() {
+	public String getMembershipId() {
+		return membershipId;
+	}
 
-        return expireDate;
-    }
-    public void setExpireDate(Date expireDate) {
+	public void setMembershipId(String membershipId) {
+		this.membershipId = membershipId;
+	}
 
-        this.expireDate = expireDate;
-    }
-    public Date getEffectiveDate() {
+	public String getMembershipType() {
+		return membershipType;
+	}
 
-        return effectiveDate;
-    }
+	public void setMembershipType(String membershipType) {
+		this.membershipType = membershipType;
+	}
 
-    public void setEffectiveDate(Date effectiveDate) {
-        this.effectiveDate = effectiveDate;
-    }
+	public String getMembershipLevel() {
+		return membershipLevel;
+	}
 
-    public String getMembershipId() {
+	public void setMembershipLevel(String membershipLevel) {
+		this.membershipLevel = membershipLevel;
+	}
 
-        return membershipId;
-    }
-    public void setMembershipId(String membershipId) {
+	public String getMemberName() {
+		return memberName;
+	}
 
-        this.membershipId = membershipId;
-    }
-    public String getMembershipType() {
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 
-        return membershipType;
-    }
-    public void setMembershipType(String membershipType) {
+	public String getMembershipNumber() {
+		return membershipNumber;
+	}
 
-        this.membershipType = membershipType;
-    }
-    public String getMembershipLevel() {
+	public void setMembershipNumber(String membershipNumber) {
+		this.membershipNumber = membershipNumber;
+	}
 
-        return membershipLevel;
-    }
-    public void setMembershipLevel(String membershipLevel) {
+	public LocalDate getExpireDate() {
+		return expireDate;
+	}
 
-        this.membershipLevel = membershipLevel;
-    }
-    public String getMemberName() {
+	public void setExpireDate(LocalDate expireDate) {
+		this.expireDate = expireDate;
+	}
 
-        return memberName;
-    }
-    public void setMemberName(String memberName) {
+	public LocalDate getEffectiveDate() {
+		return effectiveDate;
+	}
 
-        this.memberName = memberName;
-    }
-    public String getMembershipNumber() {
+	public void setEffectiveDate(LocalDate effectiveDate) {
+		this.effectiveDate = effectiveDate;
+	}
 
-        return membershipNumber;
-    }
-    public void setMembershipNumber(String membershipNumber) {
+	public String getInactive() {
+		return inactive;
+	}
 
-        this.membershipNumber = membershipNumber;
-    }
+	public void setInactive(String inactive) {
+		this.inactive = inactive;
+	}
 
-    public String getInactive() {
+	public String getResvnameId() {
+		return resvnameId;
+	}
 
-        return inactive;
-    }
-    public void setInactive(String inactive) {
+	public void setResvnameId(String resvnameId) {
+		this.resvnameId = resvnameId;
+	}
 
-        this.inactive = inactive;
-    }
-    public String getResvnameId() {
+	public String getTotalPoints() {
+		return totalPoints;
+	}
 
-        return resvnameId;
-    }
-    public void setResvnameId(String resvnameId) {
+	public void setTotalPoints(String totalPoints) {
+		this.totalPoints = totalPoints;
+	}
 
-        this.resvnameId = resvnameId;
-    }
-    public String getTotalPoints() {
+	public String getBonuspoints() {
+		return bonuspoints;
+	}
 
-        return totalPoints;
-    }
-    public void setTotalPoints(String totalPoints) {
+	public void setBonuspoints(String bonuspoints) {
+		this.bonuspoints = bonuspoints;
+	}
 
-        this.totalPoints = totalPoints;
-    }
-    public String getBonuspoints() {
+	public String getGuestTotalNights() {
+		return guestTotalNights;
+	}
 
-        return bonuspoints;
-    }
-    public void setBonuspoints(String bonuspoints) {
+	public void setGuestTotalNights(String guestTotalNights) {
+		this.guestTotalNights = guestTotalNights;
+	}
 
-        this.bonuspoints = bonuspoints;
-    }
-    public String getGuestTotalNights() {
+	public String getGuestTotalStay() {
+		return guestTotalStay;
+	}
 
-        return guestTotalNights;
-    }
-    public void setGuestTotalNights(String guestTotalNights) {
-
-        this.guestTotalNights = guestTotalNights;
-    }
-    public String getGuestTotalStay() {
-
-        return guestTotalStay;
-    }
-    public void setGuestTotalStay(String guestTotalStay) {
-
-        this.guestTotalStay = guestTotalStay;
-    }
+	public void setGuestTotalStay(String guestTotalStay) {
+		this.guestTotalStay = guestTotalStay;
+	}
 
 	@Override
 	public String toString() {

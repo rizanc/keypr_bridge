@@ -31,17 +31,18 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
-import com.micros.pms.util.AdapterUtility;
 import com.micros.pms.util.HotelInformationConverter;
 import com.micros.pms.util.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -129,7 +130,10 @@ public class SearchReservationProcessor extends OWSProcessor<
 				reservation.setPmsReservationId(pmsReservationIdOpt.get());
 			}
 
-			reservation.setReservationStatus(microsReservation.getReservationStatus().value());
+			if (microsReservation.getReservationStatus() != null) {
+				reservation.setReservationStatus(microsReservation.getReservationStatus().value());
+			}
+
 			reservation.setGroup(microsReservation.getGroup());
 
 			for (ResGuest resGuest : microsReservation.getResGuests()) { // To traverse ResGuest.
@@ -157,9 +161,7 @@ public class SearchReservationProcessor extends OWSProcessor<
 					}
 				}
 
-				List<Profile> arrProfiles = resGuest.getProfiles();
-
-				for (Profile profile : arrProfiles) { // To traverse profile .
+				for (Profile profile : resGuest.getProfiles()) { // To traverse profile .
 					log.debug("getFutureBookingResponseObject: Iterating Profile Array.");
 
 					if (profile.getCustomer() != null) {
@@ -180,7 +182,6 @@ public class SearchReservationProcessor extends OWSProcessor<
 						}
 
 						Optional<NameAddress> firstAddressOpt = FluentIterable.from(profile.getAddresses()).first();
-
 						if (firstAddressOpt.isPresent()) {
 							reservation.setAddress(HotelInformationConverter.convertAddress(firstAddressOpt.get()));
 						}
@@ -284,13 +285,19 @@ public class SearchReservationProcessor extends OWSProcessor<
 
 				TimeSpan timeSpan = roomStay.getTimeSpan();
 				if (timeSpan != null) {
-					reservation.setCheckinDate(AdapterUtility.getDate(timeSpan.getStartDate()));
+					reservation.setCheckinDate(new LocalDate(timeSpan.getStartDate()));
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" CheckIn Date is Set in response.");
 
-					reservation.setCheckoutDate(AdapterUtility
-						.getDate(timeSpan.getEndDate()));
+					if (timeSpan.getEndDate() != null) {
+						reservation.setCheckoutDate(new LocalDate(timeSpan.getEndDate()));
+					} else if (timeSpan.getDuration() != null) {
+						Date endDate = timeSpan.getStartDate();
+						timeSpan.getDuration().addTo(endDate);
+
+						reservation.setCheckoutDate(new LocalDate(endDate));
+					}
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" CheckOut Date is Set in response.");

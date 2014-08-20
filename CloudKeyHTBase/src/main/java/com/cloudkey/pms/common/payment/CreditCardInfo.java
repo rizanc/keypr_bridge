@@ -1,9 +1,9 @@
 package com.cloudkey.pms.common.payment;
 
 import com.google.common.base.Objects;
+import org.joda.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * Credit card information necessary to make a transaction
@@ -24,9 +24,9 @@ public class CreditCardInfo {
     private String cardType;
 
     @NotNull
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
-    private Date effectiveDate;
+    private LocalDate effectiveDate;
 
     private String cardCode;
 
@@ -53,15 +53,15 @@ public class CreditCardInfo {
         return cardType;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
+	public LocalDate getExpirationDate() {
+		return expirationDate;
+	}
 
-    public Date getEffectiveDate() {
-        return effectiveDate;
-    }
+	public LocalDate getEffectiveDate() {
+		return effectiveDate;
+	}
 
-    public String getCardCode() {
+	public String getCardCode() {
         return cardCode;
     }
 

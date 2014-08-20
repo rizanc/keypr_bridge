@@ -8,9 +8,9 @@ import com.keypr.pms.micros.oxi.ids.PmsReservationId;
 import com.keypr.pms.micros.oxi.ids.StationId;
 import com.keypr.pms.micros.oxi.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * Request bean for posting payment for a reservation that has a status of reserved or due-in,
@@ -48,7 +48,7 @@ public class MakePaymentRequest extends PMSRequest {
     /**
      * The time and date of the payment posting
      */
-    private Date postDateTime;
+    private DateTime postDateTime;
 
     /**
      * A short description of the payment reason (COKE, ROOM, etc)
@@ -82,7 +82,7 @@ public class MakePaymentRequest extends PMSRequest {
 
 	protected MakePaymentRequest() { /* For serialization */ }
 
-	public MakePaymentRequest(PmsReservationId pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, Date postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
+	public MakePaymentRequest(PmsReservationId pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, DateTime postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
 		this.pmsReservationId = pmsReservationId;
 		this.chargeAmount = chargeAmount;
 		this.creditCardInfo = creditCardInfo;
@@ -112,11 +112,11 @@ public class MakePaymentRequest extends PMSRequest {
         return creditCardApproval;
     }
 
-    public Date getPostDateTime() {
-        return postDateTime;
-    }
+	public DateTime getPostDateTime() {
+		return postDateTime;
+	}
 
-    public String getShortInfo() {
+	public String getShortInfo() {
         return shortInfo;
     }
 

@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,9 +127,9 @@ public class UploadReservationDataRetriever {
 							reservation.setLoyaltyNumber( reservationSet.getString( "reservation.loyalty_number" ) );
 							reservation.setPhoneNumber( reservationSet.getString( "reservation.phone" ) );
 							reservation.setConfirmationNumber( reservationSet.getString( "reservation.confirmation_number" ) );
-							reservation.setCheckinDate( reservationSet.getString( "reservation.check_in_date" ) );
+							reservation.setCheckinDate( new LocalDate(reservationSet.getDate( "reservation.check_in_date" ) ));
 
-							reservation.setCheckoutDate( reservationSet.getString( "reservation.check_out_date" ) );
+							reservation.setCheckoutDate( new LocalDate(reservationSet.getDate("reservation.check_out_date") ));
 							reservation.setNotes( reservationSet.getString( "reservation.notes" ) );
 							reservation.setLoyaltyNumber( reservationSet.getString( "reservation.loyalty_program" ) );
 							reservation.setPropertyId( reservationSet.getString( "reservation.property_id" ) );
@@ -187,9 +189,9 @@ public class UploadReservationDataRetriever {
 											roomRate = new RoomRate();
 
 											roomRate.setBaseAmount(resvRoomRateSet.getDouble( "resvrate.base_rate" ) );
-											roomRate.setEffectiveDate(resvRoomRateSet.getString( "resvrate.effective_date" ) );
-											roomRate.setExpirationDate(resvRoomRateSet.getString( "resvrate.expiration_date" ) );
-											roomRate.setPlanCode(resvRoomRateSet.getString( "resvrate.rate_plan_code" ) );
+											roomRate.setEffectiveDate(new DateTime(resvRoomRateSet.getDate( "resvrate.effective_date" )) );
+											roomRate.setExpirationDate(new DateTime(resvRoomRateSet.getDate("resvrate.expiration_date") ));
+											roomRate.setPlanCode(resvRoomRateSet.getString("resvrate.rate_plan_code"));
 
 											// To add room rate into list.
 											roomRateList.add( roomRate );

@@ -13,6 +13,7 @@ import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
+import org.joda.time.LocalDate;
 
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
@@ -58,8 +59,8 @@ public class GuestMembershipsProcessor extends OWSProcessor<
 			membership.setPointsLabel(nameMembership.getPointsLabel());
 			membership.setExternalId(nameMembership.getExternalId());
 			membership.setCurrentPoints(nameMembership.getCurrentPoints());
-			membership.setEffectiveDate(nameMembership.getEffectiveDate());
-			membership.setExpirationDate(nameMembership.getExpirationDate());
+			membership.setEffectiveDate(new LocalDate(nameMembership.getEffectiveDate()));
+			membership.setExpirationDate(new LocalDate(nameMembership.getExpirationDate()));
 			membership.setExternalId(nameMembership.getExternalId());
 			membership.setOperaId(nameMembership.getOperaId().toString());
 
