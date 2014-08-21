@@ -2,11 +2,11 @@ package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
-import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
+import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.MakePaymentResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
-import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -67,18 +67,18 @@ public class MembershipsResource extends AbstractResource {
     @GET
     @ApiOperation(
         value = "Finds a membership's 'name id' by related criteria",
-        response = NameIdByMembershipResponse.class
+        response = NameLookupResponse.class
     )
     @ApiResponses({
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public NameIdByMembershipResponse nameIdSearch(
+    public NameLookupResponse nameIdSearch(
             @QueryParam("membershipNumber") String membershipNumber,
             @QueryParam("membershipType") String membershipType,
             @QueryParam("memberLastName") String memberLastName) {
-        NameIdByMembershipRequest request = new NameIdByMembershipRequest(membershipNumber, membershipType, memberLastName);
+        NameLookupRequest request = new NameLookupRequest(membershipNumber, membershipType, memberLastName);
 	    validate(request);
 
         return messageParser.getNameIdInformation(request);

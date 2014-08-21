@@ -4,14 +4,13 @@ import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
 import com.cloudkey.pms.micros.og.core.OGHeader;
+import com.cloudkey.pms.micros.og.name.NameLookupAll;
 import com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership;
 import com.cloudkey.pms.micros.og.name.NameLookupInput;
 import com.cloudkey.pms.micros.og.name.Profile;
-import com.cloudkey.pms.micros.ows.name.NameLookupRequest;
-import com.cloudkey.pms.micros.ows.name.NameLookupResponse;
 import com.cloudkey.pms.micros.services.NameServiceSoap;
-import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
-import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.cloudkey.pms.request.memberships.NameLookupRequest;
+import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
@@ -25,29 +24,40 @@ import javax.xml.ws.Holder;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class NameIdByMembershipProcessor extends OWSProcessor<
-	NameIdByMembershipRequest,
-	NameIdByMembershipResponse,
+public class NameLookupProcessor extends OWSProcessor<
 	NameLookupRequest,
-	NameLookupResponse> {
+	NameLookupResponse,
+	com.cloudkey.pms.micros.ows.name.NameLookupRequest,
+	com.cloudkey.pms.micros.ows.name.NameLookupResponse> {
 
 	@Inject
 	protected NameServiceSoap service;
 
 	@Override
-	protected ResultStatus getResultStatus(NameLookupResponse nameLookupResponse) {
+	protected ResultStatus getResultStatus(com.cloudkey.pms.micros.ows.name.NameLookupResponse nameLookupResponse) {
 		return nameLookupResponse.getResult();
 	}
 
 	@Override
-	protected NameLookupResponse callService(NameLookupRequest nameLookupRequest, Holder<OGHeader> header) {
+	protected com.cloudkey.pms.micros.ows.name.NameLookupResponse callService(com.cloudkey.pms.micros.ows.name.NameLookupRequest nameLookupRequest, Holder<OGHeader> header) {
 		return service.nameLookup(nameLookupRequest, header);
 	}
 
 	@Override
-	protected NameLookupRequest toMicrosRequest(NameIdByMembershipRequest request) {
-		return new NameLookupRequest(
-			new NameLookupInput()
+	protected com.cloudkey.pms.micros.ows.name.NameLookupRequest toMicrosRequest(NameLookupRequest request) {
+		NameLookupInput nameLookupInput = new NameLookupInput();
+		if (request.getMembershipNumber() != null) {
+			nameLookupInput.setMembership(new NameLookupCriteriaMembership()
+				.withMembershipNumber(request.getMembershipNumber())
+				.withMembershipType(request.getMembershipType())
+				.withLastName(request.getLastname())
+			);
+		} else {
+			nameLookupInput.setNameLookup(new NameLookupAll().withLastName(request.getLastname()));
+		}
+
+		return new com.cloudkey.pms.micros.ows.name.NameLookupRequest(
+			nameLookupInput
 				.withMembership(
 					new NameLookupCriteriaMembership()
 						.withLastName(request.getLastname())
@@ -58,8 +68,8 @@ public class NameIdByMembershipProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected NameIdByMembershipResponse toPmsResponse(NameLookupResponse microsResponse) {
-		NameIdByMembershipResponse response = new NameIdByMembershipResponse();
+	protected NameLookupResponse toPmsResponse(com.cloudkey.pms.micros.ows.name.NameLookupResponse microsResponse) {
+		NameLookupResponse response = new NameLookupResponse();
 
 		Optional<Profile> firstProfileOpt = FluentIterable.from(microsResponse.getProfiles()).first();
 

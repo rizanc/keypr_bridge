@@ -7,7 +7,7 @@ import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
-import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
@@ -16,7 +16,7 @@ import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
-import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
@@ -24,10 +24,9 @@ import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
 import com.google.common.base.Optional;
 import com.google.common.collect.FluentIterable;
 import com.google.inject.Inject;
-import com.micros.pms.OWSBase;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
 import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
-import com.micros.pms.processors.memberships.NameIdByMembershipProcessor;
+import com.micros.pms.processors.memberships.NameLookupProcessor;
 import com.micros.pms.processors.reservations.*;
 import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
 import com.micros.pms.processors.roomassignments.GetAvailabilityProcessor;
@@ -75,7 +74,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	// Memberships
 	@Inject
-	NameIdByMembershipProcessor nameIdByMembershipProcessor;
+	NameLookupProcessor nameLookupProcessor;
 
 	@Inject
 	GuestMembershipsProcessor guestMembershipsProcessor;
@@ -165,9 +164,9 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     }
 
     @Override
-    public NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest nameIdByMembershipRequest) throws PMSInterfaceException {
+    public NameLookupResponse getNameIdInformation(NameLookupRequest nameLookupRequest) throws PMSInterfaceException {
         log.debug("getNameIdInformation: Enter method.");
-	    return nameIdByMembershipProcessor.process(nameIdByMembershipRequest);
+	    return nameLookupProcessor.process(nameLookupRequest);
     }
 
     @Override
@@ -197,10 +196,10 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
         String membershipType = memberPointsRequest.getMembershipType();
         String membershipNumber = memberPointsRequest.getMembershipNumber();
 
-	    NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName));
+	    NameLookupResponse nameLookupResponse = getNameIdInformation(new NameLookupRequest(membershipType, membershipNumber, membershipLastName));
 
 	    // Get the membership request
-	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(nameIdByMembershipResponse.getNameId()));
+	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(nameLookupResponse.getNameId()));
 
 	    MemberPointsResponse response = new MemberPointsResponse();
 

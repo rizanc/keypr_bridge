@@ -2,7 +2,7 @@ package com.micros.ows.client;
 
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
@@ -111,7 +111,7 @@ public class OWSTestUtils {
 
     public void NameLookupByMembership() {
 
-        NameIdByMembershipRequest request = new NameIdByMembershipRequest("OR", "1166666666", "REWARDS");
+        NameLookupRequest request = new NameLookupRequest("OR", "1166666666", "REWARDS");
 
 	    microsOWSParser.getNameIdInformation(request);
     }

@@ -6,7 +6,7 @@ import com.google.common.base.Objects;
 /*
  * This class hold information of name id.
  */
-public class NameIdByMembershipResponse extends PMSResponse {
+public class NameLookupResponse extends PMSResponse {
 
     private String nameId;
 

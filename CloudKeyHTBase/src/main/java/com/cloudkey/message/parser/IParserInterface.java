@@ -5,7 +5,7 @@ import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
-import com.cloudkey.pms.request.memberships.NameIdByMembershipRequest;
+import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
@@ -14,7 +14,7 @@ import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
-import com.cloudkey.pms.response.memberships.NameIdByMembershipResponse;
+import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
 import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
@@ -145,11 +145,11 @@ public interface IParserInterface {
     /**
      * This method searches for Name Id. It returns name id to guest.
      *
-     * @param objNameIdByMembershipRequest
+     * @param objNameLookupRequest
      * @return
      */
 
-    NameIdByMembershipResponse getNameIdInformation(NameIdByMembershipRequest objNameIdByMembershipRequest) throws PMSInterfaceException;
+    NameLookupResponse getNameIdInformation(NameLookupRequest objNameLookupRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for Details of Hotel Information on the basis of hotel code. It returns
