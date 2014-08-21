@@ -57,7 +57,11 @@ public class CheckInProcessor extends OWSProcessor<
 			.withReservationRequest(createReservationRequest(request.getPmsReservationId()))
 			.withCreditCardInfo(
 				new CreditCardInfo().withCreditCard(
-					new CreditCard().withCardNumber(request.getCreditCardNumber())
+					new CreditCard()
+						.withCardNumber(request.getCreditCardNumber())
+						.withExpirationDate(request.getExpirationDate())
+						.withCardType(request.getCardType())
+						.withCardHolderName(request.getCardHolderName())
 				)
 			);
 	}
