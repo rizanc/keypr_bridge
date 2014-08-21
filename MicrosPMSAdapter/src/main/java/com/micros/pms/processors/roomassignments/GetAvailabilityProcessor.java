@@ -63,7 +63,7 @@ public class GetAvailabilityProcessor extends OWSProcessor<
 			@Override
 			public DayRoomAvailability apply(@Nullable CalendarDailyDetail calendarDailyDetail) {
 				return new DayRoomAvailability(
-					new LocalDate(calendarDailyDetail.getDate()),
+					calendarDailyDetail.getDate(),
 					Lists.transform(calendarDailyDetail.getOccupancy(), new Function<RoomTypeInventory, RoomTypeAvailability>() {
 							@Nullable
 							@Override

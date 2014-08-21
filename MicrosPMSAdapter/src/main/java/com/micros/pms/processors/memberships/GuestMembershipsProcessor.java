@@ -59,8 +59,8 @@ public class GuestMembershipsProcessor extends OWSProcessor<
 			membership.setPointsLabel(microsMembership.getPointsLabel());
 			membership.setExternalId(microsMembership.getExternalId());
 			membership.setCurrentPoints(microsMembership.getCurrentPoints());
-			membership.setEffectiveDate(microsMembership.getEffectiveDate() == null ? null : new LocalDate(microsMembership.getEffectiveDate()));
-			membership.setExpirationDate(microsMembership.getExpirationDate() == null ? null : new LocalDate(microsMembership.getExpirationDate()));
+			membership.setEffectiveDate(microsMembership.getEffectiveDate());
+			membership.setExpirationDate(microsMembership.getExpirationDate());
 			membership.setExternalId(microsMembership.getExternalId());
 			membership.setOperaId(microsMembership.getOperaId() == null ? null : microsMembership.getOperaId().toString());
 
