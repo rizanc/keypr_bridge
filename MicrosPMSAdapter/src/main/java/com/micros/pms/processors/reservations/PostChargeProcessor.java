@@ -36,7 +36,6 @@ public class PostChargeProcessor extends OWSProcessor<
 
 	@Override
 	protected com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest toMicrosRequest(PostChargeRequest request) {
-		Date postDate = request.getPostDateTime() == null ? null : request.getPostDateTime().toDate();
 
 		return new com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest()
 			.withPosting(new Posting()
@@ -45,8 +44,8 @@ public class PostChargeProcessor extends OWSProcessor<
 				.withFolioViewNo(request.getFolioViewNo())
 				.withLongInfo(request.getLongInfo())
 				.withShortInfo(request.getShortInfo())
-				.withPostDate(postDate)
-				.withPostTime(postDate)
+				.withPostDate(request.getPostDateTime() == null ? null : request.getPostDateTime().toLocalDate())
+				.withPostTime(request.getPostDateTime() == null ? null : request.getPostDateTime().toLocalTime())
 				.withStationID(stationId)
 				.withUserID(request.getUserId())
 			);

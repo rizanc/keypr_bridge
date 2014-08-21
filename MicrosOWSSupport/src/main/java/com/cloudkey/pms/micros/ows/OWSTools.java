@@ -13,6 +13,7 @@ import com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,7 +105,7 @@ public class OWSTools {
 		ogHeader.setDestination(destination);
 
 		// sets time stamp
-		ogHeader.setTimeStamp(new Date());
+		ogHeader.setTimeStamp(new DateTime());
 
 		if (authUsername != null && authPassword != null && !authUsername.isEmpty() && !authPassword.isEmpty()) {
 

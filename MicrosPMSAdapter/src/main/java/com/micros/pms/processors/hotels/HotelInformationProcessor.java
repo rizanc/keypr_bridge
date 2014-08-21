@@ -3,6 +3,7 @@ package com.micros.pms.processors.hotels;
 import com.cloudkey.commons.Restaurant;
 import com.cloudkey.pms.common.Cuisine;
 import com.cloudkey.pms.common.HotelAmenity;
+import com.cloudkey.pms.common.contact.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Phone;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
@@ -61,22 +62,30 @@ public class HotelInformationProcessor extends OWSProcessor<
 	protected HotelInformationResponse toPmsResponse(com.cloudkey.pms.micros.ows.information.HotelInformationResponse microsResponse) {
 		HotelInformationResponseHotelInformation info = microsResponse.getHotelInformation();
 
-		// Emails
 		List<String> contactEmails = new ArrayList<>();
-		for (Email email : info.getHotelContactInformation().getContactEmails()) {
-			contactEmails.add(email.getValue());
-		}
-
-		// Phone numbers
 		List<String> phoneNumbers = new ArrayList<>();
 		List<String> faxNumbers = new ArrayList<>();
+		List<StreetAddress> addresses = Collections.emptyList();
 
-		for (Phone phone : info.getHotelContactInformation().getContactPhones()) {
-			if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.toString())) {
-				phoneNumbers.add(phone.getPhoneNumber());
-			} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.toString())) {
-				faxNumbers.add(phone.getPhoneNumber());
+		HotelContact contactInfo = info.getHotelContactInformation();
+
+		if (contactInfo != null) {
+			// Emails
+			for (Email email : contactInfo.getContactEmails()) {
+				contactEmails.add(email.getValue());
 			}
+
+			// Phone and fax numbers
+			for (Phone phone : contactInfo.getContactPhones()) {
+				if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.toString())) {
+					phoneNumbers.add(phone.getPhoneNumber());
+				} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.toString())) {
+					faxNumbers.add(phone.getPhoneNumber());
+				}
+			}
+
+			// Addresses
+			addresses = Lists.transform(contactInfo.getAddresses(), convertAddress);
 		}
 
 		ExtendedHotelInfo extended = info.getHotelExtendedInformation();
@@ -93,77 +102,85 @@ public class HotelInformationProcessor extends OWSProcessor<
 		Optional<String> passportRules = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.PASSPORT_RULES));
 		final Optional<String> timeZone = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.TIMEZONE));
 
-		// Accepted payment methods
 		List<String> acceptedCreditCards = new ArrayList<>();
-		for (PaymentType paymentType : extended.getPaymentMethods()) {
-			String value = paymentType.getOtherPayment().getValue();
-
-			if (value != null) {
-				acceptedCreditCards.add(value);
-			}
-		}
-
-		Optional<com.cloudkey.pms.common.GeoCode> hotelPosition = Optional.fromNullable(extended.getPosition())
-			.transform(new Function<GeoCode, com.cloudkey.pms.common.GeoCode>() {
-				@Nullable
-				@Override
-				public com.cloudkey.pms.common.GeoCode apply(@Nullable GeoCode geoCode) {
-					return new com.cloudkey.pms.common.GeoCode(geoCode.getLongitude(), geoCode.getLatitude(), geoCode.getAltitude());
-				}
-			});
-
-		// Guest rooms
 		Integer totalRooms = null;
 		List<com.cloudkey.commons.RoomType> roomTypes = new ArrayList<>();
+		List<Restaurant> restaurants = new ArrayList<>();
+		Optional<com.cloudkey.pms.common.GeoCode> hotelPosition = Optional.absent();
+		List<HotelAmenity> amenities = Collections.emptyList();
 
-		if (extended.getFacilityInfo() != null) {
-			FacilityInfoType facilityInfo = extended.getFacilityInfo();
-			if (facilityInfo.getGuestRooms() != null) {
-				if (facilityInfo.getGuestRooms().getTotalRooms() != null) {
-					totalRooms = Integer.parseInt(facilityInfo.getGuestRooms().getTotalRooms());
-				}
+		if (extended != null) {
+			// Accepted payment methods
+			for (PaymentType paymentType : extended.getPaymentMethods()) {
+				String value = paymentType.getOtherPayment().getValue();
 
-				for (FacilityInfoTypeGuestRoomsGuestRoom guestRoom : facilityInfo.getGuestRooms().getGuestRooms()) {
-					roomTypes.add(new com.cloudkey.commons.RoomType(
-						guestRoom.getCode(),
-						guestRoom.getRoomDescription() == null ? null : getFirstString(guestRoom.getRoomDescription().getText()).orNull(),
-						guestRoom.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(guestRoom.getAmenityInfo().getAmenities()),
-						guestRoom.getMaxOccupancy() == null ? null : guestRoom.getMaxOccupancy().intValue()
-					));
+				if (value != null) {
+					acceptedCreditCards.add(value);
 				}
 			}
-		}
 
-		// Restaurants
-		List<Restaurant> restaurants = new ArrayList<>();
-		for (RestaurantsTypeRestaurant restaurant : extended.getFacilityInfo().getRestaurants()) {
-			Optional<String> description = getFirstStringOfParagraphs(restaurant.getRestaurantDescriptions());
+			hotelPosition = Optional.fromNullable(extended.getPosition())
+				.transform(new Function<GeoCode, com.cloudkey.pms.common.GeoCode>() {
+					@Nullable
+					@Override
+					public com.cloudkey.pms.common.GeoCode apply(@Nullable GeoCode geoCode) {
+						return new com.cloudkey.pms.common.GeoCode(geoCode.getLongitude(), geoCode.getLatitude(), geoCode.getAltitude());
+					}
+				});
 
-			List<Cuisine> cuisines = new ArrayList<>();
-			for (RestaurantsTypeRestaurantCuisine cuisine : restaurant.getCuisines()){
-				cuisines.add(new Cuisine(
-					cuisine.getCode(),
-					cuisine.getDescription()
+			// Guest rooms
+			if (extended.getFacilityInfo() != null) {
+				FacilityInfoType facilityInfo = extended.getFacilityInfo();
+				if (facilityInfo.getGuestRooms() != null) {
+					if (facilityInfo.getGuestRooms().getTotalRooms() != null) {
+						totalRooms = Integer.parseInt(facilityInfo.getGuestRooms().getTotalRooms());
+					}
+
+					for (FacilityInfoTypeGuestRoomsGuestRoom guestRoom : facilityInfo.getGuestRooms().getGuestRooms()) {
+						roomTypes.add(new com.cloudkey.commons.RoomType(
+							guestRoom.getCode(),
+							guestRoom.getRoomDescription() == null ? null : getFirstString(guestRoom.getRoomDescription().getText()).orNull(),
+							guestRoom.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(guestRoom.getAmenityInfo().getAmenities()),
+							guestRoom.getMaxOccupancy() == null ? null : guestRoom.getMaxOccupancy().intValue()
+						));
+					}
+				}
+			}
+
+			// Restaurants
+			for (RestaurantsTypeRestaurant restaurant : extended.getFacilityInfo().getRestaurants()) {
+				Optional<String> description = getFirstStringOfParagraphs(restaurant.getRestaurantDescriptions());
+
+				List<Cuisine> cuisines = new ArrayList<>();
+				for (RestaurantsTypeRestaurantCuisine cuisine : restaurant.getCuisines()){
+					cuisines.add(new Cuisine(
+						cuisine.getCode(),
+						cuisine.getDescription()
+					));
+				}
+
+				restaurants.add(new Restaurant(
+					restaurant.getRestaurantName(),
+					description.orNull(),
+					cuisines,
+					Lists.transform(restaurant.getRestaurantContacts(), convertAddress),
+					restaurant.isOfferBreakfast(),
+					restaurant.isOfferBrunch(),
+					restaurant.isOfferLunch(),
+					restaurant.isOfferDinner(),
+					restaurant.getMaxSeatingCapacity() == null ? null : restaurant.getMaxSeatingCapacity().intValue(),
+					restaurant.getMaxSingleParty() == null ? null : restaurant.getMaxSingleParty().intValue()
 				));
 			}
 
-			restaurants.add(new Restaurant(
-				restaurant.getRestaurantName(),
-				description.orNull(),
-				cuisines,
-				Lists.transform(restaurant.getRestaurantContacts(), convertAddress),
-				restaurant.isOfferBreakfast(),
-				restaurant.isOfferBrunch(),
-				restaurant.isOfferLunch(),
-				restaurant.isOfferDinner(),
-				restaurant.getMaxSeatingCapacity() == null ? null : restaurant.getMaxSeatingCapacity().intValue(),
-				restaurant.getMaxSingleParty() == null ? null : restaurant.getMaxSingleParty().intValue()
-			));
+			if (extended.getAmenityInfo() != null) {
+				amenities = convertAmenities(extended.getAmenityInfo().getAmenities());
+			}
 		}
 
 		return new com.cloudkey.pms.response.hotels.HotelInformationResponse(
 			info.getHotelInformation().getValue(),
-			Lists.transform(info.getHotelContactInformation().getAddresses(), convertAddress),
+			addresses,
 			hotelPosition,
 			directions,
 			contactEmails,
@@ -171,7 +188,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 			faxNumbers,
 			checkInInfo.transform(toLocalTime),
 			checkOutInfo.transform(toLocalTime),
-			convertAmenities(extended.getAmenityInfo().getAmenities()),
+			amenities,
 			totalRooms,
 			roomTypes,
 			restaurants,

@@ -88,7 +88,7 @@ public class Reservation {
 
 	private String message;
 
-	private List<ReservationOrders> reservationOrderList;
+	private List<ReservationOrder> reservationOrderList;
 
 	private String reservationStatus;
 
@@ -326,11 +326,11 @@ public class Reservation {
 		this.message = message;
 	}
 
-	public List<ReservationOrders> getReservationOrderList() {
+	public List<ReservationOrder> getReservationOrderList() {
 		return reservationOrderList;
 	}
 
-	public void setReservationOrderList(List<ReservationOrders> reservationOrderList) {
+	public void setReservationOrderList(List<ReservationOrder> reservationOrderList) {
 		this.reservationOrderList = reservationOrderList;
 	}
 

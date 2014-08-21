@@ -6,6 +6,7 @@ include 'CloudKeyHTIds'
 include 'CloudKeyHTUploadService'
 include 'CloudKeyHTWebServices'
 include 'CloudKeyHTIds'
+include 'CloudKeyJaxbSupport'
 /*
    CloudKeyTestAdapter is out of date with CloudKeyHTBase and will not build.
 

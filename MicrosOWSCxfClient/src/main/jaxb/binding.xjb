@@ -5,20 +5,17 @@
 
     <jaxb:globalBindings generateElementProperty="false" fixedAttributeAsConstantProperty="true" choiceContentProperty="true">
         <xjc:simple/>
-        <!-- Use java.util.Date instead of javax.xml.datatype.XMLGregorianCalendar for xs:dateTime -->
-        <jaxb:javaType name="java.util.Date" xmlType="xs:dateTime"
-                parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDateTime"
-                printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDateTime" />
+        <!-- Use org.joda.time.DateTime instead of javax.xml.datatype.XMLGregorianCalendar for xs:dateTime -->
+        <xjc:javaType name="org.joda.time.DateTime" adapter="com.keypr.jaxb.utils.DateTimeAdapter" xmlType="xs:dateTime"/>
 
-        <!-- Use java.util.Date instead of javax.xml.datatype.XMLGregorianCalendar for xs:date -->
-        <jaxb:javaType name="java.util.Date" xmlType="xs:date"
-                parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseDate"
-                printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printDate" />
+        <!-- Use org.joda.time.LocalDate instead of javax.xml.datatype.XMLGregorianCalendar for xs:date -->
+        <xjc:javaType name="org.joda.time.LocalDate" adapter="com.keypr.jaxb.utils.LocalDateAdapter" xmlType="xs:date"/>
 
-        <!-- Use java.util.Date instead of javax.xml.datatype.XMLGregorianCalendar for xs:time -->
-        <jaxb:javaType name="java.util.Date" xmlType="xs:time"
-                parseMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.parseTime"
-                printMethod="org.apache.cxf.xjc.runtime.DataTypeAdapter.printTime" />
+        <!-- Use org.joda.time.LocalTime instead of javax.xml.datatype.XMLGregorianCalendar for xs:time -->
+        <xjc:javaType name="org.joda.time.LocalTime" adapter="com.keypr.jaxb.utils.LocalTimeAdapter" xmlType="xs:time"/>
+
+        <!-- Use org.joda.time.Period instead of javax.xml.datatype.Duration for xs:time -->
+        <xjc:javaType name="org.joda.time.Period" adapter="com.keypr.jaxb.utils.PeriodAdapter" xmlType="xs:duration"/>
      </jaxb:globalBindings>
 
 </jaxb:bindings>

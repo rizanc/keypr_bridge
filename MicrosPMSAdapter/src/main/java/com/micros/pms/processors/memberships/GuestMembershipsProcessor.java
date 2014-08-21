@@ -49,20 +49,20 @@ public class GuestMembershipsProcessor extends OWSProcessor<
 	@Override
 	protected GuestMembershipsResponse toPmsResponse(FetchGuestCardListResponse microsResponse) {
 		ArrayList<Membership> memberships = new ArrayList<>();
-		for (NameMembership nameMembership : microsResponse.getGuestCardList()) {
-
+		for (NameMembership microsMembership : microsResponse.getGuestCardList()) {
 			Membership membership = new Membership();
-			membership.setMembershipNumber(nameMembership.getMembershipNumber());
-			membership.setMembershipType(nameMembership.getMembershipType());
-			membership.setMemberName(nameMembership.getMemberName());
-			membership.setMembershipLevel(nameMembership.getMembershipLevel());
-			membership.setPointsLabel(nameMembership.getPointsLabel());
-			membership.setExternalId(nameMembership.getExternalId());
-			membership.setCurrentPoints(nameMembership.getCurrentPoints());
-			membership.setEffectiveDate(new LocalDate(nameMembership.getEffectiveDate()));
-			membership.setExpirationDate(new LocalDate(nameMembership.getExpirationDate()));
-			membership.setExternalId(nameMembership.getExternalId());
-			membership.setOperaId(nameMembership.getOperaId().toString());
+
+			membership.setMembershipNumber(microsMembership.getMembershipNumber());
+			membership.setMembershipType(microsMembership.getMembershipType());
+			membership.setMemberName(microsMembership.getMemberName());
+			membership.setMembershipLevel(microsMembership.getMembershipLevel());
+			membership.setPointsLabel(microsMembership.getPointsLabel());
+			membership.setExternalId(microsMembership.getExternalId());
+			membership.setCurrentPoints(microsMembership.getCurrentPoints());
+			membership.setEffectiveDate(microsMembership.getEffectiveDate() == null ? null : new LocalDate(microsMembership.getEffectiveDate()));
+			membership.setExpirationDate(microsMembership.getExpirationDate() == null ? null : new LocalDate(microsMembership.getExpirationDate()));
+			membership.setExternalId(microsMembership.getExternalId());
+			membership.setOperaId(microsMembership.getOperaId() == null ? null : microsMembership.getOperaId().toString());
 
 			memberships.add(membership);
 		}

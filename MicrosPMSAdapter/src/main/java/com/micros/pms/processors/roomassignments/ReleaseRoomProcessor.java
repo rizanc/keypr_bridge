@@ -23,9 +23,6 @@ public class ReleaseRoomProcessor extends OWSProcessor<
 	@Inject
 	protected ReservationServiceSoap service;
 
-	@Inject
-	protected ResvAdvancedServiceSoap advService;
-
 	@Override
 	protected ResultStatus getResultStatus(com.cloudkey.pms.micros.ows.reservation.ReleaseRoomResponse releaseRoomResponse) {
 		return releaseRoomResponse.getResult();

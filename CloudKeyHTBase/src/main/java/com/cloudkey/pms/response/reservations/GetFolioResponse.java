@@ -3,9 +3,10 @@ package com.cloudkey.pms.response.reservations;
 import java.util.List;
 
 import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationOrders;
+import com.cloudkey.commons.ReservationOrder;
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 
 /**
  * This Class has information of bill requested by the guest. It has details of reservations 
@@ -19,28 +20,20 @@ public class GetFolioResponse extends PMSResponse {
     /* Reference variable to store the reservation data */
     private Reservation reservation ;
     /* Reference variable to store the bill information */
-    private List<ReservationOrders> reservationOrderList;
-	
-	/* Getter and Setter for each Data Member. */
+    private List<ReservationOrder> reservationOrderList;
 
-    public Reservation getReservation() {
+	public GetFolioResponse(Reservation reservation, List<ReservationOrder> reservationOrderList) {
+		this.reservation = reservation;
+		this.reservationOrderList = ImmutableList.copyOf(reservationOrderList);
+	}
 
-        return reservation;
-    }
+	public Reservation getReservation() {
+		return reservation;
+	}
 
-    public void setReservation(Reservation reservation) {
-
-        this.reservation = reservation;
-    }
-
-    public List<ReservationOrders> getReservationOrderList() {
-
-        return reservationOrderList;
-    }
-
-    public void setReservationOrderList(List<ReservationOrders> reservationOrderList) {
-        this.reservationOrderList = reservationOrderList;
-    }
+	public List<ReservationOrder> getReservationOrderList() {
+		return reservationOrderList;
+	}
 
 	@Override
 	public String toString() {

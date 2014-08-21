@@ -34,9 +34,7 @@ import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
 import com.micros.pms.util.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
+import org.joda.time.*;
 
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
@@ -293,17 +291,16 @@ public class SearchReservationProcessor extends OWSProcessor<
 					if (timeSpan.getEndDate() != null) {
 						reservation.setCheckoutDate(new LocalDate(timeSpan.getEndDate()));
 					} else if (timeSpan.getDuration() != null) {
-						Date endDate = timeSpan.getStartDate();
-						timeSpan.getDuration().addTo(endDate);
+						LocalDate endDate = timeSpan.getStartDate().plus(timeSpan.getDuration()).toLocalDate();
 
-						reservation.setCheckoutDate(new LocalDate(endDate));
+						reservation.setCheckoutDate(endDate);
 					}
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" CheckOut Date is Set in response.");
 
 					reservation.setStayLength(
-						Days.daysBetween(new DateTime(timeSpan.getStartDate()), new DateTime(timeSpan.getEndDate()))
+						Days.daysBetween(reservation.getCheckinDate(), reservation.getCheckoutDate())
 							.getDays()
 					);
 				}

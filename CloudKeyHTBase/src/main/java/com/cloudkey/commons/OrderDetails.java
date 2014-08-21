@@ -1,5 +1,8 @@
 package com.cloudkey.commons;
 
+import com.google.common.base.Objects;
+import org.joda.time.DateTime;
+
 /**
  * This class encapsulates the information of the order placed by the guest.
  * the detail include item code, item description, unit price, quantity and total
@@ -16,7 +19,8 @@ public class OrderDetails {
 	private double unitPrice;
 	private int quantity;
 	private double chargeAmount;
-	
+	private DateTime dateTime;
+
 	//setter and getters.
 
 	public String getItemCode() {
@@ -67,13 +71,24 @@ public class OrderDetails {
 	public void setChargeAmount(double chargeAmount) {
 		this.chargeAmount = chargeAmount;
 	}
-	
-	@Override
-	public String toString() {
-		
-		return "OrderDetails [itemCode=" + itemCode + ", itemDescription="
-				+ itemDescription + ", unitPrice=" + unitPrice + ", quantity="
-				+ quantity + ", chargeAmount=" + chargeAmount + "]";
+
+	public DateTime getDateTime() {
+		return dateTime;
 	}
 
+	public void setDateTime(DateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("itemCode", itemCode)
+			.add("itemDescription", itemDescription)
+			.add("unitPrice", unitPrice)
+			.add("quantity", quantity)
+			.add("chargeAmount", chargeAmount)
+			.add("dateTime", dateTime)
+			.toString();
+	}
 }

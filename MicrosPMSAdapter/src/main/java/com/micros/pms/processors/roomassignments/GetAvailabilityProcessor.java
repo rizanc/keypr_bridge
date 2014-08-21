@@ -49,8 +49,8 @@ public class GetAvailabilityProcessor extends OWSProcessor<
 		return new FetchCalendarRequest()
 			.withStayDateRange(
 				new TimeSpan()
-					.withStartDate(request.getStartDate().toDateTimeAtStartOfDay().toDate())
-					.withEndDate(request.getEndDate().toDateTimeAtStartOfDay().toDate())
+					.withStartDate(request.getStartDate().toDateTimeAtStartOfDay())
+					.withEndDate(request.getEndDate().toDateTimeAtStartOfDay())
 			)
 			.withHotelReference(getDefaultHotelReference())
 			.withInventoryMode(request.getAvailableOnly() == null ? false : request.getAvailableOnly());

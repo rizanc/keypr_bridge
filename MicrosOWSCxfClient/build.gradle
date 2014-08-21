@@ -18,6 +18,9 @@ sourceSets {
 }
 
 dependencies {
+    compile project(':CloudKeyJaxbSupport')
+    compile joda_time
+
     compile guava
     compile cxf_jaxws_frontend
     compile jaxws

@@ -886,7 +886,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 	 * @param currentCalendarDay
 	 * @return
 	 */
-	private com.cloudkey.commons.RoomTypeInventory getRoomTypeInventoryInstance( RoomTypeInventory objRoomTypInventory, Date currentCalendarDay ) {
+	private com.cloudkey.commons.RoomTypeInventory getRoomTypeInventoryInstance( RoomTypeInventory objRoomTypInventory, LocalDate currentCalendarDay ) {
 
 		log.debug("getRoomTypeInventoryInstance: Enter getRoomTypeInventoryInstance method ");
 

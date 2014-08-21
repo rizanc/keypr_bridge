@@ -131,7 +131,7 @@ public class HotelInformationConverter {
 	 * @return
 	 */
 	public static StreetAddress convertAddress(Address address) {
-		return new StreetAddress(
+		return address == null ? null : new StreetAddress(
 			address.getAddressLines() == null ? Collections.<String>emptyList() : ImmutableList.copyOf(address.getAddressLines()),
 			address.getCityName(),
 			address.getStateProv(),
@@ -154,6 +154,10 @@ public class HotelInformationConverter {
 	 */
 	public static Optional<String> getInfoTextIfPresent(Collection<HotelInfo> infos, Predicate<HotelInfo> predicate) {
 		// Scala's flatmap would be cleaner here
+		if (infos == null) {
+			return Optional.absent();
+		}
+
 		Optional<Optional<String>> transform = Iterables.tryFind(infos, predicate).transform(new Function<HotelInfo, Optional<String>>() {
 			@Nullable
 			@Override
