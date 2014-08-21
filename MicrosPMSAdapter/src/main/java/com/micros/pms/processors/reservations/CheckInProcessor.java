@@ -2,6 +2,7 @@ package com.micros.pms.processors.reservations;
 
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationRoomAllocation;
+import com.cloudkey.pms.common.HotelAmenity;
 import com.cloudkey.pms.micros.og.common.CreditCard;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
@@ -18,6 +19,7 @@ import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.reservations.CheckInRequest;
 import com.cloudkey.pms.response.reservations.CheckInResponse;
 import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
@@ -27,6 +29,7 @@ import com.micros.pms.util.ParagraphHelper;
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,11 +76,6 @@ public class CheckInProcessor extends OWSProcessor<
 		Reservation objReservation = new Reservation();
 		response.setReservation(objReservation);
 
-		String roomTypeCode;
-		String feature;
-		String roomNumber;
-		StringBuffer objStringBuffer;
-
 		CheckInComplete objCheckInComplete = microsResponse.getCheckInComplete();
 
 		Optional<String> pmsReservationIdOpt = IdUtils.findPmsReservationId(objCheckInComplete.getReservationID());
@@ -92,37 +90,22 @@ public class CheckInProcessor extends OWSProcessor<
 		objReservation.getReservationRoomAllocationList().add(objReservationRoomAllocation);
 
 		Room objRoom = objCheckInComplete.getRoom();
+		com.cloudkey.commons.RoomType objRoomType = null;
 
-		roomNumber = objRoom.getRoomNumber();
-		RoomType obRoomType = objRoom.getRoomType();
+		if (objRoom != null) {
+			objReservationRoomAllocation.setRoomNo(objRoom.getRoomNumber());
 
-		roomTypeCode = obRoomType.getRoomTypeCode();
-		feature = obRoomType.getFeature();
+			RoomType obRoomType = objRoom.getRoomType();
+			String roomTypeCode = obRoomType.getRoomTypeCode();
 
-		String roomDescription = "";
-		List<Text> paragraphs = ParagraphHelper.getTextList(objRoom.getRoomDescription());
-
-		for (Text paragraph : paragraphs) {
-			roomDescription += paragraph.getValue();
+			objRoomType = new com.cloudkey.commons.RoomType(
+				roomTypeCode,
+				objRoom.getRoomDescription() == null ? null : ParagraphHelper.getFirstStringOfParagraphs(Arrays.asList(objRoom.getRoomDescription())).orNull(),
+				obRoomType.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(obRoomType.getAmenityInfo().getAmenities()),
+				null
+			);
 		}
 
-		// To set the more than 1 feature.
-		List<RoomFeature> arrRoomFeatures = obRoomType.getRoomFeatures();
-		objStringBuffer = new StringBuffer();
-
-		for (RoomFeature objRoomFeature : arrRoomFeatures) {
-			feature = objRoomFeature.getFeature();
-			objStringBuffer.append(feature).append(";");
-		}
-
-		com.cloudkey.commons.RoomType objRoomType = new com.cloudkey.commons.RoomType(
-			roomTypeCode,
-			ParagraphHelper.getFirstStringOfParagraphs(Arrays.asList(objRoom.getRoomDescription())).orNull(),
-			HotelInformationConverter.convertAmenities(obRoomType.getAmenityInfo().getAmenities()),
-			null
-		);
-
-		objReservationRoomAllocation.setRoomNo(roomNumber);
 		objReservationRoomAllocation.setRoomType(objRoomType);
 		//		objReservationRoomAllocation.setRoomRateList( objRoomRateList );
 
@@ -130,19 +113,23 @@ public class CheckInProcessor extends OWSProcessor<
 
 		Profile objProfile = microsResponse.getProfile();
 
-		for (NameCreditCard objNameCreditCard : objProfile.getCreditCards()) { // To traverse name credit card.
-			log.debug("getCheckInResponseObject: Iterating NameCreditCard Array.");
+		if (objProfile != null) {
+			for (NameCreditCard objNameCreditCard : objProfile.getCreditCards()) { // To traverse name credit card.
+				log.debug("getCheckInResponseObject: Iterating NameCreditCard Array.");
 
-			objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
+				objReservation.setCreditCardNumber(objNameCreditCard.getCardNumber());
 
-			log.debug("getCheckInResponseObject: Credit Card Number is set.");
-		} // End loop for name credit card.
+				log.debug("getCheckInResponseObject: Credit Card Number is set.");
+			} // End loop for name credit card.
 
-		PersonName objPersonName = objProfile.getCustomer().getPersonName();
+			if (objProfile.getCustomer() != null && objProfile.getCustomer().getPersonName() != null) {
+				PersonName objPersonName = objProfile.getCustomer().getPersonName();
 
-		// Set the first name and last name
-		objReservation.setFirstName(objPersonName.getFirstName());
-		objReservation.setLastName(objPersonName.getLastName());
+				// Set the first name and last name
+				objReservation.setFirstName(objPersonName.getFirstName());
+				objReservation.setLastName(objPersonName.getLastName());
+			}
+		}
 
 		log.debug("getCheckInResponseObject: Exit Profile.");
 		response.setReservation(objReservation);

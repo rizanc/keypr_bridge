@@ -24,8 +24,11 @@ public class OWSTestUtils {
     private static final LocalDate START_DATE = new LocalDate(2014, 10, 5);
     private static final LocalDate END_DATE = new LocalDate(2014, 10, 11);
     private static final String ROOM_TYPE_DEFAULT = "SKN";
-    private static final String CREDIT_CARD_NO = "4111111111111111";
-    private static final String EMAIL = "errory@lollison.com";
+	private static final String CREDIT_CARD_NO = "4111111111111111";
+	private static final String CARD_HOLDER_NAME = "John Smith";
+	private static final String CARD_TYPE = "AX";
+	private static final LocalDate EXPIRATION_DATE = new LocalDate(2016, 1, 12);
+	private static final String EMAIL = "errory@lollison.com";
     private static final String LAST_NAME = "Smith";
     private static final String FIRST_NAME = "John";
     private static final String HOTEL_CODE = "GSDH";
@@ -72,7 +75,7 @@ public class OWSTestUtils {
     }
 
     public void CheckIn() {
-        CheckInRequest request = new CheckInRequest(PMS_RESERVATION_ID, CREDIT_CARD_NO);
+        CheckInRequest request = new CheckInRequest(PMS_RESERVATION_ID, CREDIT_CARD_NO, EXPIRATION_DATE, CARD_HOLDER_NAME, CARD_TYPE);
 
 	    microsOWSParser.guestCheckIn(request);
     }
