@@ -1,6 +1,5 @@
 package com.micros.pms.processors.reservations;
 
-import ch.epfl.lamp.fjbg.JOpcode;
 import com.cloudkey.commons.OrderDetails;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrder;
@@ -8,7 +7,6 @@ import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.reservation.BillHeader;
 import com.cloudkey.pms.micros.og.reservation.BillItem;
-import com.cloudkey.pms.micros.og.reservation.CreditCardSurcharge;
 import com.cloudkey.pms.micros.og.reservation.advanced.InvoiceRequest;
 import com.cloudkey.pms.micros.og.reservation.advanced.InvoiceResponse;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
@@ -17,7 +15,6 @@ import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
-import org.joda.time.DateTime;
 
 import javax.xml.ws.Holder;
 import java.math.BigDecimal;
@@ -81,10 +78,18 @@ public class GetFolioProcessor extends OWSProcessor<
 				log.debug("getFolioResponseObject: Enter to traverse Bill Items ");
 				OrderDetails objOrderDetails = new OrderDetails();
 
-				objOrderDetails.setUnitPrice(billItem.getAmount().getValue());
+				if (billItem.getAmount() != null) {
+					Double amountValue = billItem.getAmount().getValue();
+
+					objOrderDetails.setUnitPrice(new BigDecimal(amountValue));
+					totalBillAmount = totalBillAmount.add(new BigDecimal(amountValue));
+				}
+
 				objOrderDetails.setItemDescription(billItem.getDescription());
-				objOrderDetails.setDateTime(billItem.getDate().toDateTime(billItem.getTime()));
-				totalBillAmount = totalBillAmount.add(new BigDecimal(billItem.getAmount().getValue()));
+
+				if (billItem.getDate() != null && billItem.getTime() != null) {
+					objOrderDetails.setDateTime(billItem.getDate().toDateTime(billItem.getTime()));
+				}
 
 				orderDetailsList.add(objOrderDetails);
 

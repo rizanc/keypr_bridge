@@ -3,18 +3,19 @@ package com.cloudkey.commons;
 import com.google.common.base.Objects;
 import org.joda.time.DateTime;
 
+import java.math.BigDecimal;
+
 /**
  * Class stores details of room rate.It has information of base Amount,
  * efeectiveDate, expiration Date , occurrence Type , roomTypeID with  dateModified and dateCredted.
- * 
- * @author niveditat
  *
+ * @author niveditat
  */
 public class RoomRate {
 
 	// Reference Variables.
 	private String planCode;
-	private double baseAmount;
+	private BigDecimal baseAmount;
 	private DateTime effectiveDate;
 	private DateTime expirationDate;
 
@@ -22,15 +23,15 @@ public class RoomRate {
 		return planCode;
 	}
 
-	public void setPlanCode(String ratePlanCode) {
-		this.planCode = ratePlanCode;
+	public void setPlanCode(String planCode) {
+		this.planCode = planCode;
 	}
 
-	public double getBaseAmount() {
+	public BigDecimal getBaseAmount() {
 		return baseAmount;
 	}
 
-	public void setBaseAmount(double baseAmount) {
+	public void setBaseAmount(BigDecimal baseAmount) {
 		this.baseAmount = baseAmount;
 	}
 

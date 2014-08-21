@@ -91,7 +91,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 		ExtendedHotelInfo extended = info.getHotelExtendedInformation();
 
 		// Various details that may be found in the hotel info element
-		List<HotelInfo> hotelInfos = extended.getHotelInformation();
+		List<HotelInfo> hotelInfos = extended == null ? Collections.<HotelInfo>emptyList() : extended.getHotelInformation();
 
 		Optional<String> checkInInfo = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByType(HotelInfoType.CHECKININFO));
 		Optional<String> checkOutInfo = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByType(HotelInfoType.CHECKOUTINFO));
@@ -112,7 +112,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 		if (extended != null) {
 			// Accepted payment methods
 			for (PaymentType paymentType : extended.getPaymentMethods()) {
-				String value = paymentType.getOtherPayment().getValue();
+				String value = paymentType.getOtherPayment() == null ? null : paymentType.getOtherPayment().getValue();
 
 				if (value != null) {
 					acceptedCreditCards.add(value);
@@ -121,9 +121,8 @@ public class HotelInformationProcessor extends OWSProcessor<
 
 			hotelPosition = Optional.fromNullable(extended.getPosition())
 				.transform(new Function<GeoCode, com.cloudkey.pms.common.GeoCode>() {
-					@Nullable
 					@Override
-					public com.cloudkey.pms.common.GeoCode apply(@Nullable GeoCode geoCode) {
+					public com.cloudkey.pms.common.GeoCode apply(GeoCode geoCode) {
 						return new com.cloudkey.pms.common.GeoCode(geoCode.getLongitude(), geoCode.getLatitude(), geoCode.getAltitude());
 					}
 				});
@@ -145,32 +144,32 @@ public class HotelInformationProcessor extends OWSProcessor<
 						));
 					}
 				}
-			}
 
-			// Restaurants
-			for (RestaurantsTypeRestaurant restaurant : extended.getFacilityInfo().getRestaurants()) {
-				Optional<String> description = getFirstStringOfParagraphs(restaurant.getRestaurantDescriptions());
+				// Restaurants
+				for (RestaurantsTypeRestaurant restaurant : facilityInfo.getRestaurants()) {
+					Optional<String> description = getFirstStringOfParagraphs(restaurant.getRestaurantDescriptions());
 
-				List<Cuisine> cuisines = new ArrayList<>();
-				for (RestaurantsTypeRestaurantCuisine cuisine : restaurant.getCuisines()){
-					cuisines.add(new Cuisine(
-						cuisine.getCode(),
-						cuisine.getDescription()
+					List<Cuisine> cuisines = new ArrayList<>();
+					for (RestaurantsTypeRestaurantCuisine cuisine : restaurant.getCuisines()) {
+						cuisines.add(new Cuisine(
+							cuisine.getCode(),
+							cuisine.getDescription()
+						));
+					}
+
+					restaurants.add(new Restaurant(
+						restaurant.getRestaurantName(),
+						description.orNull(),
+						cuisines,
+						Lists.transform(restaurant.getRestaurantContacts(), convertAddress),
+						restaurant.isOfferBreakfast(),
+						restaurant.isOfferBrunch(),
+						restaurant.isOfferLunch(),
+						restaurant.isOfferDinner(),
+						restaurant.getMaxSeatingCapacity() == null ? null : restaurant.getMaxSeatingCapacity().intValue(),
+						restaurant.getMaxSingleParty() == null ? null : restaurant.getMaxSingleParty().intValue()
 					));
 				}
-
-				restaurants.add(new Restaurant(
-					restaurant.getRestaurantName(),
-					description.orNull(),
-					cuisines,
-					Lists.transform(restaurant.getRestaurantContacts(), convertAddress),
-					restaurant.isOfferBreakfast(),
-					restaurant.isOfferBrunch(),
-					restaurant.isOfferLunch(),
-					restaurant.isOfferDinner(),
-					restaurant.getMaxSeatingCapacity() == null ? null : restaurant.getMaxSeatingCapacity().intValue(),
-					restaurant.getMaxSingleParty() == null ? null : restaurant.getMaxSingleParty().intValue()
-				));
 			}
 
 			if (extended.getAmenityInfo() != null) {

@@ -10,7 +10,7 @@ import com.google.common.base.Objects;
  */
 
 public class RoomDetails {
-	private int id;
+	private Integer id;
 	private String roomNumber;
 
 	private RoomType roomType;
@@ -18,11 +18,11 @@ public class RoomDetails {
 	private String frontOfficeStatus;
 	private String houseKeeepingStatus;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

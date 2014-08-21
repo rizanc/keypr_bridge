@@ -249,28 +249,28 @@ public class SearchReservationProcessor extends OWSProcessor<
 						" getFutureBookingResponseObject ",
 						" Iterating Room Type Array.");
 
-					RoomDetails obRoomDetails = new RoomDetails();
+					RoomDetails roomDetails = new RoomDetails();
 
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" Room Type Code is Set in response.");
 
 					for (String roomNumber : roomType.getRoomNumbers()) {
-						obRoomDetails.setRoomNumber(roomNumber);
+						roomDetails.setRoomNumber(roomNumber);
 					}
 
 					log.debug(
 						" getFutureBookingResponseObject ",
 						" Features and Description are Set in response.");
 
-					obRoomDetails.setRoomType(new com.cloudkey.commons.RoomType(
+					roomDetails.setRoomType(new com.cloudkey.commons.RoomType(
 						roomType.getRoomTypeCode(),
 						roomType.getRoomTypeDescription() == null ? null : ParagraphHelper.getFirstString(ParagraphHelper.getTextList(roomType.getRoomTypeDescription())).orNull(),
 						roomType.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(roomType.getAmenityInfo().getAmenities()),
 						null
 					));
 
-					roomDetailsList.add(obRoomDetails);
+					roomDetailsList.add(roomDetails);
 
 					if (roomStay.getMemberAwardInfo() != null) {
 						reservation.setLoyaltyNumber(String.valueOf(roomStay.getMemberAwardInfo().getMembershipID()));

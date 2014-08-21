@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -188,7 +189,7 @@ public class UploadReservationDataRetriever {
 
 											roomRate = new RoomRate();
 
-											roomRate.setBaseAmount(resvRoomRateSet.getDouble( "resvrate.base_rate" ) );
+											roomRate.setBaseAmount(new BigDecimal(resvRoomRateSet.getDouble( "resvrate.base_rate" ) ));
 											roomRate.setEffectiveDate(new DateTime(resvRoomRateSet.getDate( "resvrate.effective_date" )) );
 											roomRate.setExpirationDate(new DateTime(resvRoomRateSet.getDate("resvrate.expiration_date") ));
 											roomRate.setPlanCode(resvRoomRateSet.getString("resvrate.rate_plan_code"));

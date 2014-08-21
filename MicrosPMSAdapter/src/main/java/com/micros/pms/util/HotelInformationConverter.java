@@ -154,10 +154,6 @@ public class HotelInformationConverter {
 	 */
 	public static Optional<String> getInfoTextIfPresent(Collection<HotelInfo> infos, Predicate<HotelInfo> predicate) {
 		// Scala's flatmap would be cleaner here
-		if (infos == null) {
-			return Optional.absent();
-		}
-
 		Optional<Optional<String>> transform = Iterables.tryFind(infos, predicate).transform(new Function<HotelInfo, Optional<String>>() {
 			@Nullable
 			@Override

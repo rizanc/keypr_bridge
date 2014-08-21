@@ -200,7 +200,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	    NameIdByMembershipResponse nameIdByMembershipResponse = getNameIdInformation(new NameIdByMembershipRequest(membershipType, membershipNumber, membershipLastName));
 
 	    // Get the membership request
-	    GuestMembershipsResponse guestMembershipsResponse = guestMembershipsProcessor.process(new GuestMembershipsRequest(nameIdByMembershipResponse.getNameId()));
+	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(nameIdByMembershipResponse.getNameId()));
 
 	    MemberPointsResponse response = new MemberPointsResponse();
 
@@ -209,12 +209,12 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	    if (firstMembershipOpt.isPresent()) {
 		    Membership membership = firstMembershipOpt.get();
 
-		    if (membership.getMembershipType().equalsIgnoreCase(membershipType)) {
+		    if (membership.getMembershipType() != null && membership.getMembershipType().equalsIgnoreCase(membershipType)) {
                 response.setMembershipNumber(membership.getMembershipNumber());
                 response.setMembershipType(membership.getMembershipType());
                 response.setMembershipId(membership.getMembershipId());
                 response.setEffectiveDate(membership.getEffectiveDate());
-                response.setTotalPoints(membership.getCurrentPoints().toString());
+                response.setTotalPoints(membership.getCurrentPoints() == null ? null : membership.getCurrentPoints().toString());
                 response.setExpireDate(membership.getExpirationDate());
             }
         }

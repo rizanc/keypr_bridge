@@ -62,7 +62,7 @@ public class CheckOutProcessor extends OWSProcessor<
 
 		Profile objProfile = microsResponse.getProfile();
 
-		if (objProfile.getCustomer() != null && objProfile.getCustomer().getPersonName() != null) {
+		if (objProfile != null && objProfile.getCustomer() != null && objProfile.getCustomer().getPersonName() != null) {
 			PersonName objPersonName = objProfile.getCustomer().getPersonName();
 
 			// Set the first name and last name

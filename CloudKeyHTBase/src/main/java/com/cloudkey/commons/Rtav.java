@@ -8,23 +8,19 @@ import java.util.List;
 public class Rtav {
 
 	/* TBD */
-	private int id ;// Everything needs an id
+	private Integer id ;// Everything needs an id
     private String hotelCode;
     private List<DailyInventory> dailyInventories;
 
-
-	public int getId() {
-
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-    public String getHotelCode() {
+	public String getHotelCode() {
         return hotelCode;
     }
 

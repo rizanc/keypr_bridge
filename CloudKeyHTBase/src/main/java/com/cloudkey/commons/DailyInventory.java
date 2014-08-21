@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class DailyInventory {
     private LocalDate inventoryDate;
-    private int physicalRooms;
-    private int houseOverbook;
-    private int outOfOrder;
+    private Integer physicalRooms;
+    private Integer houseOverbook;
+    private Integer outOfOrder;
 
     private List<RoomTypeInventory> roomTypeInventories;
 
@@ -23,35 +23,35 @@ public class DailyInventory {
 		this.inventoryDate = inventoryDate;
 	}
 
-	public int getPhysicalRooms() {
-        return physicalRooms;
-    }
+	public Integer getPhysicalRooms() {
+		return physicalRooms;
+	}
 
-    public void setPhysicalRooms(int physicalRooms) {
-        this.physicalRooms = physicalRooms;
-    }
+	public void setPhysicalRooms(Integer physicalRooms) {
+		this.physicalRooms = physicalRooms;
+	}
 
-    public int getHouseOverbook() {
-        return houseOverbook;
-    }
+	public Integer getHouseOverbook() {
+		return houseOverbook;
+	}
 
-    public void setHouseOverbook(int houseOverbook) {
-        this.houseOverbook = houseOverbook;
-    }
+	public void setHouseOverbook(Integer houseOverbook) {
+		this.houseOverbook = houseOverbook;
+	}
 
-    public int getOutOfOrder() {
-        return outOfOrder;
-    }
+	public Integer getOutOfOrder() {
+		return outOfOrder;
+	}
 
-    public void setOutOfOrder(int outOfOrder) {
-        this.outOfOrder = outOfOrder;
-    }
+	public void setOutOfOrder(Integer outOfOrder) {
+		this.outOfOrder = outOfOrder;
+	}
 
-    public List<RoomTypeInventory> getRoomTypeInventories() {
-        return roomTypeInventories;
-    }
+	public List<RoomTypeInventory> getRoomTypeInventories() {
+		return roomTypeInventories;
+	}
 
-    public void setRoomTypeInventories(List<RoomTypeInventory> roomTypeInventories) {
-        this.roomTypeInventories = roomTypeInventories;
-    }
+	public void setRoomTypeInventories(List<RoomTypeInventory> roomTypeInventories) {
+		this.roomTypeInventories = roomTypeInventories;
+	}
 }

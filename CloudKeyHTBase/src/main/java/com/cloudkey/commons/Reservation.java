@@ -18,7 +18,7 @@ public class Reservation {
 
 	/* variable to store unique identifier of the guest. */
 	// TODO: This ID should not be here, unless it's for our local MYSQL instance
-	private int id;// PK of database.
+	private Integer id;// PK of database.
 
     private String chainCode;
     private String hotelCode;
@@ -28,7 +28,7 @@ public class Reservation {
 
 	/* variable to store the number of days to be stayed at hotel. */
 	/*	private String stayLength ;*/
-	private int stayLength;
+	private Integer stayLength;
 
 	/* variable to store the company name of the guest. */
 	private String company;
@@ -46,9 +46,9 @@ public class Reservation {
 	private String loyaltyNumber;
 
 	/* variable to store the number of guests. */
-	private int numberOfGuests;
-    private int numberOfAdults;
-    private int numberOfChildren;
+	private Integer numberOfGuests;
+    private Integer numberOfAdults;
+    private Integer numberOfChildren;
 	
 	/* variable to store the details of the reservation. */
 	private List<ReservationRoomAllocation> reservationRoomAllocationList;
@@ -102,11 +102,11 @@ public class Reservation {
 		return Joiner.on(" ").skipNulls().join(firstName, lastName);
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -134,11 +134,11 @@ public class Reservation {
 		this.pmsReservationId = pmsReservationId;
 	}
 
-	public int getStayLength() {
+	public Integer getStayLength() {
 		return stayLength;
 	}
 
-	public void setStayLength(int stayLength) {
+	public void setStayLength(Integer stayLength) {
 		this.stayLength = stayLength;
 	}
 
@@ -182,27 +182,27 @@ public class Reservation {
 		this.loyaltyNumber = loyaltyNumber;
 	}
 
-	public int getNumberOfGuests() {
+	public Integer getNumberOfGuests() {
 		return numberOfGuests;
 	}
 
-	public void setNumberOfGuests(int numberOfGuests) {
+	public void setNumberOfGuests(Integer numberOfGuests) {
 		this.numberOfGuests = numberOfGuests;
 	}
 
-	public int getNumberOfAdults() {
+	public Integer getNumberOfAdults() {
 		return numberOfAdults;
 	}
 
-	public void setNumberOfAdults(int numberOfAdults) {
+	public void setNumberOfAdults(Integer numberOfAdults) {
 		this.numberOfAdults = numberOfAdults;
 	}
 
-	public int getNumberOfChildren() {
+	public Integer getNumberOfChildren() {
 		return numberOfChildren;
 	}
 
-	public void setNumberOfChildren(int numberOfChildren) {
+	public void setNumberOfChildren(Integer numberOfChildren) {
 		this.numberOfChildren = numberOfChildren;
 	}
 

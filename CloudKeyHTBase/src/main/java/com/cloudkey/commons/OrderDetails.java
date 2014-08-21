@@ -3,72 +3,62 @@ package com.cloudkey.commons;
 import com.google.common.base.Objects;
 import org.joda.time.DateTime;
 
+import java.math.BigDecimal;
+
 /**
  * This class encapsulates the information of the order placed by the guest.
  * the detail include item code, item description, unit price, quantity and total
  * charge amount.
- * 
- * @author vinayk2
  *
+ * @author vinayk2
  */
 public class OrderDetails {
-	
-	//reference variables.
+
+	// reference variables.
 	private String itemCode;
-	private String itemDescription ;
-	private double unitPrice;
-	private int quantity;
-	private double chargeAmount;
+	private String itemDescription;
+	private BigDecimal unitPrice;
+	private Integer quantity;
+	private BigDecimal chargeAmount;
 	private DateTime dateTime;
 
-	//setter and getters.
-
 	public String getItemCode() {
-		
 		return itemCode;
 	}
-	
+
 	public void setItemCode(String itemCode) {
-		
 		this.itemCode = itemCode;
 	}
-	
+
 	public String getItemDescription() {
-		
 		return itemDescription;
 	}
-	
+
 	public void setItemDescription(String itemDescription) {
-		
 		this.itemDescription = itemDescription;
 	}
-	
-	public double getUnitPrice() {
-		
+
+	public BigDecimal getUnitPrice() {
 		return unitPrice;
 	}
-	
-	public void setUnitPrice(double unitPrice) {
-		
+
+	public void setUnitPrice(BigDecimal unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	
-	public int getQuantity() {
-		
+
+	public Integer getQuantity() {
 		return quantity;
 	}
-	
-	public void setQuantity(int quantity) {
-		
+
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
-	public double getChargeAmount() {
-		
+
+	public BigDecimal getChargeAmount() {
 		return chargeAmount;
 	}
-	
-	public void setChargeAmount(double chargeAmount) {
+
+	public void setChargeAmount(BigDecimal chargeAmount) {
 		this.chargeAmount = chargeAmount;
 	}
 

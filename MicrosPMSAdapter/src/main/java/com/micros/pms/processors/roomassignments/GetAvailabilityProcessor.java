@@ -17,9 +17,11 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 import org.joda.time.LocalDate;
+import sun.security.util.BigInt;
 
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -70,9 +72,9 @@ public class GetAvailabilityProcessor extends OWSProcessor<
 							public RoomTypeAvailability apply(@Nullable RoomTypeInventory roomTypeInventory) {
 								return new RoomTypeAvailability(
 									roomTypeInventory.getRoomTypeCode(),
-									roomTypeInventory.getTotalRooms().intValue(),
-									roomTypeInventory.getTotalAvailableRooms().intValue(),
-									roomTypeInventory.getOverBookingLimit().intValue()
+									nullsafeToInteger(roomTypeInventory.getTotalRooms()),
+									nullsafeToInteger(roomTypeInventory.getTotalAvailableRooms()),
+									nullsafeToInteger(roomTypeInventory.getOverBookingLimit())
 								);
 							}
 						}
@@ -82,5 +84,9 @@ public class GetAvailabilityProcessor extends OWSProcessor<
 		});
 
 		return new GetAvailabilityResponse(availabilityList);
+	}
+
+	private Integer nullsafeToInteger(BigInteger bigInteger) {
+		return bigInteger == null ? null : bigInteger.intValue();
 	}
 }

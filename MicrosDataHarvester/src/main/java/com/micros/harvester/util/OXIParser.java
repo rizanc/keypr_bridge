@@ -193,9 +193,8 @@ public class OXIParser {
 	                        planCode = ratePlan.get(0).getRatePlanCode();
 	                        objRoomRate.setPlanCode(planCode);
 
-	                        ratePlan.get(0).getRates().getRate().get(0).getAmount();
 	                        for (Rate rate : ratePlan.get(0).getRates().getRate()) {
-	                            objRoomRate.setBaseAmount(new Double(rate.getAmount().getValueNum().toString()));
+	                            objRoomRate.setBaseAmount(rate.getAmount().getValueNum());
 
 	                            Date effectiveDate = rate.getTimeSpan().getStartTime().toGregorianCalendar().getTime();
 	                            Date endDate = null;

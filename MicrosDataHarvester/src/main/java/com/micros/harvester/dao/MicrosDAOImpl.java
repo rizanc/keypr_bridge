@@ -1195,7 +1195,7 @@ public class MicrosDAOImpl implements IMicrosDAO {
 					RoomRate objRoomRate = roomRateList.get(len);
 
 					objPreparedStatement.setInt(1, roomAllocationId);
-					objPreparedStatement.setDouble(2, objRoomRate.getBaseAmount() );
+					objPreparedStatement.setDouble(2, objRoomRate.getBaseAmount().doubleValue() );
 					objPreparedStatement.setString(3, objRoomRate.getPlanCode() );
 					objPreparedStatement.setDate(4, new java.sql.Date(objRoomRate.getEffectiveDate().getMillis()));
 					objPreparedStatement.setDate(5, new java.sql.Date(objRoomRate.getExpirationDate().getMillis()));
