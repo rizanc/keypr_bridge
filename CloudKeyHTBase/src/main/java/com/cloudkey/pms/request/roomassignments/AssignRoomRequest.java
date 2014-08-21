@@ -15,30 +15,20 @@ public class AssignRoomRequest extends PMSRequest {
 	@ApiModelProperty(required = true)
 	private String pmsReservationId;
 
-	@NotBlank
-	@ApiModelProperty(required = true)
-	private String roomTypeCode;
-
 	protected AssignRoomRequest() { /* For serialization */ }
 
 	public AssignRoomRequest(String pmsReservationId, String roomTypeCode) {
 		this.pmsReservationId = pmsReservationId;
-		this.roomTypeCode = roomTypeCode;
 	}
 
 	public String getPmsReservationId() {
 		return pmsReservationId;
 	}
 
-	public String getRoomTypeCode() {
-		return roomTypeCode;
-	}
-
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
 			.add("pmsReservationId", pmsReservationId)
-			.add("roomTypeCode", roomTypeCode)
 			.toString();
 	}
 }

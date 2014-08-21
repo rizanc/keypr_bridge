@@ -29,9 +29,6 @@ public class AssignRoomProcessor extends OWSProcessor<
 	@Inject
 	protected ReservationServiceSoap service;
 
-	@Inject
-	protected ResvAdvancedServiceSoap advService;
-
 	@Override
 	protected ResultStatus getResultStatus(com.cloudkey.pms.micros.ows.reservation.AssignRoomResponse assignRoomResponse) {
 		return assignRoomResponse.getResult();
@@ -44,55 +41,15 @@ public class AssignRoomProcessor extends OWSProcessor<
 
 	@Override
 	protected com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest toMicrosRequest(AssignRoomRequest request) {
-		String roomTypeCode = request.getRoomTypeCode();
-
-		com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest objAssignRoomRequest = null;
-
-		String nextAvailableRoom = getNextAvailableRoomNumber(roomTypeCode);
-		if (nextAvailableRoom != null) {
-			objAssignRoomRequest = new com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest();
-			objAssignRoomRequest.setRoomNoRequested(nextAvailableRoom);
-
-			objAssignRoomRequest.setResvNameId(internalReservationId(request.getPmsReservationId()));
-
-			HotelReference objHotelReference = getDefaultHotelReference();
-			objAssignRoomRequest.setHotelReference(objHotelReference);
-
-			objAssignRoomRequest.setStationID(stationId);
-
-			log.debug("getAssignRoomRequestObject: Exit getAssignRoomRequestObject method ");
-		}
-
-		return objAssignRoomRequest;
+		return new com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest()
+			.withHotelReference(getDefaultHotelReference())
+			.withStationID(stationId)
+			.withResvNameId(internalReservationId(request.getPmsReservationId()));
 	}
 
 	@Override
 	protected AssignRoomResponse toPmsResponse(com.cloudkey.pms.micros.ows.reservation.AssignRoomResponse microsResponse) {
 		return new AssignRoomResponse(microsResponse.getRoomNoAssigned());
-	}
-
-	private String getNextAvailableRoomNumber(String roomType) {
-		log.debug("getNextAvailableRoomNumber: Enter.");
-
-		FetchRoomStatusRequest req = new FetchRoomStatusRequest()
-			.withHotelReference(getDefaultHotelReference())
-			.withRoomType(roomType);
-
-		FetchRoomStatusResponse microsResponse = advService.fetchRoomStatus(req, createOGHeaderE());
-
-		errorIfFailure(microsResponse.getResult());
-
-		Optional<RoomStatus> availableRoomOpt = FluentIterable.from(microsResponse.getRoomStatuses()).first();
-
-		String roomNumber = null;
-
-		if (!availableRoomOpt.isPresent()) {
-			roomNumber = availableRoomOpt.get().getRoomNumber();
-		}
-
-		log.debug("getNextAvailableRoomNumber: {}", roomNumber);
-
-		return roomNumber;
 	}
 
 }
