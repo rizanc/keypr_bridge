@@ -175,31 +175,12 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 		return hotelInformationProcessor.process(hotelInformationRequest);
     }
 
-	/**
-	 * Fetch member points by membership type, number and last name.
-	 *
-	 * To accomplish this, we use two OWS calls:
-	 * 1. NameByIdMembership, to lookup the internal member ID by their membership type, number and last name.
-	 * 2. GuestMemberships, to lookup the membership points by the internal member ID.
-	 *
-	 * @param memberPointsRequest
-	 * @return
-	 * @throws PMSInterfaceException
-	 */
     @Override
     public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
 	    log.debug("memberPointsQuery: Enter method.");
 
-	    // GuestMembershipsRequest cannot be looked up by membership last name, membership and num.
-        // Get the name id for the member
-        String membershipLastName = memberPointsRequest.getMemberLastName();
-        String membershipType = memberPointsRequest.getMembershipType();
-        String membershipNumber = memberPointsRequest.getMembershipNumber();
-
-	    NameLookupResponse nameLookupResponse = getNameIdInformation(new NameLookupRequest(membershipType, membershipNumber, membershipLastName));
-
 	    // Get the membership request
-	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(nameLookupResponse.getNameId()));
+	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(memberPointsRequest.getNameId()));
 
 	    MemberPointsResponse response = new MemberPointsResponse();
 
@@ -208,14 +189,12 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	    if (firstMembershipOpt.isPresent()) {
 		    Membership membership = firstMembershipOpt.get();
 
-		    if (membership.getMembershipType() != null && membership.getMembershipType().equalsIgnoreCase(membershipType)) {
-                response.setMembershipNumber(membership.getMembershipNumber());
-                response.setMembershipType(membership.getMembershipType());
-                response.setMembershipId(membership.getMembershipId());
-                response.setEffectiveDate(membership.getEffectiveDate());
-                response.setTotalPoints(membership.getCurrentPoints() == null ? null : membership.getCurrentPoints().toString());
-                response.setExpireDate(membership.getExpirationDate());
-            }
+            response.setMembershipNumber(membership.getMembershipNumber());
+            response.setMembershipType(membership.getMembershipType());
+            response.setMembershipId(membership.getMembershipId());
+            response.setEffectiveDate(membership.getEffectiveDate());
+            response.setTotalPoints(membership.getCurrentPoints());
+            response.setExpireDate(membership.getExpirationDate());
         }
 
         return response;

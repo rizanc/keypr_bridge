@@ -21,7 +21,7 @@ public class MemberPointsResponse extends PMSResponse {
     private LocalDate effectiveDate;
     private String inactive;
     private String resvnameId;
-    private String totalPoints;
+    private Double totalPoints;
     private String bonuspoints;
     private String guestTotalNights;
     private String guestTotalStay;
@@ -98,11 +98,11 @@ public class MemberPointsResponse extends PMSResponse {
 		this.resvnameId = resvnameId;
 	}
 
-	public String getTotalPoints() {
+	public Double getTotalPoints() {
 		return totalPoints;
 	}
 
-	public void setTotalPoints(String totalPoints) {
+	public void setTotalPoints(Double totalPoints) {
 		this.totalPoints = totalPoints;
 	}
 

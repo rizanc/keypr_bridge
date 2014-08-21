@@ -46,7 +46,7 @@ public class MembershipsResource extends AbstractResource {
     @GET
     @ApiOperation(
         value = "Fetches member points details by membership number",
-        response = MakePaymentResponse.class
+        response = MemberPointsResponse.class
     )
     @ApiResponses({
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
@@ -54,10 +54,8 @@ public class MembershipsResource extends AbstractResource {
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public MemberPointsResponse memberPoints(
-            @QueryParam("membershipNumber") String membershipNumber,
-            @QueryParam("membershipType") String membershipType,
-            @QueryParam("memberLastName") String memberLastName) {
-        MemberPointsRequest request = new MemberPointsRequest(membershipNumber, membershipType, memberLastName);
+            @QueryParam("nameId") String nameId) {
+        MemberPointsRequest request = new MemberPointsRequest(nameId);
 		validate(request);
 
         return messageParser.memberPointsQuery(request);

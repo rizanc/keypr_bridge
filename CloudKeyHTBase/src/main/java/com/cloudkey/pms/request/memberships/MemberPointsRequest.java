@@ -13,42 +13,22 @@ import org.hibernate.validator.constraints.NotBlank;
 public class MemberPointsRequest extends PMSRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String membershipNumber;
-
-	@NotBlank
-	@ApiModelProperty(required = true)
-	private String membershipType;
-
-	@NotBlank
-	@ApiModelProperty(required = true)
-	private String memberLastName;
+	private String nameId;
 
 	protected MemberPointsRequest() { /* For serialization */ }
 
-	public MemberPointsRequest(String membershipNumber, String membershipType, String memberLastName) {
-		this.membershipNumber = membershipNumber;
-		this.membershipType = membershipType;
-		this.memberLastName = memberLastName;
+	public MemberPointsRequest(String nameId) {
+		this.nameId = nameId;
 	}
 
-	public String getMembershipNumber() {
-		return membershipNumber;
-	}
-
-	public String getMembershipType() {
-		return membershipType;
-	}
-
-	public String getMemberLastName() {
-		return memberLastName;
+	public String getNameId() {
+		return nameId;
 	}
 
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("membershipNumber", membershipNumber)
-			.add("membershipType", membershipType)
-			.add("memberLastName", memberLastName)
+			.add("nameId", nameId)
 			.toString();
 	}
 }
