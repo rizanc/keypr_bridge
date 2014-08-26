@@ -15,7 +15,7 @@ import com.google.common.collect.ImmutableList;
 import org.joda.time.LocalTime;
 
 /**
- * @author
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class HotelInformationResponse extends PMSResponse {
     private String hotelName;
