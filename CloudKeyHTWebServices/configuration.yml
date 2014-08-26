@@ -16,12 +16,12 @@ logging:
   appenders:
     - type: file
       # The file to which current statements will be logged.
-      currentLogFilename: /var/log/CloudKeyHTWebServices-main.log
+      currentLogFilename: /var/log/bridge/CloudKeyHTWebServices-main.log
 
       # When the log file rotates, the archived log will be renamed to this and gzipped. The
       # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
       # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
-      archivedLogFilenamePattern: /var/log/CloudKeyHTWebServices-main-%d.log.gz
+      archivedLogFilenamePattern: /var/log/bridge/CloudKeyHTWebServices-main-%d.log.gz
 
       # The number of archived files to keep.
       archivedFileCount: 5
@@ -47,12 +47,12 @@ server:
     appenders:
           - type: file
             # The file to which current statements will be logged.
-            currentLogFilename: /var/log/CloudKeyHTWebServices-requests.log
+            currentLogFilename: /var/log/bridge/CloudKeyHTWebServices-requests.log
 
             # When the log file rotates, the archived log will be renamed to this and gzipped. The
             # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
             # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
-            archivedLogFilenamePattern: /var/log/CloudKeyHTWebServices-requests-%d.log.gz
+            archivedLogFilenamePattern: /var/log/bridge/CloudKeyHTWebServices-requests-%d.log.gz
 
             # The number of archived files to keep.
             archivedFileCount: 5
