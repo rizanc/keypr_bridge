@@ -6,7 +6,6 @@
 /.idea
 intellij/
 intellij_project_settings/
-/logs
 
 *.swp
 test*.xml
@@ -27,7 +26,3 @@ MicrosOWSClient/src/main/resources/operademo3.configuration.properties
 MicrosPMSAdapter/src/main/resources/lab.configuration.properties
 MicrosPMSAdapter/src/main/resources/operademo3.configuration.properties
 samples/
-
-CloudKeyHTWebServices/logs
-CloudKeyHTUploadService/logs
-MicrosDataHarvester/logs

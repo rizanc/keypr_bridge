@@ -8,7 +8,7 @@ appender("FILE", RollingFileAppender) {
         // %d{dd MMM yyyy HH:mm:ss,SSS} [%t] %p %c - %m%n"
     }
     rollingPolicy(TimeBasedRollingPolicy) {
-        FileNamePattern = "logs/dataharvester-%d{yyyy-MM-dd}.log"
+        FileNamePattern = "/var/log/dataharvester-%d{yyyy-MM-dd}.log"
     }
 }
 

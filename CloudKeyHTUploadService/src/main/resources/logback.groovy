@@ -7,7 +7,7 @@ appender("FILE", RollingFileAppender) {
         Pattern = "%-5p [%d{\"HH:mm:ss.SSS'Z'\",UTC}] %c: %m\\n%ex"
     }
     rollingPolicy(TimeBasedRollingPolicy) {
-        FileNamePattern = "logs/uploadservice-%d{yyyy-MM-dd}.log"
+        FileNamePattern = "/var/log/uploadservice-%d{yyyy-MM-dd}.log"
     }
 }
 
