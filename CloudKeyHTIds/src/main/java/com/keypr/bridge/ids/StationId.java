@@ -1,4 +1,4 @@
-package com.keypr.pms.micros.oxi.ids;
+package com.keypr.bridge.ids;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)

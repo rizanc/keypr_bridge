@@ -1,7 +1,7 @@
 package com.micros.harvester.dao;
 
 import com.cloudkey.commons.*;
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
 import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Date;
 import java.util.List;
 
 /**

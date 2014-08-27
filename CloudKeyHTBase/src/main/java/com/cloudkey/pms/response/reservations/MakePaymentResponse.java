@@ -1,8 +1,8 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.pms.response.PMSResponse;
 import com.cloudkey.pms.request.reservations.MakePaymentRequest;
-import com.keypr.pms.micros.oxi.ids.PmsReservationId;
+import com.cloudkey.pms.response.PMSResponse;
+import com.keypr.bridge.ids.PmsReservationId;
 
 /**
  * Response to {@link MakePaymentRequest}

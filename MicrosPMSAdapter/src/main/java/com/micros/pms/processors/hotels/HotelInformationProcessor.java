@@ -3,7 +3,7 @@ package com.micros.pms.processors.hotels;
 import com.cloudkey.commons.Restaurant;
 import com.cloudkey.pms.common.Cuisine;
 import com.cloudkey.pms.common.HotelAmenity;
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Phone;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;

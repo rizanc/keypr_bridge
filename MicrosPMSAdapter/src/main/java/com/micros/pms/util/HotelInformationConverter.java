@@ -1,7 +1,7 @@
 package com.micros.pms.util;
 
 import com.cloudkey.pms.common.HotelAmenity;
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Address;
 import com.cloudkey.pms.micros.og.hotelcommon.Amenity;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelInfo;
@@ -11,7 +11,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import org.joda.time.LocalTime;
 

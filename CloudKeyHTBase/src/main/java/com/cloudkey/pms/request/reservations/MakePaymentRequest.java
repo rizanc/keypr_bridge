@@ -4,9 +4,9 @@ import com.cloudkey.pms.common.payment.CreditCardApproval;
 import com.cloudkey.pms.common.payment.CreditCardInfo;
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
-import com.keypr.pms.micros.oxi.ids.PmsReservationId;
-import com.keypr.pms.micros.oxi.ids.StationId;
-import com.keypr.pms.micros.oxi.ids.UserId;
+import com.keypr.bridge.ids.PmsReservationId;
+import com.keypr.bridge.ids.StationId;
+import com.keypr.bridge.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.joda.time.DateTime;
 
@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  */
 public class MakePaymentRequest extends PMSRequest {
     /**
-     * The {@link com.keypr.pms.micros.oxi.ids.PmsReservationId} of the reservation to which payment was applied
+     * The {@link com.keypr.bridge.ids.PmsReservationId} of the reservation to which payment was applied
      */
     @NotNull
     @ApiModelProperty(required = true)

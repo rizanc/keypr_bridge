@@ -1,6 +1,6 @@
 package com.cloudkey.pms.common.payment;
 
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 import com.google.common.base.Objects;
 
 /**

@@ -1,4 +1,4 @@
-package com.cloudkey.pms.common.contact;
+package com.cloudkey.pms.common.profile;
 
 import com.google.common.base.Objects;
 

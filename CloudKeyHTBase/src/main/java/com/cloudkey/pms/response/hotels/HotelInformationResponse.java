@@ -8,7 +8,7 @@ import com.cloudkey.commons.Restaurant;
 import com.cloudkey.commons.RoomType;
 import com.cloudkey.pms.common.GeoCode;
 import com.cloudkey.pms.common.HotelAmenity;
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;

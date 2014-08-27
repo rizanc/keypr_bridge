@@ -1,7 +1,7 @@
 package com.cloudkey.commons;
 
 import com.cloudkey.pms.common.Cuisine;
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 
 import java.util.List;
 

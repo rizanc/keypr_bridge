@@ -1,6 +1,6 @@
 package com.cloudkey.commons;
 
-import com.cloudkey.pms.common.contact.StreetAddress;
+import com.cloudkey.pms.common.profile.StreetAddress;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import org.joda.time.LocalDate;
