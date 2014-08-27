@@ -2,6 +2,7 @@ package com.cloudkey.pms.common.payment;
 
 import com.google.common.base.Objects;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -11,7 +12,7 @@ import java.util.Locale;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class MonetaryAmount {
-    private Double amount;
+    private BigDecimal amount;
 
     private Short numDecimals = 2;
 
@@ -19,13 +20,13 @@ public class MonetaryAmount {
 
 	protected MonetaryAmount() { /* For serialization */ }
 
-	public MonetaryAmount(Double amount, Short numDecimals, Currency currencyCode) {
+	public MonetaryAmount(BigDecimal amount, Short numDecimals, Currency currencyCode) {
 		this.amount = amount;
 		this.numDecimals = numDecimals;
 		this.currencyCode = currencyCode;
 	}
 
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
