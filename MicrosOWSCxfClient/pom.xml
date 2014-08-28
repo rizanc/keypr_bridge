@@ -102,6 +102,9 @@
                                     <wsdl>${basedir}/src/main/wsdl/Information.wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
+                                    <wsdl>${basedir}/src/main/wsdl/GuestServices.wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
                                     <wsdl>${basedir}/src/main/wsdl/MeetingRoom.wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
