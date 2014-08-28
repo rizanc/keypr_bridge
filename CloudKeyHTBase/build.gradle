@@ -7,4 +7,14 @@ dependencies {
     compile dropwizard_jersey
     compile dropwizard_swagger
     compile dropwizard_guice
+    compile pojobuilder_annotations
 }
+
+configurations {
+    codeGeneration
+}
+
+dependencies {
+    codeGeneration pojobuilder
+}
+compileJava.classpath += configurations.codeGeneration
