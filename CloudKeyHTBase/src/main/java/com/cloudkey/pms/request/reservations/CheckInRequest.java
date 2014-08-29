@@ -1,8 +1,6 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
-import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.LocalDate;
@@ -16,11 +14,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author vinayk2
  */
-public class CheckInRequest extends PMSRequest {
-    @NotBlank
-    @ApiModelProperty(required = true)
-    private String pmsReservationId;
-
+public class CheckInRequest extends AbstractSingleReservationRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
 	private String creditCardNumber;
@@ -38,15 +32,11 @@ public class CheckInRequest extends PMSRequest {
 	protected CheckInRequest() { /* For serialization */ }
 
 	public CheckInRequest(String pmsReservationId, String creditCardNumber, LocalDate expirationDate, String cardHolderName, String cardType) {
-		this.pmsReservationId = pmsReservationId;
+		super(pmsReservationId);
 		this.creditCardNumber = creditCardNumber;
 		this.expirationDate = expirationDate;
 		this.cardHolderName = cardHolderName;
 		this.cardType = cardType;
-	}
-
-	public String getPmsReservationId() {
-		return pmsReservationId;
 	}
 
 	public String getCreditCardNumber() {
@@ -68,7 +58,6 @@ public class CheckInRequest extends PMSRequest {
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
-			.add("pmsReservationId", pmsReservationId)
 			.add("creditCardNumber", creditCardNumber)
 			.add("expirationDate", expirationDate)
 			.add("cardHolderName", cardHolderName)

@@ -1,7 +1,5 @@
 package com.keypr.bridge.ids;
 
-import javax.xml.bind.annotation.XmlEnumValue;
-
 /**
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */

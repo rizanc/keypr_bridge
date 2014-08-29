@@ -18,7 +18,8 @@ import com.google.common.collect.ImmutableList;
 public class GetFolioResponse extends PMSResponse {
 
     /* Reference variable to store the reservation data */
-    private Reservation reservation ;
+    private Reservation reservation;
+
     /* Reference variable to store the bill information */
     private List<ReservationOrder> reservationOrderList;
 

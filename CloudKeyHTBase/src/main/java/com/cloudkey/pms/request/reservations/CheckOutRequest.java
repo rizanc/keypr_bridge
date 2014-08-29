@@ -10,25 +10,17 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author vinayk2
  */
-public class CheckOutRequest extends PMSRequest {
-    @NotBlank
-    @ApiModelProperty(required = true)
-    private String pmsReservationId;
+public class CheckOutRequest extends AbstractSingleReservationRequest {
 
 	protected CheckOutRequest() { /* For serialization */ }
 
     public CheckOutRequest(String pmsReservationId) {
-        this.pmsReservationId = pmsReservationId;
-    }
-
-    public String getPmsReservationId() {
-        return pmsReservationId;
+        super(pmsReservationId);
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("pmsReservationId", pmsReservationId)
                 .toString();
     }
 }
