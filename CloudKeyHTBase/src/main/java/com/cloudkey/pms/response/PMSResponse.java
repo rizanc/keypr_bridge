@@ -1,13 +1,16 @@
 package com.cloudkey.pms.response;
 
-public class PMSResponse {
-    private Object soapResponse;
+/**
+ * The base class for responses from the web services.
+ */
+public abstract class PMSResponse {
+	private SOAPMessages soapMessages;
 
-    public void setSoapResponse(Object soapResponse) {
-        this.soapResponse = soapResponse;
-    }
+	public SOAPMessages getSoapMessages() {
+		return soapMessages;
+	}
 
-    public Object getSoapResponse() {
-        return soapResponse;
-    }
+	public void setSoapMessages(SOAPMessages soapMessages) {
+		this.soapMessages = soapMessages;
+	}
 }

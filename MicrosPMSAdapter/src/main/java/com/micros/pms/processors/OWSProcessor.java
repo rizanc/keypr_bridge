@@ -5,6 +5,7 @@ import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.request.PMSRequest;
 import com.cloudkey.pms.response.PMSResponse;
+import com.cloudkey.pms.response.SOAPMessages;
 import com.google.inject.Inject;
 import com.micros.pms.OWSBase;
 import org.slf4j.Logger;
@@ -49,14 +50,10 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 
         if (includeSoap) {
             try {
-                JAXBContext jaxbContext = JAXBContext.newInstance(microsResponse.getClass());
-                Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-                jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-                StringWriter stringWriter = new StringWriter();
-                jaxbMarshaller.marshal(microsResponse, stringWriter);
-
-                response.setSoapResponse(stringWriter.toString());
+                response.setSoapMessages(new SOAPMessages(
+					marshallToString(microsRequest),
+					marshallToString(microsResponse)
+				));
             } catch (JAXBException e) {
                 log.error("Error occured while initializing jaxbContext: {} ", e);
             }
@@ -65,6 +62,16 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 		log.debug("Response: {}", response);
 
 		return response;
+	}
+
+	public String marshallToString(Object obj) throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
+		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+		StringWriter stringWriter = new StringWriter();
+		jaxbMarshaller.marshal(obj, stringWriter);
+		return stringWriter.toString();
 	}
 
 	protected abstract ResultStatus getResultStatus(MicrosResponse response);
