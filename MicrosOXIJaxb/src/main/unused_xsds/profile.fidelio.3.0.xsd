@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema targetNamespace="profile.fidelio.3.0" xmlns="profile.fidelio.3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:udf="udf.fidelio.2.0" xmlns:udfdefinition="udfdefinition.fidelio.2.0" xmlns:relationship="relationship.fidelio.3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="udf.fidelio.2.0" schemaLocation="udf.fidelio.2.0.xsd"/>
-	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="udfdefinition.fidelio.2.0.xsd"/>
-	<xs:import namespace="relationship.fidelio.3.0" schemaLocation="relationship.fidelio.3.0.xsd"/>
+	<xs:import namespace="udf.fidelio.2.0" schemaLocation="../xsd/udf.fidelio.2.0.xsd"/>
+	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="../xsd/udfdefinition.fidelio.2.0.xsd"/>
+	<xs:import namespace="relationship.fidelio.3.0" schemaLocation="../xsd/relationship.fidelio.3.0.xsd"/>
 	<xs:element name="Profile" type = "Profile">
 		<xs:annotation>
 			<xs:documentation>Profile schema</xs:documentation>

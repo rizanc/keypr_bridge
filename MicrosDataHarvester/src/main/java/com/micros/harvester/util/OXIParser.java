@@ -2,8 +2,8 @@ package com.micros.harvester.util;
 
 import com.cloudkey.commons.*;
 import com.cloudkey.commons.Reservation;
-import com.keypr.pms.micros.ows.jaxb.profile_5_0.*;
-import com.keypr.pms.micros.ows.jaxb.profile_5_0.Membership;
+import com.keypr.pms.micros.ows.jaxb.profile.*;
+import com.keypr.pms.micros.ows.jaxb.profile.Membership;
 import com.keypr.pms.micros.ows.jaxb.reservation.*;
 import com.keypr.pms.micros.ows.jaxb.reservation.SpecialRequest;
 import com.keypr.pms.micros.ows.jaxb.rtav.RoomTypeInventory;

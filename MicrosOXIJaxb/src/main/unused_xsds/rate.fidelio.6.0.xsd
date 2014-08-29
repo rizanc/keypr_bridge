@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="rate.fidelio.6.0" xmlns="rate.fidelio.6.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:packages="packages.fidelio.3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="packages.fidelio.3.0" schemaLocation="packages.fidelio.3.0.xsd"/>
+<xs:schema targetNamespace="rate.fidelio.6.0" xmlns="rate.fidelio.6.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:packages="/Users/clamothe/Devel/java/keypr_bridge/MicrosOXIJaxb/src/main/unused_xsds/packages.fidelio.3.0.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="/Users/clamothe/Devel/java/keypr_bridge/MicrosOXIJaxb/src/main/unused_xsds/packages.fidelio.3.0.xsd" schemaLocation="packages.fidelio.3.0.xsd"/>
 	<xs:element name="RateHeader" type = "RateHeader">
 		<xs:annotation>
 			<xs:documentation>RateHeader schema</xs:documentation>

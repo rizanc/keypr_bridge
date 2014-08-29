@@ -3,62 +3,6 @@
                xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     <!-- Specifies the package name for each xsd -->
-    <jaxb:bindings schemaLocation="../xsd/allotment.fidelio.5.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.allotment"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/hurdle.fidelio.3.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.hurdle"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/inventory.fidelio.2.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.inventory"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/packages.fidelio.3.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.packages"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/profile.fidelio.3.0.xsd">
-        <!-- See MicrosIds#PhoneNumberType -->
-        <jaxb:bindings node="//xs:simpleType [@name='phoneNumberType']">
-            <jaxb:typesafeEnumClass map="false" />
-        </jaxb:bindings>
-
-        <!-- See MicrosIds#AddressType -->
-        <jaxb:bindings node="//xs:simpleType [@name='addressType']">
-            <jaxb:typesafeEnumClass map="false" />
-        </jaxb:bindings>
-
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile_3_0"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/profile.fidelio.4.0.xsd">
-        <!-- See MicrosIds#PhoneNumberType -->
-        <jaxb:bindings node="//xs:simpleType [@name='phoneNumberType']">
-            <jaxb:typesafeEnumClass map="false" />
-        </jaxb:bindings>
-
-        <!-- See MicrosIds#AddressType -->
-        <jaxb:bindings node="//xs:simpleType [@name='addressType']">
-            <jaxb:typesafeEnumClass map="false" />
-        </jaxb:bindings>
-
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile_4_0"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
     <jaxb:bindings schemaLocation="../xsd/profile.fidelio.5.0.xsd">
         <!-- See MicrosIds#PhoneNumberType -->
         <jaxb:bindings node="//xs:simpleType [@name='phoneNumberType']">
@@ -71,13 +15,7 @@
         </jaxb:bindings>
 
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile_5_0"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/rate.fidelio.6.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.rate"/>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
@@ -99,21 +37,9 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
-    <jaxb:bindings schemaLocation="../xsd/result.fidelio.4.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.result"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
     <jaxb:bindings schemaLocation="../xsd/rtav.fidelio.4.0.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.rtav"/>
-        </jaxb:schemaBindings>
-    </jaxb:bindings>
-
-    <jaxb:bindings schemaLocation="../xsd/stay.fidelio.3.0.xsd">
-        <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.stay"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
