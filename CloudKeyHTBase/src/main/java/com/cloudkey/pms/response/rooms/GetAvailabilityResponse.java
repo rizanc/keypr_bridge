@@ -1,4 +1,4 @@
-package com.cloudkey.pms.response.roomassignments;
+package com.cloudkey.pms.response.rooms;
 
 import java.util.List;
 

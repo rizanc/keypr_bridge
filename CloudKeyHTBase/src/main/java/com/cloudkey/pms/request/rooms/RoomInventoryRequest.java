@@ -1,4 +1,4 @@
-package com.cloudkey.pms.request.roomassignments;
+package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;

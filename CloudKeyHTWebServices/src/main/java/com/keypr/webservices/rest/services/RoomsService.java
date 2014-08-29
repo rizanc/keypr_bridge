@@ -1,13 +1,13 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
-import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
-import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
-import com.cloudkey.pms.request.roomassignments.UpdateRoomStatusRequest;
+import com.cloudkey.pms.request.rooms.AssignRoomRequest;
+import com.cloudkey.pms.request.rooms.GetAvailabilityRequest;
+import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
+import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
 import com.cloudkey.pms.response.EmptyResponse;
-import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
-import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
-import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.cloudkey.pms.response.rooms.AssignRoomResponse;
+import com.cloudkey.pms.response.rooms.GetAvailabilityResponse;
+import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 import com.keypr.webservices.jersey.LocalDateParam;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;

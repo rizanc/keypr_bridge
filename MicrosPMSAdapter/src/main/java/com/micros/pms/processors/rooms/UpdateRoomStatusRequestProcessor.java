@@ -7,7 +7,7 @@ import com.cloudkey.pms.micros.og.guestservices.RoomRepairType;
 import com.cloudkey.pms.micros.og.guestservices.UpdateRoomStatusResponse;
 import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
 import com.cloudkey.pms.micros.ows.guestservices.GuestServicesServiceSoap;
-import com.cloudkey.pms.request.roomassignments.UpdateRoomStatusRequest;
+import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;

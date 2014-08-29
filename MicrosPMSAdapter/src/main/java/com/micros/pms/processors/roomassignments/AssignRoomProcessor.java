@@ -3,8 +3,8 @@ package com.micros.pms.processors.roomassignments;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
-import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
-import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
+import com.cloudkey.pms.request.rooms.AssignRoomRequest;
+import com.cloudkey.pms.response.rooms.AssignRoomResponse;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 
