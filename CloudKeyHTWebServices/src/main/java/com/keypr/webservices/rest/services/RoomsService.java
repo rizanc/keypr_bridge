@@ -25,6 +25,32 @@ import javax.ws.rs.*;
 @Path("/rooms")
 @Api(value = "/rooms", description = "Rooms resource")
 public class RoomsService extends AbstractResource {
+	@Path("/available")
+	@GET
+	@ApiOperation(
+		value = "Fetches room availability for each room-type during the given date range",
+		response = GetAvailabilityResponse.class
+	)
+	@ApiResponses({
+		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
+		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+	})
+	public GetAvailabilityResponse getAvailability(
+		@QueryParam("startDate") LocalDateParam startDate,
+		@QueryParam("endDate") LocalDateParam endDate,
+		@DefaultValue("false") @QueryParam("availableOnly") Boolean availableOnly) {
+		GetAvailabilityRequest request = new GetAvailabilityRequest(
+			startDate == null ? null : startDate.get(),
+			endDate == null ? null : endDate.get(),
+			availableOnly
+		);
+
+		validate(request);
+
+		return messageParser.checkAvailability(request);
+	}
+
 	@Path("/status")
     @POST
     @ApiOperation(
@@ -40,6 +66,7 @@ public class RoomsService extends AbstractResource {
         return messageParser.updateRoomStatus(request);
     }
 
+	@Path("/assignment")
 	@POST
 	@ApiOperation(
 		value = "Assigns an available room of the given type to an existing reservation",
@@ -67,31 +94,5 @@ public class RoomsService extends AbstractResource {
 	})
 	public ReleaseRoomResponse releaseRoom(@Valid ReleaseRoomRequest request) {
 		return messageParser.releaseRoom(request);
-	}
-
-	@Path("/available")
-	@GET
-	@ApiOperation(
-		value = "Fetches room availability for each room-type during the given date range",
-		response = GetAvailabilityResponse.class
-	)
-	@ApiResponses({
-		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
-		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-	public GetAvailabilityResponse getAvailability(
-		@QueryParam("startDate") LocalDateParam startDate,
-		@QueryParam("endDate") LocalDateParam endDate,
-		@DefaultValue("false") @QueryParam("availableOnly") Boolean availableOnly) {
-		GetAvailabilityRequest request = new GetAvailabilityRequest(
-			startDate == null ? null : startDate.get(),
-			endDate == null ? null : endDate.get(),
-			availableOnly
-		);
-
-		validate(request);
-
-		return messageParser.checkAvailability(request);
 	}
 }
