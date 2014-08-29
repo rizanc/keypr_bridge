@@ -17,7 +17,7 @@ public class RoomInventoryResponse extends PMSResponse {
     private RoomDetails roomDetailList;
 
 	public RoomInventoryResponse(RoomDetails roomDetailList) {
-		this.roomDetailList = ImmutableList.copyOf(roomDetailList);
+		this.roomDetailList = roomDetailList;
 	}
 
 	public RoomDetails getRoomDetailList() {
