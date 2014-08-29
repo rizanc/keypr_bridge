@@ -6,6 +6,7 @@ import com.cloudkey.pms.micros.og.guestservices.GuestServiceStatusType;
 import com.cloudkey.pms.micros.og.guestservices.RepairStatusType;
 import com.cloudkey.pms.micros.og.guestservices.RoomStatusType;
 import com.cloudkey.pms.micros.og.guestservices.TurnDownStatusType;
+import com.cloudkey.pms.micros.og.reservation.ReservationStatusType;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
@@ -179,6 +180,68 @@ public class IdUtils {
 				return BridgeIds.RepairStatus.OUT_OF_ORDER;
 			case OUT_OF_SERVICE:
 				return BridgeIds.RepairStatus.OUT_OF_SERVICE;
+		}
+
+		return null;
+	}
+	
+	public static ReservationStatusType toMicrosEnum(BridgeIds.ReservationStatus from) {
+		if (from == null) {
+			return null;
+		}
+		
+		switch (from) {
+			case RESERVED:
+				return ReservationStatusType.RESERVED;
+			case PROSPECT:
+				return ReservationStatusType.PROSPECT;
+			case NOSHOW:
+				return ReservationStatusType.NOSHOW;
+			case CANCELED:
+				return ReservationStatusType.CANCELED;
+			case INHOUSE:
+				return ReservationStatusType.INHOUSE;
+			case CHECKEDOUT:
+				return ReservationStatusType.CHECKEDOUT;
+			case CHANGED:
+				return ReservationStatusType.CHANGED;
+			case WAITLISTED:
+				return ReservationStatusType.WAITLISTED;
+			case PRECHECKEDIN:
+				return ReservationStatusType.PRECHECKEDIN;
+			case DUEOUT:
+				return ReservationStatusType.DUEOUT;
+		}
+
+		return null;
+	}
+
+	public BridgeIds.ReservationStatus fromMicrosEnum(ReservationStatusType from) {
+		if (from == null) {
+			return null;
+		}
+		
+		switch (from) {
+			case RESERVED:
+				return BridgeIds.ReservationStatus.RESERVED;
+			case PROSPECT:
+				return BridgeIds.ReservationStatus.PROSPECT;
+			case NOSHOW:
+				return BridgeIds.ReservationStatus.NOSHOW;
+			case CANCELED:
+				return BridgeIds.ReservationStatus.CANCELED;
+			case INHOUSE:
+				return BridgeIds.ReservationStatus.INHOUSE;
+			case CHECKEDOUT:
+				return BridgeIds.ReservationStatus.CHECKEDOUT;
+			case CHANGED:
+				return BridgeIds.ReservationStatus.CHANGED;
+			case WAITLISTED:
+				return BridgeIds.ReservationStatus.WAITLISTED;
+			case PRECHECKEDIN:
+				return BridgeIds.ReservationStatus.PRECHECKEDIN;
+			case DUEOUT:
+				return BridgeIds.ReservationStatus.DUEOUT;
 		}
 
 		return null;
