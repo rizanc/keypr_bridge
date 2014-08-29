@@ -10,6 +10,8 @@ import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.request.roomassignments.UpdateRoomStatusRequest;
+import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
@@ -170,4 +172,6 @@ public interface IParserInterface {
      */
 
     MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest) throws PMSInterfaceException;
+
+	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 }

@@ -12,6 +12,8 @@ import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
 import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
 import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.request.roomassignments.UpdateRoomStatusRequest;
+import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
@@ -31,6 +33,7 @@ import com.micros.pms.processors.reservations.*;
 import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
 import com.micros.pms.processors.roomassignments.GetAvailabilityProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
+import com.micros.pms.processors.rooms.UpdateRoomStatusRequestProcessor;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -78,6 +81,10 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Inject
 	GuestMembershipsProcessor guestMembershipsProcessor;
+
+	// Guest Services
+	@Inject
+	UpdateRoomStatusRequestProcessor updateRoomStatusRequestProcessor;
 
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
@@ -199,4 +206,10 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
         return response;
     }
+
+	@Override
+	public EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException {
+		log.debug("updateRoomStatus: Enter method.");
+		return updateRoomStatusRequestProcessor.process(request);
+	}
 }
