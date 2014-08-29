@@ -1,5 +1,7 @@
 package com.cloudkey.exceptions;
 
+import com.cloudkey.pms.response.SOAPMessages;
+
 /**
  * Exception which implementations of {@link com.cloudkey.message.parser.IParserInterface} may throw
  * when the PMS responds with an error message.
@@ -11,12 +13,27 @@ package com.cloudkey.exceptions;
 public class PMSError extends RuntimeException {
 	private final String errorCode;
 
-	public PMSError(String message, String errorCode) {
+	private final SOAPMessages soapMessages;
+
+	public PMSError(String message, String errorCode, SOAPMessages soapMessages) {
 		super(message);
 		this.errorCode = errorCode;
+		this.soapMessages = soapMessages;
 	}
 
 	public String getErrorCode() {
 		return errorCode;
+	}
+
+	public SOAPMessages getSoapMessages() {
+		return soapMessages;
+	}
+
+	@Override
+	public String toString() {
+		return "PMSError{" +
+			"errorCode='" + errorCode + '\'' +
+			", soapMessages=" + soapMessages +
+			'}';
 	}
 }

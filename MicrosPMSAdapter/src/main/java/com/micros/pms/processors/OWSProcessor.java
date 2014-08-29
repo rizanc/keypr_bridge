@@ -1,7 +1,9 @@
 package com.micros.pms.processors;
 
+import com.cloudkey.exceptions.PMSError;
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.common.ResultStatusFlag;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.request.PMSRequest;
 import com.cloudkey.pms.response.PMSResponse;
@@ -44,27 +46,54 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 			throw new PMSInterfaceException(e);
 		}
 
-		errorIfFailure(getResultStatus(microsResponse));
+		errorIfFailure(microsRequest, microsResponse);
 
 		Response response = toPmsResponse(microsResponse);
 
-        if (includeSoap) {
-            try {
-                response.setSoapMessages(new SOAPMessages(
-					marshallToString(microsRequest),
-					marshallToString(microsResponse)
-				));
-            } catch (JAXBException e) {
-                log.error("Error occured while initializing jaxbContext: {} ", e);
-            }
-        }
+		response.setSoapMessages(getSoapMessages(microsRequest, microsResponse));
 
 		log.debug("Response: {}", response);
 
 		return response;
 	}
 
-	public String marshallToString(Object obj) throws JAXBException {
+	/**
+	 * Throws a {@link com.cloudkey.exceptions.PMSError} with the contained error message and code
+	 * if the result status is not successful.
+	 *
+	 * @param result
+	 */
+	protected void errorIfFailure(MicrosRequest microsRequest, MicrosResponse microsResponse) {
+		ResultStatus result = getResultStatus(microsResponse);
+
+		if (result.getResultStatusFlag() == ResultStatusFlag.FAIL) {
+			PMSError pmsError = new PMSError(
+				getErrorMessage(result),
+				result.getOperaErrorCode(),
+				getSoapMessages(microsRequest, microsResponse)
+			);
+
+			log.debug("OWS Response ResultStatus was FAIL. Throwing exception", pmsError);
+			throw pmsError;
+		}
+	}
+
+	private SOAPMessages getSoapMessages(MicrosRequest microsRequest, MicrosResponse microsResponse) {
+		if (includeSoap) {
+			try {
+				return new SOAPMessages(
+					marshallToString(microsRequest),
+					marshallToString(microsResponse)
+				);
+			} catch (JAXBException e) {
+				log.error("Error occured while initializing jaxbContext: {} ", e);
+			}
+		}
+
+		return null;
+	}
+
+	private String marshallToString(Object obj) throws JAXBException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(obj.getClass());
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -73,6 +102,7 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 		jaxbMarshaller.marshal(obj, stringWriter);
 		return stringWriter.toString();
 	}
+
 
 	protected abstract ResultStatus getResultStatus(MicrosResponse response);
 
