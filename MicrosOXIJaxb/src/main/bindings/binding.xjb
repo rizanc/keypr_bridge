@@ -19,6 +19,12 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
+    <jaxb:bindings schemaLocation="../xsd/inventory.fidelio.2.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.inventory"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
     <jaxb:bindings schemaLocation="../xsd/relationship.fidelio.3.0.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.relationship"/>
