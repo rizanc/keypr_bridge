@@ -25,6 +25,18 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
+    <jaxb:bindings schemaLocation="../xsd/ravl.fidelio.2.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.ravl"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="../xsd/ravr.fidelio.2.0.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.ravr"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
     <jaxb:bindings schemaLocation="../xsd/relationship.fidelio.3.0.xsd">
         <jaxb:schemaBindings>
             <jaxb:package name="com.keypr.pms.micros.ows.jaxb.relationship"/>
