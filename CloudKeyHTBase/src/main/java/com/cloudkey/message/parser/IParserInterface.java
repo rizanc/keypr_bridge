@@ -8,7 +8,7 @@ import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.request.rooms.GetAvailabilityRequest;
+import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
 import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
 import com.cloudkey.pms.response.EmptyResponse;
@@ -19,7 +19,7 @@ import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.rooms.AssignRoomResponse;
-import com.cloudkey.pms.response.rooms.GetAvailabilityResponse;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 
 /**
@@ -115,7 +115,7 @@ public interface IParserInterface {
      * @param availRequest
      * @return GetAvailabilityResponse
      */
-    GetAvailabilityResponse checkAvailability(GetAvailabilityRequest availRequest) throws PMSInterfaceException;
+    FetchCalendarResponse checkAvailability(FetchCalendarRequest availRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for the reservation details on the basis of email id, confirmation number, credit card,
