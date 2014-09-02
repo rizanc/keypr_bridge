@@ -5,9 +5,9 @@ import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.request.rooms.GetAvailabilityRequest;
+import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
-import com.cloudkey.pms.response.rooms.GetAvailabilityResponse;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.google.inject.Inject;
 import com.micros.pms.MicrosOWSParser;
 import org.joda.time.LocalDate;
@@ -39,10 +39,10 @@ public class OWSTestUtils {
 	MicrosOWSParser microsOWSParser;
 
 	public void Availability() {
-        GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE, null);
+        FetchCalendarRequest fetchCalendarRequest = new FetchCalendarRequest(START_DATE, END_DATE, null);
 
-        GetAvailabilityResponse response =
-                microsOWSParser.checkAvailability(getAvailabilityRequest);
+        FetchCalendarResponse response =
+                microsOWSParser.checkAvailability(fetchCalendarRequest);
     }
 
     public void FutureBookingSummary() {
