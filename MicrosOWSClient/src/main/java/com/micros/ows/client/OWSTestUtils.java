@@ -8,11 +8,13 @@ import com.cloudkey.pms.request.rooms.AssignRoomRequest;
 import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.micros.pms.MicrosOWSParser;
 import org.joda.time.LocalDate;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,7 +41,12 @@ public class OWSTestUtils {
 	MicrosOWSParser microsOWSParser;
 
 	public void Availability() {
-        FetchCalendarRequest fetchCalendarRequest = new FetchCalendarRequest(START_DATE, END_DATE, null);
+		HashMap<Integer, Integer> ageMap = Maps.newHashMap();
+		ageMap.put(31, 1);
+		ageMap.put(12, 1);
+		ageMap.put(4, 1);
+
+		FetchCalendarRequest fetchCalendarRequest = new FetchCalendarRequest("BAR", ageMap, START_DATE, END_DATE, false);
 
         FetchCalendarResponse response =
                 microsOWSParser.checkAvailability(fetchCalendarRequest);
