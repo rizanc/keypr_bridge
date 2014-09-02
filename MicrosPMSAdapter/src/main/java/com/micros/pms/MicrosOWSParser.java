@@ -10,7 +10,7 @@ import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.request.rooms.GetAvailabilityRequest;
+import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
 import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
 import com.cloudkey.pms.response.EmptyResponse;
@@ -21,7 +21,7 @@ import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.rooms.AssignRoomResponse;
-import com.cloudkey.pms.response.rooms.GetAvailabilityResponse;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 import com.google.common.base.Optional;
 import com.google.common.collect.FluentIterable;
@@ -31,7 +31,7 @@ import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
 import com.micros.pms.processors.memberships.NameLookupProcessor;
 import com.micros.pms.processors.reservations.*;
 import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
-import com.micros.pms.processors.roomassignments.GetAvailabilityProcessor;
+import com.micros.pms.processors.roomassignments.FetchCalendarProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
 import com.micros.pms.processors.rooms.UpdateRoomStatusRequestProcessor;
 import org.apache.commons.lang3.NotImplementedException;
@@ -69,7 +69,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	ReleaseRoomProcessor releaseRoomProcessor;
 
 	@Inject
-	GetAvailabilityProcessor getAvailabilityProcessor;
+	FetchCalendarProcessor fetchCalendarProcessor;
 
 	// Hotels
 	@Inject
@@ -146,9 +146,9 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     }
 
     @Override
-    public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
+    public FetchCalendarResponse checkAvailability(FetchCalendarRequest fetchCalendarRequest) throws PMSInterfaceException {
 	    log.debug("checkAvailability: Enter method.");
-	    return getAvailabilityProcessor.process(getAvailabilityRequest);
+	    return fetchCalendarProcessor.process(fetchCalendarRequest);
     }
 
     @Override

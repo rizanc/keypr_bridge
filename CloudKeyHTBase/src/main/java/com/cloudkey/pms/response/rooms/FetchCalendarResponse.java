@@ -14,12 +14,12 @@ import com.google.common.collect.ImmutableList;
  * @author vinayk2
  *
  */
-public class GetAvailabilityResponse extends PMSResponse {
+public class FetchCalendarResponse extends PMSResponse {
 
     /* Reference variable to store the room availability. */
     private List<DayRoomAvailability> availabilityList;
 
-	public GetAvailabilityResponse(List<DayRoomAvailability> availabilityList) {
+	public FetchCalendarResponse(List<DayRoomAvailability> availabilityList) {
 		this.availabilityList = ImmutableList.copyOf(availabilityList);
 	}
 

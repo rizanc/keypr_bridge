@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @author vinayk2
  *
  */
-public class GetAvailabilityRequest extends PMSRequest {
+public class FetchCalendarRequest extends PMSRequest {
 
     @NotNull
     @ApiModelProperty(required = true)
@@ -30,9 +30,9 @@ public class GetAvailabilityRequest extends PMSRequest {
 	@NotNull
 	private Boolean availableOnly = false;
 
-	protected GetAvailabilityRequest() { /* For serialization */ }
+	protected FetchCalendarRequest() { /* For serialization */ }
 
-	public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
+	public FetchCalendarRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
 		this.startDate = startDate;
 		this.endDate = endDate;
 
