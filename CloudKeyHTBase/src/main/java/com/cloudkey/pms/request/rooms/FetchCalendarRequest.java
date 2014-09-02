@@ -2,11 +2,14 @@ package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableMap;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 /**
  * Class stores the room availability information. 
@@ -28,13 +31,24 @@ public class FetchCalendarRequest extends PMSRequest {
 	 * If true, only available inventory will be included in the results.
 	 */
 	@NotNull
+	@ApiModelProperty(required = true)
 	private Boolean availableOnly = false;
+
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	private String rateCode;
+
+	@NotNull
+	@ApiModelProperty(required = true)
+	private Map<Integer, Integer> guestCountsByAge;
 
 	protected FetchCalendarRequest() { /* For serialization */ }
 
-	public FetchCalendarRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
+	public FetchCalendarRequest(String rateCode, Map<Integer, Integer> guestCountsByAge, LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.rateCode = rateCode;
+		this.guestCountsByAge = ImmutableMap.copyOf(guestCountsByAge);
 
 		if (availableOnly != null) {
 			this.availableOnly = availableOnly;
@@ -58,12 +72,22 @@ public class FetchCalendarRequest extends PMSRequest {
 		return availableOnly;
 	}
 
+	public String getRateCode() {
+		return rateCode;
+	}
+
+	public Map<Integer, Integer> getGuestCountsByAge() {
+		return guestCountsByAge;
+	}
+
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("startDate", startDate)
-			.add("endDate", endDate)
-			.add("availableOnly", availableOnly)
-			.toString();
+		return "FetchCalendarRequest{" +
+			"startDate=" + startDate +
+			", endDate=" + endDate +
+			", availableOnly=" + availableOnly +
+			", rateCode='" + rateCode + '\'' +
+			", guestCountsByAge=" + guestCountsByAge +
+			'}';
 	}
 }
