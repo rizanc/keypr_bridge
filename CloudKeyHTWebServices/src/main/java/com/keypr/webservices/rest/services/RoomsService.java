@@ -53,7 +53,8 @@ public class RoomsService extends AbstractResource {
 
 //		validate(request);
 
-		return messageParser.checkAvailability(request);
+		return messageParser.fetchCalendar(request);
+	}
 	}
 
 	@Path("/status")

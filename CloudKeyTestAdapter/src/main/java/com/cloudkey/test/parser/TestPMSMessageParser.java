@@ -15,7 +15,6 @@ import com.cloudkey.pms.request.UpdateBookingRequest;
 import com.cloudkey.pms.request.UpdatePaymentRequest;
 import com.cloudkey.pms.response.CheckInResponse;
 import com.cloudkey.pms.response.CheckOutResponse;
-import com.cloudkey.pms.response.GetAvailabilityResponse;
 import com.cloudkey.pms.response.GetFolioResponse;
 import com.cloudkey.pms.response.SearchReservationResponse;
 import com.cloudkey.pms.response.UpdateBookingResponse;

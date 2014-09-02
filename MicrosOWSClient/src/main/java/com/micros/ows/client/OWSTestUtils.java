@@ -41,15 +41,10 @@ public class OWSTestUtils {
 	MicrosOWSParser microsOWSParser;
 
 	public void Availability() {
-		HashMap<Integer, Integer> ageMap = Maps.newHashMap();
-		ageMap.put(31, 1);
-		ageMap.put(12, 1);
-		ageMap.put(4, 1);
-
-		FetchCalendarRequest fetchCalendarRequest = new FetchCalendarRequest("BAR", ageMap, START_DATE, END_DATE, false);
+		FetchCalendarRequest fetchCalendarRequest = new FetchCalendarRequest(START_DATE, END_DATE, false, "BAR", 2, 1);
 
         FetchCalendarResponse response =
-                microsOWSParser.checkAvailability(fetchCalendarRequest);
+                microsOWSParser.fetchCalendar(fetchCalendarRequest);
     }
 
     public void FutureBookingSummary() {

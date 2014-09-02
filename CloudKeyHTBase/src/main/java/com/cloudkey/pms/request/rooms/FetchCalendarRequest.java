@@ -1,21 +1,17 @@
 package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableMap;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
 
 /**
  * Class stores the room availability information. 
  * 
  * @author vinayk2
- *
  */
 public class FetchCalendarRequest extends PMSRequest {
 
@@ -40,19 +36,24 @@ public class FetchCalendarRequest extends PMSRequest {
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Map<Integer, Integer> guestCountsByAge;
+	private Integer numAdults;
+
+	@NotNull
+	@ApiModelProperty(required = true)
+	private Integer numChildren;
 
 	protected FetchCalendarRequest() { /* For serialization */ }
 
-	public FetchCalendarRequest(String rateCode, Map<Integer, Integer> guestCountsByAge, LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
+	public FetchCalendarRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly, String rateCode, Integer numAdults, Integer numChildren) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.rateCode = rateCode;
-		this.guestCountsByAge = ImmutableMap.copyOf(guestCountsByAge);
-
 		if (availableOnly != null) {
 			this.availableOnly = availableOnly;
 		}
+
+		this.rateCode = rateCode;
+		this.numAdults = numAdults;
+		this.numChildren = numChildren;
 	}
 
 	@AssertTrue(message = "Start date must be before end date")
@@ -76,8 +77,12 @@ public class FetchCalendarRequest extends PMSRequest {
 		return rateCode;
 	}
 
-	public Map<Integer, Integer> getGuestCountsByAge() {
-		return guestCountsByAge;
+	public Integer getNumAdults() {
+		return numAdults;
+	}
+
+	public Integer getNumChildren() {
+		return numChildren;
 	}
 
 	@Override
@@ -87,7 +92,8 @@ public class FetchCalendarRequest extends PMSRequest {
 			", endDate=" + endDate +
 			", availableOnly=" + availableOnly +
 			", rateCode='" + rateCode + '\'' +
-			", guestCountsByAge=" + guestCountsByAge +
+			", numAdults=" + numAdults +
+			", numChildren=" + numChildren +
 			'}';
 	}
 }

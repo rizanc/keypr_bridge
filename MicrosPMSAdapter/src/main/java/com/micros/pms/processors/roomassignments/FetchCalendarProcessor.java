@@ -5,18 +5,13 @@ import com.cloudkey.commons.RoomTypeAvailability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
-import com.cloudkey.pms.micros.og.hotelcommon.GuestCount;
-import com.cloudkey.pms.micros.og.hotelcommon.GuestCountList;
-import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
-import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
+import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
 import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 
@@ -51,23 +46,18 @@ public class FetchCalendarProcessor extends OWSProcessor<
 
 	@Override
 	protected com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest toMicrosRequest(FetchCalendarRequest request) {
-		FluentIterable<GuestCount> guestCounts = FluentIterable.from(request.getGuestCountsByAge().entrySet())
-			.transform(new Function<Map.Entry<Integer, Integer>, GuestCount>() {
-				@Override
-				public GuestCount apply(Map.Entry<Integer, Integer> integerIntegerEntry) {
-					return new GuestCount()
-						.withAge(integerIntegerEntry.getKey())
-						.withCount(integerIntegerEntry.getValue());
-				}
-			});
-
 		return new com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest()
 			.withStayDateRange(
 				new TimeSpan()
 					.withStartDate(request.getStartDate().toDateTimeAtStartOfDay())
 					.withEndDate(request.getEndDate().toDateTimeAtStartOfDay())
 			)
-			.withGuestCount(new GuestCountList(guestCounts.toList(), false))
+			.withGuestCount(new GuestCountList()
+				.withGuestCounts(
+					new GuestCount(AgeQualifyingCode.ADULT, null, null, request.getNumAdults()),
+					new GuestCount(AgeQualifyingCode.CHILD, null, null, request.getNumChildren())
+				)
+			)
 			.withRatePlanCode(request.getRateCode())
 			.withHotelReference(getDefaultHotelReference())
 			.withInventoryMode(request.getAvailableOnly() == null ? false : request.getAvailableOnly());
