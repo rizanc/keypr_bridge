@@ -1,19 +1,14 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
-import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
-import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
+import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.rooms.AssignRoomResponse;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
-import com.keypr.webservices.jersey.LocalDateParam;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import io.dropwizard.jersey.params.IntParam;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -55,6 +50,20 @@ public class RoomsService extends AbstractResource {
 
 		return messageParser.fetchCalendar(request);
 	}
+
+	@Path("/availability")
+	@POST
+	@ApiOperation(
+		value = "Fetches room availability for each room-type for the given potential reservation",
+		response = EmptyResponse.class
+	)
+	@ApiResponses({
+		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
+		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+	})
+	public EmptyResponse fetchCalendar(@Valid AvailabilityRequest request) {
+		return messageParser.availability(request);
 	}
 
 	@Path("/status")

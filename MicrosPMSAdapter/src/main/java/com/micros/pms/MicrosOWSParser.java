@@ -9,10 +9,7 @@ import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
-import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
-import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
-import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
+import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
@@ -31,6 +28,7 @@ import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
 import com.micros.pms.processors.memberships.NameLookupProcessor;
 import com.micros.pms.processors.reservations.*;
 import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
+import com.micros.pms.processors.roomassignments.AvailabilityProcessor;
 import com.micros.pms.processors.roomassignments.FetchCalendarProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
 import com.micros.pms.processors.rooms.UpdateRoomStatusRequestProcessor;
@@ -70,6 +68,9 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Inject
 	FetchCalendarProcessor fetchCalendarProcessor;
+
+	@Inject
+	AvailabilityProcessor availabilityProcessor;
 
 	// Hotels
 	@Inject
@@ -146,8 +147,8 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     }
 
     @Override
-    public FetchCalendarResponse checkAvailability(FetchCalendarRequest fetchCalendarRequest) throws PMSInterfaceException {
-	    log.debug("checkAvailability: Enter method.");
+    public FetchCalendarResponse fetchCalendar(FetchCalendarRequest fetchCalendarRequest) throws PMSInterfaceException {
+	    log.debug("fetchCalendar: Enter method.");
 	    return fetchCalendarProcessor.process(fetchCalendarRequest);
     }
 
@@ -211,5 +212,11 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	public EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException {
 		log.debug("updateRoomStatus: Enter method.");
 		return updateRoomStatusRequestProcessor.process(request);
+	}
+
+	@Override
+	public EmptyResponse availability(AvailabilityRequest request) {
+		log.debug("availability: Enter method.");
+		return availabilityProcessor.process(request);
 	}
 }
