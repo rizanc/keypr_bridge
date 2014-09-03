@@ -1,12 +1,15 @@
 package com.keypr.webservices.rest.services;
 
+import com.cloudkey.commons.Reservation;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.response.reservations.*;
+import com.google.common.base.Optional;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
+import io.dropwizard.jersey.params.IntParam;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -16,11 +19,39 @@ import javax.ws.rs.*;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Path("/reservations")
+@Path("/reservations/")
 @Api(value = "/reservations", description = "Reservations resource")
 public class ReservationsResource extends AbstractResource {
 
-    @Path("/search")
+	@Path("{confirmationNum}/{legNumber}")
+	@GET
+	@ApiOperation(
+		value = "Fetches the reservation with the given confirmation number and leg number",
+		response = FindReservationResponse.class
+	)
+	@ApiResponses({
+		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
+		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+	})
+	public FindReservationResponse get(@PathParam("confirmationNum") String confirmationNum, @PathParam("legNumber") IntParam legNumber) {
+		FindReservationRequest request = new FindReservationRequest(confirmationNum, legNumber == null ? null : legNumber.get());
+		validate(request);
+
+		FindReservationResponse response = messageParser.findReservation(request);
+
+		return response;
+//
+//		Optional<Reservation> reservationOpt = response.getReservation();
+//
+//		if (reservationOpt.isPresent()) {
+//			return reservationOpt.get();
+//		} else {
+//			throw new WebApplicationException(404);
+//		}
+	}
+
+    @Path("search")
     @GET
     @ApiOperation(
         value = "Fetches reservations which match the provided criteria",
@@ -60,7 +91,7 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.searchReservationData(request);
     }
 
-    @Path("/checkin")
+    @Path("checkin")
     @POST
     @ApiOperation(
         value = "Checks in an existing reservation",
@@ -75,7 +106,7 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.guestCheckIn(request);
     }
 
-    @Path("/checkout")
+    @Path("checkout")
     @POST
     @ApiOperation(
         value = "Checks out an existing reservation",
@@ -90,7 +121,7 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.guestCheckOut(request);
     }
 
-    @Path("/folio")
+    @Path("folio")
     @GET
     @ApiOperation(
         value = "Fetches the bill for a reservation",
@@ -109,7 +140,7 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.retrieveFolioInfo(request);
     }
 
-    @Path("/postcharge")
+    @Path("postcharge")
     @POST
     @ApiOperation(
         value = "Adds charges to a guest account",
@@ -124,7 +155,7 @@ public class ReservationsResource extends AbstractResource {
         return messageParser.postCharge(request);
     }
 
-    @Path("/notes")
+    @Path("notes")
     @POST
     @ApiOperation(
         value = "Adds staff-viewable notes to a reservation",

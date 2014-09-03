@@ -1,6 +1,7 @@
 package com.micros.pms;
 
 import com.cloudkey.commons.Membership;
+import com.cloudkey.commons.Reservation;
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
@@ -58,6 +59,9 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Inject
 	SearchReservationProcessor searchReservationProcessor;
+
+	@Inject
+	FindReservationProcessor findReservationProcessor;
 
 	// Room assignments
 	@Inject
@@ -218,5 +222,10 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	public EmptyResponse availability(AvailabilityRequest request) {
 		log.debug("availability: Enter method.");
 		return availabilityProcessor.process(request);
+	}
+
+	@Override
+	public FindReservationResponse findReservation(FindReservationRequest request) {
+		return findReservationProcessor.process(request);
 	}
 }

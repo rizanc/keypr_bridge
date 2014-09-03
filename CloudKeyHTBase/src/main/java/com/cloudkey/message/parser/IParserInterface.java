@@ -173,4 +173,6 @@ public interface IParserInterface {
 	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 
 	EmptyResponse availability(AvailabilityRequest request);
+
+	FindReservationResponse findReservation(FindReservationRequest request);
 }

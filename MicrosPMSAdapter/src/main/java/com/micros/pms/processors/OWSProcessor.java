@@ -19,7 +19,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.ws.Holder;
 import javax.xml.ws.WebServiceException;
-import java.io.OutputStream;
 import java.io.StringWriter;
 
 /**
@@ -46,9 +45,25 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 			throw new PMSInterfaceException(e);
 		}
 
-		errorIfFailure(microsRequest, microsResponse);
+		ResultStatus result = getResultStatus(microsResponse);
 
-		Response response = toPmsResponse(microsResponse);
+		Response response;
+		if (result.getResultStatusFlag() == ResultStatusFlag.FAIL) {
+			response = handleError(result);
+
+			if (response == null) {
+				PMSError pmsError = new PMSError(
+					getErrorMessage(result),
+					result.getOperaErrorCode(),
+					getSoapMessages(microsRequest, microsResponse)
+				);
+
+				log.debug("OWS Response ResultStatus was FAIL. Throwing exception", pmsError);
+				throw pmsError;
+			}
+		} else {
+			response = toPmsResponse(microsResponse);
+		}
 
 		response.setSoapMessages(getSoapMessages(microsRequest, microsResponse));
 
@@ -57,25 +72,8 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 		return response;
 	}
 
-	/**
-	 * Throws a {@link com.cloudkey.exceptions.PMSError} with the contained error message and code
-	 * if the result status is not successful.
-	 *
-	 * @param result
-	 */
-	protected void errorIfFailure(MicrosRequest microsRequest, MicrosResponse microsResponse) {
-		ResultStatus result = getResultStatus(microsResponse);
-
-		if (result.getResultStatusFlag() == ResultStatusFlag.FAIL) {
-			PMSError pmsError = new PMSError(
-				getErrorMessage(result),
-				result.getOperaErrorCode(),
-				getSoapMessages(microsRequest, microsResponse)
-			);
-
-			log.debug("OWS Response ResultStatus was FAIL. Throwing exception", pmsError);
-			throw pmsError;
-		}
+	protected Response handleError(ResultStatus result) {
+		return null;
 	}
 
 	private SOAPMessages getSoapMessages(MicrosRequest microsRequest, MicrosResponse microsResponse) {
