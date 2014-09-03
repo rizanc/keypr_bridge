@@ -75,8 +75,9 @@ public class MembershipsResource extends AbstractResource {
     public NameLookupResponse nameIdSearch(
             @QueryParam("membershipNumber") String membershipNumber,
             @QueryParam("membershipType") String membershipType,
+            @QueryParam("memberFirstName") String memberFirstName,
             @QueryParam("memberLastName") String memberLastName) {
-        NameLookupRequest request = new NameLookupRequest(membershipNumber, membershipType, memberLastName);
+        NameLookupRequest request = new NameLookupRequest(memberFirstName, memberLastName, membershipNumber, membershipType);
 	    validate(request);
 
         return messageParser.getNameIdInformation(request);

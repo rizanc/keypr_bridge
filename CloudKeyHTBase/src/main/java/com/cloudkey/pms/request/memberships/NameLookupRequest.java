@@ -11,32 +11,39 @@ import javax.validation.constraints.AssertTrue;
  * This class hold information of Name id request made by guest.
  */
 public class NameLookupRequest extends PMSRequest {
-	private String membershipType;
-
-	private String membershipNumber;
+	private String firstName;
 
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String lastname;
+	private String lastName;
+
+	private String membershipNumber;
+
+	private String membershipType;
 
 	protected NameLookupRequest() { /* For serialization */ }
 
-	public NameLookupRequest(String membershipType, String membershipNumber, String lastname) {
-		this.membershipType = membershipType;
+	public NameLookupRequest(String firstName, String lastName, String membershipNumber, String membershipType) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.membershipNumber = membershipNumber;
-		this.lastname = lastname;
-	}
-
-	public String getMembershipType() {
-		return membershipType;
+		this.membershipType = membershipType;
 	}
 
 	public String getMembershipNumber() {
 		return membershipNumber;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getMembershipType() {
+		return membershipType;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
 	}
 
 	@AssertTrue(message = "If either membershipType or membershipNumber is specified, both must be specified")
@@ -46,10 +53,11 @@ public class NameLookupRequest extends PMSRequest {
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("membershipType", membershipType)
-			.add("membershipNumber", membershipNumber)
-			.add("lastname", lastname)
-			.toString();
+		return "NameLookupRequest{" +
+			"firstName='" + firstName + '\'' +
+			", lastName='" + lastName + '\'' +
+			", membershipNumber='" + membershipNumber + '\'' +
+			", membershipType='" + membershipType + '\'' +
+			'}';
 	}
 }
