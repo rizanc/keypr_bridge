@@ -51,6 +51,11 @@ public class SearchReservationRequest extends PMSRequest {
 		this.extReferenceType = extReferenceType;
 	}
 
+	@AssertTrue(message = "Has both first and last name if either is specified")
+	private boolean hasBothOrNeitherNames() {
+		return firstName == null ? lastName == null : lastName != null;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchReservationRequest{" +

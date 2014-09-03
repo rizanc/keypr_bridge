@@ -195,6 +195,7 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(memberPointsRequest.getNameId()));
 
 	    MemberPointsResponse response = new MemberPointsResponse();
+		response.setSoapMessages(guestMembershipsResponse.getSoapMessages());
 
 	    Optional<Membership> firstMembershipOpt = FluentIterable.from(guestMembershipsResponse.getMembershipList()).first();
 
