@@ -36,7 +36,6 @@ public class AssignRoomProcessor extends OWSProcessor<
 	protected com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest toMicrosRequest(AssignRoomRequest request) {
 		return new com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest()
 			.withHotelReference(getDefaultHotelReference())
-			.withStationID(stationId)
 			.withResvNameId(internalReservationId(request.getPmsReservationId()));
 	}
 

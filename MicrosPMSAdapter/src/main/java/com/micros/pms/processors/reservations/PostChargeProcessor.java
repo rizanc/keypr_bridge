@@ -38,6 +38,8 @@ public class PostChargeProcessor extends OWSProcessor<
 	protected com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest toMicrosRequest(PostChargeRequest request) {
 
 		return new com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest()
+			.withArticle(request.getArticleCode())
+			.withAccount(request.getTransactionCode())
 			.withPosting(new Posting()
 				.withReservationRequestBase(createReservationRequest(request.getPmsReservationId()))
 				.withCharge(request.getChargeAmount())
@@ -46,8 +48,8 @@ public class PostChargeProcessor extends OWSProcessor<
 				.withShortInfo(request.getShortInfo())
 				.withPostDate(request.getPostDateTime() == null ? null : request.getPostDateTime().toLocalDate())
 				.withPostTime(request.getPostDateTime() == null ? null : request.getPostDateTime().toLocalTime())
-				.withStationID(stationId)
-				.withUserID(request.getUserId())
+				// TODO: Separate setting for payment userId?
+				.withUserID(authUsername)
 			);
 	}
 

@@ -1,8 +1,7 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
@@ -18,25 +17,32 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 	@ApiModelProperty(required = true)
 	private BigDecimal chargeAmount;
 
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	private String articleCode;
+
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	private String transactionCode;
+
 	private DateTime postDateTime;
 
 	private String shortInfo;
 
 	private String longInfo;
 
-	private String userId;
-
 	private Integer folioViewNo;
 
 	protected PostChargeRequest() { /* For serialization */ }
 
-	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, DateTime postDateTime, String shortInfo, String longInfo, String stationId, String userId, Integer folioViewNo, String account, String article) {
+	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, String articleCode, String transactionCode, DateTime postDateTime, String shortInfo, String longInfo, Integer folioViewNo) {
 		super(pmsReservationId);
 		this.chargeAmount = chargeAmount;
+		this.articleCode = articleCode;
+		this.transactionCode = transactionCode;
 		this.postDateTime = postDateTime;
 		this.shortInfo = shortInfo;
 		this.longInfo = longInfo;
-		this.userId = userId;
 		this.folioViewNo = folioViewNo;
 	}
 
@@ -56,23 +62,28 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 		return longInfo;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
 	public Integer getFolioViewNo() {
 		return folioViewNo;
 	}
 
+	public String getArticleCode() {
+		return articleCode;
+	}
+
+	public String getTransactionCode() {
+		return transactionCode;
+	}
+
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("chargeAmount", chargeAmount)
-			.add("postDateTime", postDateTime)
-			.add("shortInfo", shortInfo)
-			.add("longInfo", longInfo)
-			.add("userId", userId)
-			.add("folioViewNo", folioViewNo)
-			.toString();
+		return "PostChargeRequest{" +
+			"chargeAmount=" + chargeAmount +
+			", articleCode='" + articleCode + '\'' +
+			", transactionCode='" + transactionCode + '\'' +
+			", postDateTime=" + postDateTime +
+			", shortInfo='" + shortInfo + '\'' +
+			", longInfo='" + longInfo + '\'' +
+			", folioViewNo=" + folioViewNo +
+			'}';
 	}
 }

@@ -55,10 +55,10 @@ public class OWSTools {
 	@Inject
 	@Named("keypr.bridge.micros.ows.destination.systemType")
 	protected String destSystemType;
-
-	@Inject
-	@Named("keypr.bridge.micros.stationId")
-	protected String stationId;
+//
+//	@Inject
+//	@Named("keypr.bridge.micros.stationId")
+//	protected String stationId;
 
 	@Inject(optional = true)
 	@Named("keypr.bridge.micros.ows.auth.username")
