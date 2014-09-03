@@ -42,21 +42,12 @@ public class AvailabilityRequest extends PMSRequest {
 	protected AvailabilityRequest() { /* For serialization */ }
 
 
-	public AvailabilityRequest(LocalDate startDate, LocalDate endDate, String rateCode, Integer numAdults, String rateCode1, String roomTypeCode, List<Integer> childrenAges) {
+	public AvailabilityRequest(LocalDate startDate, LocalDate endDate, String rateCode, Integer numAdults, String roomTypeCode, List<Integer> childrenAges) {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.rateCode = rateCode;
 		this.numAdults = numAdults;
-		rateCode = rateCode1;
 		this.roomTypeCode = roomTypeCode;
-		this.childrenAges = childrenAges == null ? Collections.<Integer>emptyList() : ImmutableList.copyOf(childrenAges);
-	}
-
-	public AvailabilityRequest(LocalDate startDate, LocalDate endDate, String rateCode, Integer numAdults, List<Integer> childrenAges) {
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.rateCode = rateCode;
-		this.numAdults = numAdults;
 		this.childrenAges = childrenAges == null ? Collections.<Integer>emptyList() : ImmutableList.copyOf(childrenAges);
 	}
 
