@@ -3,9 +3,7 @@ package com.micros.pms.processors.reservations;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.common.HotelAmenity;
-import com.cloudkey.pms.micros.og.common.Membership;
-import com.cloudkey.pms.micros.og.common.PersonName;
-import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.common.*;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.GuestCount;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomStay;
@@ -69,7 +67,14 @@ public class SearchReservationProcessor extends OWSProcessor<
 	protected FutureBookingSummaryRequest toMicrosRequest(SearchReservationRequest request) {
 		FutureBookingSummaryRequest microsRequest = new FutureBookingSummaryRequest()
 			.withAdditionalFilters(new FetchBookingFilters()
-				.withHotelReference(getDefaultHotelReference()));
+				.withHotelReference(getDefaultHotelReference())
+			);
+
+		if (request.getConfirmationNumber() != null) {
+			microsRequest.getAdditionalFilters().setConfirmationNumber(
+				new UniqueID(request.getConfirmationNumber(), UniqueIDType.INTERNAL, null)
+			);
+		}
 
 		if (request.getCreditCardNumber() != null) {
 			microsRequest.setCreditCardNumber(request.getCreditCardNumber());

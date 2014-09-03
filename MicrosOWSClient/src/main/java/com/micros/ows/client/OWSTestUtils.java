@@ -51,6 +51,7 @@ public class OWSTestUtils {
 
         SearchReservationRequest request = new SearchReservationRequest(
 	        PMS_RESERVATION_ID,
+			null,
 	        FIRST_NAME,
 	        LAST_NAME,
 	        null, //CREDIT_CARD_NO,

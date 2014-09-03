@@ -33,7 +33,8 @@ public class ReservationsResource extends AbstractResource {
     })
     public SearchReservationResponse searchReservation(
             @QueryParam("pmsReservationId") String pmsReservationId,
-            @QueryParam("firstName") String firstName,
+			@QueryParam("confirmationNumber") String confirmationNumber,
+			@QueryParam("firstName") String firstName,
             @QueryParam("lastName") String lastName,
             @QueryParam("creditCardNumber") String creditCardNumber,
             @QueryParam("membershipNumber") String membershipNumber,
@@ -44,6 +45,7 @@ public class ReservationsResource extends AbstractResource {
             ) {
         SearchReservationRequest request = new SearchReservationRequest(
             pmsReservationId,
+			confirmationNumber,
             firstName,
             lastName,
             creditCardNumber,
