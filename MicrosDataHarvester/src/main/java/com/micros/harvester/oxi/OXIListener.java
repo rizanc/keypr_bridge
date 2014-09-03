@@ -1,9 +1,12 @@
 package com.micros.harvester.oxi;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.Rtav;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.keypr.pms.micros.oxi.jaxb.inventory.InventoryMessage;
+import com.keypr.pms.micros.oxi.jaxb.ravl.Ravl;
+import com.keypr.pms.micros.oxi.jaxb.ravr.Ravr;
+import com.keypr.pms.micros.oxi.jaxb.reservation.Reservation;
+import com.keypr.pms.micros.oxi.jaxb.rtav.RtavMessage;
 import com.micros.harvester.dao.IMicrosDAO;
 import com.micros.harvester.util.OXIParser;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,6 +16,9 @@ import org.apache.cxf.helpers.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.net.InetSocketAddress;
 
@@ -64,41 +70,65 @@ public class OXIListener implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         log.debug("handle: enter handle method ");
-	    String response = "";
+
+        String response = " Status: SUCCESS code= 200 ok ";
+        int response_code = 200;
 
         try {
             InputStream inputStream = exchange.getRequestBody();
-	        String oxiRequest = IOUtils.toString(inputStream);
-	        inputStream.close();
+            String oxiRequest = IOUtils.toString(inputStream);
+            inputStream.close();
 
-	        log.info("Received OXI message: {}", oxiRequest);
+            log.info("Received OXI message: {}", oxiRequest);
 
             OXIParser objDataUtility = new OXIParser(oxiRequest);
-	        boolean isPersisted;
+            boolean isPersisted;
 
-            if (objDataUtility.isReservation()) {
-                Reservation objReservation = objDataUtility.populateReservation(oxiRequest);
+            StreamSource xmlContentBytes = new StreamSource(new StringReader(oxiRequest));
+            JAXBContext context = JAXBContext.newInstance(
+                    InventoryMessage.class,
+                    Reservation.class,
+                    RtavMessage.class,
+                    Ravl.class,
+                    Ravr.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            unmarshaller.setSchema(null);
 
+            Object oxiMessage = unmarshaller.unmarshal(xmlContentBytes);
+            if (oxiMessage instanceof Reservation) {
+                log.info("Got a Reservation");
+                com.cloudkey.commons.Reservation objReservation = objDataUtility.populateReservation((Reservation) oxiMessage);
                 isPersisted = microsDAO.persistReservationData(objReservation);
                 log.debug("handle: Reservation Stored in DataBase: {}", isPersisted);
-            } else if (objDataUtility.isRtav()) {
-                Rtav objRtav = objDataUtility.populateRtav(oxiRequest);
-
+            } else if (oxiMessage instanceof RtavMessage) {
+                log.info("Got a RTAV");
+                com.cloudkey.commons.Rtav objRtav = objDataUtility.populateRtav((RtavMessage)oxiMessage);
                 isPersisted = microsDAO.persistRtavData(objRtav);
                 log.debug("handle: Rtav Stored in DataBase: {}", isPersisted);
+            } else if (oxiMessage instanceof Ravr) {
+                log.info("Got a RAVR");
+                //TODO: Parse & store
+            } else if (oxiMessage instanceof Ravl) {
+                log.info("Got a RAVL");
+                //TODO: Parse & store
+            } else if (oxiMessage instanceof InventoryMessage) {
+                log.info("Got an Inventory");
+                //TODO: Parse & store
+            } else
+            {
+                log.error("Got an unsupported message {}",oxiRequest);
             }
 
-            response = " Status: SUCCESS code= 200 ok ";
+            exchange.sendResponseHeaders(response_code, response.length());
 
-            exchange.sendResponseHeaders(200, response.length());
         } catch (Exception exc) {
             log.error(" handle ", exc);
             response = " Status: ERROR code= 500 Internal Server Error ";
             exchange.sendResponseHeaders(500, response.length());
         } finally {
-	        OutputStream responseBody = exchange.getResponseBody();
-	        responseBody.write(response.getBytes());
-	        responseBody.close();
+            OutputStream responseBody = exchange.getResponseBody();
+            responseBody.write(response.getBytes());
+            responseBody.close();
         }
 
         log.debug("handle: exit handle method ");

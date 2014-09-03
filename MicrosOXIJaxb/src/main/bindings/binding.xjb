@@ -31,61 +31,61 @@
         </jaxb:bindings>
 
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.profile"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.profile"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/inventory.fidelio.2.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.inventory"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.inventory"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/ravl.fidelio.2.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.ravl"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.ravl"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/ravr.fidelio.2.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.ravr"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.ravr"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/relationship.fidelio.3.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.relationship"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.relationship"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/reservation.fidelio.5.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.reservation"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.reservation"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/ecertificate.fidelio.1.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.ecertificate"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.ecertificate"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/rtav.fidelio.4.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.rtav"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.rtav"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/udf.fidelio.2.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.udf"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.udf"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
     <jaxb:bindings schemaLocation="../xsd/udfdefinition.fidelio.2.0.xsd">
         <jaxb:schemaBindings>
-            <jaxb:package name="com.keypr.pms.micros.ows.jaxb.udfdefinition"/>
+            <jaxb:package name="com.keypr.pms.micros.oxi.jaxb.udfdefinition"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>
