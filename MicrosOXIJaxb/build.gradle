@@ -31,7 +31,7 @@ task jaxb(dependsOn: createGeneratedDir) << {
     ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJC2Task', classpath: configurations.generate.asPath)
 
     ant.xjc(destdir: generatedSources, binding: "$projectDir/src/main/bindings/binding.xjb") {
-        arg(line: '-extension -Xxew -Xxew:summary build/summary.txt -Xxew:instantiate lazy')
+        arg(line: "-extension -Xxew -Xxew:summary $buildDir/xew-summary.txt -Xxew:instantiate lazy")
 
         schema(dir: "$projectDir/src/main/xsd", includes: "*.xsd")
         depends(dir: "$projectDir/src/main/bindings", includes: "*.xjb")

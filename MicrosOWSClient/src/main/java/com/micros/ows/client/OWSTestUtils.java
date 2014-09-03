@@ -114,7 +114,7 @@ public class OWSTestUtils {
 
     public void NameLookupByMembership() {
 
-        NameLookupRequest request = new NameLookupRequest("OR", "1166666666", "REWARDS");
+        NameLookupRequest request = new NameLookupRequest(null, "OR", "1166666666", "REWARDS");
 
 	    microsOWSParser.getNameIdInformation(request);
     }
