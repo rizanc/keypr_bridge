@@ -5,6 +5,7 @@ import com.cloudkey.commons.Reservation;
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.LOVRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
@@ -13,6 +14,7 @@ import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.LOVResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
@@ -25,6 +27,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.FluentIterable;
 import com.google.inject.Inject;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
+import com.micros.pms.processors.hotels.LOVQueryProcessor;
 import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
 import com.micros.pms.processors.memberships.NameLookupProcessor;
 import com.micros.pms.processors.reservations.*;
@@ -40,6 +43,9 @@ import org.apache.commons.lang3.NotImplementedException;
  * @author crizan2
  */
 public class MicrosOWSParser extends OWSBase implements IParserInterface {
+
+    @Inject
+    LOVQueryProcessor lovQueryProcessor;
 
 	// Reservations
 	@Inject
@@ -91,7 +97,13 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	@Inject
 	UpdateRoomStatusRequestProcessor updateRoomStatusRequestProcessor;
 
-	@Override
+    @Override
+    public LOVResponse retrieveLOVQuery(LOVRequest lovRequest) throws PMSInterfaceException {
+        log.debug("retrieveLOVQuery: Enter method.");
+        return lovQueryProcessor.process(lovRequest);
+    }
+
+    @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
         log.debug("retrieveFolioInfo: Enter method.");
 		return getFolioProcessor.process(getFolioRequest);

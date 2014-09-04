@@ -2,6 +2,7 @@ package com.cloudkey.message.parser;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.LOVRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.MemberPointsRequest;
@@ -10,6 +11,7 @@ import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.LOVResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.MemberPointsResponse;
@@ -26,6 +28,14 @@ import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
  * @author niveditat
  */
 public interface IParserInterface {
+
+    /**
+     * This method return LOV information.
+     *
+     * @param folioRequest
+     * @return LOVResponse
+     */
+    LOVResponse retrieveLOVQuery(LOVRequest folioRequest) throws PMSInterfaceException;
 
     /**
      * This method generates bill information for the guest. It uses
@@ -83,13 +93,13 @@ public interface IParserInterface {
      */
     AddReservationNotesResponse addReservationNotes(AddReservationNotesRequest request) throws PMSInterfaceException;
 
-	/**
-	 * Adds charges to a guest account
-	 *
-	 * @param request
-	 * @return
-	 */
-	PostChargeResponse postCharge(PostChargeRequest request) throws PMSInterfaceException;
+    /**
+     * Adds charges to a guest account
+     *
+     * @param request
+     * @return
+     */
+    PostChargeResponse postCharge(PostChargeRequest request) throws PMSInterfaceException;
 
     /**
      * @param request
@@ -170,9 +180,9 @@ public interface IParserInterface {
 
     MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest) throws PMSInterfaceException;
 
-	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
+    EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 
-	EmptyResponse availability(AvailabilityRequest request);
+    EmptyResponse availability(AvailabilityRequest request);
 
-	FindReservationResponse findReservation(FindReservationRequest request);
+    FindReservationResponse findReservation(FindReservationRequest request);
 }
