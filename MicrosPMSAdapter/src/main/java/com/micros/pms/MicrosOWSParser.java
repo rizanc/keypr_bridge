@@ -1,10 +1,12 @@
 package com.micros.pms;
 
 import com.cloudkey.commons.Membership;
-import com.cloudkey.commons.Reservation;
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.IParserInterface;
+import com.cloudkey.pms.common.hotel.LOVItem;
+import com.cloudkey.pms.common.hotel.LOVValue;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.HotelItemCodesRequest;
 import com.cloudkey.pms.request.hotels.LOVRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
@@ -14,6 +16,7 @@ import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.HotelItemCodesResponse;
 import com.cloudkey.pms.response.hotels.LOVResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
@@ -25,6 +28,7 @@ import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 import com.google.common.base.Optional;
 import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
 import com.micros.pms.processors.hotels.LOVQueryProcessor;
@@ -37,6 +41,9 @@ import com.micros.pms.processors.roomassignments.FetchCalendarProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
 import com.micros.pms.processors.rooms.UpdateRoomStatusRequestProcessor;
 import org.apache.commons.lang3.NotImplementedException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -240,5 +247,31 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	@Override
 	public FindReservationResponse findReservation(FindReservationRequest request) {
 		return findReservationProcessor.process(request);
+	}
+
+	@Override
+	public HotelItemCodesResponse hotelItemCodes(HotelItemCodesRequest request) {
+		LOVResponse trxCodesResponse = retrieveLOVQuery(new LOVRequest("TRXCODES"));
+		LOVResponse articleCodesResponse = retrieveLOVQuery(new LOVRequest("ARTICLECODES"));
+
+		Map<String, String> accountsByCode = new HashMap<>();
+
+		for (LOVItem lovItem : trxCodesResponse.getLovItems()) {
+			for (LOVValue lovValue : lovItem.getLovValues()) {
+				accountsByCode.put(lovValue.getValue(), lovValue.getDescription());
+			}
+		}
+
+		Map<String, String> itemsByCode = new HashMap<>();
+
+		for (LOVItem lovItem : articleCodesResponse.getLovItems()) {
+			Optional<LOVValue> first = FluentIterable.from(lovItem.getLovValues()).first();
+
+			if (first.isPresent()) {
+				itemsByCode.put(lovItem.getQualifierValue(), first.get().getDescription());
+			}
+		}
+
+		return new HotelItemCodesResponse(itemsByCode, accountsByCode);
 	}
 }

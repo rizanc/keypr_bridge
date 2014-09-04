@@ -10,7 +10,6 @@ import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
-import java.util.Date;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -38,8 +37,8 @@ public class PostChargeProcessor extends OWSProcessor<
 	protected com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest toMicrosRequest(PostChargeRequest request) {
 
 		return new com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest()
-			.withArticle(request.getArticleCode())
-			.withAccount(request.getTransactionCode())
+			.withArticle(request.getItemCode())
+			.withAccount(request.getAccountCode())
 			.withPosting(new Posting()
 				.withReservationRequestBase(createReservationRequest(request.getPmsReservationId()))
 				.withCharge(request.getChargeAmount())

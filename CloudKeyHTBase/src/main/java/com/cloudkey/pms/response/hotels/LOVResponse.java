@@ -3,6 +3,7 @@ package com.cloudkey.pms.response.hotels;
 import com.cloudkey.pms.common.hotel.LOVItem;
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
@@ -11,15 +12,14 @@ import java.util.List;
  */
 public class LOVResponse extends PMSResponse {
 
-
     private List<LOVItem> lovItems;
 
-    public List<LOVItem> getLovItems() {
-        return lovItems;
-    }
+	public LOVResponse(List<LOVItem> lovItems) {
+		this.lovItems = ImmutableList.copyOf(lovItems);
+	}
 
-    public void setLovItems(List<LOVItem> lovItems) {
-        this.lovItems = lovItems;
+	public List<LOVItem> getLovItems() {
+        return lovItems;
     }
 
     @Override

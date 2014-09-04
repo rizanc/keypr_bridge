@@ -2,6 +2,7 @@ package com.cloudkey.message.parser;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.HotelItemCodesRequest;
 import com.cloudkey.pms.request.hotels.LOVRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
@@ -185,4 +186,6 @@ public interface IParserInterface {
     EmptyResponse availability(AvailabilityRequest request);
 
     FindReservationResponse findReservation(FindReservationRequest request);
+
+	com.cloudkey.pms.response.hotels.HotelItemCodesResponse hotelItemCodes(HotelItemCodesRequest request);
 }

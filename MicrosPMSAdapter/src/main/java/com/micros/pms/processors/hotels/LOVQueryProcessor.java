@@ -42,6 +42,7 @@ public class LOVQueryProcessor extends OWSProcessor<
     @Override
     protected com.cloudkey.pms.micros.ows.information.LovRequest toMicrosRequest(LOVRequest request) {
         com.cloudkey.pms.micros.ows.information.LovRequest microsRequest = new com.cloudkey.pms.micros.ows.information.LovRequest();
+
         microsRequest.setLovQuery2(new LovQueryType2()
                 .withLovIdentifier(request.getIdentifier()));
 
@@ -64,14 +65,13 @@ public class LOVQueryProcessor extends OWSProcessor<
     @Override
     protected LOVResponse toPmsResponse(com.cloudkey.pms.micros.ows.information.LovResponse microsResponse) {
 
-        LOVResponse response = new LOVResponse();
-        response.setLovItems(new ArrayList<LOVItem>());
+		List<LOVItem> lovItems = new ArrayList<>();
 
         List<LovQueryResultType> results = microsResponse.getLovQueryResults();
 
         for (LovQueryResultType lovQueryResultType : results) {
             LOVItem lovItem = new LOVItem();
-            response.getLovItems().add(lovItem);
+            lovItems.add(lovItem);
 
             lovItem.setQualifierType(lovQueryResultType.getQualifierType());
             lovItem.setQualifierValue(lovQueryResultType.getQualifierValue());
@@ -84,18 +84,15 @@ public class LOVQueryProcessor extends OWSProcessor<
             lovItem.setQuinaryQualifierType(lovQueryResultType.getQuinaryQualifierType());
             lovItem.setQuinaryQualifierValue(lovQueryResultType.getQuinaryQualifierValue());
 
-            lovItem.setLovValues(new ArrayList<LOVValue>());
+			List<LOVValue> lovValues = new ArrayList<>();
 
-            List<LovValueType> values = lovQueryResultType.getLovValues();
-            for (LovValueType value : values) {
-                LOVValue lovValue = new LOVValue();
-                lovItem.getLovValues().add(lovValue);
-
-                lovValue.setDescription(value.getDescription());
-                lovValue.setValue(value.getValue());
+			for (LovValueType value : lovQueryResultType.getLovValues()) {
+				lovValues.add(new LOVValue(value.getDescription(), value.getValue()));
             }
+
+			lovItem.setLovValues(lovValues);
         }
 
-        return response;
+        return new LOVResponse(lovItems);
     }
 }
