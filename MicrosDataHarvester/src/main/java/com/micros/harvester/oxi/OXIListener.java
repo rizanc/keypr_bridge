@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
@@ -94,7 +95,14 @@ public class OXIListener implements HttpHandler {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             unmarshaller.setSchema(null);
 
-            Object oxiMessage = unmarshaller.unmarshal(xmlContentBytes);
+			Object oxiMessage = null;
+
+			try {
+				oxiMessage = unmarshaller.unmarshal(xmlContentBytes);
+			} catch (UnmarshalException e) {
+				log.error("Could not unmarshall message", e);
+			}
+
             if (oxiMessage instanceof Reservation) {
                 log.info("Got a Reservation");
                 com.cloudkey.commons.Reservation objReservation = objDataUtility.populateReservation((Reservation) oxiMessage);
@@ -114,9 +122,8 @@ public class OXIListener implements HttpHandler {
             } else if (oxiMessage instanceof InventoryMessage) {
                 log.info("Got an Inventory");
                 //TODO: Parse & store
-            } else
-            {
-                log.error("Got an unsupported message {}",oxiRequest);
+            } else {
+                log.error("Got an unsupported message {}", oxiRequest);
             }
 
             exchange.sendResponseHeaders(response_code, response.length());
