@@ -1,4 +1,4 @@
-package com.micros.pms.util;
+package com.cloudkey.pms.micros.ows;
 
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
@@ -35,6 +35,30 @@ public class IdUtils {
 				return uniqueID.getValue();
 			}
 		});
+	}
+
+	public static UniqueID legNumberId(Integer legNumber) {
+		return new UniqueID(legNumber.toString(), UniqueIDType.INTERNAL, "LEGNUMBER");
+	}
+
+	/**
+	 * Creates a {@link UniqueID} representing the provided internal reservation id.
+	 *
+	 * @param pmsReservationId
+	 * @return
+	 */
+	public static UniqueID internalReservationId(String pmsReservationId) {
+		return new UniqueID(pmsReservationId, UniqueIDType.INTERNAL, MicrosIds.OWS.RESERVATION_ID_SOURCE);
+	}
+
+	/**
+	 * Creates a {@link UniqueID} representing the provided internal reservation id.
+	 *
+	 * @param confirmationNumber
+	 * @return
+	 */
+	public static UniqueID confirmationNumId(String confirmationNumber) {
+		return new UniqueID(confirmationNumber, UniqueIDType.INTERNAL, null);
 	}
 
 	public static GuestServiceStatusType toMicrosEnum(BridgeIds.GuestServiceStatus from) {

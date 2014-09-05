@@ -14,7 +14,7 @@ import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
 
-import static com.micros.pms.util.IdUtils.toMicrosEnum;
+import static com.cloudkey.pms.micros.ows.IdUtils.toMicrosEnum;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)

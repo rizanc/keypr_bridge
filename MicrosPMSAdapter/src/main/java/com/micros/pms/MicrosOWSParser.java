@@ -43,6 +43,15 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	// Reservations
 	@Inject
+	CreateReservationProcessor createReservationProcessor;
+
+	@Inject
+	ModifyReservationProcessor modifyReservationProcessor;
+
+	@Inject
+	CancelReservationProcessor cancelReservationProcessor;
+
+	@Inject
 	PostChargeProcessor postChargeProcessor;
 
 	@Inject
@@ -227,6 +236,25 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Override
 	public FindReservationResponse findReservation(FindReservationRequest request) {
+		log.debug("findReservation: Enter method.");
 		return findReservationProcessor.process(request);
+	}
+
+	@Override
+	public CreateReservationResponse createReservation(CreateReservationRequest request) {
+		log.debug("createReservation: Enter method.");
+		return createReservationProcessor.process(request);
+	}
+
+	@Override
+	public ModifyReservationResponse modifyReservation(ModifyReservationRequest request) {
+		log.debug("modifyReservation: Enter method.");
+		return modifyReservationProcessor.process(request);
+	}
+
+	@Override
+	public CancelReservationResponse cancelReservation(CancelReservationRequest request) {
+		log.debug("cancelReservation: Enter method.");
+		return cancelReservationProcessor.process(request);
 	}
 }

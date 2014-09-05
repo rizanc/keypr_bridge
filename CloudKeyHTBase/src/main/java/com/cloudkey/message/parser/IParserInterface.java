@@ -175,4 +175,10 @@ public interface IParserInterface {
 	EmptyResponse availability(AvailabilityRequest request);
 
 	FindReservationResponse findReservation(FindReservationRequest request);
+
+	CreateReservationResponse createReservation(CreateReservationRequest request);
+
+	CancelReservationResponse cancelReservation(CancelReservationRequest request);
+
+	ModifyReservationResponse modifyReservation(ModifyReservationRequest request);
 }

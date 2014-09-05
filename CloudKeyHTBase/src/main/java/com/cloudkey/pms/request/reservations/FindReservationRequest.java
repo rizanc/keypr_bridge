@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Charlie La Mothe (charlie@clamothe.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class FindReservationRequest extends PMSRequest {
 

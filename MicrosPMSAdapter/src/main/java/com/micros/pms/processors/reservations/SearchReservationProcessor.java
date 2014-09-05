@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
-import com.micros.pms.util.IdUtils;
+import com.cloudkey.pms.micros.ows.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
 import org.joda.time.*;
 
@@ -38,8 +38,10 @@ import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
+import static com.cloudkey.pms.micros.ows.IdUtils.confirmationNumId;
+import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -71,9 +73,7 @@ public class SearchReservationProcessor extends OWSProcessor<
 			);
 
 		if (request.getConfirmationNumber() != null) {
-			microsRequest.getAdditionalFilters().setConfirmationNumber(
-				new UniqueID(request.getConfirmationNumber(), UniqueIDType.INTERNAL, null)
-			);
+			microsRequest.getAdditionalFilters().setConfirmationNumber(confirmationNumId(request.getConfirmationNumber()));
 		}
 
 		if (request.getCreditCardNumber() != null) {

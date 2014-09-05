@@ -10,6 +10,8 @@ import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
 
+import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
+
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
