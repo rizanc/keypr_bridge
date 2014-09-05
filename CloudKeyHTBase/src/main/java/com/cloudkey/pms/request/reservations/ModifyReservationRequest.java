@@ -21,40 +21,26 @@ import java.util.List;
  */
 public class ModifyReservationRequest extends PMSRequest {
 
-	@NotNull
-	@ApiModelProperty(required = true)
 	private LocalDate arrivalDate;
 
-	@NotNull
-	@ApiModelProperty(required = true)
 	private LocalDate departureDate;
 
-	@NotEmpty
-	@ApiModelProperty(required = true)
 	private String firstName;
 
-	@NotEmpty
-	@ApiModelProperty(required = true)
 	private String lastName;
 
-	@NotNull
-	@ApiModelProperty(required = true)
 	private Integer numAdults;
 
-	@NotNull
-	@ApiModelProperty(required = true)
 	private Integer numChildren;
 
-	@NotEmpty
-	@ApiModelProperty(required = true)
 	private String ratePlanCode;
 
-	@NotEmpty
-	@ApiModelProperty(required = true)
 	private String roomTypeCode;
 
+	@NotEmpty
 	private String confirmationNum;
 
+	@NotNull
 	private Integer legNum;
 
 	private String externalReferenceNumber;
@@ -90,10 +76,10 @@ public class ModifyReservationRequest extends PMSRequest {
 		this.externalReferenceType = externalReferenceType;
 	}
 
-	@AssertTrue(message = "Has confirmation number or external reference details but not both")
-	public boolean hasConfirmNumOrExternalRef() {
-		return hasExternalReference() ^ hasConfirmationNumber();
-	}
+//	@AssertFalse(message = "Has confirmation number or external reference details but not both")
+//	public boolean hasConfirmNumOrExternalRef() {
+//		return hasExternalReference() ^ hasConfirmationNumber();
+//	}
 
 	public boolean hasConfirmationNumber() {
 		return confirmationNum == null || confirmationNum.isEmpty();
@@ -105,6 +91,15 @@ public class ModifyReservationRequest extends PMSRequest {
 			Arrays.<Object>asList(expirationDate, creditCardNumber, cardType, cardHolderName);
 
 		return Iterables.any(details, Predicates.notNull()) && !Iterables.all(details, Predicates.notNull());
+	}
+
+
+	@AssertFalse(message = "Name details are partially complete")
+	public boolean hasPartialName() {
+		List<Object> details =
+			Arrays.<Object>asList(firstName, lastName);
+
+		return Iterables.any(details, nonEmpty) && !Iterables.all(details, nonEmpty);
 	}
 
 	@AssertFalse(message = "External reference details are partially complete")

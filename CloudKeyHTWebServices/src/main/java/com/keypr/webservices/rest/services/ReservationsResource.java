@@ -35,7 +35,6 @@ public class ReservationsResource extends AbstractResource {
 		return messageParser.createReservation(request);
 	}
 
-	@Path("{confirmationNum}/{legNumber}")
 	@PUT
 	@ApiOperation(
 		value = "Modifies an existing reservation",

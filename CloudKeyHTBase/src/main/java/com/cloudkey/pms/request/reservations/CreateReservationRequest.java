@@ -10,7 +10,6 @@ import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.AssertFalse;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +18,6 @@ import java.util.List;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class CreateReservationRequest extends PMSRequest {
-
-	@NotNull
-	@ApiModelProperty(required = true)
-	private Integer legNum;
 
 	@NotNull
 	@ApiModelProperty(required = true)
@@ -56,12 +51,6 @@ public class CreateReservationRequest extends PMSRequest {
 	@ApiModelProperty(required = true)
 	private String roomTypeCode;
 
-	private String confirmationNum;
-
-	private String externalReferenceNumber;
-
-	private String externalReferenceType;
-
 	private LocalDate expirationDate;
 
 	private String cardType;
@@ -73,8 +62,6 @@ public class CreateReservationRequest extends PMSRequest {
 	protected CreateReservationRequest() { /* For serialization */ }
 
 	public CreateReservationRequest(String confirmationNum, Integer legNum, String ratePlanCode, String roomTypeCode, Integer numAdults, Integer numChildren, LocalDate arrivalDate, LocalDate departureDate, String creditCardNumber, LocalDate expirationDate, String cardType, String cardHolderName, String firstName, String lastName, String externalReferenceNumber, String externalReferenceType) {
-		this.confirmationNum = confirmationNum;
-		this.legNum = legNum;
 		this.ratePlanCode = ratePlanCode;
 		this.roomTypeCode = roomTypeCode;
 		this.numAdults = numAdults;
@@ -87,17 +74,6 @@ public class CreateReservationRequest extends PMSRequest {
 		this.cardHolderName = cardHolderName;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.externalReferenceNumber = externalReferenceNumber;
-		this.externalReferenceType = externalReferenceType;
-	}
-
-	@AssertTrue(message = "Has confirmation number or external reference details but not both")
-	public boolean hasConfirmNumOrExternalRef() {
-		return hasExternalReference() ^ hasConfirmationNumber();
-	}
-
-	public boolean hasConfirmationNumber() {
-		return confirmationNum != null && !confirmationNum.isEmpty();
 	}
 
 	@AssertFalse(message = "Credit card details are partially complete")
@@ -108,32 +84,11 @@ public class CreateReservationRequest extends PMSRequest {
 		return Iterables.any(details, Predicates.notNull()) && !Iterables.all(details, Predicates.notNull());
 	}
 
-	@AssertFalse(message = "External reference details are partially complete")
-	public boolean hasPartialExternalReference() {
-		List<String> details = Arrays.asList(externalReferenceNumber, externalReferenceType);
-
-		return Iterables.any(details, nonEmpty) && !Iterables.all(details, nonEmpty);
-	}
-
 	public boolean hasCreditCardDetails() {
 		List<Object> details =
 			Arrays.<Object>asList(expirationDate, creditCardNumber, cardType, cardHolderName);
 
 		return Iterables.all(details, Predicates.notNull());
-	}
-
-	public boolean hasExternalReference() {
-		List<String> details = Arrays.asList(externalReferenceNumber, externalReferenceType);
-
-		return Iterables.any(details, nonEmpty) && !Iterables.all(details, nonEmpty);
-	}
-
-	public String getConfirmationNum() {
-		return confirmationNum;
-	}
-
-	public Integer getLegNum() {
-		return legNum;
 	}
 
 	public String getRatePlanCode() {
@@ -184,19 +139,9 @@ public class CreateReservationRequest extends PMSRequest {
 		return lastName;
 	}
 
-	public String getExternalReferenceNumber() {
-		return externalReferenceNumber;
-	}
-
-	public String getExternalReferenceType() {
-		return externalReferenceType;
-	}
-
 	@Override
 	public String toString() {
 		return "CreateReservationRequest{" +
-			"confirmationNum='" + confirmationNum + '\'' +
-			", legNum=" + legNum +
 			", ratePlanCode='" + ratePlanCode + '\'' +
 			", roomTypeCode='" + roomTypeCode + '\'' +
 			", numAdults=" + numAdults +
@@ -209,8 +154,6 @@ public class CreateReservationRequest extends PMSRequest {
 			", cardHolderName='" + cardHolderName + '\'' +
 			", firstName='" + firstName + '\'' +
 			", lastName='" + lastName + '\'' +
-			", externalReferenceNumber='" + externalReferenceNumber + '\'' +
-			", externalReferenceType='" + externalReferenceType + '\'' +
 			'}';
 	}
 
