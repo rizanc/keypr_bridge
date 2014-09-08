@@ -4,7 +4,6 @@ import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
@@ -12,7 +11,6 @@ import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
-import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.rooms.AssignRoomResponse;
@@ -159,16 +157,6 @@ public interface IParserInterface {
      */
 
     HotelInformationResponse hotelInformationQuery(HotelInformationRequest objHotelInformationRequest) throws PMSInterfaceException;
-
-    /**
-     * This method searches for Details of Member points  on the basis of membership id. It returns
-     * details of member points.
-     *
-     * @param objMemberPointsRequest
-     * @return
-     */
-
-    MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest) throws PMSInterfaceException;
 
 	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 

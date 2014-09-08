@@ -1,12 +1,9 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
-import com.cloudkey.pms.response.reservations.MakePaymentResponse;
-import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -40,25 +37,6 @@ public class MembershipsResource extends AbstractResource {
 	    validate(request);
 
 	    return messageParser.getMembershipInformation(request);
-    }
-
-    @Path("/points")
-    @GET
-    @ApiOperation(
-        value = "Fetches member points details by membership number",
-        response = MemberPointsResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
-    public MemberPointsResponse memberPoints(
-            @QueryParam("nameId") String nameId) {
-        MemberPointsRequest request = new MemberPointsRequest(nameId);
-		validate(request);
-
-        return messageParser.memberPointsQuery(request);
     }
 
     @Path("/search")
