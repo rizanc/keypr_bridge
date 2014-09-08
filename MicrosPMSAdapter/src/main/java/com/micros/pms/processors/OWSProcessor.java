@@ -48,14 +48,21 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 		ResultStatus result = getResultStatus(microsResponse);
 
 		Response response;
+		SOAPMessages soapMessages = getSoapMessages(microsRequest, microsResponse);
+
 		if (result.getResultStatusFlag() == ResultStatusFlag.FAIL) {
-			response = handleError(result);
+			try {
+				response = handleError(result);
+			} catch (PMSError error) {
+				error.setSoapMessages(soapMessages);
+				throw error;
+			}
 
 			if (response == null) {
 				PMSError pmsError = new PMSError(
 					getErrorMessage(result),
 					result.getOperaErrorCode(),
-					getSoapMessages(microsRequest, microsResponse)
+					soapMessages
 				);
 
 				log.debug("OWS Response ResultStatus was FAIL. Throwing exception", pmsError);
@@ -65,7 +72,7 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 			response = toPmsResponse(microsResponse);
 		}
 
-		response.setSoapMessages(getSoapMessages(microsRequest, microsResponse));
+		response.setSoapMessages(soapMessages);
 
 		log.debug("Response: {}", response);
 

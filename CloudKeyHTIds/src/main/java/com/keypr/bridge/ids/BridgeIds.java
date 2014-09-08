@@ -49,4 +49,19 @@ public class BridgeIds {
         OUT_OF_ORDER,
         OUT_OF_SERVICE;
     }
+
+	public enum PMSErrorMessage {
+		// Room assignment
+		NO_ROOM_AVAILABLE("No room is ready for assignment");
+
+		private String message;
+
+		PMSErrorMessage(String message) {
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+	}
 }

@@ -1,6 +1,7 @@
 package com.cloudkey.exceptions;
 
 import com.cloudkey.pms.response.SOAPMessages;
+import com.keypr.bridge.ids.BridgeIds;
 
 /**
  * Exception which implementations of {@link com.cloudkey.message.parser.IParserInterface} may throw
@@ -13,7 +14,11 @@ import com.cloudkey.pms.response.SOAPMessages;
 public class PMSError extends RuntimeException {
 	private final String errorCode;
 
-	private final SOAPMessages soapMessages;
+	private SOAPMessages soapMessages = null;
+
+	public PMSError(BridgeIds.PMSErrorMessage message) {
+		this(message.getMessage(), message.name(), null);
+	}
 
 	public PMSError(String message, String errorCode, SOAPMessages soapMessages) {
 		super(message);
@@ -27,6 +32,14 @@ public class PMSError extends RuntimeException {
 
 	public SOAPMessages getSoapMessages() {
 		return soapMessages;
+	}
+
+	public void setSoapMessages(SOAPMessages soapMessages) {
+		if (this.soapMessages != null) {
+			throw new IllegalStateException("soapMessages already set");
+		}
+
+		this.soapMessages = soapMessages;
 	}
 
 	@Override

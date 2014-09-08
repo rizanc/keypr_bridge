@@ -89,7 +89,7 @@ public class RoomsResource extends AbstractResource {
 	)
 	@ApiResponses({
 		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message. Common error codes include: NO_ROOM_AVAILABLE"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
 	public AssignRoomResponse assignRoom(@Valid AssignRoomRequest request) {
