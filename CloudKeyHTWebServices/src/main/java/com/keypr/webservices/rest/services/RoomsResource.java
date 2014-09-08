@@ -5,13 +5,13 @@ import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.rooms.AssignRoomResponse;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
+import com.keypr.webservices.jersey.LocalDateParam;
+import com.wordnik.swagger.annotations.*;
+import io.dropwizard.jersey.params.IntParam;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import java.util.List;
 
 /**
  * REST service to the hotel room methods of {@link com.cloudkey.message.parser.IParserInterface}.
@@ -22,7 +22,7 @@ import javax.ws.rs.*;
 @Api(value = "/rooms", description = "Rooms resource")
 public class RoomsResource extends AbstractResource {
 	@Path("/calendar")
-	@POST
+	@GET
 	@ApiOperation(
 		value = "Fetches a room availability calendar for a particular rate code for each room-type during the given date range",
 		response = FetchCalendarResponse.class
@@ -32,27 +32,29 @@ public class RoomsResource extends AbstractResource {
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
-	public FetchCalendarResponse fetchCalendar(@Valid FetchCalendarRequest request) {
-//		@QueryParam("rateCode") String rateCode,
-//		@QueryParam("guestCount") IntParam guestCount,
-//		@QueryParam("startDate") LocalDateParam startDate,
-//		@QueryParam("endDate") LocalDateParam endDate,
-//		@DefaultValue("false") @QueryParam("availableOnly") Boolean availableOnly) {
-//		FetchCalendarRequest request = new FetchCalendarRequest(
-//			rateCode,
-//			guestCount == null ? null : guestCount.get(),
-//			startDate == null ? null : startDate.get(),
-//			endDate == null ? null : endDate.get(),
-//			availableOnly
-//		);
+	public FetchCalendarResponse fetchCalendar(
+			@QueryParam("startDate") LocalDateParam startDate,
+			@QueryParam("endDate") LocalDateParam endDate,
+			@DefaultValue("false") @QueryParam("availableOnly") Boolean availableOnly,
+			@QueryParam("rateCode") String rateCode,
+			@QueryParam("numAdults") IntParam numAdults,
+			@QueryParam("numChildren") IntParam numChildren) {
+		FetchCalendarRequest request = new FetchCalendarRequest(
+			unwrap(startDate),
+			unwrap(endDate),
+			availableOnly,
+			rateCode,
+			unwrap(numAdults),
+			unwrap(numChildren)
+		);
 
-//		validate(request);
+		validate(request);
 
 		return messageParser.fetchCalendar(request);
 	}
 
 	@Path("/availability")
-	@POST
+	@GET
 	@ApiOperation(
 		value = "Fetches room availability for each room-type for the given potential reservation",
 		response = EmptyResponse.class
@@ -62,7 +64,25 @@ public class RoomsResource extends AbstractResource {
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
-	public EmptyResponse fetchCalendar(@Valid AvailabilityRequest request) {
+	public EmptyResponse availability(
+			@QueryParam("startDate") LocalDateParam startDate,
+			@QueryParam("endDate") LocalDateParam endDate,
+			@QueryParam("numAdults") IntParam numAdults,
+			@QueryParam("rateCode") String rateCode,
+			@QueryParam("roomTypeCode") String roomTypeCode,
+			// TODO: The swagger UI doesn't allow multiple children ages to be specified.
+			@QueryParam("childrenAges") List<IntParam> childrenAges) {
+		AvailabilityRequest request = new AvailabilityRequest(
+			unwrap(startDate),
+			unwrap(endDate),
+			rateCode,
+			unwrap(numAdults),
+			roomTypeCode,
+			unwrap(childrenAges)
+		);
+
+		validate(request);
+
 		return messageParser.availability(request);
 	}
 
