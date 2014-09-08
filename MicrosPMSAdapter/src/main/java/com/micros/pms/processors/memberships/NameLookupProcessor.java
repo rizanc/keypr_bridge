@@ -50,21 +50,17 @@ public class NameLookupProcessor extends OWSProcessor<
 			nameLookupInput.setMembership(new NameLookupCriteriaMembership()
 				.withMembershipNumber(request.getMembershipNumber())
 				.withMembershipType(request.getMembershipType())
-				.withLastName(request.getLastname())
+				.withFirstName(request.getFirstName())
+				.withLastName(request.getLastName())
 			);
 		} else {
-			nameLookupInput.setNameLookup(new NameLookupAll().withLastName(request.getLastname()));
+			nameLookupInput.setNameLookup(new NameLookupAll()
+				.withFirstName(request.getFirstName())
+				.withLastName(request.getLastName())
+			);
 		}
 
-		return new com.cloudkey.pms.micros.ows.name.NameLookupRequest(
-			nameLookupInput
-				.withMembership(
-					new NameLookupCriteriaMembership()
-						.withLastName(request.getLastname())
-						.withMembershipNumber(request.getMembershipNumber())
-						.withMembershipType(request.getMembershipType())
-				)
-		);
+		return new com.cloudkey.pms.micros.ows.name.NameLookupRequest(nameLookupInput);
 	}
 
 	@Override

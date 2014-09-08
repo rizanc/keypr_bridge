@@ -4,21 +4,18 @@ import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
-import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
-import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
-import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.request.rooms.*;
+import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
-import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
-import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
-import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
-import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
+import com.cloudkey.pms.response.rooms.AssignRoomResponse;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
+import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 
 /**
  * This interface declare all the methods for the message parser.
@@ -111,9 +108,9 @@ public interface IParserInterface {
      * This method check the availability  of the room for a given interval of time.
      *
      * @param availRequest
-     * @return GetAvailabilityResponse
+     * @return FetchCalendarResponse
      */
-    GetAvailabilityResponse checkAvailability(GetAvailabilityRequest availRequest) throws PMSInterfaceException;
+    FetchCalendarResponse fetchCalendar(FetchCalendarRequest availRequest) throws PMSInterfaceException;
 
     /**
      * This method searches for the reservation details on the basis of email id, confirmation number, credit card,
@@ -161,13 +158,15 @@ public interface IParserInterface {
 
     HotelInformationResponse hotelInformationQuery(HotelInformationRequest objHotelInformationRequest) throws PMSInterfaceException;
 
-    /**
-     * This method searches for Details of Member points  on the basis of membership id. It returns
-     * details of member points.
-     *
-     * @param objMemberPointsRequest
-     * @return
-     */
+	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 
-    MemberPointsResponse memberPointsQuery(MemberPointsRequest objMemberPointsRequest) throws PMSInterfaceException;
+	EmptyResponse availability(AvailabilityRequest request);
+
+	FindReservationResponse findReservation(FindReservationRequest request);
+
+	CreateReservationResponse createReservation(CreateReservationRequest request);
+
+	CancelReservationResponse cancelReservation(CancelReservationRequest request);
+
+	ModifyReservationResponse modifyReservation(ModifyReservationRequest request);
 }

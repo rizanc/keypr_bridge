@@ -1,5 +1,7 @@
 package com.cloudkey.pms.micros.ows;
 
+import com.cloudkey.pms.micros.ows.guestservices.GuestServicesService;
+import com.cloudkey.pms.micros.ows.guestservices.GuestServicesServiceSoap;
 import com.cloudkey.pms.micros.services.*;
 import com.cloudkey.util.GuiceUtils;
 import com.google.inject.AbstractModule;
@@ -76,6 +78,26 @@ public class OWSSupportModule extends AbstractModule {
 		try {
 			return configureService(
 				new Information().getInformationSoap12(),
+				new URL(new URL(targetEndpoint), servicePath),
+				loggingLimit
+			);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	@Provides
+	@Singleton
+	public GuestServicesServiceSoap provideGuestServicesService(
+		@Named("keypr.bridge.micros.ows.url") String targetEndpoint,
+		@Named("keypr.bridge.micros.ows.guestservices.path") String servicePath,
+		@Named("keypr.bridge.micros.ows.logging.limit") Integer loggingLimit
+	) {
+		try {
+			return configureService(
+				new GuestServicesService().getGuestServicesServiceSoap12(),
 				new URL(new URL(targetEndpoint), servicePath),
 				loggingLimit
 			);

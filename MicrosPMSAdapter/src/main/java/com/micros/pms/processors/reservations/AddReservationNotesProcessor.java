@@ -22,6 +22,8 @@ import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.util.List;
 
+import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
+
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
@@ -57,7 +59,7 @@ public class AddReservationNotesProcessor extends OWSProcessor<
 					@Override
 					public ReservationComment apply(@Nullable String s) {
 						return new ReservationComment()
-							.withImagesAndURLSAndTexts(ParagraphHelper.createParagraph(s))
+							.withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement(s))
 							.withGuestViewable(false);
 					}
 				})));

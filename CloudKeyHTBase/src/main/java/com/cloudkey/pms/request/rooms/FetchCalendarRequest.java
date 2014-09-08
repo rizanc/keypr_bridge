@@ -1,8 +1,8 @@
-package com.cloudkey.pms.request.roomassignments;
+package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
@@ -12,9 +12,8 @@ import javax.validation.constraints.NotNull;
  * Class stores the room availability information. 
  * 
  * @author vinayk2
- *
  */
-public class GetAvailabilityRequest extends PMSRequest {
+public class FetchCalendarRequest extends PMSRequest {
 
     @NotNull
     @ApiModelProperty(required = true)
@@ -28,17 +27,33 @@ public class GetAvailabilityRequest extends PMSRequest {
 	 * If true, only available inventory will be included in the results.
 	 */
 	@NotNull
+	@ApiModelProperty(required = true)
 	private Boolean availableOnly = false;
 
-	protected GetAvailabilityRequest() { /* For serialization */ }
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	private String rateCode;
 
-	public GetAvailabilityRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly) {
+	@NotNull
+	@ApiModelProperty(required = true)
+	private Integer numAdults;
+
+	@NotNull
+	@ApiModelProperty(required = true)
+	private Integer numChildren;
+
+	protected FetchCalendarRequest() { /* For serialization */ }
+
+	public FetchCalendarRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly, String rateCode, Integer numAdults, Integer numChildren) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-
 		if (availableOnly != null) {
 			this.availableOnly = availableOnly;
 		}
+
+		this.rateCode = rateCode;
+		this.numAdults = numAdults;
+		this.numChildren = numChildren;
 	}
 
 	@AssertTrue(message = "Start date must be before end date")
@@ -58,12 +73,27 @@ public class GetAvailabilityRequest extends PMSRequest {
 		return availableOnly;
 	}
 
+	public String getRateCode() {
+		return rateCode;
+	}
+
+	public Integer getNumAdults() {
+		return numAdults;
+	}
+
+	public Integer getNumChildren() {
+		return numChildren;
+	}
+
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("startDate", startDate)
-			.add("endDate", endDate)
-			.add("availableOnly", availableOnly)
-			.toString();
+		return "FetchCalendarRequest{" +
+			"startDate=" + startDate +
+			", endDate=" + endDate +
+			", availableOnly=" + availableOnly +
+			", rateCode='" + rateCode + '\'' +
+			", numAdults=" + numAdults +
+			", numChildren=" + numChildren +
+			'}';
 	}
 }

@@ -1,13 +1,9 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,36 +14,27 @@ import java.util.List;
  *
  * @author vinayk2
  */
-public class AddReservationNotesRequest extends PMSRequest {
-
-    @NotBlank
-    @ApiModelProperty(required = true)
-    private String pmsReservationId;
+public class AddReservationNotesRequest extends AbstractSingleReservationRequest {
 
     @NotEmpty
     @ApiModelProperty(required = true)
-    private List<String> notes = new ArrayList<>();
+    private List<String> notes;
 
 	protected AddReservationNotesRequest() { /* For serialization */ }
 
 	public AddReservationNotesRequest(String pmsReservationId, List<String> notes) {
-        this.pmsReservationId = pmsReservationId;
-        this.notes.addAll(notes);
-    }
-
-    public String getPmsReservationId() {
-        return pmsReservationId;
+		super(pmsReservationId);
+        this.notes = ImmutableList.copyOf(notes);
     }
 
     public List<String> getNotes() {
         return notes;
     }
 
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("pmsReservationId", pmsReservationId)
-                .add("notes", notes)
-                .toString();
-    }
+	@Override
+	public String toString() {
+		return "AddReservationNotesRequest{" +
+			"notes=" + notes +
+			'}';
+	}
 }

@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s3="http://webservices.micros.com/og/4.3/Core/" xmlns:s2="http://webservices.micros.com/og/4.3/Common/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://webservices.micros.com/ows/5.1/GuestServices.wsdl" xmlns:s1="http://webservices.micros.com/og/4.3/HotelCommon/" xmlns:s0="http://webservices.micros.com/og/4.3/GuestServices/" xmlns:s4="http://webservices.micros.com/og/4.3/Name/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://webservices.micros.com/ows/5.1/GuestServices.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/GuestServices/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/HotelCommon/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:import namespace="http://webservices.micros.com/og/4.3/Name/" />
+      <s:element name="UpdateRoomStatusRequest" type="s0:UpdateRoomStatusRequest" />
+      <s:complexType name="UpdateRoomStatusRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomStatus" type="s0:RoomStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="TurnDownStatus" type="s0:TurnDownStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestServiceStatus" type="s0:GuestServiceStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomRepair" type="s0:RoomRepairType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RoomStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Clean" />
+          <s:enumeration value="Dirty" />
+          <s:enumeration value="Inspected" />
+          <s:enumeration value="Pickup" />
+          <s:enumeration value="OutOfOrder" />
+          <s:enumeration value="OutOfService" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TurnDownStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Completed" />
+          <s:enumeration value="Required" />
+          <s:enumeration value="NotRequired" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="GuestServiceStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="DoNotDisturb" />
+          <s:enumeration value="MakeUpRoom" />
+          <s:enumeration value="None" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="RoomRepairType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RepairDate" type="s1:TimeSpan" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnStatus" type="s0:RoomStatusType" />
+          <s:element minOccurs="1" maxOccurs="1" name="RepairStatus" type="s0:RepairStatusType" />
+          <s:element minOccurs="0" maxOccurs="1" name="RepairReason" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RepairType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RepairRemarks" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RepairStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="OutOfOrder" />
+          <s:enumeration value="OutOfService" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UpdateRoomStatusResponse" type="s0:UpdateRoomStatusResponse" />
+      <s:complexType name="UpdateRoomStatusResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s2:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="WakeUpCallRequest" type="s0:WakeUpCallRequest" />
+      <s:complexType name="WakeUpCallRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoomNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResvNameId" type="s2:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="WakeUpCallDetails" type="s0:WakeUpCall" />
+          <s:element minOccurs="1" maxOccurs="1" name="ActionType" type="s0:WakeupCallActionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WakeUpCall">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FromDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ToDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="WakeupTime" type="s:time" />
+          <s:element minOccurs="0" maxOccurs="1" name="Comments" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s0:WakeUpCallStatusType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="WakeUpCallStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="PENDING" />
+          <s:enumeration value="COMPLETED" />
+          <s:enumeration value="NOANSWER" />
+          <s:enumeration value="UNKNOWN" />
+          <s:enumeration value="CANCEL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="WakeupCallActionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ADD" />
+          <s:enumeration value="DELETE" />
+          <s:enumeration value="FETCH" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="WakeUpCallResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s2:ResultStatus" />
+            <s:element minOccurs="0" maxOccurs="1" name="WakeUpCallDetails" type="s0:ArrayOfWakeUpCall" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWakeUpCall">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WakeUpCalls" type="s0:WakeUpCall" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchOptInSetupRequest" type="s0:FetchOptInSetupRequest" />
+      <s:complexType name="FetchOptInSetupRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FetchOptInSetupResponse" type="s0:FetchOptInSetupResponse" />
+      <s:complexType name="FetchOptInSetupResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s2:ResultStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="OptInSetup" type="s0:OptInRequired" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OptInRequired">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentTypes" type="s1:ArrayOfPaymentType" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuranteeTypes" type="s1:ArrayOfGuarantee" />
+          <s:element minOccurs="0" maxOccurs="1" name="MembershipTypes" type="s0:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="VIPTypes" type="s0:ArrayOfString" />
+        </s:sequence>
+        <s:attribute name="mobilePhoneRequired" type="s:boolean" />
+        <s:attribute name="mobilePhoneType" type="s:string" />
+        <s:attribute name="emailAddressRequired" type="s:boolean" />
+        <s:attribute name="passportRequired" type="s:boolean" />
+        <s:attribute name="drivingLicenseRequired" type="s:boolean" />
+        <s:attribute name="otherIdRequired" type="s:boolean" />
+        <s:attribute name="loayalityNumberRequired" type="s:boolean" />
+        <s:attribute name="countryRequired" type="s:boolean" />
+        <s:attribute name="nationalityRequired" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MappingType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateReservationForOptInRequest" type="s0:UpdateReservationForOptInRequest" />
+      <s:complexType name="UpdateReservationForOptInRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HotelReference" type="s1:HotelReference" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResvNameId" type="s2:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phones" type="s4:ArrayOfNamePhone" />
+          <s:element minOccurs="0" maxOccurs="1" name="GovernmentID" type="s2:GovernmentID" />
+          <s:element minOccurs="0" maxOccurs="1" name="DrivingLicenseID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Membership" type="s2:Membership" />
+        </s:sequence>
+        <s:attribute name="languageCode" type="s:string" />
+        <s:attribute name="nationality" type="s:string" />
+        <s:attribute name="countryCode" type="s:string" />
+      </s:complexType>
+      <s:element name="UpdateReservationForOptInResponse" type="s0:UpdateReservationForOptInResponse" />
+      <s:complexType name="UpdateReservationForOptInResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="s2:ResultStatus" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/HotelCommon/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:complexType name="HotelReference">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="chainCode" type="s:string" />
+            <s:attribute name="hotelCode" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="TimeSpan">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="StartDate" type="s:dateTime" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="Duration" type="s:duration" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GDSResultStatus">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:ResultStatus">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="GDSError" type="s1:GDSError" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GDSError">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="errorCode" type="s:string" />
+            <s:attribute name="elementId" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaymentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaymentType" type="s1:PaymentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentType">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentCard" type="s2:CreditCard" />
+            <s:element minOccurs="0" maxOccurs="1" name="OtherPayment" type="s1:OtherPaymentType" />
+            <s:element minOccurs="0" maxOccurs="1" name="PaymentVoucher" type="s1:Voucher" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCardPayment">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:CreditCard">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CIDNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Address" type="s2:Address" />
+              <s:element minOccurs="0" maxOccurs="1" name="IssueNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ApprovalCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DepositAmount" type="s2:Amount" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="OtherPaymentType">
+        <s:attribute name="type" type="s:string" />
+        <s:attribute name="value" type="s:string" />
+        <s:attribute name="source" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Voucher">
+        <s:attribute name="voucherNumber" type="s:string" />
+        <s:attribute name="voucherIssuedBy" type="s:string" />
+        <s:attribute name="voucherValidDate" type="s:dateTime" />
+      </s:complexType>
+      <s:complexType name="ArrayOfGuarantee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Guarantee" type="s1:Guarantee" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Guarantee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GuaranteesAccepted" type="s1:ArrayOfGuaranteeAccepted" />
+          <s:element minOccurs="0" maxOccurs="1" name="Deadline" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuaranteeDescription" type="s1:Paragraph" />
+        </s:sequence>
+        <s:attribute name="guaranteeType" type="s:string" />
+        <s:attribute name="mandatoryDeposit" type="s:boolean" />
+        <s:attribute name="cancellationRequired" type="s:boolean" />
+        <s:attribute name="creditCardRequired" type="s:boolean" />
+        <s:attribute name="paymentType" type="s:string" />
+        <s:attribute name="requirementCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfGuaranteeAccepted">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GuaranteeAccepted" type="s1:GuaranteeAccepted" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GuaranteeAccepted">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="GuaranteeCreditCard" type="s2:CreditCard" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuaranteeTravelAgent" type="s2:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuaranteeCompany" type="s2:UniqueID" />
+        </s:sequence>
+        <s:attribute name="agentPhone" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Paragraph">
+        <s:sequence>
+          <s:choice minOccurs="0" maxOccurs="unbounded">
+            <s:element minOccurs="0" maxOccurs="1" name="Image" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="URL" type="s:anyURI" />
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s2:Text" />
+          </s:choice>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ReservationComment">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Paragraph">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CommentId" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="InternalYn" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="CommentType" type="s:string" />
+            </s:sequence>
+            <s:attribute name="commentOriginatorCode" type="s:string" />
+            <s:attribute name="guestViewable" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SpecialRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Paragraph">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SpecialRequestId" type="s:double" />
+            </s:sequence>
+            <s:attribute name="requestCode" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Common/">
+      <s:complexType name="ResultStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s2:ArrayOfText" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDs" type="s2:ArrayOfIDPair" />
+          <s:element minOccurs="0" maxOccurs="1" name="OperaErrorCode" type="s:string" />
+        </s:sequence>
+        <s:attribute name="resultStatusFlag" type="s2:ResultStatusFlag" />
+      </s:complexType>
+      <s:complexType name="ArrayOfText">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TextElement" type="s2:Text" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Text">
+        <s:simpleContent>
+          <s:extension base="s:normalizedString">
+            <s:attribute name="formatted" type="s:boolean" />
+            <s:attribute name="language" type="s:language" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfIDPair">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IDPair" type="s2:IDPair" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IDPair">
+        <s:attribute name="idType" type="s:string" />
+        <s:attribute name="operaId" type="s:long" />
+        <s:attribute name="externalId" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="ResultStatusFlag">
+        <s:restriction base="s:string">
+          <s:enumeration value="FAIL" />
+          <s:enumeration value="SUCCESS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="UniqueID">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="type" type="s2:UniqueIDType" use="required" />
+            <s:attribute name="source" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="UniqueIDType">
+        <s:restriction base="s:string">
+          <s:enumeration value="EXTERNAL" />
+          <s:enumeration value="INTERNAL" />
+          <s:enumeration value="CANCELLATIONEXTERNAL" />
+          <s:enumeration value="CANCELLATIONINTERNAL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CreditCard">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cardCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cardHolderName" type="s:string" />
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="cardNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VaultedCardData" type="s2:VaultedCardType" />
+          </s:choice>
+          <s:element minOccurs="0" maxOccurs="1" name="seriesCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="effectiveDate" type="s:date" />
+          <s:element minOccurs="1" maxOccurs="1" name="expirationDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="EncryptedSwipe" type="s2:EncryptedSwipe" />
+        </s:sequence>
+        <s:attribute name="cardType" type="s:string" />
+        <s:attribute name="otherCardType" type="s:string" />
+        <s:attribute name="chipAndPin" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="VaultedCardType">
+        <s:attribute name="vaultedCardID" type="s:string" />
+        <s:attribute name="lastFourDigits" type="s:string" />
+      </s:complexType>
+      <s:complexType name="EncryptedSwipe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TrackIndicator" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SwiperType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SwiperID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaskedPAN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KeySerialNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressLine" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cityName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="stateProv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="countryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="postalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="barCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cityExtension" type="s:string" />
+        </s:sequence>
+        <s:attribute name="addressType" type="s:string" />
+        <s:attribute name="otherAddressType" type="s:string" />
+        <s:attribute name="languageCode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Amount">
+        <s:simpleContent>
+          <s:extension base="s:double">
+            <s:attribute name="currencyCode" type="s:string" />
+            <s:attribute name="decimals" type="s:short" />
+            <s:attribute name="currencyText" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="Phone">
+        <s:sequence>
+          <s:choice minOccurs="1" maxOccurs="1">
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneData" type="s2:PhonePhoneData" />
+          </s:choice>
+        </s:sequence>
+        <s:attribute name="phoneType" type="s:string" />
+        <s:attribute name="phoneRole" type="s:string" />
+        <s:attribute name="primaryPhone" type="s:boolean" />
+      </s:complexType>
+      <s:complexType name="PhonePhoneData">
+        <s:attribute name="countryAccessCode" type="s:string" />
+        <s:attribute name="areaCode" type="s:string" />
+        <s:attribute name="phoneNumber" type="s:string" />
+        <s:attribute name="extension" type="s:string" />
+      </s:complexType>
+      <s:complexType name="GovernmentID">
+        <s:attribute name="documentType" type="s:string" />
+        <s:attribute name="documentNumber" type="s:string" />
+        <s:attribute name="effectiveDate" type="s:date" />
+        <s:attribute name="expirationDate" type="s:date" />
+        <s:attribute name="placeOfIssue" type="s:string" />
+        <s:attribute name="countryOfIssue" type="s:string" />
+        <s:attribute name="documentID" type="s:int" />
+        <s:attribute name="resort" type="s:string" />
+        <s:attribute name="primary" type="s:boolean" />
+        <s:attribute name="displaySequence" type="s:int" />
+      </s:complexType>
+      <s:complexType name="Membership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="membershipType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipNextLevel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="memberName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="effectiveDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="expirationDate" type="s:date" />
+          <s:element minOccurs="0" maxOccurs="1" name="currentPoints" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollmentCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResvNameId" type="s2:ArrayOfUniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="membershipid" type="s2:UniqueID" />
+          <s:element minOccurs="0" maxOccurs="1" name="transferPoints" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollmentSource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrolledAt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="awardPointsToExpires" type="s2:ArrayOfAwardPointsToExpire" />
+          <s:element minOccurs="0" maxOccurs="1" name="inactive" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUniqueID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UniqueID" type="s2:UniqueID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAwardPointsToExpire">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AwardPointsToExpire" type="s2:AwardPointsToExpire" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AwardPointsToExpire">
+        <s:attribute name="expirationDate" type="s:date" use="required" />
+        <s:attribute name="totalToExpire" type="s:double" use="required" />
+        <s:attribute name="expireByDate" type="s:double" />
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Core/">
+      <s:element name="OGHeader" type="s3:OGHeader" />
+      <s:complexType name="OGHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Origin" type="s3:EndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destination" type="s3:EndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Intermediaries" type="s3:ArrayOfEndPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="Authentication" type="s3:OGHeaderAuthentication" />
+        </s:sequence>
+        <s:attribute name="transactionID" type="s:string" />
+        <s:attribute name="authToken" type="s:string" />
+        <s:attribute name="timeStamp" type="s:dateTime" />
+        <s:attribute name="primaryLangID" type="s:string" />
+        <s:attribute name="channelValidation" type="s:boolean" />
+        <s:attribute name="terminalID" type="s:string" />
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="EndPoint">
+        <s:complexContent mixed="false">
+          <s:extension base="s3:SystemID">
+            <s:attribute name="systemType" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SystemID">
+        <s:attribute name="entityID" type="s:string" />
+        <s:attribute name="organizationID" type="s:string" />
+      </s:complexType>
+      <s:complexType name="ArrayOfEndPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EndPoint" type="s3:EndPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthentication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserCredentials" type="s3:OGHeaderAuthenticationUserCredentials" />
+          <s:element minOccurs="0" maxOccurs="1" name="Licence" type="s3:OGHeaderAuthenticationLicence" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthenticationUserCredentials">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domain" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OGHeaderAuthenticationLicence">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://webservices.micros.com/og/4.3/Name/">
+      <s:import namespace="http://webservices.micros.com/og/4.3/Common/" />
+      <s:complexType name="NameAddress">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:Address">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NameCreditCard">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:CreditCard">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfNamePhone">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NamePhone" type="s4:NamePhone" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NamePhone">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:Phone">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="extension" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="NameMembership">
+        <s:complexContent mixed="false">
+          <s:extension base="s2:Membership">
+            <s:attribute name="operaId" type="s:long" />
+            <s:attribute name="externalId" type="s:string" />
+            <s:attribute name="primary" type="s:boolean" />
+            <s:attribute name="preferred" type="s:boolean" />
+            <s:attribute name="central" type="s:boolean" />
+            <s:attribute name="membershipClass" type="s:string" />
+            <s:attribute name="pointsLabel" type="s:string" />
+            <s:attribute name="status" type="s:string" />
+            <s:attribute name="displaySequence" type="s:int" />
+            <s:attribute name="insertUser" type="s:string" />
+            <s:attribute name="insertDate" type="s:dateTime" />
+            <s:attribute name="updateUser" type="s:string" />
+            <s:attribute name="updateDate" type="s:dateTime" />
+            <s:attribute name="inactiveDate" type="s:date" />
+            <s:attribute name="usedInReservation" type="s:boolean" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UpdateRoomStatusSoapIn">
+    <wsdl:part name="UpdateRoomStatusRequest" element="s0:UpdateRoomStatusRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRoomStatusSoapOut">
+    <wsdl:part name="UpdateRoomStatusResult" element="s0:UpdateRoomStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRoomStatusOGHeader">
+    <wsdl:part name="OGHeader" element="s3:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="WakeUpCallSoapIn">
+    <wsdl:part name="WakeUpCallRequest" element="s0:WakeUpCallRequest" />
+  </wsdl:message>
+  <wsdl:message name="WakeUpCallSoapOut">
+    <wsdl:part name="WakeUpCallResult" element="s0:WakeUpCallResponse" />
+  </wsdl:message>
+  <wsdl:message name="WakeUpCallOGHeader">
+    <wsdl:part name="OGHeader" element="s3:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="FetchOptInSetupSoapIn">
+    <wsdl:part name="FetchOptInSetupRequest" element="s0:FetchOptInSetupRequest" />
+  </wsdl:message>
+  <wsdl:message name="FetchOptInSetupSoapOut">
+    <wsdl:part name="FetchOptInSetupResult" element="s0:FetchOptInSetupResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchOptInSetupOGHeader">
+    <wsdl:part name="OGHeader" element="s3:OGHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateReservationForOptInSoapIn">
+    <wsdl:part name="UpdateReservationForOptInRequest" element="s0:UpdateReservationForOptInRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateReservationForOptInSoapOut">
+    <wsdl:part name="UpdateReservationForOptInResult" element="s0:UpdateReservationForOptInResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateReservationForOptInOGHeader">
+    <wsdl:part name="OGHeader" element="s3:OGHeader" />
+  </wsdl:message>
+  <wsdl:portType name="GuestServicesServiceSoap">
+    <wsdl:operation name="UpdateRoomStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update room status for requested reservation.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateRoomStatusSoapIn" />
+      <wsdl:output message="tns:UpdateRoomStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WakeUpCall">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Add, Delete and Fetch wakeup calls for requested reservation.</wsdl:documentation>
+      <wsdl:input message="tns:WakeUpCallSoapIn" />
+      <wsdl:output message="tns:WakeUpCallSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchOptInSetup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetch Optin setup fields for requested resort.</wsdl:documentation>
+      <wsdl:input message="tns:FetchOptInSetupSoapIn" />
+      <wsdl:output message="tns:FetchOptInSetupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReservationForOptIn">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update Reservation with OptIn Data.</wsdl:documentation>
+      <wsdl:input message="tns:UpdateReservationForOptInSoapIn" />
+      <wsdl:output message="tns:UpdateReservationForOptInSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GuestServicesServiceSoap" type="tns:GuestServicesServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateRoomStatus">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#UpdateRoomStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateRoomStatusOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateRoomStatusOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WakeUpCall">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#WakeUpCall" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:WakeUpCallOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:WakeUpCallOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchOptInSetup">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#FetchOptInSetup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchOptInSetupOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:FetchOptInSetupOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReservationForOptIn">
+      <soap:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#UpdateReservationForOptIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateReservationForOptInOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateReservationForOptInOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GuestServicesServiceSoap12" type="tns:GuestServicesServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateRoomStatus">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#UpdateRoomStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateRoomStatusOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateRoomStatusOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WakeUpCall">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#WakeUpCall" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:WakeUpCallOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:WakeUpCallOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchOptInSetup">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#FetchOptInSetup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchOptInSetupOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FetchOptInSetupOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReservationForOptIn">
+      <soap12:operation soapAction="http://webservices.micros.com/ows/5.1/GuestServices.wsdl#UpdateReservationForOptIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateReservationForOptInOGHeader" part="OGHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateReservationForOptInOGHeader" part="OGHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GuestServicesService">
+    <wsdl:port name="GuestServicesServiceSoap" binding="tns:GuestServicesServiceSoap">
+      <soap:address location="http://operademo3.microsdc.us:4300/ows_ws_51/GuestServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GuestServicesServiceSoap12" binding="tns:GuestServicesServiceSoap12">
+      <soap12:address location="http://operademo3.microsdc.us:4300/ows_ws_51/GuestServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

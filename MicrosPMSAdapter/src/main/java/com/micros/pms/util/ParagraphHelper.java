@@ -63,12 +63,22 @@ public class ParagraphHelper {
 	}
 
 	/**
+	 * Syntactic sugar for creating a basic paragraph JAXB element.
+	 *
+	 * @param string
+	 * @return
+	 */
+	public static Paragraph createParagraph(String string) {
+		return new Paragraph().withImagesAndURLSAndTexts(createParagraphElement(string));
+	}
+
+	/**
 	 * Syntactic sugar for creating a basic paragraph.
 	 *
 	 * @param string
 	 * @return
 	 */
-	public static JAXBElement<Text> createParagraph(String string) {
+	public static JAXBElement<Text> createParagraphElement(String string) {
 		return FACTORY.createParagraphText(new Text(string, false, null));
 	}
 }

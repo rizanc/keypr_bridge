@@ -12,7 +12,7 @@ import com.cloudkey.pms.response.reservations.CheckOutResponse;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
-import com.micros.pms.util.IdUtils;
+import com.cloudkey.pms.micros.ows.IdUtils;
 
 import javax.xml.ws.Holder;
 

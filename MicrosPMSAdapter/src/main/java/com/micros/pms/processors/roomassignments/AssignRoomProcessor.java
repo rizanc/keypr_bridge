@@ -1,21 +1,20 @@
 package com.micros.pms.processors.roomassignments;
 
+import com.cloudkey.exceptions.PMSError;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
-import com.cloudkey.pms.micros.og.hotelcommon.HotelReference;
-import com.cloudkey.pms.micros.og.hotelcommon.RoomStatus;
-import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequest;
-import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusResponse;
+import com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
-import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
-import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
-import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
-import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
+import com.cloudkey.pms.request.rooms.AssignRoomRequest;
+import com.cloudkey.pms.response.rooms.AssignRoomResponse;
 import com.google.inject.Inject;
+import com.keypr.bridge.ids.BridgeIds;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
+import java.util.Objects;
+
+import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -43,7 +42,6 @@ public class AssignRoomProcessor extends OWSProcessor<
 	protected com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest toMicrosRequest(AssignRoomRequest request) {
 		return new com.cloudkey.pms.micros.ows.reservation.AssignRoomRequest()
 			.withHotelReference(getDefaultHotelReference())
-			.withStationID(stationId)
 			.withResvNameId(internalReservationId(request.getPmsReservationId()));
 	}
 
@@ -52,4 +50,14 @@ public class AssignRoomProcessor extends OWSProcessor<
 		return new AssignRoomResponse(microsResponse.getRoomNoAssigned());
 	}
 
+	@Override
+	protected AssignRoomResponse handleError(ResultStatus result) {
+		if (result instanceof GDSResultStatus
+				&& ((GDSResultStatus) result).getGDSError() != null
+				&& Objects.equals(((GDSResultStatus) result).getGDSError().getErrorCode(), "-220")) {
+			throw new PMSError(BridgeIds.PMSErrorMessage.NO_ROOM_AVAILABLE);
+		}
+
+		return null;
+	}
 }

@@ -5,14 +5,12 @@ import com.cloudkey.commons.RoomTypeAvailability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
-import com.cloudkey.pms.micros.og.hotelcommon.RoomTypeInventory;
-import com.cloudkey.pms.micros.og.hotelcommon.TimeSpan;
-import com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest;
-import com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse;
+import com.cloudkey.pms.micros.og.hotelcommon.*;
 import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
-import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
-import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
@@ -20,44 +18,53 @@ import com.micros.pms.processors.OWSProcessor;
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class GetAvailabilityProcessor extends OWSProcessor<
-	GetAvailabilityRequest,
-	GetAvailabilityResponse,
+public class FetchCalendarProcessor extends OWSProcessor<
 	FetchCalendarRequest,
-	FetchCalendarResponse> {
+	FetchCalendarResponse,
+	com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest,
+	com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse> {
 
 	@Inject
 	protected AvailabilityServiceSoap service;
 
 	@Override
-	protected ResultStatus getResultStatus(FetchCalendarResponse fetchCalendarResponse) {
+	protected ResultStatus getResultStatus(com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse fetchCalendarResponse) {
 		return fetchCalendarResponse.getResult();
 	}
 
 	@Override
-	protected FetchCalendarResponse callService(FetchCalendarRequest fetchCalendarRequest, Holder<OGHeader> header) {
+	protected com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse callService(com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest fetchCalendarRequest, Holder<OGHeader> header) {
 		return service.fetchCalendar(fetchCalendarRequest, header);
 	}
 
 	@Override
-	protected FetchCalendarRequest toMicrosRequest(GetAvailabilityRequest request) {
-		return new FetchCalendarRequest()
+	protected com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest toMicrosRequest(FetchCalendarRequest request) {
+		return new com.cloudkey.pms.micros.ows.availability.FetchCalendarRequest()
 			.withStayDateRange(
 				new TimeSpan()
 					.withStartDate(request.getStartDate().toDateTimeAtStartOfDay())
 					.withEndDate(request.getEndDate().toDateTimeAtStartOfDay())
 			)
+			.withGuestCount(new GuestCountList()
+				.withGuestCounts(
+					new GuestCount(AgeQualifyingCode.ADULT, null, null, request.getNumAdults()),
+					new GuestCount(AgeQualifyingCode.CHILD, null, null, request.getNumChildren())
+				)
+			)
+			.withRatePlanCode(request.getRateCode())
 			.withHotelReference(getDefaultHotelReference())
 			.withInventoryMode(request.getAvailableOnly() == null ? false : request.getAvailableOnly());
 	}
 
 	@Override
-	protected GetAvailabilityResponse toPmsResponse(FetchCalendarResponse microsResponse) {
+	protected FetchCalendarResponse toPmsResponse(com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse microsResponse) {
 		List<DayRoomAvailability> availabilityList = Lists.transform(microsResponse.getCalendar(), new Function<CalendarDailyDetail, DayRoomAvailability>() {
 			@Nullable
 			@Override
@@ -81,7 +88,7 @@ public class GetAvailabilityProcessor extends OWSProcessor<
 			}
 		});
 
-		return new GetAvailabilityResponse(availabilityList);
+		return new FetchCalendarResponse(availabilityList);
 	}
 
 	private Integer nullsafeToInteger(BigInteger bigInteger) {

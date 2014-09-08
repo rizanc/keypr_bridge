@@ -2,6 +2,7 @@ package com.cloudkey.pms.response.reservations;
 
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class AddReservationNotesResponse extends PMSResponse {
     private List<String> currentNotes;
 
 	public AddReservationNotesResponse(List<String> currentNotes) {
-		this.currentNotes = currentNotes;
+		this.currentNotes = ImmutableList.copyOf(currentNotes);
 	}
 
 	public List<String> getCurrentNotes() {

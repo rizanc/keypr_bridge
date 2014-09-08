@@ -48,6 +48,8 @@ public class MicrosIds {
 	public static class OWS {
 		public static final String RESERVATION_ID_SOURCE = "RESVID";
 
+		public static final String CANCEL_REASON_CODE = "WEB";
+
 		public enum PhoneNumberRole {
 			PHONE,
 			FAX
@@ -70,5 +72,6 @@ public class MicrosIds {
 				this.typeValue = typeValue;
 			}
 		}
+
 	}
 }

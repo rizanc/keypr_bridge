@@ -26,6 +26,42 @@ public class BridgeIds {
 
     public enum RoomStatus {
         CLEAN,
-        DIRTY;
+        DIRTY,
+        INSPECTED,
+        PICKUP,
+        OUT_OF_ORDER,
+        OUT_OF_SERVICE;
     }
+
+    public enum TurnDownStatus {
+        COMPLETED,
+        REQUIRED,
+        NOT_REQUIRED;
+    }
+
+    public enum GuestServiceStatus {
+        DO_NOT_DISTURB,
+        MAKE_UP_ROOM,
+        NONE;
+    }
+
+    public enum RepairStatus {
+        OUT_OF_ORDER,
+        OUT_OF_SERVICE;
+    }
+
+	public enum PMSErrorMessage {
+		// Room assignment
+		NO_ROOM_AVAILABLE("No room is ready for assignment");
+
+		private String message;
+
+		PMSErrorMessage(String message) {
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+	}
 }

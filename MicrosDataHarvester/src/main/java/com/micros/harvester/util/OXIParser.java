@@ -1,13 +1,12 @@
 package com.micros.harvester.util;
 
 import com.cloudkey.commons.*;
-import com.cloudkey.commons.Reservation;
-import com.keypr.pms.micros.ows.jaxb.profile_5_0.*;
-import com.keypr.pms.micros.ows.jaxb.profile_5_0.Membership;
-import com.keypr.pms.micros.ows.jaxb.reservation.*;
-import com.keypr.pms.micros.ows.jaxb.reservation.SpecialRequest;
-import com.keypr.pms.micros.ows.jaxb.rtav.RoomTypeInventory;
-import com.keypr.pms.micros.ows.jaxb.rtav.RtavMessage;
+import com.keypr.pms.micros.oxi.jaxb.profile.*;
+import com.keypr.pms.micros.oxi.jaxb.profile.Membership;
+import com.keypr.pms.micros.oxi.jaxb.reservation.*;
+import com.keypr.pms.micros.oxi.jaxb.reservation.SpecialRequest;
+import com.keypr.pms.micros.oxi.jaxb.rtav.RoomTypeInventory;
+import com.keypr.pms.micros.oxi.jaxb.rtav.RtavMessage;
 import com.micros.harvester.constant.IMicrosHarvester;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -50,11 +49,11 @@ public class OXIParser {
      */
     private Document document;
 
-	public OXIParser(String oxiRequest) throws ParserConfigurationException, IOException, SAXException {
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
-		document = docBuilder.parse(IOUtils.toInputStream(oxiRequest));
-	}
+    public OXIParser(String oxiRequest) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+        document = docBuilder.parse(IOUtils.toInputStream(oxiRequest));
+    }
 
     /**
      * * This method accept xpath expression and reference of xml document. It returns the list
@@ -67,55 +66,15 @@ public class OXIParser {
      */
     private NodeList retrieveNodeList(String expression, Document document) throws XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
-	    return (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
+        return (NodeList) xPath.compile(expression).evaluate(document, XPathConstants.NODESET);
     }
 
-	/**
-     * Return true if document is a Reservation
-     */
-    public Boolean isReservation() {
-        boolean returnVal = false;
-        try {
-	        // Try to retrive reservation type
-	        String expression = "/Reservation[@mfReservationAction]";
-	        NodeList nodeList = retrieveNodeList(expression, document);
-	        returnVal = (nodeList.getLength() > 0);
-
-        } catch (Exception exc) {
-
-            log.error(" isReaservation ", exc);
-        }
-
-        return returnVal;
-    }
-
-
-    /**
-     * Return true if document is a Rtav
-     */
-    public Boolean isRtav() {
-        Boolean returnVal = false;
-        try {
-            // Try to retrive reservation type
-	        String expression = "/RtavMessage/DailyInventories/DailyInventory[@datum]";
-	        NodeList nodeList = retrieveNodeList(expression, document);
-	        returnVal = (nodeList.getLength() > 0);
-
-        } catch (Exception exc) {
-
-            log.error(" isRtav ", exc);
-        }
-
-        return returnVal;
-    }
-
-
-    public Reservation populateReservation(String oxiRequest) {
+    public com.cloudkey.commons.Reservation populateReservation(com.keypr.pms.micros.oxi.jaxb.reservation.Reservation oxiReservation) {
 
         log.debug("populateReservation: Enter populateReservation method. ");
 
         ReservationRoomAllocation objRoomAllocation = null;
-        Reservation objReservation = null;
+        com.cloudkey.commons.Reservation objReservation = null;
         List<ReservationRoomAllocation> obRoomAllocationsList = null;
         ArrayList<RoomRate> obRoomRatesList = null;
         RoomRate objRoomRate = null;
@@ -136,7 +95,7 @@ public class OXIParser {
         String firstName = "";
         String lastName = "";
 
-	    String chainCode = "";
+        String chainCode = "";
         String hotelCode = "";
         String companyName = "";
         String address = "";
@@ -153,201 +112,179 @@ public class OXIParser {
         String reservationStatusType = "";
 
         try {
-            objReservation = new Reservation();
+            objReservation = new com.cloudkey.commons.Reservation();
             objRoomAllocation = new ReservationRoomAllocation();
             obRoomRatesList = new ArrayList<>();
             obRoomAllocationsList = new ArrayList<ReservationRoomAllocation>();
             objRoomType = new RoomType();
             objStringBuffer = new StringBuffer();
 
-            if (isReservation()) {
+            reservationAction = oxiReservation.getMfReservationAction().value();
 
-	            StreamSource xmlContentBytes = new StreamSource(new StringReader(oxiRequest));
-	            JAXBContext context = JAXBContext.newInstance(com.keypr.pms.micros.ows.jaxb.reservation.Reservation.class);
-	            Unmarshaller unmarshaller = context.createUnmarshaller();
-	            unmarshaller.setSchema(null);
-
-	            JAXBElement<com.keypr.pms.micros.ows.jaxb.reservation.Reservation> root = unmarshaller.unmarshal(xmlContentBytes, com.keypr.pms.micros.ows.jaxb.reservation.Reservation.class);
-	            com.keypr.pms.micros.ows.jaxb.reservation.Reservation oxiReservation = root.getValue();
-
-	            reservationAction = oxiReservation.getMfReservationAction().value();
-
-	            if (reservationAction.equalsIgnoreCase(IMicrosHarvester.RESERVATION_TYPE_NEW)) {
-	                confirmationNumber = oxiReservation.getReservationID();
-	            } else if (reservationAction.equalsIgnoreCase(IMicrosHarvester.RESERVATION_TYPE_CHECK_IN) || reservationAction.equalsIgnoreCase(IMicrosHarvester.RESERVATION_TYPE_CHECK_OUT)) {
-	                confirmationNumber = oxiReservation.getConfirmationID();
-	            }
-
-	            if (oxiReservation.getRoomStays() != null &&
-	                    oxiReservation.getRoomStays().getRoomStay() != null) {
-	                RoomStay roomStay = oxiReservation.getRoomStays().getRoomStay().get(0);
-	                if (roomStay.getInventoryBlockCode() != null){
-	                    groupCode = roomStay.getInventoryBlockCode();
-	                }
-	                if (roomStay.getRatePlans() != null) {
-	                    List<RatePlan> ratePlan = roomStay.getRatePlans().getRatePlan();
-	                    if (ratePlan != null) {
-	                        objRoomRate = new RoomRate();
-	                        obRoomRatesList.add(objRoomRate);
-
-	                        planCode = ratePlan.get(0).getRatePlanCode();
-	                        objRoomRate.setPlanCode(planCode);
-
-	                        for (Rate rate : ratePlan.get(0).getRates().getRate()) {
-	                            objRoomRate.setBaseAmount(rate.getAmount().getValueNum());
-
-	                            Date effectiveDate = rate.getTimeSpan().getStartTime().toGregorianCalendar().getTime();
-	                            Date endDate = null;
-
-	                            int duration = rate.getTimeSpan().getNumberOfTimeUnits();
-	                            if (rate.getTimeSpan().getTimeUnitType() == TimeUnitType.DAY) {
-	                                endDate = DateUtils.addDays(effectiveDate, duration);
-
-	                            } else {
-	                                log.debug("populateReservation: Unknown time unit::: {}", rate.getTimeSpan().getTimeUnitType().toString());
-	                            }
-
-	                            objRoomRate.setEffectiveDate(new DateTime(effectiveDate));
-	                            objRoomRate.setExpirationDate(new DateTime(endDate));
-	                        }
-	                    }
-	                }
-	            }
-
-	            // Retrieving reservationStatusType whether it is reserved, check in or canceled...
-	            if (oxiReservation.getRoomStays() != null &&
-	                    oxiReservation.getRoomStays().getRoomStay() != null) {
-	                RoomStay roomStay = oxiReservation.getRoomStays().getRoomStay().get(0);
-	                reservationStatusType = roomStay.getReservationStatusType().value();
-	                reservationSource = roomStay.getMfsourceCode();
-
-	                if (roomStay.getRoomID() != null) {
-	                    objRoomAllocation.setRoomNo(roomStay.getRoomID());
-	                }
-	            }
-
-	            // Retrieving Comments of the Reservation. (Note, this does not retrieve the profile comments.
-	            // Only reservation comments. Or comments that have been automatically copied from the profile to
-	            // the reservation by OPERA during the reservation creation.
-	            if (oxiReservation.getResComments() != null &&
-	                    oxiReservation.getResComments().getResComment() != null) {
-
-	                for (ResComment comment : oxiReservation.getResComments().getResComment()) {
-	                    objStringBuffer.append(comment.getComment()).append(" ; ");
-	                }
-	                objReservation.setNotes(objStringBuffer.toString());
-	                objStringBuffer.delete(0, objStringBuffer.length());
-	            }
-
-	            checkInDate = new LocalDate(oxiReservation.getStayDateRange().getStartTime().toGregorianCalendar().getTimeInMillis());
-	            stayLength = oxiReservation.getStayDateRange().getNumberOfTimeUnits();
-
-	            // Processes the 'Reservation' special requests. Only reservation special requests are processed
-	            // not any requests that are on the Profile and OPERA has not bought over to the reservation.
-	            String specialRequests = "";
-	            if (oxiReservation.getSpecialRequests() != null &&
-	                    oxiReservation.getSpecialRequests().getSpecialRequest() != null) {
-	                for (SpecialRequest reservationSpecialRequest : oxiReservation.getSpecialRequests().getSpecialRequest()) {
-	                    if (specialRequests.equals("")) {
-	                        specialRequests = reservationSpecialRequest.getRequestCode() + "-" + reservationSpecialRequest.getRequestComments();
-	                    } else {
-	                        specialRequests += ";" + reservationSpecialRequest.getRequestCode() + "-" + reservationSpecialRequest.getRequestComments();
-	                    }
-	                }
-	            }
-	            // Retrieve room code
-	            String roomCode = oxiReservation.getRoomStays().getRoomStay().get(0).getRoomInventoryCode();
-	            objRoomType.setCode(roomCode);
-	            objRoomAllocation.setRoomType(objRoomType);
-
-	            log.debug("populateReservation: Room code ::: {}", roomCode);
-
-	            if (oxiReservation.getHotelReference() != null) {
-	                hotelCode = oxiReservation.getHotelReference().getHotelCode();
-	                chainCode = oxiReservation.getHotelReference().getChainCode();
-	            }
-
-	            //For  Reservation ID.
-	            pmsId = oxiReservation.getReservationID();
-
-	            // For Guest Count .
-	            if (oxiReservation.getGuestCounts() != null &&
-	                    oxiReservation.getGuestCounts().getGuestCount() != null) {
-	                for (GuestCount guestCount : oxiReservation.getGuestCounts().getGuestCount()) {
-	                    if (guestCount.getAgeQualifyingCode().equals("ADULT")) {
-	                        totalAdults += guestCount.getMfCount();
-	                    } else if (guestCount.getAgeQualifyingCode().equals("CHILD")) {
-	                        totalChildren += guestCount.getMfCount();
-	                    }
-	                }
-	            }
-
-	            totalGuest = totalAdults + totalChildren;
-	            boolean guestProfileFound = false;
-
-	            for (ResProfile mainProfile : oxiReservation.getResProfiles().getResProfile()) {
-
-	                Profile profile = mainProfile.getProfile();
-	                if (profile == null)
-	                    continue;
-
-	                if (profile.getProfileType() == ProfileType.GUEST &&
-	                        !guestProfileFound) {
-
-	                    guestProfileFound = true;
-
-	                    GuestProfileParser guestProfileParser = new GuestProfileParser(loyaltyNumber, firstName, lastName, address, phoneNumber, loyaltyProgram, email, profile).invoke();
-	                    loyaltyNumber = guestProfileParser.getLoyaltyNumber();
-	                    loyaltyProgram = guestProfileParser.getLoyaltyProgram();
-		                address = guestProfileParser.getAddress();
-	                    phoneNumber = guestProfileParser.getPhoneNumber();
-	                    email = guestProfileParser.getEmail();
-	                    firstName = guestProfileParser.getFirstName();
-	                    lastName = guestProfileParser.getLastName();
-	                } else if (profile.getProfileType() == ProfileType.CORPORATE){
-	                    if (profile.getIndividualName() != null )
-	                    {
-	                        if (profile.getIndividualName().getNameSur() != null)
-	                        {
-	                            companyName = profile.getIndividualName().getNameSur();
-	                        }
-	                    }
-	                }
-	            }
-
-	            // Populate reservation instance with oxi reservation data.
-	            objReservation.setAffilateId(IMicrosHarvester.OXI_AFFILATE_ID);
-	            objReservation.setHotelCode(hotelCode);
-	            objReservation.setChainCode(chainCode);
-	            objReservation.setConfirmationNumber(confirmationNumber);
-	            objReservation.setCreditCardNumber(creditCardNumber);
-	            objReservation.setReservationSource(reservationSource);
-	            objReservation.setLoyaltyNumber(loyaltyNumber);
-	            objReservation.setLoyaltyProgram(loyaltyProgram);
-	            objReservation.setCheckinDate(checkInDate);
-	            objReservation.setCheckoutDate(checkInDate.plusDays(stayLength));
-	            objReservation.setStayLength(stayLength);
-	            objReservation.setPmsReservationId(pmsId);
-	            objReservation.setNumberOfGuests(totalGuest);
-	            objReservation.setNumberOfAdults(totalAdults);
-	            objReservation.setNumberOfChildren(totalChildren);
-	            // TODO: Re-enable address parsing once reservation model is re-done
-	//                objReservation.setAddress(objectMapper.readValue(address, StreetAddress.class));
-	            objReservation.setPhoneNumber(phoneNumber);
-	            objReservation.setCompany(companyName);
-	            objRoomAllocation.setRoomRateList(obRoomRatesList);
-	            obRoomAllocationsList.add(objRoomAllocation);
-	            objReservation.setReservationRoomAllocationList(obRoomAllocationsList);
-	            objReservation.setEmail(email);
-	            objReservation.setMessage(specialRequests);
-	            objReservation.setFirstName(firstName);
-	            objReservation.setLastName(lastName);
-	            objReservation.setReservationStatus(reservationStatusType);
-	            objReservation.setGroup(groupCode);
-            } else {
-                log.debug("populateReservation: Not Reservation ");
+            if (reservationAction.equalsIgnoreCase(IMicrosHarvester.RESERVATION_TYPE_NEW)) {
+                confirmationNumber = oxiReservation.getReservationID();
+            } else if (reservationAction.equalsIgnoreCase(IMicrosHarvester.RESERVATION_TYPE_CHECK_IN) || reservationAction.equalsIgnoreCase(IMicrosHarvester.RESERVATION_TYPE_CHECK_OUT)) {
+                confirmationNumber = oxiReservation.getConfirmationID();
             }
 
+            if (!oxiReservation.getRoomStays().isEmpty()) {
+                RoomStay roomStay = oxiReservation.getRoomStays().get(0);
+                if (roomStay.getInventoryBlockCode() != null) {
+                    groupCode = roomStay.getInventoryBlockCode();
+                }
+                if (roomStay.getRatePlans() != null) {
+                    List<RatePlan> ratePlan = roomStay.getRatePlans();
+                    if (!ratePlan.isEmpty()) {
+                        objRoomRate = new RoomRate();
+                        obRoomRatesList.add(objRoomRate);
+
+                        planCode = ratePlan.get(0).getRatePlanCode();
+                        objRoomRate.setPlanCode(planCode);
+
+                        for (Rate rate : ratePlan.get(0).getRates()) {
+                            objRoomRate.setBaseAmount(rate.getAmount().getValueNum());
+
+                            Date effectiveDate = rate.getTimeSpan().getStartTime().toGregorianCalendar().getTime();
+                            Date endDate = null;
+
+                            int duration = rate.getTimeSpan().getNumberOfTimeUnits();
+                            if (rate.getTimeSpan().getTimeUnitType() == TimeUnitType.DAY) {
+                                endDate = DateUtils.addDays(effectiveDate, duration);
+
+                            } else {
+                                log.debug("populateReservation: Unknown time unit::: {}", rate.getTimeSpan().getTimeUnitType().toString());
+                            }
+
+                            objRoomRate.setEffectiveDate(new DateTime(effectiveDate));
+                            objRoomRate.setExpirationDate(new DateTime(endDate));
+                        }
+                    }
+                }
+            }
+
+            // Retrieving reservationStatusType whether it is reserved, check in or canceled...
+            if (!oxiReservation.getRoomStays().isEmpty()) {
+                RoomStay roomStay = oxiReservation.getRoomStays().get(0);
+                reservationStatusType = roomStay.getReservationStatusType().value();
+                reservationSource = roomStay.getMfsourceCode();
+
+                if (roomStay.getRoomID() != null) {
+                    objRoomAllocation.setRoomNo(roomStay.getRoomID());
+                }
+            }
+
+            // Retrieving Comments of the Reservation. (Note, this does not retrieve the profile comments.
+            // Only reservation comments. Or comments that have been automatically copied from the profile to
+            // the reservation by OPERA during the reservation creation.
+            if (!oxiReservation.getResComments().isEmpty()) {
+                for (ResComment comment : oxiReservation.getResComments()) {
+                    objStringBuffer.append(comment.getComment()).append(" ; ");
+                }
+                objReservation.setNotes(objStringBuffer.toString());
+                objStringBuffer.delete(0, objStringBuffer.length());
+            }
+
+            checkInDate = new LocalDate(oxiReservation.getStayDateRange().getStartTime().toGregorianCalendar().getTimeInMillis());
+            stayLength = oxiReservation.getStayDateRange().getNumberOfTimeUnits();
+
+            // Processes the 'Reservation' special requests. Only reservation special requests are processed
+            // not any requests that are on the Profile and OPERA has not bought over to the reservation.
+            String specialRequests = "";
+            if (!oxiReservation.getSpecialRequests().isEmpty()) {
+                for (SpecialRequest reservationSpecialRequest : oxiReservation.getSpecialRequests()) {
+                    if (specialRequests.equals("")) {
+                        specialRequests = reservationSpecialRequest.getRequestCode() + "-" + reservationSpecialRequest.getRequestComments();
+                    } else {
+                        specialRequests += ";" + reservationSpecialRequest.getRequestCode() + "-" + reservationSpecialRequest.getRequestComments();
+                    }
+                }
+            }
+            // Retrieve room code
+            String roomCode = oxiReservation.getRoomStays().get(0).getRoomInventoryCode();
+            objRoomType.setCode(roomCode);
+            objRoomAllocation.setRoomType(objRoomType);
+
+            log.debug("populateReservation: Room code ::: {}", roomCode);
+
+            if (oxiReservation.getHotelReference() != null) {
+                hotelCode = oxiReservation.getHotelReference().getHotelCode();
+                chainCode = oxiReservation.getHotelReference().getChainCode();
+            }
+
+            //For  Reservation ID.
+            pmsId = oxiReservation.getReservationID();
+
+            // For Guest Count .
+            if (!oxiReservation.getGuestCounts().isEmpty()) {
+                for (GuestCount guestCount : oxiReservation.getGuestCounts()) {
+                    if (guestCount.getAgeQualifyingCode().equals("ADULT")) {
+                        totalAdults += guestCount.getMfCount();
+                    } else if (guestCount.getAgeQualifyingCode().equals("CHILD")) {
+                        totalChildren += guestCount.getMfCount();
+                    }
+                }
+            }
+
+            totalGuest = totalAdults + totalChildren;
+            boolean guestProfileFound = false;
+
+            for (ResProfile mainProfile : oxiReservation.getResProfiles()) {
+
+                Profile profile = mainProfile.getProfile();
+                if (profile == null)
+                    continue;
+
+                if (profile.getProfileType() == ProfileType.GUEST &&
+                        !guestProfileFound) {
+
+                    guestProfileFound = true;
+
+                    GuestProfileParser guestProfileParser = new GuestProfileParser(loyaltyNumber, firstName, lastName, address, phoneNumber, loyaltyProgram, email, profile).invoke();
+                    loyaltyNumber = guestProfileParser.getLoyaltyNumber();
+                    loyaltyProgram = guestProfileParser.getLoyaltyProgram();
+                    address = guestProfileParser.getAddress();
+                    phoneNumber = guestProfileParser.getPhoneNumber();
+                    email = guestProfileParser.getEmail();
+                    firstName = guestProfileParser.getFirstName();
+                    lastName = guestProfileParser.getLastName();
+                } else if (profile.getProfileType() == ProfileType.CORPORATE) {
+                    if (profile.getIndividualName() != null) {
+                        if (profile.getIndividualName().getNameSur() != null) {
+                            companyName = profile.getIndividualName().getNameSur();
+                        }
+                    }
+                }
+            }
+
+            // Populate reservation instance with oxi reservation data.
+            objReservation.setAffilateId(IMicrosHarvester.OXI_AFFILATE_ID);
+            objReservation.setHotelCode(hotelCode);
+            objReservation.setChainCode(chainCode);
+            objReservation.setConfirmationNumber(confirmationNumber);
+            objReservation.setCreditCardNumber(creditCardNumber);
+            objReservation.setReservationSource(reservationSource);
+            objReservation.setLoyaltyNumber(loyaltyNumber);
+            objReservation.setLoyaltyProgram(loyaltyProgram);
+            objReservation.setCheckinDate(checkInDate);
+            objReservation.setCheckoutDate(checkInDate.plusDays(stayLength));
+            objReservation.setStayLength(stayLength);
+            objReservation.setPmsReservationId(pmsId);
+            objReservation.setNumberOfGuests(totalGuest);
+            objReservation.setNumberOfAdults(totalAdults);
+            objReservation.setNumberOfChildren(totalChildren);
+            // TODO: Re-enable address parsing once reservation model is re-done
+            //                objReservation.setAddress(objectMapper.readValue(address, StreetAddress.class));
+            objReservation.setPhoneNumber(phoneNumber);
+            objReservation.setCompany(companyName);
+            objRoomAllocation.setRoomRateList(obRoomRatesList);
+            obRoomAllocationsList.add(objRoomAllocation);
+            objReservation.setReservationRoomAllocationList(obRoomAllocationsList);
+            objReservation.setEmail(email);
+            objReservation.setMessage(specialRequests);
+            objReservation.setFirstName(firstName);
+            objReservation.setLastName(lastName);
+            objReservation.setReservationStatus(reservationStatusType);
+            objReservation.setGroup(groupCode);
         } catch (Exception exc) {
             log.error(" populateReservation ", exc);
         }
@@ -362,60 +299,46 @@ public class OXIParser {
      *
      * @return
      */
-    public Rtav populateRtav(String oxiRequest) {
+    public Rtav populateRtav(RtavMessage oxiRtavMessage) {
 
         log.debug("populateRtav: Enter populateRtav method. ");
 
         Rtav objRtav = new Rtav();
         try {
-            if (isRtav()) {
-                StreamSource xmlContentBytes = new StreamSource(new StringReader(oxiRequest));
-                JAXBContext context = JAXBContext.newInstance(RtavMessage.class);
-                Unmarshaller unmarshaller = context.createUnmarshaller();
-                unmarshaller.setSchema(null);
 
-                JAXBElement<RtavMessage> root = unmarshaller.unmarshal(xmlContentBytes, RtavMessage.class);
-                RtavMessage oxiRtavMessage = root.getValue();
+            objRtav.setHotelCode(oxiRtavMessage.getHotelReference().getHotelCode());
+            if (!oxiRtavMessage.getDailyInventories().isEmpty()) {
 
-                objRtav.setHotelCode(oxiRtavMessage.getHotelReference().getHotelCode());
-                if (oxiRtavMessage.getDailyInventories() != null &&
-                        oxiRtavMessage.getDailyInventories().getDailyInventory() != null) {
+                ArrayList<DailyInventory> dailyInventories = new ArrayList<>();
+                objRtav.setDailyInventories(dailyInventories);
 
-                    ArrayList<DailyInventory> dailyInventories = new ArrayList<>();
-                    objRtav.setDailyInventories(dailyInventories);
+                for (com.keypr.pms.micros.oxi.jaxb.rtav.DailyInventory dailyInventory : oxiRtavMessage.getDailyInventories()) {
+                    DailyInventory objDailyInventory = new DailyInventory();
+                    objRtav.getDailyInventories().add(objDailyInventory);
 
-                    for (com.keypr.pms.micros.ows.jaxb.rtav.DailyInventory dailyInventory : oxiRtavMessage.getDailyInventories().getDailyInventory()) {
-                        DailyInventory objDailyInventory = new DailyInventory();
-                        objRtav.getDailyInventories().add(objDailyInventory);
+                    objDailyInventory.setInventoryDate(dailyInventory.getDatum());
+                    objDailyInventory.setHouseOverbook(dailyInventory.getHouseOverbook());
+                    objDailyInventory.setOutOfOrder(dailyInventory.getOutOfOrder());
+                    objDailyInventory.setPhysicalRooms(dailyInventory.getPhysicalRooms());
 
-                        objDailyInventory.setInventoryDate(new LocalDate(dailyInventory.getDatum().toGregorianCalendar().getTimeInMillis()));
-                        objDailyInventory.setHouseOverbook(dailyInventory.getHouseOverbook());
-                        objDailyInventory.setOutOfOrder(dailyInventory.getOutOfOrder());
-                        objDailyInventory.setPhysicalRooms(dailyInventory.getPhysicalRooms());
+                    if (!dailyInventory.getRoomTypeInventories().isEmpty()) {
+                        objDailyInventory.setRoomTypeInventories(new ArrayList<com.cloudkey.commons.RoomTypeInventory>());
+                        for (RoomTypeInventory roomTypeInventory : dailyInventory.getRoomTypeInventories()) {
+                            com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();
+                            objDailyInventory.getRoomTypeInventories().add(objRoomTypeInventory);
 
-                        if (dailyInventory.getRoomTypeInventories() != null &&
-                                dailyInventory.getRoomTypeInventories().getRoomTypeInventory() != null) {
-                            objDailyInventory.setRoomTypeInventories(new ArrayList<com.cloudkey.commons.RoomTypeInventory>());
-                            for (RoomTypeInventory roomTypeInventory : dailyInventory.getRoomTypeInventories().getRoomTypeInventory()) {
-                                com.cloudkey.commons.RoomTypeInventory objRoomTypeInventory = new com.cloudkey.commons.RoomTypeInventory();
-                                objDailyInventory.getRoomTypeInventories().add(objRoomTypeInventory);
+                            objRoomTypeInventory.setTotalRooms(roomTypeInventory.getPhysicalRooms());
 
-                                objRoomTypeInventory.setTotalRooms(roomTypeInventory.getPhysicalRooms());
+                            RoomType roomType = new RoomType();
+                            roomType.setCode(roomTypeInventory.getRoomType());
+                            objRoomTypeInventory.setRoomType(roomType);
 
-                                RoomType roomType = new RoomType();
-                                roomType.setCode(roomTypeInventory.getRoomType());
-                                objRoomTypeInventory.setRoomType(roomType);
-
-                                objRoomTypeInventory.setTotalRoomsAvailable(roomTypeInventory.getAvailable());
-                            }
+                            objRoomTypeInventory.setTotalRoomsAvailable(roomTypeInventory.getAvailable());
                         }
                     }
                 }
-
-
-            } else {
-                log.debug("populateRtav: Not Rtav ");
             }
+
         } catch (Exception exc) {
             log.error(" populateRtav ", exc);
         }
@@ -461,7 +384,7 @@ public class OXIParser {
             return lastName;
         }
 
-	    public String getAddress() {
+        public String getAddress() {
             return address;
         }
 
@@ -484,7 +407,7 @@ public class OXIParser {
             }
 
             if (profile.getPostalAddresses() != null) {
-                List<PostalAddress> postalAddresses = profile.getPostalAddresses().getPostalAddress();
+                List<PostalAddress> postalAddresses = profile.getPostalAddresses();
                 if (postalAddresses.size() > 0) {
                     for (PostalAddress postalAddress : postalAddresses) {
                         if (postalAddress.getMfPrimaryYN().equals("Y")) {
@@ -523,38 +446,28 @@ public class OXIParser {
                 fullName = "";
             }
 
-            if (profile.getMemberships() != null &&
-                    profile.getMemberships().getMembership() != null) {
-
-                //TODO: Perhaps need to allow for more than one membership here.
-                for (Membership membership : profile.getMemberships().getMembership()) {
-                    if (membership.getDisplaySequence() == 1) {
-                        loyaltyProgram = membership.getProgramCode();
-                        loyaltyNumber = membership.getAccountID();
-                        break;
-                    }
+            //TODO: Perhaps need to allow for more than one membership here.
+            for (Membership membership : profile.getMemberships()) {
+                if (membership.getDisplaySequence() == 1) {
+                    loyaltyProgram = membership.getProgramCode();
+                    loyaltyNumber = membership.getAccountID();
+                    break;
                 }
             }
 
-            if (profile.getPhoneNumbers() != null &&
-                    profile.getPhoneNumbers().getPhoneNumber() != null) {
-                for (PhoneNumber oxiPhone : profile.getPhoneNumbers().getPhoneNumber()) {
-                    if (phoneNumber.equals("")) {
-                        phoneNumber += oxiPhone.getPhoneNumber();
-                    } else {
-                        phoneNumber += ";" + oxiPhone.getPhoneNumber();
-                    }
+            for (PhoneNumber oxiPhone : profile.getPhoneNumbers()) {
+                if (phoneNumber.equals("")) {
+                    phoneNumber += oxiPhone.getPhoneNumber();
+                } else {
+                    phoneNumber += ";" + oxiPhone.getPhoneNumber();
                 }
             }
 
-            if (profile.getElectronicAddresses() != null &&
-                    profile.getElectronicAddresses().getElectronicAddress() != null) {
-                for (ElectronicAddress electronicAddress : profile.getElectronicAddresses().getElectronicAddress()) {
-                    if (email.equals("")) {
-                        email = electronicAddress.getEAddress();
-                    } else {
-                        email += ";" + electronicAddress.getEAddress();
-                    }
+            for (ElectronicAddress electronicAddress : profile.getElectronicAddresses()) {
+                if (email.equals("")) {
+                    email = electronicAddress.getEAddress();
+                } else {
+                    email += ";" + electronicAddress.getEAddress();
                 }
             }
             return this;

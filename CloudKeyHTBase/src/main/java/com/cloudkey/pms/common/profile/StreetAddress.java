@@ -1,6 +1,7 @@
 package com.cloudkey.pms.common.profile;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class StreetAddress {
 	protected StreetAddress() { /* For serialization */ }
 
 	public StreetAddress(List<String> addressLine, String cityName, String stateProv, String countryCode, String postalCode, String barCode, String cityExtension, String addressType, String otherAddressType, String languageCode) {
-		this.addressLine = addressLine;
+		this.addressLine = ImmutableList.copyOf(addressLine);
 		this.cityName = cityName;
 		this.stateProv = stateProv;
 		this.countryCode = countryCode;

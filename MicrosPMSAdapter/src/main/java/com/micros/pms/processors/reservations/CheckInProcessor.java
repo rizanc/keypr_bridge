@@ -6,10 +6,8 @@ import com.cloudkey.pms.common.HotelAmenity;
 import com.cloudkey.pms.micros.og.common.CreditCard;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
-import com.cloudkey.pms.micros.og.common.Text;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.Room;
-import com.cloudkey.pms.micros.og.hotelcommon.RoomFeature;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomType;
 import com.cloudkey.pms.micros.og.name.NameCreditCard;
 import com.cloudkey.pms.micros.og.name.Profile;
@@ -19,18 +17,16 @@ import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.reservations.CheckInRequest;
 import com.cloudkey.pms.response.reservations.CheckInResponse;
 import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
-import com.micros.pms.util.IdUtils;
+import com.cloudkey.pms.micros.ows.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
 
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)

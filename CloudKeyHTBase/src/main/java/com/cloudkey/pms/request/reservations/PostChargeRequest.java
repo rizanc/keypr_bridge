@@ -1,8 +1,7 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
@@ -13,14 +12,18 @@ import java.math.BigDecimal;
  *
  * @author crizan2
  */
-public class PostChargeRequest extends PMSRequest {
-	@NotNull
-	@ApiModelProperty(required = true)
-	private String pmsReservationId;
-
+public class PostChargeRequest extends AbstractSingleReservationRequest {
 	@NotNull
 	@ApiModelProperty(required = true)
 	private BigDecimal chargeAmount;
+
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	private String articleCode;
+
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	private String transactionCode;
 
 	private DateTime postDateTime;
 
@@ -28,88 +31,59 @@ public class PostChargeRequest extends PMSRequest {
 
 	private String longInfo;
 
-	private String userId;
-
 	private Integer folioViewNo;
 
 	protected PostChargeRequest() { /* For serialization */ }
 
-	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, DateTime postDateTime, String shortInfo, String longInfo, String stationId, String userId, Integer folioViewNo, String account, String article) {
-		this.pmsReservationId = pmsReservationId;
+	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, String articleCode, String transactionCode, DateTime postDateTime, String shortInfo, String longInfo, Integer folioViewNo) {
+		super(pmsReservationId);
 		this.chargeAmount = chargeAmount;
+		this.articleCode = articleCode;
+		this.transactionCode = transactionCode;
 		this.postDateTime = postDateTime;
 		this.shortInfo = shortInfo;
 		this.longInfo = longInfo;
-		this.userId = userId;
 		this.folioViewNo = folioViewNo;
-	}
-
-	public String getPmsReservationId() {
-		return pmsReservationId;
-	}
-
-	public void setPmsReservationId(String pmsReservationId) {
-		this.pmsReservationId = pmsReservationId;
 	}
 
 	public BigDecimal getChargeAmount() {
 		return chargeAmount;
 	}
 
-	public void setChargeAmount(BigDecimal chargeAmount) {
-		this.chargeAmount = chargeAmount;
-	}
-
 	public DateTime getPostDateTime() {
 		return postDateTime;
-	}
-
-	public void setPostDateTime(DateTime postDateTime) {
-		this.postDateTime = postDateTime;
 	}
 
 	public String getShortInfo() {
 		return shortInfo;
 	}
 
-	public void setShortInfo(String shortInfo) {
-		this.shortInfo = shortInfo;
-	}
-
 	public String getLongInfo() {
 		return longInfo;
-	}
-
-	public void setLongInfo(String longInfo) {
-		this.longInfo = longInfo;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public Integer getFolioViewNo() {
 		return folioViewNo;
 	}
 
-	public void setFolioViewNo(Integer folioViewNo) {
-		this.folioViewNo = folioViewNo;
+	public String getArticleCode() {
+		return articleCode;
+	}
+
+	public String getTransactionCode() {
+		return transactionCode;
 	}
 
 	@Override
 	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("pmsReservationId", pmsReservationId)
-			.add("chargeAmount", chargeAmount)
-			.add("postDateTime", postDateTime)
-			.add("shortInfo", shortInfo)
-			.add("longInfo", longInfo)
-			.add("userId", userId)
-			.add("folioViewNo", folioViewNo)
-			.toString();
+		return "PostChargeRequest{" +
+			"chargeAmount=" + chargeAmount +
+			", articleCode='" + articleCode + '\'' +
+			", transactionCode='" + transactionCode + '\'' +
+			", postDateTime=" + postDateTime +
+			", shortInfo='" + shortInfo + '\'' +
+			", longInfo='" + longInfo + '\'' +
+			", folioViewNo=" + folioViewNo +
+			'}';
 	}
 }

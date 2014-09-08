@@ -21,6 +21,8 @@ import javax.xml.ws.Holder;
 import java.util.Date;
 import java.util.UUID;
 
+import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
+
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
@@ -55,10 +57,10 @@ public class OWSTools {
 	@Inject
 	@Named("keypr.bridge.micros.ows.destination.systemType")
 	protected String destSystemType;
-
-	@Inject
-	@Named("keypr.bridge.micros.stationId")
-	protected String stationId;
+//
+//	@Inject
+//	@Named("keypr.bridge.micros.stationId")
+//	protected String stationId;
 
 	@Inject(optional = true)
 	@Named("keypr.bridge.micros.ows.auth.username")
@@ -132,16 +134,6 @@ public class OWSTools {
 		}
 
 		return message;
-	}
-
-	/**
-	 * Creates a {@link UniqueID} representing the provided internal reservation id.
-	 *
-	 * @param pmsReservationId
-	 * @return
-	 */
-	protected UniqueID internalReservationId(String pmsReservationId) {
-		return new UniqueID(pmsReservationId, UniqueIDType.INTERNAL, MicrosIds.OWS.RESERVATION_ID_SOURCE);
 	}
 
 	/**

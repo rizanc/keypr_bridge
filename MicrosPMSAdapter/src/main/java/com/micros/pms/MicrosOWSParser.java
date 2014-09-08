@@ -1,36 +1,32 @@
 package com.micros.pms;
 
-import com.cloudkey.commons.Membership;
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.MemberPointsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
-import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
-import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
-import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
+import com.cloudkey.pms.request.rooms.*;
+import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
-import com.cloudkey.pms.response.memberships.MemberPointsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
-import com.cloudkey.pms.response.roomassignments.AssignRoomResponse;
-import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
-import com.cloudkey.pms.response.roomassignments.ReleaseRoomResponse;
-import com.google.common.base.Optional;
-import com.google.common.collect.FluentIterable;
+import com.cloudkey.pms.response.rooms.AssignRoomResponse;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
+import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 import com.google.inject.Inject;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
 import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
 import com.micros.pms.processors.memberships.NameLookupProcessor;
 import com.micros.pms.processors.reservations.*;
 import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
-import com.micros.pms.processors.roomassignments.GetAvailabilityProcessor;
+import com.micros.pms.processors.roomassignments.AvailabilityProcessor;
+import com.micros.pms.processors.roomassignments.FetchCalendarProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
+import com.micros.pms.processors.rooms.UpdateRoomStatusRequestProcessor;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -40,6 +36,15 @@ import org.apache.commons.lang3.NotImplementedException;
 public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	// Reservations
+	@Inject
+	CreateReservationProcessor createReservationProcessor;
+
+	@Inject
+	ModifyReservationProcessor modifyReservationProcessor;
+
+	@Inject
+	CancelReservationProcessor cancelReservationProcessor;
+
 	@Inject
 	PostChargeProcessor postChargeProcessor;
 
@@ -58,6 +63,9 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	@Inject
 	SearchReservationProcessor searchReservationProcessor;
 
+	@Inject
+	FindReservationProcessor findReservationProcessor;
+
 	// Room assignments
 	@Inject
 	AssignRoomProcessor assignRoomProcessor;
@@ -66,7 +74,10 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 	ReleaseRoomProcessor releaseRoomProcessor;
 
 	@Inject
-	GetAvailabilityProcessor getAvailabilityProcessor;
+	FetchCalendarProcessor fetchCalendarProcessor;
+
+	@Inject
+	AvailabilityProcessor availabilityProcessor;
 
 	// Hotels
 	@Inject
@@ -78,6 +89,10 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 
 	@Inject
 	GuestMembershipsProcessor guestMembershipsProcessor;
+
+	// Guest Services
+	@Inject
+	UpdateRoomStatusRequestProcessor updateRoomStatusRequestProcessor;
 
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
@@ -139,9 +154,9 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
     }
 
     @Override
-    public GetAvailabilityResponse checkAvailability(GetAvailabilityRequest getAvailabilityRequest) throws PMSInterfaceException {
-	    log.debug("checkAvailability: Enter method.");
-	    return getAvailabilityProcessor.process(getAvailabilityRequest);
+    public FetchCalendarResponse fetchCalendar(FetchCalendarRequest fetchCalendarRequest) throws PMSInterfaceException {
+	    log.debug("fetchCalendar: Enter method.");
+	    return fetchCalendarProcessor.process(fetchCalendarRequest);
     }
 
     @Override
@@ -175,28 +190,39 @@ public class MicrosOWSParser extends OWSBase implements IParserInterface {
 		return hotelInformationProcessor.process(hotelInformationRequest);
     }
 
-    @Override
-    public MemberPointsResponse memberPointsQuery(MemberPointsRequest memberPointsRequest) throws PMSInterfaceException {
-	    log.debug("memberPointsQuery: Enter method.");
+	@Override
+	public EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException {
+		log.debug("updateRoomStatus: Enter method.");
+		return updateRoomStatusRequestProcessor.process(request);
+	}
 
-	    // Get the membership request
-	    GuestMembershipsResponse guestMembershipsResponse = getMembershipInformation(new GuestMembershipsRequest(memberPointsRequest.getNameId()));
+	@Override
+	public EmptyResponse availability(AvailabilityRequest request) {
+		log.debug("availability: Enter method.");
+		return availabilityProcessor.process(request);
+	}
 
-	    MemberPointsResponse response = new MemberPointsResponse();
+	@Override
+	public FindReservationResponse findReservation(FindReservationRequest request) {
+		log.debug("findReservation: Enter method.");
+		return findReservationProcessor.process(request);
+	}
 
-	    Optional<Membership> firstMembershipOpt = FluentIterable.from(guestMembershipsResponse.getMembershipList()).first();
+	@Override
+	public CreateReservationResponse createReservation(CreateReservationRequest request) {
+		log.debug("createReservation: Enter method.");
+		return createReservationProcessor.process(request);
+	}
 
-	    if (firstMembershipOpt.isPresent()) {
-		    Membership membership = firstMembershipOpt.get();
+	@Override
+	public ModifyReservationResponse modifyReservation(ModifyReservationRequest request) {
+		log.debug("modifyReservation: Enter method.");
+		return modifyReservationProcessor.process(request);
+	}
 
-            response.setMembershipNumber(membership.getMembershipNumber());
-            response.setMembershipType(membership.getMembershipType());
-            response.setMembershipId(membership.getMembershipId());
-            response.setEffectiveDate(membership.getEffectiveDate());
-            response.setTotalPoints(membership.getCurrentPoints());
-            response.setExpireDate(membership.getExpirationDate());
-        }
-
-        return response;
-    }
+	@Override
+	public CancelReservationResponse cancelReservation(CancelReservationRequest request) {
+		log.debug("cancelReservation: Enter method.");
+		return cancelReservationProcessor.process(request);
+	}
 }

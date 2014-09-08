@@ -4,15 +4,17 @@ import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
-import com.cloudkey.pms.request.roomassignments.AssignRoomRequest;
-import com.cloudkey.pms.request.roomassignments.GetAvailabilityRequest;
-import com.cloudkey.pms.request.roomassignments.ReleaseRoomRequest;
-import com.cloudkey.pms.response.roomassignments.GetAvailabilityResponse;
+import com.cloudkey.pms.request.rooms.AssignRoomRequest;
+import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
+import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
+import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
+import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.micros.pms.MicrosOWSParser;
 import org.joda.time.LocalDate;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,16 +41,17 @@ public class OWSTestUtils {
 	MicrosOWSParser microsOWSParser;
 
 	public void Availability() {
-        GetAvailabilityRequest getAvailabilityRequest = new GetAvailabilityRequest(START_DATE, END_DATE, null);
+		FetchCalendarRequest fetchCalendarRequest = new FetchCalendarRequest(START_DATE, END_DATE, false, "BAR", 2, 1);
 
-        GetAvailabilityResponse response =
-                microsOWSParser.checkAvailability(getAvailabilityRequest);
+        FetchCalendarResponse response =
+                microsOWSParser.fetchCalendar(fetchCalendarRequest);
     }
 
     public void FutureBookingSummary() {
 
         SearchReservationRequest request = new SearchReservationRequest(
 	        PMS_RESERVATION_ID,
+			null,
 	        FIRST_NAME,
 	        LAST_NAME,
 	        null, //CREDIT_CARD_NO,
@@ -111,7 +114,7 @@ public class OWSTestUtils {
 
     public void NameLookupByMembership() {
 
-        NameLookupRequest request = new NameLookupRequest("OR", "1166666666", "REWARDS");
+        NameLookupRequest request = new NameLookupRequest(null, "OR", "1166666666", "REWARDS");
 
 	    microsOWSParser.getNameIdInformation(request);
     }

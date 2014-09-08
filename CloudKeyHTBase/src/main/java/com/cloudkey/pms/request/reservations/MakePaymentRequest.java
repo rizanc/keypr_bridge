@@ -2,7 +2,6 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.common.payment.CreditCardApproval;
 import com.cloudkey.pms.common.payment.CreditCardInfo;
-import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.keypr.bridge.ids.PmsReservationId;
 import com.keypr.bridge.ids.StationId;
@@ -18,13 +17,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class MakePaymentRequest extends PMSRequest {
-    /**
-     * The {@link com.keypr.bridge.ids.PmsReservationId} of the reservation to which payment was applied
-     */
-    @NotNull
-    @ApiModelProperty(required = true)
-    private PmsReservationId pmsReservationId;
+public class MakePaymentRequest extends AbstractSingleReservationRequest {
 
     /**
      * The amount to charge or charged (USD)
@@ -82,8 +75,8 @@ public class MakePaymentRequest extends PMSRequest {
 
 	protected MakePaymentRequest() { /* For serialization */ }
 
-	public MakePaymentRequest(PmsReservationId pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, DateTime postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
-		this.pmsReservationId = pmsReservationId;
+	public MakePaymentRequest(String pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, DateTime postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
+		super(pmsReservationId);
 		this.chargeAmount = chargeAmount;
 		this.creditCardInfo = creditCardInfo;
 		this.creditCardApproval = creditCardApproval;
@@ -95,10 +88,6 @@ public class MakePaymentRequest extends PMSRequest {
 		this.userId = userId;
 		this.folioViewNo = folioViewNo;
 	}
-
-	public PmsReservationId getPmsReservationId() {
-        return pmsReservationId;
-    }
 
     public Double getChargeAmount() {
         return chargeAmount;
@@ -143,7 +132,6 @@ public class MakePaymentRequest extends PMSRequest {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("pmsReservationId", pmsReservationId)
                 .add("chargeAmount", chargeAmount)
                 .add("creditCardInfo", creditCardInfo)
                 .add("creditCardApproval", creditCardApproval)

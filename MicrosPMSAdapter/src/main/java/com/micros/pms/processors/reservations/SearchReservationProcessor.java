@@ -3,9 +3,7 @@ package com.micros.pms.processors.reservations;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.common.HotelAmenity;
-import com.cloudkey.pms.micros.og.common.Membership;
-import com.cloudkey.pms.micros.og.common.PersonName;
-import com.cloudkey.pms.micros.og.common.ResultStatus;
+import com.cloudkey.pms.micros.og.common.*;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.GuestCount;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomStay;
@@ -32,7 +30,7 @@ import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
-import com.micros.pms.util.IdUtils;
+import com.cloudkey.pms.micros.ows.IdUtils;
 import com.micros.pms.util.ParagraphHelper;
 import org.joda.time.*;
 
@@ -40,8 +38,10 @@ import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+
+import static com.cloudkey.pms.micros.ows.IdUtils.confirmationNumId;
+import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -69,7 +69,12 @@ public class SearchReservationProcessor extends OWSProcessor<
 	protected FutureBookingSummaryRequest toMicrosRequest(SearchReservationRequest request) {
 		FutureBookingSummaryRequest microsRequest = new FutureBookingSummaryRequest()
 			.withAdditionalFilters(new FetchBookingFilters()
-				.withHotelReference(getDefaultHotelReference()));
+				.withHotelReference(getDefaultHotelReference())
+			);
+
+		if (request.getConfirmationNumber() != null) {
+			microsRequest.getAdditionalFilters().setConfirmationNumber(confirmationNumId(request.getConfirmationNumber()));
+		}
 
 		if (request.getCreditCardNumber() != null) {
 			microsRequest.setCreditCardNumber(request.getCreditCardNumber());

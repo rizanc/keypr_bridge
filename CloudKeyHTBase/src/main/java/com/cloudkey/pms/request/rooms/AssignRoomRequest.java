@@ -1,4 +1,4 @@
-package com.cloudkey.pms.request.roomassignments;
+package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
@@ -6,18 +6,18 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Class stores the reservation identifier to release all the rooms assign on it.
+ * This class is used to send the request parameters for assign the room.
  * 
  * @author niveditat
  */
-public class ReleaseRoomRequest extends PMSRequest {
+public class AssignRoomRequest extends PMSRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
 	private String pmsReservationId;
 
-	protected ReleaseRoomRequest() { /* For serialization */ }
+	protected AssignRoomRequest() { /* For serialization */ }
 
-	public ReleaseRoomRequest(String pmsReservationId) {
+	public AssignRoomRequest(String pmsReservationId, String roomTypeCode) {
 		this.pmsReservationId = pmsReservationId;
 	}
 

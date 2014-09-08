@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="allotment.fidelio.5.0" xmlns="allotment.fidelio.5.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:profile="profile.fidelio.3.0" xmlns:udf="udf.fidelio.2.0" xmlns:udfdefinition="udfdefinition.fidelio.2.0" xmlns:relationship="relationship.fidelio.3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="profile.fidelio.3.0" schemaLocation="profile.fidelio.3.0.xsd"/>
-	<xs:import namespace="udf.fidelio.2.0" schemaLocation="udf.fidelio.2.0.xsd"/>
-	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="udfdefinition.fidelio.2.0.xsd"/>
-	<xs:import namespace="relationship.fidelio.3.0" schemaLocation="relationship.fidelio.3.0.xsd"/>
+<xs:schema targetNamespace="allotment.fidelio.5.0" xmlns="allotment.fidelio.5.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:profile="/Users/clamothe/Devel/java/keypr_bridge/MicrosOXIJaxb/src/main/unused_xsds/profile.fidelio.3.0.xsd" xmlns:udf="udf.fidelio.2.0" xmlns:udfdefinition="udfdefinition.fidelio.2.0" xmlns:relationship="relationship.fidelio.3.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="/Users/clamothe/Devel/java/keypr_bridge/MicrosOXIJaxb/src/main/unused_xsds/profile.fidelio.3.0.xsd" schemaLocation="profile.fidelio.3.0.xsd"/>
+	<xs:import namespace="udf.fidelio.2.0" schemaLocation="../xsd/udf.fidelio.2.0.xsd"/>
+	<xs:import namespace="udfdefinition.fidelio.2.0" schemaLocation="../xsd/udfdefinition.fidelio.2.0.xsd"/>
+	<xs:import namespace="relationship.fidelio.3.0" schemaLocation="../xsd/relationship.fidelio.3.0.xsd"/>
 	<xs:element name="InventoryBlockNotification" type = "InventoryBlockNotification">
 		<xs:annotation>
 			<xs:documentation>InventoryBlockNotification schema</xs:documentation>
