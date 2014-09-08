@@ -20,7 +20,7 @@ import javax.ws.rs.*;
  */
 @Path("/rooms")
 @Api(value = "/rooms", description = "Rooms resource")
-public class RoomsService extends AbstractResource {
+public class RoomsResource extends AbstractResource {
 	@Path("/calendar")
 	@POST
 	@ApiOperation(
