@@ -1,7 +1,7 @@
 package com.cloudkey.pms.common.reservation;
 
 import com.google.common.collect.ImmutableList;
-import com.keypr.bridge.ids.RatePlanCode;
+import org.joda.time.DateTime;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -18,30 +18,34 @@ public class RatePlan {
      * Sometimes, there is no rate plan identifier.
      */
     @Nullable
-    private RatePlanCode code;
+    private String code;
 
-    @Nullable
+	/**
+	 * The name of the rate plan
+	 */
+	@Nullable
+	private String name;
+
+	/**
+	 * A short verbose human-readable description
+	 */
+	@Nullable
+	private String shortDescription;
+
+	/**
+	 * A verbose human-readable description
+	 */
+	@Nullable
+	private String description;
+
+	@Nullable
     private DepositRequirement depositRequirement;
 
     @Nullable
-    private RatePlanDiscount discount;
+    private Discount discount;
 
-    /**
-     * The name of the rate plan
-     */
-    @Nullable
-    private String name;
-
-    /**
-     * A short verbose human-readable description
-     */
-    @Nullable
-    private String shortDescription;
-
-    /**
-     * A verbose human-readable description
-     */
-    private String description;
+	@Nullable
+	private DateTime latestCancellationDateTime;
 
     @Nullable
     private String rateRules;
@@ -84,31 +88,32 @@ public class RatePlan {
 
     private List<String> otherNotes;
 
-    public RatePlan(RatePlanCode code, DepositRequirement depositRequirement, RatePlanDiscount discount, String name, String shortDescription, String description, String rateRules, String marketingInformation, String depositPolicy, String promotion, String commissionPolicy, String guaranteePolicy, String miscellaneous, String packageOptions, String penaltyPolicy, String taSpecialRequest, String taxInformation, String cancelPolicy, String pointsPolicy, List<String> otherNotes) {
-        this.code = code;
-        this.depositRequirement = depositRequirement;
-        this.discount = discount;
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.description = description;
-        this.rateRules = rateRules;
-        this.marketingInformation = marketingInformation;
-        this.depositPolicy = depositPolicy;
-        this.promotion = promotion;
-        this.commissionPolicy = commissionPolicy;
-        this.guaranteePolicy = guaranteePolicy;
-        this.miscellaneous = miscellaneous;
-        this.packageOptions = packageOptions;
-        this.penaltyPolicy = penaltyPolicy;
-        this.taSpecialRequest = taSpecialRequest;
-        this.taxInformation = taxInformation;
-        this.cancelPolicy = cancelPolicy;
-        this.pointsPolicy = pointsPolicy;
-        this.otherNotes = ImmutableList.copyOf(otherNotes);
-    }
+	public RatePlan(String code, String name, String shortDescription, String description, DepositRequirement depositRequirement, Discount discount, DateTime latestCancellationDateTime, String rateRules, String marketingInformation, String depositPolicy, String promotion, String commissionPolicy, String guaranteePolicy, String miscellaneous, String packageOptions, String penaltyPolicy, String taSpecialRequest, String taxInformation, String cancelPolicy, String pointsPolicy, List<String> otherNotes) {
+		this.code = code;
+		this.name = name;
+		this.shortDescription = shortDescription;
+		this.description = description;
+		this.depositRequirement = depositRequirement;
+		this.discount = discount;
+		this.latestCancellationDateTime = latestCancellationDateTime;
+		this.rateRules = rateRules;
+		this.marketingInformation = marketingInformation;
+		this.depositPolicy = depositPolicy;
+		this.promotion = promotion;
+		this.commissionPolicy = commissionPolicy;
+		this.guaranteePolicy = guaranteePolicy;
+		this.miscellaneous = miscellaneous;
+		this.packageOptions = packageOptions;
+		this.penaltyPolicy = penaltyPolicy;
+		this.taSpecialRequest = taSpecialRequest;
+		this.taxInformation = taxInformation;
+		this.cancelPolicy = cancelPolicy;
+		this.pointsPolicy = pointsPolicy;
+		this.otherNotes = ImmutableList.copyOf(otherNotes);
+	}
 
-    @Nullable
-    public RatePlanCode getCode() {
+	@Nullable
+    public String getCode() {
         return code;
     }
 
@@ -118,7 +123,7 @@ public class RatePlan {
     }
 
     @Nullable
-    public RatePlanDiscount getDiscount() {
+    public Discount getDiscount() {
         return discount;
     }
 
@@ -132,9 +137,15 @@ public class RatePlan {
         return shortDescription;
     }
 
-    public String getDescription() {
+    @Nullable
+	public String getDescription() {
         return description;
     }
+
+	@Nullable
+	public DateTime getLatestCancellationDateTime() {
+		return latestCancellationDateTime;
+	}
 
     @Nullable
     public String getRateRules() {
@@ -201,33 +212,34 @@ public class RatePlan {
         return pointsPolicy;
     }
 
-    public List<String> getOtherNotes() {
+	public List<String> getOtherNotes() {
         return otherNotes;
     }
 
-    @Override
-    public String toString() {
-        return "RatePlan{" +
-                "code=" + code +
-                ", depositRequirement=" + depositRequirement +
-                ", discount=" + discount +
-                ", name='" + name + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", description='" + description + '\'' +
-                ", rateRules='" + rateRules + '\'' +
-                ", marketingInformation='" + marketingInformation + '\'' +
-                ", depositPolicy='" + depositPolicy + '\'' +
-                ", promotion='" + promotion + '\'' +
-                ", commissionPolicy='" + commissionPolicy + '\'' +
-                ", guaranteePolicy='" + guaranteePolicy + '\'' +
-                ", miscellaneous='" + miscellaneous + '\'' +
-                ", packageOptions='" + packageOptions + '\'' +
-                ", penaltyPolicy='" + penaltyPolicy + '\'' +
-                ", taSpecialRequest='" + taSpecialRequest + '\'' +
-                ", taxInformation='" + taxInformation + '\'' +
-                ", cancelPolicy='" + cancelPolicy + '\'' +
-                ", pointsPolicy='" + pointsPolicy + '\'' +
-                ", otherNotes=" + otherNotes +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "RatePlan{" +
+			"code='" + code + '\'' +
+			", name='" + name + '\'' +
+			", shortDescription='" + shortDescription + '\'' +
+			", description='" + description + '\'' +
+			", depositRequirement=" + depositRequirement +
+			", discount=" + discount +
+			", latestCancellationDateTime=" + latestCancellationDateTime +
+			", rateRules='" + rateRules + '\'' +
+			", marketingInformation='" + marketingInformation + '\'' +
+			", depositPolicy='" + depositPolicy + '\'' +
+			", promotion='" + promotion + '\'' +
+			", commissionPolicy='" + commissionPolicy + '\'' +
+			", guaranteePolicy='" + guaranteePolicy + '\'' +
+			", miscellaneous='" + miscellaneous + '\'' +
+			", packageOptions='" + packageOptions + '\'' +
+			", penaltyPolicy='" + penaltyPolicy + '\'' +
+			", taSpecialRequest='" + taSpecialRequest + '\'' +
+			", taxInformation='" + taxInformation + '\'' +
+			", cancelPolicy='" + cancelPolicy + '\'' +
+			", pointsPolicy='" + pointsPolicy + '\'' +
+			", otherNotes=" + otherNotes +
+			'}';
+	}
 }

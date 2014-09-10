@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
  */
 public class DepositRequirement {
 
+	@Nullable
     private LocalDate dueDate;
 
     private MonetaryAmount depositAmount;
@@ -19,4 +20,23 @@ public class DepositRequirement {
     @Nullable
     private MonetaryAmount depositDueAmount;
 
+	public DepositRequirement(LocalDate dueDate, MonetaryAmount depositAmount, MonetaryAmount depositDueAmount) {
+		this.dueDate = dueDate;
+		this.depositAmount = depositAmount;
+		this.depositDueAmount = depositDueAmount;
+	}
+
+	@Nullable
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
+
+	public MonetaryAmount getDepositAmount() {
+		return depositAmount;
+	}
+
+	@Nullable
+	public MonetaryAmount getDepositDueAmount() {
+		return depositDueAmount;
+	}
 }

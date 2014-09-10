@@ -50,6 +50,12 @@ public class BridgeIds {
         OUT_OF_SERVICE;
     }
 
+	public enum RateOccurrence {
+		DAILY,
+		WEEKLY,
+		OTHER;
+	}
+
 	public enum PMSErrorMessage {
 		// Room assignment
 		NO_ROOM_AVAILABLE("No room is ready for assignment");

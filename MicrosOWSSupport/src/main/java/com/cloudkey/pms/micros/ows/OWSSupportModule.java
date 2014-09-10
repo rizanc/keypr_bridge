@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.ws.BindingProvider;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Currency;
 
 /**
  * Guice module which provides the properties in ows.properties to {@link com.google.inject.name.Named} injections
@@ -46,6 +47,20 @@ public class OWSSupportModule extends AbstractModule {
 		bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url.toString());
 
 		return soap;
+	}
+
+	@Provides
+	@Singleton
+	public Currency provideDefaultCurrency(
+		@Named("keypr.bridge.micros.timeZoneId") String timeZoneId
+	) {
+		Currency instance = Currency.getInstance(timeZoneId);
+
+		if (instance == null) {
+			throw new IllegalArgumentException("timeZoneId is not valid: " + timeZoneId);
+		}
+
+		return instance;
 	}
 
 	@Provides

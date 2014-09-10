@@ -1,11 +1,13 @@
 package com.cloudkey.pms.micros.ows;
 
+import com.cloudkey.pms.micros.og.common.Gender;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;
 import com.cloudkey.pms.micros.og.guestservices.GuestServiceStatusType;
 import com.cloudkey.pms.micros.og.guestservices.RepairStatusType;
 import com.cloudkey.pms.micros.og.guestservices.RoomStatusType;
 import com.cloudkey.pms.micros.og.guestservices.TurnDownStatusType;
+import com.cloudkey.pms.micros.og.hotelcommon.RateOccurrenceType;
 import com.cloudkey.pms.micros.og.reservation.ReservationStatusType;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -37,8 +39,56 @@ public class IdUtils {
 		});
 	}
 
+	public static com.google.common.base.Optional<String> findConfirmationNumId(Collection<UniqueID> uniqueIDs) {
+		return Iterables.tryFind(uniqueIDs, new Predicate<UniqueID>() {
+			@Override
+			public boolean apply(UniqueID uniqueID) {
+				return Objects.equal(uniqueID.getType(), UniqueIDType.INTERNAL)
+					&& Objects.equal(uniqueID.getSource(), null);
+			}
+		}).transform(new Function<UniqueID, String>() {
+			@Nullable
+			@Override
+			public String apply(UniqueID uniqueID) {
+				return uniqueID.getValue();
+			}
+		});
+	}
+
+	public static com.google.common.base.Optional<String> findInternalProfileId(Collection<UniqueID> uniqueIDs) {
+		return Iterables.tryFind(uniqueIDs, new Predicate<UniqueID>() {
+			@Override
+			public boolean apply(UniqueID uniqueID) {
+				return Objects.equal(uniqueID.getType(), UniqueIDType.INTERNAL)
+					&& Objects.equal(uniqueID.getSource(), null);
+			}
+		}).transform(new Function<UniqueID, String>() {
+			@Nullable
+			@Override
+			public String apply(UniqueID uniqueID) {
+				return uniqueID.getValue();
+			}
+		});
+	}
+
+	public static com.google.common.base.Optional<String> findlegNumber(Collection<UniqueID> uniqueIDs) {
+		return Iterables.tryFind(uniqueIDs, new Predicate<UniqueID>() {
+			@Override
+			public boolean apply(UniqueID uniqueID) {
+				return Objects.equal(uniqueID.getType(), UniqueIDType.INTERNAL)
+					&& Objects.equal(uniqueID.getSource(), MicrosIds.OWS.LEG_NUM_SOURCE);
+			}
+		}).transform(new Function<UniqueID, String>() {
+			@Nullable
+			@Override
+			public String apply(UniqueID uniqueID) {
+				return uniqueID.getValue();
+			}
+		});
+	}
+
 	public static UniqueID legNumberId(Integer legNumber) {
-		return new UniqueID(legNumber.toString(), UniqueIDType.INTERNAL, "LEGNUMBER");
+		return new UniqueID(legNumber.toString(), UniqueIDType.INTERNAL, MicrosIds.OWS.LEG_NUM_SOURCE);
 	}
 
 	/**
@@ -79,7 +129,7 @@ public class IdUtils {
 		return null;
 	}
 
-	public BridgeIds.GuestServiceStatus fromMicrosEnum(GuestServiceStatusType from) {
+	public static BridgeIds.GuestServiceStatus fromMicrosEnum(GuestServiceStatusType from) {
 		if (from == null) {
 			return null;
 		}
@@ -121,7 +171,7 @@ public class IdUtils {
 		return null;
 	}
 
-	public BridgeIds.RoomStatus fromMicrosEnum(RoomStatusType from) {
+	public static BridgeIds.RoomStatus fromMicrosEnum(RoomStatusType from) {
 		if (from == null) {
 			return null;
 		}
@@ -162,7 +212,7 @@ public class IdUtils {
 		return null;
 	}
 
-	public BridgeIds.TurnDownStatus fromMicrosEnum(TurnDownStatusType from) {
+	public static BridgeIds.TurnDownStatus fromMicrosEnum(TurnDownStatusType from) {
 		if (from == null) {
 			return null;
 		}
@@ -194,7 +244,7 @@ public class IdUtils {
 		return null;
 	}
 
-	public BridgeIds.RepairStatus fromMicrosEnum(RepairStatusType from) {
+	public static BridgeIds.RepairStatus fromMicrosEnum(RepairStatusType from) {
 		if (from == null) {
 			return null;
 		}
@@ -204,6 +254,42 @@ public class IdUtils {
 				return BridgeIds.RepairStatus.OUT_OF_ORDER;
 			case OUT_OF_SERVICE:
 				return BridgeIds.RepairStatus.OUT_OF_SERVICE;
+		}
+
+		return null;
+	}
+	
+	public static Gender toMicrosEnum(BridgeIds.Gender from) {
+		if (from == null) {
+			return null;
+		}
+		
+		switch (from) {
+
+			case UNKNOWN:
+				return Gender.UNKNOWN;
+			case FEMALE:
+				return Gender.FEMALE;
+			case MALE:
+				return Gender.MALE;
+		}
+
+		return null;
+	}
+
+	public static BridgeIds.Gender fromMicrosEnum(Gender from) {
+		if (from == null) {
+			return null;
+		}
+		
+		switch (from) {
+
+			case UNKNOWN:
+				return BridgeIds.Gender.UNKNOWN;
+			case FEMALE:
+				return BridgeIds.Gender.FEMALE;
+			case MALE:
+				return BridgeIds.Gender.MALE;
 		}
 
 		return null;
@@ -240,7 +326,7 @@ public class IdUtils {
 		return null;
 	}
 
-	public BridgeIds.ReservationStatus fromMicrosEnum(ReservationStatusType from) {
+	public static BridgeIds.ReservationStatus fromMicrosEnum(ReservationStatusType from) {
 		if (from == null) {
 			return null;
 		}
@@ -270,4 +356,40 @@ public class IdUtils {
 
 		return null;
 	}
+
+	public static RateOccurrenceType toMicrosEnum(BridgeIds.RateOccurrence from) {
+		if (from == null) {
+			return null;
+		}
+
+		switch (from) {
+			case DAILY:
+				return RateOccurrenceType.DAILY;
+			case WEEKLY:
+				return RateOccurrenceType.WEEKLY;
+			case OTHER:
+				return RateOccurrenceType.OTHER;
+		}
+
+		return null;
+	}
+
+	public static BridgeIds.RateOccurrence fromMicrosEnum(RateOccurrenceType from) {
+		if (from == null) {
+			return null;
+		}
+
+		switch (from) {
+
+			case DAILY:
+				return BridgeIds.RateOccurrence.DAILY;
+			case WEEKLY:
+				return BridgeIds.RateOccurrence.WEEKLY;
+			case OTHER:
+				return BridgeIds.RateOccurrence.OTHER;
+		}
+
+		return null;
+	}
+
 }

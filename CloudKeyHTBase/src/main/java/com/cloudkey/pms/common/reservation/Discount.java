@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
-abstract public class RatePlanDiscount {
+abstract public class Discount {
     protected String discountReason;
 
-    public RatePlanDiscount(String discountReason) {
+    public Discount(String discountReason) {
         this.discountReason = discountReason;
     }
 

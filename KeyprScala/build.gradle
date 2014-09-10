@@ -1,0 +1,6 @@
+apply plugin: 'scala'
+
+dependencies {
+    compile scala
+    compile guava
+}

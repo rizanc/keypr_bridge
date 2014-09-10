@@ -77,9 +77,9 @@ public class HotelInformationProcessor extends OWSProcessor<
 
 			// Phone and fax numbers
 			for (Phone phone : contactInfo.getContactPhones()) {
-				if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.toString())) {
+				if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.name())) {
 					phoneNumbers.add(phone.getPhoneNumber());
-				} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.toString())) {
+				} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.name())) {
 					faxNumbers.add(phone.getPhoneNumber());
 				}
 			}

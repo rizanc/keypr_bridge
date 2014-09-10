@@ -44,6 +44,14 @@ public class ParagraphHelper {
 		return textList;
 	}
 
+	public static Optional<String> getFirstString(Paragraph paragraph) {
+		if (paragraph != null) {
+			return getFirstString(getTextList(paragraph.getImagesAndURLSAndTexts()));
+		} else {
+			return Optional.absent();
+		}
+	}
+
 	public static Optional<String> getFirstString(List<? extends Text> elements) {
 		if (!elements.isEmpty()) {
 			return Optional.of(elements.get(0).getValue());

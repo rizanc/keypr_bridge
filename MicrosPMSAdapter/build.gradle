@@ -1,8 +1,11 @@
+apply plugin: 'scala'
+
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
     compile project(':MicrosOWSCxfClient')
     compile project(':MicrosOWSSupport')
+    compile project(':KeyprScala')
 
     // External dependencies
     compile httpcomponents_httpclient

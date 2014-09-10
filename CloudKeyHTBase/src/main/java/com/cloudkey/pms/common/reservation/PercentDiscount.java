@@ -5,10 +5,10 @@ package com.cloudkey.pms.common.reservation;
  *
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
-public class RatePlanPercentDiscount extends RatePlanDiscount {
+public class PercentDiscount extends Discount {
     protected Double discountPercentage;
 
-    public RatePlanPercentDiscount(String discountReason, Double discountPercentage) {
+    public PercentDiscount(String discountReason, Double discountPercentage) {
         super(discountReason);
         this.discountPercentage = discountPercentage;
     }
