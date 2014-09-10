@@ -4,7 +4,6 @@ import com.cloudkey.pms.common.payment.MonetaryAmount;
 import com.cloudkey.pms.common.profile.CustomerProfile;
 import com.google.common.collect.ImmutableList;
 import com.keypr.bridge.ids.BridgeIds.ReservationStatus;
-import net.karneim.pojobuilder.GeneratePojoBuilder;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -44,13 +43,13 @@ public class Reservation {
 	 * The company the guest works for
 	 */
 	@Nullable
-	private Profile companyProfile;
+	private ProfileReference companyProfile;
 
 	/**
 	 * The travel agent or agency who the reservation was booked through
 	 */
 	@Nullable
-	private Profile travelAgentProfile;
+	private ProfileReference travelAgentProfile;
 
 	/**
 	 * The source of the reservation, often not specified.
@@ -59,19 +58,19 @@ public class Reservation {
 	 * a government agency, an airline, etc.
 	 */
 	@Nullable
-	private Profile sourceProfile;
+	private ProfileReference sourceProfile;
 
 	/**
 	 * The travel agent or agency who the reservation was booked through
 	 */
 	@Nullable
-	private Profile groupProfile;
+	private ProfileReference groupProfile;
 
 	/**
 	 * The travel agent or agency who the reservation was booked through
 	 */
 	@Nullable
-	private List<Profile> contactProfile;
+	private List<ProfileReference> contactProfiles;
 
 	/**
 	 * The day of the first night of the stay
@@ -157,7 +156,7 @@ public class Reservation {
 	@Nullable
 	private LocalTime expectedDepartureTime;
 
-	public Reservation(String pmsReservationId, String confirmationNo, String legNumber, ReservationStatus reservationStatus, CustomerProfile customerProfile, Profile companyProfile, TravelAgentProfile travelAgentProfile, LocalDate startDate, LocalDate endDate, RatePlan roomRatePlan, List<RoomRate> roomRates, Room room, Integer additionalReservedRoomCount, Integer adultCount, Integer childrenCount, String creditCardNumber, String creditCardType, String creditCardHolderName, LocalDate creditCardExpirationDate, MonetaryAmount totalCost, MonetaryAmount currentBalance, String membershipId, List<Comment> comments, Boolean hasRoomPreferences, Boolean hasSpecialRequests, LocalTime expectedArrivalTime, LocalTime expectedDepartureTime) {
+	public Reservation(String pmsReservationId, String confirmationNo, String legNumber, ReservationStatus reservationStatus, CustomerProfile customerProfile, ProfileReference companyProfile, ProfileReference travelAgentProfile, ProfileReference sourceProfile, ProfileReference groupProfile, List<ProfileReference> contactProfiles, LocalDate startDate, LocalDate endDate, RatePlan roomRatePlan, List<RoomRate> roomRates, Room room, Integer additionalReservedRoomCount, Integer adultCount, Integer childrenCount, String creditCardNumber, String creditCardType, String creditCardHolderName, LocalDate creditCardExpirationDate, MonetaryAmount totalCost, MonetaryAmount currentBalance, String membershipId, List<Comment> comments, Boolean hasRoomPreferences, Boolean hasSpecialRequests, LocalTime expectedArrivalTime, LocalTime expectedDepartureTime) {
 		this.pmsReservationId = pmsReservationId;
 		this.confirmationNo = confirmationNo;
 		this.legNumber = legNumber;
@@ -165,6 +164,9 @@ public class Reservation {
 		this.customerProfile = customerProfile;
 		this.companyProfile = companyProfile;
 		this.travelAgentProfile = travelAgentProfile;
+		this.sourceProfile = sourceProfile;
+		this.groupProfile = groupProfile;
+		this.contactProfiles = ImmutableList.copyOf(contactProfiles);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.roomRatePlan = roomRatePlan;
@@ -208,13 +210,28 @@ public class Reservation {
 	}
 
 	@Nullable
-	public Profile getCompanyProfile() {
+	public ProfileReference getCompanyProfile() {
 		return companyProfile;
 	}
 
 	@Nullable
-	public TravelAgentProfile getTravelAgentProfile() {
+	public ProfileReference getTravelAgentProfile() {
 		return travelAgentProfile;
+	}
+
+	@Nullable
+	public ProfileReference getSourceProfile() {
+		return sourceProfile;
+	}
+
+	@Nullable
+	public ProfileReference getGroupProfile() {
+		return groupProfile;
+	}
+
+	@Nullable
+	public List<ProfileReference> getContactProfiles() {
+		return contactProfiles;
 	}
 
 	public LocalDate getStartDate() {
@@ -285,16 +302,16 @@ public class Reservation {
 		return membershipId;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
 	public Boolean getHasRoomPreferences() {
 		return hasRoomPreferences;
 	}
 
 	public Boolean getHasSpecialRequests() {
 		return hasSpecialRequests;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
 	}
 
 	@Nullable
@@ -305,6 +322,42 @@ public class Reservation {
 	@Nullable
 	public LocalTime getExpectedDepartureTime() {
 		return expectedDepartureTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Reservation{" +
+			"pmsReservationId='" + pmsReservationId + '\'' +
+			", confirmationNo='" + confirmationNo + '\'' +
+			", legNumber='" + legNumber + '\'' +
+			", reservationStatus=" + reservationStatus +
+			", customerProfile=" + customerProfile +
+			", companyProfile=" + companyProfile +
+			", travelAgentProfile=" + travelAgentProfile +
+			", sourceProfile=" + sourceProfile +
+			", groupProfile=" + groupProfile +
+			", contactProfiles=" + contactProfiles +
+			", startDate=" + startDate +
+			", endDate=" + endDate +
+			", roomRatePlan=" + roomRatePlan +
+			", roomRates=" + roomRates +
+			", room=" + room +
+			", additionalReservedRoomCount=" + additionalReservedRoomCount +
+			", adultCount=" + adultCount +
+			", childrenCount=" + childrenCount +
+			", creditCardNumber='" + creditCardNumber + '\'' +
+			", creditCardType='" + creditCardType + '\'' +
+			", creditCardHolderName='" + creditCardHolderName + '\'' +
+			", creditCardExpirationDate=" + creditCardExpirationDate +
+			", totalCost=" + totalCost +
+			", currentBalance=" + currentBalance +
+			", membershipId='" + membershipId + '\'' +
+			", comments=" + comments +
+			", hasRoomPreferences=" + hasRoomPreferences +
+			", hasSpecialRequests=" + hasSpecialRequests +
+			", expectedArrivalTime=" + expectedArrivalTime +
+			", expectedDepartureTime=" + expectedDepartureTime +
+			'}';
 	}
 }
 

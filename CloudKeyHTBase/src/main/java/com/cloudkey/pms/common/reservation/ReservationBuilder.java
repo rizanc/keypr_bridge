@@ -14,8 +14,11 @@ public class ReservationBuilder {
 	private String legNumber;
 	private BridgeIds.ReservationStatus reservationStatus;
 	private CustomerProfile customerProfile;
-	private Profile companyProfile;
-	private TravelAgentProfile travelAgentProfile;
+	private ProfileReference companyProfile;
+	private ProfileReference travelAgentProfile;
+	private ProfileReference sourceProfile;
+	private ProfileReference groupProfile;
+	private List<ProfileReference> contactProfiles;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private RatePlan roomRatePlan;
@@ -62,13 +65,28 @@ public class ReservationBuilder {
 		return this;
 	}
 
-	public ReservationBuilder setCompanyProfile(Profile companyProfile) {
+	public ReservationBuilder setCompanyProfile(ProfileReference companyProfile) {
 		this.companyProfile = companyProfile;
 		return this;
 	}
 
-	public ReservationBuilder setTravelAgentProfile(TravelAgentProfile travelAgentProfile) {
+	public ReservationBuilder setTravelAgentProfile(ProfileReference travelAgentProfile) {
 		this.travelAgentProfile = travelAgentProfile;
+		return this;
+	}
+
+	public ReservationBuilder setSourceProfile(ProfileReference sourceProfile) {
+		this.sourceProfile = sourceProfile;
+		return this;
+	}
+
+	public ReservationBuilder setGroupProfile(ProfileReference groupProfile) {
+		this.groupProfile = groupProfile;
+		return this;
+	}
+
+	public ReservationBuilder setContactProfiles(List<ProfileReference> contactProfiles) {
+		this.contactProfiles = contactProfiles;
 		return this;
 	}
 
@@ -173,6 +191,6 @@ public class ReservationBuilder {
 	}
 
 	public Reservation createReservation() {
-		return new Reservation(pmsReservationId, confirmationNo, legNumber, reservationStatus, customerProfile, companyProfile, travelAgentProfile, startDate, endDate, roomRatePlan, roomRates, room, additionalReservedRoomCount, adultCount, childrenCount, creditCardNumber, creditCardType, creditCardHolderName, creditCardExpirationDate, totalCost, currentBalance, membershipId, comments, hasRoomPreferences, hasSpecialRequests, expectedArrivalTime, expectedDepartureTime);
+		return new Reservation(pmsReservationId, confirmationNo, legNumber, reservationStatus, customerProfile, companyProfile, travelAgentProfile, sourceProfile, groupProfile, contactProfiles, startDate, endDate, roomRatePlan, roomRates, room, additionalReservedRoomCount, adultCount, childrenCount, creditCardNumber, creditCardType, creditCardHolderName, creditCardExpirationDate, totalCost, currentBalance, membershipId, comments, hasRoomPreferences, hasSpecialRequests, expectedArrivalTime, expectedDepartureTime);
 	}
 }
