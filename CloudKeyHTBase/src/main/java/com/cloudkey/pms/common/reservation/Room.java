@@ -9,17 +9,13 @@ public class Room {
 	private RoomType roomType;
 
 	@Nullable
-	private String roomTypeName;
-
-    @Nullable
     private String roomNumber;
 
 	@Nullable
     private String roomBlockCode;
 
-	public Room(RoomType roomType, @Nullable String roomTypeName, @Nullable String roomNumber, String roomBlockCode) {
+	public Room(RoomType roomType, @Nullable String roomNumber, @Nullable String roomBlockCode) {
 		this.roomType = roomType;
-		this.roomTypeName = roomTypeName;
 		this.roomNumber = roomNumber;
 		this.roomBlockCode = roomBlockCode;
 	}

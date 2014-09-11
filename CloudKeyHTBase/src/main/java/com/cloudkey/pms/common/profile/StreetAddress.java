@@ -102,4 +102,42 @@ public class StreetAddress {
 			.add("languageCode", languageCode)
 			.toString();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		StreetAddress that = (StreetAddress) o;
+
+		if (addressLine != null ? !addressLine.equals(that.addressLine) : that.addressLine != null) return false;
+		if (addressType != null ? !addressType.equals(that.addressType) : that.addressType != null) return false;
+		if (barCode != null ? !barCode.equals(that.barCode) : that.barCode != null) return false;
+		if (cityExtension != null ? !cityExtension.equals(that.cityExtension) : that.cityExtension != null)
+			return false;
+		if (cityName != null ? !cityName.equals(that.cityName) : that.cityName != null) return false;
+		if (countryCode != null ? !countryCode.equals(that.countryCode) : that.countryCode != null) return false;
+		if (languageCode != null ? !languageCode.equals(that.languageCode) : that.languageCode != null) return false;
+		if (otherAddressType != null ? !otherAddressType.equals(that.otherAddressType) : that.otherAddressType != null)
+			return false;
+		if (postalCode != null ? !postalCode.equals(that.postalCode) : that.postalCode != null) return false;
+		if (stateProv != null ? !stateProv.equals(that.stateProv) : that.stateProv != null) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = addressLine != null ? addressLine.hashCode() : 0;
+		result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
+		result = 31 * result + (stateProv != null ? stateProv.hashCode() : 0);
+		result = 31 * result + (countryCode != null ? countryCode.hashCode() : 0);
+		result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
+		result = 31 * result + (barCode != null ? barCode.hashCode() : 0);
+		result = 31 * result + (cityExtension != null ? cityExtension.hashCode() : 0);
+		result = 31 * result + (addressType != null ? addressType.hashCode() : 0);
+		result = 31 * result + (otherAddressType != null ? otherAddressType.hashCode() : 0);
+		result = 31 * result + (languageCode != null ? languageCode.hashCode() : 0);
+		return result;
+	}
 }

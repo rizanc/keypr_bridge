@@ -14,4 +14,6 @@ dependencies {
     compile dropwizard_guice
     compile commons_lang
     compile xstream
+
+    testCompile scala_test
 }

@@ -87,6 +87,16 @@ public class IdUtils {
 		});
 	}
 
+	/**
+	 * Creates a {@link UniqueID} representing the provided internal reservation id.
+	 *
+	 * @param profileId
+	 * @return
+	 */
+	public static UniqueID internalProfileId(String profileId) {
+		return new UniqueID(profileId, UniqueIDType.INTERNAL, null);
+	}
+
 	public static UniqueID legNumberId(Integer legNumber) {
 		return new UniqueID(legNumber.toString(), UniqueIDType.INTERNAL, MicrosIds.OWS.LEG_NUM_SOURCE);
 	}
