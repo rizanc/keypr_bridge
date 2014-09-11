@@ -19,7 +19,7 @@ public class MonetaryAmount {
 
 	protected MonetaryAmount() { /* For serialization */ }
 
-	public MonetaryAmount(double amount, Short numDecimals, Currency currencyCode) {
+	public MonetaryAmount(double amount, short numDecimals, Currency currencyCode) {
 		this(toBigDecimal(amount, numDecimals), currencyCode);
 	}
 
@@ -43,11 +43,11 @@ public class MonetaryAmount {
 	 * @param numDecimals
 	 * @return
 	 */
-	private static BigDecimal toBigDecimal(Double d, Short numDecimals) {
+	private static BigDecimal toBigDecimal(double d, short numDecimals) {
 		StringBuilder pattern = new StringBuilder("#.");
 
 		for (short i = 0; i < numDecimals; i++) {
-			pattern.append("#");
+			pattern.append("0");
 		}
 
 		DecimalFormat decimalFormat = new DecimalFormat(pattern.toString());
@@ -62,5 +62,25 @@ public class MonetaryAmount {
 			.add("currencyCode", currencyCode)
 			.add("amount", amount)
 			.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		MonetaryAmount that = (MonetaryAmount) o;
+
+		if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+		if (currencyCode != null ? !currencyCode.equals(that.currencyCode) : that.currencyCode != null) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = amount != null ? amount.hashCode() : 0;
+		result = 31 * result + (currencyCode != null ? currencyCode.hashCode() : 0);
+		return result;
 	}
 }

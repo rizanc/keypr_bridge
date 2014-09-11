@@ -34,4 +34,25 @@ public class Comment {
 			", isGuestViewable=" + isGuestViewable +
 			'}';
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Comment comment = (Comment) o;
+
+		if (isGuestViewable != null ? !isGuestViewable.equals(comment.isGuestViewable) : comment.isGuestViewable != null)
+			return false;
+		if (value != null ? !value.equals(comment.value) : comment.value != null) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = value != null ? value.hashCode() : 0;
+		result = 31 * result + (isGuestViewable != null ? isGuestViewable.hashCode() : 0);
+		return result;
+	}
 }

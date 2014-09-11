@@ -7,10 +7,10 @@ import com.cloudkey.pms.common.payment.MonetaryAmount;
  *
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
-public class NominalDiscount extends Discount {
+public class FlatDiscount extends Discount {
     protected MonetaryAmount discountAmount;
 
-    public NominalDiscount(String discountReason, MonetaryAmount discountAmount) {
+    public FlatDiscount(String discountReason, MonetaryAmount discountAmount) {
         super(discountReason);
         this.discountAmount = discountAmount;
     }

@@ -101,7 +101,7 @@ class ReservationConverter {
 
       roomStay.getRatePlans.headOption.map(convertRatePlan).foreach(resv.setRoomRatePlan)
 
-      resv.setRoomRates(roomStay.getRoomRates.headOption.toSeq.flatMap(_.getRates.asScala).map(convertRate).toList)
+      resv.setRoomRates(roomStay.getRoomRates.flatMap(_.getRates.asScala).map(convertRate))
 
       roomStay.getRoomTypes.headOption.foreach(roomType => {
         resv.setRoom(convertRoomType(roomType))
@@ -217,7 +217,6 @@ class ReservationConverter {
         convertAmount(ratePlan.getDepositRequired.getDepositDueAmount)
       ),
       Option(ratePlan.getDiscount).flatMap(convertDiscount).orNull,
-      ratePlan.getCancellationDateTime.getValue,
       getAdditionalDetail(details, AdditionalDetailType.RATE_RULES).orNull,
       getAdditionalDetail(details, AdditionalDetailType.MARKETING_INFORMATION).orNull,
       getAdditionalDetail(details, AdditionalDetailType.DEPOSIT_POLICY).orNull,
@@ -238,13 +237,14 @@ class ReservationConverter {
   private def convertDiscount(from: hotelcommon.Discount): Option[Discount] = {
     from.getDiscountType match {
       case DiscountType.FLAT =>
-        Some(new NominalDiscount(from.getDiscountReason, new MonetaryAmount(from.getDiscountAmount, 2.toShort, defaultCurrency)))
+        Some(new FlatDiscount(from.getDiscountReason, new MonetaryAmount(from.getDiscountAmount, 2.toShort, defaultCurrency)))
 
       case DiscountType.PERCENT =>
         Some(new PercentDiscount(from.getDiscountReason, from.getDiscountAmount))
-    }
 
-    None
+      case _ =>
+        None
+    }
   }
 
   private def getCurrency(@Nullable optionalCode: String): Currency = {

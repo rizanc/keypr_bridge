@@ -45,9 +45,6 @@ public class RatePlan {
     private Discount discount;
 
 	@Nullable
-	private DateTime latestCancellationDateTime;
-
-    @Nullable
     private String rateRules;
 
     @Nullable
@@ -88,14 +85,13 @@ public class RatePlan {
 
     private List<String> otherNotes;
 
-	public RatePlan(String code, String name, String shortDescription, String description, DepositRequirement depositRequirement, Discount discount, DateTime latestCancellationDateTime, String rateRules, String marketingInformation, String depositPolicy, String promotion, String commissionPolicy, String guaranteePolicy, String miscellaneous, String packageOptions, String penaltyPolicy, String taSpecialRequest, String taxInformation, String cancelPolicy, String pointsPolicy, List<String> otherNotes) {
+	public RatePlan(String code, String name, String shortDescription, String description, DepositRequirement depositRequirement, Discount discount, String rateRules, String marketingInformation, String depositPolicy, String promotion, String commissionPolicy, String guaranteePolicy, String miscellaneous, String packageOptions, String penaltyPolicy, String taSpecialRequest, String taxInformation, String cancelPolicy, String pointsPolicy, List<String> otherNotes) {
 		this.code = code;
 		this.name = name;
 		this.shortDescription = shortDescription;
 		this.description = description;
 		this.depositRequirement = depositRequirement;
 		this.discount = discount;
-		this.latestCancellationDateTime = latestCancellationDateTime;
 		this.rateRules = rateRules;
 		this.marketingInformation = marketingInformation;
 		this.depositPolicy = depositPolicy;
@@ -143,11 +139,6 @@ public class RatePlan {
     }
 
 	@Nullable
-	public DateTime getLatestCancellationDateTime() {
-		return latestCancellationDateTime;
-	}
-
-    @Nullable
     public String getRateRules() {
         return rateRules;
     }
@@ -225,7 +216,6 @@ public class RatePlan {
 			", description='" + description + '\'' +
 			", depositRequirement=" + depositRequirement +
 			", discount=" + discount +
-			", latestCancellationDateTime=" + latestCancellationDateTime +
 			", rateRules='" + rateRules + '\'' +
 			", marketingInformation='" + marketingInformation + '\'' +
 			", depositPolicy='" + depositPolicy + '\'' +

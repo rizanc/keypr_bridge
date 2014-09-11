@@ -2,9 +2,10 @@ package com.micros.pms.util
 
 import java.util.{Locale, Currency}
 
+import com.cloudkey.pms.common.payment.MonetaryAmount
 import com.cloudkey.pms.common.profile.{StreetAddress, CustomerProfile}
 import com.cloudkey.pms.common.reservation
-import com.cloudkey.pms.common.reservation.Reservation
+import com.cloudkey.pms.common.reservation.{FlatDiscount, Reservation}
 import com.cloudkey.pms.micros.og.common.{Amount, CreditCard, Gender, PersonName}
 import com.cloudkey.pms.micros.og.hotelcommon
 import com.cloudkey.pms.micros.og.hotelcommon._
@@ -171,11 +172,56 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
           .withCompanyName("Their lawyer")
         )
 
+      val owsRates = List(
+        new Rate()
+          .withEffectiveDate(new LocalDate(2014, 8, 14))
+          .withExpirationDate(new LocalDate(2014, 8, 15))
+          .withRateOccurrence(RateOccurrenceType.DAILY)
+          .withBase(new Amount(20.49, "USD", 2.toShort, null))
+          .withPoints(20.0),
+        new Rate()
+          .withEffectiveDate(new LocalDate(2014, 8, 14))
+          .withExpirationDate(new LocalDate(2014, 8, 15))
+          .withRateOccurrence(RateOccurrenceType.DAILY)
+          .withBase(new Amount(20.49, "USD", 2.toShort, null))
+          .withPoints(20.0),
+        new Rate()
+          .withEffectiveDate(new LocalDate(2014, 8, 15))
+          .withExpirationDate(new LocalDate(2014, 8, 16))
+          .withRateOccurrence(RateOccurrenceType.DAILY)
+          .withBase(new Amount(21.49, "USD", 2.toShort, null))
+          .withPoints(21.0),
+        new Rate()
+          .withEffectiveDate(new LocalDate(2014, 8, 16))
+          .withRateOccurrence(RateOccurrenceType.OTHER)
+          .withBase(new Amount(22.49, "USD", 2.toShort, null))
+          .withPoints(22.0),
+        new Rate()
+          .withRateOccurrence(RateOccurrenceType.WEEKLY)
+          .withBase(new Amount(23.49, "USD", 2.toShort, null))
+          .withPoints(23.0)
+      )
+
       val owsCard: CreditCard = new CreditCard()
       val owsStartDate: DateTime = new DateTime(2014, 8, 14, 0, 0)
       val owsEndDate: DateTime = new DateTime(2014, 8, 16, 0, 0)
       val ratePlanShortDescription = "Rate Plan Short Description"
       val ratePlanFullDescription = "Rate Plan Full Description"
+      val detailRateRules = "Rate rules detail"
+      val detailMarketingInfo = "Marketing info detail"
+      val detailDepositPolicy = "Deposit policy detail"
+      val detailPromotionDetail = "Promotion detail"
+      val detailCommissionPolicy = "Commission policy detail"
+      val detailGuaranteePolicy = "Guarantee policy detail"
+      val detailMisc = "Misc detail"
+      val detailPackageOptions = "Package options detail"
+      val detailPenaltyPolicy = "Penalty policy detail"
+      val detailTaSpecialRequest = "Ta special request detail"
+      val detailTaxInfo = "Tax information detail"
+      val detailCancelPolicy = "Cancel policy detail"
+      val detailPointsPolicy = "Points policy detail"
+      val detailPetPolicy = "No pets"
+      val detailSmokingPolicy = "No smoking"
       val owsRatePlan: RatePlan = new RatePlan()
         .withRatePlanCode("RACK")
         .withRatePlanName("Rack rate")
@@ -189,23 +235,78 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
         .withDiscount(new Discount(
           19.99, DiscountType.FLAT, "Nepotism"
         ))
-        .withCancellationDateTime(new CancelDateTime(new DateTime(2014, 12, 1, 0, 0), Period.days(1)))
         .withAdditionalDetails(
-          new AdditionalDetail("Rate rules detail", AdditionalDetailType.RATE_RULES, null),
-          new AdditionalDetail("Marketing info detail", AdditionalDetailType.MARKETING_INFORMATION, null),
-          new AdditionalDetail("Deposit policy detail", AdditionalDetailType.DEPOSIT_POLICY, null),
-          new AdditionalDetail("Promotion detail", AdditionalDetailType.PROMOTION, null),
-          new AdditionalDetail("Commission policy detail", AdditionalDetailType.COMMISSION_POLICY, null),
-          new AdditionalDetail("Guarantee policy detail", AdditionalDetailType.GUARANTEE_POLICY, null),
-          new AdditionalDetail("Misc detail", AdditionalDetailType.MISCELLANEOUS, null),
-          new AdditionalDetail("Package options detail", AdditionalDetailType.PACKAGE_OPTIONS, null),
-          new AdditionalDetail("Penalty policy detail", AdditionalDetailType.PENALTY_POLICY, null),
-          new AdditionalDetail("Ta special request detail", AdditionalDetailType.TA_SPECIAL_REQUEST, null),
-          new AdditionalDetail("Tax information detail", AdditionalDetailType.TAX_INFORMATION, null),
-          new AdditionalDetail("Cancel policy detail", AdditionalDetailType.CANCEL_POLICY, null),
-          new AdditionalDetail("Points policy detail", AdditionalDetailType.POINTS_POLICY, null),
-          new AdditionalDetail("No pets", AdditionalDetailType.OTHER, "PET_POLICY"),
-          new AdditionalDetail("No smoking", AdditionalDetailType.OTHER, "SMOKING_POLICY")
+          new AdditionalDetail(detailRateRules, AdditionalDetailType.RATE_RULES, null),
+          new AdditionalDetail(detailMarketingInfo, AdditionalDetailType.MARKETING_INFORMATION, null),
+          new AdditionalDetail(detailDepositPolicy, AdditionalDetailType.DEPOSIT_POLICY, null),
+          new AdditionalDetail(detailPromotionDetail, AdditionalDetailType.PROMOTION, null),
+          new AdditionalDetail(detailCommissionPolicy, AdditionalDetailType.COMMISSION_POLICY, null),
+          new AdditionalDetail(detailGuaranteePolicy, AdditionalDetailType.GUARANTEE_POLICY, null),
+          new AdditionalDetail(detailMisc, AdditionalDetailType.MISCELLANEOUS, null),
+          new AdditionalDetail(detailPackageOptions, AdditionalDetailType.PACKAGE_OPTIONS, null),
+          new AdditionalDetail(detailPenaltyPolicy, AdditionalDetailType.PENALTY_POLICY, null),
+          new AdditionalDetail(detailTaSpecialRequest, AdditionalDetailType.TA_SPECIAL_REQUEST, null),
+          new AdditionalDetail(detailTaxInfo, AdditionalDetailType.TAX_INFORMATION, null),
+          new AdditionalDetail(detailCancelPolicy, AdditionalDetailType.CANCEL_POLICY, null),
+          new AdditionalDetail(detailPointsPolicy, AdditionalDetailType.POINTS_POLICY, null),
+          new AdditionalDetail(detailPetPolicy, AdditionalDetailType.OTHER, "PET_POLICY"),
+          new AdditionalDetail(detailSmokingPolicy, AdditionalDetailType.OTHER, "SMOKING_POLICY")
+        )
+
+      val roomTypeDescription = "It's nicer than standard"
+      val membershipId: Long = 8213129.toLong
+      val roomStay = new hotelcommon.RoomStay()
+        .withCurrentBalance(new Amount(24.99, "USD", 2.toShort, null))
+        .withTotal(new Amount(224.99, "USD", 2.toShort, null))
+        .withMemberAwardInfo(new MemberAwardInfo().withMembershipID(membershipId))
+        .withComments(
+          new ReservationComment().withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement("One comment"))
+            .withGuestViewable(true),
+          new ReservationComment().withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement("Another comment"))
+            .withGuestViewable(true),
+          new ReservationComment().withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement("A staff-only comment"))
+            .withGuestViewable(false)
+        )
+        .withGuestCounts(new GuestCountList().withGuestCounts(
+          new GuestCount()
+            .withAgeQualifyingCode(AgeQualifyingCode.ADULT)
+            .withCount(1),
+          new GuestCount()
+            .withAgeQualifyingCode(AgeQualifyingCode.CHILD)
+            .withCount(2),
+          new GuestCount()
+            .withAgeQualifyingCode(AgeQualifyingCode.CHILDBUCKET_1)
+            .withCount(1),
+          new GuestCount()
+            .withAgeQualifyingCode(AgeQualifyingCode.CHILDBUCKET_2)
+            .withCount(1),
+          new GuestCount()
+            .withAgeQualifyingCode(AgeQualifyingCode.CHILDBUCKET_3)
+            .withCount(3)
+        ))
+        .withGuarantee(new Guarantee().withGuaranteesAccepted(new GuaranteeAccepted().withGuaranteeCreditCard(
+          owsCard
+            .withCardType("AX")
+            .withCardHolderName("Charles La Mothe")
+            .withCardNumber("1234123412341234")
+            .withExpirationDate(new LocalDate(2016, 6, 1))
+        )))
+        .withTimeSpan(new TimeSpan()
+          .withStartDate(owsStartDate)
+          .withEndDate(owsEndDate)
+        )
+        .withRatePlans(owsRatePlan)
+        .withRoomTypes(new RoomType()
+          .withNumberOfUnits(3)
+          .withRoomTypeCode("DLX")
+          .withRoomTypeName("Deluxe")
+          .withRoomTypeDescription(roomTypeDescription)
+          .withRoomClass("TOWER1")
+          .withRoomNumbers("1238")
+          .withInvBlockCode("MICROSOFT")
+        )
+        .withRoomRates(
+          owsRates.map(rate => new RoomRate().withRates(rate))
         )
 
       val owsReservation = new HotelReservation()
@@ -213,81 +314,7 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
         .withReservationStatus(ReservationStatusType.RESERVED)
         .withRoomPreferenceExists(false)
         .withSpecialsExists(true)
-        .withRoomStays(new hotelcommon.RoomStay()
-          .withCurrentBalance(new Amount(24.99, "USD", 2.toShort, null))
-          .withTotal(new Amount(224.99, "USD", 2.toShort, null))
-          .withMemberAwardInfo(new MemberAwardInfo().withMembershipID(8213129.toLong))
-          .withComments(
-            new ReservationComment().withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement("One comment"))
-              .withGuestViewable(true),
-            new ReservationComment().withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement("Another comment"))
-              .withGuestViewable(true),
-            new ReservationComment().withImagesAndURLSAndTexts(ParagraphHelper.createParagraphElement("A staff-only comment"))
-              .withGuestViewable(false)
-          )
-          .withGuestCounts(new GuestCountList().withGuestCounts(
-            new GuestCount()
-              .withAgeQualifyingCode(AgeQualifyingCode.ADULT)
-              .withCount(1),
-            new GuestCount()
-              .withAgeQualifyingCode(AgeQualifyingCode.CHILD)
-              .withCount(2),
-            new GuestCount()
-              .withAgeQualifyingCode(AgeQualifyingCode.CHILDBUCKET_1)
-              .withCount(1),
-            new GuestCount()
-              .withAgeQualifyingCode(AgeQualifyingCode.CHILDBUCKET_2)
-              .withCount(1),
-            new GuestCount()
-              .withAgeQualifyingCode(AgeQualifyingCode.CHILDBUCKET_3)
-              .withCount(3)
-          ))
-          .withGuarantee(new Guarantee().withGuaranteesAccepted(new GuaranteeAccepted().withGuaranteeCreditCard(
-            owsCard
-              .withCardType("AX")
-              .withCardHolderName("Charles La Mothe")
-              .withCardNumber("1234123412341234")
-              .withExpirationDate(new LocalDate(2016, 6, 1))
-          )))
-          .withTimeSpan(new TimeSpan()
-            .withStartDate(owsStartDate)
-            .withEndDate(owsEndDate)
-          )
-          .withRatePlans(owsRatePlan)
-          .withRoomTypes(new RoomType()
-            .withNumberOfUnits(3)
-            .withRoomTypeCode("DLX")
-            .withRoomTypeName("Deluxe")
-            .withRoomTypeDescription("It's nicer than standard")
-            .withRoomClass("TOWER1")
-            .withInvBlockCode("MICROSOFT")
-          )
-          .withRoomRates(
-            new RoomRate().withRates(
-              new Rate()
-                .withEffectiveDate(new LocalDate(2014, 8, 14))
-                .withExpirationDate(new LocalDate(2014, 8, 15))
-                .withRateOccurrence(RateOccurrenceType.DAILY)
-                .withBase(new Amount(20.49, "USD", 2.toShort, null))
-                .withPoints(20.0),
-              new Rate()
-                .withEffectiveDate(new LocalDate(2014, 8, 15))
-                .withExpirationDate(new LocalDate(2014, 8, 16))
-                .withRateOccurrence(RateOccurrenceType.DAILY)
-                .withBase(new Amount(21.49, "USD", 2.toShort, null))
-                .withPoints(21.0),
-              new Rate()
-                .withEffectiveDate(new LocalDate(2014, 8, 16))
-                .withRateOccurrence(RateOccurrenceType.OTHER)
-                .withBase(new Amount(22.49, "USD", 2.toShort, null))
-                .withPoints(22.0),
-              new Rate()
-                .withRateOccurrence(RateOccurrenceType.WEEKLY)
-                .withBase(new Amount(23.49, "USD", 2.toShort, null))
-                .withPoints(23.0)
-            )
-          )
-        )
+        .withRoomStays(roomStay)
         .withResGuests(new ResGuest()
           .withArrivalTime(arrivalTime)
           .withDepartureTime(departureTime)
@@ -362,14 +389,6 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
       customer.getPhoneNumbers.toList shouldBe List("541-357-7774", "541-337-0431")
       customer.getFaxNumbers.toList shouldBe List("541-344-6631", "541-343-6631")
 
-      /*
-            owsCompany,
-            owsContact1,
-            owsContact2,
-            owsContact3
-
-       */
-
       val company = resv.getCompanyProfile
       company should not be (null)
       company.getProfileId shouldBe companyProfileId
@@ -394,7 +413,7 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
       group.getOtherId shouldBe owsGroup.getCompany.getCompanyID
       group.getName shouldBe owsGroup.getCompany.getCompanyName
 
-      resv.getContactProfiles.size should be === 3
+      resv.getContactProfiles.size shouldBe 3
 
       val contact1 = resv.getContactProfiles()(0)
       contact1 should not be (null)
@@ -422,18 +441,100 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
       resv.getCreditCardNumber shouldBe owsCard.getCardNumber
       resv.getCreditCardType shouldBe owsCard.getCardType
 
-      resv.getStartDate should be === owsStartDate.toLocalDate
-      resv.getEndDate should be === owsEndDate.toLocalDate
+      resv.getStartDate shouldBe owsStartDate.toLocalDate
+      resv.getEndDate shouldBe owsEndDate.toLocalDate
 
       val ratePlan = resv.getRoomRatePlan
       ratePlan should not be (null)
-      ratePlan.getCode should be === owsRatePlan.getRatePlanCode
-      ratePlan.getName should be === owsRatePlan.getRatePlanName
-      ratePlan.getShortDescription should be === ratePlanShortDescription
-      ratePlan.getDescription should be === ratePlanFullDescription
+      ratePlan.getCode shouldBe owsRatePlan.getRatePlanCode
+      ratePlan.getName shouldBe owsRatePlan.getRatePlanName
+      ratePlan.getShortDescription shouldBe ratePlanShortDescription
+      ratePlan.getDescription shouldBe ratePlanFullDescription
       ratePlan.getDepositRequirement should not be (null)
-//      ratePlan.getDepositRequirement.getDepositAmount.getAmount
+      verifyAmount(ratePlan.getDepositRequirement.getDepositAmount, owsRatePlan.getDepositRequired.getDepositAmount)
+      verifyAmount(ratePlan.getDepositRequirement.getDepositDueAmount, owsRatePlan.getDepositRequired.getDepositDueAmount)
+      ratePlan.getDepositRequirement.getDueDate shouldBe owsRatePlan.getDepositRequired.getDueDate
+
+      ratePlan.getDiscount.isInstanceOf[FlatDiscount] shouldBe true
+      val discount: FlatDiscount = ratePlan.getDiscount.asInstanceOf[FlatDiscount]
+      discount.getDiscountReason shouldBe owsRatePlan.getDiscount.getDiscountReason
+      verifyAmount(discount.getDiscountAmount, new Amount(owsRatePlan.getDiscount.getDiscountAmount, "USD", 2.toShort, null))
+
+      ratePlan.getRateRules shouldBe detailRateRules
+      ratePlan.getMarketingInformation shouldBe detailMarketingInfo
+      ratePlan.getDepositPolicy shouldBe detailDepositPolicy
+      ratePlan.getPromotion shouldBe detailPromotionDetail
+      ratePlan.getCommissionPolicy shouldBe detailCommissionPolicy
+      ratePlan.getGuaranteePolicy shouldBe detailGuaranteePolicy
+      ratePlan.getMiscellaneous shouldBe detailMisc
+      ratePlan.getPackageOptions shouldBe detailPackageOptions
+      ratePlan.getPenaltyPolicy shouldBe detailPenaltyPolicy
+      ratePlan.getTaSpecialRequest shouldBe detailTaSpecialRequest
+      ratePlan.getTaxInformation shouldBe detailTaxInfo
+      ratePlan.getCancelPolicy shouldBe detailCancelPolicy
+      ratePlan.getPointsPolicy shouldBe detailPointsPolicy
+      ratePlan.getOtherNotes.toList shouldBe List(detailPetPolicy, detailSmokingPolicy)
+
+      val roomRates = resv.getRoomRates
+      roomRates.size shouldBe owsRates.size
+      roomRates(0).getRateOccurrence shouldBe BridgeIds.RateOccurrence.DAILY
+      roomRates(0).getBaseAmount shouldBe new MonetaryAmount(new java.math.BigDecimal("20.49"), converter.defaultCurrency)
+      roomRates(0).getEffectiveDate shouldBe owsRates(0).getEffectiveDate
+      roomRates(0).getExpirationDate shouldBe owsRates(0).getExpirationDate
+      roomRates(0).getPoints shouldBe 20.0
+      
+      roomRates(1).getRateOccurrence shouldBe BridgeIds.RateOccurrence.DAILY
+      roomRates(1).getBaseAmount shouldBe new MonetaryAmount(new java.math.BigDecimal("20.49"), converter.defaultCurrency)
+      roomRates(1).getEffectiveDate shouldBe owsRates(1).getEffectiveDate
+      roomRates(1).getExpirationDate shouldBe owsRates(1).getExpirationDate
+      roomRates(1).getPoints shouldBe 20.0
+      
+      roomRates(2).getRateOccurrence shouldBe BridgeIds.RateOccurrence.DAILY
+      roomRates(2).getBaseAmount shouldBe new MonetaryAmount(new java.math.BigDecimal("21.49"), converter.defaultCurrency)
+      roomRates(2).getEffectiveDate shouldBe owsRates(2).getEffectiveDate
+      roomRates(2).getExpirationDate shouldBe owsRates(2).getExpirationDate
+      roomRates(2).getPoints shouldBe 21.0
+      
+      roomRates(3).getRateOccurrence shouldBe BridgeIds.RateOccurrence.OTHER
+      roomRates(3).getBaseAmount shouldBe new MonetaryAmount(new java.math.BigDecimal("22.49"), converter.defaultCurrency)
+      roomRates(3).getEffectiveDate shouldBe owsRates(3).getEffectiveDate
+      roomRates(3).getExpirationDate shouldBe owsRates(3).getExpirationDate
+      roomRates(3).getPoints.toDouble shouldBe 22.0
+      
+      roomRates(4).getRateOccurrence shouldBe BridgeIds.RateOccurrence.WEEKLY
+      roomRates(4).getBaseAmount shouldBe new MonetaryAmount(new java.math.BigDecimal("23.49"), converter.defaultCurrency)
+      roomRates(4).getEffectiveDate shouldBe owsRates(4).getEffectiveDate
+      roomRates(4).getExpirationDate shouldBe owsRates(4).getExpirationDate
+      roomRates(4).getPoints.toDouble shouldBe 23.0
+
+      val owsRoomType: RoomType = roomStay.getRoomTypes.head
+      resv.getRoom.getRoomBlockCode shouldBe owsRoomType.getInvBlockCode
+      resv.getRoom.getRoomNumber shouldBe owsRoomType.getRoomNumbers.head
+      resv.getRoom.getRoomType.getRoomTypeCode shouldBe owsRoomType.getRoomTypeCode
+      resv.getRoom.getRoomType.getRoomTypeName shouldBe owsRoomType.getRoomTypeName
+      resv.getRoom.getRoomType.getRoomTypeDescription shouldBe roomTypeDescription
+      resv.getRoom.getRoomType.getRoomClassCode shouldBe owsRoomType.getRoomClass
+      
+      resv.getAdditionalReservedRoomCount shouldBe 2
+      verifyAmount(resv.getCurrentBalance, roomStay.getCurrentBalance)
+      verifyAmount(resv.getTotalCost, roomStay.getTotal)
+      resv.getMembershipId shouldBe membershipId.toString
+
+      resv.getComments.toList shouldBe List(
+        new reservation.Comment("One comment", true),
+        new reservation.Comment("Another comment", true),
+        new reservation.Comment("A staff-only comment", false)
+      )
+
+      resv.getHasSpecialRequests shouldBe true
+      resv.getHasRoomPreferences shouldBe false
     }
+  }
+
+  protected def verifyAmount(monetaryAmount: MonetaryAmount, amount: Amount) = {
+    monetaryAmount.getAmount.scale() shouldBe amount.getDecimals
+    monetaryAmount.getAmount.doubleValue() shouldBe amount.getValue
+    monetaryAmount.getCurrencyCode.getCurrencyCode shouldBe amount.getCurrencyCode
   }
 
   implicit def toParagraph(str: String): Paragraph = ParagraphHelper.createParagraph(str)
