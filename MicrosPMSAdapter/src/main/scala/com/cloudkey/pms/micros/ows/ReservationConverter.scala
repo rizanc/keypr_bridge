@@ -1,21 +1,21 @@
-package com.micros.pms.util
+package com.cloudkey.pms.micros.ows
 
 import java.util.Currency
 import javax.annotation.Nullable
 
 import com.cloudkey.pms.common.payment.MonetaryAmount
-import com.cloudkey.pms.common.profile.{StreetAddress, NativeName, PersonName, CustomerProfile}
-import com.cloudkey.pms.common.reservation.{DepositRequirement, Discount, RatePlan, Room, RoomType, RoomRate, _}
+import com.cloudkey.pms.common.profile.{CustomerProfile, NativeName, PersonName, StreetAddress}
+import com.cloudkey.pms.common.reservation.{DepositRequirement, Discount, RatePlan, Room, RoomRate, RoomType, _}
 import com.cloudkey.pms.micros.og.common.Amount
 import com.cloudkey.pms.micros.og.hotelcommon
 import com.cloudkey.pms.micros.og.hotelcommon._
-import com.cloudkey.pms.micros.og.name.{Profile, CompanyCompanyType, NameAddress, Customer}
-import com.cloudkey.pms.micros.og.reservation.{ResGuest, HotelReservation}
-import com.cloudkey.pms.micros.ows.IdUtils
+import com.cloudkey.pms.micros.og.name.{CompanyCompanyType, NameAddress, Profile}
+import com.cloudkey.pms.micros.og.reservation.{HotelReservation, ResGuest}
 import com.cloudkey.pms.micros.ows.IdUtils._
 import com.google.common.collect.Iterables
 import com.google.inject.Inject
 import com.keypr.pms.micros.oxi.ids.MicrosIds.OWS.PhoneNumberRole
+import com.micros.pms.util.ParagraphHelper
 import keypr.scala.OptionalConverters._
 
 import scala.collection.JavaConversions._

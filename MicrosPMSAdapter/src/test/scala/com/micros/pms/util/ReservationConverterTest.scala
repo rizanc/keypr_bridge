@@ -1,9 +1,9 @@
 package com.micros.pms.util
 
-import java.util.{Locale, Currency}
+import java.util.{Currency, Locale}
 
 import com.cloudkey.pms.common.payment.MonetaryAmount
-import com.cloudkey.pms.common.profile.{StreetAddress, CustomerProfile}
+import com.cloudkey.pms.common.profile.{CustomerProfile, StreetAddress}
 import com.cloudkey.pms.common.reservation
 import com.cloudkey.pms.common.reservation.{FlatDiscount, Reservation}
 import com.cloudkey.pms.micros.og.common.{Amount, CreditCard, Gender, PersonName}
@@ -11,17 +11,20 @@ import com.cloudkey.pms.micros.og.hotelcommon
 import com.cloudkey.pms.micros.og.hotelcommon._
 import com.cloudkey.pms.micros.og.name._
 import com.cloudkey.pms.micros.og.reservation.{HotelReservation, ResGuest, ReservationStatusType}
-import com.cloudkey.pms.micros.ows.IdUtils
+import com.cloudkey.pms.micros.ows.{IdUtils, ReservationConverter}
 import com.keypr.bridge.ids.BridgeIds
 import com.keypr.bridge.ids.BridgeIds.ReservationStatus
-import org.joda.time.{Period, DateTime, LocalDate, LocalTime}
-import org.scalatest.{ShouldMatchers, FunSpec}
+import org.joda.time.{DateTime, LocalDate, LocalTime}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.{FunSpec, ShouldMatchers}
 
 import scala.collection.JavaConversions._
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@RunWith(classOf[JUnitRunner])
 class ReservationConverterTest extends FunSpec with ShouldMatchers {
 
   protected val pmsReservationId = "919843"

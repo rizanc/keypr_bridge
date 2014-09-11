@@ -1,19 +1,7 @@
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.github.maiflai:gradle-scalatest:0.4'
-    }
-}
-
 apply plugin: 'scala'
-apply plugin: 'scalatest'
 
 dependencies {
     compile scala
     compile guava
     testCompile scala_test
 }
-

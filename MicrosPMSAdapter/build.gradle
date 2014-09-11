@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.maiflai:gradle-scalatest:0.4'
+    }
+}
+
 apply plugin: 'scala'
 
 dependencies {
@@ -13,7 +22,9 @@ dependencies {
     compile dropwizard_logging
     compile dropwizard_guice
     compile commons_lang
+    compile scala
     compile xstream
 
+    testCompile junit
     testCompile scala_test
 }
