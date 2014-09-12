@@ -18,5 +18,8 @@ dependencies {
     compile xstream
     compile httpcomponents_httpclient
     compile commons_io
+    compile jetty_server
+    compile jetty_http
+    compile jetty_servlet
     runtime groovy
 }
