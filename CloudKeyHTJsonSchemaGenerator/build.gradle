@@ -1,0 +1,12 @@
+apply plugin: 'application'
+
+mainClassName = 'com.keypr.jsonschema.JsonSchemaGeneratorApplication'
+
+dependencies {
+    compile project(':CloudKeyHTBase')
+    compile project(':KeyprJacksonSupport')
+
+    compile guice
+    compile dropwizard_jackson
+    compile jackson_jsonschema
+}

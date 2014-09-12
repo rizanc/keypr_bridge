@@ -12,8 +12,11 @@ import com.cloudkey.pms.micros.og.hotelcommon._
 import com.cloudkey.pms.micros.og.name._
 import com.cloudkey.pms.micros.og.reservation.{HotelReservation, ResGuest, ReservationStatusType}
 import com.cloudkey.pms.micros.ows.{IdUtils, ReservationConverter}
+//import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.inject.{Guice, Injector}
 import com.keypr.bridge.ids.BridgeIds
 import com.keypr.bridge.ids.BridgeIds.ReservationStatus
+//import com.keypr.jackson.KeyprJacksonModule
 import org.joda.time.{DateTime, LocalDate, LocalTime}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -531,6 +534,12 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
 
       resv.getHasSpecialRequests shouldBe true
       resv.getHasRoomPreferences shouldBe false
+
+//
+//      val injector: Injector = Guice.createInjector(new KeyprJacksonModule)
+//      val m = injector.getInstance(classOf[ObjectMapper])
+//
+//      println(m.writeValueAsString(resv))
     }
   }
 

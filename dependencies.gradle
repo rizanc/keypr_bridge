@@ -47,7 +47,6 @@ ext {
     scala_test = 'org.scalatest:scalatest_2.11:2.2.2'
     swagger = 'com.wordnik:swagger-jaxrs_2.10:1.3.7'
     xstream = 'com.thoughtworks.xstream:xstream:1.4.4'
-    sun_httpserver = 'com.sun.net.httpserver:http:20070405'
 
     // Replace these usages with logback
     log4j = 'log4j:log4j:1.2.17'

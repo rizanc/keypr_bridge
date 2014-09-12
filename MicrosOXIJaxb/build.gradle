@@ -1,4 +1,3 @@
-apply plugin: 'java'
 apply plugin: 'idea'
 
 project.ext.generatedSources = "$buildDir/generated-sources"

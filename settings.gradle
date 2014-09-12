@@ -29,5 +29,5 @@ include 'CloudKeyHTMessages'
 include 'KeyprScala'
 include 'KeyprJacksonSupport'
 
-include 'CloudKeyHTJsonSchemaGenerator'
+//include 'CloudKeyHTJsonSchemaGenerator'
 
