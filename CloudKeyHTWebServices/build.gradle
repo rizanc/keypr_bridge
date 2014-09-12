@@ -3,6 +3,7 @@ mainClassName = 'com.keypr.webservices.WebServicesApplication'
 
 dependencies {
     // Local dependencies
+    compile project(':KeyprJacksonSupport')
     compile project(':CloudKeyHTBase')
     compile project(':MicrosPMSAdapter')
 

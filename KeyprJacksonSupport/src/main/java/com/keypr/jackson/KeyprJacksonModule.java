@@ -30,9 +30,10 @@ public class KeyprJacksonModule extends AbstractModule {
 		return objectMapper;
 	}
 
-	public void configureObjectMapper(ObjectMapper objectMapper) {
+	public static void configureObjectMapper(ObjectMapper objectMapper) {
 		objectMapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 		objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		objectMapper.registerModule(new JodaModule());
 	}
 }

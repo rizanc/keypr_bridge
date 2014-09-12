@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.hubspot.dropwizard.guice.GuiceBundle;
+import com.keypr.jackson.KeyprJacksonModule;
 import com.sun.jersey.api.container.filter.LoggingFilter;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.wordnik.swagger.config.ConfigFactory;
@@ -42,10 +43,9 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
 
         bootstrap.addBundle(guiceBundle);
 
-	    bootstrap.getObjectMapper().setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
-	    bootstrap.getObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		KeyprJacksonModule.configureObjectMapper(bootstrap.getObjectMapper());
 
-        // Swagger UI
+		// Swagger UI
         swaggerDropwizard.onInitialize(bootstrap);
     }
 
