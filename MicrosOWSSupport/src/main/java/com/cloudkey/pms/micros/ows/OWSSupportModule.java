@@ -52,12 +52,13 @@ public class OWSSupportModule extends AbstractModule {
 	@Provides
 	@Singleton
 	public Currency provideDefaultCurrency(
-		@Named("keypr.bridge.micros.timeZoneId") String timeZoneId
+		@Named("keypr.bridge.micros.currencyCode") String currencyCode
 	) {
-		Currency instance = Currency.getInstance(timeZoneId);
+		Currency instance = Currency.getInstance(currencyCode);
 
 		if (instance == null) {
-			throw new IllegalArgumentException("timeZoneId is not valid: " + timeZoneId);
+			System.out.println(currencyCode);
+			throw new IllegalArgumentException("currencyCode is not valid: " + currencyCode);
 		}
 
 		return instance;

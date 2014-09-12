@@ -1,4 +1,4 @@
-package keypr.scala
+package com.keypr.scala
 
 import com.google.common.base.Optional
 

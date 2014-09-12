@@ -6,6 +6,7 @@ import com.cloudkey.util.GuiceUtils;
 import com.google.inject.AbstractModule;
 import com.micros.harvester.dao.IMicrosDAO;
 import com.micros.harvester.dao.MicrosDAOImpl;
+import com.micros.pms.MicrosPMSModule;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -13,7 +14,8 @@ import com.micros.harvester.dao.MicrosDAOImpl;
 public class DataHarvesterModule extends AbstractModule {
 	@Override
 	protected void configure() {
-		install(new OWSSupportModule());
+		install(new MicrosPMSModule());
+		install(new com.keypr.jackson.KeyprJacksonModule());
 		install(new DatabaseModule());
 
 		GuiceUtils.bindProperties(binder(), getClass().getResourceAsStream("dataharvester.properties"));

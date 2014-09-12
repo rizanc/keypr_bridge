@@ -27,4 +27,5 @@ include 'MicrosOXIJaxb'
 include 'MicrosIds'
 include 'CloudKeyHTMessages'
 include 'KeyprScala'
+include 'KeyprJacksonSupport'
 

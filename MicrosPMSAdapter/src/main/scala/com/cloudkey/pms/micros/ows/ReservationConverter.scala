@@ -15,8 +15,9 @@ import com.cloudkey.pms.micros.ows.IdUtils._
 import com.google.common.collect.Iterables
 import com.google.inject.Inject
 import com.keypr.pms.micros.oxi.ids.MicrosIds.OWS.PhoneNumberRole
+import com.keypr.scala.OptionalConverters
 import com.micros.pms.util.ParagraphHelper
-import keypr.scala.OptionalConverters._
+import OptionalConverters._
 
 import scala.collection.JavaConversions._
 import scala.collection.JavaConverters._
@@ -140,25 +141,29 @@ class ReservationConverter {
 
     new CustomerProfile(
       IdUtils.findInternalProfileId(profile.getProfileIDs).orNull,
-      new PersonName(
-        customer.getPersonName.getNameTitles,
-        customer.getPersonName.getFirstName,
-        customer.getPersonName.getMiddleNames,
-        customer.getPersonName.getLastName,
-        customer.getPersonName.getNameSuffixes,
-        customer.getPersonName.getProfession,
-        customer.getPersonName.getFamiliarName
-      ),
-      new NativeName(
-        customer.getNativeName.getLanguageCode,
-        customer.getNativeName.getNameTitles,
-        customer.getNativeName.getFirstName,
-        customer.getNativeName.getMiddleNames,
-        customer.getNativeName.getLastName,
-        customer.getNativeName.getNameSuffixes,
-        customer.getNativeName.getProfession,
-        customer.getNativeName.getFamiliarName
-      ),
+      Option(customer.getPersonName).map(personName => {
+        new PersonName(
+          personName.getNameTitles,
+          personName.getFirstName,
+          personName.getMiddleNames,
+          personName.getLastName,
+          personName.getNameSuffixes,
+          personName.getProfession,
+          personName.getFamiliarName
+        )
+      }).orNull,
+      Option(customer.getNativeName).map(nativeName => {
+        new NativeName(
+          customer.getNativeName.getLanguageCode,
+          customer.getNativeName.getNameTitles,
+          customer.getNativeName.getFirstName,
+          customer.getNativeName.getMiddleNames,
+          customer.getNativeName.getLastName,
+          customer.getNativeName.getNameSuffixes,
+          customer.getNativeName.getProfession,
+          customer.getNativeName.getFamiliarName
+        )
+      }).orNull,
       customer.getBusinessTitle,
       fromMicrosEnum(customer.getGender),
       customer.getBirthDate,
@@ -204,18 +209,14 @@ class ReservationConverter {
   }
 
   private def convertRatePlan(ratePlan: hotelcommon.RatePlan): RatePlan = {
-    val details: mutable.Buffer[AdditionalDetail] = ratePlan.getAdditionalDetails
+    val details: Iterable[AdditionalDetail] = ratePlan.getAdditionalDetails.asScala
 
     new RatePlan(
       ratePlan.getRatePlanCode,
       ratePlan.getRatePlanName,
       ParagraphHelper.getFirstString(ratePlan.getRatePlanShortDescription).orNull,
       ParagraphHelper.getFirstString(ratePlan.getRatePlanDescription).orNull,
-      new DepositRequirement(
-        ratePlan.getDepositRequired.getDueDate,
-        convertAmount(ratePlan.getDepositRequired.getDepositAmount),
-        convertAmount(ratePlan.getDepositRequired.getDepositDueAmount)
-      ),
+      Option(ratePlan.getDepositRequired).map(convertDeposit).orNull,
       Option(ratePlan.getDiscount).flatMap(convertDiscount).orNull,
       getAdditionalDetail(details, AdditionalDetailType.RATE_RULES).orNull,
       getAdditionalDetail(details, AdditionalDetailType.MARKETING_INFORMATION).orNull,
@@ -231,6 +232,14 @@ class ReservationConverter {
       getAdditionalDetail(details, AdditionalDetailType.CANCEL_POLICY).orNull,
       getAdditionalDetail(details, AdditionalDetailType.POINTS_POLICY).orNull,
       getAdditionalDetails(details, AdditionalDetailType.OTHER).toList
+    )
+  }
+
+  private def convertDeposit(from: hotelcommon.DepositRequirement): DepositRequirement = {
+    new DepositRequirement(
+      from.getDueDate,
+      convertAmount(from.getDepositAmount),
+      convertAmount(from.getDepositDueAmount)
     )
   }
 
@@ -279,7 +288,7 @@ class ReservationConverter {
       .flatMap(_.getGuestCounts.asScala)
       .collect({
         case guestCount: GuestCount if ageCodes.contains(guestCount.getAgeQualifyingCode) =>
-          guestCount.getCount.toInt
+          Option(guestCount.getCount).map(_.toInt).getOrElse(0)
         })
 
     // Sum them

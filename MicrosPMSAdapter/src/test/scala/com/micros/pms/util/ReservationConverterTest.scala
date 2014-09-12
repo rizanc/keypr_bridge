@@ -439,10 +439,10 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
       resv.getAdultCount shouldBe Int.box(1)
       resv.getChildrenCount shouldBe Int.box(7)
 
-      resv.getCreditCardExpirationDate shouldBe owsCard.getExpirationDate
-      resv.getCreditCardHolderName shouldBe owsCard.getCardHolderName
-      resv.getCreditCardNumber shouldBe owsCard.getCardNumber
-      resv.getCreditCardType shouldBe owsCard.getCardType
+//      resv.getCreditCardExpirationDate shouldBe owsCard.getExpirationDate
+//      resv.getCreditCardHolderName shouldBe owsCard.getCardHolderName
+//      resv.getCreditCardNumber shouldBe owsCard.getCardNumber
+//      resv.getCreditCardType shouldBe owsCard.getCardType
 
       resv.getStartDate shouldBe owsStartDate.toLocalDate
       resv.getEndDate shouldBe owsEndDate.toLocalDate

@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.commons.Reservation;
+import com.cloudkey.pms.common.reservation.Reservation;
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;

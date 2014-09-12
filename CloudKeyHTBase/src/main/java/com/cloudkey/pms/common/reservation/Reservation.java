@@ -117,17 +117,17 @@ public class Reservation {
 	 */
 	private Integer childrenCount;
 
-	@Nullable
-	private String creditCardNumber;
-
-	@Nullable
-	private String creditCardType;
-
-	@Nullable
-	private String creditCardHolderName;
-
-	@Nullable
-	private LocalDate creditCardExpirationDate;
+//	@Nullable
+//	private String creditCardNumber;
+//
+//	@Nullable
+//	private String creditCardType;
+//
+//	@Nullable
+//	private String creditCardHolderName;
+//
+//	@Nullable
+//	private LocalDate creditCardExpirationDate;
 
 	@Nullable
 	private MonetaryAmount totalCost;
@@ -175,10 +175,10 @@ public class Reservation {
 		this.additionalReservedRoomCount = additionalReservedRoomCount;
 		this.adultCount = adultCount;
 		this.childrenCount = childrenCount;
-		this.creditCardNumber = creditCardNumber;
-		this.creditCardType = creditCardType;
-		this.creditCardHolderName = creditCardHolderName;
-		this.creditCardExpirationDate = creditCardExpirationDate;
+//		this.creditCardNumber = creditCardNumber;
+//		this.creditCardType = creditCardType;
+//		this.creditCardHolderName = creditCardHolderName;
+//		this.creditCardExpirationDate = creditCardExpirationDate;
 		this.totalCost = totalCost;
 		this.currentBalance = currentBalance;
 		this.membershipId = membershipId;
@@ -267,25 +267,25 @@ public class Reservation {
 		return childrenCount;
 	}
 
-	@Nullable
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
-
-	@Nullable
-	public String getCreditCardType() {
-		return creditCardType;
-	}
-
-	@Nullable
-	public String getCreditCardHolderName() {
-		return creditCardHolderName;
-	}
-
-	@Nullable
-	public LocalDate getCreditCardExpirationDate() {
-		return creditCardExpirationDate;
-	}
+//	@Nullable
+//	public String getCreditCardNumber() {
+//		return creditCardNumber;
+//	}
+//
+//	@Nullable
+//	public String getCreditCardType() {
+//		return creditCardType;
+//	}
+//
+//	@Nullable
+//	public String getCreditCardHolderName() {
+//		return creditCardHolderName;
+//	}
+//
+//	@Nullable
+//	public LocalDate getCreditCardExpirationDate() {
+//		return creditCardExpirationDate;
+//	}
 
 	@Nullable
 	public MonetaryAmount getTotalCost() {
@@ -345,10 +345,10 @@ public class Reservation {
 			", additionalReservedRoomCount=" + additionalReservedRoomCount +
 			", adultCount=" + adultCount +
 			", childrenCount=" + childrenCount +
-			", creditCardNumber='" + creditCardNumber + '\'' +
-			", creditCardType='" + creditCardType + '\'' +
-			", creditCardHolderName='" + creditCardHolderName + '\'' +
-			", creditCardExpirationDate=" + creditCardExpirationDate +
+//			", creditCardNumber='" + creditCardNumber + '\'' +
+//			", creditCardType='" + creditCardType + '\'' +
+//			", creditCardHolderName='" + creditCardHolderName + '\'' +
+//			", creditCardExpirationDate=" + creditCardExpirationDate +
 			", totalCost=" + totalCost +
 			", currentBalance=" + currentBalance +
 			", membershipId='" + membershipId + '\'' +

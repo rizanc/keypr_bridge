@@ -43,6 +43,8 @@ public class MicrosIds {
             SHIPPING,
             BILLING
         }
+
+		public static final String RESERVATION_REFERENCE_ID_TYPE = "PMSID";
     }
 
 	public static class OWS {
