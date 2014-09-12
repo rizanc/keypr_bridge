@@ -4,10 +4,15 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fasterxml.jackson.datatype.joda.ser.JacksonJodaFormat;
+import com.fasterxml.jackson.datatype.joda.ser.LocalTimeSerializer;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import org.joda.time.LocalTime;
+import org.joda.time.format.ISODateTimeFormat;
 
 /**
  * Guice module which provides a configured {@link com.fasterxml.jackson.databind.ObjectMapper}
@@ -35,5 +40,10 @@ public class KeyprJacksonModule extends AbstractModule {
 		objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		objectMapper.registerModule(new JodaModule());
+		objectMapper.registerModule(new SimpleModule() {
+			{
+				addSerializer(LocalTime.class, new LocalTimeSerializer(new JacksonJodaFormat(ISODateTimeFormat.timeNoMillis().withZoneUTC())));
+			}
+		});
 	}
 }
