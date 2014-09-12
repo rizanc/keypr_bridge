@@ -30,6 +30,7 @@ ext {
     jaxb_xjc = 'com.sun.xml.bind:jaxb-xjc:2.1.13'
     jersey_client = 'com.sun.jersey:jersey-client:1.18.1'
     jackson_joda = 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.4.1'
+    jackson_jsonschema = 'com.fasterxml.jackson.module:jackson-module-jsonSchema:2.4.1'
     joda_time = 'joda-time:joda-time:2.4'
     json_simple = 'com.googlecode.json-simple:json-simple:1.1.1'
     junit = 'junit:junit:4.11'
