@@ -1,4 +1,4 @@
-package com.micros.harvester.http;
+package com.micros.harvester;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -14,13 +14,13 @@ import static java.util.EnumSet.allOf;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class OXIListenerServer {
+public class DataHarvesterEntryPoint {
 
 	@Inject
-	public OXIListenerServer(@Named("keypr.bridge.micros.harvester.oxi.listener.port") Integer port) throws Exception {
+	public DataHarvesterEntryPoint(@Named("keypr.bridge.micros.harvester.oxi.listener.port") Integer port) throws Exception {
 		Server server = new Server(port);
 
-		// Setup servlet handler configuration via Guice
+		// Setup servlet handler configuration via Guice (DataHarvesterServletModule)
 		ServletContextHandler handler = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS);
 		handler.addFilter(GuiceFilter.class, "/*", allOf(DispatcherType.class));
 		handler.addServlet(DefaultServlet.class, "/");

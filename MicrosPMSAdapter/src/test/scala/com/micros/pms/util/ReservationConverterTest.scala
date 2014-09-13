@@ -13,7 +13,6 @@ import com.cloudkey.pms.micros.og.name._
 import com.cloudkey.pms.micros.og.reservation.{HotelReservation, ResGuest, ReservationStatusType}
 import com.cloudkey.pms.micros.ows.{IdUtils, ReservationConverter}
 //import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.inject.{Guice, Injector}
 import com.keypr.bridge.ids.BridgeIds
 import com.keypr.bridge.ids.BridgeIds.ReservationStatus
 //import com.keypr.jackson.KeyprJacksonModule

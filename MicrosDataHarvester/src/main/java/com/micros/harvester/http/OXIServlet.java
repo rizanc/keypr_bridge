@@ -26,11 +26,24 @@ import java.io.Reader;
 import java.io.StringReader;
 
 /**
+ * Servlet which handles requests from OXI.
+ *
+ * They are unmarshalled using JAXB into Java POJOS, then routed by type to a
+ * {@link com.micros.harvester.handlers.OXIPushHandler}.
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Singleton
 public class OXIServlet extends HttpServlet {
 	protected final Logger log = LoggerFactory.getLogger(getClass());
+
+	protected static final Class[] SUPPORTED_MESSAGES = {
+		InventoryMessage.class,
+		Reservation.class,
+		RtavMessage.class,
+		Ravl.class,
+		Ravr.class
+	};
 
 	@Inject
 	ReservationHandler reservationHandler;
@@ -66,7 +79,7 @@ public class OXIServlet extends HttpServlet {
 	}
 
 	/**
-	 * Attempt to unmarshall the given XML as one of the expected OXI messages.
+	 * Attempt to unmarshall the given XML as one of the supported OXI message types.
 	 *
 	 * @param requestBody
 	 * @return
@@ -74,11 +87,7 @@ public class OXIServlet extends HttpServlet {
 	 */
 	private static Object unmarshall(String requestBody) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(
-			InventoryMessage.class,
-			Reservation.class,
-			RtavMessage.class,
-			Ravl.class,
-			Ravr.class);
+			SUPPORTED_MESSAGES);
 
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setSchema(null);

@@ -2,7 +2,6 @@ package com.micros.harvester;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.micros.harvester.http.OXIListenerServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,7 @@ public class DataHarvesterApplication {
 		log.debug("Starting up");
 
 		Injector injector = Guice.createInjector(new DataHarvesterModule(), new DataHarvesterServletModule());
-		OXIListenerServer server = injector.getInstance(OXIListenerServer.class);
+		DataHarvesterEntryPoint server = injector.getInstance(DataHarvesterEntryPoint.class);
 
 		log.debug("Shutting down");
 	}
