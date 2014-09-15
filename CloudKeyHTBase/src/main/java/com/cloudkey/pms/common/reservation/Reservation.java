@@ -117,6 +117,10 @@ public class Reservation {
 	 */
 	private Integer childrenCount;
 
+	// NOTE: Credit card information is not provided in the summarized hotel reservations
+	// returned in OWS's FutureBookingSummaryResponse.
+	// Thus if credit card information is ever enabled here, reservations converted from these messages
+	// will differ from those converted from FetchBookingResponse.
 //	@Nullable
 //	private String creditCardNumber;
 //

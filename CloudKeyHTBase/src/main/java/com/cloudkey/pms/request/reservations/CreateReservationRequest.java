@@ -1,14 +1,12 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
-import javax.annotation.Nullable;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
@@ -61,7 +59,7 @@ public class CreateReservationRequest extends PMSRequest {
 
 	protected CreateReservationRequest() { /* For serialization */ }
 
-	public CreateReservationRequest(String confirmationNum, Integer legNum, String ratePlanCode, String roomTypeCode, Integer numAdults, Integer numChildren, LocalDate arrivalDate, LocalDate departureDate, String creditCardNumber, LocalDate expirationDate, String cardType, String cardHolderName, String firstName, String lastName, String externalReferenceNumber, String externalReferenceType) {
+	public CreateReservationRequest(String ratePlanCode, String roomTypeCode, Integer numAdults, Integer numChildren, LocalDate arrivalDate, LocalDate departureDate, String creditCardNumber, LocalDate expirationDate, String cardType, String cardHolderName, String firstName, String lastName, String externalReferenceNumber, String externalReferenceType) {
 		this.ratePlanCode = ratePlanCode;
 		this.roomTypeCode = roomTypeCode;
 		this.numAdults = numAdults;
@@ -157,10 +155,4 @@ public class CreateReservationRequest extends PMSRequest {
 			'}';
 	}
 
-	private static Predicate<String> nonEmpty = new Predicate<String>() {
-		@Override
-		public boolean apply(@Nullable String s) {
-			return s != null && !s.isEmpty();
-		}
-	};
 }
