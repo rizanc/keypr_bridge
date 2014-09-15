@@ -14,7 +14,7 @@ import javax.ws.rs.*;
 import java.util.List;
 
 /**
- * REST service to the hotel room methods of {@link com.cloudkey.message.parser.IParserInterface}.
+ * REST service to the hotel room methods of {@link com.cloudkey.message.parser.PMSInterface}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */

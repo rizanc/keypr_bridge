@@ -4,7 +4,7 @@ import com.cloudkey.pms.response.SOAPMessages;
 import com.keypr.bridge.ids.BridgeIds;
 
 /**
- * Exception which implementations of {@link com.cloudkey.message.parser.IParserInterface} may throw
+ * Exception which implementations of {@link com.cloudkey.message.parser.PMSInterface} may throw
  * when the PMS responds with an error message.
  *
  * When thrown, the REST service will return 400 with a JSON response containing the error message.

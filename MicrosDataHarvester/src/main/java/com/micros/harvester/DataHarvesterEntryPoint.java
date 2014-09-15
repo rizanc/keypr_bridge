@@ -12,6 +12,8 @@ import javax.servlet.DispatcherType;
 import static java.util.EnumSet.allOf;
 
 /**
+ * Entry point for injection. Starts a Jetty server configured with {@link com.micros.harvester.DataHarvesterServletModule}.
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class DataHarvesterEntryPoint {

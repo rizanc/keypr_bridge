@@ -1,9 +1,7 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
-import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
-import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -11,10 +9,9 @@ import com.wordnik.swagger.annotations.ApiResponses;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 
 /**
- * REST service to the general hotel methods of {@link com.cloudkey.message.parser.IParserInterface}.
+ * REST service to the general hotel methods of {@link com.cloudkey.message.parser.PMSInterface}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */

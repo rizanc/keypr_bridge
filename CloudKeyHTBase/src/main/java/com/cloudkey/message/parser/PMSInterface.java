@@ -23,7 +23,7 @@ import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
  *
  * @author niveditat
  */
-public interface IParserInterface {
+public interface PMSInterface {
 
     /**
      * This method generates bill information for the guest. It uses

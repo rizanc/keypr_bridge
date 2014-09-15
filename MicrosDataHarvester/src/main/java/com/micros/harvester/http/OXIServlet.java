@@ -8,6 +8,8 @@ import com.keypr.pms.micros.oxi.jaxb.ravl.Ravl;
 import com.keypr.pms.micros.oxi.jaxb.ravr.Ravr;
 import com.keypr.pms.micros.oxi.jaxb.reservation.Reservation;
 import com.keypr.pms.micros.oxi.jaxb.rtav.RtavMessage;
+import com.micros.harvester.exceptions.HandlingException;
+import com.micros.harvester.exceptions.UploadFailureException;
 import com.micros.harvester.handlers.ReservationHandler;
 import org.apache.cxf.helpers.IOUtils;
 import org.eclipse.jetty.server.Response;
@@ -69,9 +71,12 @@ public class OXIServlet extends HttpServlet {
 				reservationHandler.handle((Reservation) oxiObj);
 			}
 		} catch (PMSInterfaceException e) {
+			// When an OWS connection failure occurs
 			resp.sendError(502);
-//		} catch (SocketException e) {
-//			resp.sendError(504);
+		} catch (UploadFailureException e) {
+			resp.sendError(504);
+		} catch (HandlingException e) {
+			resp.sendError(500);
 		}
 
 		resp.setStatus(Response.SC_OK);

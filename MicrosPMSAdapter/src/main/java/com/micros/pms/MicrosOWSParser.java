@@ -1,7 +1,7 @@
 package com.micros.pms;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
-import com.cloudkey.message.parser.IParserInterface;
+import com.cloudkey.message.parser.PMSInterface;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
@@ -33,7 +33,7 @@ import org.apache.commons.lang3.NotImplementedException;
  *
  * @author crizan2
  */
-public class MicrosOWSParser extends OWSBase implements IParserInterface {
+public class MicrosOWSParser extends OWSBase implements PMSInterface {
 
 	// Reservations
 	@Inject

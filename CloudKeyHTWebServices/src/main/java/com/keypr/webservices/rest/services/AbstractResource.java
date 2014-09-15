@@ -1,12 +1,10 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.message.parser.IParserInterface;
+import com.cloudkey.message.parser.PMSInterface;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import io.dropwizard.jersey.params.AbstractParam;
-import io.dropwizard.jersey.params.IntParam;
-import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
 import javax.validation.*;
@@ -26,7 +24,7 @@ public abstract class AbstractResource {
     private Validator validator;
 
     @Inject
-    protected IParserInterface messageParser;
+    protected PMSInterface messageParser;
 
     protected AbstractResource() {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();

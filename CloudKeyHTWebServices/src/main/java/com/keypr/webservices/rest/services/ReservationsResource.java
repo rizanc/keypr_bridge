@@ -1,6 +1,5 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.message.parser.IParserInterface;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.response.reservations.*;
 import com.wordnik.swagger.annotations.Api;
@@ -13,7 +12,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 
 /**
- * REST service to the reservation methods of {@link IParserInterface}.
+ * REST service to the reservation methods of {@link com.cloudkey.message.parser.PMSInterface}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
