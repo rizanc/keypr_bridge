@@ -79,8 +79,6 @@ public class OWSTools {
 		HotelReference hotelReference = new HotelReference();
 		hotelReference.setHotelCode(hotelCode);
 		hotelReference.setChainCode(chainCode);
-
-		// If not set, exception raised: org.apache.axis2.databinding.ADBException: string cannot be null!!
 		hotelReference.setValue("");
 
 		return hotelReference;
