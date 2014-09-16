@@ -15,6 +15,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.ParagraphHelper;
 
@@ -27,6 +28,7 @@ import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class AddReservationNotesProcessor extends OWSProcessor<
 	AddReservationNotesRequest,
 	AddReservationNotesResponse,

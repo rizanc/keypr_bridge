@@ -13,7 +13,7 @@ import com.cloudkey.pms.micros.og.name.{CompanyCompanyType, NameAddress, Profile
 import com.cloudkey.pms.micros.og.reservation.{HotelReservation, ResGuest}
 import com.cloudkey.pms.micros.ows.IdUtils._
 import com.google.common.collect.Iterables
-import com.google.inject.Inject
+import com.google.inject.{Singleton, Inject}
 import com.keypr.pms.micros.oxi.ids.MicrosIds.OWS.PhoneNumberRole
 import com.keypr.scala.OptionalConverters
 import com.micros.pms.util.ParagraphHelper
@@ -26,6 +26,7 @@ import scala.collection.mutable
 /**
 * @author Charlie La Mothe (charlie@concentricsky.com)
 */
+@Singleton
 class ReservationConverter {
   @Inject
   var defaultCurrency: Currency = _

@@ -17,6 +17,7 @@ import com.cloudkey.pms.request.reservations.CreateReservationRequest;
 import com.cloudkey.pms.response.reservations.CreateReservationResponse;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.micros.pms.processors.OWSProcessor;
 import org.joda.time.DateTimeZone;
@@ -26,6 +27,7 @@ import javax.xml.ws.Holder;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class CreateReservationProcessor extends OWSProcessor<
 	CreateReservationRequest,
 	CreateReservationResponse,

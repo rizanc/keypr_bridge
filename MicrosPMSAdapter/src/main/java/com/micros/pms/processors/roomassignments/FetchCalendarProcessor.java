@@ -12,6 +12,7 @@ import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.annotation.Nullable;
@@ -22,6 +23,7 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class FetchCalendarProcessor extends OWSProcessor<
 	FetchCalendarRequest,
 	FetchCalendarResponse,

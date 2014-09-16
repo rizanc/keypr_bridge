@@ -11,6 +11,7 @@ import com.cloudkey.pms.request.reservations.CheckOutRequest;
 import com.cloudkey.pms.response.reservations.CheckOutResponse;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 import com.cloudkey.pms.micros.ows.IdUtils;
 
@@ -19,6 +20,7 @@ import javax.xml.ws.Holder;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class CheckOutProcessor extends OWSProcessor<
 	CheckOutRequest,
 	CheckOutResponse,

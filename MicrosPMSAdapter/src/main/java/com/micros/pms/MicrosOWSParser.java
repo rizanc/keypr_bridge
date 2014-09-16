@@ -26,7 +26,7 @@ import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
 import com.micros.pms.processors.roomassignments.AvailabilityProcessor;
 import com.micros.pms.processors.roomassignments.FetchCalendarProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
-import com.micros.pms.processors.rooms.UpdateRoomStatusRequestProcessor;
+import com.micros.pms.processors.rooms.UpdateRoomStatusProcessor;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
@@ -92,7 +92,7 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 
 	// Guest Services
 	@Inject
-	UpdateRoomStatusRequestProcessor updateRoomStatusRequestProcessor;
+	UpdateRoomStatusProcessor updateRoomStatusProcessor;
 
 	@Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
@@ -193,7 +193,7 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	@Override
 	public EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException {
 		log.debug("updateRoomStatus: Enter method.");
-		return updateRoomStatusRequestProcessor.process(request);
+		return updateRoomStatusProcessor.process(request);
 	}
 
 	@Override

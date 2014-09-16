@@ -6,6 +6,7 @@ import com.cloudkey.pms.micros.services.ReservationServiceSoap;
 import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
 import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
@@ -15,6 +16,7 @@ import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class ReleaseRoomProcessor extends OWSProcessor<
 	ReleaseRoomRequest,
 	ReleaseRoomResponse,

@@ -18,6 +18,7 @@ import com.cloudkey.pms.request.reservations.CheckInRequest;
 import com.cloudkey.pms.response.reservations.CheckInResponse;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
 import com.cloudkey.pms.micros.ows.IdUtils;
@@ -31,6 +32,7 @@ import java.util.Collections;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class CheckInProcessor extends OWSProcessor<
 	CheckInRequest,
 	CheckInResponse,

@@ -12,6 +12,7 @@ import com.cloudkey.pms.micros.services.NameServiceSoap;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class GuestMembershipsProcessor extends OWSProcessor<
 	GuestMembershipsRequest,
 	GuestMembershipsResponse,

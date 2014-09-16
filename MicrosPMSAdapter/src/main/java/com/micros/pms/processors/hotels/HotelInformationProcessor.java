@@ -16,6 +16,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
@@ -34,6 +35,7 @@ import static com.micros.pms.util.ParagraphHelper.getFirstStringOfParagraphs;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class HotelInformationProcessor extends OWSProcessor<
 	HotelInformationRequest,
 	HotelInformationResponse,

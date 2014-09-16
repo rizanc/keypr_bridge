@@ -10,6 +10,7 @@ import com.cloudkey.pms.micros.ows.guestservices.GuestServicesServiceSoap;
 import com.cloudkey.pms.request.rooms.UpdateRoomStatusRequest;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
@@ -19,7 +20,8 @@ import static com.cloudkey.pms.micros.ows.IdUtils.toMicrosEnum;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class UpdateRoomStatusRequestProcessor extends OWSProcessor<
+@Singleton
+public class UpdateRoomStatusProcessor extends OWSProcessor<
     UpdateRoomStatusRequest,
     EmptyResponse,
     com.cloudkey.pms.micros.og.guestservices.UpdateRoomStatusRequest,

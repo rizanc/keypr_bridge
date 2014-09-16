@@ -13,6 +13,7 @@ import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.reservations.GetFolioRequest;
 import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
 
@@ -24,6 +25,7 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class GetFolioProcessor extends OWSProcessor<
 	GetFolioRequest,
 	GetFolioResponse,

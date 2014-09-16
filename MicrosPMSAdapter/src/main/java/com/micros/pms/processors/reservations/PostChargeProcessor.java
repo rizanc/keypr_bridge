@@ -7,6 +7,7 @@ import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.reservations.PostChargeRequest;
 import com.cloudkey.pms.response.reservations.PostChargeResponse;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.xml.ws.Holder;
@@ -14,6 +15,7 @@ import javax.xml.ws.Holder;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class PostChargeProcessor extends OWSProcessor<
 	PostChargeRequest,
 	PostChargeResponse,

@@ -8,6 +8,7 @@ import com.cloudkey.pms.micros.services.ReservationServiceSoap;
 import com.cloudkey.pms.request.rooms.AssignRoomRequest;
 import com.cloudkey.pms.response.rooms.AssignRoomResponse;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.keypr.bridge.ids.BridgeIds;
 import com.micros.pms.processors.OWSProcessor;
 
@@ -19,6 +20,7 @@ import static com.cloudkey.pms.micros.ows.IdUtils.internalReservationId;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Singleton
 public class AssignRoomProcessor extends OWSProcessor<
 	AssignRoomRequest,
 	AssignRoomResponse,
