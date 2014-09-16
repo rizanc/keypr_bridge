@@ -1,6 +1,7 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -34,38 +35,43 @@ public class ReservationsResource extends AbstractResource {
 		return messageParser.createReservation(request);
 	}
 
+	@Path("{pmsReservationId}")
 	@PUT
 	@ApiOperation(
 		value = "Modifies an existing reservation",
-		response = ModifyReservationResponse.class
+		response = EmptyResponse.class
 	)
 	@ApiResponses({
+		@ApiResponse(code = 404, message = "The reservation does not exist"),
 		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
-	public ModifyReservationResponse createReservation(@Valid ModifyReservationRequest request) {
+	public EmptyResponse modifyReservation(@PathParam("pmsReservationId") String pmsReservationId, ModifyReservationRequest request) {
+		request.setPmsReservationId(pmsReservationId);
+
+		validate(request);
+
 		return messageParser.modifyReservation(request);
 	}
 
-	@Path("{confirmationNum}/{legNumber}")
+	@Path("{pmsReservationId}")
 	@DELETE
 	@ApiOperation(
 		value = "Cancels an existing reservation",
 		response = CancelReservationResponse.class
 	)
 	@ApiResponses({
+		@ApiResponse(code = 404, message = "The reservation does not exist"),
 		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
 	public CancelReservationResponse cancelReservation(
-			@PathParam("confirmationNum") String confirmationNum,
-			@PathParam("legNumber") IntParam legNumberParam,
+			@PathParam("pmsReservationId") String pmsReservationId,
 			@QueryParam("reason") String reason) {
 		CancelReservationRequest request = new CancelReservationRequest(
-			confirmationNum,
-			legNumberParam == null ? null : legNumberParam.get(),
+			pmsReservationId,
 			reason
 		);
 
@@ -74,32 +80,23 @@ public class ReservationsResource extends AbstractResource {
 		return messageParser.cancelReservation(request);
 	}
 
-	@Path("{confirmationNum}/{legNumber}")
+	@Path("{pmsReservationId}")
 	@GET
 	@ApiOperation(
-		value = "Fetches the reservation with the given confirmation number and leg number",
+		value = "Fetches a reservation",
 		response = FindReservationResponse.class
 	)
 	@ApiResponses({
+		@ApiResponse(code = 404, message = "The reservation does not exist"),
 		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
-	public FindReservationResponse get(@PathParam("confirmationNum") String confirmationNum, @PathParam("legNumber") IntParam legNumber) {
-		FindReservationRequest request = new FindReservationRequest(confirmationNum, legNumber == null ? null : legNumber.get());
+	public FindReservationResponse get(@PathParam("pmsReservationId") String pmsReservationId) {
+		FindReservationRequest request = new FindReservationRequest(pmsReservationId);
 		validate(request);
 
-		FindReservationResponse response = messageParser.findReservation(request);
-
-		return response;
-//
-//		Optional<Reservation> reservationOpt = response.getReservation();
-//
-//		if (reservationOpt.isPresent()) {
-//			return reservationOpt.get();
-//		} else {
-//			throw new WebApplicationException(404);
-//		}
+		return messageParser.findReservation(request);
 	}
 
     @Path("search")
@@ -152,7 +149,7 @@ public class ReservationsResource extends AbstractResource {
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
+	})
     public CheckInResponse checkIn(@Valid CheckInRequest request) {
         return messageParser.guestCheckIn(request);
     }

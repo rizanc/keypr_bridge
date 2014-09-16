@@ -13,28 +13,19 @@ public class CancelReservationRequest extends PMSRequest {
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String confirmationNumber;
-
-	@NotNull
-	@ApiModelProperty(required = true)
-	private Integer legNum;
+	private String pmsReservationId;
 
 	private String reason;
 
 	protected CancelReservationRequest() { /* For serialization */ }
 
-	public CancelReservationRequest(String confirmationNumber, Integer legNum, String reason) {
-		this.confirmationNumber = confirmationNumber;
-		this.legNum = legNum;
+	public CancelReservationRequest(String pmsReservationId, String reason) {
+		this.pmsReservationId = pmsReservationId;
 		this.reason = reason;
 	}
 
-	public String getConfirmationNumber() {
-		return confirmationNumber;
-	}
-
-	public Integer getLegNum() {
-		return legNum;
+	public String getPmsReservationId() {
+		return pmsReservationId;
 	}
 
 	public String getReason() {
@@ -44,8 +35,7 @@ public class CancelReservationRequest extends PMSRequest {
 	@Override
 	public String toString() {
 		return "CancelReservationRequest{" +
-			"confirmationNumber='" + confirmationNumber + '\'' +
-			", legNum=" + legNum +
+			"pmsReservationId='" + pmsReservationId + '\'' +
 			", reason='" + reason + '\'' +
 			'}';
 	}

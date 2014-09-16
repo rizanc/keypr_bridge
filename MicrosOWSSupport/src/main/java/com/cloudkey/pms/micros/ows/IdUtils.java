@@ -71,18 +71,18 @@ public class IdUtils {
 		});
 	}
 
-	public static com.google.common.base.Optional<String> findlegNumber(Collection<UniqueID> uniqueIDs) {
+	public static com.google.common.base.Optional<Integer> findlegNumber(Collection<UniqueID> uniqueIDs) {
 		return Iterables.tryFind(uniqueIDs, new Predicate<UniqueID>() {
 			@Override
 			public boolean apply(UniqueID uniqueID) {
 				return Objects.equal(uniqueID.getType(), UniqueIDType.INTERNAL)
 					&& Objects.equal(uniqueID.getSource(), MicrosIds.OWS.LEG_NUM_SOURCE);
 			}
-		}).transform(new Function<UniqueID, String>() {
+		}).transform(new Function<UniqueID, Integer>() {
 			@Nullable
 			@Override
-			public String apply(UniqueID uniqueID) {
-				return uniqueID.getValue();
+			public Integer apply(UniqueID uniqueID) {
+				return Integer.parseInt(uniqueID.getValue());
 			}
 		});
 	}

@@ -1,5 +1,8 @@
 package com.micros.pms.processors.reservations;
 
+import com.cloudkey.exceptions.ReservationNotFound;
+import com.cloudkey.message.parser.PMSInterface;
+import com.cloudkey.pms.common.reservation.Reservation;
 import com.cloudkey.pms.micros.og.common.CreditCard;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
@@ -10,25 +13,27 @@ import com.cloudkey.pms.micros.og.name.Profile;
 import com.cloudkey.pms.micros.og.reservation.HotelReservation;
 import com.cloudkey.pms.micros.og.reservation.ResGuest;
 import com.cloudkey.pms.micros.ows.IdUtils;
+import com.cloudkey.pms.micros.ows.ReservationConverter;
 import com.cloudkey.pms.micros.ows.reservation.ModifyBookingRequest;
 import com.cloudkey.pms.micros.ows.reservation.ModifyBookingResponse;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
+import com.cloudkey.pms.request.reservations.FindReservationRequest;
 import com.cloudkey.pms.request.reservations.ModifyReservationRequest;
-import com.cloudkey.pms.response.reservations.ModifyReservationResponse;
-import com.google.common.base.Optional;
+import com.cloudkey.pms.response.EmptyResponse;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.micros.pms.processors.OWSProcessor;
 import org.joda.time.DateTimeZone;
 
 import javax.xml.ws.Holder;
+import java.util.Objects;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class ModifyReservationProcessor extends OWSProcessor<
 	ModifyReservationRequest,
-	ModifyReservationResponse,
+	EmptyResponse,
 	ModifyBookingRequest,
 	ModifyBookingResponse> {
 
@@ -38,6 +43,12 @@ public class ModifyReservationProcessor extends OWSProcessor<
 
 	@Inject
 	protected ReservationServiceSoap service;
+
+	@Inject
+	protected PMSInterface pmsInterface;
+
+	@Inject
+	protected ReservationConverter reservationConverter;
 
 	@Override
 	protected ResultStatus getResultStatus(ModifyBookingResponse modifyBookingResponse) {
@@ -51,6 +62,12 @@ public class ModifyReservationProcessor extends OWSProcessor<
 
 	@Override
 	protected ModifyBookingRequest toMicrosRequest(ModifyReservationRequest request) {
+		// This throws ReservationNotFound if the reservation does not exist,
+		// which results a 404, which is proper in this case.
+		Reservation reservation = pmsInterface
+			.findReservation(new FindReservationRequest(request.getPmsReservationId()))
+			.getReservation();
+
 		RoomStay roomStay = new RoomStay()
 			.withHotelReference(getDefaultHotelReference());
 
@@ -124,7 +141,10 @@ public class ModifyReservationProcessor extends OWSProcessor<
 
 		ModifyBookingRequest modifyBookingRequest = new ModifyBookingRequest()
 			.withHotelReservation(hotelReservation
-					.withUniqueIDList(IdUtils.confirmationNumId(request.getConfirmationNum()), IdUtils.legNumberId(request.getExternalReferenceLegNum()))
+					.withUniqueIDList(
+						IdUtils.confirmationNumId(reservation.getConfirmationNo()),
+						IdUtils.legNumberId(reservation.getLegNumber())
+					)
 					.withRoomStays(roomStay
 						.withResGuestRPHs(new ResGuestRPH(0)))
 					.withResGuests(new ResGuest()
@@ -139,10 +159,23 @@ public class ModifyReservationProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected ModifyReservationResponse toPmsResponse(ModifyBookingResponse modifyBookingResponse) {
-		Optional<String> pmsReservationId = IdUtils.findPmsReservationId(modifyBookingResponse.getHotelReservation().getUniqueIDList());
+	protected EmptyResponse toPmsResponse(ModifyBookingResponse microsResponse) {
+		// microsResponse contains a HotelReservation, but it does not have all it's fields filled out.
+		// For example, it does not contain a RESVID ID (which we use for pmsReservationId)
+		if (microsResponse.getHotelReservation() == null) {
+			throw new ReservationNotFound();
+		}
 
-		return new ModifyReservationResponse(pmsReservationId.orNull());
+		return new EmptyResponse();
+	}
+
+	@Override
+	protected EmptyResponse handleError(ResultStatus result) {
+		if (Objects.equals(result.getOperaErrorCode(), "BOOKING_NOT_FOUND")) {
+			throw new ReservationNotFound();
+		}
+
+		return null;
 	}
 
 }

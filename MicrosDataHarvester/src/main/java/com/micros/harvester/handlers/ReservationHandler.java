@@ -1,9 +1,9 @@
 package com.micros.harvester.handlers;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
+import com.cloudkey.exceptions.ReservationNotFound;
 import com.cloudkey.message.parser.PMSInterface;
 import com.cloudkey.pms.request.reservations.FindReservationRequest;
-import com.cloudkey.pms.response.reservations.FindReservationResponse;
 import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.keypr.pms.micros.oxi.jaxb.reservation.ResGuest;
@@ -85,18 +85,22 @@ public class ReservationHandler extends AbstractUploadHandler<Reservation, com.c
 		List<com.cloudkey.pms.common.reservation.Reservation> owsReservations = new ArrayList<>();
 
 		for (FindReservationRequest findReservationRequest : findReservationRequests) {
-			FindReservationResponse reservationResponse;
+			com.cloudkey.pms.common.reservation.Reservation reservation;
 			try {
-				reservationResponse = pms.findReservation(findReservationRequest);
+				reservation = pms.findReservation(findReservationRequest).getReservation();
 			} catch (PMSInterfaceException e) {
 				log.error("PMS Interface exception occurred while attempting to fetch reservation. Aborting");
 				throw e;
+			} catch (ReservationNotFound e) {
+				// If a reservation cannot be found, skip that reservation
+				log.debug("Could not find reservation with confirmNo {} and legNo {}. Ignoring",
+					findReservationRequest.getConfirmationNo(),
+					findReservationRequest.getLegNo()
+				);
+				continue;
 			}
 
-			// If a reservation cannot be found, continue
-			if (reservationResponse.getReservation().isPresent()) {
-				owsReservations.add(reservationResponse.getReservation().get());
-			}
+			owsReservations.add(reservation);
 		}
 
 		return owsReservations;

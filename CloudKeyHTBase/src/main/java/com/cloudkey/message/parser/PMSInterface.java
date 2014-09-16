@@ -1,6 +1,7 @@
 package com.cloudkey.message.parser;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
+import com.cloudkey.exceptions.ReservationNotFound;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
@@ -160,13 +161,13 @@ public interface PMSInterface {
 
 	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 
-	EmptyResponse availability(AvailabilityRequest request);
+	EmptyResponse availability(AvailabilityRequest request) throws PMSInterfaceException;
 
-	FindReservationResponse findReservation(FindReservationRequest request);
+	FindReservationResponse findReservation(FindReservationRequest request) throws PMSInterfaceException, ReservationNotFound;
 
-	CreateReservationResponse createReservation(CreateReservationRequest request);
+	CreateReservationResponse createReservation(CreateReservationRequest request) throws PMSInterfaceException;
 
-	CancelReservationResponse cancelReservation(CancelReservationRequest request);
+	CancelReservationResponse cancelReservation(CancelReservationRequest request) throws PMSInterfaceException, ReservationNotFound;
 
-	ModifyReservationResponse modifyReservation(ModifyReservationRequest request);
+	EmptyResponse modifyReservation(ModifyReservationRequest request) throws PMSInterfaceException, ReservationNotFound;
 }

@@ -1,5 +1,6 @@
 package com.micros.pms.processors.reservations;
 
+import com.cloudkey.exceptions.ReservationNotFound;
 import com.cloudkey.pms.common.reservation.Reservation;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
@@ -19,8 +20,6 @@ import com.micros.pms.processors.OWSProcessor;
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.util.Objects;
-
-import static com.cloudkey.pms.micros.ows.IdUtils.confirmationNumId;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -49,10 +48,19 @@ public class FindReservationProcessor extends OWSProcessor<
 
 	@Override
 	protected FetchBookingRequest toMicrosRequest(FindReservationRequest request) {
-		return new FetchBookingRequest()
-			.withHotelReference(getDefaultHotelReference())
-			.withConfirmationNumber(confirmationNumId(request.getConfirmationNum()))
-			.withLegNumber(IdUtils.legNumberId(request.getLegNum()));
+		FetchBookingRequest microsRequest = new FetchBookingRequest()
+			.withHotelReference(getDefaultHotelReference());
+
+		if (request.hasPmsReservationId()) {
+			microsRequest
+				.withResvNameId(IdUtils.internalReservationId(request.getPmsReservationId()));
+		} else {
+			microsRequest
+				.withConfirmationNumber(IdUtils.confirmationNumId(request.getConfirmationNo()))
+				.withLegNumber(IdUtils.legNumberId(request.getLegNo()));
+		}
+
+		return microsRequest;
 	}
 
 	@Override
@@ -65,13 +73,17 @@ public class FindReservationProcessor extends OWSProcessor<
 			}
 		});
 
-		return new FindReservationResponse(reservationOpt);
+		if (reservationOpt.isPresent()) {
+			return new FindReservationResponse(reservationOpt.get());
+		} else {
+			throw new ReservationNotFound();
+		}
 	}
 
 	@Override
 	protected FindReservationResponse handleError(ResultStatus result) {
 		if (Objects.equals(result.getOperaErrorCode(), "BOOKING_NOT_FOUND")) {
-			return new FindReservationResponse(Optional.<Reservation>absent());
+			throw new ReservationNotFound();
 		}
 
 		return null;

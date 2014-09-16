@@ -11,7 +11,7 @@ import java.util.List;
 public class ReservationBuilder {
 	private String pmsReservationId;
 	private String confirmationNo;
-	private String legNumber;
+	private Integer legNumber;
 	private BridgeIds.ReservationStatus reservationStatus;
 	private CustomerProfile customerProfile;
 	private ProfileReference companyProfile;
@@ -50,7 +50,7 @@ public class ReservationBuilder {
 		return this;
 	}
 
-	public ReservationBuilder setLegNumber(String legNumber) {
+	public ReservationBuilder setLegNumber(Integer legNumber) {
 		this.legNumber = legNumber;
 		return this;
 	}

@@ -4,39 +4,64 @@ import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 /**
+ * Request for finding a reservation, either by pmsReservationId
+ * or by both confirmationNo and legNo.
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class FindReservationRequest extends PMSRequest {
 
-	@NotEmpty
-	@ApiModelProperty(required = true)
-	private String confirmationNum;
+	private String pmsReservationId;
 
-	@NotNull
-	@ApiModelProperty(required = true)
-	private Integer legNum;
+	private String confirmationNo;
 
-	public FindReservationRequest(String confirmationNum, Integer legNum) {
-		this.confirmationNum = confirmationNum;
-		this.legNum = legNum;
+	private Integer legNo;
+
+	public FindReservationRequest(String pmsReservationId) {
+		this.pmsReservationId = pmsReservationId;
 	}
 
-	public String getConfirmationNum() {
-		return confirmationNum;
+	public FindReservationRequest(String confirmationNo, Integer legNo) {
+		this.confirmationNo = confirmationNo;
+		this.legNo = legNo;
 	}
 
-	public Integer getLegNum() {
-		return legNum;
+	@AssertTrue(message = "Either pmsReservationId or confirmationNo and legNo are specified")
+	private boolean isValid() {
+		return hasPmsReservationId()
+			|| hasConfirmationNoAndLegNo();
+	}
+
+	public boolean hasConfirmationNoAndLegNo() {
+		return confirmationNo != null && !confirmationNo.isEmpty() && legNo != null;
+	}
+
+	public boolean hasPmsReservationId() {
+		return pmsReservationId != null && !pmsReservationId.isEmpty();
+	}
+
+	public String getPmsReservationId() {
+		return pmsReservationId;
+	}
+
+	public String getConfirmationNo() {
+		return confirmationNo;
+	}
+
+	public Integer getLegNo() {
+		return legNo;
 	}
 
 	@Override
 	public String toString() {
 		return "FindReservationRequest{" +
-			"confirmationNum='" + confirmationNum + '\'' +
-			", legNum=" + legNum +
+			"pmsReservationId='" + pmsReservationId + '\'' +
+			", confirmationNo='" + confirmationNo + '\'' +
+			", legNo=" + legNo +
 			'}';
 	}
 
@@ -47,17 +72,20 @@ public class FindReservationRequest extends PMSRequest {
 
 		FindReservationRequest that = (FindReservationRequest) o;
 
-		if (confirmationNum != null ? !confirmationNum.equals(that.confirmationNum) : that.confirmationNum != null)
+		if (confirmationNo != null ? !confirmationNo.equals(that.confirmationNo) : that.confirmationNo != null)
 			return false;
-		if (legNum != null ? !legNum.equals(that.legNum) : that.legNum != null) return false;
+		if (legNo != null ? !legNo.equals(that.legNo) : that.legNo != null) return false;
+		if (pmsReservationId != null ? !pmsReservationId.equals(that.pmsReservationId) : that.pmsReservationId != null)
+			return false;
 
 		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		int result = confirmationNum != null ? confirmationNum.hashCode() : 0;
-		result = 31 * result + (legNum != null ? legNum.hashCode() : 0);
+		int result = pmsReservationId != null ? pmsReservationId.hashCode() : 0;
+		result = 31 * result + (confirmationNo != null ? confirmationNo.hashCode() : 0);
+		result = 31 * result + (legNo != null ? legNo.hashCode() : 0);
 		return result;
 	}
 }

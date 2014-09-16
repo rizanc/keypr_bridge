@@ -166,7 +166,7 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
     }
 
     @Override
-    public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) throws PMSInterfaceException  {
+    public MeetingRoomInformationResponse getMeetingInformation(MeetingRoomInformationRequest meetingRoomInformationRequest) throws PMSInterfaceException {
 	    log.debug("getMeetingInformation: Enter method.");
 
 	    throw new NotImplementedException("Not yet implemented");
@@ -215,7 +215,7 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	}
 
 	@Override
-	public ModifyReservationResponse modifyReservation(ModifyReservationRequest request) {
+	public EmptyResponse modifyReservation(ModifyReservationRequest request) {
 		log.debug("modifyReservation: Enter method.");
 		return modifyReservationProcessor.process(request);
 	}

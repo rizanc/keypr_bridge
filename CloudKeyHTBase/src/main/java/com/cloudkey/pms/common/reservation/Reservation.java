@@ -27,7 +27,7 @@ public class Reservation {
 	/**
      * The leg number of the reservation in the guests' itinerary
      */
-    private String legNumber;
+    private Integer legNumber;
 
     /**
      * The status of the reservation – reserved, checked in, no show, etc
@@ -160,7 +160,7 @@ public class Reservation {
 	@Nullable
 	private LocalTime expectedDepartureTime;
 
-	public Reservation(String pmsReservationId, String confirmationNo, String legNumber, ReservationStatus reservationStatus, CustomerProfile customerProfile, ProfileReference companyProfile, ProfileReference travelAgentProfile, ProfileReference sourceProfile, ProfileReference groupProfile, List<ProfileReference> contactProfiles, LocalDate startDate, LocalDate endDate, RatePlan roomRatePlan, List<RoomRate> roomRates, Room room, Integer additionalReservedRoomCount, Integer adultCount, Integer childrenCount, String creditCardNumber, String creditCardType, String creditCardHolderName, LocalDate creditCardExpirationDate, MonetaryAmount totalCost, MonetaryAmount currentBalance, String membershipId, List<Comment> comments, Boolean hasRoomPreferences, Boolean hasSpecialRequests, LocalTime expectedArrivalTime, LocalTime expectedDepartureTime) {
+	public Reservation(String pmsReservationId, String confirmationNo, Integer legNumber, ReservationStatus reservationStatus, CustomerProfile customerProfile, ProfileReference companyProfile, ProfileReference travelAgentProfile, ProfileReference sourceProfile, ProfileReference groupProfile, List<ProfileReference> contactProfiles, LocalDate startDate, LocalDate endDate, RatePlan roomRatePlan, List<RoomRate> roomRates, Room room, Integer additionalReservedRoomCount, Integer adultCount, Integer childrenCount, String creditCardNumber, String creditCardType, String creditCardHolderName, LocalDate creditCardExpirationDate, MonetaryAmount totalCost, MonetaryAmount currentBalance, String membershipId, List<Comment> comments, Boolean hasRoomPreferences, Boolean hasSpecialRequests, LocalTime expectedArrivalTime, LocalTime expectedDepartureTime) {
 		this.pmsReservationId = pmsReservationId;
 		this.confirmationNo = confirmationNo;
 		this.legNumber = legNumber;
@@ -201,7 +201,7 @@ public class Reservation {
 		return confirmationNo;
 	}
 
-	public String getLegNumber() {
+	public Integer getLegNumber() {
 		return legNumber;
 	}
 
