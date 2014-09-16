@@ -1,16 +1,22 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.reservations.*;
+import com.cloudkey.pms.request.rooms.AssignRoomRequest;
+import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.reservations.*;
+import com.cloudkey.pms.response.rooms.AssignRoomResponse;
+import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import io.dropwizard.jersey.params.IntParam;
 
+import javax.annotation.Nullable;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 /**
  * REST service to the reservation methods of {@link com.cloudkey.message.parser.PMSInterface}.
@@ -93,13 +99,50 @@ public class ReservationsResource extends AbstractResource {
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
 	public FindReservationResponse get(@PathParam("pmsReservationId") String pmsReservationId) {
-		FindReservationRequest request = new FindReservationRequest(pmsReservationId);
-		validate(request);
-
-		return messageParser.findReservation(request);
+		return messageParser.findReservation(
+			valid(new FindReservationRequest(pmsReservationId))
+		);
 	}
 
-    @Path("search")
+	@Path("{pmsReservationId}/room")
+	@PUT
+	@ApiOperation(
+		value = "Assigns a room to an existing reservation",
+		response = AssignRoomResponse.class
+	)
+	@ApiResponses({
+		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message. Common error codes include: NO_ROOM_AVAILABLE"),
+		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+	})
+	@Consumes(MediaType.WILDCARD) // Does not take any body
+	public AssignRoomResponse assignRoom(
+		@PathParam("pmsReservationId") String pmsReservationId,
+		@Nullable @QueryParam("roomNumber") String roomNumber) {
+		return messageParser.assignRoom(
+			valid(new AssignRoomRequest(pmsReservationId, roomNumber))
+		);
+	}
+
+	@Path("{pmsReservationId}/room")
+	@DELETE
+	@ApiOperation(
+		value = "Unassigns the room assigned to a reservation",
+		response = ReleaseRoomResponse.class
+	)
+	@ApiResponses({
+		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
+		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+	})
+	public ReleaseRoomResponse releaseRoom(
+		@PathParam("pmsReservationId") String pmsReservationId) {
+		return messageParser.releaseRoom(
+			valid(new ReleaseRoomRequest(pmsReservationId))
+		);
+	}
+
+	@Path("search")
     @GET
     @ApiOperation(
         value = "Fetches reservations which match the provided criteria",

@@ -58,7 +58,7 @@ public class BridgeIds {
 
 	public enum PMSErrorMessage {
 		// Room assignment
-		NO_ROOM_AVAILABLE("No room is ready for assignment");
+		NO_ROOM_AVAILABLE("Room not ready for assignment");
 
 		private String message;
 

@@ -46,6 +46,12 @@ public abstract class AbstractResource {
         }
     }
 
+	protected <T> T valid(T obj) {
+		validate(obj);
+
+		return obj;
+	}
+
 	protected <T> T unwrap(AbstractParam<T> param) {
 		return param == null ? null : param.get();
 	}
