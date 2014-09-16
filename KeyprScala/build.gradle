@@ -1,5 +1,9 @@
 apply plugin: 'scala'
 
+compileScala {
+    scalaCompileOptions.additionalParameters = ["-language:implicitConversions"]
+}
+
 dependencies {
     compile scala
     compile scala_reflect
