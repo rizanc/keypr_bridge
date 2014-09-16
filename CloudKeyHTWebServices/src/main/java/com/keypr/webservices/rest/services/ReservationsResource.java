@@ -56,9 +56,9 @@ public class ReservationsResource extends AbstractResource {
 	public EmptyResponse modifyReservation(@PathParam("pmsReservationId") String pmsReservationId, ModifyReservationRequest request) {
 		request.setPmsReservationId(pmsReservationId);
 
-		validate(request);
-
-		return messageParser.modifyReservation(request);
+		return messageParser.modifyReservation(
+			valid(request)
+		);
 	}
 
 	@Path("{pmsReservationId}")
@@ -76,14 +76,12 @@ public class ReservationsResource extends AbstractResource {
 	public CancelReservationResponse cancelReservation(
 			@PathParam("pmsReservationId") String pmsReservationId,
 			@QueryParam("reason") String reason) {
-		CancelReservationRequest request = new CancelReservationRequest(
-			pmsReservationId,
-			reason
+		return messageParser.cancelReservation(
+			valid(new CancelReservationRequest(
+				pmsReservationId,
+				reason
+			))
 		);
-
-		validate(request);
-
-		return messageParser.cancelReservation(request);
 	}
 
 	@Path("{pmsReservationId}")
@@ -165,21 +163,20 @@ public class ReservationsResource extends AbstractResource {
 		    @QueryParam("extRefLegNumber") Integer extRefLegNumber,
 		    @QueryParam("extReferenceType") String extReferenceType
             ) {
-        SearchReservationRequest request = new SearchReservationRequest(
-            pmsReservationId,
-			confirmationNumber,
-            firstName,
-            lastName,
-            creditCardNumber,
-            membershipNumber,
-	        membershipType,
-	        extReferenceNumber,
-	        extRefLegNumber,
-	        extReferenceType
-        );
-        validate(request);
-
-        return messageParser.searchReservationData(request);
+		return messageParser.searchReservationData(
+			valid(new SearchReservationRequest(
+				pmsReservationId,
+				confirmationNumber,
+				firstName,
+				lastName,
+				creditCardNumber,
+				membershipNumber,
+				membershipType,
+				extReferenceNumber,
+				extRefLegNumber,
+				extReferenceType
+			))
+		);
     }
 
     @Path("checkin")
@@ -225,10 +222,9 @@ public class ReservationsResource extends AbstractResource {
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public GetFolioResponse getFolio(@QueryParam("pmsReservationId") String pmsReservationId) {
-        GetFolioRequest request = new GetFolioRequest(pmsReservationId);
-        validate(request);
-
-        return messageParser.retrieveFolioInfo(request);
+        return messageParser.retrieveFolioInfo(
+			valid(new GetFolioRequest(pmsReservationId))
+		);
     }
 
     @Path("postcharge")

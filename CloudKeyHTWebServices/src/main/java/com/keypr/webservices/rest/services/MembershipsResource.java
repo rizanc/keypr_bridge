@@ -33,10 +33,9 @@ public class MembershipsResource extends AbstractResource {
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public GuestMembershipsResponse guestMemberships(@QueryParam("nameId") String nameId) {
-	    GuestMembershipsRequest request = new GuestMembershipsRequest(nameId);
-	    validate(request);
-
-	    return messageParser.getMembershipInformation(request);
+	    return messageParser.getMembershipInformation(
+			valid(new GuestMembershipsRequest(nameId))
+		);
     }
 
     @Path("/search")
@@ -55,9 +54,8 @@ public class MembershipsResource extends AbstractResource {
             @QueryParam("membershipType") String membershipType,
             @QueryParam("memberFirstName") String memberFirstName,
             @QueryParam("memberLastName") String memberLastName) {
-        NameLookupRequest request = new NameLookupRequest(memberFirstName, memberLastName, membershipNumber, membershipType);
-	    validate(request);
-
-        return messageParser.getNameIdInformation(request);
+        return messageParser.getNameIdInformation(
+			valid(new NameLookupRequest(memberFirstName, memberLastName, membershipNumber, membershipType))
+		);
     }
 }

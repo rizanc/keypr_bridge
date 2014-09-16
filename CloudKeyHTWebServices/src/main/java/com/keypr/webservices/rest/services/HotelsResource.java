@@ -30,10 +30,9 @@ public class HotelsResource extends AbstractResource {
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public HotelInformationResponse updateBookingRequest() {
-        HotelInformationRequest request = new HotelInformationRequest();
-	    validate(request);
-
-        return messageParser.hotelInformationQuery(request);
+        return messageParser.hotelInformationQuery(
+			valid(new HotelInformationRequest())
+		);
     }
 
 	// TODO: Complete the implementation of this and re-enable the endpoint
