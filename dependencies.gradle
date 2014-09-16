@@ -34,7 +34,7 @@ ext {
     logback_classic = 'ch.qos.logback:logback-classic:1.1.2'
     logback_core = 'ch.qos.logback:logback-core:1.1.2'
     mysql_connector_java = 'mysql:mysql-connector-java:5.0.3'
-    scala = 'org.scala-lang:scala-library:2.11.2'
-    scala_test = 'org.scalatest:scalatest_2.11:2.2.2'
-    swagger = 'com.wordnik:swagger-jaxrs_2.10:1.3.7'
+    scala = 'org.scala-lang:scala-library:2.10.4'
+    scala_test = 'org.scalatest:scalatest_2.10:2.2.3'
+    swagger = 'com.wordnik:swagger-jaxrs_2.10:1.3.8'
 }
