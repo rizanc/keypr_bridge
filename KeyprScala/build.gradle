@@ -4,6 +4,7 @@ dependencies {
     compile scala
     compile scala_reflect
     compile guava
+    compile jsr305
 
     testCompile scala_test
 }
