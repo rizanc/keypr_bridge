@@ -10,7 +10,6 @@ import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
 import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
 import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
@@ -18,9 +17,7 @@ import com.micros.pms.processors.OWSProcessor;
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)

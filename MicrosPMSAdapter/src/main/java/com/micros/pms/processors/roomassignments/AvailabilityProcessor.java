@@ -12,7 +12,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
-import org.joda.time.Period;
 
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;

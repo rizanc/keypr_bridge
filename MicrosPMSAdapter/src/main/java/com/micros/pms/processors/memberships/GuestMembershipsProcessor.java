@@ -13,7 +13,6 @@ import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.google.inject.Inject;
 import com.micros.pms.processors.OWSProcessor;
-import org.joda.time.LocalDate;
 
 import javax.xml.ws.Holder;
 import java.util.ArrayList;
