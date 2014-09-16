@@ -11,7 +11,6 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
-import io.dropwizard.jersey.params.IntParam;
 
 import javax.annotation.Nullable;
 import javax.validation.Valid;
