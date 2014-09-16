@@ -1,10 +1,10 @@
 dependencies {
     compile project(':CloudKeyHTIds')
+    compile project(':KeyprDropwizardSwagger')
 
     compile dropwizard_validation
     compile dropwizard_jackson
     compile dropwizard_logging
     compile dropwizard_jersey
-    compile dropwizard_swagger
     compile dropwizard_guice
 }

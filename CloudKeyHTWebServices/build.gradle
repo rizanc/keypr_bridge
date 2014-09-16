@@ -12,9 +12,7 @@ dependencies {
     compile dropwizard_guice
     compile dropwizard_jackson
     compile jackson_joda
-    compile dropwizard_swagger
-    compile swagger
-    compile scala
+    compile project(':KeyprDropwizardSwagger')
     testCompile junit
 }
 

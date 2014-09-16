@@ -31,3 +31,5 @@ include 'KeyprJacksonSupport'
 
 //include 'CloudKeyHTJsonSchemaGenerator'
 
+include 'KeyprDropwizardSwagger'
+

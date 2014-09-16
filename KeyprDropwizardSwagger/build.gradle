@@ -1,0 +1,14 @@
+/*
+ This project requires Scala 2.11, as it contains bug fixes not yet made in a 2.10 release,
+ dropwizard_swagger is not yet packaged for scala 2.11
+  */
+
+dependencies {
+    compile(dropwizard_swagger) {
+        // Exclude
+        exclude group: 'com.wordnik', module: 'swagger-jaxrs_2.10'
+    }
+
+    compile scala
+    compile swagger_jaxrs
+}

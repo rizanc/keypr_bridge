@@ -2,6 +2,8 @@ apply plugin: 'scala'
 
 dependencies {
     compile scala
+    compile scala_reflect
     compile guava
+
     testCompile scala_test
 }
