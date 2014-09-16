@@ -6,13 +6,13 @@ dependencies {
     compile project(':KeyprJacksonSupport')
     compile project(':CloudKeyHTBase')
     compile project(':MicrosPMSAdapter')
+    compile project(':KeyprDropwizardSwagger')
 
     // External dependencies
     compile dropwizard
     compile dropwizard_guice
     compile dropwizard_jackson
     compile jackson_joda
-    compile project(':KeyprDropwizardSwagger')
     testCompile junit
 }
 
