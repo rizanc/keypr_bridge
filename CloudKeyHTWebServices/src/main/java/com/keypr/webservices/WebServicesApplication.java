@@ -3,8 +3,11 @@ package com.keypr.webservices;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.keypr.jackson.KeyprJacksonModule;
+import com.keypr.webservices.healthchecks.PMSHealthCheck;
 import com.sun.jersey.api.container.filter.LoggingFilter;
 import com.sun.jersey.api.core.ResourceConfig;
 import com.wordnik.swagger.config.ConfigFactory;
@@ -64,6 +67,10 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
 	    // Make request and response objects available to logger
         environment.jersey().property(ResourceConfig.PROPERTY_CONTAINER_REQUEST_FILTERS, LoggingFilter.class.getName());
         environment.jersey().property(ResourceConfig.PROPERTY_CONTAINER_RESPONSE_FILTERS, LoggingFilter.class.getName());
+
+		// Add a health check for PMS connectivity
+		Injector injector = Guice.createInjector(new WebServicesModule());
+		environment.healthChecks().register("pms", injector.getInstance(PMSHealthCheck.class));
 
 	    swaggerDropwizard.onRun(config, environment);
 
