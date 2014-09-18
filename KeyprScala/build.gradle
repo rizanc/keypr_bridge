@@ -4,8 +4,6 @@ compileScala {
     scalaCompileOptions.additionalParameters = ["-language:implicitConversions"]
 }
 
-test.dependsOn 'scalaTest'
-
 dependencies {
     compile scala
     compile scala_reflect
