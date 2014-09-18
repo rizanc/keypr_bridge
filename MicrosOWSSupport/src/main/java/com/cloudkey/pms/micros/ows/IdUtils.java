@@ -402,4 +402,61 @@ public class IdUtils {
 		return null;
 	}
 
+	/**
+	 * Returns true if the given string indicates room occupation,
+	 * false if room vacancy, or null if neither.
+	 *
+	 * @param frontOfficeStatus
+	 * @return
+	 */
+	public static Boolean parseFrontOfficeStatusString(String frontOfficeStatus) {
+		if (frontOfficeStatus == null) return null;
+
+		try {
+			return MicrosIds.OWS.FrontOfficeStatus.valueOf(frontOfficeStatus).isOccupied();
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
+	public static Boolean parseIsSmokingAllowedString(String smokingPreference) {
+		if (smokingPreference == null) return null;
+
+		try {
+			return MicrosIds.OWS.SmokingPreference.valueOf(smokingPreference).isAllowed();
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
+	public static BridgeIds.RoomStatus parseRoomStatusString(String roomStatus) {
+		if (roomStatus == null) return null;
+
+		try {
+			return MicrosIds.OWS.RoomStatus.valueOf(roomStatus).getBridgeValue();
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
+	public static Boolean parseYNString(String yn) {
+		if (Objects.equal(yn, "Y")) {
+			return true;
+		} else if (Objects.equal(yn, "N")) {
+			return false;
+		} else {
+			return null;
+		}
+	}
+
+	public static BridgeIds.SuiteType parseSuiteTypeString(String suiteType) {
+		if (suiteType == null) return null;
+
+		try {
+			return MicrosIds.OWS.SuiteType.valueOf(suiteType).getBridgeValue();
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
+	}
+
 }

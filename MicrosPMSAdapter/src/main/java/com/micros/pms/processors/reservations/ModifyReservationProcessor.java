@@ -159,7 +159,7 @@ public class ModifyReservationProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected EmptyResponse toPmsResponse(ModifyBookingResponse microsResponse) {
+	protected EmptyResponse toPmsResponse(ModifyBookingResponse microsResponse, ModifyReservationRequest request) {
 		// microsResponse contains a HotelReservation, but it does not have all it's fields filled out.
 		// For example, it does not contain a RESVID ID (which we use for pmsReservationId)
 		if (microsResponse.getHotelReservation() == null) {

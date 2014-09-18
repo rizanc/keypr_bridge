@@ -61,7 +61,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected HotelInformationResponse toPmsResponse(com.cloudkey.pms.micros.ows.information.HotelInformationResponse microsResponse) {
+	protected HotelInformationResponse toPmsResponse(com.cloudkey.pms.micros.ows.information.HotelInformationResponse microsResponse, HotelInformationRequest request) {
 		HotelInformationResponseHotelInformation info = microsResponse.getHotelInformation();
 
 		List<String> contactEmails = new ArrayList<>();

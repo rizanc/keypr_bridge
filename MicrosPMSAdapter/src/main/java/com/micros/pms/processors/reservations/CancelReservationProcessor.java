@@ -14,7 +14,6 @@ import com.cloudkey.pms.micros.services.ReservationServiceSoap;
 import com.cloudkey.pms.request.reservations.CancelReservationRequest;
 import com.cloudkey.pms.request.reservations.FindReservationRequest;
 import com.cloudkey.pms.response.reservations.CancelReservationResponse;
-import com.cloudkey.pms.response.reservations.FindReservationResponse;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
@@ -76,8 +75,8 @@ public class CancelReservationProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected CancelReservationResponse toPmsResponse(CancelBookingResponse createBookingResponse) {
-		Optional<IDPair> cancel = Iterables.tryFind(createBookingResponse.getResult().getIDs(), new Predicate<IDPair>() {
+	protected CancelReservationResponse toPmsResponse(CancelBookingResponse microsResponse, CancelReservationRequest request) {
+		Optional<IDPair> cancel = Iterables.tryFind(microsResponse.getResult().getIDs(), new Predicate<IDPair>() {
 			@Override
 			public boolean apply(IDPair idPair) {
 				return Objects.equals(idPair.getIdType(), "CANCEL");

@@ -48,7 +48,7 @@ public class GuestMembershipsProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected GuestMembershipsResponse toPmsResponse(FetchGuestCardListResponse microsResponse) {
+	protected GuestMembershipsResponse toPmsResponse(FetchGuestCardListResponse microsResponse, GuestMembershipsRequest request) {
 		ArrayList<Membership> memberships = new ArrayList<>();
 		for (NameMembership microsMembership : microsResponse.getGuestCardList()) {
 			Membership membership = new Membership();

@@ -68,7 +68,7 @@ public class CheckInProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected CheckInResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponse microsResponse) {
+	protected CheckInResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponse microsResponse, CheckInRequest request) {
 		com.cloudkey.pms.response.reservations.CheckInResponse response = new com.cloudkey.pms.response.reservations.CheckInResponse();
 
 		Reservation objReservation = new Reservation();

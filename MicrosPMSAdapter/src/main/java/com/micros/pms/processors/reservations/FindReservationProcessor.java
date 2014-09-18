@@ -64,7 +64,7 @@ public class FindReservationProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected FindReservationResponse toPmsResponse(FetchBookingResponse microsResponse) {
+	protected FindReservationResponse toPmsResponse(FetchBookingResponse microsResponse, FindReservationRequest request) {
 		Optional<Reservation> reservationOpt = Optional.fromNullable(microsResponse.getHotelReservation()).transform(new Function<HotelReservation, Reservation>() {
 			@Nullable
 			@Override

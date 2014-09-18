@@ -55,7 +55,7 @@ public class PostChargeProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected PostChargeResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.PostChargeResponse microsResponse) {
+	protected PostChargeResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.PostChargeResponse microsResponse, PostChargeRequest request) {
 		return new com.cloudkey.pms.response.reservations.PostChargeResponse();
 	}
 }

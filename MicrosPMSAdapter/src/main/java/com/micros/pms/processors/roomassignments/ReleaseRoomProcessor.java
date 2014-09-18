@@ -44,7 +44,7 @@ public class ReleaseRoomProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected ReleaseRoomResponse toPmsResponse(com.cloudkey.pms.micros.ows.reservation.ReleaseRoomResponse microsResponse) {
+	protected ReleaseRoomResponse toPmsResponse(com.cloudkey.pms.micros.ows.reservation.ReleaseRoomResponse microsResponse, ReleaseRoomRequest request) {
 		return new ReleaseRoomResponse();
 	}
 

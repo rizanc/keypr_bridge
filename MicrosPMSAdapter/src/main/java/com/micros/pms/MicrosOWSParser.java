@@ -14,9 +14,7 @@ import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
-import com.cloudkey.pms.response.rooms.AssignRoomResponse;
-import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
-import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
+import com.cloudkey.pms.response.rooms.*;
 import com.google.inject.Inject;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
 import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
@@ -26,6 +24,8 @@ import com.micros.pms.processors.roomassignments.AssignRoomProcessor;
 import com.micros.pms.processors.roomassignments.AvailabilityProcessor;
 import com.micros.pms.processors.roomassignments.FetchCalendarProcessor;
 import com.micros.pms.processors.roomassignments.ReleaseRoomProcessor;
+import com.micros.pms.processors.rooms.GetRoomSetupProcessor;
+import com.micros.pms.processors.rooms.GetRoomStatusProcessor;
 import com.micros.pms.processors.rooms.UpdateRoomStatusProcessor;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -66,18 +66,24 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	@Inject
 	FindReservationProcessor findReservationProcessor;
 
-	// Room assignments
 	@Inject
 	AssignRoomProcessor assignRoomProcessor;
 
 	@Inject
 	ReleaseRoomProcessor releaseRoomProcessor;
 
+	// Rooms
 	@Inject
 	FetchCalendarProcessor fetchCalendarProcessor;
 
 	@Inject
 	AvailabilityProcessor availabilityProcessor;
+
+	@Inject
+	GetRoomStatusProcessor getRoomStatusProcessor;
+
+	@Inject
+	GetRoomSetupProcessor getRoomSetupProcessor;
 
 	// Hotels
 	@Inject
@@ -218,6 +224,18 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	public EmptyResponse modifyReservation(ModifyReservationRequest request) {
 		log.debug("modifyReservation: Enter method.");
 		return modifyReservationProcessor.process(request);
+	}
+
+	@Override
+	public GetRoomStatusResponse getRoomStatus(GetRoomStatusRequest request) {
+		log.debug("getRoomStatus: Enter method.");
+		return getRoomStatusProcessor.process(request);
+	}
+
+	@Override
+	public GetRoomSetupResponse getRoomSetup(GetRoomSetupRequest request) {
+		log.debug("getRoomSetup: Enter method.");
+		return getRoomSetupProcessor.process(request);
 	}
 
 	@Override

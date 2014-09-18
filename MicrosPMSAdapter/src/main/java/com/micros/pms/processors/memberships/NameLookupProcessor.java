@@ -64,7 +64,7 @@ public class NameLookupProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected NameLookupResponse toPmsResponse(com.cloudkey.pms.micros.ows.name.NameLookupResponse microsResponse) {
+	protected NameLookupResponse toPmsResponse(com.cloudkey.pms.micros.ows.name.NameLookupResponse microsResponse, NameLookupRequest request) {
 		NameLookupResponse response = new NameLookupResponse();
 
 		Optional<Profile> firstProfileOpt = FluentIterable.from(microsResponse.getProfiles()).first();

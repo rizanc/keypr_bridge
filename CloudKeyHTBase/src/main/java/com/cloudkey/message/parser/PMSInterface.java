@@ -14,9 +14,7 @@ import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
-import com.cloudkey.pms.response.rooms.AssignRoomResponse;
-import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
-import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
+import com.cloudkey.pms.response.rooms.*;
 
 /**
  * This interface declare all the methods for the message parser.
@@ -170,4 +168,8 @@ public interface PMSInterface {
 	CancelReservationResponse cancelReservation(CancelReservationRequest request) throws PMSInterfaceException, ReservationNotFound;
 
 	EmptyResponse modifyReservation(ModifyReservationRequest request) throws PMSInterfaceException, ReservationNotFound;
+
+	GetRoomStatusResponse getRoomStatus(GetRoomStatusRequest request);
+
+	GetRoomSetupResponse getRoomSetup(GetRoomSetupRequest request);
 }

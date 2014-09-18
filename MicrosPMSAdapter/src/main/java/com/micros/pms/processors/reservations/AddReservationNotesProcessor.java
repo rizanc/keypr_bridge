@@ -68,7 +68,7 @@ public class AddReservationNotesProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected AddReservationNotesResponse toPmsResponse(GuestRequestsResponse microsResponse) {
+	protected AddReservationNotesResponse toPmsResponse(GuestRequestsResponse microsResponse, AddReservationNotesRequest request) {
 		return new AddReservationNotesResponse(
 			FluentIterable.from(microsResponse.getGuestRequests().getComments())
 				.transformAndConcat(new Function<ReservationComment, List<Text>>() {

@@ -72,7 +72,7 @@ public class UpdateRoomStatusProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected EmptyResponse toPmsResponse(UpdateRoomStatusResponse updateRoomStatusResponse) {
+	protected EmptyResponse toPmsResponse(UpdateRoomStatusResponse updateRoomStatusResponse, UpdateRoomStatusRequest request) {
 		return new EmptyResponse();
 	}
 }

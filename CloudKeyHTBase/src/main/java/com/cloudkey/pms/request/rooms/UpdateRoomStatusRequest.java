@@ -51,6 +51,14 @@ public class UpdateRoomStatusRequest extends PMSRequest {
 		return roomNumber;
 	}
 
+	public void setRoomNumber(String roomNumber) {
+		if (this.roomNumber == null) {
+			throw new IllegalStateException("Room number is already set and maybe only set once");
+		}
+
+		this.roomNumber = roomNumber;
+	}
+
 	@Nullable
 	public RoomStatus getRoomStatus() {
 		return roomStatus;

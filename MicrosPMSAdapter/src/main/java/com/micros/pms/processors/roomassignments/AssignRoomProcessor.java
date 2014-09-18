@@ -54,7 +54,7 @@ public class AssignRoomProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected AssignRoomResponse toPmsResponse(com.cloudkey.pms.micros.ows.reservation.AssignRoomResponse microsResponse) {
+	protected AssignRoomResponse toPmsResponse(com.cloudkey.pms.micros.ows.reservation.AssignRoomResponse microsResponse, AssignRoomRequest request) {
 		return new AssignRoomResponse(microsResponse.getRoomNoAssigned());
 	}
 

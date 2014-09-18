@@ -76,7 +76,7 @@ public class AvailabilityProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected EmptyResponse toPmsResponse(AvailabilityResponse microsResponse) {
+	protected EmptyResponse toPmsResponse(AvailabilityResponse microsResponse, com.cloudkey.pms.request.rooms.AvailabilityRequest request) {
 		return new EmptyResponse();
 	}
 }

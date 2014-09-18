@@ -52,7 +52,7 @@ public class GetFolioProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected GetFolioResponse toPmsResponse(InvoiceResponse microsResponse) {
+	protected GetFolioResponse toPmsResponse(InvoiceResponse microsResponse, GetFolioRequest request) {
 
 		/* Populate response into Reservation instance */
 		BigDecimal totalBillAmount = new BigDecimal("0.00");

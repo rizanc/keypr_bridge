@@ -63,7 +63,7 @@ public class FetchCalendarProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected FetchCalendarResponse toPmsResponse(com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse microsResponse) {
+	protected FetchCalendarResponse toPmsResponse(com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse microsResponse, FetchCalendarRequest request) {
 		List<DayRoomAvailability> availabilityList = Lists.transform(microsResponse.getCalendar(), new Function<CalendarDailyDetail, DayRoomAvailability>() {
 			@Nullable
 			@Override

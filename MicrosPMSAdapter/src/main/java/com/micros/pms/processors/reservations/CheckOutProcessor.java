@@ -47,7 +47,7 @@ public class CheckOutProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected CheckOutResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse microsResponse) {
+	protected CheckOutResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse microsResponse, CheckOutRequest request) {
 		com.cloudkey.pms.response.reservations.CheckOutResponse response = new com.cloudkey.pms.response.reservations.CheckOutResponse();
 
 		Reservation reservation = new Reservation();

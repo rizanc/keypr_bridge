@@ -108,8 +108,8 @@ public class CreateReservationProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected CreateReservationResponse toPmsResponse(CreateBookingResponse createBookingResponse) {
-		Optional<String> pmsReservationId = IdUtils.findPmsReservationId(createBookingResponse.getHotelReservation().getUniqueIDList());
+	protected CreateReservationResponse toPmsResponse(CreateBookingResponse microsResponse, CreateReservationRequest request) {
+		Optional<String> pmsReservationId = IdUtils.findPmsReservationId(microsResponse.getHotelReservation().getUniqueIDList());
 
 		return new CreateReservationResponse(pmsReservationId.orNull());
 	}

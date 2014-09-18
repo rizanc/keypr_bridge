@@ -33,6 +33,12 @@ public class BridgeIds {
         OUT_OF_SERVICE;
     }
 
+    public enum SuiteType {
+        STANDARD,
+        PSUEDO,
+        SUITE;
+    }
+
     public enum TurnDownStatus {
         COMPLETED,
         REQUIRED,
