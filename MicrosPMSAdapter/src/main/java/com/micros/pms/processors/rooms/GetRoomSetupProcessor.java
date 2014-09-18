@@ -1,11 +1,9 @@
 package com.micros.pms.processors.rooms;
 
-import com.cloudkey.message.parser.PMSInterface;
 import com.cloudkey.pms.common.payment.MonetaryAmount;
 import com.cloudkey.pms.common.room.RoomFeature;
 import com.cloudkey.pms.common.room.RoomSetupInfo;
 import com.cloudkey.pms.common.room.RoomSetupInfoBuilder;
-import com.cloudkey.pms.common.room.RoomStatusInfo;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomSetup;
@@ -13,11 +11,9 @@ import com.cloudkey.pms.micros.og.hotelcommon.RoomStatus;
 import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupRequest;
 import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupResponse;
 import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequest;
-import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusResponse;
 import com.cloudkey.pms.micros.ows.IdUtils;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.rooms.GetRoomSetupRequest;
-import com.cloudkey.pms.request.rooms.GetRoomStatusRequest;
 import com.cloudkey.pms.response.rooms.GetRoomSetupResponse;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
