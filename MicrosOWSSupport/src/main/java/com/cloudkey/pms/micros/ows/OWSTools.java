@@ -39,10 +39,6 @@ public class OWSTools {
 	protected String hotelCode;
 
 	@Inject
-	@Named("keypr.bridge.micros.hotel.roomTypeCode")
-	protected String roomTypeCode;
-
-	@Inject
 	@Named("keypr.bridge.micros.ows.origin.entityId")
 	protected String entityId;
 
@@ -57,10 +53,6 @@ public class OWSTools {
 	@Inject
 	@Named("keypr.bridge.micros.ows.destination.systemType")
 	protected String destSystemType;
-//
-//	@Inject
-//	@Named("keypr.bridge.micros.stationId")
-//	protected String stationId;
 
 	@Inject(optional = true)
 	@Named("keypr.bridge.micros.ows.auth.username")
@@ -75,7 +67,7 @@ public class OWSTools {
 	 *
 	 * @return
 	 */
-	protected HotelReference getDefaultHotelReference() {
+	public HotelReference getDefaultHotelReference() {
 		HotelReference hotelReference = new HotelReference();
 		hotelReference.setHotelCode(hotelCode);
 		hotelReference.setChainCode(chainCode);
@@ -145,4 +137,5 @@ public class OWSTools {
 			.withHotelReference(getDefaultHotelReference())
 			.withReservationID(internalReservationId(pmsReservationId));
 	}
+
 }

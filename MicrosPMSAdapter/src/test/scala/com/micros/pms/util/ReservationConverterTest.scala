@@ -12,13 +12,14 @@ import com.cloudkey.pms.micros.og.hotelcommon._
 import com.cloudkey.pms.micros.og.name._
 import com.cloudkey.pms.micros.og.reservation.{HotelReservation, ResGuest, ReservationStatusType}
 import com.cloudkey.pms.micros.ows.{IdUtils, ReservationConverter}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
+
 //import com.fasterxml.jackson.databind.ObjectMapper
 import com.keypr.bridge.ids.BridgeIds
 import com.keypr.bridge.ids.BridgeIds.ReservationStatus
 //import com.keypr.jackson.KeyprJacksonModule
 import org.joda.time.{DateTime, LocalDate, LocalTime}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FunSpec, ShouldMatchers}
 
 import scala.collection.JavaConversions._

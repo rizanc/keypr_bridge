@@ -1,6 +1,7 @@
 package com.cloudkey.pms.common.room;
 
 import com.keypr.bridge.ids.BridgeIds;
+import org.joda.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,22 +15,32 @@ public class RoomStatusInfo {
 	@NotNull
 	private BridgeIds.RoomStatus roomStatus;
 
+	// TODO: Hear from eddie: Is this different from roomStatus (FrontOfficeStatus) in MICROS?
+//	@NotNull
+//	private BridgeIds.RoomStatus houseKeepingStatus;
+
 	private Boolean isOccupied;
 
+	private BridgeIds.GuestServiceStatus guestServiceStatus;
+
+	// TODO: The value returned for this from Micros is not affected when we change turn down status.
+	// 		 Don't include this field unless we know what it means.
+//	private Boolean isTurnDownSomething;
+
 	private String roomTypeCode;
+
+	private LocalDate nextReservationDate;
 
 	// TODO: Ask Costin about this flag. What does true / false mean?
 	private Boolean houseKeepingInspectionFlag;
 
-	// TODO: It's unclear what serviceStatus is or what it's possible values are.
-	// Run this by Costin, and possibly implement
-//	private boolean serviceStatus;
-
-	public RoomStatusInfo(String roomNumber, BridgeIds.RoomStatus roomStatus, Boolean isOccupied, String roomTypeCode, Boolean houseKeepingInspectionFlag) {
+	public RoomStatusInfo(String roomNumber, BridgeIds.RoomStatus roomStatus, Boolean isOccupied, BridgeIds.GuestServiceStatus guestServiceStatus, String roomTypeCode, LocalDate nextReservationDate, Boolean houseKeepingInspectionFlag) {
 		this.roomNumber = roomNumber;
 		this.roomStatus = roomStatus;
 		this.isOccupied = isOccupied;
+		this.guestServiceStatus = guestServiceStatus;
 		this.roomTypeCode = roomTypeCode;
+		this.nextReservationDate = nextReservationDate;
 		this.houseKeepingInspectionFlag = houseKeepingInspectionFlag;
 	}
 
@@ -45,8 +56,16 @@ public class RoomStatusInfo {
 		return isOccupied;
 	}
 
+	public BridgeIds.GuestServiceStatus getGuestServiceStatus() {
+		return guestServiceStatus;
+	}
+
 	public String getRoomTypeCode() {
 		return roomTypeCode;
+	}
+
+	public LocalDate getNextReservationDate() {
+		return nextReservationDate;
 	}
 
 	public Boolean getHouseKeepingInspectionFlag() {
@@ -59,7 +78,9 @@ public class RoomStatusInfo {
 			"roomNumber='" + roomNumber + '\'' +
 			", roomStatus=" + roomStatus +
 			", isOccupied=" + isOccupied +
+			", guestServiceStatus=" + guestServiceStatus +
 			", roomTypeCode='" + roomTypeCode + '\'' +
+			", nextReservationDate=" + nextReservationDate +
 			", houseKeepingInspectionFlag=" + houseKeepingInspectionFlag +
 			'}';
 	}
@@ -71,9 +92,12 @@ public class RoomStatusInfo {
 
 		RoomStatusInfo that = (RoomStatusInfo) o;
 
+		if (guestServiceStatus != that.guestServiceStatus) return false;
 		if (houseKeepingInspectionFlag != null ? !houseKeepingInspectionFlag.equals(that.houseKeepingInspectionFlag) : that.houseKeepingInspectionFlag != null)
 			return false;
 		if (isOccupied != null ? !isOccupied.equals(that.isOccupied) : that.isOccupied != null) return false;
+		if (nextReservationDate != null ? !nextReservationDate.equals(that.nextReservationDate) : that.nextReservationDate != null)
+			return false;
 		if (roomNumber != null ? !roomNumber.equals(that.roomNumber) : that.roomNumber != null) return false;
 		if (roomStatus != that.roomStatus) return false;
 		if (roomTypeCode != null ? !roomTypeCode.equals(that.roomTypeCode) : that.roomTypeCode != null) return false;
@@ -86,7 +110,9 @@ public class RoomStatusInfo {
 		int result = roomNumber != null ? roomNumber.hashCode() : 0;
 		result = 31 * result + (roomStatus != null ? roomStatus.hashCode() : 0);
 		result = 31 * result + (isOccupied != null ? isOccupied.hashCode() : 0);
+		result = 31 * result + (guestServiceStatus != null ? guestServiceStatus.hashCode() : 0);
 		result = 31 * result + (roomTypeCode != null ? roomTypeCode.hashCode() : 0);
+		result = 31 * result + (nextReservationDate != null ? nextReservationDate.hashCode() : 0);
 		result = 31 * result + (houseKeepingInspectionFlag != null ? houseKeepingInspectionFlag.hashCode() : 0);
 		return result;
 	}

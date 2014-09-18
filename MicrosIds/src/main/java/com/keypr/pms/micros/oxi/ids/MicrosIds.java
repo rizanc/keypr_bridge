@@ -69,6 +69,23 @@ public class MicrosIds {
 			public boolean isOccupied() {
 				return occupied;
 			}
+
+			/**
+			 * Returns true if the given string indicates room occupation,
+			 * false if room vacancy, or null if neither.
+			 *
+			 * @param frontOfficeStatus
+			 * @return
+			 */
+			public static Boolean parseString(String frontOfficeStatus) {
+				if (frontOfficeStatus == null) return null;
+
+				try {
+					return valueOf(frontOfficeStatus).isOccupied();
+				} catch (IllegalArgumentException e) {
+					return null;
+				}
+			}
 		}
 
 		public enum SmokingPreference {
@@ -83,6 +100,16 @@ public class MicrosIds {
 
 			public boolean isAllowed() {
 				return allowed;
+			}
+
+			public static Boolean parseString(String smokingPreference) {
+				if (smokingPreference == null) return null;
+
+				try {
+					return valueOf(smokingPreference).isAllowed();
+				} catch (IllegalArgumentException e) {
+					return null;
+				}
 			}
 		}
 
@@ -109,6 +136,15 @@ public class MicrosIds {
 				return bridgeValue;
 			}
 
+			public static BridgeIds.RoomStatus parseString(String roomStatus) {
+				if (roomStatus == null) return null;
+
+				try {
+					return valueOf(roomStatus).getBridgeValue();
+				} catch (IllegalArgumentException e) {
+					return null;
+				}
+			}
 		}
 
 		/**
@@ -128,6 +164,46 @@ public class MicrosIds {
 
 			public BridgeIds.SuiteType getBridgeValue() {
 				return bridgeValue;
+			}
+
+			public static BridgeIds.SuiteType parseString(String suiteType) {
+				if (suiteType == null) return null;
+
+				try {
+					return valueOf(suiteType).getBridgeValue();
+				} catch (IllegalArgumentException e) {
+					return null;
+				}
+			}
+		}
+
+		/**
+		 * Enum for the possible values of the
+		 * {@link com.cloudkey.pms.micros.og.hotelcommon.RoomStatus#serviceStatus} string.
+		 */
+		public enum ServiceStatus {
+			DND(BridgeIds.GuestServiceStatus.DO_NOT_DISTURB),
+			MUP(BridgeIds.GuestServiceStatus.MAKE_UP_ROOM);
+			// Not present / empty value = NONE
+
+			private BridgeIds.GuestServiceStatus bridgeValue;
+
+			ServiceStatus(BridgeIds.GuestServiceStatus bridgeValue) {
+				this.bridgeValue = bridgeValue;
+			}
+
+			public BridgeIds.GuestServiceStatus getBridgeValue() {
+				return bridgeValue;
+			}
+
+			public static BridgeIds.GuestServiceStatus parseString(String serviceStatus) {
+				if (serviceStatus == null) return BridgeIds.GuestServiceStatus.NONE;
+
+				try {
+					return valueOf(serviceStatus).getBridgeValue();
+				} catch (IllegalArgumentException e) {
+					return BridgeIds.GuestServiceStatus.NONE;
+				}
 			}
 		}
 

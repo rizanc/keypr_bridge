@@ -14,6 +14,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
 
 import javax.annotation.Nullable;
@@ -74,9 +75,11 @@ public class GetRoomStatusProcessor extends OWSProcessor<
 			public RoomStatusInfo apply(RoomStatus status) {
 				return new RoomStatusInfo(
 					status.getRoomNumber(),
-					IdUtils.parseRoomStatusString(status.getRoomStatus()),
-					IdUtils.parseFrontOfficeStatusString(status.getFrontOfficeStatus()),
+					MicrosIds.OWS.RoomStatus.parseString(status.getRoomStatus()),
+					MicrosIds.OWS.FrontOfficeStatus.parseString(status.getFrontOfficeStatus()),
+					MicrosIds.OWS.ServiceStatus.parseString(status.getServiceStatus()),
 					status.getRoomType(),
+					status.getNextReservationDate(),
 					IdUtils.parseYNString(status.getHouseKeepingInspectionFlag())
 				);
 			}

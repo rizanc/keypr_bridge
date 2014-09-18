@@ -11,7 +11,6 @@ import com.cloudkey.pms.micros.og.hotelcommon.RoomStatus;
 import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupRequest;
 import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomSetupResponse;
 import com.cloudkey.pms.micros.og.reservation.advanced.FetchRoomStatusRequest;
-import com.cloudkey.pms.micros.ows.IdUtils;
 import com.cloudkey.pms.micros.services.ResvAdvancedServiceSoap;
 import com.cloudkey.pms.request.rooms.GetRoomSetupRequest;
 import com.cloudkey.pms.response.rooms.GetRoomSetupResponse;
@@ -22,6 +21,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.rawprocessors.RawFetchRoomStatusProcessor;
 import com.micros.pms.util.ParagraphHelper;
@@ -83,12 +83,12 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 					.setRoomNumber(roomSetup.getRoomNumber())
 					.setShortDescription(ParagraphHelper.getFirstString(roomSetup.getRoomShortDescription()).orNull())
 					.setDescription(ParagraphHelper.getFirstString(roomSetup.getRoomDescription()).orNull())
-					.setIsSmokingAllowed(IdUtils.parseIsSmokingAllowedString(roomSetup.getSmokingPreference()))
+					.setIsSmokingAllowed(MicrosIds.OWS.SmokingPreference.parseString(roomSetup.getSmokingPreference()))
 					.setMaxOccupancy(roomSetup.getMaximumOccupancy())
 					.setPhoneNumber(roomSetup.getPhoneNumber())
 					.setRackRate(new MonetaryAmount(roomSetup.getRackRate(), defaultCurrency))
 					.setRoomTypeCode(roomSetup.getRoomType())
-					.setSuiteType(IdUtils.parseSuiteTypeString(roomSetup.getSuiteType()));
+					.setSuiteType(MicrosIds.OWS.SuiteType.parseString(roomSetup.getSuiteType()));
 
 				// Some fields are populated from roomStatus
 				RoomStatus roomStatusInfo = Strings.isNullOrEmpty(roomSetup.getRoomNumber())
