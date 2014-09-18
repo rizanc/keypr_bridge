@@ -1,4 +1,5 @@
 apply plugin: 'scala'
+apply plugin: 'scalatest'
 
 dependencies {
     // Local dependencies
@@ -15,8 +16,9 @@ dependencies {
     compile commons_lang
     compile scala
 
-    testCompile junit
     testCompile scala_test
+    testCompile mockito
+    testCompile junit
 //    testCompile project(':KeyprJacksonSupport')
 }
 
