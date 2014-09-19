@@ -30,6 +30,7 @@ import org.joda.time.LocalDate;
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -126,10 +127,13 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 		FetchRoomStatusRequest microsRequest = new FetchRoomStatusRequest()
 			.withHotelReference(getDefaultHotelReference());
 
-		// Start and end date are required for the results to include room features.
-		// TODO: Modify this as per consult with Costin or Eric.
-		microsRequest.setStartDate(new LocalDate(1000, 1, 1));
-		microsRequest.setEndDate(new LocalDate(1000, 1, 2));
+		// NOTE: This is a hack for retrieving room features.
+		// If no start and end date are provided in the request, room features are withheld from the response.
+		// In the absence of a straight-forward method for retrieving room features, let's make this call with dates
+		// very far in the future, a time when all hotel rooms are vacant and thus will be included in the results.
+		// Note that psuedo rooms are not be included in this response when dates are provided.
+		microsRequest.setStartDate(new LocalDate(5010, 1, 1));
+		microsRequest.setEndDate(new LocalDate(5010, 1, 2));
 
 		if (request.isRoomNumberSpecified()) {
 			microsRequest.setRoomNumber(request.getRoomNumber());
