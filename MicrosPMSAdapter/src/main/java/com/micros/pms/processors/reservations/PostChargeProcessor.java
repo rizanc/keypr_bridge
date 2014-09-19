@@ -39,8 +39,8 @@ public class PostChargeProcessor extends OWSProcessor<
 	protected com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest toMicrosRequest(PostChargeRequest request) {
 
 		return new com.cloudkey.pms.micros.og.reservation.advanced.PostChargeRequest()
-			.withArticle(request.getArticleCode())
-			.withAccount(request.getTransactionCode())
+			.withArticle(request.getItemCode())
+			.withAccount(request.getAccountCode())
 			.withPosting(new Posting()
 				.withReservationRequestBase(createReservationRequest(request.getPmsReservationId()))
 				.withCharge(request.getChargeAmount())

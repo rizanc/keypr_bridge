@@ -19,11 +19,11 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String articleCode;
+	private String itemCode;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String transactionCode;
+	private String accountCode;
 
 	private DateTime postDateTime;
 
@@ -35,11 +35,11 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 
 	protected PostChargeRequest() { /* For serialization */ }
 
-	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, String articleCode, String transactionCode, DateTime postDateTime, String shortInfo, String longInfo, Integer folioViewNo) {
+	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, String itemCode, String accountCode, DateTime postDateTime, String shortInfo, String longInfo, Integer folioViewNo) {
 		super(pmsReservationId);
 		this.chargeAmount = chargeAmount;
-		this.articleCode = articleCode;
-		this.transactionCode = transactionCode;
+		this.itemCode = itemCode;
+		this.accountCode = accountCode;
 		this.postDateTime = postDateTime;
 		this.shortInfo = shortInfo;
 		this.longInfo = longInfo;
@@ -66,20 +66,20 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 		return folioViewNo;
 	}
 
-	public String getArticleCode() {
-		return articleCode;
+	public String getItemCode() {
+		return itemCode;
 	}
 
-	public String getTransactionCode() {
-		return transactionCode;
+	public String getAccountCode() {
+		return accountCode;
 	}
 
 	@Override
 	public String toString() {
 		return "PostChargeRequest{" +
 			"chargeAmount=" + chargeAmount +
-			", articleCode='" + articleCode + '\'' +
-			", transactionCode='" + transactionCode + '\'' +
+			", itemCode='" + itemCode + '\'' +
+			", accountCode='" + accountCode + '\'' +
 			", postDateTime=" + postDateTime +
 			", shortInfo='" + shortInfo + '\'' +
 			", longInfo='" + longInfo + '\'' +

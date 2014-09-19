@@ -2,7 +2,11 @@ package com.micros.pms;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.message.parser.PMSInterface;
+import com.cloudkey.pms.common.hotel.LOVItem;
+import com.cloudkey.pms.common.hotel.LOVValue;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
+import com.cloudkey.pms.request.hotels.HotelItemCodesRequest;
+import com.cloudkey.pms.request.hotels.LOVRequest;
 import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
@@ -10,13 +14,18 @@ import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.HotelItemCodesResponse;
+import com.cloudkey.pms.response.hotels.LOVResponse;
 import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.rooms.*;
+import com.google.common.base.Optional;
+import com.google.common.collect.FluentIterable;
 import com.google.inject.Inject;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
+import com.micros.pms.processors.hotels.LOVQueryProcessor;
 import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
 import com.micros.pms.processors.memberships.NameLookupProcessor;
 import com.micros.pms.processors.reservations.*;
@@ -29,11 +38,17 @@ import com.micros.pms.processors.rooms.GetRoomStatusProcessor;
 import com.micros.pms.processors.rooms.UpdateRoomStatusProcessor;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author crizan2
  */
 public class MicrosOWSParser extends OWSBase implements PMSInterface {
+
+    @Inject
+    LOVQueryProcessor lovQueryProcessor;
 
 	// Reservations
 	@Inject
@@ -100,7 +115,13 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	@Inject
 	UpdateRoomStatusProcessor updateRoomStatusProcessor;
 
-	@Override
+    @Override
+    public LOVResponse retrieveLOVQuery(LOVRequest lovRequest) throws PMSInterfaceException {
+        log.debug("retrieveLOVQuery: Enter method.");
+        return lovQueryProcessor.process(lovRequest);
+    }
+
+    @Override
     public GetFolioResponse retrieveFolioInfo(GetFolioRequest getFolioRequest) throws PMSInterfaceException {
         log.debug("retrieveFolioInfo: Enter method.");
 		return getFolioProcessor.process(getFolioRequest);
@@ -242,5 +263,31 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	public CancelReservationResponse cancelReservation(CancelReservationRequest request) {
 		log.debug("cancelReservation: Enter method.");
 		return cancelReservationProcessor.process(request);
+	}
+
+	@Override
+	public HotelItemCodesResponse hotelItemCodes(HotelItemCodesRequest request) {
+		LOVResponse trxCodesResponse = retrieveLOVQuery(new LOVRequest("TRXCODES"));
+		LOVResponse articleCodesResponse = retrieveLOVQuery(new LOVRequest("ARTICLECODES"));
+
+		Map<String, String> accountsByCode = new HashMap<>();
+
+		for (LOVItem lovItem : trxCodesResponse.getLovItems()) {
+			for (LOVValue lovValue : lovItem.getLovValues()) {
+				accountsByCode.put(lovValue.getValue(), lovValue.getDescription());
+			}
+		}
+
+		Map<String, String> itemsByCode = new HashMap<>();
+
+		for (LOVItem lovItem : articleCodesResponse.getLovItems()) {
+			Optional<LOVValue> first = FluentIterable.from(lovItem.getLovValues()).first();
+
+			if (first.isPresent()) {
+				itemsByCode.put(lovItem.getQualifierValue(), first.get().getDescription());
+			}
+		}
+
+		return new HotelItemCodesResponse(itemsByCode, accountsByCode);
 	}
 }
