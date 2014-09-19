@@ -3,8 +3,7 @@ package com.keypr.jsonschema;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsonSchema.factories.SchemaFactoryWrapper;
-import com.fasterxml.jackson.databind.jsonSchema.types.JsonSchema;
+import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import com.google.inject.Inject;
 
 /**
