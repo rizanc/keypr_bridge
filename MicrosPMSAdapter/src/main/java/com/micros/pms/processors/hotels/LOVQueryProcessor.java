@@ -46,6 +46,7 @@ public class LOVQueryProcessor extends OWSProcessor<
         microsRequest.setLovQuery2(new LovQueryType2()
                 .withLovIdentifier(request.getIdentifier()));
 
+		// Oddly enough, this is the origin entityId is the expected value for host.
         LovQueryQualifierType host = new LovQueryQualifierType().
                 withQualifierType("HOST").
                 withValue(entityId);
