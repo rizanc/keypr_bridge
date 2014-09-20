@@ -16,9 +16,7 @@ import com.cloudkey.pms.request.rooms.GetRoomSetupRequest;
 import com.cloudkey.pms.response.rooms.GetRoomSetupResponse;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
@@ -29,10 +27,7 @@ import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
-import java.util.Currency;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -87,7 +82,10 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 					.setIsSmokingAllowed(MicrosIds.OWS.SmokingPreference.parseString(roomSetup.getSmokingPreference()))
 					.setMaxOccupancy(roomSetup.getMaximumOccupancy())
 					.setPhoneNumber(roomSetup.getPhoneNumber())
-					.setRackRate(new MonetaryAmount(roomSetup.getRackRate(), defaultCurrency))
+					.setRackRate(roomSetup.getRackRate() == null
+							? null
+							: new MonetaryAmount(roomSetup.getRackRate(), defaultCurrency)
+					)
 					.setRoomTypeCode(roomSetup.getRoomType())
 					.setSuiteType(MicrosIds.OWS.SuiteType.parseString(roomSetup.getSuiteType()));
 
@@ -96,6 +94,8 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 					? null
 					: roomStatuses.get(roomSetup.getRoomNumber());
 
+				// Psuedo rooms will not have a room status, but they do not have features, a class code, or floor,/
+				// so there is no problem with this.
 				if (roomStatusInfo != null) {
 					List<RoomFeature> roomFeatures = Lists.transform(roomStatusInfo.getFeatures(), new Function<com.cloudkey.pms.micros.og.hotelcommon.RoomFeature, RoomFeature>() {
 							@Nullable
@@ -127,11 +127,16 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 		FetchRoomStatusRequest microsRequest = new FetchRoomStatusRequest()
 			.withHotelReference(getDefaultHotelReference());
 
-		// NOTE: This is a hack for retrieving room features.
-		// If no start and end date are provided in the request, room features are withheld from the response.
-		// In the absence of a straight-forward method for retrieving room features, let's make this call with dates
-		// very far in the future, a time when all hotel rooms are vacant and thus will be included in the results.
-		// Note that psuedo rooms are not be included in this response when dates are provided.
+		/*
+		 NOTE: This is a hack for retrieving room features.
+		 If no start and end date are provided in the request, room features are withheld from the response.
+		 In the absence of a straight-forward method for retrieving room features, let's make this call with dates
+		 very far in the future, a time when all hotel rooms are vacant and thus will be included in the results.
+
+		 NOTE: Psuedo (non-physical, billing-purposes-only) rooms are not be included in this response when dates are provided.
+		 This is OK though, as they do not contain a value for any of the fields this data is utilized for:
+		 room features, floor and class code.
+		*/
 		microsRequest.setStartDate(new LocalDate(5010, 1, 1));
 		microsRequest.setEndDate(new LocalDate(5010, 1, 2));
 
