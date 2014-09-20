@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class AbstractSingleReservationRequest extends PMSRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String pmsReservationId;
+	protected String pmsReservationId;
 
 	protected AbstractSingleReservationRequest() { /* For serialization */ }
 
@@ -22,5 +22,13 @@ public class AbstractSingleReservationRequest extends PMSRequest {
 
 	public String getPmsReservationId() {
 		return pmsReservationId;
+	}
+
+	public void setPmsReservationId(String pmsReservationId) {
+		if (this.pmsReservationId != null) {
+			throw new IllegalStateException("pmsReservationId is already set and maybe only set once");
+		}
+
+		this.pmsReservationId = pmsReservationId;
 	}
 }
