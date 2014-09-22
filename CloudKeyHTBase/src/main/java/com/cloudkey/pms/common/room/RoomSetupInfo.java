@@ -1,9 +1,11 @@
 package com.cloudkey.pms.common.room;
 
 import com.cloudkey.pms.common.payment.MonetaryAmount;
+import com.google.common.collect.ImmutableList;
 import com.keypr.bridge.ids.BridgeIds;
 
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,7 +45,7 @@ public class RoomSetupInfo {
 
 	public RoomSetupInfo(String roomNumber, List<RoomFeature> roomFeatures, String roomClassCode, String floor, String roomTypeCode, String description, String shortDescription, String phoneNumber, BridgeIds.SuiteType suiteType, Long maxOccupancy, MonetaryAmount rackRate, Boolean isSmokingAllowed) {
 		this.roomNumber = roomNumber;
-		this.roomFeatures = roomFeatures;
+		this.roomFeatures = roomFeatures == null ? Collections.<RoomFeature>emptyList() : ImmutableList.copyOf(roomFeatures);
 		this.roomClassCode = roomClassCode;
 		this.floor = floor;
 		this.roomTypeCode = roomTypeCode;

@@ -19,7 +19,7 @@ public class RawFetchRoomStatusProcessor extends RawOWSProcessor<
 	FetchRoomStatusResponse> {
 
 	@Inject
-	protected ResvAdvancedServiceSoap service;
+	public ResvAdvancedServiceSoap service;
 
 	@Override
 	protected ResultStatus getResultStatus(FetchRoomStatusResponse fetchRoomStatusResponse) {
