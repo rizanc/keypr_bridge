@@ -256,5 +256,55 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
         roomSetupResponse.getRoomSetupInfos should contain (roomSetup)
       })
     }
+
+    it("should create the correct OWS requests for a room-number-specific request") {
+      val request: GetRoomSetupRequest = new GetRoomSetupRequest("101", null)
+
+      getRoomSetupMock.respondToRequestWith(request, roomSetupXml)
+
+      val roomStatusRequest: FetchRoomStatusRequest = new FetchRoomStatusRequest()
+        .withHotelReference(owsTools.getDefaultHotelReference)
+        .withStartDate(new LocalDate(5010, 1, 1))
+        .withEndDate(new LocalDate(5010, 1, 2))
+        .withRoomNumber("101")
+
+      getRoomStatusMock.respondToRequestWith(roomStatusRequest, roomStatusXml)
+
+      processor.process(request)
+
+      getRoomSetupMock.verify()
+      getRoomStatusMock.verify()
+      getRoomStatusMock.getMicrosRequest shouldBe roomStatusRequest
+
+      getRoomSetupMock.getMicrosRequest shouldBe new FetchRoomSetupRequest(
+        owsTools.getDefaultHotelReference,
+        null, "101"
+      )
+    }
+
+    it("should create the correct OWS requests for a room-type-specific request") {
+      val request: GetRoomSetupRequest = new GetRoomSetupRequest(null, "STD")
+
+      getRoomSetupMock.respondToRequestWith(request, roomSetupXml)
+
+      val roomStatusRequest: FetchRoomStatusRequest = new FetchRoomStatusRequest()
+        .withHotelReference(owsTools.getDefaultHotelReference)
+        .withStartDate(new LocalDate(5010, 1, 1))
+        .withEndDate(new LocalDate(5010, 1, 2))
+        .withRoomType("STD")
+
+      getRoomStatusMock.respondToRequestWith(roomStatusRequest, roomStatusXml)
+
+      processor.process(request)
+
+      getRoomSetupMock.verify()
+      getRoomStatusMock.verify()
+      getRoomStatusMock.getMicrosRequest shouldBe roomStatusRequest
+
+      getRoomSetupMock.getMicrosRequest shouldBe new FetchRoomSetupRequest(
+        owsTools.getDefaultHotelReference,
+        "STD", null
+      )
+    }
   }
 }
