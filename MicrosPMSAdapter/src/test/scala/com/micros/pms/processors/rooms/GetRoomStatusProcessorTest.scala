@@ -7,10 +7,9 @@ import com.cloudkey.pms.request.rooms.GetRoomStatusRequest
 import com.cloudkey.pms.response.rooms.GetRoomStatusResponse
 import com.google.inject.Inject
 import com.keypr.bridge.ids.BridgeIds.{GuestServiceStatus, RoomStatus}
-import com.micros.pms.processors.AbstractProcessorTest
+import com.micros.pms.processors.{AbstractProcessorTest, MicrosMock}
 import org.joda.time
 import org.junit.runner.RunWith
-import org.mockito.Mockito._
 import org.scalatest.junit.JUnitRunner
 
 import scala.collection.JavaConversions._
@@ -30,7 +29,9 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
 
   var realService: ResvAdvancedServiceSoap = _
 
-  val responseXml = """<FetchRoomStatusResponse
+  var getRoomStatusMock: MicrosMock[FetchRoomStatusRequest, FetchRoomStatusResponse, GetRoomStatusRequest, GetRoomStatusResponse] = _
+
+  val microsResponseXml = """<FetchRoomStatusResponse
         xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
         xmlns:c="http://webservices.micros.com/og/4.3/Common/"
         xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
@@ -56,6 +57,8 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
     service = mock[ResvAdvancedServiceSoap]
     realService = processor.service
     processor.service = service
+
+    getRoomStatusMock = new MicrosMock(service.fetchRoomStatus, processor.process)
   }
 
   override protected def afterAll(): Unit = {
@@ -66,24 +69,14 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
 
   describe("A " + nameOf[GetRoomStatusProcessor]) {
     it("should correctly process a hotel-wide request") {
-      when(service.fetchRoomStatus(requestCaptor.capture(), headerCaptor.capture())).thenReturn(microsResponse)
+      val result = getRoomStatusMock.run(new GetRoomStatusRequest(), microsResponseXml)
 
-      val response: GetRoomStatusResponse = processor.process(new GetRoomStatusRequest())
-
-      verify(service, times(1)).fetchRoomStatus(
-        requestCaptor.getValue,
-        headerCaptor.getValue
-      )
-
-      verifyCapturedHeader()
-
-      requestCaptor.getValue should not be (null)
-      requestCaptor.getValue shouldBe
+      result.microsRequest shouldBe
         new FetchRoomStatusRequest()
           .withHotelReference(owsTools.getDefaultHotelReference)
 
-      response.getRoomStatusInfos.size shouldBe 12
-      response.getRoomStatusInfos.toSet shouldBe Set(
+      result.response.getRoomStatusInfos should have size 12
+      result.response.getRoomStatusInfos.toSet shouldBe Set(
           new RoomStatusInfo("101", RoomStatus.CLEAN, true, GuestServiceStatus.DO_NOT_DISTURB, "DLX", null, false),
           new RoomStatusInfo("102", RoomStatus.DIRTY, false, GuestServiceStatus.MAKE_UP_ROOM, "STD", null, false),
           new RoomStatusInfo("103", RoomStatus.INSPECTED, false, GuestServiceStatus.NONE, "DLX", new time.LocalDate(2014, 10, 11), true),
@@ -100,34 +93,18 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
     }
 
     it("should correctly convert a roomNumber-specific request to an OWS request") {
-      when(service.fetchRoomStatus(requestCaptor.capture(), headerCaptor.capture())).thenReturn(microsResponse)
+      val result = getRoomStatusMock.run(new GetRoomStatusRequest("101"), microsResponseXml)
 
-      processor.process(new GetRoomStatusRequest("101"))
-
-      verify(service, times(1)).fetchRoomStatus(
-        requestCaptor.getValue,
-        headerCaptor.getValue
-      )
-
-      requestCaptor.getValue should not be (null)
-      requestCaptor.getValue shouldBe
+      result.microsRequest shouldBe
         new FetchRoomStatusRequest()
           .withHotelReference(owsTools.getDefaultHotelReference)
           .withRoomNumber("101")
     }
 
     it("should correctly convert a roomType, roomClass and floor-specific request to an OWS request") {
-      when(service.fetchRoomStatus(requestCaptor.capture(), headerCaptor.capture())).thenReturn(microsResponse)
+      val result = getRoomStatusMock.run(new GetRoomStatusRequest("DLX", "TOWER1", "Floor 1"), microsResponseXml)
 
-      processor.process(new GetRoomStatusRequest("DLX", "TOWER1", "Floor 1"))
-
-      verify(service, times(1)).fetchRoomStatus(
-        requestCaptor.getValue,
-        headerCaptor.getValue
-      )
-
-      requestCaptor.getValue should not be (null)
-      requestCaptor.getValue shouldBe
+      result.microsRequest shouldBe
         new FetchRoomStatusRequest()
           .withHotelReference(owsTools.getDefaultHotelReference)
           .withRoomType("DLX")

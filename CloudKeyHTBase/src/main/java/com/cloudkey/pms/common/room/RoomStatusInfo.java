@@ -15,23 +15,19 @@ public class RoomStatusInfo {
 	@NotNull
 	private BridgeIds.RoomStatus roomStatus;
 
-	// TODO: Hear from eddie: Is this different from roomStatus (FrontOfficeStatus) in MICROS?
-//	@NotNull
-//	private BridgeIds.RoomStatus houseKeepingStatus;
-
 	private Boolean isOccupied;
 
 	private BridgeIds.GuestServiceStatus guestServiceStatus;
 
 	// TODO: The value returned for this from Micros is not affected when we change turn down status.
-	// 		 Don't include this field unless we know what it means.
+	// 		 Don't include this field until we know what it means.
 //	private Boolean isTurnDownSomething;
 
 	private String roomTypeCode;
 
 	private LocalDate nextReservationDate;
 
-	// TODO: Ask Costin about this flag. What does true / false mean?
+	// TODO: Asked Costin about this flag. What does true / false mean?
 	private Boolean houseKeepingInspectionFlag;
 
 	public RoomStatusInfo(String roomNumber, BridgeIds.RoomStatus roomStatus, Boolean isOccupied, BridgeIds.GuestServiceStatus guestServiceStatus, String roomTypeCode, LocalDate nextReservationDate, Boolean houseKeepingInspectionFlag) {
