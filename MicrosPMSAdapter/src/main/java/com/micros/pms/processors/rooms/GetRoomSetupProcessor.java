@@ -87,7 +87,9 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 							: new MonetaryAmount(roomSetup.getRackRate(), defaultCurrency)
 					)
 					.setRoomTypeCode(roomSetup.getRoomType())
-					.setSuiteType(MicrosIds.OWS.SuiteType.parseString(roomSetup.getSuiteType()));
+					.setSuiteType(MicrosIds.OWS.SuiteType.parseString(roomSetup.getSuiteType()))
+					.setHouseKeepingSectionCode(roomSetup.getHouseKeepingSectionCode())
+					.setRateCode(roomSetup.getRateCode());
 
 				// Some fields are populated from roomStatus
 				RoomStatus roomStatusInfo = Strings.isNullOrEmpty(roomSetup.getRoomNumber())
