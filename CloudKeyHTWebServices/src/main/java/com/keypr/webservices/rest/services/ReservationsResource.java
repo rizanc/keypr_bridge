@@ -25,7 +25,6 @@ import javax.ws.rs.core.MediaType;
 @Path("/reservations/")
 @Api(value = "/reservations", description = "Reservations resource")
 public class ReservationsResource extends AbstractResource {
-	@Path("search")
 	@GET
 	@ApiOperation(
 		value = "Fetches reservations which match the provided criteria",
