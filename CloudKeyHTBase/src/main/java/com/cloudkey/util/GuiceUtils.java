@@ -15,6 +15,20 @@ import java.util.Properties;
 public class GuiceUtils {
 	public static Logger log = LoggerFactory.getLogger(GuiceUtils.class);
 
+	/**
+	 * Loads a properties file and bind the properties so they may be injected as so:
+	 *
+	 * <pre>{@code
+	 *
+	 * 	@Named("com.keypr.some.property")
+	 * 	@Inject
+	 * 	String someProperty;
+	 *
+	 * }</pre>
+	 *
+	 * @param binder
+	 * @param propFile
+	 */
 	public static void bindProperties(Binder binder, InputStream propFile) {
 		Properties properties = new Properties();
 

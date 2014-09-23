@@ -15,14 +15,14 @@ public class BridgeIds {
         CHANGED,
         WAITLISTED,
         PRECHECKEDIN,
-        DUEOUT;
-    }
+        DUEOUT
+	}
 
     public enum Gender {
         UNKNOWN,
         FEMALE,
-        MALE;
-    }
+        MALE
+	}
 
     public enum RoomStatus {
         CLEAN,
@@ -30,36 +30,36 @@ public class BridgeIds {
         INSPECTED,
         PICKUP,
         OUT_OF_ORDER,
-        OUT_OF_SERVICE;
-    }
+        OUT_OF_SERVICE
+	}
 
     public enum SuiteType {
         STANDARD,
         PSUEDO,
-        SUITE;
-    }
+        SUITE
+	}
 
     public enum TurnDownStatus {
         COMPLETED,
         REQUIRED,
-        NOT_REQUIRED;
-    }
+        NOT_REQUIRED
+	}
 
     public enum GuestServiceStatus {
         DO_NOT_DISTURB,
         MAKE_UP_ROOM,
-        NONE;
-    }
+        NONE
+	}
 
     public enum RepairStatus {
         OUT_OF_ORDER,
-        OUT_OF_SERVICE;
-    }
+        OUT_OF_SERVICE
+	}
 
 	public enum RateOccurrence {
 		DAILY,
 		WEEKLY,
-		OTHER;
+		OTHER
 	}
 
 	public enum PMSErrorMessage {

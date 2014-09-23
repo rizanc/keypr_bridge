@@ -3,6 +3,8 @@ package com.keypr.scala
 import com.google.common.base.Optional
 
 /**
+ * Implicit converters between Scala's [[Option]] and Guava's [[Optional]] for Java
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 object OptionalConverters {

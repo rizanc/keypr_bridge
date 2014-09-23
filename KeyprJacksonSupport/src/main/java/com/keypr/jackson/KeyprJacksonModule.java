@@ -44,6 +44,8 @@ public class KeyprJacksonModule extends AbstractModule {
 		objectMapper.registerModule(new JodaModule());
 		objectMapper.registerModule(new SimpleModule() {
 			{
+				// Serialize LocalTime in ISO format, but without millis.
+				// We removed millis data since python's jsonschema validator does not expect it.
 				addSerializer(LocalTime.class, new LocalTimeSerializer(new JacksonJodaFormat(ISODateTimeFormat.timeNoMillis().withZoneUTC())));
 			}
 		});

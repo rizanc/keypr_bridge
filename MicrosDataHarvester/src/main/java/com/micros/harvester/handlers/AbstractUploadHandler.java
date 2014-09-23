@@ -94,7 +94,7 @@ public abstract class AbstractUploadHandler<T, C> implements OXIPushHandler<T> {
 						throw new UploadFailureException("Status code not OK: " + response.getStatusLine().getStatusCode());
 					} else {
 						log.info("Upload successful");
-					};
+					}
 				} catch (IOException e) {
 					log.error("Error connecting to the upload endpoint", e);
 					throw new UploadFailureException(e);
