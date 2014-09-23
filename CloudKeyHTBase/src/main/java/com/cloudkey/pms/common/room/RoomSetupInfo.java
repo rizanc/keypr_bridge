@@ -43,7 +43,11 @@ public class RoomSetupInfo {
 
 	private Boolean isSmokingAllowed;
 
-	public RoomSetupInfo(String roomNumber, List<RoomFeature> roomFeatures, String roomClassCode, String floor, String roomTypeCode, String description, String shortDescription, String phoneNumber, BridgeIds.SuiteType suiteType, Long maxOccupancy, MonetaryAmount rackRate, Boolean isSmokingAllowed) {
+	private String houseKeepingSectionCode;
+
+	private String rateCode;
+
+	public RoomSetupInfo(String roomNumber, List<RoomFeature> roomFeatures, String roomClassCode, String floor, String roomTypeCode, String description, String shortDescription, String phoneNumber, BridgeIds.SuiteType suiteType, Long maxOccupancy, MonetaryAmount rackRate, Boolean isSmokingAllowed, String houseKeepingSectionCode, String rateCode) {
 		this.roomNumber = roomNumber;
 		this.roomFeatures = roomFeatures == null ? Collections.<RoomFeature>emptyList() : ImmutableList.copyOf(roomFeatures);
 		this.roomClassCode = roomClassCode;
@@ -56,6 +60,8 @@ public class RoomSetupInfo {
 		this.maxOccupancy = maxOccupancy;
 		this.rackRate = rackRate;
 		this.isSmokingAllowed = isSmokingAllowed;
+		this.houseKeepingSectionCode = houseKeepingSectionCode;
+		this.rateCode = rateCode;
 	}
 
 	public String getRoomNumber() {
@@ -121,6 +127,8 @@ public class RoomSetupInfo {
 			", maxOccupancy=" + maxOccupancy +
 			", rackRate=" + rackRate +
 			", isSmokingAllowed=" + isSmokingAllowed +
+			", houseKeepingSectionCode='" + houseKeepingSectionCode + '\'' +
+			", rateCode='" + rateCode + '\'' +
 			'}';
 	}
 
@@ -133,11 +141,14 @@ public class RoomSetupInfo {
 
 		if (description != null ? !description.equals(that.description) : that.description != null) return false;
 		if (floor != null ? !floor.equals(that.floor) : that.floor != null) return false;
+		if (houseKeepingSectionCode != null ? !houseKeepingSectionCode.equals(that.houseKeepingSectionCode) : that.houseKeepingSectionCode != null)
+			return false;
 		if (isSmokingAllowed != null ? !isSmokingAllowed.equals(that.isSmokingAllowed) : that.isSmokingAllowed != null)
 			return false;
 		if (maxOccupancy != null ? !maxOccupancy.equals(that.maxOccupancy) : that.maxOccupancy != null) return false;
 		if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
 		if (rackRate != null ? !rackRate.equals(that.rackRate) : that.rackRate != null) return false;
+		if (rateCode != null ? !rateCode.equals(that.rateCode) : that.rateCode != null) return false;
 		if (roomClassCode != null ? !roomClassCode.equals(that.roomClassCode) : that.roomClassCode != null)
 			return false;
 		if (roomFeatures != null ? !roomFeatures.equals(that.roomFeatures) : that.roomFeatures != null) return false;
@@ -164,6 +175,8 @@ public class RoomSetupInfo {
 		result = 31 * result + (maxOccupancy != null ? maxOccupancy.hashCode() : 0);
 		result = 31 * result + (rackRate != null ? rackRate.hashCode() : 0);
 		result = 31 * result + (isSmokingAllowed != null ? isSmokingAllowed.hashCode() : 0);
+		result = 31 * result + (houseKeepingSectionCode != null ? houseKeepingSectionCode.hashCode() : 0);
+		result = 31 * result + (rateCode != null ? rateCode.hashCode() : 0);
 		return result;
 	}
 }

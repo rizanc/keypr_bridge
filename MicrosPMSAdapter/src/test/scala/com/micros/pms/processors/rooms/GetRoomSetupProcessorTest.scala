@@ -53,7 +53,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
                     <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
           </RoomStatus>
           <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Dirty" ServiceStatus="NS" RoomNumber="102" RoomType="STD" RoomClass="MAIN" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="103" RoomType="DLX" RoomClass="MAIN">
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="103" RoomType="DLX" RoomClass="MAIN" RateCode="BBB" HouseKeepingSectionCode="HKSECTION2">
               <hc:Features>
                   <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
           </RoomStatus>
@@ -94,12 +94,12 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
               <hc:Text>Cabin Suites</hc:Text>
             </hc:RoomShortDescription>
           </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="101" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400">
+          <RoomSetup RoomType="DLX" RoomNumber="101" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" RateCode="RACK">
             <hc:RoomShortDescription>
               <hc:Text>Deluxe</hc:Text>
             </hc:RoomShortDescription>
           </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="103" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400">
+          <RoomSetup RoomType="DLX" RoomNumber="103" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" RateCode="BBB" HouseKeepingSectionCode="HKSECTION2">
             <hc:RoomDescription>
               <hc:Text>Deluxe</hc:Text>
             </hc:RoomDescription>
@@ -145,7 +145,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
               <hc:Text>Posting Master</hc:Text>
             </hc:RoomShortDescription>
           </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="102" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
+          <RoomSetup RoomType="STD" RoomNumber="102" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS" RateCode="AAA" HouseKeepingSectionCode="HKSECTION1">
             <hc:RoomDescription>
               <hc:Text>Standard</hc:Text>
             </hc:RoomDescription>
@@ -153,7 +153,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
               <hc:Text>Standard</hc:Text>
             </hc:RoomShortDescription>
           </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="104" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
+          <RoomSetup RoomType="STD" RoomNumber="104" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS" HouseKeepingSectionCode="OTHERhkCODE">
             <hc:RoomDescription>
               <hc:Text>Standard</hc:Text>
             </hc:RoomDescription>
@@ -235,20 +235,20 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
       val internetFeatures: util.List[RoomFeature] = List(new RoomFeature("INT", "Internet Access from Guest Room")).asJava
 
       val expectedRoomSetups: Set[RoomSetupInfo] = Set(
-        new RoomSetupInfo("101", internetFeatures, "MAIN", "Floor 1", "DLX", null, "Deluxe", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null),
-        new RoomSetupInfo("102", Collections.emptyList[RoomFeature], "MAIN", null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false),
-        new RoomSetupInfo("103", internetFeatures, "MAIN", null, "DLX", "Deluxe", null, null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null),
-        new RoomSetupInfo("104", Collections.emptyList[RoomFeature], null, null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false),
-        new RoomSetupInfo("105", internetFeatures, "MAIN", null, "DLX", null, null, null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null),
-        new RoomSetupInfo("106", Collections.emptyList[RoomFeature], "MAIN", null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false),
-        new RoomSetupInfo("107", internetFeatures, "MAIN", null, "DLX", "Deluxe", "Deluxe", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null),
-        new RoomSetupInfo("108", Collections.emptyList[RoomFeature], "MAIN", null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false),
-        new RoomSetupInfo("109", internetFeatures, "MAIN", null, "DLX", "Deluxe", "Deluxe", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null),
-        new RoomSetupInfo("110", Collections.emptyList[RoomFeature], null, null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false),
-        new RoomSetupInfo("111", internetFeatures, "MAIN", null, "DLX", "Deluxe", "Deluxe", "541-141-1244", SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null),
-        new RoomSetupInfo("5000", Collections.emptyList[RoomFeature], "COMP1", null, "CABIN", "Cabin Suites", "Cabin Suites", null, SuiteType.SUITE, null, null, null),
-        new RoomSetupInfo("6000", Collections.emptyList[RoomFeature], "COMP2", null, "LODGE", "Lodge Suites", "Lodge Suites", null, SuiteType.SUITE, null, null, null),
-        new RoomSetupInfo("9000", Collections.emptyList[RoomFeature], null, null, "PM", "Posting Master", "Posting Master", null, SuiteType.PSUEDO, 1.toLong, null, null)
+        new RoomSetupInfo("101", internetFeatures, "MAIN", "Floor 1", "DLX", null, "Deluxe", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null, null, "RACK"),
+        new RoomSetupInfo("102", Collections.emptyList[RoomFeature], "MAIN", null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false, "HKSECTION1", "AAA"),
+        new RoomSetupInfo("103", internetFeatures, "MAIN", null, "DLX", "Deluxe", null, null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null, "HKSECTION2", "BBB"),
+        new RoomSetupInfo("104", Collections.emptyList[RoomFeature], null, null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false, "OTHERhkCODE", null),
+        new RoomSetupInfo("105", internetFeatures, "MAIN", null, "DLX", null, null, null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null, null, null),
+        new RoomSetupInfo("106", Collections.emptyList[RoomFeature], "MAIN", null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false, null, null),
+        new RoomSetupInfo("107", internetFeatures, "MAIN", null, "DLX", "Deluxe", "Deluxe", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null, null, null),
+        new RoomSetupInfo("108", Collections.emptyList[RoomFeature], "MAIN", null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false, null, null),
+        new RoomSetupInfo("109", internetFeatures, "MAIN", null, "DLX", "Deluxe", "Deluxe", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null, null, null),
+        new RoomSetupInfo("110", Collections.emptyList[RoomFeature], null, null, "STD", "Standard", "Standard", null, SuiteType.STANDARD, 5.toLong, new MonetaryAmount(300, 0, defaultCurrency), false, null, null),
+        new RoomSetupInfo("111", internetFeatures, "MAIN", null, "DLX", "Deluxe", "Deluxe", "541-141-1244", SuiteType.STANDARD, 5.toLong, new MonetaryAmount(400, 0, defaultCurrency), null, null, null),
+        new RoomSetupInfo("5000", Collections.emptyList[RoomFeature], "COMP1", null, "CABIN", "Cabin Suites", "Cabin Suites", null, SuiteType.SUITE, null, null, null, null, null),
+        new RoomSetupInfo("6000", Collections.emptyList[RoomFeature], "COMP2", null, "LODGE", "Lodge Suites", "Lodge Suites", null, SuiteType.SUITE, null, null, null, null, null),
+        new RoomSetupInfo("9000", Collections.emptyList[RoomFeature], null, null, "PM", "Posting Master", "Posting Master", null, SuiteType.PSUEDO, 1.toLong, null, null, null, null)
       )
 
       roomSetupResponse.getRoomSetupInfos should have size expectedRoomSetups.size

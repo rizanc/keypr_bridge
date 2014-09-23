@@ -18,6 +18,8 @@ public class RoomSetupInfoBuilder {
 	private Long maxOccupancy;
 	private MonetaryAmount rackRate;
 	private Boolean isSmokingAllowed;
+	private String houseKeepingSectionCode;
+	private String rateCode;
 
 	public RoomSetupInfoBuilder setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
@@ -79,7 +81,17 @@ public class RoomSetupInfoBuilder {
 		return this;
 	}
 
+	public RoomSetupInfoBuilder setHouseKeepingSectionCode(String houseKeepingSectionCode) {
+		this.houseKeepingSectionCode = houseKeepingSectionCode;
+		return this;
+	}
+
+	public RoomSetupInfoBuilder setRateCode(String rateCode) {
+		this.rateCode = rateCode;
+		return this;
+	}
+
 	public RoomSetupInfo createRoomSetupInfo() {
-		return new RoomSetupInfo(roomNumber, roomFeatures, roomClassCode, floor, roomTypeCode, description, shortDescription, phoneNumber, suiteType, maxOccupancy, rackRate, isSmokingAllowed);
+		return new RoomSetupInfo(roomNumber, roomFeatures, roomClassCode, floor, roomTypeCode, description, shortDescription, phoneNumber, suiteType, maxOccupancy, rackRate, isSmokingAllowed, houseKeepingSectionCode, rateCode);
 	}
 }
