@@ -2,6 +2,8 @@ package com.cloudkey.pms.request.reservations;
 
 import com.google.common.collect.ImmutableList;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -14,27 +16,17 @@ import java.util.List;
  *
  * @author vinayk2
  */
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class AddReservationNotesRequest extends AbstractSingleReservationRequest {
 
     @NotEmpty
     @ApiModelProperty(required = true)
     private List<String> notes;
 
-	protected AddReservationNotesRequest() { /* For serialization */ }
-
 	public AddReservationNotesRequest(String pmsReservationId, List<String> notes) {
 		super(pmsReservationId);
         this.notes = ImmutableList.copyOf(notes);
     }
 
-    public List<String> getNotes() {
-        return notes;
-    }
-
-	@Override
-	public String toString() {
-		return "AddReservationNotesRequest{" +
-			"notes=" + notes +
-			'}';
-	}
 }

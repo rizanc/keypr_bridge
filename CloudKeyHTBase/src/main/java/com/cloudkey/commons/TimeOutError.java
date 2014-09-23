@@ -1,5 +1,7 @@
 package com.cloudkey.commons;
 
+import lombok.Value;
+
 /**
  * This class represents the time out error sent by the keypr bridge 
  * when property management system is down.
@@ -7,28 +9,10 @@ package com.cloudkey.commons;
  * @author vinayk2
  *
  */
+@Value
 public class TimeOutError {
 	
-	private String code = "";
-	private String message = "";
+	String code = "";
+	String message = "";
 	
-	//Getter and Setter for each data member.
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
-	@Override
-	public String toString() {
-		return "TimeOutError [code=" + code + ", message=" + message + "]";
-	}
-
 }

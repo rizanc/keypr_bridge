@@ -2,6 +2,8 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.AssertTrue;
@@ -13,6 +15,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Value
 public class FindReservationRequest extends PMSRequest {
 
 	private String pmsReservationId;
@@ -22,10 +25,15 @@ public class FindReservationRequest extends PMSRequest {
 	private Integer legNo;
 
 	public FindReservationRequest(String pmsReservationId) {
-		this.pmsReservationId = pmsReservationId;
+		this(pmsReservationId, null, null);
 	}
 
 	public FindReservationRequest(String confirmationNo, Integer legNo) {
+		this(null, confirmationNo, legNo);
+	}
+
+	public FindReservationRequest(String pmsReservationId, String confirmationNo, Integer legNo) {
+		this.pmsReservationId = pmsReservationId;
 		this.confirmationNo = confirmationNo;
 		this.legNo = legNo;
 	}
@@ -44,48 +52,4 @@ public class FindReservationRequest extends PMSRequest {
 		return pmsReservationId != null && !pmsReservationId.isEmpty();
 	}
 
-	public String getPmsReservationId() {
-		return pmsReservationId;
-	}
-
-	public String getConfirmationNo() {
-		return confirmationNo;
-	}
-
-	public Integer getLegNo() {
-		return legNo;
-	}
-
-	@Override
-	public String toString() {
-		return "FindReservationRequest{" +
-			"pmsReservationId='" + pmsReservationId + '\'' +
-			", confirmationNo='" + confirmationNo + '\'' +
-			", legNo=" + legNo +
-			'}';
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		FindReservationRequest that = (FindReservationRequest) o;
-
-		if (confirmationNo != null ? !confirmationNo.equals(that.confirmationNo) : that.confirmationNo != null)
-			return false;
-		if (legNo != null ? !legNo.equals(that.legNo) : that.legNo != null) return false;
-		if (pmsReservationId != null ? !pmsReservationId.equals(that.pmsReservationId) : that.pmsReservationId != null)
-			return false;
-
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		int result = pmsReservationId != null ? pmsReservationId.hashCode() : 0;
-		result = 31 * result + (confirmationNo != null ? confirmationNo.hashCode() : 0);
-		result = 31 * result + (legNo != null ? legNo.hashCode() : 0);
-		return result;
-	}
 }

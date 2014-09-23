@@ -1,8 +1,8 @@
 package com.cloudkey.commons;
 
 import com.cloudkey.pms.common.HotelAmenity;
-import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
+import lombok.Value;
 
 import java.util.List;
 
@@ -13,15 +13,14 @@ import java.util.List;
  * @author niveditat
  *
  */
+@Value
 public class RoomType {
 
 	//Reference Variables.
-	private String code;
-	private String description;
-	private List<HotelAmenity> amenities;
-	private Integer maxOccupancy;
-
-	public RoomType() {}
+	String code;
+	String description;
+	List<HotelAmenity> amenities;
+	Integer maxOccupancy;
 
 	public RoomType(String code, String description, List<HotelAmenity> amenities, Integer maxOccupancy) {
 		this.code = code;
@@ -30,45 +29,4 @@ public class RoomType {
 		this.maxOccupancy = maxOccupancy;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public List<HotelAmenity> getAmenities() {
-		return amenities;
-	}
-
-	public void setAmenities(List<HotelAmenity> amenities) {
-		this.amenities = amenities;
-	}
-
-	public Integer getMaxOccupancy() {
-		return maxOccupancy;
-	}
-
-	public void setMaxOccupancy(Integer maxOccupancy) {
-		this.maxOccupancy = maxOccupancy;
-	}
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("code", code)
-			.add("description", description)
-			.add("amenities", amenities)
-			.add("maxOccupancy", maxOccupancy)
-			.toString();
-	}
 }

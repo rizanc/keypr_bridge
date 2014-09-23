@@ -51,19 +51,19 @@ public class GuestMembershipsProcessor extends OWSProcessor<
 	protected GuestMembershipsResponse toPmsResponse(FetchGuestCardListResponse microsResponse, GuestMembershipsRequest request) {
 		ArrayList<Membership> memberships = new ArrayList<>();
 		for (NameMembership microsMembership : microsResponse.getGuestCardList()) {
-			Membership membership = new Membership();
-
-			membership.setMembershipNumber(microsMembership.getMembershipNumber());
-			membership.setMembershipType(microsMembership.getMembershipType());
-			membership.setMemberName(microsMembership.getMemberName());
-			membership.setMembershipLevel(microsMembership.getMembershipLevel());
-			membership.setPointsLabel(microsMembership.getPointsLabel());
-			membership.setExternalId(microsMembership.getExternalId());
-			membership.setCurrentPoints(microsMembership.getCurrentPoints());
-			membership.setEffectiveDate(microsMembership.getEffectiveDate());
-			membership.setExpirationDate(microsMembership.getExpirationDate());
-			membership.setExternalId(microsMembership.getExternalId());
-			membership.setOperaId(microsMembership.getOperaId() == null ? null : microsMembership.getOperaId().toString());
+			Membership membership = new Membership(
+				microsMembership.getMembershipType(),
+				microsMembership.getMembershipNumber(),
+				microsMembership.getMembershipLevel(),
+				microsMembership.getOperaId() == null ? null : microsMembership.getOperaId().toString(),
+				microsMembership.getExternalId(),
+				microsMembership.getPointsLabel(),
+				microsMembership.getMembershipid() == null ? null : microsMembership.getMembershipid().getValue(),
+				microsMembership.getMemberName(),
+				microsMembership.getCurrentPoints(),
+				microsMembership.getEffectiveDate(),
+				microsMembership.getExpirationDate()
+			);
 
 			memberships.add(membership);
 		}

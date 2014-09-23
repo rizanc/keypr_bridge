@@ -3,6 +3,7 @@ package com.micros.pms.processors.reservations;
 import com.cloudkey.commons.OrderDetails;
 import com.cloudkey.commons.Reservation;
 import com.cloudkey.commons.ReservationOrder;
+import com.cloudkey.pms.common.reservation.ReservationBuilder;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.reservation.BillHeader;
@@ -58,7 +59,7 @@ public class GetFolioProcessor extends OWSProcessor<
 		BigDecimal totalBillAmount = new BigDecimal("0.00");
 
 		/* Populate response into Reservation instance */
-		Reservation reservation = new Reservation();
+		Reservation.ReservationBuilder reservation = Reservation.builder();
 
 		List<ReservationOrder> reservationOrderList = new ArrayList<>();
 
@@ -67,33 +68,33 @@ public class GetFolioProcessor extends OWSProcessor<
 
 			log.debug("getFolioResponseObject: Enter to traverse Bill Header ");
 
-			reservation.setAddress(HotelInformationConverter.convertAddress(billHeader.getAddress()));
+			reservation.address(HotelInformationConverter.convertAddress(billHeader.getAddress()));
 
 			if (billHeader.getName() != null) {
-				reservation.setFirstName(billHeader.getName().getFirstName());
-				reservation.setLastName(billHeader.getName().getLastName());
+				reservation.firstName(billHeader.getName().getFirstName());
+				reservation.lastName(billHeader.getName().getLastName());
 			}
 
 			List<OrderDetails> orderDetailsList = new ArrayList<>();
 
 			for (BillItem billItem : billHeader.getBillItems()) {
 				log.debug("getFolioResponseObject: Enter to traverse Bill Items ");
-				OrderDetails objOrderDetails = new OrderDetails();
+				OrderDetails.OrderDetailsBuilder objOrderDetails = OrderDetails.builder();
 
 				if (billItem.getAmount() != null) {
 					Double amountValue = billItem.getAmount().getValue();
 
-					objOrderDetails.setUnitPrice(new BigDecimal(amountValue));
+					objOrderDetails.unitPrice(new BigDecimal(amountValue));
 					totalBillAmount = totalBillAmount.add(new BigDecimal(amountValue));
 				}
 
-				objOrderDetails.setItemDescription(billItem.getDescription());
+				objOrderDetails.itemDescription(billItem.getDescription());
 
 				if (billItem.getDate() != null && billItem.getTime() != null) {
-					objOrderDetails.setDateTime(billItem.getDate().toDateTime(billItem.getTime()));
+					objOrderDetails.dateTime(billItem.getDate().toDateTime(billItem.getTime()));
 				}
 
-				orderDetailsList.add(objOrderDetails);
+				orderDetailsList.add(objOrderDetails.build());
 
 				log.debug("getFolioResponseObject: Exit to traverse Bill Items ");
 
@@ -107,6 +108,6 @@ public class GetFolioProcessor extends OWSProcessor<
 
 		log.debug("getFolioResponseObject: Exit  getFolioResponseObject method ");
 
-		return new GetFolioResponse(reservation, reservationOrderList);
+		return new GetFolioResponse(reservation.build(), reservationOrderList);
 	}
 }

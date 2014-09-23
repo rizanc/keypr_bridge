@@ -4,6 +4,8 @@ import com.cloudkey.commons.Payments;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -13,13 +15,13 @@ import java.util.List;
  *
  * @author vinayk2
  */
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class UpdatePaymentRequest extends AbstractSingleReservationRequest {
 
     @NotEmpty
     @ApiModelProperty(required = true)
     private List<Payments> payments;
-
-	protected UpdatePaymentRequest() { /* For serialization */ }
 
 	public UpdatePaymentRequest(String pmsReservationId, List<Payments> payments) {
 		super(pmsReservationId);

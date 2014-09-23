@@ -1,6 +1,7 @@
 package com.micros.pms.processors.reservations;
 
 import com.cloudkey.commons.Reservation;
+import com.cloudkey.pms.common.reservation.ReservationBuilder;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
@@ -50,7 +51,7 @@ public class CheckOutProcessor extends OWSProcessor<
 	protected CheckOutResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse microsResponse, CheckOutRequest request) {
 		com.cloudkey.pms.response.reservations.CheckOutResponse response = new com.cloudkey.pms.response.reservations.CheckOutResponse();
 
-		Reservation reservation = new Reservation();
+		Reservation.ReservationBuilder reservationBuilder = Reservation.builder();
 
 		log.debug("getCheckOutResponseObject: Status Set ");
 
@@ -59,7 +60,7 @@ public class CheckOutProcessor extends OWSProcessor<
 		// To set the confirmation number
 		Optional<String> pmsReservationIdOpt = IdUtils.findPmsReservationId(checkOutComplete.getReservationID());
 		if (pmsReservationIdOpt.isPresent()) {
-			reservation.setPmsReservationId(pmsReservationIdOpt.get());
+			reservationBuilder.pmsReservationId(pmsReservationIdOpt.get());
 		}
 
 		Profile objProfile = microsResponse.getProfile();
@@ -68,12 +69,12 @@ public class CheckOutProcessor extends OWSProcessor<
 			PersonName objPersonName = objProfile.getCustomer().getPersonName();
 
 			// Set the first name and last name
-			reservation.setFirstName(objPersonName.getFirstName());
-			reservation.setLastName(objPersonName.getLastName());
+			reservationBuilder.firstName(objPersonName.getFirstName());
+			reservationBuilder.lastName(objPersonName.getLastName());
 		}
 
 		log.debug("getCheckOutResponseObject: Exit Profile.");
-		response.setReservation(reservation);
+		response.setReservation(reservationBuilder.build());
 		log.debug("getCheckOutResponseObject: Exit getCheckOutResponseObject method");
 
 		return response;

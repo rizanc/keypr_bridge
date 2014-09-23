@@ -4,6 +4,8 @@ import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
@@ -17,8 +19,8 @@ import java.util.Map;
  * Class stores the room availability information. 
  * 
  * @author vinayk2
- *
  */
+@Value
 public class AvailabilityRequest extends PMSRequest {
 
     @NotNull
@@ -39,9 +41,6 @@ public class AvailabilityRequest extends PMSRequest {
 
 	private List<Integer> childrenAges;
 
-	protected AvailabilityRequest() { /* For serialization */ }
-
-
 	public AvailabilityRequest(LocalDate startDate, LocalDate endDate, String rateCode, Integer numAdults, String roomTypeCode, List<Integer> childrenAges) {
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -56,38 +55,4 @@ public class AvailabilityRequest extends PMSRequest {
 		return roomTypeCode == null ? rateCode == null : rateCode != null;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public String getRateCode() {
-		return rateCode;
-	}
-
-	public Integer getNumAdults() {
-		return numAdults;
-	}
-
-	public List<Integer> getChildrenAges() {
-		return childrenAges;
-	}
-
-	public String getRoomTypeCode() {
-		return roomTypeCode;
-	}
-
-	@Override
-	public String toString() {
-		return "AvailabilityRequest{" +
-			"startDate=" + startDate +
-			", endDate=" + endDate +
-			", rateCode='" + rateCode + '\'' +
-			", numAdults=" + numAdults +
-			", childrenAges=" + childrenAges +
-			'}';
-	}
 }

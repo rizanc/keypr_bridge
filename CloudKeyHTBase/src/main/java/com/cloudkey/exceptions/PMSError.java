@@ -2,6 +2,10 @@ package com.cloudkey.exceptions;
 
 import com.cloudkey.pms.response.SOAPMessages;
 import com.keypr.bridge.ids.BridgeIds;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 
 /**
  * Exception which implementations of {@link com.cloudkey.message.parser.PMSInterface} may throw
@@ -11,10 +15,13 @@ import com.keypr.bridge.ids.BridgeIds;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@EqualsAndHashCode(callSuper = true)
+@Value
 public class PMSError extends RuntimeException {
-	private final String errorCode;
+	String errorCode;
 
-	private SOAPMessages soapMessages = null;
+	@NonFinal
+	SOAPMessages soapMessages = null;
 
 	public PMSError(BridgeIds.PMSErrorMessage message) {
 		this(message.getMessage(), message.name(), null);
@@ -42,11 +49,4 @@ public class PMSError extends RuntimeException {
 		this.soapMessages = soapMessages;
 	}
 
-	@Override
-	public String toString() {
-		return "PMSError{" +
-			"errorCode='" + errorCode + '\'' +
-			", soapMessages=" + soapMessages +
-			'}';
-	}
 }

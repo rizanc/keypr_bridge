@@ -3,6 +3,7 @@ package com.cloudkey.pms.request.hotels;
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.Value;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,26 +14,11 @@ import javax.validation.constraints.NotNull;
  * @author vinayk2
  *
  */
+@Value
 public class MeetingRoomInformationRequest extends PMSRequest {
 
 	@NotNull
 	@ApiModelProperty(required = true)
 	private Integer numberOfAttendees;
 
-	protected MeetingRoomInformationRequest() { /* For serialization */ }
-
-	public MeetingRoomInformationRequest(Integer numberOfAttendees) {
-		this.numberOfAttendees = numberOfAttendees;
-	}
-
-	public Integer getNumberOfAttendees() {
-		return numberOfAttendees;
-	}
-
-	@Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("numberOfAttendees", numberOfAttendees)
-                .toString();
-    }
 }

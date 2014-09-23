@@ -1,9 +1,6 @@
 package com.cloudkey.upload.collector;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationRoomAllocation;
-import com.cloudkey.commons.RoomRate;
-import com.cloudkey.commons.RoomType;
+import com.cloudkey.commons.*;
 import com.cloudkey.upload.client.UploadServiceClient;
 import com.cloudkey.upload.constant.IUploadConstants;
 import com.cloudkey.upload.remove.UploadQueueDataRemover;
@@ -102,7 +99,7 @@ public class UploadReservationDataRetriever {
 						while( reservationSet.next() ) {
 
 							isRecordFound = true;
-							reservation = new Reservation();
+							reservation = new ReservationBuilder().createReservation();
 
 							//To add id .
 							int id = reservationSet.getInt( "reservation.id" ) ;	

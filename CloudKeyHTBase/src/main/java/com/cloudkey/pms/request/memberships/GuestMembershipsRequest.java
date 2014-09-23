@@ -3,6 +3,7 @@ package com.cloudkey.pms.request.memberships;
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -10,26 +11,14 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author Chetu
  */
+@Value
 public class GuestMembershipsRequest extends PMSRequest {
 
 	@NotBlank
 	@ApiModelProperty(required = true)
 	private String pmsNameId;
 
-	protected GuestMembershipsRequest() { /* For serialization */ }
-
 	public GuestMembershipsRequest(String pmsNameId) {
 		this.pmsNameId = pmsNameId;
-	}
-
-	public String getPmsNameId() {
-		return pmsNameId;
-	}
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("pmsNameId", pmsNameId)
-			.toString();
 	}
 }

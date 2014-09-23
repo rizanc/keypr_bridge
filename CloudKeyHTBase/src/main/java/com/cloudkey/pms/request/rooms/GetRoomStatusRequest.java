@@ -3,6 +3,7 @@ package com.cloudkey.pms.request.rooms;
 import com.cloudkey.pms.request.PMSRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Strings;
+import lombok.Value;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.AssertTrue;
@@ -12,6 +13,7 @@ import javax.validation.constraints.AssertTrue;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Value
 public class GetRoomStatusRequest extends PMSRequest {
 
 	@Nullable
@@ -26,13 +28,20 @@ public class GetRoomStatusRequest extends PMSRequest {
 	@Nullable
 	private String floor;
 
-	public GetRoomStatusRequest() {}
+	public GetRoomStatusRequest() {
+		this(null, null, null, null);
+	}
 
 	public GetRoomStatusRequest(String roomNumber) {
-		this.roomNumber = roomNumber;
+		this(roomNumber, null, null, null);
 	}
 
 	public GetRoomStatusRequest(@Nullable String roomTypeCode, @Nullable String roomClassCode, @Nullable String floor) {
+		this(null, roomTypeCode, roomClassCode, floor);
+	}
+
+	public GetRoomStatusRequest(String roomNumber, String roomTypeCode, String roomClassCode, String floor) {
+		this.roomNumber = roomNumber;
 		this.roomTypeCode = roomTypeCode;
 		this.roomClassCode = roomClassCode;
 		this.floor = floor;
@@ -65,23 +74,4 @@ public class GetRoomStatusRequest extends PMSRequest {
 		return !Strings.isNullOrEmpty(floor);
 	}
 
-	@Nullable
-	public String getRoomTypeCode() {
-		return roomTypeCode;
-	}
-
-	@Nullable
-	public String getRoomClassCode() {
-		return roomClassCode;
-	}
-
-	@Nullable
-	public String getRoomNumber() {
-		return roomNumber;
-	}
-
-	@Nullable
-	public String getFloor() {
-		return floor;
-	}
 }

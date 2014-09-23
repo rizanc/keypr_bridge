@@ -4,6 +4,8 @@ import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
@@ -15,6 +17,7 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Value
 public class CreateReservationRequest extends PMSRequest {
 
 	@NotNull
@@ -57,8 +60,6 @@ public class CreateReservationRequest extends PMSRequest {
 
 	private String creditCardNumber;
 
-	protected CreateReservationRequest() { /* For serialization */ }
-
 	public CreateReservationRequest(String ratePlanCode, String roomTypeCode, Integer numAdults, Integer numChildren, LocalDate arrivalDate, LocalDate departureDate, String creditCardNumber, LocalDate expirationDate, String cardType, String cardHolderName, String firstName, String lastName, String externalReferenceNumber, String externalReferenceType) {
 		this.ratePlanCode = ratePlanCode;
 		this.roomTypeCode = roomTypeCode;
@@ -89,70 +90,5 @@ public class CreateReservationRequest extends PMSRequest {
 		return Iterables.all(details, Predicates.notNull());
 	}
 
-	public String getRatePlanCode() {
-		return ratePlanCode;
-	}
-
-	public String getRoomTypeCode() {
-		return roomTypeCode;
-	}
-
-	public Integer getNumAdults() {
-		return numAdults;
-	}
-
-	public Integer getNumChildren() {
-		return numChildren;
-	}
-
-	public LocalDate getArrivalDate() {
-		return arrivalDate;
-	}
-
-	public LocalDate getDepartureDate() {
-		return departureDate;
-	}
-
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
-
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-
-	public String getCardType() {
-		return cardType;
-	}
-
-	public String getCardHolderName() {
-		return cardHolderName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	@Override
-	public String toString() {
-		return "CreateReservationRequest{" +
-			", ratePlanCode='" + ratePlanCode + '\'' +
-			", roomTypeCode='" + roomTypeCode + '\'' +
-			", numAdults=" + numAdults +
-			", numChildren=" + numChildren +
-			", arrivalDate=" + arrivalDate +
-			", departureDate=" + departureDate +
-			", creditCardNumber='" + creditCardNumber + '\'' +
-			", expirationDate=" + expirationDate +
-			", cardType='" + cardType + '\'' +
-			", cardHolderName='" + cardHolderName + '\'' +
-			", firstName='" + firstName + '\'' +
-			", lastName='" + lastName + '\'' +
-			'}';
-	}
 
 }

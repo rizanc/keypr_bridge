@@ -1,38 +1,18 @@
 package com.cloudkey.commons;
 
+import lombok.Value;
+
 import java.util.List;
 
 /**
  * Class stores details of reservation update snapshot.
  */
+@Value
 public class Rtav {
 
 	/* TBD */
-	private Integer id ;// Everything needs an id
-    private String hotelCode;
-    private List<DailyInventory> dailyInventories;
+	Integer id ;// Everything needs an id
+    String hotelCode;
+    List<DailyInventory> dailyInventories;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getHotelCode() {
-        return hotelCode;
-    }
-
-    public void setHotelCode(String hotelCode) {
-        this.hotelCode = hotelCode;
-    }
-
-    public List<DailyInventory> getDailyInventories() {
-        return dailyInventories;
-    }
-
-    public void setDailyInventories(List<DailyInventory> dailyInventories) {
-        this.dailyInventories = dailyInventories;
-    }
 }

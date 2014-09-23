@@ -7,6 +7,8 @@ import com.keypr.bridge.ids.PmsReservationId;
 import com.keypr.bridge.ids.StationId;
 import com.keypr.bridge.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
@@ -17,6 +19,8 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class MakePaymentRequest extends AbstractSingleReservationRequest {
 
     /**
@@ -73,8 +77,6 @@ public class MakePaymentRequest extends AbstractSingleReservationRequest {
      */
     private Integer folioViewNo;
 
-	protected MakePaymentRequest() { /* For serialization */ }
-
 	public MakePaymentRequest(String pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, DateTime postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
 		super(pmsReservationId);
 		this.chargeAmount = chargeAmount;
@@ -89,59 +91,4 @@ public class MakePaymentRequest extends AbstractSingleReservationRequest {
 		this.folioViewNo = folioViewNo;
 	}
 
-    public Double getChargeAmount() {
-        return chargeAmount;
-    }
-
-    public CreditCardInfo getCreditCardInfo() {
-        return creditCardInfo;
-    }
-
-    public CreditCardApproval getCreditCardApproval() {
-        return creditCardApproval;
-    }
-
-	public DateTime getPostDateTime() {
-		return postDateTime;
-	}
-
-	public String getShortInfo() {
-        return shortInfo;
-    }
-
-    public String getLongInfo() {
-        return longInfo;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public StationId getStationId() {
-        return stationId;
-    }
-
-    public UserId getUserId() {
-        return userId;
-    }
-
-    public Integer getFolioViewNo() {
-        return folioViewNo;
-    }
-
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("chargeAmount", chargeAmount)
-                .add("creditCardInfo", creditCardInfo)
-                .add("creditCardApproval", creditCardApproval)
-                .add("postDateTime", postDateTime)
-                .add("shortInfo", shortInfo)
-                .add("longInfo", longInfo)
-                .add("reference", reference)
-                .add("stationId", stationId)
-                .add("userId", userId)
-                .add("folioViewNo", folioViewNo)
-                .toString();
-    }
 }

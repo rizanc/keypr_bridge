@@ -2,6 +2,7 @@ package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
  * 
  * @author vinayk2
  */
+@Value
 public class FetchCalendarRequest extends PMSRequest {
 
     @NotNull
@@ -28,7 +30,7 @@ public class FetchCalendarRequest extends PMSRequest {
 	 */
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Boolean availableOnly = false;
+	private Boolean availableOnly;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
@@ -42,14 +44,12 @@ public class FetchCalendarRequest extends PMSRequest {
 	@ApiModelProperty(required = true)
 	private Integer numChildren;
 
-	protected FetchCalendarRequest() { /* For serialization */ }
-
 	public FetchCalendarRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly, String rateCode, Integer numAdults, Integer numChildren) {
 		this.startDate = startDate;
 		this.endDate = endDate;
-		if (availableOnly != null) {
-			this.availableOnly = availableOnly;
-		}
+		this.availableOnly = availableOnly == null
+			? false
+			: availableOnly;
 
 		this.rateCode = rateCode;
 		this.numAdults = numAdults;
@@ -61,39 +61,4 @@ public class FetchCalendarRequest extends PMSRequest {
 		return startDate != null && endDate != null && startDate.isBefore(endDate);
 	}
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-	public Boolean getAvailableOnly() {
-		return availableOnly;
-	}
-
-	public String getRateCode() {
-		return rateCode;
-	}
-
-	public Integer getNumAdults() {
-		return numAdults;
-	}
-
-	public Integer getNumChildren() {
-		return numChildren;
-	}
-
-	@Override
-	public String toString() {
-		return "FetchCalendarRequest{" +
-			"startDate=" + startDate +
-			", endDate=" + endDate +
-			", availableOnly=" + availableOnly +
-			", rateCode='" + rateCode + '\'' +
-			", numAdults=" + numAdults +
-			", numChildren=" + numChildren +
-			'}';
-	}
 }
