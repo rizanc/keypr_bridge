@@ -2,45 +2,40 @@ package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Value;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class stores the room availability information. 
  * 
  * @author vinayk2
- *
  */
+@Value
 public class AvailabilityRequest extends PMSRequest {
 
     @NotNull
     @ApiModelProperty(required = true)
-    private LocalDate startDate;
+    LocalDate startDate;
 
     @NotNull
     @ApiModelProperty(required = true)
-    private LocalDate endDate;
+    LocalDate endDate;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numAdults;
+	Integer numAdults;
 
-	private String rateCode;
+	String rateCode;
 
-	private String roomTypeCode;
+	String roomTypeCode;
 
-	private List<Integer> childrenAges;
-
-	protected AvailabilityRequest() { /* For serialization */ }
-
+	List<Integer> childrenAges;
 
 	public AvailabilityRequest(LocalDate startDate, LocalDate endDate, String rateCode, Integer numAdults, String roomTypeCode, List<Integer> childrenAges) {
 		this.startDate = startDate;
@@ -56,38 +51,4 @@ public class AvailabilityRequest extends PMSRequest {
 		return roomTypeCode == null ? rateCode == null : rateCode != null;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public String getRateCode() {
-		return rateCode;
-	}
-
-	public Integer getNumAdults() {
-		return numAdults;
-	}
-
-	public List<Integer> getChildrenAges() {
-		return childrenAges;
-	}
-
-	public String getRoomTypeCode() {
-		return roomTypeCode;
-	}
-
-	@Override
-	public String toString() {
-		return "AvailabilityRequest{" +
-			"startDate=" + startDate +
-			", endDate=" + endDate +
-			", rateCode='" + rateCode + '\'' +
-			", numAdults=" + numAdults +
-			", childrenAges=" + childrenAges +
-			'}';
-	}
 }

@@ -1,6 +1,8 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
  *
  * @author crizan2
  */
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class PostChargeRequest extends AbstractSingleReservationRequest {
 	@NotNull
 	@ApiModelProperty(required = true)
@@ -19,21 +23,19 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String itemCode;
+	String itemCode;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String accountCode;
+	String accountCode;
 
-	private DateTime postDateTime;
+	DateTime postDateTime;
 
-	private String shortInfo;
+	String shortInfo;
 
-	private String longInfo;
+	String longInfo;
 
-	private Integer folioViewNo;
-
-	protected PostChargeRequest() { /* For serialization */ }
+	Integer folioViewNo;
 
 	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, String itemCode, String accountCode, DateTime postDateTime, String shortInfo, String longInfo, Integer folioViewNo) {
 		super(pmsReservationId);
@@ -46,44 +48,4 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 		this.folioViewNo = folioViewNo;
 	}
 
-	public BigDecimal getChargeAmount() {
-		return chargeAmount;
-	}
-
-	public DateTime getPostDateTime() {
-		return postDateTime;
-	}
-
-	public String getShortInfo() {
-		return shortInfo;
-	}
-
-	public String getLongInfo() {
-		return longInfo;
-	}
-
-	public Integer getFolioViewNo() {
-		return folioViewNo;
-	}
-
-	public String getItemCode() {
-		return itemCode;
-	}
-
-	public String getAccountCode() {
-		return accountCode;
-	}
-
-	@Override
-	public String toString() {
-		return "PostChargeRequest{" +
-			"chargeAmount=" + chargeAmount +
-			", itemCode='" + itemCode + '\'' +
-			", accountCode='" + accountCode + '\'' +
-			", postDateTime=" + postDateTime +
-			", shortInfo='" + shortInfo + '\'' +
-			", longInfo='" + longInfo + '\'' +
-			", folioViewNo=" + folioViewNo +
-			'}';
-	}
 }

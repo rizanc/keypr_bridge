@@ -24,8 +24,8 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 /**
-* @author Charlie La Mothe (charlie@concentricsky.com)
-*/
+ * @author Charlie La Mothe (charlie@concentricsky.com)
+ */
 @Singleton
 class ReservationConverter {
   @Inject
@@ -38,77 +38,77 @@ class ReservationConverter {
    * @return
    */
   def convertReservation(from: HotelReservation): Reservation = {
-    val resv = new ReservationBuilder
+    val resv = Reservation.builder
 
-    resv.setPmsReservationId(
+    resv.pmsReservationId(
       findPmsReservationId(from.getUniqueIDList).orNull
     )
 
-    resv.setConfirmationNo(
+    resv.confirmationNo(
       findConfirmationNumId(from.getUniqueIDList).orNull
     )
 
-    resv.setLegNumber(
+    resv.legNumber(
       findlegNumber(from.getUniqueIDList).orNull
     )
 
-    resv.setReservationStatus(
+    resv.reservationStatus(
       fromMicrosEnum(from.getReservationStatus)
     )
 
     // There will only be one resGuest.
     from.getResGuests.headOption.foreach(resGuest => {
-      resv.setExpectedArrivalTime(resGuest.getArrivalTime)
-      resv.setExpectedDepartureTime(resGuest.getDepartureTime)
+      resv.expectedArrivalTime(resGuest.getArrivalTime)
+      resv.expectedDepartureTime(resGuest.getDepartureTime)
 
-      resGuest.getProfiles.find(_.getCustomer != null).map(convertCustomerProfile).foreach(resv.setCustomerProfile)
+      resGuest.getProfiles.find(_.getCustomer != null).map(convertCustomerProfile).foreach(resv.customerProfile)
 
       // There will be only up to one profile of each type, except for contacts which may be numerous
-      convertProfiles(resGuest, CompanyCompanyType.COMPANY).headOption.foreach(resv.setCompanyProfile)
-      convertProfiles(resGuest, CompanyCompanyType.TRAVEL_AGENT).headOption.foreach(resv.setTravelAgentProfile)
-      convertProfiles(resGuest, CompanyCompanyType.GROUP).headOption.foreach(resv.setGroupProfile)
-      convertProfiles(resGuest, CompanyCompanyType.SOURCE).headOption.foreach(resv.setSourceProfile)
-      resv.setContactProfiles(convertProfiles(resGuest, CompanyCompanyType.CONTACT).toList)
+      convertProfiles(resGuest, CompanyCompanyType.COMPANY).headOption.foreach(resv.companyProfile)
+      convertProfiles(resGuest, CompanyCompanyType.TRAVEL_AGENT).headOption.foreach(resv.travelAgentProfile)
+      convertProfiles(resGuest, CompanyCompanyType.GROUP).headOption.foreach(resv.groupProfile)
+      convertProfiles(resGuest, CompanyCompanyType.SOURCE).headOption.foreach(resv.sourceProfile)
+      resv.contactProfiles(convertProfiles(resGuest, CompanyCompanyType.CONTACT).toList)
     })
 
     from.getRoomStays.headOption.foreach(roomStay => {
-      resv.setAdultCount(
+      resv.adultCount(
         countGuests(roomStay, AgeQualifyingCode.ADULT)
       )
 
-      resv.setChildrenCount(
+      resv.childrenCount(
         countGuests(roomStay, AgeQualifyingCode.CHILD, AgeQualifyingCode.CHILDBUCKET_1, AgeQualifyingCode.CHILDBUCKET_2, AgeQualifyingCode.CHILDBUCKET_3)
       )
 
       val creditCardOpt = Option(roomStay.getGuarantee).toSeq
         .flatMap(_.getGuaranteesAccepted.asScala)
         .collectFirst({
-          case guarantee if guarantee.getGuaranteeCreditCard != null => guarantee.getGuaranteeCreditCard
-        })
-
-      creditCardOpt.foreach(creditCard => {
-        resv.setCreditCardType(creditCard.getCardType)
-        resv.setCreditCardExpirationDate(creditCard.getExpirationDate)
-        resv.setCreditCardHolderName(creditCard.getCardHolderName)
-        resv.setCreditCardNumber(creditCard.getCardNumber)
+        case guarantee if guarantee.getGuaranteeCreditCard != null => guarantee.getGuaranteeCreditCard
       })
+
+//      creditCardOpt.foreach(creditCard => {
+//        resv.creditCardType(creditCard.getCardType)
+//        resv.creditCardExpirationDate(creditCard.getExpirationDate)
+//        resv.creditCardHolderName(creditCard.getCardHolderName)
+//        resv.creditCardNumber(creditCard.getCardNumber)
+//      })
 
       Option(roomStay.getTimeSpan).foreach(timeSpan => {
         Option(timeSpan.getStartDate).map(_.toLocalDate)
-          .foreach(resv.setStartDate)
+          .foreach(resv.startDate)
 
         Option(timeSpan.getEndDate).map(_.toLocalDate)
-          .foreach(resv.setEndDate)
+          .foreach(resv.endDate)
       })
 
-      roomStay.getRatePlans.headOption.map(convertRatePlan).foreach(resv.setRoomRatePlan)
+      roomStay.getRatePlans.headOption.map(convertRatePlan).foreach(resv.roomRatePlan)
 
-      resv.setRoomRates(roomStay.getRoomRates.flatMap(_.getRates.asScala).map(convertRate))
+      resv.roomRates(roomStay.getRoomRates.flatMap(_.getRates.asScala).map(convertRate))
 
       roomStay.getRoomTypes.headOption.foreach(roomType => {
-        resv.setRoom(convertRoomType(roomType))
+        resv.room(convertRoomType(roomType))
 
-        resv.setAdditionalReservedRoomCount(
+        resv.additionalReservedRoomCount(
           Option(roomType.getNumberOfUnits)
             .map(_ - 1) // Do not count the first room towards the additional count
             .map(Int.box) // Convert to java Integer
@@ -117,24 +117,24 @@ class ReservationConverter {
       })
 
       Option(roomStay.getCurrentBalance).map(convertAmount)
-        .foreach(resv.setCurrentBalance)
+        .foreach(resv.currentBalance)
 
       Option(roomStay.getTotal).map(convertAmount)
-        .foreach(resv.setTotalCost)
+        .foreach(resv.totalCost)
 
       Option(roomStay.getMemberAwardInfo).flatMap(info => Option(info.getMembershipID)).map(_.toString)
-        .foreach(resv.setMembershipId)
+        .foreach(resv.membershipId)
 
-      resv.setComments(roomStay.getComments.map(comment =>
+      resv.comments(roomStay.getComments.map(comment =>
         new Comment(ParagraphHelper.getFirstString(comment).orNull,
           comment.isGuestViewable)
       ))
     })
 
-    resv.setHasRoomPreferences(from.isRoomPreferenceExists)
-    resv.setHasSpecialRequests(from.isSpecialsExists)
+    resv.hasRoomPreferences(from.isRoomPreferenceExists)
+    resv.hasSpecialRequests(from.isSpecialsExists)
 
-    resv.createReservation()
+    resv.build
   }
 
   private def convertCustomerProfile(profile: Profile) = {
@@ -178,10 +178,10 @@ class ReservationConverter {
   private def convertProfiles(resGuest: ResGuest, profileType: CompanyCompanyType) = {
     resGuest.getProfiles.filter(profile => profile.getCompany != null && profile.getCompany.getCompanyType == profileType)
       .map(p => new ProfileReference(
-        IdUtils.findInternalProfileId(p.getProfileIDs).orNull,
-        p.getCompany.getCompanyID,
-        p.getCompany.getCompanyName
-      ))
+      IdUtils.findInternalProfileId(p.getProfileIDs).orNull,
+      p.getCompany.getCompanyID,
+      p.getCompany.getCompanyName
+    ))
   }
 
   private def convertAddress(address: NameAddress): StreetAddress = {
@@ -288,9 +288,9 @@ class ReservationConverter {
     val counts = Option(roomStay.getGuestCounts).toSeq
       .flatMap(_.getGuestCounts.asScala)
       .collect({
-        case guestCount: GuestCount if ageCodes.contains(guestCount.getAgeQualifyingCode) =>
-          Option(guestCount.getCount).map(_.toInt).getOrElse(0)
-        })
+      case guestCount: GuestCount if ageCodes.contains(guestCount.getAgeQualifyingCode) =>
+        Option(guestCount.getCount).map(_.toInt).getOrElse(0)
+    })
 
     // Sum them
     counts.sum

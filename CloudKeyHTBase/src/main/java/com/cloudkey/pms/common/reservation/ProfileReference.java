@@ -1,5 +1,7 @@
 package com.cloudkey.pms.common.reservation;
 
+import lombok.Value;
+
 import javax.annotation.Nullable;
 
 /**
@@ -7,11 +9,12 @@ import javax.annotation.Nullable;
  *
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
+@Value
 public class ProfileReference {
 	/**
 	 * The identifier of the profile in the PMS system
 	 */
-    private String profileId;
+    String profileId;
 
 	/**
 	 * An additional identifier that is sometimes used in conjunction with the profile id.
@@ -20,29 +23,8 @@ public class ProfileReference {
 	 * but they may also have another ID which somehow identifies the company.
 	 */
 	@Nullable
-	private String otherId;
+	String otherId;
 
 	@Nullable
-    private String name;
-
-	public ProfileReference(String profileId, @Nullable String otherId, @Nullable String name) {
-		this.profileId = profileId;
-		this.otherId = otherId;
-		this.name = name;
-	}
-
-	public String getProfileId() {
-		return profileId;
-	}
-
-	@Nullable
-	public String getOtherId() {
-		return otherId;
-	}
-
-	@Nullable
-	public String getName() {
-        return name;
-    }
-
+    String name;
 }

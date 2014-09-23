@@ -3,7 +3,6 @@ package com.micros.pms.processors.rooms;
 import com.cloudkey.pms.common.payment.MonetaryAmount;
 import com.cloudkey.pms.common.room.RoomFeature;
 import com.cloudkey.pms.common.room.RoomSetupInfo;
-import com.cloudkey.pms.common.room.RoomSetupInfoBuilder;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.RoomSetup;
@@ -75,21 +74,21 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 			@Nullable
 			@Override
 			public RoomSetupInfo apply(RoomSetup roomSetup) {
-				RoomSetupInfoBuilder res = new RoomSetupInfoBuilder()
-					.setRoomNumber(roomSetup.getRoomNumber())
-					.setShortDescription(ParagraphHelper.getFirstString(roomSetup.getRoomShortDescription()).orNull())
-					.setDescription(ParagraphHelper.getFirstString(roomSetup.getRoomDescription()).orNull())
-					.setIsSmokingAllowed(MicrosIds.OWS.SmokingPreference.parseString(roomSetup.getSmokingPreference()))
-					.setMaxOccupancy(roomSetup.getMaximumOccupancy())
-					.setPhoneNumber(roomSetup.getPhoneNumber())
-					.setRackRate(roomSetup.getRackRate() == null
+				RoomSetupInfo.RoomSetupInfoBuilder res = RoomSetupInfo.builder()
+					.roomNumber(roomSetup.getRoomNumber())
+					.shortDescription(ParagraphHelper.getFirstString(roomSetup.getRoomShortDescription()).orNull())
+					.description(ParagraphHelper.getFirstString(roomSetup.getRoomDescription()).orNull())
+					.isSmokingAllowed(MicrosIds.OWS.SmokingPreference.parseString(roomSetup.getSmokingPreference()))
+					.maxOccupancy(roomSetup.getMaximumOccupancy())
+					.phoneNumber(roomSetup.getPhoneNumber())
+					.rackRate(roomSetup.getRackRate() == null
 							? null
 							: new MonetaryAmount(roomSetup.getRackRate(), defaultCurrency)
 					)
-					.setRoomTypeCode(roomSetup.getRoomType())
-					.setSuiteType(MicrosIds.OWS.SuiteType.parseString(roomSetup.getSuiteType()))
-					.setHouseKeepingSectionCode(roomSetup.getHouseKeepingSectionCode())
-					.setRateCode(roomSetup.getRateCode());
+					.roomTypeCode(roomSetup.getRoomType())
+					.suiteType(MicrosIds.OWS.SuiteType.parseString(roomSetup.getSuiteType()))
+					.houseKeepingSectionCode(roomSetup.getHouseKeepingSectionCode())
+					.rateCode(roomSetup.getRateCode());
 
 				// Some fields are populated from roomStatus
 				RoomStatus roomStatusInfo = Strings.isNullOrEmpty(roomSetup.getRoomNumber())
@@ -100,20 +99,22 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 				// so there is no problem with this.
 				if (roomStatusInfo != null) {
 					List<RoomFeature> roomFeatures = Lists.transform(roomStatusInfo.getFeatures(), new Function<com.cloudkey.pms.micros.og.hotelcommon.RoomFeature, RoomFeature>() {
-							@Nullable
-							@Override
-							public RoomFeature apply(com.cloudkey.pms.micros.og.hotelcommon.RoomFeature roomFeature) {
-								return new RoomFeature(roomFeature.getFeature(), roomFeature.getDescription());
-							}
-						});
+						@Nullable
+						@Override
+						public RoomFeature apply(com.cloudkey.pms.micros.og.hotelcommon.RoomFeature roomFeature) {
+							return new RoomFeature(roomFeature.getFeature(), roomFeature.getDescription());
+						}
+					});
 
-						res
-							.setFloor(roomStatusInfo.getFloor())
-							.setRoomClassCode(roomStatusInfo.getRoomClass())
-							.setRoomFeatures(roomFeatures);
+					res
+						.floor(roomStatusInfo.getFloor())
+						.roomClassCode(roomStatusInfo.getRoomClass())
+						.roomFeatures(roomFeatures);
+				} else {
+					res.roomFeatures(Collections.<RoomFeature>emptyList());
 				}
 
-				return res.createRoomSetupInfo();
+				return res.build();
 			}
 		}));
 	}

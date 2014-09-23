@@ -1,7 +1,7 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
+import lombok.Value;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -11,31 +11,30 @@ import javax.validation.constraints.AssertTrue;
  *
  * @author vinayk2
  */
+@Value
 public class SearchReservationRequest extends PMSRequest {
 
-    private String pmsReservationId;
+    String pmsReservationId;
 
-    private String confirmationNumber;
+    String confirmationNumber;
 
-//	private Integer legNumber;
+//	Integer legNumber;
 
-    private String firstName;
+    String firstName;
 
-    private String lastName;
+    String lastName;
 
-    private String creditCardNumber;
+    String creditCardNumber;
 
-	private String membershipNumber;
+	String membershipNumber;
 
-	private String membershipType;
+	String membershipType;
 
-	private String extReferenceNumber;
+	String extReferenceNumber;
 
-	private Integer extRefLegNumber;
+	Integer extRefLegNumber;
 
-	private String extReferenceType;
-
-	protected SearchReservationRequest() { /* For serialization */ }
+	String extReferenceType;
 
 	public SearchReservationRequest(String pmsReservationId, String confirmationNumber, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String extReferenceNumber, Integer extRefLegNumber, String extReferenceType) {
 		this.pmsReservationId = pmsReservationId;
@@ -54,62 +53,6 @@ public class SearchReservationRequest extends PMSRequest {
 	@AssertTrue(message = "Has both first and last name if either is specified")
 	private boolean hasBothOrNeitherNames() {
 		return firstName == null ? lastName == null : lastName != null;
-	}
-
-	@Override
-	public String toString() {
-		return "SearchReservationRequest{" +
-			"pmsReservationId='" + pmsReservationId + '\'' +
-			", confirmationNumber='" + confirmationNumber + '\'' +
-			", firstName='" + firstName + '\'' +
-			", lastName='" + lastName + '\'' +
-			", creditCardNumber='" + creditCardNumber + '\'' +
-			", membershipNumber='" + membershipNumber + '\'' +
-			", membershipType='" + membershipType + '\'' +
-			", extReferenceNumber='" + extReferenceNumber + '\'' +
-			", extRefLegNumber=" + extRefLegNumber +
-			", extReferenceType='" + extReferenceType + '\'' +
-			'}';
-	}
-
-	public String getPmsReservationId() {
-        return pmsReservationId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getCreditCardNumber() {
-        return creditCardNumber;
-    }
-
-	public String getMembershipNumber() {
-		return membershipNumber;
-	}
-
-	public String getMembershipType() {
-		return membershipType;
-	}
-
-	public Integer getExtRefLegNumber() {
-		return extRefLegNumber;
-	}
-
-	public String getExtReferenceNumber() {
-		return extReferenceNumber;
-	}
-
-	public String getExtReferenceType() {
-		return extReferenceType;
-	}
-
-	public String getConfirmationNumber() {
-		return confirmationNumber;
 	}
 
 }

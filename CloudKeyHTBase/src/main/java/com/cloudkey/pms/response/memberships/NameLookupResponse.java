@@ -1,29 +1,14 @@
 package com.cloudkey.pms.response.memberships;
 
 import com.cloudkey.pms.response.PMSResponse;
-import com.google.common.base.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
 /*
  * This class hold information of name id.
  */
+@EqualsAndHashCode(callSuper = false)
+@Value
 public class NameLookupResponse extends PMSResponse {
-
-    private String nameId;
-
-
-    public String getNameId() {
-
-        return nameId;
-    }
-    public void setNameId(String nameId) {
-
-        this.nameId = nameId;
-    }
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("nameId", nameId)
-			.toString();
-	}
+    String nameId;
 }

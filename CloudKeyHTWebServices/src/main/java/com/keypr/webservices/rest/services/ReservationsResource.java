@@ -1,12 +1,12 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.reservations.*;
-import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
+import com.cloudkey.pms.request.reservations.AssignRoomRequest;
+import com.cloudkey.pms.request.reservations.ReleaseRoomRequest;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.reservations.*;
-import com.cloudkey.pms.response.rooms.AssignRoomResponse;
-import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
+import com.cloudkey.pms.response.reservations.AssignRoomResponse;
+import com.cloudkey.pms.response.reservations.ReleaseRoomResponse;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;

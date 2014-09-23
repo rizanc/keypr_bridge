@@ -2,6 +2,10 @@ package com.cloudkey.exceptions;
 
 import com.cloudkey.pms.response.SOAPMessages;
 import com.keypr.bridge.ids.BridgeIds;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import lombok.experimental.Wither;
 
 /**
  * Exception which implementations of {@link com.cloudkey.message.parser.PMSInterface} may throw
@@ -11,13 +15,18 @@ import com.keypr.bridge.ids.BridgeIds;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(callSuper = true)
+@ToString
 public class PMSError extends RuntimeException {
-	private final String errorCode;
+	final String errorCode;
 
-	private SOAPMessages soapMessages = null;
+	@Setter
+	SOAPMessages soapMessages;
 
-	public PMSError(BridgeIds.PMSErrorMessage message) {
-		this(message.getMessage(), message.name(), null);
+	public static PMSError forMessage(BridgeIds.PMSErrorMessage message) {
+		return new PMSError(message.getMessage(), message.name(), null);
 	}
 
 	public PMSError(String message, String errorCode, SOAPMessages soapMessages) {
@@ -26,27 +35,4 @@ public class PMSError extends RuntimeException {
 		this.soapMessages = soapMessages;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
-	}
-
-	public SOAPMessages getSoapMessages() {
-		return soapMessages;
-	}
-
-	public void setSoapMessages(SOAPMessages soapMessages) {
-		if (this.soapMessages != null) {
-			throw new IllegalStateException("soapMessages already set");
-		}
-
-		this.soapMessages = soapMessages;
-	}
-
-	@Override
-	public String toString() {
-		return "PMSError{" +
-			"errorCode='" + errorCode + '\'' +
-			", soapMessages=" + soapMessages +
-			'}';
-	}
 }

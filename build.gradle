@@ -25,6 +25,7 @@ subprojects {
         mavenCentral()
     }
 
+
     idea {
         module {
             sourceDirs << "$projectDir/src/resources"
@@ -32,6 +33,10 @@ subprojects {
     }
 
     apply from: "$rootDir/dependencies.gradle", to: dependencies
+
+    dependencies {
+        compile lombok
+    }
 
     // javax.servlet is provided by org.eclipse.jetty.orbit:javax.servlet, which dropwizard includes
     // Axis2 tries to use javax.servlet-api, which has classes on the same path, resulting in

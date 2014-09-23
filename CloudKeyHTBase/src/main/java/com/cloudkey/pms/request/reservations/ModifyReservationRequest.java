@@ -1,11 +1,10 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
-import com.wordnik.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
@@ -17,39 +16,37 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class ModifyReservationRequest extends PMSRequest {
+@EqualsAndHashCode(callSuper = true)
+@Value
+public class ModifyReservationRequest extends AbstractSingleReservationRequest {
 
-	@NotEmpty
-	@ApiModelProperty(required = true)
-	private String pmsReservationId;
+	LocalDate arrivalDate;
 
-	private LocalDate arrivalDate;
+	LocalDate departureDate;
 
-	private LocalDate departureDate;
+	String firstName;
 
-	private String firstName;
+	String lastName;
 
-	private String lastName;
+	Integer numAdults;
 
-	private Integer numAdults;
+	Integer numChildren;
 
-	private Integer numChildren;
+	String ratePlanCode;
 
-	private String ratePlanCode;
+	String roomTypeCode;
 
-	private String roomTypeCode;
+	LocalDate expirationDate;
 
-	private LocalDate expirationDate;
+	String cardType;
 
-	private String cardType;
+	String cardHolderName;
 
-	private String cardHolderName;
+	String creditCardNumber;
 
-	private String creditCardNumber;
-
-	protected ModifyReservationRequest() { /* For serialization */ }
 
 	public ModifyReservationRequest(LocalDate arrivalDate, LocalDate departureDate, String firstName, String lastName, Integer numAdults, Integer numChildren, String ratePlanCode, String roomTypeCode, String pmsReservationId, String externalReferenceNumber, String externalReferenceType, LocalDate expirationDate, String cardType, String cardHolderName, String creditCardNumber) {
+		super(pmsReservationId);
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
 		this.firstName = firstName;
@@ -58,7 +55,6 @@ public class ModifyReservationRequest extends PMSRequest {
 		this.numChildren = numChildren;
 		this.ratePlanCode = ratePlanCode;
 		this.roomTypeCode = roomTypeCode;
-		this.pmsReservationId = pmsReservationId;
 		this.expirationDate = expirationDate;
 		this.cardType = cardType;
 		this.cardHolderName = cardHolderName;
@@ -86,81 +82,6 @@ public class ModifyReservationRequest extends PMSRequest {
 			Arrays.<Object>asList(expirationDate, creditCardNumber, cardType, cardHolderName);
 
 		return Iterables.all(details, Predicates.notNull());
-	}
-
-	public String getPmsReservationId() {
-		return pmsReservationId;
-	}
-
-	public void setPmsReservationId(String pmsReservationId) {
-		this.pmsReservationId = pmsReservationId;
-	}
-
-	public String getRatePlanCode() {
-		return ratePlanCode;
-	}
-
-	public String getRoomTypeCode() {
-		return roomTypeCode;
-	}
-
-	public Integer getNumAdults() {
-		return numAdults;
-	}
-
-	public Integer getNumChildren() {
-		return numChildren;
-	}
-
-	public LocalDate getArrivalDate() {
-		return arrivalDate;
-	}
-
-	public LocalDate getDepartureDate() {
-		return departureDate;
-	}
-
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
-
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-
-	public String getCardType() {
-		return cardType;
-	}
-
-	public String getCardHolderName() {
-		return cardHolderName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	@Override
-	public String toString() {
-		return "ModifyReservationRequest{" +
-			"pmsReservationId='" + pmsReservationId + '\'' +
-			", arrivalDate=" + arrivalDate +
-			", departureDate=" + departureDate +
-			", firstName='" + firstName + '\'' +
-			", lastName='" + lastName + '\'' +
-			", numAdults=" + numAdults +
-			", numChildren=" + numChildren +
-			", ratePlanCode='" + ratePlanCode + '\'' +
-			", roomTypeCode='" + roomTypeCode + '\'' +
-			", expirationDate=" + expirationDate +
-			", cardType='" + cardType + '\'' +
-			", cardHolderName='" + cardHolderName + '\'' +
-			", creditCardNumber='" + creditCardNumber + '\'' +
-			'}';
 	}
 
 	private static final Predicate<Object> nonEmpty = new Predicate<Object>() {

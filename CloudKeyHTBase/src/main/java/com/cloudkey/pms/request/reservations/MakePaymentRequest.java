@@ -2,11 +2,11 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.common.payment.CreditCardApproval;
 import com.cloudkey.pms.common.payment.CreditCardInfo;
-import com.google.common.base.Objects;
-import com.keypr.bridge.ids.PmsReservationId;
 import com.keypr.bridge.ids.StationId;
 import com.keypr.bridge.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class MakePaymentRequest extends AbstractSingleReservationRequest {
 
     /**
@@ -24,56 +26,54 @@ public class MakePaymentRequest extends AbstractSingleReservationRequest {
      */
     @NotNull
     @ApiModelProperty(required = true)
-    private Double chargeAmount;
+    Double chargeAmount;
 
     /**
      * A reference to the credit card used to make the payment
      */
     @NotNull
     @ApiModelProperty(required = true)
-    private CreditCardInfo creditCardInfo;
+    CreditCardInfo creditCardInfo;
 
     /**
      * The credit card transaction approval details, if the payment has already cleared approval
      */
-    private CreditCardApproval creditCardApproval;
+    CreditCardApproval creditCardApproval;
 
     /**
      * The time and date of the payment posting
      */
-    private DateTime postDateTime;
+    DateTime postDateTime;
 
     /**
      * A short description of the payment reason (COKE, ROOM, etc)
      */
-    private String shortInfo;
+    String shortInfo;
 
     /**
      * An extended description of the payment reason (Drink purchase at bar)
      */
-    private String longInfo;
+    String longInfo;
 
     /**
      * Reference information for the payment
      */
-    private String reference;
+    String reference;
 
     /**
      * The station at which payment occurred (i.e. KIOSK1)
      */
-    private StationId stationId;
+    StationId stationId;
 
     /**
      * The agent who processed the payment (SUPERVISOR)
      */
-    private UserId userId;
+    UserId userId;
 
     /**
      * The number of the folio view to make the payment on
      */
-    private Integer folioViewNo;
-
-	protected MakePaymentRequest() { /* For serialization */ }
+    Integer folioViewNo;
 
 	public MakePaymentRequest(String pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, DateTime postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
 		super(pmsReservationId);
@@ -89,59 +89,4 @@ public class MakePaymentRequest extends AbstractSingleReservationRequest {
 		this.folioViewNo = folioViewNo;
 	}
 
-    public Double getChargeAmount() {
-        return chargeAmount;
-    }
-
-    public CreditCardInfo getCreditCardInfo() {
-        return creditCardInfo;
-    }
-
-    public CreditCardApproval getCreditCardApproval() {
-        return creditCardApproval;
-    }
-
-	public DateTime getPostDateTime() {
-		return postDateTime;
-	}
-
-	public String getShortInfo() {
-        return shortInfo;
-    }
-
-    public String getLongInfo() {
-        return longInfo;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public StationId getStationId() {
-        return stationId;
-    }
-
-    public UserId getUserId() {
-        return userId;
-    }
-
-    public Integer getFolioViewNo() {
-        return folioViewNo;
-    }
-
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("chargeAmount", chargeAmount)
-                .add("creditCardInfo", creditCardInfo)
-                .add("creditCardApproval", creditCardApproval)
-                .add("postDateTime", postDateTime)
-                .add("shortInfo", shortInfo)
-                .add("longInfo", longInfo)
-                .add("reference", reference)
-                .add("stationId", stationId)
-                .add("userId", userId)
-                .add("folioViewNo", folioViewNo)
-                .toString();
-    }
 }

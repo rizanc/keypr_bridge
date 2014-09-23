@@ -1,7 +1,8 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.LocalDate;
 
@@ -14,22 +15,22 @@ import javax.validation.constraints.NotNull;
  *
  * @author vinayk2
  */
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class CheckInRequest extends AbstractSingleReservationRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String creditCardNumber;
+	String creditCardNumber;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private LocalDate expirationDate;
+	LocalDate expirationDate;
+
+	String cardHolderName;
 
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String cardType;
-
-	private String cardHolderName;
-
-	protected CheckInRequest() { /* For serialization */ }
+	String cardType;
 
 	public CheckInRequest(String pmsReservationId, String creditCardNumber, LocalDate expirationDate, String cardHolderName, String cardType) {
 		super(pmsReservationId);
@@ -39,29 +40,4 @@ public class CheckInRequest extends AbstractSingleReservationRequest {
 		this.cardType = cardType;
 	}
 
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
-
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-
-	public String getCardHolderName() {
-		return cardHolderName;
-	}
-
-	public String getCardType() {
-		return cardType;
-	}
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("creditCardNumber", creditCardNumber)
-			.add("expirationDate", expirationDate)
-			.add("cardHolderName", cardHolderName)
-			.add("cardType", cardType)
-			.toString();
-	}
 }

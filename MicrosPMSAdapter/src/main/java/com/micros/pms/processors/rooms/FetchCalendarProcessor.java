@@ -1,4 +1,4 @@
-package com.micros.pms.processors.roomassignments;
+package com.micros.pms.processors.rooms;
 
 import com.cloudkey.commons.DayRoomAvailability;
 import com.cloudkey.commons.RoomTypeAvailability;

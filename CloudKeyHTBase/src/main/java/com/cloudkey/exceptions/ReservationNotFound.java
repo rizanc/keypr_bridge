@@ -1,5 +1,6 @@
 package com.cloudkey.exceptions;
 
+import lombok.EqualsAndHashCode;
 import org.eclipse.jetty.server.Response;
 
 import javax.ws.rs.WebApplicationException;

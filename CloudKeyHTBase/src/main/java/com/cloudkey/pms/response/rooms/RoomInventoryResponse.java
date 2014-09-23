@@ -2,8 +2,8 @@ package com.cloudkey.pms.response.rooms;
 
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.response.PMSResponse;
-import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
 /**
  * This class stores the room inventory details. The information includes
@@ -12,22 +12,8 @@ import com.google.common.collect.ImmutableList;
  * @author vinayk2
  *
  */
+@EqualsAndHashCode(callSuper = false)
+@Value
 public class RoomInventoryResponse extends PMSResponse {
-
-    private RoomDetails roomDetailList;
-
-	public RoomInventoryResponse(RoomDetails roomDetailList) {
-		this.roomDetailList = roomDetailList;
-	}
-
-	public RoomDetails getRoomDetailList() {
-		return roomDetailList;
-	}
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("roomDetailList", roomDetailList)
-			.toString();
-	}
+    RoomDetails roomDetailList;
 }

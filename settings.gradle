@@ -3,7 +3,7 @@ rootProject.name = 'keypr_bridge'
 include 'CloudKeyHTBase'
 include 'CloudKeyHTDatabase'
 include 'CloudKeyHTIds'
-include 'CloudKeyHTUploadService'
+//include 'CloudKeyHTUploadService'
 include 'CloudKeyHTWebServices'
 include 'CloudKeyHTIds'
 include 'CloudKeyJaxbSupport'
@@ -28,8 +28,6 @@ include 'MicrosIds'
 include 'CloudKeyHTMessages'
 include 'KeyprScala'
 include 'KeyprJacksonSupport'
-
 //include 'CloudKeyHTJsonSchemaGenerator'
-
 include 'KeyprDropwizardSwagger'
 
