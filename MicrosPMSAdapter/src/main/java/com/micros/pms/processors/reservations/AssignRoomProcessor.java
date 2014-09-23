@@ -1,12 +1,12 @@
-package com.micros.pms.processors.roomassignments;
+package com.micros.pms.processors.reservations;
 
 import com.cloudkey.exceptions.PMSError;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.GDSResultStatus;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
-import com.cloudkey.pms.request.rooms.AssignRoomRequest;
-import com.cloudkey.pms.response.rooms.AssignRoomResponse;
+import com.cloudkey.pms.request.reservations.AssignRoomRequest;
+import com.cloudkey.pms.response.reservations.AssignRoomResponse;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.keypr.bridge.ids.BridgeIds;
@@ -63,7 +63,7 @@ public class AssignRoomProcessor extends OWSProcessor<
 		if (result instanceof GDSResultStatus
 				&& ((GDSResultStatus) result).getGDSError() != null
 				&& Objects.equals(((GDSResultStatus) result).getGDSError().getErrorCode(), "-220")) {
-			throw new PMSError(BridgeIds.PMSErrorMessage.NO_ROOM_AVAILABLE);
+			throw PMSError.forMessage(BridgeIds.PMSErrorMessage.NO_ROOM_AVAILABLE);
 		}
 
 		return null;

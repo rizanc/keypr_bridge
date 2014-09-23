@@ -17,7 +17,7 @@ public class AbstractSingleReservationRequest extends PMSRequest {
 	@NonFinal
 	@NotBlank
 	@ApiModelProperty(required = true)
-	protected String pmsReservationId;
+	String pmsReservationId;
 
 	public AbstractSingleReservationRequest(String pmsReservationId) {
 		this.pmsReservationId = pmsReservationId;

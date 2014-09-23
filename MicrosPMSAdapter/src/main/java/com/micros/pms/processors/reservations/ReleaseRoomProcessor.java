@@ -1,10 +1,10 @@
-package com.micros.pms.processors.roomassignments;
+package com.micros.pms.processors.reservations;
 
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.services.ReservationServiceSoap;
-import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
-import com.cloudkey.pms.response.rooms.ReleaseRoomResponse;
+import com.cloudkey.pms.request.reservations.ReleaseRoomRequest;
+import com.cloudkey.pms.response.reservations.ReleaseRoomResponse;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;

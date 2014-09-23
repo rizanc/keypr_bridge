@@ -7,7 +7,6 @@ import lombok.Value;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.AssertFalse;
-import javax.validation.constraints.AssertTrue;
 
 /**
  * Request for finding room statuses by either roomNumber XOR (room type, room class or floor number)
@@ -18,15 +17,10 @@ import javax.validation.constraints.AssertTrue;
 public class GetRoomSetupRequest extends PMSRequest {
 
 	@Nullable
-	private String roomNumber;
+	String roomNumber;
 
 	@Nullable
-	private String roomTypeCode;
-
-	public GetRoomSetupRequest(@Nullable String roomNumber, @Nullable String roomTypeCode) {
-		this.roomNumber = roomNumber;
-		this.roomTypeCode = roomTypeCode;
-	}
+	String roomTypeCode;
 
 	@AssertFalse(message = "Room number and type are not both specified")
 	private boolean roomNumberXorOthersSpecified() {

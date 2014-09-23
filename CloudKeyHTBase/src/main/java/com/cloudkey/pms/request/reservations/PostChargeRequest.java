@@ -23,19 +23,19 @@ public class PostChargeRequest extends AbstractSingleReservationRequest {
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String itemCode;
+	String itemCode;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String accountCode;
+	String accountCode;
 
-	private DateTime postDateTime;
+	DateTime postDateTime;
 
-	private String shortInfo;
+	String shortInfo;
 
-	private String longInfo;
+	String longInfo;
 
-	private Integer folioViewNo;
+	Integer folioViewNo;
 
 	public PostChargeRequest(String pmsReservationId, BigDecimal chargeAmount, String itemCode, String accountCode, DateTime postDateTime, String shortInfo, String longInfo, Integer folioViewNo) {
 		super(pmsReservationId);

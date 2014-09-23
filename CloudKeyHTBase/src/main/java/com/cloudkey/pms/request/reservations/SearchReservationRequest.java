@@ -1,8 +1,6 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
-import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 import javax.validation.constraints.AssertTrue;
@@ -16,27 +14,27 @@ import javax.validation.constraints.AssertTrue;
 @Value
 public class SearchReservationRequest extends PMSRequest {
 
-    private String pmsReservationId;
+    String pmsReservationId;
 
-    private String confirmationNumber;
+    String confirmationNumber;
 
-//	private Integer legNumber;
+//	Integer legNumber;
 
-    private String firstName;
+    String firstName;
 
-    private String lastName;
+    String lastName;
 
-    private String creditCardNumber;
+    String creditCardNumber;
 
-	private String membershipNumber;
+	String membershipNumber;
 
-	private String membershipType;
+	String membershipType;
 
-	private String extReferenceNumber;
+	String extReferenceNumber;
 
-	private Integer extRefLegNumber;
+	Integer extRefLegNumber;
 
-	private String extReferenceType;
+	String extReferenceType;
 
 	public SearchReservationRequest(String pmsReservationId, String confirmationNumber, String firstName, String lastName, String creditCardNumber, String membershipNumber, String membershipType, String extReferenceNumber, Integer extRefLegNumber, String extReferenceType) {
 		this.pmsReservationId = pmsReservationId;

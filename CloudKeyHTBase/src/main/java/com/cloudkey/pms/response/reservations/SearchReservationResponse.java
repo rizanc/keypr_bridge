@@ -1,11 +1,11 @@
 package com.cloudkey.pms.response.reservations;
 
-import java.util.List;
-
 import com.cloudkey.pms.common.reservation.Reservation;
 import com.cloudkey.pms.response.PMSResponse;
-import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
+
+import java.util.List;
 
 /**
  * This class has carry response of search reservation request made by the client. It has
@@ -14,25 +14,11 @@ import com.google.common.collect.ImmutableList;
  * @author vinayk2
  *
  */
+@EqualsAndHashCode(callSuper = false)
+@Value
 public class SearchReservationResponse extends PMSResponse {
 
     /* Reference variable to store the reservation data list. */
-    private List<Reservation> reservationList;
+    List<Reservation> reservationList;
 
-	protected SearchReservationResponse() { /* For Serialization */ }
-
-	public SearchReservationResponse(List<Reservation> reservationList) {
-		this.reservationList = ImmutableList.copyOf(reservationList);
-	}
-
-	public List<Reservation> getReservationList() {
-		return reservationList;
-	}
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("reservationList", reservationList)
-			.toString();
-	}
 }

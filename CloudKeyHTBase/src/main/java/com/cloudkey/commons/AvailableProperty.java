@@ -11,7 +11,6 @@ import java.util.List;
  */
 @Value
 public class AvailableProperty {
-	
 	String hotel;
 	String city;
 	String postal;

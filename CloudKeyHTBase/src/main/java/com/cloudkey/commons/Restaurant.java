@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Value
 public class Restaurant {
-
 	/* reference variable to store restaurants details */
 	String name;
 	String description;

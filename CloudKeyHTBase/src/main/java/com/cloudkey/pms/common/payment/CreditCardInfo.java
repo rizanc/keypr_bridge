@@ -1,6 +1,6 @@
 package com.cloudkey.pms.common.payment;
 
-import com.google.common.base.Objects;
+import lombok.Value;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
@@ -10,85 +10,35 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@Value
 public class CreditCardInfo {
     @NotNull
-    private String cardHolderName;
+    String cardHolderName;
 
     @NotNull
-    private CardNumberReference cardNumberReference;
+    CardNumberReference cardNumberReference;
 
     /**
      * Abbreviation for credit card brand (i.e AX for American Express)
      */
     @NotNull
-    private String cardType;
+    String cardType;
 
     @NotNull
-    private LocalDate expirationDate;
+    LocalDate expirationDate;
 
-    private LocalDate effectiveDate;
+    LocalDate effectiveDate;
 
-    private String cardCode;
+    String cardCode;
 
-    private String seriesCode;
+    String seriesCode;
 
-    private String otherCardType;
+    String otherCardType;
 
     /**
      * Whether the card is a EMV smart card.
      *
      * Not common in the USA as of 2014.
      */
-    private boolean isChipAndPin = false;
-
-    public String getCardHolderName() {
-        return cardHolderName;
-    }
-
-    public CardNumberReference getCardNumberReference() {
-        return cardNumberReference;
-    }
-
-    public String getCardType() {
-        return cardType;
-    }
-
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-
-	public LocalDate getEffectiveDate() {
-		return effectiveDate;
-	}
-
-	public String getCardCode() {
-        return cardCode;
-    }
-
-    public String getSeriesCode() {
-        return seriesCode;
-    }
-
-    public String getOtherCardType() {
-        return otherCardType;
-    }
-
-    public boolean isChipAndPin() {
-        return isChipAndPin;
-    }
-
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("cardHolderName", cardHolderName)
-			.add("cardNumberReference", cardNumberReference)
-			.add("cardType", cardType)
-			.add("expirationDate", expirationDate)
-			.add("effectiveDate", effectiveDate)
-			.add("cardCode", cardCode)
-			.add("seriesCode", seriesCode)
-			.add("otherCardType", otherCardType)
-			.add("isChipAndPin", isChipAndPin)
-			.toString();
-	}
+    boolean isChipAndPin = false;
 }

@@ -19,30 +19,30 @@ public class FetchCalendarRequest extends PMSRequest {
 
     @NotNull
     @ApiModelProperty(required = true)
-    private LocalDate startDate;
+    LocalDate startDate;
 
     @NotNull
     @ApiModelProperty(required = true)
-    private LocalDate endDate;
+    LocalDate endDate;
 
 	/**
 	 * If true, only available inventory will be included in the results.
 	 */
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Boolean availableOnly;
+	Boolean availableOnly;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String rateCode;
+	String rateCode;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numAdults;
+	Integer numAdults;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numChildren;
+	Integer numChildren;
 
 	public FetchCalendarRequest(LocalDate startDate, LocalDate endDate, Boolean availableOnly, String rateCode, Integer numAdults, Integer numChildren) {
 		this.startDate = startDate;

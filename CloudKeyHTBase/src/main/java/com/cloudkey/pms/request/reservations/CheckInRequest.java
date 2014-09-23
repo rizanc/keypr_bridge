@@ -1,6 +1,5 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
@@ -21,17 +20,17 @@ import javax.validation.constraints.NotNull;
 public class CheckInRequest extends AbstractSingleReservationRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String creditCardNumber;
+	String creditCardNumber;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private LocalDate expirationDate;
+	LocalDate expirationDate;
 
-	private String cardHolderName;
+	String cardHolderName;
 
 	@NotBlank
 	@ApiModelProperty(required = true)
-	private String cardType;
+	String cardType;
 
 	public CheckInRequest(String pmsReservationId, String creditCardNumber, LocalDate expirationDate, String cardHolderName, String cardType) {
 		super(pmsReservationId);

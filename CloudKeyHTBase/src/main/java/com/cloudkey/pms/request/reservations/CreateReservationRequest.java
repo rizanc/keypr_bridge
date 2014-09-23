@@ -4,7 +4,6 @@ import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
 import lombok.Value;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
@@ -22,43 +21,43 @@ public class CreateReservationRequest extends PMSRequest {
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private LocalDate arrivalDate;
+	LocalDate arrivalDate;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private LocalDate departureDate;
+	LocalDate departureDate;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String firstName;
+	String firstName;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String lastName;
+	String lastName;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numAdults;
+	Integer numAdults;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numChildren;
+	Integer numChildren;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String ratePlanCode;
+	String ratePlanCode;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
-	private String roomTypeCode;
+	String roomTypeCode;
 
-	private LocalDate expirationDate;
+	LocalDate expirationDate;
 
-	private String cardType;
+	String cardType;
 
-	private String cardHolderName;
+	String cardHolderName;
 
-	private String creditCardNumber;
+	String creditCardNumber;
 
 	public CreateReservationRequest(String ratePlanCode, String roomTypeCode, Integer numAdults, Integer numChildren, LocalDate arrivalDate, LocalDate departureDate, String creditCardNumber, LocalDate expirationDate, String cardType, String cardHolderName, String firstName, String lastName, String externalReferenceNumber, String externalReferenceType) {
 		this.ratePlanCode = ratePlanCode;
@@ -89,6 +88,5 @@ public class CreateReservationRequest extends PMSRequest {
 
 		return Iterables.all(details, Predicates.notNull());
 	}
-
 
 }

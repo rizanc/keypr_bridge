@@ -1,6 +1,7 @@
 package com.cloudkey.pms.request.hotels;
 
 import com.cloudkey.pms.request.PMSRequest;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Value;
  *
  * @author chetu
  */
+@EqualsAndHashCode(callSuper = false)
 @Value
 public class HotelInformationRequest extends PMSRequest {
 

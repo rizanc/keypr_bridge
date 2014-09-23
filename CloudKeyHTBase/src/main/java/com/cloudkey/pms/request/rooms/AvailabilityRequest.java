@@ -2,18 +2,14 @@ package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
 import lombok.Value;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class stores the room availability information. 
@@ -25,21 +21,21 @@ public class AvailabilityRequest extends PMSRequest {
 
     @NotNull
     @ApiModelProperty(required = true)
-    private LocalDate startDate;
+    LocalDate startDate;
 
     @NotNull
     @ApiModelProperty(required = true)
-    private LocalDate endDate;
+    LocalDate endDate;
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numAdults;
+	Integer numAdults;
 
-	private String rateCode;
+	String rateCode;
 
-	private String roomTypeCode;
+	String roomTypeCode;
 
-	private List<Integer> childrenAges;
+	List<Integer> childrenAges;
 
 	public AvailabilityRequest(LocalDate startDate, LocalDate endDate, String rateCode, Integer numAdults, String roomTypeCode, List<Integer> childrenAges) {
 		this.startDate = startDate;

@@ -1,5 +1,7 @@
 package com.cloudkey.exceptions;
 
+import lombok.EqualsAndHashCode;
+
 import javax.ws.rs.WebApplicationException;
 
 /**

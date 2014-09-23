@@ -1,4 +1,4 @@
-package com.micros.pms.processors.roomassignments;
+package com.micros.pms.processors.rooms;
 
 import com.cloudkey.pms.micros.og.availability.*;
 import com.cloudkey.pms.micros.og.common.ResultStatus;

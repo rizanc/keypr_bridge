@@ -22,7 +22,7 @@ public class AddReservationNotesRequest extends AbstractSingleReservationRequest
 
     @NotEmpty
     @ApiModelProperty(required = true)
-    private List<String> notes;
+    List<String> notes;
 
 	public AddReservationNotesRequest(String pmsReservationId, List<String> notes) {
 		super(pmsReservationId);

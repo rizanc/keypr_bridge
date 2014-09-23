@@ -1,7 +1,6 @@
 package com.micros.pms.processors.reservations;
 
 import com.cloudkey.commons.Reservation;
-import com.cloudkey.pms.common.reservation.ReservationBuilder;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
@@ -49,8 +48,6 @@ public class CheckOutProcessor extends OWSProcessor<
 
 	@Override
 	protected CheckOutResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckOutResponse microsResponse, CheckOutRequest request) {
-		com.cloudkey.pms.response.reservations.CheckOutResponse response = new com.cloudkey.pms.response.reservations.CheckOutResponse();
-
 		Reservation.ReservationBuilder reservationBuilder = Reservation.builder();
 
 		log.debug("getCheckOutResponseObject: Status Set ");
@@ -73,10 +70,6 @@ public class CheckOutProcessor extends OWSProcessor<
 			reservationBuilder.lastName(objPersonName.getLastName());
 		}
 
-		log.debug("getCheckOutResponseObject: Exit Profile.");
-		response.setReservation(reservationBuilder.build());
-		log.debug("getCheckOutResponseObject: Exit getCheckOutResponseObject method");
-
-		return response;
+		return new CheckOutResponse(reservationBuilder.build());
 	}
 }

@@ -1,7 +1,6 @@
 package com.cloudkey.commons;
 
 import com.cloudkey.pms.common.HotelAmenity;
-import com.google.common.collect.ImmutableList;
 import lombok.Value;
 
 import java.util.List;
@@ -15,18 +14,8 @@ import java.util.List;
  */
 @Value
 public class RoomType {
-
-	//Reference Variables.
 	String code;
 	String description;
 	List<HotelAmenity> amenities;
 	Integer maxOccupancy;
-
-	public RoomType(String code, String description, List<HotelAmenity> amenities, Integer maxOccupancy) {
-		this.code = code;
-		this.description = description;
-		this.amenities = ImmutableList.copyOf(amenities);
-		this.maxOccupancy = maxOccupancy;
-	}
-
 }

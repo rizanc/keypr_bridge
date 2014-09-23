@@ -1,6 +1,7 @@
 package com.cloudkey.pms.common.reservation;
 
 import com.cloudkey.pms.common.payment.MonetaryAmount;
+import lombok.Value;
 import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
@@ -10,33 +11,15 @@ import javax.annotation.Nullable;
  *
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
+@Value
 public class DepositRequirement {
 
 	@Nullable
-    private LocalDate dueDate;
+    LocalDate dueDate;
 
-    private MonetaryAmount depositAmount;
+    MonetaryAmount depositAmount;
 
     @Nullable
-    private MonetaryAmount depositDueAmount;
+    MonetaryAmount depositDueAmount;
 
-	public DepositRequirement(LocalDate dueDate, MonetaryAmount depositAmount, MonetaryAmount depositDueAmount) {
-		this.dueDate = dueDate;
-		this.depositAmount = depositAmount;
-		this.depositDueAmount = depositDueAmount;
-	}
-
-	@Nullable
-	public LocalDate getDueDate() {
-		return dueDate;
-	}
-
-	public MonetaryAmount getDepositAmount() {
-		return depositAmount;
-	}
-
-	@Nullable
-	public MonetaryAmount getDepositDueAmount() {
-		return depositDueAmount;
-	}
 }

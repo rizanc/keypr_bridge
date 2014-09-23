@@ -1,6 +1,5 @@
 package com.cloudkey.commons;
 
-import com.google.common.collect.ImmutableList;
 import lombok.Value;
 
 import java.math.BigDecimal;
@@ -16,10 +15,5 @@ public class ReservationOrder {
 
 	BigDecimal totalAmount;
 	List<OrderDetails> orderDetailList;
-
-	public ReservationOrder(BigDecimal totalAmount, List<OrderDetails> orderDetailList) {
-		this.totalAmount = totalAmount;
-		this.orderDetailList = ImmutableList.copyOf(orderDetailList);
-	}
 
 }

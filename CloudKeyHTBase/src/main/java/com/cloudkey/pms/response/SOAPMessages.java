@@ -1,25 +1,13 @@
 package com.cloudkey.pms.response;
 
+import lombok.Value;
+
 /**
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
+@Value
 public class SOAPMessages {
-	private String soapRequest;
+	String soapRequest;
 
-	private String soapResponse;
-
-	protected SOAPMessages() {}
-
-	public SOAPMessages(String soapRequest, String soapResponse) {
-		this.soapRequest = soapRequest;
-		this.soapResponse = soapResponse;
-	}
-
-	public String getSoapRequest() {
-		return soapRequest;
-	}
-
-	public String getSoapResponse() {
-		return soapResponse;
-	}
+	String soapResponse;
 }

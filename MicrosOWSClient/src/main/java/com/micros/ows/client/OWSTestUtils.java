@@ -4,17 +4,15 @@ import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.request.reservations.*;
-import com.cloudkey.pms.request.rooms.AssignRoomRequest;
+import com.cloudkey.pms.request.reservations.AssignRoomRequest;
 import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
-import com.cloudkey.pms.request.rooms.ReleaseRoomRequest;
+import com.cloudkey.pms.request.reservations.ReleaseRoomRequest;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
-import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.micros.pms.MicrosOWSParser;
 import org.joda.time.LocalDate;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**

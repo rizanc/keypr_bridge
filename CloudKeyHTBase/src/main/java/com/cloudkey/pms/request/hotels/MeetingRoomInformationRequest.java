@@ -1,7 +1,6 @@
 package com.cloudkey.pms.request.hotels;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.google.common.base.Objects;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
@@ -19,6 +18,6 @@ public class MeetingRoomInformationRequest extends PMSRequest {
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Integer numberOfAttendees;
+	Integer numberOfAttendees;
 
 }

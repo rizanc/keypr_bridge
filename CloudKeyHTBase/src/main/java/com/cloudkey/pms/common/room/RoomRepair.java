@@ -2,6 +2,7 @@ package com.cloudkey.pms.common.room;
 
 import com.keypr.bridge.ids.BridgeIds.RepairStatus;
 import com.keypr.bridge.ids.BridgeIds.RoomStatus;
+import lombok.Value;
 import org.joda.time.DateTime;
 
 import javax.annotation.Nullable;
@@ -11,81 +12,24 @@ import javax.annotation.Nullable;
  *
  * @author Charlie La Mothe (charlie@concentricsky.com)
  */
+@Value
 public class RoomRepair {
-    private RoomStatus returnStatus;
+    RoomStatus returnStatus;
 
-    private RepairStatus repairStatus;
-
-    @Nullable
-    private DateTime start;
+    RepairStatus repairStatus;
 
     @Nullable
-    private DateTime end;
+    DateTime start;
 
     @Nullable
-    private String repairReason;
+    DateTime end;
 
     @Nullable
-    private String repairType;
+    String repairReason;
 
     @Nullable
-    private String repairRemarks;
+    String repairType;
 
-	protected RoomRepair() { /* For serialization */ }
-
-	public RoomRepair(RoomStatus returnStatus, RepairStatus repairStatus, @Nullable DateTime start, @Nullable DateTime end, @Nullable String repairReason, @Nullable String repairType, @Nullable String repairRemarks) {
-		this.returnStatus = returnStatus;
-		this.repairStatus = repairStatus;
-		this.start = start;
-		this.end = end;
-		this.repairReason = repairReason;
-		this.repairType = repairType;
-		this.repairRemarks = repairRemarks;
-	}
-
-	public RoomStatus getReturnStatus() {
-		return returnStatus;
-	}
-
-	public RepairStatus getRepairStatus() {
-		return repairStatus;
-	}
-
-	@Nullable
-	public DateTime getStart() {
-		return start;
-	}
-
-	@Nullable
-	public DateTime getEnd() {
-		return end;
-	}
-
-	@Nullable
-	public String getRepairReason() {
-		return repairReason;
-	}
-
-	@Nullable
-	public String getRepairType() {
-		return repairType;
-	}
-
-	@Nullable
-	public String getRepairRemarks() {
-		return repairRemarks;
-	}
-
-	@Override
-	public String toString() {
-		return "RoomRepair{" +
-			"returnStatus=" + returnStatus +
-			", repairStatus=" + repairStatus +
-			", start=" + start +
-			", end=" + end +
-			", repairReason='" + repairReason + '\'' +
-			", repairType='" + repairType + '\'' +
-			", repairRemarks='" + repairRemarks + '\'' +
-			'}';
-	}
+    @Nullable
+    String repairRemarks;
 }

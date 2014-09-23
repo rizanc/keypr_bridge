@@ -22,19 +22,19 @@ public class UpdateRoomStatusRequest extends PMSRequest {
 
 	@NonFinal
 	@ApiModelProperty(required = true)
-	private String roomNumber;
+	String roomNumber;
 
 	@Nullable
-	private RoomStatus roomStatus;
+	RoomStatus roomStatus;
 
 	@Nullable
-	private TurnDownStatus turnDownStatus;
+	TurnDownStatus turnDownStatus;
 
 	@Nullable
-	private GuestServiceStatus guestServiceStatus;
+	GuestServiceStatus guestServiceStatus;
 
 	@Nullable
-	private RoomRepair roomRepair;
+	RoomRepair roomRepair;
 
 	public UpdateRoomStatusRequest(String roomNumber, @Nullable RoomStatus roomStatus, @Nullable TurnDownStatus turnDownStatus, @Nullable GuestServiceStatus guestServiceStatus, RoomRepair roomRepair) {
 		this.roomNumber = roomNumber;

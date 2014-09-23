@@ -70,28 +70,29 @@ public class LOVQueryProcessor extends OWSProcessor<
         List<LovQueryResultType> results = microsResponse.getLovQueryResults();
 
         for (LovQueryResultType lovQueryResultType : results) {
-            LOVItem lovItem = new LOVItem();
-            lovItems.add(lovItem);
-
-            lovItem.setQualifierType(lovQueryResultType.getQualifierType());
-            lovItem.setQualifierValue(lovQueryResultType.getQualifierValue());
-            lovItem.setSecondaryQualifierType(lovQueryResultType.getSecondaryQualifierType());
-            lovItem.setSecondaryQualifierValue(lovQueryResultType.getSecondaryQualifierValue());
-            lovItem.setTertiaryQualifierType(lovQueryResultType.getTertiaryQualifierType());
-            lovItem.setTertiaryQualifierValue(lovQueryResultType.getTertiaryQualifierValue());
-            lovItem.setQuaternaryQualifierType(lovQueryResultType.getQuaternaryQualifierType());
-            lovItem.setQuaternaryQualifierValue(lovQueryResultType.getQuaternaryQualifierValue());
-            lovItem.setQuinaryQualifierType(lovQueryResultType.getQuinaryQualifierType());
-            lovItem.setQuinaryQualifierValue(lovQueryResultType.getQuinaryQualifierValue());
-
 			List<LOVValue> lovValues = new ArrayList<>();
 
 			for (LovValueType value : lovQueryResultType.getLovValues()) {
 				lovValues.add(new LOVValue(value.getDescription(), value.getValue()));
-            }
+			}
 
-			lovItem.setLovValues(lovValues);
-        }
+
+			LOVItem.LOVItemBuilder lovItemBuilder = LOVItem.builder();
+
+			lovItemBuilder.lovValues(lovValues);
+            lovItemBuilder.qualifierType(lovQueryResultType.getQualifierType());
+            lovItemBuilder.qualifierValue(lovQueryResultType.getQualifierValue());
+            lovItemBuilder.secondaryQualifierType(lovQueryResultType.getSecondaryQualifierType());
+            lovItemBuilder.secondaryQualifierValue(lovQueryResultType.getSecondaryQualifierValue());
+            lovItemBuilder.tertiaryQualifierType(lovQueryResultType.getTertiaryQualifierType());
+            lovItemBuilder.tertiaryQualifierValue(lovQueryResultType.getTertiaryQualifierValue());
+            lovItemBuilder.quaternaryQualifierType(lovQueryResultType.getQuaternaryQualifierType());
+            lovItemBuilder.quaternaryQualifierValue(lovQueryResultType.getQuaternaryQualifierValue());
+            lovItemBuilder.quinaryQualifierType(lovQueryResultType.getQuinaryQualifierType());
+			lovItemBuilder.quinaryQualifierValue(lovQueryResultType.getQuinaryQualifierValue());
+
+			lovItems.add(lovItemBuilder.build());
+		}
 
         return new LOVResponse(lovItems);
     }

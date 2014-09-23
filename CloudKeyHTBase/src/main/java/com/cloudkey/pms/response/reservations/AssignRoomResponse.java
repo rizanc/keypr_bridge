@@ -5,10 +5,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 /**
- * @author clamothe
+ * This class is used to sote the response status and assign room number .
+ *
+ * @author niveditat
+ *
  */
 @EqualsAndHashCode(callSuper = false)
 @Value
-public class CancelReservationResponse extends PMSResponse {
-	String cancellationNumber;
+public class AssignRoomResponse extends PMSResponse {
+
+    String assignRoomNumber;
+
 }

@@ -1,13 +1,9 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
-import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
 import lombok.Value;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
 
 /**
  * Request for finding a reservation, either by pmsReservationId
@@ -18,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @Value
 public class FindReservationRequest extends PMSRequest {
 
-	private String pmsReservationId;
+	String pmsReservationId;
 
-	private String confirmationNo;
+	String confirmationNo;
 
-	private Integer legNo;
+	Integer legNo;
 
 	public FindReservationRequest(String pmsReservationId) {
 		this(pmsReservationId, null, null);

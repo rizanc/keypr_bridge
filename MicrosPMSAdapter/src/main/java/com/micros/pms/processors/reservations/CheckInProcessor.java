@@ -69,8 +69,6 @@ public class CheckInProcessor extends OWSProcessor<
 
 	@Override
 	protected CheckInResponse toPmsResponse(com.cloudkey.pms.micros.og.reservation.advanced.CheckInResponse microsResponse, CheckInRequest request) {
-		com.cloudkey.pms.response.reservations.CheckInResponse response = new com.cloudkey.pms.response.reservations.CheckInResponse();
-
 		Reservation.ReservationBuilder reservationBuilder = Reservation.builder();
 
 		CheckInComplete objCheckInComplete = microsResponse.getCheckInComplete();
@@ -132,11 +130,6 @@ public class CheckInProcessor extends OWSProcessor<
 			}
 		}
 
-		log.debug("getCheckInResponseObject: Exit Profile.");
-		response.setReservation(reservationBuilder.build());
-
-		log.debug("getCheckInResponseObject: Enter in getCheckInResponseObject method.");
-
-		return response;
+		return new CheckInResponse(reservationBuilder.build());
 	}
 }

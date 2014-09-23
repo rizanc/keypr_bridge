@@ -1,15 +1,10 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
-import com.wordnik.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
-import lombok.Setter;
 import lombok.Value;
-import lombok.experimental.NonFinal;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
@@ -21,40 +16,37 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
+@EqualsAndHashCode(callSuper = true)
 @Value
-public class ModifyReservationRequest extends PMSRequest {
+public class ModifyReservationRequest extends AbstractSingleReservationRequest {
 
-	@Setter
-	@NonFinal
-	@NotEmpty
-	@ApiModelProperty(required = true)
-	private String pmsReservationId;
+	LocalDate arrivalDate;
 
-	private LocalDate arrivalDate;
+	LocalDate departureDate;
 
-	private LocalDate departureDate;
+	String firstName;
 
-	private String firstName;
+	String lastName;
 
-	private String lastName;
+	Integer numAdults;
 
-	private Integer numAdults;
+	Integer numChildren;
 
-	private Integer numChildren;
+	String ratePlanCode;
 
-	private String ratePlanCode;
+	String roomTypeCode;
 
-	private String roomTypeCode;
+	LocalDate expirationDate;
 
-	private LocalDate expirationDate;
+	String cardType;
 
-	private String cardType;
+	String cardHolderName;
 
-	private String cardHolderName;
+	String creditCardNumber;
 
-	private String creditCardNumber;
 
 	public ModifyReservationRequest(LocalDate arrivalDate, LocalDate departureDate, String firstName, String lastName, Integer numAdults, Integer numChildren, String ratePlanCode, String roomTypeCode, String pmsReservationId, String externalReferenceNumber, String externalReferenceType, LocalDate expirationDate, String cardType, String cardHolderName, String creditCardNumber) {
+		super(pmsReservationId);
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
 		this.firstName = firstName;
@@ -63,7 +55,6 @@ public class ModifyReservationRequest extends PMSRequest {
 		this.numChildren = numChildren;
 		this.ratePlanCode = ratePlanCode;
 		this.roomTypeCode = roomTypeCode;
-		this.pmsReservationId = pmsReservationId;
 		this.expirationDate = expirationDate;
 		this.cardType = cardType;
 		this.cardHolderName = cardHolderName;
