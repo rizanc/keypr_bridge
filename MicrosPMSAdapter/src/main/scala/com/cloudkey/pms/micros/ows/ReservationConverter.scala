@@ -24,7 +24,7 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Singleton
 class ReservationConverter {

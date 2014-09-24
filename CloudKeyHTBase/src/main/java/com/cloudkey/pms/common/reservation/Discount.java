@@ -5,7 +5,7 @@ import lombok.Value;
 import lombok.experimental.NonFinal;
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @Value @NonFinal

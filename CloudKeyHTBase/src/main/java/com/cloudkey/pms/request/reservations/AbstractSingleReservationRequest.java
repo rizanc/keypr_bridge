@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * Abstract class for requests which require a pmsReservationId
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 @NonFinal

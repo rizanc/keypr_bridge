@@ -5,7 +5,7 @@ import lombok.Value;
 import javax.annotation.Nullable;
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class Room {

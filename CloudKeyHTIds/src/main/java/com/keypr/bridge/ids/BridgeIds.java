@@ -1,7 +1,7 @@
 package com.keypr.bridge.ids;
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class BridgeIds {
 

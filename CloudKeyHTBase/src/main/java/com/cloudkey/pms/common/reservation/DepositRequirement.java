@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 /**
  * Declaration of a deposit requirement for a reservation room stay
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class DepositRequirement {

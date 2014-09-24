@@ -15,7 +15,7 @@ import javax.validation.constraints.AssertTrue;
 /**
  * Request for updating a room's status, and the turn down service and guest service statuses for the room.
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class UpdateRoomStatusRequest extends PMSRequest {

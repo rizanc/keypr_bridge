@@ -6,7 +6,7 @@ import lombok.ToString;
 /**
  * A successful response which has no body
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)

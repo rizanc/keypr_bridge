@@ -8,7 +8,7 @@ import java.util.List;
 import static com.keypr.bridge.ids.BridgeIds.Gender;
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class CustomerProfile {

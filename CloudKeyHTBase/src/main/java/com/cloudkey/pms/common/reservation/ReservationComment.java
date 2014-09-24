@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 /**
  * A comment on a {@link com.cloudkey.pms.common.reservation.Reservation}
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class ReservationComment {

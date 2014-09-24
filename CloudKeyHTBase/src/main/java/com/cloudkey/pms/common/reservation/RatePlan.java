@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Metadata describing a special room rate.
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class RatePlan {

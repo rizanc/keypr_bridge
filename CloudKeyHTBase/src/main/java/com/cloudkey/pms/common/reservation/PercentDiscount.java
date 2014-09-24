@@ -6,7 +6,7 @@ import lombok.Value;
 /**
  * A rate plan discount by a percentage
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @EqualsAndHashCode(callSuper = true)
 @Value

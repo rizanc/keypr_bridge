@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 /**
  * Details about a room repair
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 public class RoomRepair {

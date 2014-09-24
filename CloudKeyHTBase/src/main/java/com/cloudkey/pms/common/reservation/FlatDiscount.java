@@ -7,7 +7,7 @@ import lombok.Value;
 /**
  * A rate plan discount of an exact currency amount
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @EqualsAndHashCode(callSuper = true)
 @Value

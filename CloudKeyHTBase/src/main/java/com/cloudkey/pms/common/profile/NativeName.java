@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * A person's name information in their native language
  *
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @EqualsAndHashCode(callSuper = true)
 @Value

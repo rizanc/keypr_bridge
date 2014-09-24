@@ -6,7 +6,7 @@ import lombok.experimental.NonFinal;
 import java.util.List;
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 @NonFinal

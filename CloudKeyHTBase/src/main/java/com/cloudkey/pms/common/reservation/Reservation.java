@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * @author Charlie La Mothe (charlie@concentricsky.com)
+ * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
 @Builder
