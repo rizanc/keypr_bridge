@@ -7,13 +7,13 @@ import com.cloudkey.pms.micros.og.guestservices.GuestServiceStatusType;
 import com.cloudkey.pms.micros.og.guestservices.RepairStatusType;
 import com.cloudkey.pms.micros.og.guestservices.RoomStatusType;
 import com.cloudkey.pms.micros.og.guestservices.TurnDownStatusType;
+import com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag;
 import com.cloudkey.pms.micros.og.hotelcommon.RateOccurrenceType;
 import com.cloudkey.pms.micros.og.reservation.ReservationStatusType;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
-import com.ibm.wsdl.extensions.mime.MIMEConstants;
 import com.keypr.bridge.ids.BridgeIds;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 
@@ -398,6 +398,54 @@ public class IdUtils {
 				return BridgeIds.RateOccurrence.WEEKLY;
 			case OTHER:
 				return BridgeIds.RateOccurrence.OTHER;
+		}
+
+		return null;
+	}
+
+	public static AmenityAvailabilityFlag toMicrosEnum(BridgeIds.AmenityAvailability from) {
+		if (from == null) {
+			return null;
+		}
+
+		switch (from) {
+
+			case CONFIRMABLE_COMPLIMENTARY:
+				return AmenityAvailabilityFlag.CONFIRMABLE_COMPLIMENTARY;
+			case CONFIRMABLE_COST:
+				return AmenityAvailabilityFlag.CONFIRMABLE_COST;
+			case ON_REQUEST_COMPLIMENTARY:
+				return AmenityAvailabilityFlag.ON_REQUEST_COMPLIMENTARY;
+			case ON_REQUEST_COST:
+				return AmenityAvailabilityFlag.ON_REQUEST_COMPLIMENTARY;
+			case EXISTS:
+				return AmenityAvailabilityFlag.EXISTS;
+			case OTHER:
+				return AmenityAvailabilityFlag.OTHER;
+		}
+
+		return null;
+	}
+
+	public static BridgeIds.AmenityAvailability fromMicrosEnum(AmenityAvailabilityFlag from) {
+		if (from == null) {
+			return null;
+		}
+
+		switch (from) {
+
+			case CONFIRMABLE_COMPLIMENTARY:
+				return BridgeIds.AmenityAvailability.CONFIRMABLE_COMPLIMENTARY;
+			case CONFIRMABLE_COST:
+				return BridgeIds.AmenityAvailability.CONFIRMABLE_COST;
+			case ON_REQUEST_COMPLIMENTARY:
+				return BridgeIds.AmenityAvailability.ON_REQUEST_COMPLIMENTARY;
+			case ON_REQUEST_COST:
+				return BridgeIds.AmenityAvailability.ON_REQUEST_COMPLIMENTARY;
+			case EXISTS:
+				return BridgeIds.AmenityAvailability.EXISTS;
+			case OTHER:
+				return BridgeIds.AmenityAvailability.OTHER;
 		}
 
 		return null;

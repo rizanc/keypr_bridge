@@ -13,11 +13,13 @@ import com.cloudkey.pms.micros.og.reservation.advanced.ReservationRequestBase;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
+import org.apache.cxf.jaxws.javaee.CString;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.ws.Holder;
+import java.util.Currency;
 import java.util.Date;
 import java.util.UUID;
 
@@ -33,6 +35,9 @@ public class OWSTools {
 	@Inject
 	@Named("keypr.bridge.micros.hotel.chainCode")
 	protected String chainCode;
+
+	@Inject
+	protected Currency defaultCurrency;
 
 	@Inject
 	@Named("keypr.bridge.micros.hotel.hotelCode")

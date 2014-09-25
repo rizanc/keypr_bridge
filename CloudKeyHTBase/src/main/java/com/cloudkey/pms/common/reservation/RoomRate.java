@@ -12,6 +12,17 @@ import javax.annotation.Nullable;
  */
 @Value
 public class RoomRate {
+	String roomType;
+
+	String rateCode;
+
+	/**
+	 * If enabled, this rate should not be advertised publicly on booking websites / etc.
+	 */
+	Boolean suppressRate;
+
+	Boolean hasPackage;
+
 	BridgeIds.RateOccurrence rateOccurrence;
 
 	@Nullable

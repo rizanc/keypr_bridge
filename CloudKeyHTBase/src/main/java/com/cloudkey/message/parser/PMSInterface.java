@@ -170,7 +170,7 @@ public interface PMSInterface {
 
 	EmptyResponse updateRoomStatus(UpdateRoomStatusRequest request) throws PMSInterfaceException;
 
-	EmptyResponse availability(AvailabilityRequest request) throws PMSInterfaceException;
+	AvailabilityResponse availability(AvailabilityRequest request) throws PMSInterfaceException;
 
 	FindReservationResponse findReservation(FindReservationRequest request) throws PMSInterfaceException, ReservationNotFound;
 

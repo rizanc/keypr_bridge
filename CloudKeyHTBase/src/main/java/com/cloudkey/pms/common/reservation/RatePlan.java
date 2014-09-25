@@ -1,6 +1,8 @@
 package com.cloudkey.pms.common.reservation;
 
 import lombok.Value;
+import lombok.experimental.NonFinal;
+import org.joda.time.DateTime;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Value
+@NonFinal
 public class RatePlan {
     /**
      * The unique code identifying the rate plan
@@ -84,5 +87,17 @@ public class RatePlan {
     String pointsPolicy;
 
     List<String> otherNotes;
+
+	@Nullable
+	Boolean hold;
+
+	@Nullable
+	Boolean isDepositMandatory;
+
+	@Nullable
+	Boolean hasPackage;
+
+	@Nullable
+	DateTime cancellableBefore;
 
 }

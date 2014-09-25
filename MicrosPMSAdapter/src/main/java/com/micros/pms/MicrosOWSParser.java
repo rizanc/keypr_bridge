@@ -224,7 +224,7 @@ public class MicrosOWSParser extends OWSBase implements PMSInterface {
 	}
 
 	@Override
-	public EmptyResponse availability(AvailabilityRequest request) {
+	public AvailabilityResponse availability(AvailabilityRequest request) {
 		log.debug("availability: Enter method.");
 		return availabilityProcessor.process(request);
 	}

@@ -53,21 +53,21 @@ public class RoomsResource extends AbstractResource {
 	@GET
 	@ApiOperation(
 		value = "Fetches room availability for each room-type for the given potential reservation",
-		response = EmptyResponse.class
+		response = AvailabilityResponse.class
 	)
 	@ApiResponses({
 		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
-	public EmptyResponse getAvailability(
-			@QueryParam("startDate") LocalDateParam startDate,
-			@QueryParam("endDate") LocalDateParam endDate,
-			@QueryParam("numAdults") IntParam numAdults,
-			@QueryParam("rateCode") String rateCode,
-			@QueryParam("roomTypeCode") String roomTypeCode,
-			// TODO: The swagger UI doesn't allow multiple children ages to be specified.
-			@QueryParam("childrenAges") List<IntParam> childrenAges) {
+	public AvailabilityResponse getAvailability(
+		@QueryParam("startDate") LocalDateParam startDate,
+		@QueryParam("endDate") LocalDateParam endDate,
+		@QueryParam("numAdults") IntParam numAdults,
+		@QueryParam("rateCode") String rateCode,
+		@QueryParam("roomTypeCode") String roomTypeCode,
+		// TODO: The swagger UI doesn't allow multiple children ages to be specified.
+		@QueryParam("childrenAges") List<IntParam> childrenAges) {
 		AvailabilityRequest request = valid(new AvailabilityRequest(
 			unwrap(startDate),
 			unwrap(endDate),

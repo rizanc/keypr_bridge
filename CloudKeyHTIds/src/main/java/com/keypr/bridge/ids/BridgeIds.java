@@ -1,11 +1,15 @@
 package com.keypr.bridge.ids;
 
+import javax.xml.bind.annotation.XmlEnumValue;
+
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class BridgeIds {
 
-    public enum ReservationStatus {
+
+
+	public enum ReservationStatus {
         RESERVED,
         PROSPECT,
         NOSHOW,
@@ -15,13 +19,14 @@ public class BridgeIds {
         CHANGED,
         WAITLISTED,
         PRECHECKEDIN,
-        DUEOUT
+        DUEOUT;
 	}
+
 
     public enum Gender {
         UNKNOWN,
         FEMALE,
-        MALE
+        MALE;
 	}
 
     public enum RoomStatus {
@@ -59,6 +64,15 @@ public class BridgeIds {
 	public enum RateOccurrence {
 		DAILY,
 		WEEKLY,
+		OTHER
+	}
+
+	public enum AmenityAvailability {
+		CONFIRMABLE_COMPLIMENTARY,
+		CONFIRMABLE_COST,
+		ON_REQUEST_COMPLIMENTARY,
+		ON_REQUEST_COST,
+		EXISTS,
 		OTHER
 	}
 

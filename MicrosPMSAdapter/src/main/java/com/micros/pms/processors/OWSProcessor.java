@@ -49,7 +49,7 @@ public abstract class OWSProcessor<Request extends PMSRequest, Response extends 
 				marshallToString(microsResponse)
 			);
 		} catch (JAXBException e) {
-			log.error("Error occured while initializing jaxbContext: {} ", e);
+			log.error("Error occurred while initializing jaxbContext: {} ", e);
 		}
 
 		return null;

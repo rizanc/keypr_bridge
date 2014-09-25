@@ -42,9 +42,6 @@ public class GetRoomSetupProcessor extends OWSProcessor<
 	protected ResvAdvancedServiceSoap service;
 
 	@Inject
-	protected Currency defaultCurrency;
-
-	@Inject
 	protected RawFetchRoomStatusProcessor fetchRoomStatusProcessor;
 
 	@Override

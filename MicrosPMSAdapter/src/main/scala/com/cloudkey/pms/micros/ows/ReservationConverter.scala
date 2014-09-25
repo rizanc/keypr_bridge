@@ -15,9 +15,8 @@ import com.cloudkey.pms.micros.ows.IdUtils._
 import com.google.common.collect.Iterables
 import com.google.inject.{Singleton, Inject}
 import com.keypr.pms.micros.oxi.ids.MicrosIds.OWS.PhoneNumberRole
-import com.keypr.scala.OptionalConverters
+import com.keypr.scala.OptionalConverters._
 import com.micros.pms.util.ParagraphHelper
-import OptionalConverters._
 
 import scala.collection.JavaConversions._
 import scala.collection.JavaConverters._
@@ -27,10 +26,7 @@ import scala.collection.mutable
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Singleton
-class ReservationConverter {
-  @Inject
-  var defaultCurrency: Currency = _
-
+class ReservationConverter extends ConverterUtils {
   /**
    * Converts an OWS [[HotelReservation]] to a Keypr [[Reservation]].
    *
@@ -103,7 +99,7 @@ class ReservationConverter {
 
       roomStay.getRatePlans.headOption.map(convertRatePlan).foreach(resv.roomRatePlan)
 
-      resv.roomRates(roomStay.getRoomRates.flatMap(_.getRates.asScala).map(convertRate))
+      resv.roomRates(convertRoomRates(roomStay.getRoomRates))
 
       roomStay.getRoomTypes.headOption.foreach(roomType => {
         resv.room(convertRoomType(roomType))
@@ -197,90 +193,6 @@ class ReservationConverter {
       address.getOtherAddressType,
       address.getLanguageCode
     )
-  }
-
-  private def convertRate(rate: hotelcommon.Rate): RoomRate = {
-    new RoomRate(
-      fromMicrosEnum(rate.getRateOccurrence),
-      rate.getEffectiveDate,
-      rate.getExpirationDate,
-      convertAmount(rate.getBase),
-      rate.getPoints
-    )
-  }
-
-  private def convertRatePlan(ratePlan: hotelcommon.RatePlan): RatePlan = {
-    val details: Iterable[AdditionalDetail] = ratePlan.getAdditionalDetails.asScala
-
-    new RatePlan(
-      ratePlan.getRatePlanCode,
-      ratePlan.getRatePlanName,
-      ParagraphHelper.getFirstString(ratePlan.getRatePlanShortDescription).orNull,
-      ParagraphHelper.getFirstString(ratePlan.getRatePlanDescription).orNull,
-      Option(ratePlan.getDepositRequired).map(convertDeposit).orNull,
-      Option(ratePlan.getDiscount).flatMap(convertDiscount).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.RATE_RULES).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.MARKETING_INFORMATION).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.DEPOSIT_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.PROMOTION).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.COMMISSION_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.GUARANTEE_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.MISCELLANEOUS).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.PACKAGE_OPTIONS).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.PENALTY_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.TA_SPECIAL_REQUEST).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.TAX_INFORMATION).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.CANCEL_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.POINTS_POLICY).orNull,
-      getAdditionalDetails(details, AdditionalDetailType.OTHER).toList
-    )
-  }
-
-  private def convertDeposit(from: hotelcommon.DepositRequirement): DepositRequirement = {
-    new DepositRequirement(
-      from.getDueDate,
-      convertAmount(from.getDepositAmount),
-      convertAmount(from.getDepositDueAmount)
-    )
-  }
-
-  private def convertDiscount(from: hotelcommon.Discount): Option[Discount] = {
-    from.getDiscountType match {
-      case DiscountType.FLAT =>
-        Some(new FlatDiscount(from.getDiscountReason, new MonetaryAmount(from.getDiscountAmount, 2.toShort, defaultCurrency)))
-
-      case DiscountType.PERCENT =>
-        Some(new PercentDiscount(from.getDiscountReason, from.getDiscountAmount))
-
-      case _ =>
-        None
-    }
-  }
-
-  private def getCurrency(@Nullable optionalCode: String): Currency = {
-    if (optionalCode == null || optionalCode.isEmpty) {
-      defaultCurrency
-    } else {
-      Currency.getInstance(optionalCode)
-    }
-  }
-
-  private def convertAmount(from: Amount): MonetaryAmount = {
-    new MonetaryAmount(from.getValue, from.getDecimals, getCurrency(from.getCurrencyCode))
-  }
-
-  private def getAdditionalDetails(details: Traversable[AdditionalDetail], detailType: AdditionalDetailType): Traversable[String] = {
-    details.collect({
-      case detail if detail.getDetailType == detailType =>
-        ParagraphHelper.getFirstString(detail.getAdditionalDetailDescription): Option[String]
-    }).flatten
-  }
-
-  private def getAdditionalDetail(details: Traversable[AdditionalDetail], detailType: AdditionalDetailType): Option[String] = {
-    details.collectFirst({
-      case detail if detail.getDetailType == detailType =>
-        ParagraphHelper.getFirstString(detail.getAdditionalDetailDescription): Option[String]
-    }).flatten
   }
 
   private def countGuests(roomStay: hotelcommon.RoomStay, ageCodes: AgeQualifyingCode*): Integer = {
