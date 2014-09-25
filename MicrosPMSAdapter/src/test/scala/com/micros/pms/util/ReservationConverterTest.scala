@@ -513,6 +513,13 @@ class ReservationConverterTest extends FunSpec with ShouldMatchers {
       roomRates(4).getExpirationDate shouldBe owsRates(4).getExpirationDate
       roomRates(4).getPoints.toDouble shouldBe 23.0
 
+      roomRates.foreach(roomRate => {
+        roomRate.getSuppressRate shouldBe null
+        roomRate.getHasPackage shouldBe null
+        roomRate.getRateCode shouldBe null
+        roomRate.getRoomType shouldBe null
+      })
+
       val owsRoomType: RoomType = roomStay.getRoomTypes.head
       resv.getRoom.getRoomBlockCode shouldBe owsRoomType.getInvBlockCode
       resv.getRoom.getRoomNumber shouldBe owsRoomType.getRoomNumbers.head

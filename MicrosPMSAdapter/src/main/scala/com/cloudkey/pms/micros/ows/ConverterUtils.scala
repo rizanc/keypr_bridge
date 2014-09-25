@@ -64,7 +64,7 @@ class ConverterUtils  {
       ratePlan.isHold,
       ratePlan.isMandatoryDeposit,
       ratePlan.isHasPackage,
-      ratePlan.getCancellationDateTime.getValue
+      Option(ratePlan.getCancellationDateTime).map(_.getValue).orNull
     )
   }
 
