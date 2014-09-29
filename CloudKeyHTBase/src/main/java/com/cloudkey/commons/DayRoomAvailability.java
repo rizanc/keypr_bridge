@@ -31,5 +31,5 @@ public class DayRoomAvailability {
      * List of Room Types that are available
      */
 	List<RoomTypeAvailability> roomTypeAvailabilities;
-
+	
 }

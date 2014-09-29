@@ -78,7 +78,9 @@ public class FetchCalendarProcessor extends OWSProcessor<
 									roomTypeInventory.getRoomTypeCode(),
 									nullsafeToInteger(roomTypeInventory.getTotalRooms()),
 									nullsafeToInteger(roomTypeInventory.getTotalAvailableRooms()),
-									nullsafeToInteger(roomTypeInventory.getOverBookingLimit())
+									nullsafeToInteger(roomTypeInventory.getOverBookingLimit()),
+									nullsafeToInteger(roomTypeInventory.getSoldDeductible()),
+									nullsafeToInteger(roomTypeInventory.getSoldNonDeductible())
 								);
 							}
 						}

@@ -21,4 +21,8 @@ public class RoomTypeAvailability {
 	Integer totalAvailableRooms;
 
 	Integer overBookingLimit;
+
+	Integer soldDeductible;
+
+	Integer soldNonDeductible;
 }
