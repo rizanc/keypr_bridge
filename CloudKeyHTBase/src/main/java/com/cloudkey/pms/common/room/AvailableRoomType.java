@@ -3,7 +3,8 @@ package com.cloudkey.pms.common.room;
 import com.cloudkey.pms.common.RoomAmenity;
 import com.cloudkey.pms.common.reservation.RoomType;
 import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
@@ -13,7 +14,11 @@ import java.util.List;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @EqualsAndHashCode(callSuper = true)
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class AvailableRoomType extends RoomType {
 	Integer numberOfUnits;
 

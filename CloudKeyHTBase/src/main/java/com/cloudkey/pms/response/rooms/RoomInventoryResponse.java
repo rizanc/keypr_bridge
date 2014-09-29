@@ -3,7 +3,8 @@ package com.cloudkey.pms.response.rooms;
 import com.cloudkey.commons.RoomDetails;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 /**
  * This class stores the room inventory details. The information includes
@@ -13,7 +14,11 @@ import lombok.Value;
  *
  */
 @EqualsAndHashCode(callSuper = false)
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class RoomInventoryResponse extends PMSResponse {
     RoomDetails roomDetailList;
 }

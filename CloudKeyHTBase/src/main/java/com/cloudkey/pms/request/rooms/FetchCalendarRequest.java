@@ -2,7 +2,9 @@ package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
@@ -14,7 +16,12 @@ import javax.validation.constraints.NotNull;
  * 
  * @author vinayk2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+//@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class FetchCalendarRequest extends PMSRequest {
 
     @NotNull

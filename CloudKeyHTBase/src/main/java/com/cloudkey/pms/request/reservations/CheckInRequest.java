@@ -1,8 +1,9 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.LocalDate;
 
@@ -15,7 +16,10 @@ import javax.validation.constraints.NotNull;
  *
  * @author vinayk2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class CheckInRequest extends AbstractSingleReservationRequest {
 	@NotBlank

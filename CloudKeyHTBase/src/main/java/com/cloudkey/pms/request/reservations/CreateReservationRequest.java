@@ -4,7 +4,8 @@ import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
@@ -16,32 +17,13 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class CreateReservationRequest extends PMSRequest {
-
-	@NotNull
-	@ApiModelProperty(required = true)
-	LocalDate arrivalDate;
-
-	@NotNull
-	@ApiModelProperty(required = true)
-	LocalDate departureDate;
-
-	@NotEmpty
-	@ApiModelProperty(required = true)
-	String firstName;
-
-	@NotEmpty
-	@ApiModelProperty(required = true)
-	String lastName;
-
-	@NotNull
-	@ApiModelProperty(required = true)
-	Integer numAdults;
-
-	@NotNull
-	@ApiModelProperty(required = true)
-	Integer numChildren;
 
 	@NotEmpty
 	@ApiModelProperty(required = true)
@@ -51,28 +33,37 @@ public class CreateReservationRequest extends PMSRequest {
 	@ApiModelProperty(required = true)
 	String roomTypeCode;
 
+	@NotNull
+	@ApiModelProperty(required = true)
+	Integer numAdults;
+
+	@NotNull
+	@ApiModelProperty(required = true)
+	Integer numChildren;
+
+	@NotNull
+	@ApiModelProperty(required = true)
+	LocalDate arrivalDate;
+
+	@NotNull
+	@ApiModelProperty(required = true)
+	LocalDate departureDate;
+
+	String creditCardNumber;
+
 	LocalDate expirationDate;
 
 	String cardType;
 
 	String cardHolderName;
 
-	String creditCardNumber;
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	String firstName;
 
-	public CreateReservationRequest(String ratePlanCode, String roomTypeCode, Integer numAdults, Integer numChildren, LocalDate arrivalDate, LocalDate departureDate, String creditCardNumber, LocalDate expirationDate, String cardType, String cardHolderName, String firstName, String lastName, String externalReferenceNumber, String externalReferenceType) {
-		this.ratePlanCode = ratePlanCode;
-		this.roomTypeCode = roomTypeCode;
-		this.numAdults = numAdults;
-		this.numChildren = numChildren;
-		this.arrivalDate = arrivalDate;
-		this.departureDate = departureDate;
-		this.creditCardNumber = creditCardNumber;
-		this.expirationDate = expirationDate;
-		this.cardType = cardType;
-		this.cardHolderName = cardHolderName;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
+	@NotEmpty
+	@ApiModelProperty(required = true)
+	String lastName;
 
 	@AssertFalse(message = "Credit card details are partially complete")
 	public boolean hasPartialCreditCardDetails() {

@@ -1,6 +1,8 @@
 package com.cloudkey.pms.common.payment;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
@@ -10,7 +12,12 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class CreditCardInfo {
     @NotNull
     String cardHolderName;

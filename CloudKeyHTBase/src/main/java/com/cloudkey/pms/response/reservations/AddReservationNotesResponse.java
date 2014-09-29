@@ -3,6 +3,8 @@ package com.cloudkey.pms.response.reservations;
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
@@ -12,23 +14,19 @@ import java.util.List;
  *
  * @author vinayk2
  */
+@EqualsAndHashCode(callSuper = false)
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class AddReservationNotesResponse extends PMSResponse {
 
     /* Reference variable to store the reservation data */
     private List<String> currentNotes;
 
-	public AddReservationNotesResponse(List<String> currentNotes) {
-		this.currentNotes = ImmutableList.copyOf(currentNotes);
-	}
-
 	public List<String> getCurrentNotes() {
 		return currentNotes;
 	}
 
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-			.add("currentNotes", currentNotes)
-			.toString();
-	}
 }

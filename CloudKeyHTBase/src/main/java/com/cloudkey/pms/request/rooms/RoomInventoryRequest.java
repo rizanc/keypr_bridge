@@ -2,7 +2,9 @@ package com.cloudkey.pms.request.rooms;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 // TODO: There is no endpoint or micros method for this request.
@@ -12,7 +14,12 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author vinayk2
  *
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class RoomInventoryRequest extends PMSRequest {
 	@NotBlank
 	@ApiModelProperty(required = true)

@@ -1,6 +1,8 @@
 package com.cloudkey.pms.common.payment;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 /**
  * Encrypted information identifying a credit card.
@@ -10,7 +12,12 @@ import lombok.Value;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class EncryptedSwipe extends CardNumberReference {
     String trackIndicator;
     String swiperType;

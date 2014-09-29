@@ -2,7 +2,9 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import lombok.experimental.NonFinal;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -11,17 +13,16 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
-@NonFinal
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class AbstractSingleReservationRequest extends PMSRequest {
-	@NonFinal
 	@NotBlank
 	@ApiModelProperty(required = true)
 	String pmsReservationId;
-
-	public AbstractSingleReservationRequest(String pmsReservationId) {
-		this.pmsReservationId = pmsReservationId;
-	}
 
 	public void setPmsReservationId(String pmsReservationId) {
 		if (this.pmsReservationId != null) {

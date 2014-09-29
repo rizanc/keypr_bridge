@@ -1,6 +1,7 @@
 package com.cloudkey.pms.common.hotel;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.Builder;
 
 import java.util.List;
@@ -8,7 +9,12 @@ import java.util.List;
 /**
  * Created by crizan2 on 04/09/2014.
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 @Builder
 public class LOVItem {
     String qualifierType;

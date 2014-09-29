@@ -1,12 +1,18 @@
 package com.cloudkey.pms.common;
 
 import com.keypr.bridge.ids.BridgeIds;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class RoomAmenity {
 	String code;
 

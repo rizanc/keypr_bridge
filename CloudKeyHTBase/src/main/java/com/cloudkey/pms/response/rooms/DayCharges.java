@@ -1,7 +1,8 @@
 package com.cloudkey.pms.response.rooms;
 
 import com.cloudkey.pms.common.payment.MonetaryAmount;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.Builder;
 
 import java.util.List;
@@ -11,7 +12,12 @@ import java.util.List;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 @Builder
 public class DayCharges {
 	List<Charge> roomAndPackageCharges;

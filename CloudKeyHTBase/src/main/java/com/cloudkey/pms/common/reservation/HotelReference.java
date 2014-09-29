@@ -1,11 +1,17 @@
 package com.cloudkey.pms.common.reservation;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class HotelReference {
     String hotelCode;
 

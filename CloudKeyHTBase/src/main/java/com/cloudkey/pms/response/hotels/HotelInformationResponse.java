@@ -8,7 +8,8 @@ import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Optional;
 import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.joda.time.LocalTime;
 
 import java.util.List;
@@ -18,7 +19,11 @@ import java.util.TimeZone;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @EqualsAndHashCode(callSuper = false)
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class HotelInformationResponse extends PMSResponse {
     String hotelName;
     List<StreetAddress> addresses;

@@ -1,12 +1,16 @@
 package com.cloudkey.pms.request.reservations;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 /**
  * @author clamothe
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class CancelReservationRequest extends AbstractSingleReservationRequest {
 

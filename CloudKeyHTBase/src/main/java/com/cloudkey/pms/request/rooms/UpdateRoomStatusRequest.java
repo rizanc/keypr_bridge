@@ -6,7 +6,9 @@ import com.keypr.bridge.ids.BridgeIds.GuestServiceStatus;
 import com.keypr.bridge.ids.BridgeIds.RoomStatus;
 import com.keypr.bridge.ids.BridgeIds.TurnDownStatus;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import lombok.experimental.NonFinal;
 
 import javax.annotation.Nullable;
@@ -17,10 +19,14 @@ import javax.validation.constraints.AssertTrue;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class UpdateRoomStatusRequest extends PMSRequest {
 
-	@NonFinal
 	@ApiModelProperty(required = true)
 	String roomNumber;
 
@@ -35,14 +41,6 @@ public class UpdateRoomStatusRequest extends PMSRequest {
 
 	@Nullable
 	RoomRepair roomRepair;
-
-	public UpdateRoomStatusRequest(String roomNumber, @Nullable RoomStatus roomStatus, @Nullable TurnDownStatus turnDownStatus, @Nullable GuestServiceStatus guestServiceStatus, RoomRepair roomRepair) {
-		this.roomNumber = roomNumber;
-		this.roomStatus = roomStatus;
-		this.turnDownStatus = turnDownStatus;
-		this.guestServiceStatus = guestServiceStatus;
-		this.roomRepair = roomRepair;
-	}
 
 	@AssertTrue(message = "At least one of roomStatus, turnDownStatus, guestServicesStatus or roomRepair must be specified")
 	private boolean isValid() {

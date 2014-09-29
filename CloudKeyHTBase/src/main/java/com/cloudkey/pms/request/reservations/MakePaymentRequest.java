@@ -5,8 +5,9 @@ import com.cloudkey.pms.common.payment.CreditCardInfo;
 import com.keypr.bridge.ids.StationId;
 import com.keypr.bridge.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotNull;
@@ -17,7 +18,10 @@ import javax.validation.constraints.NotNull;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class MakePaymentRequest extends AbstractSingleReservationRequest {
 

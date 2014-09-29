@@ -1,6 +1,8 @@
 package com.cloudkey.commons;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 import java.math.BigDecimal;
 
@@ -10,7 +12,12 @@ import java.math.BigDecimal;
  *
  * @author vinayk2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class Payments {
 
 	/**

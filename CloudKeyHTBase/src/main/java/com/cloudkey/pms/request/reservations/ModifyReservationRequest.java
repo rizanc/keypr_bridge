@@ -3,8 +3,9 @@ package com.cloudkey.pms.request.reservations;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.LocalDate;
 
 import javax.annotation.Nullable;
@@ -17,7 +18,10 @@ import java.util.List;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @EqualsAndHashCode(callSuper = true)
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
 public class ModifyReservationRequest extends AbstractSingleReservationRequest {
 
 	LocalDate arrivalDate;
@@ -43,7 +47,6 @@ public class ModifyReservationRequest extends AbstractSingleReservationRequest {
 	String cardHolderName;
 
 	String creditCardNumber;
-
 
 	public ModifyReservationRequest(LocalDate arrivalDate, LocalDate departureDate, String firstName, String lastName, Integer numAdults, Integer numChildren, String ratePlanCode, String roomTypeCode, String pmsReservationId, String externalReferenceNumber, String externalReferenceType, LocalDate expirationDate, String cardType, String cardHolderName, String creditCardNumber) {
 		super(pmsReservationId);

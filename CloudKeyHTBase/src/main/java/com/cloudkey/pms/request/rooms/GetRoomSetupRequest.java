@@ -3,7 +3,8 @@ package com.cloudkey.pms.request.rooms;
 import com.cloudkey.pms.request.PMSRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Strings;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.AssertFalse;
@@ -13,7 +14,12 @@ import javax.validation.constraints.AssertFalse;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class GetRoomSetupRequest extends PMSRequest {
 
 	@Nullable

@@ -1,13 +1,20 @@
 package com.cloudkey.commons;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 /**
  * This is a bean class, used to hold details of room inventory
  *
  * @author neham
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access= AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class RoomTypeInventory {
 
 	//member variables of class

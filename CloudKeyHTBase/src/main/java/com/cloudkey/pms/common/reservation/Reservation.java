@@ -3,8 +3,10 @@ package com.cloudkey.pms.common.reservation;
 import com.cloudkey.pms.common.payment.MonetaryAmount;
 import com.cloudkey.pms.common.profile.CustomerProfile;
 import com.keypr.bridge.ids.BridgeIds.ReservationStatus;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.Builder;
+import lombok.experimental.FieldDefaults;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -14,7 +16,12 @@ import java.util.List;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 @Builder
 public class Reservation {
     /**

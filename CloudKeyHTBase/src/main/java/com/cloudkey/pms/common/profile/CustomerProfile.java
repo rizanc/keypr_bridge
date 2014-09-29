@@ -1,6 +1,8 @@
 package com.cloudkey.pms.common.profile;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -10,7 +12,12 @@ import static com.keypr.bridge.ids.BridgeIds.Gender;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class CustomerProfile {
     /**
      * A PMS-local identifier for the guest.

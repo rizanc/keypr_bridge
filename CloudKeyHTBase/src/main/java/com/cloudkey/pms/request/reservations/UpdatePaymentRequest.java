@@ -3,8 +3,10 @@ package com.cloudkey.pms.request.reservations;
 import com.cloudkey.commons.Payments;
 import com.google.common.collect.ImmutableList;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import lombok.experimental.NonFinal;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -14,7 +16,10 @@ import java.util.List;
  *
  * @author vinayk2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class UpdatePaymentRequest extends AbstractSingleReservationRequest {
 

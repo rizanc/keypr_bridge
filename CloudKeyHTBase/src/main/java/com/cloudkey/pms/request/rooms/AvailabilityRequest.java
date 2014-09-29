@@ -3,7 +3,9 @@ package com.cloudkey.pms.request.rooms;
 import com.cloudkey.pms.request.PMSRequest;
 import com.google.common.collect.ImmutableList;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.LocalDate;
 
 import javax.validation.constraints.AssertTrue;
@@ -16,7 +18,12 @@ import java.util.List;
  * 
  * @author vinayk2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class AvailabilityRequest extends PMSRequest {
 
     @NotNull

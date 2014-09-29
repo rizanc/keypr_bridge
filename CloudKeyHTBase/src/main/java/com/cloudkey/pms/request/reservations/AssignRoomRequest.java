@@ -1,8 +1,9 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 /**
  * This class is used to send the request parameters for assign the room.
@@ -10,7 +11,11 @@ import lombok.Value;
  * @author niveditat
  */
 @EqualsAndHashCode(callSuper = true)
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class AssignRoomRequest extends AbstractSingleReservationRequest {
 
 	String roomNumber;

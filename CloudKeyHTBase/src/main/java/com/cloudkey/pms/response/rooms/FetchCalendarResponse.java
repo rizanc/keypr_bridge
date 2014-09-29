@@ -3,7 +3,8 @@ package com.cloudkey.pms.response.rooms;
 import com.cloudkey.commons.DayRoomAvailability;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
@@ -15,10 +16,13 @@ import java.util.List;
  *
  */
 @EqualsAndHashCode(callSuper = false)
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class FetchCalendarResponse extends PMSResponse {
 
-    /* Reference variable to store the room availability. */
     List<DayRoomAvailability> availabilityList;
 
 }

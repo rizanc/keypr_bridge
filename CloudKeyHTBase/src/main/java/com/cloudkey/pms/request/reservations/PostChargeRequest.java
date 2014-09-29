@@ -1,8 +1,9 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
@@ -14,7 +15,10 @@ import java.math.BigDecimal;
  *
  * @author crizan2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
 @EqualsAndHashCode(callSuper = true)
 public class PostChargeRequest extends AbstractSingleReservationRequest {
 	@NotNull

@@ -1,7 +1,8 @@
 package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.request.PMSRequest;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.AssertTrue;
 
@@ -11,7 +12,11 @@ import javax.validation.constraints.AssertTrue;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public class FindReservationRequest extends PMSRequest {
 
 	String pmsReservationId;

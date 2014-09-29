@@ -1,7 +1,8 @@
 package com.cloudkey.pms.response.rooms;
 
 import com.cloudkey.pms.common.payment.MonetaryAmount;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.joda.time.LocalDate;
 
 import java.util.Map;
@@ -11,7 +12,12 @@ import java.util.Map;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class RoomStayCharges {
 	MonetaryAmount roomAndPackageTotal;
 

@@ -1,6 +1,8 @@
 package com.cloudkey.commons;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.LocalDate;
 
 /**
@@ -9,7 +11,12 @@ import org.joda.time.LocalDate;
  * @author 
  *
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class Membership {
 	String membershipType;
 	String membershipNumber;

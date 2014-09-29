@@ -1,6 +1,8 @@
 package com.cloudkey.commons;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
@@ -11,7 +13,12 @@ import java.math.BigDecimal;
  *
  * @author niveditat
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class RoomRate {
 
 	// Reference Variables.

@@ -2,7 +2,9 @@ package com.cloudkey.commons;
 
 import com.cloudkey.pms.common.Cuisine;
 import com.cloudkey.pms.common.profile.StreetAddress;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 import java.util.List;
 
@@ -13,7 +15,12 @@ import java.util.List;
  * @author 
  *
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class Restaurant {
 	/* reference variable to store restaurants details */
 	String name;

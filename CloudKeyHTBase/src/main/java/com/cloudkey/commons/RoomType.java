@@ -1,7 +1,9 @@
 package com.cloudkey.commons;
 
 import com.cloudkey.pms.common.HotelAmenity;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 import java.util.List;
 
@@ -12,7 +14,12 @@ import java.util.List;
  * @author niveditat
  *
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class RoomType {
 	String code;
 	String description;

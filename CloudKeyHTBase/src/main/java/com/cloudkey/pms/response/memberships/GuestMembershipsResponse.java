@@ -8,13 +8,18 @@ package com.cloudkey.pms.response.memberships;
 
 import com.cloudkey.commons.Membership;
 import com.cloudkey.pms.response.PMSResponse;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = false)
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 public class GuestMembershipsResponse extends PMSResponse {
     List<Membership> membershipList;
 }

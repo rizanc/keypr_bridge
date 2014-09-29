@@ -1,6 +1,8 @@
 package com.cloudkey.pms.common.payment;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -12,7 +14,12 @@ import java.util.Currency;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class MonetaryAmount {
 	@NotNull
     BigDecimal amount;
@@ -22,11 +29,6 @@ public class MonetaryAmount {
 
 	public MonetaryAmount(double amount, short numDecimals, Currency currencyCode) {
 		this(toBigDecimal(amount, numDecimals), currencyCode);
-	}
-
-	public MonetaryAmount(BigDecimal amount, Currency currencyCode) {
-		this.amount = amount;
-		this.currencyCode = currencyCode;
 	}
 
 	/**

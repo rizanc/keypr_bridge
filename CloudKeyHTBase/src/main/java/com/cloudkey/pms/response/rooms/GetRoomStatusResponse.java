@@ -2,8 +2,9 @@ package com.cloudkey.pms.response.rooms;
 
 import com.cloudkey.pms.common.room.RoomStatusInfo;
 import com.cloudkey.pms.response.PMSResponse;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 import java.util.List;
 
@@ -14,8 +15,12 @@ import java.util.List;
  * @author vinayk2
  *
  */
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
 @EqualsAndHashCode(callSuper = false)
-@Value
 public class GetRoomStatusResponse extends PMSResponse {
 
     /* Reference variable to store the room availability. */

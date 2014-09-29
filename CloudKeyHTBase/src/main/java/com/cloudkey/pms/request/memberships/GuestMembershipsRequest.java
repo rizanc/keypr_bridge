@@ -2,7 +2,8 @@ package com.cloudkey.pms.request.memberships;
 
 import com.cloudkey.pms.request.PMSRequest;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -10,7 +11,12 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @author Chetu
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class GuestMembershipsRequest extends PMSRequest {
 
 	@NotBlank

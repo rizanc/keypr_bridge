@@ -1,6 +1,8 @@
 package com.cloudkey.commons;
 
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -12,7 +14,12 @@ import java.util.List;
  * @author vinayk2
  *
  */
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class DayRoomAvailability {
 
     /**

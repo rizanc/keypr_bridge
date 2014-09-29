@@ -4,7 +4,8 @@ import com.cloudkey.pms.common.payment.MonetaryAmount;
 import com.keypr.bridge.ids.BridgeIds;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.Builder;
 
 import javax.validation.constraints.NotNull;
@@ -14,8 +15,12 @@ import java.util.List;
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Builder
-@AllArgsConstructor(access = AccessLevel.PUBLIC) // Builder makes the constructor private by default
-@Value
+@Getter
+@FieldDefaults(level=AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 public class RoomSetupInfo {
 	@NotNull
 	String roomNumber;

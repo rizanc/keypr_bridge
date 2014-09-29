@@ -2,8 +2,10 @@ package com.cloudkey.commons;
 
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.google.common.base.Joiner;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.Builder;
+import lombok.experimental.FieldDefaults;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -15,7 +17,12 @@ import java.util.List;
  *
  * @author vinayk2
  */
-@Value
+@Getter
+@FieldDefaults(level= AccessLevel.PRIVATE)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@AllArgsConstructor(access=AccessLevel.PUBLIC)
+@ToString
+@EqualsAndHashCode
 @Builder
 public class Reservation {
 
