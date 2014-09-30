@@ -5,7 +5,6 @@ dependencies {
     // Local dependencies
     compile project(':KeyprJacksonSupport')
     compile project(':CloudKeyHTBase')
-    compile project(':CloudKeyHTDatabase')
     compile project(':MicrosPMSAdapter')
     compile project(':MicrosOWSCxfClient')
     compile project(':MicrosOXIJaxb')

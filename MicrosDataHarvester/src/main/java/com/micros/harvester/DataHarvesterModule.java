@@ -1,6 +1,5 @@
 package com.micros.harvester;
 
-import com.cloudkey.db.DatabaseModule;
 import com.cloudkey.util.GuiceUtils;
 import com.google.inject.AbstractModule;
 import com.micros.pms.MicrosPMSModule;
@@ -13,7 +12,6 @@ public class DataHarvesterModule extends AbstractModule {
 	protected void configure() {
 		install(new MicrosPMSModule());
 		install(new com.keypr.jackson.KeyprJacksonModule());
-		install(new DatabaseModule());
 
 		GuiceUtils.bindProperties(binder(), getClass().getResourceAsStream("dataharvester.properties"));
 	}
