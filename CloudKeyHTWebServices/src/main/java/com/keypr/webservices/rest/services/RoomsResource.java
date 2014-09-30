@@ -3,6 +3,7 @@ package com.keypr.webservices.rest.services;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.rooms.*;
+import com.google.inject.Singleton;
 import com.keypr.webservices.jersey.LocalDateParam;
 import com.wordnik.swagger.annotations.*;
 import io.dropwizard.jersey.params.IntParam;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Path("/rooms")
 @Api(value = "/rooms", description = "Rooms resource")
+@Singleton
 public class RoomsResource extends AbstractResource {
 	@Path("/calendar")
 	@GET

@@ -1,6 +1,8 @@
 package com.keypr.webservices;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.keypr.webservices.rest.services.ReservationResource;
 import com.micros.pms.MicrosPMSModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ public class WebServicesModule extends AbstractModule {
 
     @Override
     protected void configure() {
-	    install(new MicrosPMSModule());
+		install(new FactoryModuleBuilder().build(ReservationResource.ReservationResourceFactory.class));
+		install(new MicrosPMSModule());
     }
 }

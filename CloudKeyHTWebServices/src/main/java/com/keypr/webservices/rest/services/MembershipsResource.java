@@ -4,6 +4,7 @@ import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
 import com.cloudkey.pms.request.memberships.NameLookupRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
 import com.cloudkey.pms.response.memberships.NameLookupResponse;
+import com.google.inject.Singleton;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -20,6 +21,7 @@ import javax.ws.rs.QueryParam;
  */
 @Path("/memberships")
 @Api(value = "/memberships", description = "Memberships resource")
+@Singleton
 public class MembershipsResource extends AbstractResource {
 
     @GET

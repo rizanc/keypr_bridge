@@ -7,6 +7,8 @@ import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.reservations.AssignRoomResponse;
 import com.cloudkey.pms.response.reservations.ReleaseRoomResponse;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -22,9 +24,13 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-@Path("/reservations/")
+@Path("/reservations")
 @Api(value = "/reservations", description = "Reservations resource")
+@Singleton
 public class ReservationsResource extends AbstractResource {
+	@Inject
+	protected ReservationResource.ReservationResourceFactory reservationResourceFactory;
+
 	@GET
 	@ApiOperation(
 		value = "Fetches reservations which match the provided criteria",
@@ -77,193 +83,11 @@ public class ReservationsResource extends AbstractResource {
 		return messageParser.createReservation(request);
 	}
 
-	@Path("{pmsReservationId}")
-	@PUT
-	@ApiOperation(
-		value = "Modifies an existing reservation",
-		response = EmptyResponse.class
-	)
-	@ApiResponses({
-		@ApiResponse(code = 404, message = "The reservation does not exist"),
-		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
-		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-	public EmptyResponse modifyReservation(@PathParam("pmsReservationId") String pmsReservationId, ModifyReservationRequest request) {
-		request.setPmsReservationId(pmsReservationId);
-
-		return messageParser.modifyReservation(
-			valid(request)
-		);
+	@Path("/{pmsReservationId}")
+	@ApiOperation(value = "Reservation", response = ReservationResource.class)
+	public ReservationResource getReservationResource(@PathParam("pmsReservationId") String pmsReservationId) {
+		return reservationResourceFactory.create(pmsReservationId);
 	}
-
-	@Path("{pmsReservationId}")
-	@DELETE
-	@ApiOperation(
-		value = "Cancels an existing reservation",
-		response = CancelReservationResponse.class
-	)
-	@ApiResponses({
-		@ApiResponse(code = 404, message = "The reservation does not exist"),
-		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
-		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-	public CancelReservationResponse cancelReservation(
-			@PathParam("pmsReservationId") String pmsReservationId,
-			@QueryParam("reason") String reason) {
-		return messageParser.cancelReservation(
-			valid(new CancelReservationRequest(
-				pmsReservationId,
-				reason
-			))
-		);
-	}
-
-	@Path("{pmsReservationId}")
-	@GET
-	@ApiOperation(
-		value = "Fetches a reservation",
-		response = FindReservationResponse.class
-	)
-	@ApiResponses({
-		@ApiResponse(code = 404, message = "The reservation does not exist"),
-		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
-		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-	public FindReservationResponse get(@PathParam("pmsReservationId") String pmsReservationId) {
-		return messageParser.findReservation(
-			valid(new FindReservationRequest(pmsReservationId))
-		);
-	}
-
-	@Path("{pmsReservationId}/room")
-	@PUT
-	@ApiOperation(
-		value = "Assigns a room to an existing reservation",
-		response = AssignRoomResponse.class
-	)
-	@ApiResponses({
-		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message. Common error codes include: NO_ROOM_AVAILABLE"),
-		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-	@Consumes(MediaType.WILDCARD) // Does not take any body
-	public AssignRoomResponse assignRoom(
-		@PathParam("pmsReservationId") String pmsReservationId,
-		@Nullable @QueryParam("roomNumber") String roomNumber) {
-		return messageParser.assignRoom(
-			valid(new AssignRoomRequest(pmsReservationId, roomNumber))
-		);
-	}
-
-	@Path("{pmsReservationId}/room")
-	@DELETE
-	@ApiOperation(
-		value = "Unassigns the room assigned to a reservation",
-		response = ReleaseRoomResponse.class
-	)
-	@ApiResponses({
-		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
-		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-	public ReleaseRoomResponse releaseRoom(
-		@PathParam("pmsReservationId") String pmsReservationId) {
-		return messageParser.releaseRoom(
-			valid(new ReleaseRoomRequest(pmsReservationId))
-		);
-	}
-
-    @Path("{pmsReservationId}/checkin")
-    @POST
-    @ApiOperation(
-        value = "Checks in an existing reservation",
-        response = CheckInResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-	})
-    public CheckInResponse checkIn(
-			@PathParam("pmsReservationId") String pmsReservationId,
-			CheckInRequest request) {
-		request.setPmsReservationId(pmsReservationId);
-
-        return messageParser.guestCheckIn(valid(request));
-    }
-
-    @Path("{pmsReservationId}/checkout")
-    @POST
-    @ApiOperation(
-        value = "Checks out an existing reservation",
-        response = CheckOutResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
-    public CheckOutResponse checkOut(
-			@PathParam("pmsReservationId") String pmsReservationId) {
-		return messageParser.guestCheckOut(valid(new CheckOutRequest(pmsReservationId)));
-    }
-
-    @Path("{pmsReservationId}/folio")
-    @GET
-    @ApiOperation(
-        value = "Fetches the bill for a reservation",
-            notes = "Includes room charge and all other charges incurred during stay",
-        response = GetFolioResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
-    public GetFolioResponse getFolio(@PathParam("pmsReservationId") String pmsReservationId) {
-        return messageParser.retrieveFolioInfo(
-			valid(new GetFolioRequest(pmsReservationId))
-		);
-    }
-
-    @Path("{pmsReservationId}/postcharge")
-    @POST
-    @ApiOperation(
-        value = "Adds charges to a guest account",
-        response = PostChargeResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
-    public PostChargeResponse postCharge(
-			@PathParam("pmsReservationId") String pmsReservationId,
-			PostChargeRequest request) {
-		request.setPmsReservationId(pmsReservationId);
-        return messageParser.postCharge(valid(request));
-    }
-
-    @Path("{pmsReservationId}/notes")
-    @POST
-    @ApiOperation(
-        value = "Adds staff-viewable notes to a reservation",
-        response = AddReservationNotesResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
-    public AddReservationNotesResponse updateBookingRequest(
-			@PathParam("pmsReservationId") String pmsReservationId,
-			AddReservationNotesRequest request) {
-		request.setPmsReservationId(pmsReservationId);
-        return messageParser.addReservationNotes(valid(request));
-    }
 
 //    @Path("/folio/pay")
 //    @POST
