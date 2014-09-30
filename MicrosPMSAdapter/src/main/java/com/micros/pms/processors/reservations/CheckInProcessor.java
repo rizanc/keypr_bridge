@@ -1,9 +1,9 @@
 package com.micros.pms.processors.reservations;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationRoomAllocation;
-import com.cloudkey.commons.RoomRate;
-import com.cloudkey.pms.common.HotelAmenity;
+import com.cloudkey.pms.common.Reservation;
+import com.cloudkey.pms.common.ReservationRoomAllocation;
+import com.cloudkey.pms.common.RoomRate;
+import com.cloudkey.pms.common.hotel.HotelAmenity;
 import com.cloudkey.pms.micros.og.common.CreditCard;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
@@ -83,13 +83,13 @@ public class CheckInProcessor extends OWSProcessor<
 
 		Room objRoom = objCheckInComplete.getRoom();
 
-		com.cloudkey.commons.RoomType objRoomType = null;
+		com.cloudkey.pms.common.RoomType objRoomType = null;
 
 		if (objRoom != null) {
 			RoomType obRoomType = objRoom.getRoomType();
 			String roomTypeCode = obRoomType.getRoomTypeCode();
 
-			objRoomType = new com.cloudkey.commons.RoomType(
+			objRoomType = new com.cloudkey.pms.common.RoomType(
 				roomTypeCode,
 				objRoom.getRoomDescription() == null ? null : ParagraphHelper.getFirstStringOfParagraphs(Arrays.asList(objRoom.getRoomDescription())).orNull(),
 				obRoomType.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(obRoomType.getAmenityInfo().getAmenities()),

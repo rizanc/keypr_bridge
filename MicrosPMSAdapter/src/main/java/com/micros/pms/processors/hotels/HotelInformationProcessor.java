@@ -1,13 +1,15 @@
 package com.micros.pms.processors.hotels;
 
-import com.cloudkey.commons.Restaurant;
-import com.cloudkey.pms.common.Cuisine;
-import com.cloudkey.pms.common.HotelAmenity;
+import com.cloudkey.pms.common.RoomType;
+import com.cloudkey.pms.common.hotel.Restaurant;
+import com.cloudkey.pms.common.hotel.Cuisine;
+import com.cloudkey.pms.common.hotel.HotelAmenity;
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Phone;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.og.hotelcommon.GeoCode;
 import com.cloudkey.pms.micros.ows.information.HotelInformationResponseHotelInformation;
 import com.cloudkey.pms.micros.services.InformationSoap;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
@@ -106,7 +108,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 
 		List<String> acceptedCreditCards = new ArrayList<>();
 		Integer totalRooms = null;
-		List<com.cloudkey.commons.RoomType> roomTypes = new ArrayList<>();
+		List<RoomType> roomTypes = new ArrayList<>();
 		List<Restaurant> restaurants = new ArrayList<>();
 		Optional<com.cloudkey.pms.common.GeoCode> hotelPosition = Optional.absent();
 		List<HotelAmenity> amenities = Collections.emptyList();
@@ -138,7 +140,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 					}
 
 					for (FacilityInfoTypeGuestRoomsGuestRoom guestRoom : facilityInfo.getGuestRooms().getGuestRooms()) {
-						roomTypes.add(new com.cloudkey.commons.RoomType(
+						roomTypes.add(new com.cloudkey.pms.common.RoomType(
 							guestRoom.getCode(),
 							guestRoom.getRoomDescription() == null ? null : getFirstString(guestRoom.getRoomDescription().getText()).orNull(),
 							guestRoom.getAmenityInfo() == null ? Collections.<HotelAmenity>emptyList() : HotelInformationConverter.convertAmenities(guestRoom.getAmenityInfo().getAmenities()),

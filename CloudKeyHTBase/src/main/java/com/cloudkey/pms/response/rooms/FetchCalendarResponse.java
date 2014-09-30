@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.rooms;
 
-import com.cloudkey.commons.DayRoomAvailability;
+import com.cloudkey.pms.common.DayRoomAvailability;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.EqualsAndHashCode;
 import lombok.*;

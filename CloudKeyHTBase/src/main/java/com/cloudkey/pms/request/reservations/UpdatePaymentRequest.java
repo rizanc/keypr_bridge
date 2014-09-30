@@ -1,12 +1,11 @@
 package com.cloudkey.pms.request.reservations;
 
-import com.cloudkey.commons.Payments;
+import com.cloudkey.pms.common.Payments;
 import com.google.common.collect.ImmutableList;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import lombok.experimental.NonFinal;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;

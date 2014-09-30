@@ -1,6 +1,6 @@
 package com.micros.pms.processors.memberships;
 
-import com.cloudkey.commons.Membership;
+import com.cloudkey.pms.common.Membership;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.common.UniqueID;
 import com.cloudkey.pms.micros.og.common.UniqueIDType;

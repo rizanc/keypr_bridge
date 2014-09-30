@@ -1,6 +1,6 @@
 package com.micros.pms.util;
 
-import com.cloudkey.pms.common.HotelAmenity;
+import com.cloudkey.pms.common.hotel.HotelAmenity;
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Address;
 import com.cloudkey.pms.micros.og.hotelcommon.Amenity;

@@ -21,11 +21,13 @@ import java.util.List;
 
 /**
  * Abstract {@link com.micros.harvester.handlers.OXIPushHandler} implementation
- * for handlers which POST a list of data serialized as JSON to an external endpoint.
+ * for handlers which POST a list of data, serialized as JSON, to an external endpoint.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public abstract class AbstractUploadHandler<T, C> implements OXIPushHandler<T> {
+
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * Given an OXI message of a specific type, returns any number of objects
@@ -35,9 +37,7 @@ public abstract class AbstractUploadHandler<T, C> implements OXIPushHandler<T> {
 	 */
 	protected abstract List<C> getObjectsToUpload(T oxiMessage);
 
-	protected abstract String getUploadPath();
-
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	protected abstract String getUploadPathSuffix();
 
 	@Inject
 	@Named("keypr.bridge.micros.harvester.upload.affiliate.url")
@@ -79,7 +79,7 @@ public abstract class AbstractUploadHandler<T, C> implements OXIPushHandler<T> {
 				log.info("Attempting upload");
 
 				try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-					String uploadEndPoint = affiliateServiceUrl + affiliateId + "/" + getUploadPath();
+					String uploadEndPoint = affiliateServiceUrl + affiliateId + "/" + getUploadPathSuffix();
 
 					HttpPost httpPost = new HttpPost(uploadEndPoint);
 					httpPost.setEntity(new StringEntity(jsonList));

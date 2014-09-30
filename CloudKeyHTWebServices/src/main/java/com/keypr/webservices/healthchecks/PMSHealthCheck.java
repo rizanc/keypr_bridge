@@ -1,6 +1,6 @@
 package com.keypr.webservices.healthchecks;
 
-import com.cloudkey.message.parser.PMSInterface;
+import com.cloudkey.PMSInterface;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.codahale.metrics.health.HealthCheck;

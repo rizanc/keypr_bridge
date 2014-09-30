@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.hotels;
 
-import com.cloudkey.commons.AvailableProperty;
+import com.cloudkey.pms.common.AvailableProperty;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

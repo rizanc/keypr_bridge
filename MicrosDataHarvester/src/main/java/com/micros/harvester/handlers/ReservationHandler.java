@@ -2,7 +2,7 @@ package com.micros.harvester.handlers;
 
 import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.exceptions.ReservationNotFound;
-import com.cloudkey.message.parser.PMSInterface;
+import com.cloudkey.PMSInterface;
 import com.cloudkey.pms.request.reservations.FindReservationRequest;
 import com.google.inject.Inject;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
@@ -28,7 +28,7 @@ public class ReservationHandler extends AbstractUploadHandler<Reservation, com.c
 	protected PMSInterface pms;
 
 	@Override
-	protected String getUploadPath() {
+	protected String getUploadPathSuffix() {
 		return "reservation_data";
 	}
 

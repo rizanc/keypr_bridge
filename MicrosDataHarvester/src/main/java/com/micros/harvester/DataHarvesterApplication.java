@@ -17,6 +17,8 @@ public class DataHarvesterApplication {
 		log.debug("Starting up");
 
 		Injector injector = Guice.createInjector(new DataHarvesterModule(), new DataHarvesterServletModule());
+
+		// Initialize the server
 		DataHarvesterEntryPoint server = injector.getInstance(DataHarvesterEntryPoint.class);
 
 		log.debug("Shutting down");

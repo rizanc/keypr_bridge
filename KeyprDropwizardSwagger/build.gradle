@@ -1,6 +1,9 @@
 /*
- This project requires Scala 2.11, as it contains bug fixes not yet made in a 2.10 release,
- dropwizard_swagger is not yet packaged for scala 2.11
+ Keypr bridge requires Scala 2.11. It contains necessary bug fixes not yet made to a 2.10.x release.
+
+ dropwizard_swagger is not yet packaged for scala 2.11.
+
+ This gradle dependencies configuration forces dropwizard_swagger to use scala 2.11.
   */
 
 dependencies {

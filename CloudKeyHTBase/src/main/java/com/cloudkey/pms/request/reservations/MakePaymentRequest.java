@@ -2,8 +2,6 @@ package com.cloudkey.pms.request.reservations;
 
 import com.cloudkey.pms.common.payment.CreditCardApproval;
 import com.cloudkey.pms.common.payment.CreditCardInfo;
-import com.keypr.bridge.ids.StationId;
-import com.keypr.bridge.ids.UserId;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -67,30 +65,16 @@ public class MakePaymentRequest extends AbstractSingleReservationRequest {
     /**
      * The station at which payment occurred (i.e. KIOSK1)
      */
-    StationId stationId;
+    String stationId;
 
     /**
      * The agent who processed the payment (SUPERVISOR)
      */
-    UserId userId;
+    String userId;
 
     /**
      * The number of the folio view to make the payment on
      */
     Integer folioViewNo;
-
-	public MakePaymentRequest(String pmsReservationId, Double chargeAmount, CreditCardInfo creditCardInfo, CreditCardApproval creditCardApproval, DateTime postDateTime, String shortInfo, String longInfo, String reference, StationId stationId, UserId userId, Integer folioViewNo) {
-		super(pmsReservationId);
-		this.chargeAmount = chargeAmount;
-		this.creditCardInfo = creditCardInfo;
-		this.creditCardApproval = creditCardApproval;
-		this.postDateTime = postDateTime;
-		this.shortInfo = shortInfo;
-		this.longInfo = longInfo;
-		this.reference = reference;
-		this.stationId = stationId;
-		this.userId = userId;
-		this.folioViewNo = folioViewNo;
-	}
 
 }

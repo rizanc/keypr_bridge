@@ -1,0 +1,16 @@
+apply plugin:'application'
+mainClassName = 'com.cloudkey.upload.UploadServiceApplication'
+
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+    compile project(':CloudKeyHTDatabase')
+    compile project(':MicrosPMSAdapter')
+    compile project(':KeyprGuice')
+
+    // External dependencies
+    compile dropwizard
+    compile json_simple
+    compile jersey_client
+    runtime groovy
+}

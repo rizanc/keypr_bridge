@@ -1,6 +1,6 @@
 package com.micros.pms.processors.reservations;
 
-import com.cloudkey.commons.Reservation;
+import com.cloudkey.pms.common.Reservation;
 import com.cloudkey.pms.micros.og.common.PersonName;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;

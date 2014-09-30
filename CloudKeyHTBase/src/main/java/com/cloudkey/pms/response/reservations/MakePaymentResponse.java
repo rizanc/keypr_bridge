@@ -2,7 +2,6 @@ package com.cloudkey.pms.response.reservations;
 
 import com.cloudkey.pms.request.reservations.MakePaymentRequest;
 import com.cloudkey.pms.response.PMSResponse;
-import com.keypr.bridge.ids.PmsReservationId;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,5 +18,5 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
 public class MakePaymentResponse extends PMSResponse {
-    PmsReservationId pmsReservationId;
+    String pmsReservationId;
 }

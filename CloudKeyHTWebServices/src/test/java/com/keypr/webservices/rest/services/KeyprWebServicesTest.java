@@ -1,7 +1,7 @@
 //package com.keypr.webservices.rest.services;
 //
-//import com.cloudkey.commons.Reservation;
-//import com.cloudkey.commons.TimeOutError;
+//import com.cloudkey.pms.common.Reservation;
+//import com.cloudkey.pms.common.TimeOutError;
 //import com.cloudkey.pms.request.reservations.GetFolioRequest;
 //import com.cloudkey.pms.request.reservations.SearchReservationRequest;
 //import com.cloudkey.pms.request.reservations.UpdateBookingRequest;

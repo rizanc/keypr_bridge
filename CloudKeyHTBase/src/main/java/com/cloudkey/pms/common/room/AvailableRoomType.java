@@ -1,6 +1,5 @@
 package com.cloudkey.pms.common.room;
 
-import com.cloudkey.pms.common.RoomAmenity;
 import com.cloudkey.pms.common.reservation.RoomType;
 import lombok.EqualsAndHashCode;
 import lombok.*;

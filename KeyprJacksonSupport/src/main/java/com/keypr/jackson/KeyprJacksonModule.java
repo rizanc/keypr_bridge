@@ -16,8 +16,8 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.ISODateTimeFormat;
 
 /**
- * Guice module which provides a configured {@link com.fasterxml.jackson.databind.ObjectMapper}
- * with a JODA time module.
+ * Guice module which provides a {@link com.fasterxml.jackson.databind.ObjectMapper}
+ * configured with project-wide preferences, including a Joda-Time serialization module.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */

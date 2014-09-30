@@ -7,8 +7,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
  */
 public class BridgeIds {
 
-
-
 	public enum ReservationStatus {
         RESERVED,
         PROSPECT,
@@ -21,7 +19,6 @@ public class BridgeIds {
         PRECHECKEDIN,
         DUEOUT;
 	}
-
 
     public enum Gender {
         UNKNOWN,

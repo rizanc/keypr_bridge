@@ -1,0 +1,8 @@
+dependencies {
+    // Local dependencies
+    compile project(':CloudKeyHTBase')
+    compile project(':KeyprGuice')
+
+    // External dependencies
+    compile mysql_connector_java
+}

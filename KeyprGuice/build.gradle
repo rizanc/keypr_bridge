@@ -1,0 +1,7 @@
+dependencies {
+    compile guice
+    compile guice_assistedinject
+
+    compile logback_classic
+    compile logback_core
+}

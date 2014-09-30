@@ -18,12 +18,6 @@ public class JsonSchemaGenerator {
 		SchemaFactoryWrapper visitor = new SchemaFactoryWrapper();
 
 		return objectMapper.generateJsonSchema(clazz);
-//		objectMapper.acceptJsonFormatVisitor(
-//			objectMapper.constructType(clazz),
-//			visitor
-//		);
-//
-//		return visitor.finalSchema();
 	}
 
 	public <T> String serializeSchema(com.fasterxml.jackson.module.jsonSchema.JsonSchema schema) throws JsonProcessingException {

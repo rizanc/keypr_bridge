@@ -1,9 +1,9 @@
 package com.cloudkey.pms.response.hotels;
 
-import com.cloudkey.commons.Restaurant;
-import com.cloudkey.commons.RoomType;
+import com.cloudkey.pms.common.hotel.Restaurant;
+import com.cloudkey.pms.common.RoomType;
 import com.cloudkey.pms.common.GeoCode;
-import com.cloudkey.pms.common.HotelAmenity;
+import com.cloudkey.pms.common.hotel.HotelAmenity;
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.response.PMSResponse;
 import com.google.common.base.Optional;

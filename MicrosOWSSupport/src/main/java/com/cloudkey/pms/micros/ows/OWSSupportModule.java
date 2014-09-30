@@ -3,7 +3,7 @@ package com.cloudkey.pms.micros.ows;
 import com.cloudkey.pms.micros.ows.guestservices.GuestServicesService;
 import com.cloudkey.pms.micros.ows.guestservices.GuestServicesServiceSoap;
 import com.cloudkey.pms.micros.services.*;
-import com.cloudkey.util.GuiceUtils;
+import com.keypr.guice.GuiceUtils;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;

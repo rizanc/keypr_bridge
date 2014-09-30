@@ -1,8 +1,8 @@
 package com.micros.pms.processors.reservations;
 
-import com.cloudkey.commons.OrderDetails;
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationOrder;
+import com.cloudkey.pms.common.OrderDetails;
+import com.cloudkey.pms.common.Reservation;
+import com.cloudkey.pms.common.ReservationOrder;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.reservation.BillHeader;

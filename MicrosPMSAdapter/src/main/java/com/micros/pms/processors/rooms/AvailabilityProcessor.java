@@ -1,6 +1,6 @@
 package com.micros.pms.processors.rooms;
 
-import com.cloudkey.pms.common.RoomAmenity;
+import com.cloudkey.pms.common.room.RoomAmenity;
 import com.cloudkey.pms.common.payment.MonetaryAmount;
 import com.cloudkey.pms.common.room.AvailableRoomType;
 import com.cloudkey.pms.micros.og.availability.*;

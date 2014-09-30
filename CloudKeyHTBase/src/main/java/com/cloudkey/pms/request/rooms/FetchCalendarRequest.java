@@ -12,7 +12,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class stores the room availability information. 
+ * Class stores the room availability information.
  * 
  * @author vinayk2
  */

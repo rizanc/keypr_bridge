@@ -15,6 +15,7 @@ public class JsonSchemaGeneratorApplication {
 
 		JsonSchemaGenerator generator = injector.getInstance(JsonSchemaGenerator.class);
 
+		// Prints an auto-generated json schema for the Reservation class
 		System.out.println(generator.serializeSchema(generator.generateFor(Reservation.class)));
 	}
 }

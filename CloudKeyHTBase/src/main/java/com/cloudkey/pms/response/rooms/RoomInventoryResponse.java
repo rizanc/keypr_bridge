@@ -1,6 +1,6 @@
 package com.cloudkey.pms.response.rooms;
 
-import com.cloudkey.commons.RoomDetails;
+import com.cloudkey.pms.common.RoomDetails;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.EqualsAndHashCode;
 import lombok.*;

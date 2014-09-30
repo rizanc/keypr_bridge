@@ -1,6 +1,6 @@
 package com.micros.harvester;
 
-import com.cloudkey.util.GuiceUtils;
+import com.keypr.guice.GuiceUtils;
 import com.google.inject.AbstractModule;
 import com.micros.pms.MicrosPMSModule;
 

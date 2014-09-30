@@ -1,7 +1,7 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.commons.Reservation;
-import com.cloudkey.commons.ReservationOrder;
+import com.cloudkey.pms.common.Reservation;
+import com.cloudkey.pms.common.ReservationOrder;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.EqualsAndHashCode;
 import lombok.*;

@@ -1,7 +1,7 @@
 package com.micros.pms.processors.rooms;
 
-import com.cloudkey.commons.DayRoomAvailability;
-import com.cloudkey.commons.RoomTypeAvailability;
+import com.cloudkey.pms.common.DayRoomAvailability;
+import com.cloudkey.pms.common.RoomTypeAvailability;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;

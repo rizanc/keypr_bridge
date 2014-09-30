@@ -1,6 +1,6 @@
 package com.keypr.webservices.rest.services;
 
-import com.cloudkey.message.parser.PMSInterface;
+import com.cloudkey.PMSInterface;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -15,6 +15,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * Base class for Jersey REST resource classes.
+ *
+ * Provides defaults and helper methods.
+ *
+ * Subclasses of this should be injected via Guice.
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,7 +38,7 @@ public abstract class AbstractResource {
     }
 
     /**
-     * Validates an object with JSR-303 bean validation annotations.
+     * Validates an object using JSR-303 bean validation annotations.
      *
      * @throws javax.validation.ConstraintViolationException if the bean is invalid
      * @param obj
@@ -46,18 +52,42 @@ public abstract class AbstractResource {
         }
     }
 
+	/**
+	 * Syntaxtual-sugar: validates the object using {@link #validate(Object)} then returns it.
+	 *
+	 * If the object is not valid, validate will throw an exception and the return statement of this method
+	 * will not be reached.
+	 *
+	 * @param obj
+	 * @param <T>
+	 * @return
+	 */
 	protected <T> T valid(T obj) {
 		validate(obj);
 
 		return obj;
 	}
 
+	/**
+	 * Null-safe {@link io.dropwizard.jersey.params.AbstractParam#get()}.
+	 *
+	 * @param param
+	 * @param <T>
+	 * @return
+	 */
 	protected <T> T unwrap(AbstractParam<T> param) {
 		return param == null ? null : param.get();
 	}
 
-	protected <T> List<T> unwrap(List<? extends AbstractParam<T>> childrenAges) {
-		return Lists.transform(childrenAges, new Function<AbstractParam<T>, T>() {
+	/**
+	 * Helper to unwrap a list of params.
+	 *
+	 * @param params
+	 * @param <T>
+	 * @return
+	 */
+	protected <T> List<T> unwrap(List<? extends AbstractParam<T>> params) {
+		return Lists.transform(params, new Function<AbstractParam<T>, T>() {
 			@Nullable
 			@Override
 			public T apply(AbstractParam<T> param) {

@@ -4,11 +4,9 @@ import com.cloudkey.pms.response.SOAPMessages;
 import com.keypr.bridge.ids.BridgeIds;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import lombok.experimental.Wither;
 
 /**
- * Exception which implementations of {@link com.cloudkey.message.parser.PMSInterface} may throw
+ * Exception which implementations of {@link com.cloudkey.PMSInterface} may throw
  * when the PMS responds with an error message.
  *
  * When thrown, the REST service will return 400 with a JSON response containing the error message.

@@ -17,7 +17,9 @@ public class WebServicesModule extends AbstractModule {
 
     @Override
     protected void configure() {
+		// Install an assisted-injection factory for ReservationResource.
 		install(new FactoryModuleBuilder().build(ReservationResource.ReservationResourceFactory.class));
+
 		install(new MicrosPMSModule());
     }
 }

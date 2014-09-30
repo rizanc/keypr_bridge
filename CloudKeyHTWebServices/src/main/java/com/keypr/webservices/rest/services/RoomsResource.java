@@ -13,7 +13,7 @@ import javax.ws.rs.*;
 import java.util.List;
 
 /**
- * REST service to the hotel room methods of {@link com.cloudkey.message.parser.PMSInterface}.
+ * REST resource for the hotel room methods of {@link com.cloudkey.PMSInterface}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
@@ -79,7 +79,7 @@ public class RoomsResource extends AbstractResource {
 			unwrap(childrenAges)
 		));
 
-		return messageParser.availability(request);
+		return messageParser.fetchAvailability(request);
 	}
 
 	@Path("/status")

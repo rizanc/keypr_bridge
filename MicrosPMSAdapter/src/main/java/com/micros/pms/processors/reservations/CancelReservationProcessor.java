@@ -1,6 +1,6 @@
 package com.micros.pms.processors.reservations;
 
-import com.cloudkey.message.parser.PMSInterface;
+import com.cloudkey.PMSInterface;
 import com.cloudkey.pms.common.reservation.Reservation;
 import com.cloudkey.pms.micros.og.common.IDPair;
 import com.cloudkey.pms.micros.og.common.ResultStatus;

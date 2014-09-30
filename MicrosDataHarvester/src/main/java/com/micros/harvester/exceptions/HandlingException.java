@@ -1,7 +1,7 @@
 package com.micros.harvester.exceptions;
 
 /**
- * Abstract class for errors that occur within a {@link com.micros.harvester.handlers.OXIPushHandler}.
+ * Abstract class for errors that occur within an {@link com.micros.harvester.handlers.OXIPushHandler}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */

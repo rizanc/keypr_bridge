@@ -3,7 +3,7 @@ package com.micros.harvester.exceptions;
 /**
  * Exception raised if a {@link com.micros.harvester.handlers.AbstractUploadHandler} implementation
  * cannot successfully POST data to the upload endpoint.
-
+ *
  * When this occurs, the upload should be reattempted later.
  *
  * @author Charlie La Mothe (charlie@keypr.com)

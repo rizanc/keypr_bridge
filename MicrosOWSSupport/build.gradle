@@ -1,10 +1,10 @@
 dependencies {
     // Local dependencies
     compile project(':CloudKeyHTBase')
-//    compile project(':CloudKeyHTWebServices')
     compile project(':MicrosIds')
     compile project(':MicrosOWSCxfClient')
-    compile guice
+    compile project(':KeyprGuice')
+
     compile logback_classic
     compile logback_core
 }

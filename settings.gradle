@@ -3,31 +3,18 @@ rootProject.name = 'keypr_bridge'
 include 'CloudKeyHTBase'
 //include 'CloudKeyHTDatabase'
 include 'CloudKeyHTIds'
-//include 'CloudKeyHTUploadService'
 include 'CloudKeyHTWebServices'
 include 'CloudKeyHTIds'
 include 'CloudKeyJaxbSupport'
-/*
-   CloudKeyTestAdapter is out of date with CloudKeyHTBase and will not build.
-
-include 'CloudKeyTestAdapter'
- */
 include 'MicrosDataHarvester'
 include 'MicrosOWSSupport'
-include 'MicrosOWSClient'
 include 'MicrosOWSCxfClient'
 include 'MicrosPMSAdapter'
 include 'MicrosOXIJaxb'
-//include 'MicrosSimulator_OXI'
-//include 'UploadServiceRest'
-
-//MicrosSimulatorPMS_OWS depends on outdated versions of the micros services, and is not used currently.
-//include 'MicrosSimulatorPMS_OWS'
-
 include 'MicrosIds'
-include 'CloudKeyHTMessages'
 include 'KeyprScala'
 include 'KeyprJacksonSupport'
 //include 'CloudKeyHTJsonSchemaGenerator'
 include 'KeyprDropwizardSwagger'
+include 'KeyprGuice'
 

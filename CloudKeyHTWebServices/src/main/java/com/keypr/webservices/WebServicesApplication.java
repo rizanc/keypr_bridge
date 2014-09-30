@@ -1,8 +1,5 @@
 package com.keypr.webservices;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hubspot.dropwizard.guice.GuiceBundle;
@@ -35,12 +32,11 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
 
     @Override
     public void initialize(Bootstrap<WebServicesConfiguration> bootstrap) {
-        // Guice
         GuiceBundle<WebServicesConfiguration> guiceBundle = GuiceBundle.<WebServicesConfiguration>newBuilder()
                 .addModule(new WebServicesModule())
                 .setConfigClass(WebServicesConfiguration.class)
 
-                // Auto-discover @Api annotated classes in this package
+                // Auto-discover @Path annotated classes in this package, among others
                 .enableAutoConfig(getClass().getPackage().getName())
                 .build();
 
@@ -72,6 +68,7 @@ public class WebServicesApplication extends Application<WebServicesConfiguration
 		Injector injector = Guice.createInjector(new WebServicesModule());
 		environment.healthChecks().register("pms", injector.getInstance(PMSHealthCheck.class));
 
+		// Install Swagger
 	    swaggerDropwizard.onRun(config, environment);
 
 	    SwaggerConfig swaggerConfig = ConfigFactory.config();

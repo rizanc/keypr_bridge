@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
 /**
- * REST service to the hotel membership methods of {@link com.cloudkey.message.parser.PMSInterface}.
+ * REST resource for the hotel membership methods of {@link com.cloudkey.PMSInterface}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */

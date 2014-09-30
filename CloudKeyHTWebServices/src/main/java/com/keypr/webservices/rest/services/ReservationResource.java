@@ -15,16 +15,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Sub-resource for accessing existing reservations.
+ * REST sub-resource for interacting with existing reservations.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Api(hidden = true, value = "/reservations")
 public class ReservationResource extends AbstractResource {
-	public interface ReservationResourceFactory {
-		ReservationResource create(String pmsReservationId);
-	}
-
 	protected final String pmsReservationId;
 
 	@Inject
@@ -137,7 +133,7 @@ public class ReservationResource extends AbstractResource {
     public CheckInResponse checkIn(CheckInRequest request) {
 		request.setPmsReservationId(pmsReservationId);
 
-        return messageParser.guestCheckIn(valid(request));
+        return messageParser.checkIn(valid(request));
     }
 
     @Path("/checkout")
@@ -152,7 +148,7 @@ public class ReservationResource extends AbstractResource {
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
     public CheckOutResponse checkOut() {
-		return messageParser.guestCheckOut(valid(new CheckOutRequest(pmsReservationId)));
+		return messageParser.checkOut(valid(new CheckOutRequest(pmsReservationId)));
     }
 
     @Path("/folio")
@@ -204,4 +200,25 @@ public class ReservationResource extends AbstractResource {
 		request.setPmsReservationId(pmsReservationId);
         return messageParser.addReservationNotes(valid(request));
     }
+
+	/**
+	 * Guice assisted-injection factory for ReservationResource.
+	 *
+	 * Injecting this factory allows you to create a Guice-injected ReservationResource for
+	 * a particular pmsReservationId.
+	 *
+	 * <pre>{@code
+	 *
+	 * 	@Inject
+	 * 	ReservationResourceFactory reservationResourceFactory;
+	 *
+	 * 	protected ReservationResource getReservationResource(String pmsReservationId) {
+	 * 	    return reservationResourceFactory.create(pmsReservationId);
+	 * 	}
+	 *
+	 * }</pre>
+	 */
+	public interface ReservationResourceFactory {
+		ReservationResource create(String pmsReservationId);
+	}
 }

@@ -6,7 +6,7 @@ package com.cloudkey.pms.response.memberships;
  * @author
  */
 
-import com.cloudkey.commons.Membership;
+import com.cloudkey.pms.common.Membership;
 import com.cloudkey.pms.response.PMSResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -30,7 +30,7 @@ import java.io.StringReader;
 /**
  * Servlet which handles requests from OXI.
  *
- * They are unmarshalled using JAXB into Java POJOS, then routed by type to a
+ * They are unmarshalled using JAXB into Java POJOS, then routed by their type to a
  * {@link com.micros.harvester.handlers.OXIPushHandler}.
  *
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -50,6 +50,12 @@ public class OXIServlet extends HttpServlet {
 	@Inject
 	ReservationHandler reservationHandler;
 
+	private void handle(Object oxiObj) throws HandlingException {
+		if (oxiObj instanceof Reservation) {
+			reservationHandler.handle((Reservation) oxiObj);
+		}
+	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String requestBody = readRequestBodyAsString(req);
@@ -67,9 +73,7 @@ public class OXIServlet extends HttpServlet {
 		log.info("Unmarshalled as {}", oxiObj.getClass());
 
 		try {
-			if (oxiObj instanceof Reservation) {
-				reservationHandler.handle((Reservation) oxiObj);
-			}
+			handle(oxiObj);
 		} catch (PMSInterfaceException e) {
 			// When an OWS connection failure occurs
 			resp.sendError(502);

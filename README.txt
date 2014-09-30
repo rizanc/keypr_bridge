@@ -2,90 +2,65 @@ Keypr Bridge Environment Setup
 ============================================
 
 A. Software Tools requirement
-	* gradle 1.11+
+	* gradle 2.0+
 	* jdk 1.7
 	* jre 7.0
-	* MySQL 5.5
 	* Maven 3+
 
 B. Steps to run the implementation:
 	Pull https://github.com/Keypr/keypr_bridge.git using git.
 
-	* CloudKeyHTBase: it holds all the common classes.
+	* CloudKeyHTBase: Home to the PMSInterface and request / response messages used to define it.
+
+	* CloudKeyHTIds: Home to the enums used in the Base (pms-agnostic) messages.
+
+	* CloudKeyHTJsonSchemaGenerator: Contains an application which automatically generates json schemas for java classes.
 
 	* CloudKeyHTWebServices: A DropWizard application with REST services called by the KEYPR cloud. It is backed by
-	    a PMS adapter implementing IParserInterface, such as CloudKeyTestAdapter or MicrosPMSAdapter.
+	    a PMS adapter implementing PMSInterface, Currently MicrosPMSAdapter's OperaOWSPMS.
 
-	* CloudKeyTestAdapter: An database-backed implementation of IParserInterface.
+	* CloudKeyJaxbSupport: Home to classes which enable the usage of Joda-Time date and time classes in generated JAXB
+	    xml-bound pojos.
 
-	* CloudKeyHTUploadService: Java application which pushes the data from the upload queue to the KEYPR cloud.
+    * KeyprDropwizardSwagger: A wrapper module for dropwizard-swagger, which configures it to be compatible with Scala 2.11.
 
-	* MicrosDataHarvester: Service which periodically pulls data from OWS and/or listens for updates from OXI,
-	    and pushes new data to the upload tables.
+    * KeyprGuice: A wrapper module for Guice, which includes shared utility methods for working with Guice.
 
-	* MicrosPMSAdapter: Backend for CloudKeyHTWebServices which obtains data from a MICROS OPERA server via OWS.
+    * KeyprJacksonSupport: A module which provides a Guice-injectable ObjectMapper, preset with project-wide configuration.
 
-	* MicrosSimulatorPMS_OWS: An simulator of the MICROS OPERA OWS web services.
+    * KeyprScala: A module which provides in-house utilities for working with scala.
 
-	* UploadServiceRest: "It behaves as proxy for keypr upload
-        webservices endpoint and return response as SUCCESS�/�FAIL�. As of now, we are using chrome application postman to push reservation data to the upload service."
+	* MicrosDataHarvester: Service which listens for updates to reservations from OXI,
+	    and pushes new data to the upload endpoints.
 
-        However it currently has just a few endpoints, all of which return a 200 response without causing any side-effects.
-        These endpoints do not appear to be in use by any other module.
-	
-C. Database Setup:
+	* MicrosIds: Contains all constants and enum mappings involved in the conversion from OWS/OXI to PMS-agnostic messages.
 
-For Database Set Up:
-----------------------------------------------------------------
-database\keypr_bridge_db.sql: this script has a new db "keypr_bridge_db".
+	* MicrosOWSCxfClient: Home to a Cxf (SOAP library) client for OWS. The java client services are auto-generated from the OWS wsdls.
 
-It contains tables used by MicrosDataHarvesting and CloudKeyHTUploadService.
-room_details,room_details_upload, room_inventory, room_inventory_upload,reservation_upload, reservation_room_rates_upload, reservation_room_allocation_upload
+	* MicrosOWSSupport: Provides a module for easy Guice-based injection of the OWSCxfClient SOAP interfaces. Includes tools for working with OWS data.
 
-1. Run the script database\keypr_bridge_06062014.sql in mysql.
-2. if the data base credentials are not as follow :	
-	username:root
-	password:Chetu@123
+	* MicrosOXIJaxb: Home to the JAXB Java pojos auto-generated from the OXI xsds.
 
-	* Update the database credentials in every place they are found
+	* MicrosPMSAdapter: Backend for CloudKeyHTWebServices which obtains data from a Micros OPERA OWS server.
 
 Project Distribution Instructions
 ============================================
 
-The project contains three java applications to run:
+The project contains two java applications to run:
 	* CloudKeyHTWebServices
-	* CloudKeyHTUploadService
 	* MicrosDataHarvester
-
 
 Project Deployment Instructions
 ============================================
 
 Project will be deployed and run as follows: 
 
-A. Update the database credentials in the above files,
-   and update the hotel configuration in pms-adapter-configuration.properties
+A. Run "gradlew clean distTar (or distZip)"
 
-B. Run "gradlew clean distTar (or distZip)"
+B. Copy the .tar files in the build/distributions directories of the above projects.
 
-C. Copy the .tar files in the build/distributions directories of the above projects.
+C. Unextract them.
 
-D. Unextract them.
-
-E. Start the applications using the scripts provided in each distribution's bin folder.
+D. Start the applications using the scripts provided in each distribution's bin folder.
    The CloudKeyHTWebServices application takes the arguments "server configuration.yml" where configuration.yml
-   is a real configuration file. See CloudKeyHTUploadService/configuration.yml for an example.
-
-As soon as the Data Harvesting service is up Data will be uploaded in the database (keypr_bridge_db) in following tables room_details, room_details_upload, room_inventory and room_inventory_upload.
-
-NOTE: Please ensure that the database (keypr_bridge_db) is already in placed.
-
-F. Populate reservation data in the reservation upload queue tables. Open Chrome Browser add postman addons to it. Once done,
-double click on postman to use the application. In the url paste http://localhost:9090/servlets/ORSInterface as of now, we suppose that osi server will be pushing the data at this url. 
-On deployment, this port number and url can be changed in properties of MicrosDataHarvester/src/main/resources/configuration.properties file.
-
-## OXI Listener Configuration
-micros.pms.oxi.listener.url = /servlets/ORSInterface
-micros.pms.oxi.listener.port = 9090
-
-Make post request to the listener, after putting the reservation details in the request section by using send button. The listener should send success response to the postman. Now Check the reservation_upload, reservation_room_rates_upload and reservation_room_allocation_upload for the data sent by the reservation.
+   is a real configuration file. See CloudKeyHTWebServices/configuration.yml for an example.

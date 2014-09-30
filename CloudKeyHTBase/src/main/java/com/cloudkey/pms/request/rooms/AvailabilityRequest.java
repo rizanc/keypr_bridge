@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class stores the room availability information. 
+ * Class stores the room availability information.
  * 
  * @author vinayk2
  */

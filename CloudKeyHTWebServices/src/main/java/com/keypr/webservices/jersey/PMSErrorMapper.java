@@ -9,6 +9,8 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 /**
+ * Maps throwned {@link com.cloudkey.exceptions.PMSError}s into web responses.
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @Provider

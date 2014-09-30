@@ -6,6 +6,7 @@ import org.joda.time.format.ISOPeriodFormat;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
+ * Joda-Time adaptors for JAXB
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class PeriodAdapter extends XmlAdapter<String, Period> {

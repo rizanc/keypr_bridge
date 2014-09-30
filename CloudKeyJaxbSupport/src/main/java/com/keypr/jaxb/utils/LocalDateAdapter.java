@@ -7,6 +7,8 @@ import org.joda.time.format.ISODateTimeFormat;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
+ * Joda-Time adaptors for JAXB
+ *
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
