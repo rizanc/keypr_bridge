@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class GuestMembershipsRequest extends PMSRequest {
 
 	@NotBlank

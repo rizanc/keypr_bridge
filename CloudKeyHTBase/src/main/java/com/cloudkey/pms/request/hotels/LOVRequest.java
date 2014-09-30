@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class LOVRequest extends PMSRequest {
     // Can be TRXCODES or ARTICLES
     @NotBlank

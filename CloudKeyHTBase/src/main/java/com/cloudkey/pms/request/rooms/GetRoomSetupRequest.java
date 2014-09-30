@@ -19,7 +19,7 @@ import javax.validation.constraints.AssertFalse;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class GetRoomSetupRequest extends PMSRequest {
 
 	@Nullable

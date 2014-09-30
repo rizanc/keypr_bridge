@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class VaultedCardNumber extends CardNumberReference {
     /**
      * The key identifying the card in the vault

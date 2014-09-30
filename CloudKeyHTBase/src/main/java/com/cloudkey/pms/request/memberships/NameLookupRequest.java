@@ -16,7 +16,7 @@ import javax.validation.constraints.AssertTrue;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class NameLookupRequest extends PMSRequest {
 	String firstName;
 

@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class CreateReservationRequest extends PMSRequest {
 
 	@NotEmpty
