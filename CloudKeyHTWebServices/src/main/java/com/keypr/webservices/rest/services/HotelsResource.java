@@ -21,21 +21,21 @@ import javax.ws.rs.Path;
 @Api(value = "/hotels", description = "Hotels resource")
 public class HotelsResource extends AbstractResource {
 
-    @GET
-    @ApiOperation(
-        value = "Fetches general information about a hotel",
-        response = HotelInformationResponse.class
-    )
-    @ApiResponses({
-	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
-	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
-	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
-    })
-    public HotelInformationResponse updateBookingRequest() {
-        return messageParser.hotelInformationQuery(
+	@GET
+	@ApiOperation(
+		value = "Fetches general information about a hotel",
+		response = HotelInformationResponse.class
+	)
+	@ApiResponses({
+		@ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
+		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
+		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
+	})
+	public HotelInformationResponse updateBookingRequest() {
+		return messageParser.hotelInformationQuery(
 			valid(new HotelInformationRequest())
 		);
-    }
+	}
 
 	@Path("/itemCodes")
 	@GET()
