@@ -1,8 +1,8 @@
 package com.cloudkey.pms.response.reservations;
 
-import com.cloudkey.pms.common.Reservation;
+import com.cloudkey.pms.common.profile.CustomerProfile;
+import com.cloudkey.pms.common.reservation.Room;
 import com.cloudkey.pms.response.PMSResponse;
-import lombok.EqualsAndHashCode;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,5 +20,5 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
 public class CheckInResponse extends PMSResponse {
-    Reservation reservation;
+	String roomNumber;
 }
