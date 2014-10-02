@@ -22,8 +22,6 @@ import java.util.List;
 @AllArgsConstructor(access=AccessLevel.PUBLIC)
 @ToString
 public class GetFolioResponse extends PMSResponse {
-    /* Reference variable to store the reservation data */
-    Reservation reservation;
 
     /* Reference variable to store the bill information */
     List<ReservationOrder> reservationOrderList;
