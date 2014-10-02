@@ -1,7 +1,6 @@
 package com.micros.pms.processors.reservations;
 
 import com.cloudkey.pms.common.OrderDetails;
-import com.cloudkey.pms.common.Reservation;
 import com.cloudkey.pms.common.ReservationOrder;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
@@ -15,7 +14,6 @@ import com.cloudkey.pms.response.reservations.GetFolioResponse;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.micros.pms.processors.OWSProcessor;
-import com.micros.pms.util.HotelInformationConverter;
 
 import javax.xml.ws.Holder;
 import java.math.BigDecimal;
@@ -58,7 +56,7 @@ public class GetFolioProcessor extends OWSProcessor<
 		BigDecimal totalBillAmount = new BigDecimal("0.00");
 
 		/* Populate response into Reservation instance */
-		Reservation.ReservationBuilder reservation = Reservation.builder();
+//		Reservation.ReservationBuilder reservation = Reservation.builder();
 
 		List<ReservationOrder> reservationOrderList = new ArrayList<>();
 
@@ -66,13 +64,13 @@ public class GetFolioProcessor extends OWSProcessor<
 		for (BillHeader billHeader : microsResponse.getInvoices()) { // Traversing Bill Header
 
 			log.debug("getFolioResponseObject: Enter to traverse Bill Header ");
-
-			reservation.address(HotelInformationConverter.convertAddress(billHeader.getAddress()));
-
-			if (billHeader.getName() != null) {
-				reservation.firstName(billHeader.getName().getFirstName());
-				reservation.lastName(billHeader.getName().getLastName());
-			}
+//
+//			reservation.address(HotelInformationConverter.convertAddress(billHeader.getAddress()));
+//
+//			if (billHeader.getName() != null) {
+//				reservation.firstName(billHeader.getName().getFirstName());
+//				reservation.lastName(billHeader.getName().getLastName());
+//			}
 
 			List<OrderDetails> orderDetailsList = new ArrayList<>();
 
@@ -107,6 +105,6 @@ public class GetFolioProcessor extends OWSProcessor<
 
 		log.debug("getFolioResponseObject: Exit  getFolioResponseObject method ");
 
-		return new GetFolioResponse(reservation.build(), reservationOrderList);
+		return new GetFolioResponse(reservationOrderList);
 	}
 }
