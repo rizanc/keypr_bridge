@@ -7,13 +7,19 @@ import javax.annotation.Nullable
 
 import com.cloudkey.pms.common.payment.MonetaryAmount
 import com.cloudkey.pms.common.profile.{NativeName, StreetAddress}
+import com.cloudkey.pms.common.reservation.DepositRequirement
+import com.cloudkey.pms.common.reservation.Discount
+import com.cloudkey.pms.common.reservation.RatePlan
+import com.cloudkey.pms.common.reservation.RoomRate
 import com.cloudkey.pms.common.reservation._
 import com.cloudkey.pms.micros.og.common.{UniqueID, Amount}
 import com.cloudkey.pms.micros.og.hotelcommon
-import com.cloudkey.pms.micros.og.hotelcommon.{DiscountType, AdditionalDetailType, AdditionalDetail}
+import com.cloudkey.pms.micros.og.hotelcommon.{AdditionalDetailType, AdditionalDetail}
 import com.cloudkey.pms.micros.og.name.NameAddress
 import com.cloudkey.pms.micros.og.name.{NativeName => OWSNativeName}
 import com.cloudkey.pms.micros.ows.IdUtils._
+import com.cloudkey.pms.response.rooms
+import com.cloudkey.pms.response.rooms.{DayCharges, RoomStayCharges}
 import com.google.inject.{Singleton, Inject}
 import com.keypr.scala.OptionalConverters._
 import com.micros.pms.util.ParagraphHelper
@@ -37,18 +43,26 @@ class ConverterUtils  {
     }
   }
 
-  def convertAmount(from: Amount): MonetaryAmount = {
-    val decimals: Short = if (from.getDecimals == null) {
-      2.toShort
-    } else {
-      from.getDecimals.toShort
-    }
+  def convertAmount(nullableFrom: Amount): MonetaryAmount = {
+    Option(nullableFrom) match {
+      case Some(from ) => {
+        val decimals: Short = if (from.getDecimals == null) {
+          2.toShort
+        } else {
+          from.getDecimals.toShort
+        }
 
-    new MonetaryAmount(from.getValue, decimals, getCurrency(from.getCurrencyCode))
+        new MonetaryAmount(from.getValue, decimals, getCurrency(from.getCurrencyCode))
+      }
+
+      case None => {
+        null
+      }
+    }
   }
 
   def convertRatePlan(ratePlan: hotelcommon.RatePlan): RatePlan = {
-    val details: Iterable[AdditionalDetail] = ratePlan.getAdditionalDetails.asScala
+    val details: Iterable[hotelcommon.AdditionalDetail] = ratePlan.getAdditionalDetails.asScala
 
     new RatePlan(
       ratePlan.getRatePlanCode,
@@ -57,20 +71,20 @@ class ConverterUtils  {
       ParagraphHelper.getFirstString(ratePlan.getRatePlanDescription).orNull,
       Option(ratePlan.getDepositRequired).map(convertDeposit).orNull,
       Option(ratePlan.getDiscount).flatMap(convertDiscount).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.RATE_RULES).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.MARKETING_INFORMATION).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.DEPOSIT_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.PROMOTION).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.COMMISSION_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.GUARANTEE_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.MISCELLANEOUS).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.PACKAGE_OPTIONS).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.PENALTY_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.TA_SPECIAL_REQUEST).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.TAX_INFORMATION).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.CANCEL_POLICY).orNull,
-      getAdditionalDetail(details, AdditionalDetailType.POINTS_POLICY).orNull,
-      getAdditionalDetails(details, AdditionalDetailType.OTHER).toList,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.RATE_RULES).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.MARKETING_INFORMATION).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.DEPOSIT_POLICY).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.PROMOTION).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.COMMISSION_POLICY).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.GUARANTEE_POLICY).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.MISCELLANEOUS).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.PACKAGE_OPTIONS).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.PENALTY_POLICY).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.TA_SPECIAL_REQUEST).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.TAX_INFORMATION).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.CANCEL_POLICY).orNull,
+      getAdditionalDetail(details, hotelcommon.AdditionalDetailType.POINTS_POLICY).orNull,
+      getAdditionalDetails(details, hotelcommon.AdditionalDetailType.OTHER).toList,
       ratePlan.isHold,
       ratePlan.isMandatoryDeposit,
       ratePlan.isHasPackage,
@@ -97,7 +111,7 @@ class ConverterUtils  {
   }
 
 
-  def getAdditionalDetails(details: Traversable[AdditionalDetail], detailType: AdditionalDetailType): Traversable[String] = {
+  def getAdditionalDetails(details: Traversable[hotelcommon.AdditionalDetail], detailType: hotelcommon.AdditionalDetailType): Traversable[String] = {
     details.collect({
       case detail if detail.getDetailType == detailType =>
         ParagraphHelper.getFirstString(detail.getAdditionalDetailDescription): Option[String]
@@ -121,10 +135,10 @@ class ConverterUtils  {
 
   def convertDiscount(from: hotelcommon.Discount): Option[Discount] = {
     from.getDiscountType match {
-      case DiscountType.FLAT =>
+      case hotelcommon.DiscountType.FLAT =>
         Some(new FlatDiscount(from.getDiscountReason, new MonetaryAmount(from.getDiscountAmount, 2.toShort, defaultCurrency)))
 
-      case DiscountType.PERCENT =>
+      case hotelcommon.DiscountType.PERCENT =>
         Some(new PercentDiscount(from.getDiscountReason, from.getDiscountAmount))
 
       case _ =>
@@ -157,6 +171,52 @@ class ConverterUtils  {
       from.getNameSuffixes,
       from.getProfession,
       from.getFamiliarName
+    )
+  }
+
+  def convertDailyChargeList(expectedCharges: hotelcommon.DailyChargeList): RoomStayCharges = {
+    if (expectedCharges == null) {
+      return null
+    }
+
+    val dayCharges = expectedCharges.getChargesForPostingDates.map(chargesForTheDay => {
+      val builder: DayCharges.DayChargesBuilder = DayCharges.builder
+
+      val roomRateAndPackages: hotelcommon.ChargeList = chargesForTheDay.getRoomRateAndPackages
+
+      if (roomRateAndPackages != null) {
+        val roomRateDecimals: Short = if (roomRateAndPackages.getDecimals == null) 2 else roomRateAndPackages.getDecimals
+        builder.roomAndPackageTotal(new MonetaryAmount(roomRateAndPackages.getTotalCharges, roomRateDecimals, defaultCurrency))
+        builder.roomAndPackageCharges(roomRateAndPackages.getCharges.map(toCharge))
+      }
+
+      val taxesAndFees: hotelcommon.ChargeList = chargesForTheDay.getTaxesAndFees
+
+      if (taxesAndFees != null) {
+        val roomRateDecimals: Short = if (taxesAndFees.getDecimals == null) 2 else taxesAndFees.getDecimals
+        builder.taxAndFeeTotal(new MonetaryAmount(taxesAndFees.getTotalCharges, roomRateDecimals, defaultCurrency))
+        builder.taxAndFeeCharges(roomRateAndPackages.getCharges.map(toCharge))
+      }
+
+      chargesForTheDay.getPostingDate -> builder.build
+    }).toMap
+
+    val decimals: Short = Option(expectedCharges.getDecimals).map(_.toShort).getOrElse(2.toShort)
+
+    return new RoomStayCharges(
+      new MonetaryAmount(expectedCharges.getTotalRoomRateAndPackages, decimals, defaultCurrency),
+      new MonetaryAmount(expectedCharges.getTotalTaxesAndFees, decimals, defaultCurrency),
+      expectedCharges.isTaxInclusive,
+      dayCharges
+    )
+  }
+
+  def toCharge(from: hotelcommon.Charge): rooms.Charge = {
+    return new rooms.Charge(
+      from.getDescription,
+      convertAmount(from.getAmount),
+      from.getCodeType,
+      from.getCode
     )
   }
 

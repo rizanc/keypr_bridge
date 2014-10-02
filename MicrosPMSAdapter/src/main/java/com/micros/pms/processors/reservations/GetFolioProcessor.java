@@ -2,6 +2,7 @@ package com.micros.pms.processors.reservations;
 
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
+import com.cloudkey.pms.micros.og.reservation.advanced.ExpectedCharges;
 import com.cloudkey.pms.micros.og.reservation.advanced.InvoiceRequest;
 import com.cloudkey.pms.micros.og.reservation.advanced.InvoiceResponse;
 import com.cloudkey.pms.micros.ows.BillConverter;
@@ -48,6 +49,18 @@ public class GetFolioProcessor extends OWSProcessor<
 
 	@Override
 	protected GetFolioResponse toPmsResponse(InvoiceResponse microsResponse, GetFolioRequest request) {
-		return new GetFolioResponse(billConverter.convertBillHeaders(microsResponse.getInvoices()));
+		GetFolioResponse.GetFolioResponseBuilder resp = GetFolioResponse.builder();
+
+		resp.bills(billConverter.convertBillHeaders(microsResponse.getInvoices()));
+
+		ExpectedCharges expectedCharges = microsResponse.getExpectedCharges();
+
+		if (expectedCharges != null) {
+			resp.currentBalance(billConverter.convertAmount(expectedCharges.getCurrentBalance()));
+			resp.totalCharges(billConverter.convertAmount(expectedCharges.getTotalCharges()));
+			resp.expectedCharges(billConverter.convertDailyChargeList(expectedCharges.getDailyCharges()));
+		}
+
+		return resp.build();
 	}
 }
