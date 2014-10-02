@@ -58,6 +58,7 @@ public class ReservationResource extends AbstractResource {
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
+	@Consumes(MediaType.WILDCARD) // Does not take any body
 	public CancelReservationResponse cancelReservation(@QueryParam("reason") String reason) {
 		return messageParser.cancelReservation(
 			valid(new CancelReservationRequest(
@@ -113,6 +114,7 @@ public class ReservationResource extends AbstractResource {
 		@ApiResponse(code = 400, message = "The PMS responded with an error message"),
 		@ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
 	})
+	@Consumes(MediaType.WILDCARD) // Does not take any body
 	public ReleaseRoomResponse releaseRoom() {
 		return messageParser.releaseRoom(
 			valid(new ReleaseRoomRequest(pmsReservationId))
@@ -147,7 +149,8 @@ public class ReservationResource extends AbstractResource {
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public CheckOutResponse checkOut() {
+	@Consumes(MediaType.WILDCARD) // Does not take any body
+	public CheckOutResponse checkOut() {
 		return messageParser.checkOut(valid(new CheckOutRequest(pmsReservationId)));
     }
 
