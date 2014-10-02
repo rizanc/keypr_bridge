@@ -50,6 +50,8 @@ public class MicrosIds {
     }
 
 	public static class OWS {
+		public static final String PROFILE_NAME_ID = "OPERA_NAME_ID";
+
 		public static final String RESERVATION_ID_SOURCE = "RESVID";
 
 		public static final String LEG_NUM_SOURCE = "LEGNUMBER";

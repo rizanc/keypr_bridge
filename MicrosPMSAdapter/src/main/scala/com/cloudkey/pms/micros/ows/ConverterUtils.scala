@@ -1,14 +1,18 @@
 package com.cloudkey.pms.micros.ows
 
 import java.util.Currency
+import java.lang
 import java.util.{List => JavaList}
 import javax.annotation.Nullable
 
 import com.cloudkey.pms.common.payment.MonetaryAmount
+import com.cloudkey.pms.common.profile.{NativeName, StreetAddress}
 import com.cloudkey.pms.common.reservation._
-import com.cloudkey.pms.micros.og.common.Amount
+import com.cloudkey.pms.micros.og.common.{UniqueID, Amount}
 import com.cloudkey.pms.micros.og.hotelcommon
 import com.cloudkey.pms.micros.og.hotelcommon.{DiscountType, AdditionalDetailType, AdditionalDetail}
+import com.cloudkey.pms.micros.og.name.NameAddress
+import com.cloudkey.pms.micros.og.name.{NativeName => OWSNativeName}
 import com.cloudkey.pms.micros.ows.IdUtils._
 import com.google.inject.{Singleton, Inject}
 import com.keypr.scala.OptionalConverters._
@@ -34,7 +38,13 @@ class ConverterUtils  {
   }
 
   def convertAmount(from: Amount): MonetaryAmount = {
-    new MonetaryAmount(from.getValue, from.getDecimals, getCurrency(from.getCurrencyCode))
+    val decimals: Short = if (from.getDecimals == null) {
+      2.toShort
+    } else {
+      from.getDecimals.toShort
+    }
+
+    new MonetaryAmount(from.getValue, decimals, getCurrency(from.getCurrencyCode))
   }
 
   def convertRatePlan(ratePlan: hotelcommon.RatePlan): RatePlan = {
@@ -122,4 +132,35 @@ class ConverterUtils  {
     }
   }
 
+  def convertAddress(address: NameAddress): StreetAddress = {
+    new StreetAddress(
+      address.getAddressLines,
+      address.getCityName,
+      address.getStateProv,
+      address.getCountryCode,
+      address.getPostalCode,
+      address.getBarCode,
+      address.getCityExtension,
+      address.getAddressType,
+      address.getOtherAddressType,
+      address.getLanguageCode
+    )
+  }
+
+  def convertNativeName(from: OWSNativeName): NativeName = {
+    new NativeName(
+      from.getLanguageCode,
+      from.getNameTitles,
+      from.getFirstName,
+      from.getMiddleNames,
+      from.getLastName,
+      from.getNameSuffixes,
+      from.getProfession,
+      from.getFamiliarName
+    )
+  }
+
+  def nullsafeUniqueIdValue(id: UniqueID): Option[String] = {
+    Option(id).flatMap(nullsafeId => Option(nullsafeId.getValue))
+  }
 }

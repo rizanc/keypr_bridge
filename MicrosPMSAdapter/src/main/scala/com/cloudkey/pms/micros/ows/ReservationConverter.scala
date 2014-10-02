@@ -149,18 +149,7 @@ class ReservationConverter extends ConverterUtils {
           personName.getFamiliarName
         )
       }).orNull,
-      Option(customer.getNativeName).map(nativeName => {
-        new NativeName(
-          customer.getNativeName.getLanguageCode,
-          customer.getNativeName.getNameTitles,
-          customer.getNativeName.getFirstName,
-          customer.getNativeName.getMiddleNames,
-          customer.getNativeName.getLastName,
-          customer.getNativeName.getNameSuffixes,
-          customer.getNativeName.getProfession,
-          customer.getNativeName.getFamiliarName
-        )
-      }).orNull,
+      Option(customer.getNativeName).map(convertNativeName).orNull,
       customer.getBusinessTitle,
       fromMicrosEnum(customer.getGender),
       customer.getBirthDate,
@@ -178,21 +167,6 @@ class ReservationConverter extends ConverterUtils {
       p.getCompany.getCompanyID,
       p.getCompany.getCompanyName
     ))
-  }
-
-  private def convertAddress(address: NameAddress): StreetAddress = {
-    new StreetAddress(
-      address.getAddressLines,
-      address.getCityName,
-      address.getStateProv,
-      address.getCountryCode,
-      address.getPostalCode,
-      address.getBarCode,
-      address.getCityExtension,
-      address.getAddressType,
-      address.getOtherAddressType,
-      address.getLanguageCode
-    )
   }
 
   private def countGuests(roomStay: hotelcommon.RoomStay, ageCodes: AgeQualifyingCode*): Integer = {

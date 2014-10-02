@@ -40,6 +40,22 @@ public class IdUtils {
 		});
 	}
 
+	public static com.google.common.base.Optional<String> findProfileNameId(Collection<UniqueID> uniqueIDs) {
+		return Iterables.tryFind(uniqueIDs, new Predicate<UniqueID>() {
+			@Override
+			public boolean apply(@Nullable UniqueID uniqueID) {
+				return Objects.equal(uniqueID.getType(), UniqueIDType.INTERNAL)
+					&& Objects.equal(uniqueID.getSource(), MicrosIds.OWS.PROFILE_NAME_ID);
+			}
+		}).transform(new Function<UniqueID, String>() {
+			@Nullable
+			@Override
+			public String apply(@Nullable UniqueID uniqueID) {
+				return uniqueID.getValue();
+			}
+		});
+	}
+
 	public static com.google.common.base.Optional<String> findConfirmationNumId(Collection<UniqueID> uniqueIDs) {
 		return Iterables.tryFind(uniqueIDs, new Predicate<UniqueID>() {
 			@Override
