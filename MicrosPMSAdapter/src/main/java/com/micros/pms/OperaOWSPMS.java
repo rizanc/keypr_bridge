@@ -8,7 +8,7 @@ import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.HotelItemCodesRequest;
 import com.cloudkey.pms.request.hotels.LOVRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.NameLookupRequest;
+import com.cloudkey.pms.request.memberships.SearchMembershipsRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
@@ -16,7 +16,7 @@ import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.HotelItemCodesResponse;
 import com.cloudkey.pms.response.hotels.LOVResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
-import com.cloudkey.pms.response.memberships.NameLookupResponse;
+import com.cloudkey.pms.response.memberships.SearchMembershipsResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.rooms.*;
 import com.google.common.base.Optional;
@@ -25,7 +25,7 @@ import com.google.inject.Inject;
 import com.micros.pms.processors.hotels.HotelInformationProcessor;
 import com.micros.pms.processors.hotels.LOVQueryProcessor;
 import com.micros.pms.processors.memberships.GuestMembershipsProcessor;
-import com.micros.pms.processors.memberships.NameLookupProcessor;
+import com.micros.pms.processors.memberships.SearchMembershipsProcessor;
 import com.micros.pms.processors.reservations.*;
 import com.micros.pms.processors.reservations.AssignRoomProcessor;
 import com.micros.pms.processors.rooms.AvailabilityProcessor;
@@ -103,7 +103,7 @@ public class OperaOWSPMS extends OWSBase implements PMSInterface {
 
 	// Memberships
 	@Inject
-	NameLookupProcessor nameLookupProcessor;
+	SearchMembershipsProcessor searchMembershipsProcessor;
 
 	@Inject
 	GuestMembershipsProcessor guestMembershipsProcessor;
@@ -173,9 +173,9 @@ public class OperaOWSPMS extends OWSBase implements PMSInterface {
     }
 
     @Override
-    public NameLookupResponse getNameIdInformation(NameLookupRequest request) throws PMSInterfaceException {
+    public SearchMembershipsResponse getNameIdInformation(SearchMembershipsRequest request) throws PMSInterfaceException {
         log.debug("getNameIdInformation: Enter method.");
-	    return nameLookupProcessor.process(request);
+	    return searchMembershipsProcessor.process(request);
     }
 
     @Override

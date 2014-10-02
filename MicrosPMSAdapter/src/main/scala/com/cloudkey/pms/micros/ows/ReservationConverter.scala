@@ -133,33 +133,6 @@ class ReservationConverter extends ConverterUtils {
     resv.build
   }
 
-  private def convertCustomerProfile(profile: Profile) = {
-    val customer = profile.getCustomer
-
-    new CustomerProfile(
-      IdUtils.findInternalProfileId(profile.getProfileIDs).orNull,
-      Option(customer.getPersonName).map(personName => {
-        new PersonName(
-          personName.getNameTitles,
-          personName.getFirstName,
-          personName.getMiddleNames,
-          personName.getLastName,
-          personName.getNameSuffixes,
-          personName.getProfession,
-          personName.getFamiliarName
-        )
-      }).orNull,
-      Option(customer.getNativeName).map(convertNativeName).orNull,
-      customer.getBusinessTitle,
-      fromMicrosEnum(customer.getGender),
-      customer.getBirthDate,
-      profile.getAddresses.map(convertAddress),
-      profile.getEMails.map(_.getValue),
-      profile.getPhones.filter(_.getPhoneRole == PhoneNumberRole.PHONE.name).map(_.getPhoneNumber),
-      profile.getPhones.filter(_.getPhoneRole == PhoneNumberRole.FAX.name).map(_.getPhoneNumber)
-    )
-  }
-
   private def convertProfiles(resGuest: ResGuest, profileType: CompanyCompanyType) = {
     resGuest.getProfiles.filter(profile => profile.getCompany != null && profile.getCompany.getCompanyType == profileType)
       .map(p => new ProfileReference(

@@ -8,9 +8,10 @@ import com.cloudkey.pms.micros.og.name.NameLookupAll;
 import com.cloudkey.pms.micros.og.name.NameLookupCriteriaMembership;
 import com.cloudkey.pms.micros.og.name.NameLookupInput;
 import com.cloudkey.pms.micros.og.name.Profile;
+import com.cloudkey.pms.micros.ows.ConverterUtils;
 import com.cloudkey.pms.micros.services.NameServiceSoap;
-import com.cloudkey.pms.request.memberships.NameLookupRequest;
-import com.cloudkey.pms.response.memberships.NameLookupResponse;
+import com.cloudkey.pms.request.memberships.SearchMembershipsRequest;
+import com.cloudkey.pms.response.memberships.SearchMembershipsResponse;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
@@ -24,14 +25,17 @@ import javax.xml.ws.Holder;
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-public class NameLookupProcessor extends OWSProcessor<
-	NameLookupRequest,
-	NameLookupResponse,
+public class SearchMembershipsProcessor extends OWSProcessor<
+	SearchMembershipsRequest,
+	SearchMembershipsResponse,
 	com.cloudkey.pms.micros.ows.name.NameLookupRequest,
 	com.cloudkey.pms.micros.ows.name.NameLookupResponse> {
 
 	@Inject
 	protected NameServiceSoap service;
+
+	@Inject
+	protected ConverterUtils converterUtils;
 
 	@Override
 	protected ResultStatus getResultStatus(com.cloudkey.pms.micros.ows.name.NameLookupResponse nameLookupResponse) {
@@ -44,7 +48,7 @@ public class NameLookupProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected com.cloudkey.pms.micros.ows.name.NameLookupRequest toMicrosRequest(NameLookupRequest request) {
+	protected com.cloudkey.pms.micros.ows.name.NameLookupRequest toMicrosRequest(SearchMembershipsRequest request) {
 		NameLookupInput nameLookupInput = new NameLookupInput();
 		if (request.getMembershipNumber() != null) {
 			nameLookupInput.setMembership(new NameLookupCriteriaMembership()
@@ -64,23 +68,9 @@ public class NameLookupProcessor extends OWSProcessor<
 	}
 
 	@Override
-	protected NameLookupResponse toPmsResponse(com.cloudkey.pms.micros.ows.name.NameLookupResponse microsResponse, NameLookupRequest request) {
-
-		Optional<Profile> firstProfileOpt = FluentIterable.from(microsResponse.getProfiles()).first();
-
-		if (firstProfileOpt.isPresent()) {
-			Optional<UniqueID> internalIdOpt = Iterables.tryFind(firstProfileOpt.get().getProfileIDs(), new Predicate<UniqueID>() {
-				@Override
-				public boolean apply(@Nullable UniqueID uniqueID) {
-					return uniqueID.getType() == UniqueIDType.INTERNAL;
-				}
-			});
-
-			if (internalIdOpt.isPresent()) {
-				return new NameLookupResponse(internalIdOpt.get().getValue());
-			}
-		}
-
-		return new NameLookupResponse(null);
+	protected SearchMembershipsResponse toPmsResponse(com.cloudkey.pms.micros.ows.name.NameLookupResponse microsResponse, SearchMembershipsRequest request) {
+		return new SearchMembershipsResponse(
+			converterUtils.convertCustomerProfiles(microsResponse.getProfiles())
+		);
 	}
 }

@@ -6,7 +6,7 @@ import java.util.{List => JavaList}
 import javax.annotation.Nullable
 
 import com.cloudkey.pms.common.payment.MonetaryAmount
-import com.cloudkey.pms.common.profile.{NativeName, StreetAddress}
+import com.cloudkey.pms.common.profile.{PersonName, CustomerProfile, NativeName, StreetAddress}
 import com.cloudkey.pms.common.reservation.DepositRequirement
 import com.cloudkey.pms.common.reservation.Discount
 import com.cloudkey.pms.common.reservation.RatePlan
@@ -15,12 +15,12 @@ import com.cloudkey.pms.common.reservation._
 import com.cloudkey.pms.micros.og.common.{UniqueID, Amount}
 import com.cloudkey.pms.micros.og.hotelcommon
 import com.cloudkey.pms.micros.og.hotelcommon.{AdditionalDetailType, AdditionalDetail}
-import com.cloudkey.pms.micros.og.name.NameAddress
-import com.cloudkey.pms.micros.og.name.{NativeName => OWSNativeName}
+import com.cloudkey.pms.micros.og.name.{NativeName => OWSNativeName, Profile, NameAddress}
 import com.cloudkey.pms.micros.ows.IdUtils._
 import com.cloudkey.pms.response.rooms
 import com.cloudkey.pms.response.rooms.{DayCharges, RoomStayCharges}
 import com.google.inject.{Singleton, Inject}
+import com.keypr.pms.micros.oxi.ids.MicrosIds.OWS.PhoneNumberRole
 import com.keypr.scala.OptionalConverters._
 import com.micros.pms.util.ParagraphHelper
 import scala.collection.JavaConversions._
@@ -212,11 +212,42 @@ class ConverterUtils  {
   }
 
   def toCharge(from: hotelcommon.Charge): rooms.Charge = {
-    return new rooms.Charge(
+    new rooms.Charge(
       from.getDescription,
       convertAmount(from.getAmount),
       from.getCodeType,
       from.getCode
+    )
+  }
+
+  def convertCustomerProfiles(profiles: java.util.List[Profile]): java.util.List[CustomerProfile] = {
+    profiles.map(convertCustomerProfile)
+  }
+
+  def convertCustomerProfile(profile: Profile) = {
+    val customerOpt = Option(profile.getCustomer)
+
+    new CustomerProfile(
+      IdUtils.findInternalProfileId(profile.getProfileIDs).orNull,
+      customerOpt.flatMap(customer => Option(customer.getPersonName)).map(personName => {
+        new PersonName(
+          personName.getNameTitles,
+          personName.getFirstName,
+          personName.getMiddleNames,
+          personName.getLastName,
+          personName.getNameSuffixes,
+          personName.getProfession,
+          personName.getFamiliarName
+        )
+      }).orNull,
+      customerOpt.flatMap(customer => Option(customer.getNativeName)).map(convertNativeName).orNull,
+      customerOpt.map(customer => customer.getBusinessTitle).orNull,
+      customerOpt.map(customer => fromMicrosEnum(customer.getGender)).orNull,
+      customerOpt.map(_.getBirthDate).orNull,
+      profile.getAddresses.map(convertAddress),
+      profile.getEMails.map(_.getValue),
+      profile.getPhones.filter(ph => ph.getPhoneRole == PhoneNumberRole.PHONE.name || ph.getPhoneRole == null).map(_.getPhoneNumber),
+      profile.getPhones.filter(_.getPhoneRole == PhoneNumberRole.FAX.name).map(_.getPhoneNumber)
     )
   }
 

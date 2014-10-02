@@ -1,9 +1,9 @@
 package com.keypr.webservices.rest.services;
 
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.NameLookupRequest;
+import com.cloudkey.pms.request.memberships.SearchMembershipsRequest;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
-import com.cloudkey.pms.response.memberships.NameLookupResponse;
+import com.cloudkey.pms.response.memberships.SearchMembershipsResponse;
 import com.google.inject.Singleton;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -44,20 +44,20 @@ public class MembershipsResource extends AbstractResource {
     @GET
     @ApiOperation(
         value = "Finds a membership's 'name id' by related criteria",
-        response = NameLookupResponse.class
+        response = SearchMembershipsResponse.class
     )
     @ApiResponses({
 	    @ApiResponse(code = 422, message = "Request parameters are incomplete or invalid"),
 	    @ApiResponse(code = 400, message = "The PMS responded with an error message"),
 	    @ApiResponse(code = 502, message = "An unexpected error occurred involving PMS communication")
     })
-    public NameLookupResponse nameIdSearch(
+    public SearchMembershipsResponse nameIdSearch(
             @QueryParam("membershipNumber") String membershipNumber,
             @QueryParam("membershipType") String membershipType,
             @QueryParam("memberFirstName") String memberFirstName,
             @QueryParam("memberLastName") String memberLastName) {
         return messageParser.getNameIdInformation(
-			valid(new NameLookupRequest(memberFirstName, memberLastName, membershipNumber, membershipType))
+			valid(new SearchMembershipsRequest(memberFirstName, memberLastName, membershipNumber, membershipType))
 		);
     }
 }

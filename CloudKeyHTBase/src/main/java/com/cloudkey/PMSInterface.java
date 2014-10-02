@@ -4,19 +4,15 @@ import com.cloudkey.exceptions.PMSInterfaceException;
 import com.cloudkey.exceptions.ReservationNotFound;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.request.hotels.HotelItemCodesRequest;
-import com.cloudkey.pms.request.hotels.LOVRequest;
-import com.cloudkey.pms.request.hotels.MeetingRoomInformationRequest;
 import com.cloudkey.pms.request.memberships.GuestMembershipsRequest;
-import com.cloudkey.pms.request.memberships.NameLookupRequest;
+import com.cloudkey.pms.request.memberships.SearchMembershipsRequest;
 import com.cloudkey.pms.request.reservations.*;
 import com.cloudkey.pms.request.rooms.*;
 import com.cloudkey.pms.response.EmptyResponse;
 import com.cloudkey.pms.response.hotels.HotelInformationResponse;
 import com.cloudkey.pms.response.hotels.HotelItemCodesResponse;
-import com.cloudkey.pms.response.hotels.LOVResponse;
-import com.cloudkey.pms.response.hotels.MeetingRoomInformationResponse;
 import com.cloudkey.pms.response.memberships.GuestMembershipsResponse;
-import com.cloudkey.pms.response.memberships.NameLookupResponse;
+import com.cloudkey.pms.response.memberships.SearchMembershipsResponse;
 import com.cloudkey.pms.response.reservations.*;
 import com.cloudkey.pms.response.rooms.*;
 
@@ -125,7 +121,7 @@ public interface PMSInterface {
 	 * @return
 	 * @throws PMSInterfaceException
 	 */
-    NameLookupResponse getNameIdInformation(NameLookupRequest request) throws PMSInterfaceException;
+    SearchMembershipsResponse getNameIdInformation(SearchMembershipsRequest request) throws PMSInterfaceException;
 
 	/**
 	 * Retrieves general information about the hotel.
