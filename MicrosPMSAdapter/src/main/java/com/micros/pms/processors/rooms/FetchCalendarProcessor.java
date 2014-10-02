@@ -75,8 +75,9 @@ public class FetchCalendarProcessor extends OWSProcessor<
 			@Nullable
 			@Override
 			public DayRoomAvailability apply(CalendarDailyDetail calendarDailyDetail) {
-				return new DayRoomAvailability(
-					calendarDailyDetail.getDate(),
+				DayRoomAvailability.DayRoomAvailabilityBuilder ava = DayRoomAvailability.builder();
+				ava.date(calendarDailyDetail.getDate());
+				ava.roomTypeAvailabilities(
 					Lists.transform(calendarDailyDetail.getOccupancy(), new Function<RoomTypeInventory, RoomTypeAvailability>() {
 							@Nullable
 							@Override
@@ -91,11 +92,15 @@ public class FetchCalendarProcessor extends OWSProcessor<
 								);
 							}
 						}
-					),
-					calendarDailyDetail.getRates() == null
-						? Collections.<com.cloudkey.pms.common.reservation.RoomRate>emptyList()
-						: converterUtils.convertRoomRates(calendarDailyDetail.getRates().getRateList())
+					)
 				);
+
+				if (calendarDailyDetail.getRates() != null) {
+					ava.rates(converterUtils.convertRoomRates(calendarDailyDetail.getRates().getRateList()));
+					ava.restrictions(converterUtils.convertRestrictions(calendarDailyDetail.getRates().getRestrictionList()));
+				}
+
+				return ava.build();
 			}
 		});
 

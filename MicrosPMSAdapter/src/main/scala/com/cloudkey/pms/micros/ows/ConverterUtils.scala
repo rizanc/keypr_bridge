@@ -1,10 +1,12 @@
 package com.cloudkey.pms.micros.ows
 
+import java.lang.Integer
 import java.util.Currency
 import java.lang
 import java.util.{List => JavaList}
 import javax.annotation.Nullable
 
+import com.cloudkey.pms.common.Restriction
 import com.cloudkey.pms.common.payment.MonetaryAmount
 import com.cloudkey.pms.common.profile.{PersonName, CustomerProfile, NativeName, StreetAddress}
 import com.cloudkey.pms.common.reservation.DepositRequirement
@@ -90,6 +92,17 @@ class ConverterUtils  {
       ratePlan.isHasPackage,
       Option(ratePlan.getCancellationDateTime).map(_.getValue).orNull
     )
+  }
+
+  def convertRestrictions(restrictions: JavaList[hotelcommon.Restriction]): JavaList[Restriction] = {
+    restrictions.map(from => {
+      new Restriction(
+        fromMicrosEnum(from.getRestrictionType),
+        Option(from.getNumberOfDays).map(bigInt => bigInt.intValue(): Integer).orNull,
+        from.getRoomType,
+        from.getRateCode
+      )
+    })
   }
 
   def convertRoomRates(roomRates: JavaList[hotelcommon.RoomRate]) = {
@@ -220,7 +233,7 @@ class ConverterUtils  {
     )
   }
 
-  def convertCustomerProfiles(profiles: java.util.List[Profile]): java.util.List[CustomerProfile] = {
+  def convertCustomerProfiles(profiles: JavaList[Profile]): JavaList[CustomerProfile] = {
     profiles.map(convertCustomerProfile)
   }
 

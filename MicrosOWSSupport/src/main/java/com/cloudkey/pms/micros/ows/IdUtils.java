@@ -9,6 +9,7 @@ import com.cloudkey.pms.micros.og.guestservices.RoomStatusType;
 import com.cloudkey.pms.micros.og.guestservices.TurnDownStatusType;
 import com.cloudkey.pms.micros.og.hotelcommon.AmenityAvailabilityFlag;
 import com.cloudkey.pms.micros.og.hotelcommon.RateOccurrenceType;
+import com.cloudkey.pms.micros.og.hotelcommon.RestrictionType;
 import com.cloudkey.pms.micros.og.reservation.ReservationStatusType;
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
@@ -462,6 +463,82 @@ public class IdUtils {
 				return BridgeIds.AmenityAvailability.EXISTS;
 			case OTHER:
 				return BridgeIds.AmenityAvailability.OTHER;
+		}
+
+		return null;
+	}
+
+	public static RestrictionType toMicrosEnum(BridgeIds.RestrictionType from) {
+		if (from == null) {
+			return null;
+		}
+
+		switch (from) {
+
+			case OPEN:
+				return RestrictionType.OPEN;
+			case CLOSED:
+				return RestrictionType.CLOSED;
+			case OPEN_FOR_ARRIVAL:
+				return RestrictionType.OPEN_FOR_ARRIVAL;
+			case CLOSED_FOR_ARRIVAL:
+				return RestrictionType.CLOSED_FOR_ARRIVAL;
+			case OPEN_FOR_DEPARTURE:
+				return RestrictionType.OPEN_FOR_DEPARTURE;
+			case CLOSED_FOR_DEPARTURE:
+				return RestrictionType.CLOSED_FOR_DEPARTURE;
+			case MINIMUM_STAY_THROUGH:
+				return RestrictionType.MINIMUM_STAY_THROUGH;
+			case MAXIMUM_STAY_THROUGH:
+				return RestrictionType.MAXIMUM_STAY_THROUGH;
+			case MINIMUM_LENGTH_OF_STAY:
+				return RestrictionType.MINIMUM_LENGTH_OF_STAY;
+			case MAXIMUM_LENGTH_OF_STAY:
+				return RestrictionType.MAXIMUM_LENGTH_OF_STAY;
+			case MINIMUM_ADVANCE_BOOKING:
+				return RestrictionType.MINIMUM_ADVANCE_BOOKING;
+			case MAXIMUM_ADVANCE_BOOKING:
+				return RestrictionType.MAXIMUM_ADVANCE_BOOKING;
+			case LENGTH_OF_STAY_NOT_AVAILABLE:
+				return RestrictionType.LENGTH_OF_STAY_NOT_AVAILABLE;
+		}
+
+		return null;
+	}
+
+	public static BridgeIds.RestrictionType fromMicrosEnum(RestrictionType from) {
+		if (from == null) {
+			return null;
+		}
+
+		switch (from) {
+			
+			case OPEN:
+				return BridgeIds.RestrictionType.OPEN;
+			case CLOSED:
+				return BridgeIds.RestrictionType.CLOSED;
+			case OPEN_FOR_ARRIVAL:
+				return BridgeIds.RestrictionType.OPEN_FOR_ARRIVAL;
+			case CLOSED_FOR_ARRIVAL:
+				return BridgeIds.RestrictionType.CLOSED_FOR_ARRIVAL;
+			case OPEN_FOR_DEPARTURE:
+				return BridgeIds.RestrictionType.OPEN_FOR_DEPARTURE;
+			case CLOSED_FOR_DEPARTURE:
+				return BridgeIds.RestrictionType.CLOSED_FOR_DEPARTURE;
+			case MINIMUM_STAY_THROUGH:
+				return BridgeIds.RestrictionType.MINIMUM_STAY_THROUGH;
+			case MAXIMUM_STAY_THROUGH:
+				return BridgeIds.RestrictionType.MAXIMUM_STAY_THROUGH;
+			case MINIMUM_LENGTH_OF_STAY:
+				return BridgeIds.RestrictionType.MINIMUM_LENGTH_OF_STAY;
+			case MAXIMUM_LENGTH_OF_STAY:
+				return BridgeIds.RestrictionType.MAXIMUM_LENGTH_OF_STAY;
+			case MINIMUM_ADVANCE_BOOKING:
+				return BridgeIds.RestrictionType.MINIMUM_ADVANCE_BOOKING;
+			case MAXIMUM_ADVANCE_BOOKING:
+				return BridgeIds.RestrictionType.MAXIMUM_ADVANCE_BOOKING;
+			case LENGTH_OF_STAY_NOT_AVAILABLE:
+				return BridgeIds.RestrictionType.LENGTH_OF_STAY_NOT_AVAILABLE;
 		}
 
 		return null;

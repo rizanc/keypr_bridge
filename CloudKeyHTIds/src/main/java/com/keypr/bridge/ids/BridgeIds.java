@@ -8,54 +8,54 @@ import javax.xml.bind.annotation.XmlEnumValue;
 public class BridgeIds {
 
 	public enum ReservationStatus {
-        RESERVED,
-        PROSPECT,
-        NOSHOW,
-        CANCELED,
-        INHOUSE,
-        CHECKEDOUT,
-        CHANGED,
-        WAITLISTED,
-        PRECHECKEDIN,
-        DUEOUT;
+		RESERVED,
+		PROSPECT,
+		NOSHOW,
+		CANCELED,
+		INHOUSE,
+		CHECKEDOUT,
+		CHANGED,
+		WAITLISTED,
+		PRECHECKEDIN,
+		DUEOUT;
 	}
 
-    public enum Gender {
-        UNKNOWN,
-        FEMALE,
-        MALE;
+	public enum Gender {
+		UNKNOWN,
+		FEMALE,
+		MALE;
 	}
 
-    public enum RoomStatus {
-        CLEAN,
-        DIRTY,
-        INSPECTED,
-        PICKUP,
-        OUT_OF_ORDER,
-        OUT_OF_SERVICE
+	public enum RoomStatus {
+		CLEAN,
+		DIRTY,
+		INSPECTED,
+		PICKUP,
+		OUT_OF_ORDER,
+		OUT_OF_SERVICE
 	}
 
-    public enum SuiteType {
-        STANDARD,
-        PSUEDO,
-        SUITE
+	public enum SuiteType {
+		STANDARD,
+		PSUEDO,
+		SUITE
 	}
 
-    public enum TurnDownStatus {
-        COMPLETED,
-        REQUIRED,
-        NOT_REQUIRED
+	public enum TurnDownStatus {
+		COMPLETED,
+		REQUIRED,
+		NOT_REQUIRED
 	}
 
-    public enum GuestServiceStatus {
-        DO_NOT_DISTURB,
-        MAKE_UP_ROOM,
-        NONE
+	public enum GuestServiceStatus {
+		DO_NOT_DISTURB,
+		MAKE_UP_ROOM,
+		NONE
 	}
 
-    public enum RepairStatus {
-        OUT_OF_ORDER,
-        OUT_OF_SERVICE
+	public enum RepairStatus {
+		OUT_OF_ORDER,
+		OUT_OF_SERVICE
 	}
 
 	public enum RateOccurrence {
@@ -87,4 +87,21 @@ public class BridgeIds {
 			return message;
 		}
 	}
+
+	public enum RestrictionType {
+		OPEN,
+		CLOSED,
+		OPEN_FOR_ARRIVAL,
+		CLOSED_FOR_ARRIVAL,
+		OPEN_FOR_DEPARTURE,
+		CLOSED_FOR_DEPARTURE,
+		MINIMUM_STAY_THROUGH,
+		MAXIMUM_STAY_THROUGH,
+		MINIMUM_LENGTH_OF_STAY,
+		MAXIMUM_LENGTH_OF_STAY,
+		MINIMUM_ADVANCE_BOOKING,
+		MAXIMUM_ADVANCE_BOOKING,
+		LENGTH_OF_STAY_NOT_AVAILABLE;
+	}
+
 }
