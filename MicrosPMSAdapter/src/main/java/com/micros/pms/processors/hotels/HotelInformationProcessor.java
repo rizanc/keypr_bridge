@@ -9,19 +9,24 @@ import com.cloudkey.pms.micros.og.common.Phone;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.og.hotelcommon.Attraction;
 import com.cloudkey.pms.micros.og.hotelcommon.GeoCode;
 import com.cloudkey.pms.micros.ows.information.HotelInformationResponseHotelInformation;
 import com.cloudkey.pms.micros.services.InformationSoap;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
-import com.cloudkey.pms.response.hotels.HotelInformationResponse;
+import com.cloudkey.pms.response.hotels.*;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import com.micros.pms.processors.OWSProcessor;
 import com.micros.pms.util.HotelInformationConverter;
+import com.micros.pms.util.ParagraphHelper;
 
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
@@ -110,6 +115,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 		Integer totalRooms = null;
 		List<RoomType> roomTypes = new ArrayList<>();
 		List<Restaurant> restaurants = new ArrayList<>();
+		List<com.cloudkey.pms.response.hotels.Attraction> attractions = new ArrayList<>();
 		Optional<com.cloudkey.pms.common.GeoCode> hotelPosition = Optional.absent();
 		List<HotelAmenity> amenities = Collections.emptyList();
 
@@ -174,6 +180,56 @@ public class HotelInformationProcessor extends OWSProcessor<
 						restaurant.getMaxSingleParty() == null ? null : restaurant.getMaxSingleParty().intValue()
 					));
 				}
+
+				// Attractions
+
+				for (final Attraction attraction : facilityInfo.getAttractions()) {
+					attractions.add(new com.cloudkey.pms.response.hotels.Attraction(
+						attraction.getAttractionCode(),
+						attraction.getAttractionType(),
+						attraction.getAttractionName(),
+						Iterables.tryFind(attraction.getAttractionInformation(), new Predicate<AttractionInfo>() {
+								@Override
+								public boolean apply(@Nullable AttractionInfo input) {
+									return input.getAttractionInfoType() == AttractionInfoType.DIRECTIONS;
+								}
+							})
+						.transform(new Function<AttractionInfo, String>() {
+							@Nullable
+							@Override
+							public String apply(AttractionInfo input) {
+								return ParagraphHelper.getFirstString(input.getText()).orNull();
+							}
+						}).orNull(),
+						attraction.getDistance(),
+						attraction.getDistanceType(),
+						attraction.getDrivingTime(),
+						new StreetAddress(Collections.<String>emptyList(), attraction.getCity(), attraction.getState(), null, attraction.getZipCode(), null, null, null, null, null),
+						attraction.getHoursOfOperation(),
+						new com.cloudkey.pms.common.GeoCode(
+							attraction.getLatitude() == null
+								? null
+								: attraction.getLatitude().toString(),
+							attraction.getLongitude() == null
+								? null
+								: attraction.getLongitude().toString(),
+							null
+						),
+						attraction.getPriceRange(),
+						FluentIterable.from(attraction.getAttractionInformation()).filter(new Predicate<AttractionInfo>() {
+								@Override
+								public boolean apply(@Nullable AttractionInfo input) {
+									return input.getAttractionInfoType() == AttractionInfoType.OTHER;
+								}
+							}).transform(new Function<AttractionInfo, String>() {
+								@Nullable
+								@Override
+								public String apply(AttractionInfo input) {
+									return ParagraphHelper.getFirstString(input.getText()).orNull();
+								}
+							}).toList()
+						));
+				}
 			}
 
 			if (extended.getAmenityInfo() != null) {
@@ -206,7 +262,8 @@ public class HotelInformationProcessor extends OWSProcessor<
 					return TimeZone.getTimeZone(s);
 				}
 			}),
-			acceptedCreditCards
+			acceptedCreditCards,
+			attractions
 		);
 	}
 }

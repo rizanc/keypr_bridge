@@ -44,4 +44,5 @@ public class HotelInformationResponse extends PMSResponse {
 	Optional<String> passportRules;
 	Optional<TimeZone> timeZone;
 	List<String> acceptedCreditCards;
+	List<Attraction> attractions;
 }
