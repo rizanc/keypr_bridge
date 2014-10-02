@@ -2,10 +2,12 @@ package com.micros.pms.processors.rooms;
 
 import com.cloudkey.pms.common.DayRoomAvailability;
 import com.cloudkey.pms.common.RoomTypeAvailability;
+import com.cloudkey.pms.common.reservation.*;
 import com.cloudkey.pms.micros.og.availability.CalendarDailyDetail;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
+import com.cloudkey.pms.micros.ows.ConverterUtils;
 import com.cloudkey.pms.micros.services.AvailabilityServiceSoap;
 import com.cloudkey.pms.request.rooms.FetchCalendarRequest;
 import com.cloudkey.pms.response.rooms.FetchCalendarResponse;
@@ -18,6 +20,7 @@ import com.micros.pms.processors.OWSProcessor;
 import javax.annotation.Nullable;
 import javax.xml.ws.Holder;
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,6 +35,9 @@ public class FetchCalendarProcessor extends OWSProcessor<
 
 	@Inject
 	protected AvailabilityServiceSoap service;
+
+	@Inject
+	protected ConverterUtils converterUtils;
 
 	@Override
 	protected ResultStatus getResultStatus(com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse fetchCalendarResponse) {
@@ -64,10 +70,11 @@ public class FetchCalendarProcessor extends OWSProcessor<
 
 	@Override
 	protected FetchCalendarResponse toPmsResponse(com.cloudkey.pms.micros.ows.availability.FetchCalendarResponse microsResponse, FetchCalendarRequest request) {
+
 		List<DayRoomAvailability> availabilityList = Lists.transform(microsResponse.getCalendar(), new Function<CalendarDailyDetail, DayRoomAvailability>() {
 			@Nullable
 			@Override
-			public DayRoomAvailability apply(@Nullable CalendarDailyDetail calendarDailyDetail) {
+			public DayRoomAvailability apply(CalendarDailyDetail calendarDailyDetail) {
 				return new DayRoomAvailability(
 					calendarDailyDetail.getDate(),
 					Lists.transform(calendarDailyDetail.getOccupancy(), new Function<RoomTypeInventory, RoomTypeAvailability>() {
@@ -84,7 +91,10 @@ public class FetchCalendarProcessor extends OWSProcessor<
 								);
 							}
 						}
-					)
+					),
+					calendarDailyDetail.getRates() == null
+						? Collections.<com.cloudkey.pms.common.reservation.RoomRate>emptyList()
+						: converterUtils.convertRoomRates(calendarDailyDetail.getRates().getRateList())
 				);
 			}
 		});

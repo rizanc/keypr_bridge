@@ -1,8 +1,8 @@
 package com.cloudkey.pms.common;
 
+import com.cloudkey.pms.common.reservation.RoomRate;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -32,4 +32,8 @@ public class DayRoomAvailability {
      */
 	List<RoomTypeAvailability> roomTypeAvailabilities;
 	
+	/**
+	 * Rates available on this day
+	 */
+	List<RoomRate> rates;
 }
