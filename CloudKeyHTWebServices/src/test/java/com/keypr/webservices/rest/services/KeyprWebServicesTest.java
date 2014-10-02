@@ -834,7 +834,7 @@
 //		assertNotNull( " AssignRoomRequest Instance must have room type code " , objAssignRoomRequest.getRoomTypeCode() );
 //		assertNotNull( " AssignRoomResponse Instance must not be null ",  objAssignRoomResponse);
 //
-//		assertNotNull( "Assigned Room Number in  in response cannot be null ", objAssignRoomResponse.getAssignRoomNumber());
+//		assertNotNull( "Assigned Room Number in  in response cannot be null ", objAssignRoomResponse.getRoomNumber());
 //		assertEquals( "Status Must be Success", "SUCCESS" , objAssignRoomResponse.getStatus() );
 //
 //		log.debug("testAssignRoomRequest: Exit method testAssignRoomRequest ");

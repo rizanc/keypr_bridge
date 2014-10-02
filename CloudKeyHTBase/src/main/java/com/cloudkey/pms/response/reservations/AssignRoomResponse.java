@@ -19,6 +19,6 @@ import lombok.experimental.FieldDefaults;
 @ToString
 public class AssignRoomResponse extends PMSResponse {
 
-    String assignRoomNumber;
+    String roomNumber;
 
 }
