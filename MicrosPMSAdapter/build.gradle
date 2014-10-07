@@ -19,6 +19,7 @@ dependencies {
     testCompile scala_test
     testCompile mockito
     testCompile junit
+    testCompile commons_io
 }
 
 sourceSets {
