@@ -240,28 +240,28 @@ public class HotelInformationProcessor extends OWSProcessor<
 		return new com.cloudkey.pms.response.hotels.HotelInformationResponse(
 			info.getHotelInformation().getValue(),
 			addresses,
-			hotelPosition,
-			directions,
+			hotelPosition.orNull(),
+			directions.orNull(),
 			contactEmails,
 			phoneNumbers,
 			faxNumbers,
-			checkInInfo.transform(toLocalTime),
-			checkOutInfo.transform(toLocalTime),
+			checkInInfo.transform(toLocalTime).orNull(),
+			checkOutInfo.transform(toLocalTime).orNull(),
 			amenities,
 			totalRooms,
 			roomTypes,
 			restaurants,
-			website,
-			grade,
-			hotelDescription,
-			passportRules,
+			website.orNull(),
+			grade.orNull(),
+			hotelDescription.orNull(),
+			passportRules.orNull(),
 			timeZone.transform(new Function<String, TimeZone>() {
 				@Nullable
 				@Override
 				public TimeZone apply(@Nullable String s) {
 					return TimeZone.getTimeZone(s);
 				}
-			}),
+			}).orNull(),
 			acceptedCreditCards,
 			attractions
 		);

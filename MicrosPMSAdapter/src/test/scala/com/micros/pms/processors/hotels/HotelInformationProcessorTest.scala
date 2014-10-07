@@ -1,21 +1,19 @@
 package com.micros.pms.processors.hotels
 
-import com.cloudkey.pms.common.{GeoCode, RoomType}
 import com.cloudkey.pms.common.hotel.HotelAmenity
 import com.cloudkey.pms.common.profile.StreetAddress
-import com.cloudkey.pms.common.room.RoomStatusInfo
-import com.cloudkey.pms.micros.services.{InformationSoap, ResvAdvancedServiceSoap}
+import com.cloudkey.pms.common.{GeoCode, RoomType}
+import com.cloudkey.pms.micros.ows.{information => ows}
+import com.cloudkey.pms.micros.services.InformationSoap
 import com.cloudkey.pms.request.hotels.HotelInformationRequest
 import com.cloudkey.pms.response.hotels.{Attraction, HotelInformationResponse}
 import com.google.inject.Inject
-import com.keypr.bridge.ids.BridgeIds.{GuestServiceStatus, RoomStatus}
 import com.micros.pms.processors.{AbstractProcessorTest, MicrosMock}
-import org.joda.time
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import com.cloudkey.pms.micros.ows.{information => ows}
-import scala.collection.JavaConverters._
+
 import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 
 /**
  * Test suite for [[HotelInformationProcessor]]
