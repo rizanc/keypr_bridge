@@ -1,6 +1,7 @@
 package com.micros.pms.processors
 
 import java.io.StringReader
+import java.net.URL
 import javax.xml.bind.{JAXBContext, Unmarshaller}
 import javax.xml.ws.Holder
 
@@ -8,6 +9,7 @@ import com.cloudkey.pms.micros.og.core.OGHeader
 import com.google.common.base.Strings
 import com.google.inject.Inject
 import com.google.inject.name.Named
+import org.apache.commons.io.IOUtils
 import org.joda.time.DateTime
 import org.mockito.BDDMockito._
 import org.mockito.{ArgumentCaptor, Captor, MockitoAnnotations}
@@ -66,12 +68,12 @@ class MicrosMock[MicrosRequest <: AnyRef, MicrosResponse <: AnyRef, Request, Res
 
   AbstractProcessorTest.injector.injectMembers(this)
 
-  def respondToRequestWith(request: Request, microsResponseXml: String) = {
+  def respondToRequestWith(request: Request, microsResponseXml: URL) = {
     requestCaptor = ArgumentCaptor.forClass(microsRequestManifest.runtimeClass.asInstanceOf[Class[MicrosRequest]])
     headerCaptor = ArgumentCaptor.forClass(classOf[Holder[OGHeader]])
 
     given(serviceCall(requestCaptor.capture(), headerCaptor.capture()))
-      .willReturn(xmlToObj(microsResponseXml))
+      .willReturn(xmlToObj(IOUtils.toString(microsResponseXml.openStream())))
   }
 
   def verify() = {
@@ -88,11 +90,12 @@ class MicrosMock[MicrosRequest <: AnyRef, MicrosResponse <: AnyRef, Request, Res
    * Returns the Micros request the processor created from the PMS request
    * and the PMS response the processor created from the OPERA response xml, for further verification.
    *
+   *
    * @param request
    * @param microsResponseXml
    * @return
    */
-  def run(request: Request, microsResponseXml: String): MicrosMockResult[MicrosRequest, Response] = {
+  def run(request: Request, microsResponseXml: URL): MicrosMockResult[MicrosRequest, Response] = {
     respondToRequestWith(request, microsResponseXml)
 
     val response: Response = processorCall(request)

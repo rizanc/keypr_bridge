@@ -1,0 +1,18 @@
+<FetchRoomStatusResponse
+        xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
+        xmlns:c="http://webservices.micros.com/og/4.3/Common/"
+        xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
+    <RoomStatus RoomStatus="CL" FrontOfficeStatus="OCC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" ServiceStatus="DND" RoomNumber="101" RoomType="DLX" />
+    <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="N" ServiceStatus="MUP" RoomNumber="102" RoomType="STD" />
+    <RoomStatus NextReservationDate="2014-10-11" RoomStatus="IP" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="Y" TurnDownYn="Y" RoomNumber="103" RoomType="DLX" />
+    <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="105" RoomType="DLX" />
+    <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="106" RoomType="STD" />
+    <RoomStatus RoomStatus="PU" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="107" RoomType="DLX" />
+    <RoomStatus RoomStatus="IP" FrontOfficeStatus="OCC" HouseKeepingStatus="OCC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="108" RoomType="STD" />
+    <RoomStatus RoomStatus="OS" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="109" RoomType="DLX" />
+    <RoomStatus RoomStatus="OO" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="111" RoomType="DLX" />
+    <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" RoomNumber="5000" RoomType="CABIN" />
+    <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" RoomNumber="6000" RoomType="LODGE" />
+    <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="N" RoomNumber="9000" RoomType="PM" />
+    <Result resultStatusFlag="SUCCESS" />
+</FetchRoomStatusResponse>

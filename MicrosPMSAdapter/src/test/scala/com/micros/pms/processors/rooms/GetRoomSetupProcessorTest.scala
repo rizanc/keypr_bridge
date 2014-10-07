@@ -26,7 +26,7 @@ import scala.collection.JavaConverters._
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @RunWith(classOf[JUnitRunner])
-class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequest, FetchRoomSetupResponse] {
+class GetRoomSetupProcessorTest extends AbstractProcessorTest {
 
   @Inject
   var processor: GetRoomSetupProcessor = _
@@ -44,149 +44,9 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
   var getRoomSetupMock: MicrosMock[FetchRoomSetupRequest, FetchRoomSetupResponse, GetRoomSetupRequest, GetRoomSetupResponse] = _
   var getRoomStatusMock: MicrosMock[FetchRoomStatusRequest, FetchRoomStatusResponse, FetchRoomStatusRequest, FetchRoomStatusResponse] = _
 
-  val roomStatusXml = """<FetchRoomStatusResponse
-        xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
-        xmlns:c="http://webservices.micros.com/og/4.3/Common/"
-        xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="101" RoomType="DLX" RoomClass="MAIN" Floor="Floor 1">
-                <hc:Features>
-                    <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
-          </RoomStatus>
-          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Dirty" ServiceStatus="NS" RoomNumber="102" RoomType="STD" RoomClass="MAIN" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="103" RoomType="DLX" RoomClass="MAIN" RateCode="BBB" HouseKeepingSectionCode="HKSECTION2">
-              <hc:Features>
-                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
-          </RoomStatus>
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="105" RoomType="DLX" RoomClass="MAIN">
-              <hc:Features>
-                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
-          </RoomStatus>
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" ServiceStatus="NS" RoomNumber="106" RoomType="STD" RoomClass="MAIN" />
-          <RoomStatus RoomStatus="PU" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Pickup" RoomNumber="107" RoomType="DLX" RoomClass="MAIN">
-              <hc:Features>
-                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
-          </RoomStatus>
-          <RoomStatus RoomStatus="IP" FrontOfficeStatus="OCC" OccupancyCondition="5" HouseKeepingStatus="Inspected" ServiceStatus="NS" RoomNumber="108" RoomType="STD" RoomClass="MAIN" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="109" RoomType="DLX" RoomClass="MAIN">
-              <hc:Features>
-                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
-          </RoomStatus>
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="111" RoomType="DLX" RoomClass="MAIN">
-              <hc:Features>
-                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
-          </RoomStatus>
-          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="Dirty" RoomNumber="5000" RoomType="CABIN" RoomClass="COMP1" />
-          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="Dirty" RoomNumber="6000" RoomType="LODGE" RoomClass="COMP2" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="N" RoomNumber="9000" RoomType="PM" />
-          <Result resultStatusFlag="SUCCESS" />
-  </FetchRoomStatusResponse>"""
-
-  val roomSetupXml = """<FetchRoomSetupResponse
-        xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
-        xmlns:c="http://webservices.micros.com/og/4.3/Common/"
-        xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
-          <Result resultStatusFlag="SUCCESS" />
-          <RoomSetup RoomType="CABIN" RoomNumber="5000" SuiteType="SUITE">
-            <hc:RoomDescription>
-              <hc:Text>Cabin Suites</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Cabin Suites</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="101" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" RateCode="RACK">
-            <hc:RoomShortDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="103" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" RateCode="BBB" HouseKeepingSectionCode="HKSECTION2">
-            <hc:RoomDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="105" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" />
-          <RoomSetup RoomType="DLX" RoomNumber="107" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400">
-            <hc:RoomDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="109" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400">
-            <hc:RoomDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="DLX" RoomNumber="111" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" PhoneNumber="541-141-1244">
-            <hc:RoomDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Deluxe</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="LODGE" RoomNumber="6000" SuiteType="SUITE">
-            <hc:RoomDescription>
-              <hc:Text>Lodge Suites</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Lodge Suites</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="PM" RoomNumber="9000" SuiteType="PSUEDO" MaximumOccupancy="1">
-            <hc:RoomDescription>
-              <hc:Text>Posting Master</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Posting Master</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="102" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS" RateCode="AAA" HouseKeepingSectionCode="HKSECTION1">
-            <hc:RoomDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="104" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS" HouseKeepingSectionCode="OTHERhkCODE">
-            <hc:RoomDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="106" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
-            <hc:RoomDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="108" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
-            <hc:RoomDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-          <RoomSetup RoomType="STD" RoomNumber="110" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
-            <hc:RoomDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomDescription>
-            <hc:RoomShortDescription>
-              <hc:Text>Standard</hc:Text>
-            </hc:RoomShortDescription>
-          </RoomSetup>
-        </FetchRoomSetupResponse>"""
-
+  val fetchRoomStatusResponseXml = getClass.getResource("FetchRoomStatusResponse-features.xml")
+  val fetchRoomSetupResponseXml = getClass.getResource("FetchRoomSetupResponse.xml")
+  
   override protected def beforeAll() {
     super.beforeAll()
 
@@ -211,14 +71,14 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
   describe("A " + nameOf[GetRoomSetupProcessor]) {
     it("should correctly process a hotel-wide request") {
       val request: GetRoomSetupRequest = new GetRoomSetupRequest(null, null)
-      getRoomSetupMock.respondToRequestWith(request, roomSetupXml)
+      getRoomSetupMock.respondToRequestWith(request, fetchRoomSetupResponseXml)
 
       val roomStatusRequest: FetchRoomStatusRequest = new FetchRoomStatusRequest()
         .withHotelReference(owsTools.getDefaultHotelReference)
         .withStartDate(new LocalDate(5010, 1, 1))
         .withEndDate(new LocalDate(5010, 1, 2))
 
-      getRoomStatusMock.respondToRequestWith(roomStatusRequest, roomStatusXml)
+      getRoomStatusMock.respondToRequestWith(roomStatusRequest, fetchRoomStatusResponseXml)
 
       val roomSetupResponse: GetRoomSetupResponse = processor.process(request)
 
@@ -260,7 +120,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
     it("should create the correct OWS requests for a room-number-specific request") {
       val request: GetRoomSetupRequest = new GetRoomSetupRequest("101", null)
 
-      getRoomSetupMock.respondToRequestWith(request, roomSetupXml)
+      getRoomSetupMock.respondToRequestWith(request, fetchRoomSetupResponseXml)
 
       val roomStatusRequest: FetchRoomStatusRequest = new FetchRoomStatusRequest()
         .withHotelReference(owsTools.getDefaultHotelReference)
@@ -268,7 +128,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
         .withEndDate(new LocalDate(5010, 1, 2))
         .withRoomNumber("101")
 
-      getRoomStatusMock.respondToRequestWith(roomStatusRequest, roomStatusXml)
+      getRoomStatusMock.respondToRequestWith(roomStatusRequest, fetchRoomStatusResponseXml)
 
       processor.process(request)
 
@@ -285,7 +145,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
     it("should create the correct OWS requests for a room-type-specific request") {
       val request: GetRoomSetupRequest = new GetRoomSetupRequest(null, "STD")
 
-      getRoomSetupMock.respondToRequestWith(request, roomSetupXml)
+      getRoomSetupMock.respondToRequestWith(request, fetchRoomSetupResponseXml)
 
       val roomStatusRequest: FetchRoomStatusRequest = new FetchRoomStatusRequest()
         .withHotelReference(owsTools.getDefaultHotelReference)
@@ -293,7 +153,7 @@ class GetRoomSetupProcessorTest extends AbstractProcessorTest[FetchRoomSetupRequ
         .withEndDate(new LocalDate(5010, 1, 2))
         .withRoomType("STD")
 
-      getRoomStatusMock.respondToRequestWith(roomStatusRequest, roomStatusXml)
+      getRoomStatusMock.respondToRequestWith(roomStatusRequest, fetchRoomStatusResponseXml)
 
       processor.process(request)
 

@@ -8,6 +8,7 @@ import com.cloudkey.pms.response.rooms.GetRoomStatusResponse
 import com.google.inject.Inject
 import com.keypr.bridge.ids.BridgeIds.{GuestServiceStatus, RoomStatus}
 import com.micros.pms.processors.{AbstractProcessorTest, MicrosMock}
+import org.apache.commons.io.IOUtils
 import org.joda.time
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -20,7 +21,7 @@ import scala.collection.JavaConversions._
  * @author Charlie La Mothe (charlie@keypr.com)
  */
 @RunWith(classOf[JUnitRunner])
-class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRequest, FetchRoomStatusResponse] {
+class GetRoomStatusProcessorTest extends AbstractProcessorTest {
 
   @Inject
   var processor: GetRoomStatusProcessor = _
@@ -31,24 +32,7 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
 
   var getRoomStatusMock: MicrosMock[FetchRoomStatusRequest, FetchRoomStatusResponse, GetRoomStatusRequest, GetRoomStatusResponse] = _
 
-  val microsResponseXml = """<FetchRoomStatusResponse
-        xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
-        xmlns:c="http://webservices.micros.com/og/4.3/Common/"
-        xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="OCC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" ServiceStatus="DND" RoomNumber="101" RoomType="DLX" />
-          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="N" ServiceStatus="MUP" RoomNumber="102" RoomType="STD" />
-          <RoomStatus NextReservationDate="2014-10-11" RoomStatus="IP" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="Y" TurnDownYn="Y" RoomNumber="103" RoomType="DLX" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="105" RoomType="DLX" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="106" RoomType="STD" />
-          <RoomStatus RoomStatus="PU" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="107" RoomType="DLX" />
-          <RoomStatus RoomStatus="IP" FrontOfficeStatus="OCC" HouseKeepingStatus="OCC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="108" RoomType="STD" />
-          <RoomStatus RoomStatus="OS" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="109" RoomType="DLX" />
-          <RoomStatus RoomStatus="OO" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="Y" RoomNumber="111" RoomType="DLX" />
-          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" RoomNumber="5000" RoomType="CABIN" />
-          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" RoomNumber="6000" RoomType="LODGE" />
-          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="N" RoomNumber="9000" RoomType="PM" />
-          <Result resultStatusFlag="SUCCESS" />
-        </FetchRoomStatusResponse>"""
+  val fetchRoomStatusResponseXml = getClass.getResource("FetchRoomStatusResponse.xml")
 
   override protected def beforeAll() {
     super.beforeAll()
@@ -69,7 +53,7 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
 
   describe("A " + nameOf[GetRoomStatusProcessor]) {
     it("should correctly process a hotel-wide request") {
-      val result = getRoomStatusMock.run(new GetRoomStatusRequest(), microsResponseXml)
+      val result = getRoomStatusMock.run(new GetRoomStatusRequest(), fetchRoomStatusResponseXml)
 
       result.microsRequest shouldBe
         new FetchRoomStatusRequest()
@@ -93,7 +77,7 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
     }
 
     it("should correctly convert a roomNumber-specific request to an OWS request") {
-      val result = getRoomStatusMock.run(new GetRoomStatusRequest("101"), microsResponseXml)
+      val result = getRoomStatusMock.run(new GetRoomStatusRequest("101"), fetchRoomStatusResponseXml)
 
       result.microsRequest shouldBe
         new FetchRoomStatusRequest()
@@ -102,7 +86,7 @@ class GetRoomStatusProcessorTest extends AbstractProcessorTest[FetchRoomStatusRe
     }
 
     it("should correctly convert a roomType, roomClass and floor-specific request to an OWS request") {
-      val result = getRoomStatusMock.run(new GetRoomStatusRequest("DLX", "TOWER1", "Floor 1"), microsResponseXml)
+      val result = getRoomStatusMock.run(new GetRoomStatusRequest("DLX", "TOWER1", "Floor 1"), fetchRoomStatusResponseXml)
 
       result.microsRequest shouldBe
         new FetchRoomStatusRequest()

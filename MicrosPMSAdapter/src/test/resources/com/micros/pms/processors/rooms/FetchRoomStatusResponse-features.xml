@@ -1,0 +1,36 @@
+<FetchRoomStatusResponse
+        xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
+        xmlns:c="http://webservices.micros.com/og/4.3/Common/"
+        xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="101" RoomType="DLX" RoomClass="MAIN" Floor="Floor 1">
+                <hc:Features>
+                    <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
+          </RoomStatus>
+          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Dirty" ServiceStatus="NS" RoomNumber="102" RoomType="STD" RoomClass="MAIN" />
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="103" RoomType="DLX" RoomClass="MAIN" RateCode="BBB" HouseKeepingSectionCode="HKSECTION2">
+              <hc:Features>
+                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
+          </RoomStatus>
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="105" RoomType="DLX" RoomClass="MAIN">
+              <hc:Features>
+                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
+          </RoomStatus>
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" ServiceStatus="NS" RoomNumber="106" RoomType="STD" RoomClass="MAIN" />
+          <RoomStatus RoomStatus="PU" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Pickup" RoomNumber="107" RoomType="DLX" RoomClass="MAIN">
+              <hc:Features>
+                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
+          </RoomStatus>
+          <RoomStatus RoomStatus="IP" FrontOfficeStatus="OCC" OccupancyCondition="5" HouseKeepingStatus="Inspected" ServiceStatus="NS" RoomNumber="108" RoomType="STD" RoomClass="MAIN" />
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="109" RoomType="DLX" RoomClass="MAIN">
+              <hc:Features>
+                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
+          </RoomStatus>
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" OccupancyCondition="5" HouseKeepingStatus="Clean" RoomNumber="111" RoomType="DLX" RoomClass="MAIN">
+              <hc:Features>
+                  <hc:Features Feature="INT" Description="Internet Access from Guest Room" /></hc:Features>
+          </RoomStatus>
+          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="Dirty" RoomNumber="5000" RoomType="CABIN" RoomClass="COMP1" />
+          <RoomStatus RoomStatus="DI" FrontOfficeStatus="VAC" HouseKeepingStatus="Dirty" RoomNumber="6000" RoomType="LODGE" RoomClass="COMP2" />
+          <RoomStatus RoomStatus="CL" FrontOfficeStatus="VAC" HouseKeepingStatus="VAC" HouseKeepingInspectionFlag="N" TurnDownYn="N" RoomNumber="9000" RoomType="PM" />
+          <Result resultStatusFlag="SUCCESS" />
+  </FetchRoomStatusResponse>

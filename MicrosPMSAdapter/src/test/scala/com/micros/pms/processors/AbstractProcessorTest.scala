@@ -10,7 +10,7 @@ import org.scalatest.{BeforeAndAfterAll, FunSpec, ShouldMatchers}
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
  */
-abstract class AbstractProcessorTest[MicrosRequest, MicrosResponse] extends FunSpec with BeforeAndAfterAll with MockitoSugar
+abstract class AbstractProcessorTest extends FunSpec with BeforeAndAfterAll with MockitoSugar
     with ShouldMatchers {
 
   @Inject

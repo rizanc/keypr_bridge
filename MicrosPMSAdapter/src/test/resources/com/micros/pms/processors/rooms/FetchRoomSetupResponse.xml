@@ -1,0 +1,105 @@
+<FetchRoomSetupResponse
+        xmlns:hc="http://webservices.micros.com/og/4.3/HotelCommon/"
+        xmlns:c="http://webservices.micros.com/og/4.3/Common/"
+        xmlns="http://webservices.micros.com/og/4.3/ResvAdvanced/">
+    <Result resultStatusFlag="SUCCESS" />
+    <RoomSetup RoomType="CABIN" RoomNumber="5000" SuiteType="SUITE">
+        <hc:RoomDescription>
+            <hc:Text>Cabin Suites</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Cabin Suites</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="DLX" RoomNumber="101" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" RateCode="RACK">
+        <hc:RoomShortDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="DLX" RoomNumber="103" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" RateCode="BBB" HouseKeepingSectionCode="HKSECTION2">
+        <hc:RoomDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="DLX" RoomNumber="105" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" />
+    <RoomSetup RoomType="DLX" RoomNumber="107" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400">
+        <hc:RoomDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="DLX" RoomNumber="109" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400">
+        <hc:RoomDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="DLX" RoomNumber="111" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="400" PhoneNumber="541-141-1244">
+        <hc:RoomDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Deluxe</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="LODGE" RoomNumber="6000" SuiteType="SUITE">
+        <hc:RoomDescription>
+            <hc:Text>Lodge Suites</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Lodge Suites</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="PM" RoomNumber="9000" SuiteType="PSUEDO" MaximumOccupancy="1">
+        <hc:RoomDescription>
+            <hc:Text>Posting Master</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Posting Master</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="STD" RoomNumber="102" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS" RateCode="AAA" HouseKeepingSectionCode="HKSECTION1">
+        <hc:RoomDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="STD" RoomNumber="104" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS" HouseKeepingSectionCode="OTHERhkCODE">
+        <hc:RoomDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="STD" RoomNumber="106" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
+        <hc:RoomDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="STD" RoomNumber="108" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
+        <hc:RoomDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+    <RoomSetup RoomType="STD" RoomNumber="110" SuiteType="STANDARD" MaximumOccupancy="5" RackRate="300" SmokingPreference="NS">
+        <hc:RoomDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomDescription>
+        <hc:RoomShortDescription>
+            <hc:Text>Standard</hc:Text>
+        </hc:RoomShortDescription>
+    </RoomSetup>
+</FetchRoomSetupResponse>
