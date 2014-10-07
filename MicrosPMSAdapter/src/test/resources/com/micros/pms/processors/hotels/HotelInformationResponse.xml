@@ -25,11 +25,57 @@
                     <postalCode>97433</postalCode>
                 </ns2:Address>
             </ns2:Addresses>
-            <ns2:ContactEmails/>
-            <ns2:ContactPhones/>
+            <ns2:ContactEmails>
+                <ns2:ContactEmail>hotelemail@keypr.com</ns2:ContactEmail>
+                <ns2:ContactEmail>anotheremail@keypr.com</ns2:ContactEmail>
+            </ns2:ContactEmails>
+            <ns2:ContactPhones>
+                <ns2:Phone>
+                    <PhoneNumber>(514) 131-2363</PhoneNumber>
+                </ns2:Phone>
+                <ns2:Phone phoneRole="PHONE">
+                    <PhoneData countryAccessCode="1" areaCode="182" phoneNumber="424-7682" extension="3"/>
+                </ns2:Phone>
+                <ns2:Phone phoneRole="PHONE">
+                    <PhoneData areaCode="182" phoneNumber="424-7682" extension="3"/>
+                </ns2:Phone>
+                <ns2:Phone phoneRole="PHONE">
+                    <PhoneData areaCode="124" phoneNumber="259-1823"/>
+                </ns2:Phone>
+                <ns2:Phone phoneRole="FAX">
+                    <PhoneNumber>(514) 285-5469</PhoneNumber>
+                </ns2:Phone>
+            </ns2:ContactPhones>
         </ns3:HotelContactInformation>
         <ns3:HotelExtendedInformation>
-            <ns2:HotelInformation/>
+            <ns2:Position latitude="48.5216364 N" longitude="9.057644799999935 E" />
+            <ns2:HotelInformation>
+                <ns2:HotelInfo hotelInfoType="DIRECTIONS">
+                    <Text>
+                        <TextElement language="E">Take a left after the rainbow</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="CHECKININFO">
+                    <Text>
+                        <TextElement language="E">After 3pm</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="CHECKOUTINFO">
+                    <Text>
+                        <TextElement language="E">By 12pm</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER">
+                    <Text>
+                        <TextElement language="E">We have marble floors</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER">
+                    <Text>
+                        <TextElement language="E">There are crocodiles in the moat</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+            </ns2:HotelInformation>
             <ns2:PaymentMethods>
                 <ns2:PaymentType>
                     <ns2:OtherPayment value="DC"/>

@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @ToString
 @EqualsAndHashCode
 public class GeoCode {
-	String longitude;
 	String latitude;
+	String longitude;
 	String altitude;
 }

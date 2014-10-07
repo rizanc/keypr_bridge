@@ -6,6 +6,7 @@ import com.cloudkey.pms.common.hotel.Cuisine;
 import com.cloudkey.pms.common.hotel.HotelAmenity;
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Phone;
+import com.cloudkey.pms.micros.og.common.PhonePhoneData;
 import com.cloudkey.pms.micros.og.common.ResultStatus;
 import com.cloudkey.pms.micros.og.core.OGHeader;
 import com.cloudkey.pms.micros.og.hotelcommon.*;
@@ -15,9 +16,7 @@ import com.cloudkey.pms.micros.ows.information.HotelInformationResponseHotelInfo
 import com.cloudkey.pms.micros.services.InformationSoap;
 import com.cloudkey.pms.request.hotels.HotelInformationRequest;
 import com.cloudkey.pms.response.hotels.*;
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
+import com.google.common.base.*;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -86,10 +85,52 @@ public class HotelInformationProcessor extends OWSProcessor<
 
 			// Phone and fax numbers
 			for (Phone phone : contactInfo.getContactPhones()) {
-				if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.name())) {
-					phoneNumbers.add(phone.getPhoneNumber());
-				} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.name())) {
-					faxNumbers.add(phone.getPhoneNumber());
+				String phoneNumber = phone.getPhoneNumber();
+
+				PhonePhoneData pData = phone.getPhoneData();
+
+				if (phoneNumber == null && pData != null) {
+					StringBuilder phoneBuilder = new StringBuilder();
+
+					if (!Strings.isNullOrEmpty(pData.getCountryAccessCode())) {
+						if (!pData.getCountryAccessCode().contains("+")) {
+							phoneBuilder.append("+");
+						}
+
+						phoneBuilder.append(pData.getCountryAccessCode()).append(" ");
+					}
+
+					if (!Strings.isNullOrEmpty(pData.getAreaCode())) {
+						if (!pData.getAreaCode().contains("(")) {
+							phoneBuilder.append("(");
+						}
+
+						phoneBuilder.append(pData.getAreaCode());
+
+						if (!pData.getAreaCode().contains("(")) {
+							phoneBuilder.append(")");
+						}
+
+						phoneBuilder.append(" ");
+					}
+
+					if (!Strings.isNullOrEmpty(pData.getPhoneNumber())) {
+						phoneBuilder.append(pData.getPhoneNumber());
+					}
+
+					if (!Strings.isNullOrEmpty(pData.getExtension())) {
+						phoneBuilder.append(" ").append(pData.getExtension());
+					}
+
+					phoneNumber = phoneBuilder.toString();
+				}
+
+				if (!Strings.isNullOrEmpty(phoneNumber)) {
+					if (Strings.isNullOrEmpty(phone.getPhoneRole()) || phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.PHONE.name())) {
+						phoneNumbers.add(phoneNumber);
+					} else if (phone.getPhoneRole().equals(MicrosIds.OWS.PhoneNumberRole.FAX.name())) {
+						faxNumbers.add(phoneNumber);
+					}
 				}
 			}
 
@@ -109,7 +150,13 @@ public class HotelInformationProcessor extends OWSProcessor<
 		Optional<String> grade = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.GRADE));
 		Optional<String> hotelDescription = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.HOTEL_DESCRIPTION));
 		Optional<String> passportRules = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.PASSPORT_RULES));
-		final Optional<String> timeZone = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.TIMEZONE));
+		Optional<String> timeZone = getInfoTextIfPresent(hotelInfos, new HotelInformationConverter.HotelInfoByOtherType(MicrosIds.OWS.OtherHotelInfoType.TIMEZONE));
+		List<String> otherInfo = getInfoTextsIfPresent(hotelInfos, new Predicate<HotelInfo>() {
+			@Override
+			public boolean apply(HotelInfo input) {
+				return Objects.equal(input.getHotelInfoType(), HotelInfoType.OTHER) && Strings.isNullOrEmpty(input.getOtherHotelInfoType());
+			}
+		}).toList();
 
 		List<String> acceptedCreditCards = new ArrayList<>();
 		Integer totalRooms = null;
@@ -133,7 +180,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 				.transform(new Function<GeoCode, com.cloudkey.pms.common.GeoCode>() {
 					@Override
 					public com.cloudkey.pms.common.GeoCode apply(GeoCode geoCode) {
-						return new com.cloudkey.pms.common.GeoCode(geoCode.getLongitude(), geoCode.getLatitude(), geoCode.getAltitude());
+						return new com.cloudkey.pms.common.GeoCode(geoCode.getLatitude(), geoCode.getLongitude(), geoCode.getAltitude());
 					}
 				});
 
@@ -182,7 +229,6 @@ public class HotelInformationProcessor extends OWSProcessor<
 				}
 
 				// Attractions
-
 				for (final Attraction attraction : facilityInfo.getAttractions()) {
 					attractions.add(new com.cloudkey.pms.response.hotels.Attraction(
 						attraction.getAttractionCode(),
@@ -245,8 +291,8 @@ public class HotelInformationProcessor extends OWSProcessor<
 			contactEmails,
 			phoneNumbers,
 			faxNumbers,
-			checkInInfo.transform(toLocalTime).orNull(),
-			checkOutInfo.transform(toLocalTime).orNull(),
+			checkInInfo.orNull(),
+			checkOutInfo.orNull(),
 			amenities,
 			totalRooms,
 			roomTypes,
@@ -255,6 +301,7 @@ public class HotelInformationProcessor extends OWSProcessor<
 			grade.orNull(),
 			hotelDescription.orNull(),
 			passportRules.orNull(),
+			otherInfo,
 			timeZone.transform(new Function<String, TimeZone>() {
 				@Nullable
 				@Override

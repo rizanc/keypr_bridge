@@ -32,8 +32,8 @@ public class HotelInformationResponse extends PMSResponse {
     List<String> contactEmails;
     List<String> phoneNumbers;
     List<String> faxNumbers;
-    LocalTime checkInTime;
-    LocalTime checkOutTime;
+    String checkInInfo;
+    String checkOutInfo;
 	List<HotelAmenity> amenities;
 	Integer totalRooms;
     List<RoomType> roomTypes;
@@ -42,6 +42,7 @@ public class HotelInformationResponse extends PMSResponse {
 	String grade;
 	String hotelDescription;
 	String passportRules;
+	List<String> otherInfo;
 	TimeZone timeZone;
 	List<String> acceptedCreditCards;
 	List<Attraction> attractions;

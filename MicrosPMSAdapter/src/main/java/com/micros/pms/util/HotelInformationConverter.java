@@ -9,16 +9,14 @@ import com.cloudkey.pms.micros.og.hotelcommon.HotelInfoType;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.keypr.pms.micros.oxi.ids.MicrosIds;
 import org.joda.time.LocalTime;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Charlie La Mothe (charlie@keypr.com)
@@ -152,20 +150,30 @@ public class HotelInformationConverter {
 	 * @return
 	 */
 	public static Optional<String> getInfoTextIfPresent(Collection<HotelInfo> infos, Predicate<HotelInfo> predicate) {
-		// Scala's flatmap would be cleaner here
-		Optional<Optional<String>> transform = Iterables.tryFind(infos, predicate).transform(new Function<HotelInfo, Optional<String>>() {
+		return getInfoTextsIfPresent(infos, predicate).first();
+	}
+
+	/**
+	 * Retrieves the main text of a {@link HotelInfo}.
+	 *
+	 * @param infos
+	 * @param predicate
+	 * @return
+	 */
+	public static FluentIterable<String> getInfoTextsIfPresent(Collection<HotelInfo> infos, Predicate<HotelInfo> predicate) {
+		FluentIterable<String> transform = FluentIterable.from(infos).filter(predicate).transformAndConcat(new Function<HotelInfo, Set<String>>() {
 			@Nullable
 			@Override
-			public Optional<String> apply(@Nullable HotelInfo hotelInfo) {
+			public Set<String> apply(@Nullable HotelInfo hotelInfo) {
 				if (hotelInfo.getUrl() != null) {
-					return Optional.of(hotelInfo.getUrl());
+					return Optional.of(hotelInfo.getUrl()).asSet();
 				} else {
-					return ParagraphHelper.getFirstString(hotelInfo.getText());
+					return ParagraphHelper.getFirstString(hotelInfo.getText()).asSet();
 				}
 			}
 		});
 
 		// Unwrap the additional Optional level.
-		return transform.isPresent() ? transform.get() : Optional.<String>absent();
+		return transform;
 	}
 }

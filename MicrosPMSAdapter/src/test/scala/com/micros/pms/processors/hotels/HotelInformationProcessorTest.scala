@@ -87,6 +87,27 @@ class HotelInformationProcessorTest extends AbstractProcessorTest {
           "ES"
         )
       )
+      info.getHotelPosition shouldBe new GeoCode("48.5216364 N", "9.057644799999935 E", null)
+      info.getDirections shouldBe "Take a left after the rainbow"
+      info.getContactEmails.toList shouldBe List(
+        "hotelemail@keypr.com",
+        "anotheremail@keypr.com"
+      )
+      info.getPhoneNumbers.toList shouldBe List(
+        "(514) 131-2363",
+        "+1 (182) 424-7682 3",
+        "(182) 424-7682 3",
+        "(124) 259-1823"
+      )
+      info.getFaxNumbers.toList shouldBe List(
+        "(514) 285-5469"
+      )
+      info.getCheckInInfo shouldBe "After 3pm"
+      info.getCheckOutInfo shouldBe "By 12pm"
+      info.getOtherInfo.toList shouldBe List(
+        "We have marble floors",
+        "There are crocodiles in the moat"
+      )
       info.getAcceptedCreditCards.toList shouldBe List(
         "DC",
         "MC",
