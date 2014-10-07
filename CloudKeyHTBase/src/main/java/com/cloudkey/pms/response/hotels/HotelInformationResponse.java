@@ -36,8 +36,8 @@ public class HotelInformationResponse extends PMSResponse {
     Optional<LocalTime> checkOutTime;
 	List<HotelAmenity> amenities;
 	Integer totalRooms;
-    List<RoomType> roomTypeList;
-    List<Restaurant> restaurantList;
+    List<RoomType> roomTypes;
+    List<Restaurant> restaurants;
 	Optional<String> website;
 	Optional<String> grade;
 	Optional<String> hotelDescription;
