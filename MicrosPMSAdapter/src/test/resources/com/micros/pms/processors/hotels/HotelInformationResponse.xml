@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:HotelInformationResponse xmlns:ns2="http://webservices.micros.com/og/4.3/HotelCommon/" xmlns="http://webservices.micros.com/og/4.3/Common/" xmlns:ns3="http://webservices.micros.com/ows/5.1/Information.wsdl">
+    <ns3:Result resultStatusFlag="SUCCESS"/>
+    <ns3:HotelInformation>
+        <ns3:HotelInformation chainCode="CHA" hotelCode="LSDH">Opera Demo Hotel, Small</ns3:HotelInformation>
+        <ns3:HotelContactInformation>
+            <ns2:Addresses>
+                <ns2:Address addressType="OTHER" otherAddressType="Mailing" languageCode="EN">
+                    <AddressLine>913 Finnegan Street</AddressLine>
+                    <AddressLine>Apt. B</AddressLine>
+                    <stateProv>CA</stateProv>
+                    <barCode>4236</barCode>
+                    <cityExtension>352</cityExtension>
+                    <cityName>WASHINGTON</cityName>
+                    <countryCode>US</countryCode>
+                    <postalCode>30542</postalCode>
+                </ns2:Address>
+                <ns2:Address addressType="PHYSICAL" languageCode="ES">
+                    <AddressLine>184 Main Street</AddressLine>
+                    <stateProv>OR</stateProv>
+                    <barCode>4832</barCode>
+                    <cityExtension>234</cityExtension>
+                    <cityName>PORTLAND</cityName>
+                    <countryCode>US</countryCode>
+                    <postalCode>97433</postalCode>
+                </ns2:Address>
+            </ns2:Addresses>
+            <ns2:ContactEmails/>
+            <ns2:ContactPhones/>
+        </ns3:HotelContactInformation>
+        <ns3:HotelExtendedInformation>
+            <ns2:HotelInformation/>
+            <ns2:PaymentMethods>
+                <ns2:PaymentType>
+                    <ns2:OtherPayment value="DC"/>
+                </ns2:PaymentType>
+                <ns2:PaymentType>
+                    <ns2:OtherPayment value="MC"/>
+                </ns2:PaymentType>
+                <ns2:PaymentType>
+                    <ns2:OtherPayment value="DS"/>
+                </ns2:PaymentType>
+                <ns2:PaymentType>
+                    <ns2:OtherPayment value="VA"/>
+                </ns2:PaymentType>
+                <ns2:PaymentType>
+                    <ns2:OtherPayment value="AX"/>
+                </ns2:PaymentType>
+            </ns2:PaymentMethods>
+            <ns2:FacilityInfo>
+                <ns2:GuestRooms>
+                    <ns2:GuestRoom code="DLX" maxOccupancy="5">
+                        <ns2:RoomDescription>
+                            <Text>
+                                <TextElement language="E">Deluxe Room</TextElement>
+                            </Text>
+                        </ns2:RoomDescription>
+                    </ns2:GuestRoom>
+                    <ns2:GuestRoom code="STD" maxOccupancy="5">
+                        <ns2:RoomDescription>
+                            <Text>
+                                <TextElement language="E">Standard Room</TextElement>
+                            </Text>
+                        </ns2:RoomDescription>
+                    </ns2:GuestRoom>
+                    <ns2:GuestRoom code="CABIN">
+                        <ns2:RoomDescription>
+                            <Text>
+                                <TextElement language="E">Cabin Suites</TextElement>
+                            </Text>
+                        </ns2:RoomDescription>
+                    </ns2:GuestRoom>
+                    <ns2:GuestRoom code="LODGE">
+                        <ns2:RoomDescription>
+                            <Text>
+                                <TextElement language="E">Lodge Suites</TextElement>
+                            </Text>
+                        </ns2:RoomDescription>
+                    </ns2:GuestRoom>
+                </ns2:GuestRooms>
+                <ns2:Restaurants/>
+                <ns2:Attractions>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>FRONTIER TOWN</ns2:AttractionCode>
+                        <ns2:AttractionName>Frontier Town</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Located near Ocean City Maryland</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>13.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:DrivingTime>20 Minutes</ns2:DrivingTime>
+                        <ns2:City>Ocean City</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:PriceRange>12.00 - 24.00</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>HISTORIC-1</ns2:AttractionCode>
+                        <ns2:AttractionName>Antietam National Battlefield</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Traveling east-west on Interstate 70--exit 29</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>12.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:City>Antietam</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>8:30 a.m. - 6:00 p.m</ns2:HoursOfOperation>
+                        <ns2:PriceRange>Free</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>HISTORIC-2</ns2:AttractionCode>
+                        <ns2:AttractionName>Canal Place Heritage Area</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Take Exit 43-C, Downtown. At the bottom of the exit ramp, turn left onto Queen City Drive</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>40.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:City>Cumberland</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>8:30a.m. - 5:00p.m.</ns2:HoursOfOperation>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>MU-2</ns2:AttractionCode>
+                        <ns2:AttractionName>The Baltimore Museum of Art</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Take I-695 West (toward Towson), then take exit #23</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>5.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:DrivingTime>5 Minutes</ns2:DrivingTime>
+                        <ns2:City>Baltimore</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>11 a.m - 5 p.m.</ns2:HoursOfOperation>
+                        <ns2:PriceRange>22.00</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>ZOO-2</ns2:AttractionCode>
+                        <ns2:AttractionName>The National Zoo</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Follow Route I-66 East to the Theodore Roosevelt Bridge</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>3.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:City>Washington, DC</ns2:City>
+                        <ns2:State>DC</ns2:State>
+                        <ns2:HoursOfOperation>10:00a.m. - 5p.m.</ns2:HoursOfOperation>
+                        <ns2:PriceRange>12.00</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>PARK-GE</ns2:AttractionCode>
+                        <ns2:AttractionName>Glen Echo Park</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Accessible from the Capital Beltway I-495</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>30.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:DrivingTime>22</ns2:DrivingTime>
+                        <ns2:City>Glen Echo</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>6am-1am</ns2:HoursOfOperation>
+                        <ns2:PriceRange>Free</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>SIX FLAGS</ns2:AttractionCode>
+                        <ns2:AttractionName>Six Flags America</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Follow I-95 North to the I-95/395/495 interchange</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>22.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:DrivingTime>40 minutes</ns2:DrivingTime>
+                        <ns2:City>Baltimore</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>9am - 8pm</ns2:HoursOfOperation>
+                        <ns2:PriceRange>29.99 - 35.99</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>STADIUM-1</ns2:AttractionCode>
+                        <ns2:AttractionName>Byrd Stadium Complex</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Interstate 95 south to Exit 25, College Park/U.S</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>10.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:City>College Park</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>ZOO-1</ns2:AttractionCode>
+                        <ns2:AttractionName>The Baltimore Zoo</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>From I-83 North and South - Take Exit 7</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>5.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:City>Baltimore</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>10:00a.m. - 4:30p.m.</ns2:HoursOfOperation>
+                        <ns2:PriceRange>12.00</ns2:PriceRange>
+                    </ns2:Attraction>
+                    <ns2:Attraction>
+                        <ns2:AttractionCode>MUS-1</ns2:AttractionCode>
+                        <ns2:AttractionName>American Visionary Art Museum</ns2:AttractionName>
+                        <ns2:AttractionInformation>
+                            <ns2:AttractionInfo attractionInfoType="DIRECTIONS">
+                                <Text>
+                                    <TextElement>Follow I-95 north to exit 55/Key Highway.</TextElement>
+                                </Text>
+                            </ns2:AttractionInfo>
+                        </ns2:AttractionInformation>
+                        <ns2:Distance>22.0</ns2:Distance>
+                        <ns2:DistanceType>MI</ns2:DistanceType>
+                        <ns2:DrivingTime>40 minutes</ns2:DrivingTime>
+                        <ns2:City>Baltimore</ns2:City>
+                        <ns2:State>MD</ns2:State>
+                        <ns2:HoursOfOperation>10:00 a.m. -6:00 p.m</ns2:HoursOfOperation>
+                        <ns2:PriceRange>3.00 - 9.00</ns2:PriceRange>
+                    </ns2:Attraction>
+                </ns2:Attractions>
+            </ns2:FacilityInfo>
+        </ns3:HotelExtendedInformation>
+    </ns3:HotelInformation>
+</ns3:HotelInformationResponse>
