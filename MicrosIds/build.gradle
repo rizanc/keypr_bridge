@@ -1,3 +1,4 @@
 dependencies {
     compile project(':CloudKeyHTIds')
+    compile guava
 }
