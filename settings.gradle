@@ -14,7 +14,7 @@ include 'MicrosOXIJaxb'
 include 'MicrosIds'
 include 'KeyprScala'
 include 'KeyprJacksonSupport'
-//include 'CloudKeyHTJsonSchemaGenerator'
+include 'CloudKeyHTJsonSchemaGenerator'
 include 'KeyprDropwizardSwagger'
 include 'KeyprGuice'
 
