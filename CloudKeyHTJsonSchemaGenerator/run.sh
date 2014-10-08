@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Join arguments in a string. But not quite like you'd expect... see next line.  
-printf -v var "'%s', " "$@"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT="$DIR/build/install/CloudKeyHTJsonSchemaGenerator/bin/CloudKeyHTJsonSchemaGenerator"
 
-# Remove trailing ", "  
-var=${var%??}
-
-gradle run -PappArgs="[$var]"
+if [ -f "$SCRIPT" ]
+then
+	sh build/install/CloudKeyHTJsonSchemaGenerator/bin/CloudKeyHTJsonSchemaGenerator $@
+else
+	echo "'gradle installApp' must be called for CloudKeyHTJsonSchemaGenerator before this may be used"
+fi
