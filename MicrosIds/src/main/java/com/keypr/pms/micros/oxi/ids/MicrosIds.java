@@ -1,5 +1,6 @@
 package com.keypr.pms.micros.oxi.ids;
 
+import com.google.common.base.Objects;
 import com.keypr.bridge.ids.BridgeIds;
 
 /**
@@ -225,6 +226,16 @@ public class MicrosIds {
 
 			public String getTypeValue() {
 				return typeValue;
+			}
+
+			public static boolean isDefinedValue(String typeValue) {
+				for (OtherHotelInfoType otherHotelInfoType : values()) {
+					if (Objects.equal(otherHotelInfoType.getTypeValue(), typeValue)) {
+						return true;
+					}
+				}
+
+				return false;
 			}
 
 			OtherHotelInfoType(String typeValue) {

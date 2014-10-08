@@ -1,16 +1,13 @@
 package com.cloudkey.pms.response.hotels;
 
-import com.cloudkey.pms.common.hotel.Restaurant;
-import com.cloudkey.pms.common.RoomType;
 import com.cloudkey.pms.common.GeoCode;
+import com.cloudkey.pms.common.RoomType;
 import com.cloudkey.pms.common.hotel.HotelAmenity;
+import com.cloudkey.pms.common.hotel.Restaurant;
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.response.PMSResponse;
-import com.google.common.base.Optional;
-import lombok.EqualsAndHashCode;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.joda.time.LocalTime;
 
 import java.util.List;
 import java.util.TimeZone;

@@ -4,6 +4,7 @@ import com.cloudkey.pms.common.hotel.HotelAmenity;
 import com.cloudkey.pms.common.profile.StreetAddress;
 import com.cloudkey.pms.micros.og.common.Address;
 import com.cloudkey.pms.micros.og.hotelcommon.Amenity;
+import com.cloudkey.pms.micros.og.hotelcommon.AmenityAmenityType;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelInfo;
 import com.cloudkey.pms.micros.og.hotelcommon.HotelInfoType;
 import com.google.common.base.Function;
@@ -97,15 +98,13 @@ public class HotelInformationConverter {
 	public static List<HotelAmenity> convertAmenities(List<Amenity> from) {
 		List<HotelAmenity> amenities = new ArrayList<>();
 		for (Amenity amenity : from) {
-			String description = null;
-
-			if (!amenity.getAmenityDescriptions().isEmpty()) {
-				description = amenity.getAmenityDescriptions().get(0);
-			}
+			String description = Iterables.getFirst(amenity.getAmenityDescriptions(), null);
 
 			amenities.add(new HotelAmenity(
 				amenity.getAmenityCode(),
-				amenity.getAmenityType().value(),
+				(amenity.getAmenityType() == null || amenity.getAmenityType() == AmenityAmenityType.OTHER)
+					? amenity.getOtherType()
+					: amenity.getAmenityType().value(),
 				description
 			));
 		}

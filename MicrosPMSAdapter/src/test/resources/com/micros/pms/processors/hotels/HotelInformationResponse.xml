@@ -75,6 +75,31 @@
                         <TextElement language="E">There are crocodiles in the moat</TextElement>
                     </Text>
                 </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER" otherHotelInfoType="PROPERTY_TIMEZONE">
+                    <Text>
+                        <TextElement language="E">America/Los_Angeles</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER" otherHotelInfoType="PROPERTY_WEBADDRESS">
+                    <Text>
+                        <TextElement language="E">http://www.somehotel12.com/</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER" otherHotelInfoType="GRADE">
+                    <Text>
+                        <TextElement language="E">4+</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER" otherHotelInfoType="Property Description">
+                    <Text>
+                        <TextElement language="E">Test hotel</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
+                <ns2:HotelInfo hotelInfoType="OTHER" otherHotelInfoType="Passport Rules">
+                    <Text>
+                        <TextElement language="E">Necessary for foreigners</TextElement>
+                    </Text>
+                </ns2:HotelInfo>
             </ns2:HotelInformation>
             <ns2:PaymentMethods>
                 <ns2:PaymentType>
@@ -94,13 +119,25 @@
                 </ns2:PaymentType>
             </ns2:PaymentMethods>
             <ns2:FacilityInfo>
-                <ns2:GuestRooms>
+                <ns2:GuestRooms totalRooms="216">
                     <ns2:GuestRoom code="DLX" maxOccupancy="5">
                         <ns2:RoomDescription>
                             <Text>
                                 <TextElement language="E">Deluxe Room</TextElement>
                             </Text>
                         </ns2:RoomDescription>
+                        <ns2:AmenityInfo>
+                            <ns2:Amenities>
+                                <ns2:Amenity amenityCode="IT" amenityType="Internet" availabilityFlag="CONFIRMABLE_COMPLIMENTARY">
+                                    <ns2:amenityDescription>Internet access</ns2:amenityDescription>
+                                    <ns2:amenityDescription>Free for guests</ns2:amenityDescription>
+                                </ns2:Amenity>
+                                <ns2:Amenity amenityCode="CFE" amenityType="Other" otherType="Coffee" availabilityFlag="Other" otherFlag="When Hot">
+                                    <ns2:amenityDescription>Cold coffee</ns2:amenityDescription>
+                                    <ns2:amenityDescription>Available intermittently</ns2:amenityDescription>
+                                </ns2:Amenity>
+                            </ns2:Amenities>
+                        </ns2:AmenityInfo>
                     </ns2:GuestRoom>
                     <ns2:GuestRoom code="STD" maxOccupancy="5">
                         <ns2:RoomDescription>
@@ -124,7 +161,66 @@
                         </ns2:RoomDescription>
                     </ns2:GuestRoom>
                 </ns2:GuestRooms>
-                <ns2:Restaurants/>
+                <ns2:Restaurants>
+                    <ns2:Restaurant RestaurantName="Mo's"
+                                    OfferBreakfast="false" OfferBrunch="false" OfferLunch="true" OfferDinner="true"
+                                    MaxSeatingCapacity="30" MaxSingleParty="9">
+                        <ns2:RestaurantDescription>
+                            <ns2:Text>Mo's seafood restaurant</ns2:Text>
+                            <ns2:Text>Best clam chowder</ns2:Text>
+                        </ns2:RestaurantDescription>
+                        <ns2:RestaurantDescription>
+                            <ns2:Text>$</ns2:Text>
+                            <ns2:Text>10am-12pm</ns2:Text>
+                        </ns2:RestaurantDescription>
+                        <ns2:Cuisines>
+                            <ns2:Cuisine Code="SF" Description="Seafood" />
+                            <ns2:Cuisine Code="AM" Description="American" />
+                        </ns2:Cuisines>
+                        <ns2:RestaurantContacts>
+                            <ns2:Address addressType="OTHER" otherAddressType="Mailing" languageCode="EN">
+                                <AddressLine>913 Finnegan Street</AddressLine>
+                                <AddressLine>Apt. B</AddressLine>
+                                <stateProv>CA</stateProv>
+                                <barCode>4236</barCode>
+                                <cityExtension>352</cityExtension>
+                                <cityName>WASHINGTON</cityName>
+                                <countryCode>US</countryCode>
+                                <postalCode>30542</postalCode>
+                            </ns2:Address>
+                            <ns2:Address addressType="PHYSICAL" languageCode="ES">
+                                <AddressLine>184 Main Street</AddressLine>
+                                <stateProv>OR</stateProv>
+                                <barCode>4832</barCode>
+                                <cityExtension>234</cityExtension>
+                                <cityName>PORTLAND</cityName>
+                                <countryCode>US</countryCode>
+                                <postalCode>97433</postalCode>
+                            </ns2:Address>
+                        </ns2:RestaurantContacts>
+                    </ns2:Restaurant>
+                    <ns2:Restaurant RestaurantName="In &amp; Out"
+                                    OfferBreakfast="true" OfferBrunch="true" OfferLunch="true" OfferDinner="true"
+                                    MaxSeatingCapacity="35" MaxSingleParty="6">
+                        <ns2:RestaurantDescription>
+                            <ns2:Text>Burgers</ns2:Text>
+                        </ns2:RestaurantDescription>
+                        <ns2:Cuisines>
+                            <ns2:Cuisine Code="AM" Description="American" />
+                        </ns2:Cuisines>
+                        <ns2:RestaurantContacts>
+                            <ns2:Address addressType="PHYSICAL" languageCode="EN">
+                                <AddressLine>184 Main Street</AddressLine>
+                                <stateProv>OR</stateProv>
+                                <barCode>4832</barCode>
+                                <cityExtension>234</cityExtension>
+                                <cityName>PORTLAND</cityName>
+                                <countryCode>US</countryCode>
+                                <postalCode>97433</postalCode>
+                            </ns2:Address>
+                        </ns2:RestaurantContacts>
+                    </ns2:Restaurant>
+                </ns2:Restaurants>
                 <ns2:Attractions>
                     <ns2:Attraction>
                         <ns2:AttractionCode>FRONTIER TOWN</ns2:AttractionCode>
@@ -299,6 +395,18 @@
                     </ns2:Attraction>
                 </ns2:Attractions>
             </ns2:FacilityInfo>
+            <ns2:AmenityInfo>
+                <ns2:Amenities>
+                    <ns2:Amenity amenityCode="IT" amenityType="Internet" availabilityFlag="CONFIRMABLE_COMPLIMENTARY">
+                        <ns2:amenityDescription>Internet access</ns2:amenityDescription>
+                        <ns2:amenityDescription>Free for guests</ns2:amenityDescription>
+                    </ns2:Amenity>
+                    <ns2:Amenity amenityCode="CFE" amenityType="Other" otherType="Coffee" availabilityFlag="Other" otherFlag="When Hot">
+                        <ns2:amenityDescription>Hot coffee</ns2:amenityDescription>
+                        <ns2:amenityDescription>Available intermittently</ns2:amenityDescription>
+                    </ns2:Amenity>
+                </ns2:Amenities>
+            </ns2:AmenityInfo>
         </ns3:HotelExtendedInformation>
     </ns3:HotelInformation>
 </ns3:HotelInformationResponse>

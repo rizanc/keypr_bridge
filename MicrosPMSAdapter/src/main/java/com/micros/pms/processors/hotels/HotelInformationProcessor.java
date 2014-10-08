@@ -154,7 +154,10 @@ public class HotelInformationProcessor extends OWSProcessor<
 		List<String> otherInfo = getInfoTextsIfPresent(hotelInfos, new Predicate<HotelInfo>() {
 			@Override
 			public boolean apply(HotelInfo input) {
-				return Objects.equal(input.getHotelInfoType(), HotelInfoType.OTHER) && Strings.isNullOrEmpty(input.getOtherHotelInfoType());
+				return Objects.equal(input.getHotelInfoType(), HotelInfoType.OTHER)
+					&& Strings.isNullOrEmpty(input.getOtherHotelInfoType())
+					&& !MicrosIds.OWS.OtherHotelInfoType.isDefinedValue(input.getOtherHotelInfoType())	;
+
 			}
 		}).toList();
 

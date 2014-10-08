@@ -1,8 +1,11 @@
 package com.micros.pms.processors.hotels
 
-import com.cloudkey.pms.common.hotel.HotelAmenity
+import java.util.TimeZone
+
+import com.cloudkey.pms.common.hotel.{Cuisine, Restaurant, HotelAmenity}
 import com.cloudkey.pms.common.profile.StreetAddress
 import com.cloudkey.pms.common.{GeoCode, RoomType}
+import com.cloudkey.pms.micros.og.hotelcommon.{AmenityAvailabilityFlag, AmenityAmenityType, Amenity}
 import com.cloudkey.pms.micros.ows.{information => ows}
 import com.cloudkey.pms.micros.services.InformationSoap
 import com.cloudkey.pms.request.hotels.HotelInformationRequest
@@ -104,22 +107,123 @@ class HotelInformationProcessorTest extends AbstractProcessorTest {
       )
       info.getCheckInInfo shouldBe "After 3pm"
       info.getCheckOutInfo shouldBe "By 12pm"
+      info.getAmenities.toList shouldBe List(
+        new HotelAmenity(
+          "IT",
+          AmenityAmenityType.INTERNET.value(),
+          "Internet access"
+        ),
+        new HotelAmenity(
+          "CFE",
+          "Coffee",
+          "Hot coffee"
+        )
+      )
+      info.getTotalRooms shouldBe 216
+      info.getRoomTypes.toList shouldBe List(
+        new RoomType("DLX", "Deluxe Room",
+          List(
+            new HotelAmenity(
+              "IT",
+              AmenityAmenityType.INTERNET.value(),
+              "Internet access"
+            ),
+            new HotelAmenity(
+              "CFE",
+              "Coffee",
+              "Cold coffee"
+            )
+          ).asJava,
+          5
+        ),
+        new RoomType("STD", "Standard Room", List.empty[HotelAmenity].asJava, 5),
+        new RoomType("CABIN", "Cabin Suites", List.empty[HotelAmenity].asJava, null),
+        new RoomType("LODGE", "Lodge Suites", List.empty[HotelAmenity].asJava, null)
+      )
+      info.getRestaurants.toList shouldBe List(
+        new Restaurant(
+          "Mo's",
+          "Mo's seafood restaurant",
+          List(
+            new Cuisine("SF", "Seafood"),
+            new Cuisine("AM", "American")
+          ),
+          List(
+            new StreetAddress(
+              List("913 Finnegan Street", "Apt. B"),
+              "WASHINGTON",
+              "CA",
+              "US",
+              "30542",
+              "4236",
+              "352",
+              "OTHER",
+              "Mailing",
+              "EN"
+            ),
+            new StreetAddress(
+              List("184 Main Street"),
+              "PORTLAND",
+              "OR",
+              "US",
+              "97433",
+              "4832",
+              "234",
+              "PHYSICAL",
+              null,
+              "ES"
+            )
+          ),
+          false,
+          false,
+          true,
+          true,
+          30,
+          9
+        ),
+        new Restaurant(
+          "In & Out",
+          "Burgers",
+          List(
+            new Cuisine("AM", "American")
+          ),
+          List(
+            new StreetAddress(
+              List("184 Main Street"),
+              "PORTLAND",
+              "OR",
+              "US",
+              "97433",
+              "4832",
+              "234",
+              "PHYSICAL",
+              null,
+              "EN"
+            )
+          ),
+          true,
+          true,
+          true,
+          true,
+          35,
+          6
+        )
+      )
+      info.getWebsite shouldBe "http://www.somehotel12.com/"
+      info.getGrade shouldBe "4+"
+      info.getHotelDescription shouldBe "Test hotel"
+      info.getPassportRules shouldBe "Necessary for foreigners"
       info.getOtherInfo.toList shouldBe List(
         "We have marble floors",
         "There are crocodiles in the moat"
       )
+      info.getTimeZone shouldBe TimeZone.getTimeZone("America/Los_Angeles")
       info.getAcceptedCreditCards.toList shouldBe List(
         "DC",
         "MC",
         "DS",
         "VA",
         "AX"
-      )
-      info.getRoomTypes.toList shouldBe List(
-        new RoomType("DLX", "Deluxe Room", List.empty[HotelAmenity].asJava, 5),
-        new RoomType("STD", "Standard Room", List.empty[HotelAmenity].asJava, 5),
-        new RoomType("CABIN", "Cabin Suites", List.empty[HotelAmenity].asJava, null),
-        new RoomType("LODGE", "Lodge Suites", List.empty[HotelAmenity].asJava, null)
       )
       info.getAttractions.toList shouldBe List(
         new Attraction(
