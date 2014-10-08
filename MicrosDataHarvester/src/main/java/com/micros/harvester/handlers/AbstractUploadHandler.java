@@ -84,7 +84,7 @@ public abstract class AbstractUploadHandler<T, C> implements OXIPushHandler<T> {
 					HttpPost httpPost = new HttpPost(uploadEndPoint);
 					httpPost.setEntity(new StringEntity(jsonList));
 
-					log.info("Uploading: {}");
+					log.info("Uploading to: {} {}", httpPost.getMethod(), httpPost.getURI());
 					log.info("Payload: {}", EntityUtils.toString(httpPost.getEntity()));
 
 					CloseableHttpResponse response = httpClient.execute(httpPost);
